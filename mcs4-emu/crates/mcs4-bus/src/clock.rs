@@ -229,7 +229,7 @@ mod tests {
     #[test]
     fn test_clock_config_frequency() {
         let config = ClockConfig::for_frequency(1_000_000); // 1 MHz
-        assert_eq!(config.period, 1_000_000_000); // 1 us in ps
+        assert_eq!(config.period, 1_000_000); // 1 us = 1,000,000 ps
     }
 
     #[test]

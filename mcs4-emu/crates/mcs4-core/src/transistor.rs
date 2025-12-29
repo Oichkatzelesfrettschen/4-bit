@@ -292,9 +292,9 @@ mod tests {
 
     #[test]
     fn test_circuit_builder() {
-        let circuit = CircuitBuilder::new()
-            .inverter("IN", "OUT")
-            .build();
+        let mut builder = CircuitBuilder::new();
+        builder.inverter("IN", "OUT");
+        let circuit = builder.build();
 
         // Should have at least VDD and VSS nodes
         assert!(circuit.nodes.len() >= 2);

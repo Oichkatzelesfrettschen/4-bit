@@ -294,10 +294,10 @@ mod tests {
         sig.update(200, SignalLevel::Low);
         sig.update(300, SignalLevel::High);
 
-        assert_eq!(sig.value_at(50), SignalLevel::High); // Before first transition
-        assert_eq!(sig.value_at(150), SignalLevel::High);
-        assert_eq!(sig.value_at(250), SignalLevel::Low);
-        assert_eq!(sig.value_at(350), SignalLevel::High);
+        assert_eq!(sig.value_at(50), SignalLevel::Low);  // Before first transition (initial Low)
+        assert_eq!(sig.value_at(150), SignalLevel::High); // After first High at t=100
+        assert_eq!(sig.value_at(250), SignalLevel::Low);  // After Low at t=200
+        assert_eq!(sig.value_at(350), SignalLevel::High); // After High at t=300
     }
 
     #[test]

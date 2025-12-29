@@ -20,7 +20,7 @@ impl Mcs4System {
         Self {
             cpu: I4004::new(),
             rom: vec![I4001::new(0)],
-            ram: vec![I4002::new(0)],
+            ram: vec![I4002::new(0, 0)],
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
             clock: TwoPhaseClockTwoPhaseClock::default_config(),

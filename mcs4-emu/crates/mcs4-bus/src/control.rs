@@ -209,6 +209,43 @@ impl ControlSignals {
             .map(|s| s.current == SignalLevel::High)
             .unwrap_or(false)
     }
+
+    /// Get CM-ROM value as a 4-bit number
+    pub fn cm_rom(&self) -> u8 {
+        let mut value = 0u8;
+        for (i, signal) in self.cm_rom.iter().enumerate() {
+            if signal.current == SignalLevel::High {
+                value |= 1 << i;
+            }
+        }
+        value
+    }
+
+    /// Get CM-RAM value as a 4-bit number
+    pub fn cm_ram(&self) -> u8 {
+        let mut value = 0u8;
+        for (i, signal) in self.cm_ram.iter().enumerate() {
+            if signal.current == SignalLevel::High {
+                value |= 1 << i;
+            }
+        }
+        value
+    }
+
+    /// Check if an I/O write operation is in progress
+    /// This is set during X2 phase for WRR/WRM/WMP/WRx instructions
+    pub fn is_io_write(&self) -> bool {
+        // In a full implementation, this would be decoded from control lines
+        // For now, we use a simplified check based on ROM selection
+        self.selected_rom().is_some()
+    }
+
+    /// Check if an I/O read operation is in progress
+    /// This is set during X3 phase for RDR/RDM/RDx instructions
+    pub fn is_io_read(&self) -> bool {
+        // In a full implementation, this would be decoded from control lines
+        self.selected_rom().is_some()
+    }
 }
 
 #[cfg(test)]

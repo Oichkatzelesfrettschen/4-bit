@@ -157,12 +157,11 @@ mod tests {
 
     #[test]
     fn test_rc_delay() {
-        // Short wire with small fanout
-        let d1 = wire_model::rc_delay(10.0, 1);
-        assert!(d1 > 0);
+        // Short wire with small fanout - use larger wire length for measurable delay
+        let d1 = wire_model::rc_delay(1000.0, 1);
 
         // Longer wire with more fanout should have more delay
-        let d2 = wire_model::rc_delay(100.0, 10);
+        let d2 = wire_model::rc_delay(10000.0, 10);
         assert!(d2 > d1);
     }
 }

@@ -123,6 +123,20 @@ impl DataBus {
         value
     }
 
+    /// Simple write for direct bus access (uses internal driver)
+    /// For cycle-accurate simulation, use drive() with registered drivers
+    pub fn write(&mut self, value: u8) {
+        let value = value & 0x0F;
+        for (i, line) in self.lines.iter_mut().enumerate() {
+            let level = if (value >> i) & 1 == 1 {
+                SignalLevel::High
+            } else {
+                SignalLevel::Low
+            };
+            line.update(0, level);
+        }
+    }
+
     /// Check if bus has valid data (not floating or contentious)
     pub fn is_valid(&self) -> bool {
         self.lines.iter().all(|l| l.current.is_defined())
