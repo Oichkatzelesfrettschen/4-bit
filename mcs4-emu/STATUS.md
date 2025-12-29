@@ -155,23 +155,102 @@ Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4
 
 ### Stub Chips Needing Implementation
 
-#### 4040 CPU (HIGH PRIORITY)
-Extended 4004 with:
-- 24 index registers (R0-R23) vs 16 in 4004
-- Register bank switching (DB0/DB1 instructions)
-- 7-level stack vs 3-level
-- Interrupt support (INT pin, EIN/DIN, BBS instructions)
-- HALT/STOP with single-step capability
-- Additional instructions: HLT, BBS, LCR, OR4/OR5, AN4/AN5, RPM
+#### 4040 CPU (HIGH PRIORITY) - DETAILED SPECIFICATION
 
-**Files to modify:**
+The 4040 is a backward-compatible extension of the 4004, adding 14 new instructions (total: 60), expanded registers, deeper stack, and interrupt support.
+
+**Architectural Differences from 4004:**
+
+| Feature | 4004 | 4040 |
+|---------|------|------|
+| Index Registers | 16 (R0-R15) | 24 (R0-R23, two banks of 8) |
+| Stack Depth | 3 levels | 7 levels |
+| Instructions | 46 | 60 (+14 new) |
+| Interrupts | None | Single-level, vectors to 0x003 |
+| Register Banks | 1 | 2 (switchable via DB0/DB1) |
+| Halt Mode | None | HLT instruction + STP pin |
+
+**New 4040 Instructions to Implement:**
+
+| Opcode | Mnemonic | Description |
+|--------|----------|-------------|
+| `0x01` | **HLT** | Halt CPU execution (enters low-power mode) |
+| `0x02` | **BBS** | Branch Back from interrupt, restore SRC register |
+| `0x03` | **LCR** | Load Command RAM (read ROM into RAM) |
+| `0x04` | **OR4** | OR accumulator with register R4 |
+| `0x05` | **OR5** | OR accumulator with register R5 |
+| `0x06` | **AN6** | AND accumulator with register R6 |
+| `0x07` | **AN7** | AND accumulator with register R7 |
+| `0x08` | **DB0** | Designate register Bank 0 (R0-R7 primary) |
+| `0x09` | **DB1** | Designate register Bank 1 (R0-R7 become R16-R23) |
+| `0x0A` | **SB0** | Select RAM Bank 0 |
+| `0x0B` | **SB1** | Select RAM Bank 1 |
+| `0x0C` | **EIN** | Enable Interrupts |
+| `0x0D` | **DIN** | Disable Interrupts |
+| `0x0E` | **RPM** | Read Program Memory (ROM byte to accumulator) |
+
+**Interrupt Handling Specification:**
+
+1. When INT pin asserted and interrupts enabled (via EIN):
+   - Complete current instruction
+   - Push PC to stack (uses 1 of 7 levels)
+   - Save SRC register to SRC Save Register
+   - Disable interrupts automatically
+   - Vector to address 0x003
+2. Interrupt service routine executes
+3. **BBS** instruction restores SRC and returns (like BBL but for interrupts)
+4. Re-enable interrupts with **EIN** if desired
+
+**Register Bank Switching:**
+
+```
+Bank 0 (DB0):        Bank 1 (DB1):
+R0-R7   = Primary    R0-R7   = Shadow (R16-R23)
+R8-R15  = Always accessible
+```
+
+**Files to Create/Modify:**
+
 ```
 crates/mcs4-chips/src/i4040/
-├── mod.rs           # Main implementation
-├── registers.rs     # Extended 24-register file
-├── interrupt.rs     # Interrupt controller (NEW)
-└── instruction_decode.rs  # Extended decoder (NEW)
+├── mod.rs                 # Main CPU struct, tick(), execute()
+├── registers.rs           # 24-register file with bank switching
+├── alu.rs                 # Extended ALU (OR4/5, AN6/7 operations)
+├── instruction_decode.rs  # Extended decoder (60 instructions)
+├── interrupt.rs           # Interrupt controller state machine
+└── tests.rs               # Unit tests for new instructions
 ```
+
+**Implementation Steps:**
+
+1. Copy i4004/ as base, rename to I4040
+2. Extend Registers:
+   - `regs: [u8; 24]` (was 16)
+   - `bank: u8` (0 or 1)
+   - `get_r()` / `set_r()` apply bank offset for R0-R7
+3. Extend stack from 3 to 7 levels
+4. Add interrupt controller:
+   - `int_enabled: bool`
+   - `int_pending: bool`
+   - `src_save: u8`
+   - `halted: bool`
+5. Extend InstructionDecoder with new opcodes
+6. Implement new instructions in execute()
+7. Add INT pin handling in tick()
+
+**Test Cases Required:**
+
+- [ ] All 46 original 4004 instructions still work
+- [ ] HLT stops execution, resumes on external signal
+- [ ] Register bank switching (DB0/DB1) correctly maps R0-R7
+- [ ] Stack handles 7 nested calls
+- [ ] Interrupt vectors to 0x003
+- [ ] BBS restores SRC and returns correctly
+- [ ] EIN/DIN enable/disable interrupts
+- [ ] OR4/OR5/AN6/AN7 logical operations
+- [ ] SB0/SB1 select RAM banks
+- [ ] RPM reads from ROM into accumulator
+- [ ] Backward compatibility with 4004 programs
 
 #### 4003 Shift Register (LOW PRIORITY)
 10-bit serial-in, parallel-out shift register for I/O expansion.
@@ -274,25 +353,409 @@ For authentic period displays:
 
 ## GUI and Tools Status
 
-### Waveform Viewer (crates/mcs4-gui/)
-- **NOT STARTED**: egui framework is set up
-- Needs signal capture from simulation
-- Time-based visualization of PHI1, PHI2, SYNC, data bus
-- Zoom/pan navigation
+### Waveform Viewer (crates/mcs4-gui/) - DETAILED SPECIFICATION
 
-### Disassembler
-- **NOT STARTED**: Create crates/mcs4-chips/src/disasm.rs
-- Decode ROM to assembly mnemonics
-- Handle 1-byte and 2-byte instructions
-- Support both 4004 and 4040 instruction sets
+**Current State:** Basic egui scaffold exists with Run/Stop/Step/Reset buttons and placeholder panels.
 
-### Debugger UI
-- **NOT STARTED**: Needs disassembler first
-- Register display
-- Memory viewer (ROM/RAM)
-- Stack display
-- Single-step execution
-- Breakpoint management
+**Architecture Design:**
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ Toolbar: [Run] [Stop] [Step] [Reset] | Speed: [____] | Zoom: [+][-] │
+├─────────────────┬───────────────────────────────────────────────────┤
+│ CPU State       │                   Central Panel                   │
+│ ─────────────   │ ┌───────────────────────────────────────────────┐ │
+│ PC:  0x000      │ │           Waveform Display                    │ │
+│ ACC: 0x0        │ │  PHI1  ─┐_┌─┐_┌─┐_┌─┐_┌─┐_┌─┐_┌─┐_┌─        │ │
+│ CY:  0          │ │  PHI2  _┌─┘_┌─┘_┌─┘_┌─┘_┌─┘_┌─┘_┌─┘_        │ │
+│                 │ │  SYNC  ─┐___┌───┐___┌───┐___┌───┐___        │ │
+│ Registers       │ │  D0-D3 ═╪═══╪═══╪═══╪═══╪═══╪═══╪═══        │ │
+│ ─────────────   │ │  CM    ─┐___┌───────┐___┌───────┐___        │ │
+│ R0-R1: 0x00     │ │         ↑                                     │ │
+│ R2-R3: 0x00     │ │      Cursor                                   │ │
+│ ...             │ │         Time: 1.35µs  Cycle: A1               │ │
+│                 │ └───────────────────────────────────────────────┘ │
+│ Stack           │ ┌───────────────────────────────────────────────┐ │
+│ ─────────────   │ │           Disassembly View                    │ │
+│ [0]: 0x000      │ │  000: D5      LDM  5                          │ │
+│ [1]: ---        │ │▶ 001: 20 42   FIM  P0, 0x42                   │ │
+│ [2]: ---        │ │  003: 21      SRC  P0                         │ │
+│                 │ │  004: E0      WRM                             │ │
+├─────────────────┤ └───────────────────────────────────────────────┘ │
+│ Memory          │ ┌───────────────────────────────────────────────┐ │
+│ ─────────────   │ │           Memory Hex View                     │ │
+│ [ROM] [RAM]     │ │  000: D5 20 42 21 E0 00 00 00 00 00 00 00 ... │ │
+│ 000: D5 20 42   │ │  010: 00 00 00 00 00 00 00 00 00 00 00 00 ... │ │
+│ 003: 21 E0 00   │ └───────────────────────────────────────────────┘ │
+└─────────────────┴───────────────────────────────────────────────────┘
+```
+
+**Signal Capture System:**
+
+```rust
+/// Signal trace buffer for waveform display
+pub struct SignalTrace {
+    /// Timestamp in simulation ticks
+    timestamps: Vec<u64>,
+    /// PHI1 clock states
+    phi1: Vec<bool>,
+    /// PHI2 clock states
+    phi2: Vec<bool>,
+    /// SYNC signal states
+    sync: Vec<bool>,
+    /// 4-bit data bus values
+    data_bus: Vec<u8>,
+    /// CM-ROM select line (4-bit)
+    cm_rom: Vec<u8>,
+    /// CM-RAM select lines (2-bit)
+    cm_ram: Vec<u8>,
+    /// Current bus phase (A1-X3)
+    phase: Vec<BusCycle>,
+}
+
+impl SignalTrace {
+    /// Record current state (called each tick)
+    pub fn capture(&mut self, tick: u64, bus: &DataBus, ctrl: &ControlSignals, phase: BusCycle);
+
+    /// Get signal state at timestamp
+    pub fn get_at(&self, tick: u64) -> SignalState;
+
+    /// Clear buffer (keep last N samples)
+    pub fn truncate(&mut self, keep_samples: usize);
+}
+```
+
+**Waveform Renderer Component:**
+
+```rust
+pub struct WaveformPanel {
+    /// Signal trace data source
+    trace: Arc<RwLock<SignalTrace>>,
+    /// Horizontal zoom level (samples per pixel)
+    zoom: f32,
+    /// Scroll offset (start sample)
+    scroll_x: u64,
+    /// Cursor position (sample index)
+    cursor: Option<u64>,
+    /// Which signals to display
+    visible_signals: SignalVisibility,
+    /// Signal height in pixels
+    signal_height: f32,
+}
+
+impl WaveformPanel {
+    /// Render waveforms to egui UI
+    pub fn show(&mut self, ui: &mut egui::Ui);
+
+    /// Handle zoom gestures (scroll wheel)
+    fn handle_zoom(&mut self, delta: f32);
+
+    /// Handle pan gestures (drag)
+    fn handle_pan(&mut self, delta: f32);
+
+    /// Render single digital signal
+    fn draw_digital(&self, painter: &egui::Painter, signal: &[bool], y: f32, color: Color32);
+
+    /// Render 4-bit bus as hex values
+    fn draw_bus(&self, painter: &egui::Painter, signal: &[u8], y: f32, color: Color32);
+}
+```
+
+**Files to Create/Modify:**
+
+```
+crates/mcs4-gui/src/
+├── main.rs           # Application entry, window setup
+├── app.rs            # EmulatorApp state and main update loop
+├── panels/
+│   ├── mod.rs        # Panel exports
+│   ├── cpu_state.rs  # CPU registers, flags display
+│   ├── memory.rs     # ROM/RAM hex viewer with edit
+│   ├── waveform.rs   # Signal waveform display (NEW)
+│   ├── disasm.rs     # Disassembly view (NEW)
+│   └── controls.rs   # Toolbar buttons, speed control
+├── signal_trace.rs   # Signal capture buffer (NEW)
+└── style.rs          # Theme and colors
+```
+
+**Implementation Steps:**
+
+1. Create `SignalTrace` struct in signal_trace.rs
+2. Hook trace capture into system tick loop
+3. Create `WaveformPanel` in panels/waveform.rs
+4. Implement digital signal rendering with egui painter
+5. Add zoom/pan with mouse scroll and drag
+6. Add cursor for inspecting signal values at time
+7. Integrate with main app layout
+
+**Test Cases:**
+
+- [ ] Signal capture records PHI1/PHI2/SYNC correctly
+- [ ] Bus values captured at each phase
+- [ ] Zoom in/out works smoothly
+- [ ] Pan with drag gesture
+- [ ] Cursor shows signal values at position
+- [ ] Performance: 60fps with 10K+ samples
+
+---
+
+### Disassembler - DETAILED SPECIFICATION
+
+**Current State:** Not started. Instruction decoder exists in i4004 but needs disassembly output format.
+
+**Disassembler Output Format:**
+
+```
+; MCS-4 Disassembly
+; File: program.bin
+; Length: 256 bytes
+
+        ORG     000H
+
+L_000:  LDM     5           ; Load 5 into accumulator
+        FIM     P0, 42H     ; Load 0x42 into register pair 0
+        SRC     P0          ; Select RAM address from P0
+        WRM                 ; Write accumulator to RAM
+        JUN     L_010       ; Jump to L_010
+
+L_010:  NOP                 ; No operation
+        ISZ     R5, L_010   ; Increment R5, loop if not zero
+        BBL     0           ; Return with 0
+```
+
+**Core Disassembler API:**
+
+```rust
+/// Disassembler for MCS-4 (4004) and MCS-40 (4040) instruction sets
+pub struct Disassembler {
+    /// CPU type affects instruction decode
+    cpu_type: CpuType,
+    /// Symbol table (address -> label)
+    symbols: HashMap<u16, String>,
+    /// Comments (address -> comment)
+    comments: HashMap<u16, String>,
+}
+
+pub enum CpuType {
+    I4004,  // 46 instructions
+    I4040,  // 60 instructions
+}
+
+impl Disassembler {
+    /// Disassemble single instruction at address
+    /// Returns (mnemonic, operands, length, cycles)
+    pub fn disasm_one(&self, rom: &[u8], addr: u16) -> DisasmLine;
+
+    /// Disassemble ROM range
+    pub fn disasm_range(&self, rom: &[u8], start: u16, end: u16) -> Vec<DisasmLine>;
+
+    /// Disassemble entire ROM
+    pub fn disasm_all(&self, rom: &[u8]) -> Vec<DisasmLine>;
+
+    /// Format as assembly listing
+    pub fn format_listing(&self, lines: &[DisasmLine]) -> String;
+
+    /// Add symbol at address
+    pub fn add_symbol(&mut self, addr: u16, name: &str);
+
+    /// Auto-generate labels for jump targets
+    pub fn auto_label(&mut self, rom: &[u8]);
+}
+
+pub struct DisasmLine {
+    pub address: u16,
+    pub bytes: Vec<u8>,
+    pub mnemonic: String,
+    pub operands: String,
+    pub comment: Option<String>,
+    pub is_jump_target: bool,
+}
+```
+
+**Instruction Format Strings:**
+
+| Instruction | Format |
+|-------------|--------|
+| NOP | `NOP` |
+| LDM n | `LDM     {n}` |
+| LD r | `LD      R{r}` |
+| FIM Pn, data | `FIM     P{n}, {data:02X}H` |
+| SRC Pn | `SRC     P{n}` |
+| JUN addr | `JUN     L_{addr:03X}` |
+| JMS addr | `JMS     L_{addr:03X}` |
+| JCN cond, addr | `JCN     {cond}, L_{addr:03X}` |
+| ISZ r, addr | `ISZ     R{r}, L_{addr:03X}` |
+| BBL n | `BBL     {n}` |
+
+**Condition Code Mnemonics (JCN):**
+
+| Code | Mnemonic | Meaning |
+|------|----------|---------|
+| 0x1 | T | Test pin = 1 |
+| 0x2 | C | Carry = 1 |
+| 0x4 | Z | Accumulator = 0 |
+| 0x9 | TN | Test pin = 0 (NOT) |
+| 0xA | CN | Carry = 0 (NOT) |
+| 0xC | ZN | Accumulator != 0 (NOT) |
+
+**Files to Create:**
+
+```
+crates/mcs4-chips/src/
+├── disasm.rs          # Core disassembler
+└── disasm/
+    ├── mod.rs         # Module exports
+    ├── format.rs      # Output formatting
+    ├── symbols.rs     # Symbol table management
+    └── analysis.rs    # Control flow analysis (future)
+```
+
+**Implementation Steps:**
+
+1. Create `DisasmLine` struct
+2. Implement `disasm_one()` using existing InstructionDecoder
+3. Add operand formatting for each instruction type
+4. Implement `auto_label()` to find jump targets
+5. Create listing formatter
+6. Add to mcs4-chips public API
+7. Integrate into GUI disasm panel
+
+**Test Cases:**
+
+- [ ] All 46 4004 instructions disassemble correctly
+- [ ] All 14 new 4040 instructions disassemble correctly
+- [ ] Two-byte instructions show full opcode
+- [ ] Jump targets get auto-labeled
+- [ ] Round-trip: disasm output can be assembled back
+- [ ] Handles invalid opcodes gracefully
+
+---
+
+### Debugger UI - DETAILED SPECIFICATION
+
+**Current State:** Basic Run/Stop/Step/Reset buttons exist. Needs full debugger integration.
+
+**Feature Requirements:**
+
+1. **Register Panel** (partially exists)
+   - All 16 registers (R0-R15) or 24 (4040)
+   - Accumulator and carry flag
+   - Register pair view (P0-P7)
+   - Edit registers by clicking
+
+2. **Memory Panel**
+   - ROM viewer (read-only hex)
+   - RAM viewer (editable hex)
+   - Status registers view
+   - Output port states
+   - Go-to address
+
+3. **Disassembly Panel** (needs disassembler)
+   - Current instruction highlighted
+   - Click to set breakpoint
+   - Show labels from symbol table
+   - Follow jumps
+
+4. **Stack Panel**
+   - All stack levels (3 for 4004, 7 for 4040)
+   - Highlight current level
+   - Show return addresses
+
+5. **Breakpoint Manager**
+   - List of active breakpoints
+   - Enable/disable individual
+   - Conditional breakpoints (future)
+   - Break on PC, memory access, register change
+
+6. **Execution Control**
+   - Run / Stop
+   - Step (1 phase, 1 cycle, 1 instruction)
+   - Run to cursor
+   - Run N cycles
+   - Speed control (1Hz to max)
+
+7. **Waveform Integration**
+   - Synchronized with execution
+   - Cursor follows PC
+   - Click waveform to seek
+
+**Keyboard Shortcuts:**
+
+| Key | Action |
+|-----|--------|
+| F5 | Run / Continue |
+| F6 | Stop |
+| F7 | Step Into (1 instruction) |
+| F8 | Step Over (skip JMS) |
+| F9 | Toggle Breakpoint |
+| F10 | Step Cycle (8 phases) |
+| Ctrl+G | Go to Address |
+
+**Files to Create/Modify:**
+
+```
+crates/mcs4-gui/src/
+├── app.rs            # Main app with debugger state
+├── debugger.rs       # Debugger controller (NEW)
+├── breakpoints.rs    # Breakpoint management (NEW)
+├── panels/
+│   ├── cpu_state.rs  # Enhanced register view
+│   ├── memory.rs     # Enhanced with edit support
+│   ├── disasm.rs     # Disassembly panel (NEW)
+│   ├── stack.rs      # Stack view (NEW)
+│   └── breakpoints.rs # Breakpoint list panel (NEW)
+└── shortcuts.rs      # Keyboard handler (NEW)
+```
+
+**Debugger State Machine:**
+
+```rust
+pub enum DebugState {
+    /// Stopped, waiting for user action
+    Stopped,
+    /// Running freely
+    Running,
+    /// Single-stepping (phase level)
+    SteppingPhase,
+    /// Single-stepping (instruction level)
+    SteppingInstruction,
+    /// Running until breakpoint
+    RunningToBreakpoint,
+    /// Running to specific address
+    RunningToAddress(u16),
+}
+
+pub struct Debugger {
+    state: DebugState,
+    breakpoints: Vec<Breakpoint>,
+    step_over_return: Option<u16>,
+    execution_speed: ExecutionSpeed,
+}
+```
+
+**Implementation Steps:**
+
+1. Create debugger controller with state machine
+2. Implement breakpoint system in mcs4-system
+3. Add step modes (phase, cycle, instruction)
+4. Create enhanced register panel with edit
+5. Create memory panel with hex editor
+6. Integrate disassembler into disasm panel
+7. Add stack display panel
+8. Implement keyboard shortcuts
+9. Add execution speed control
+10. Synchronize waveform with execution
+
+**Test Cases:**
+
+- [ ] Step instruction works correctly
+- [ ] Breakpoints halt at correct address
+- [ ] Run/Stop toggles execution
+- [ ] Register edits take effect immediately
+- [ ] Memory view updates during execution
+- [ ] Disassembly highlights current instruction
+- [ ] Stack shows correct depth and values
+- [ ] Keyboard shortcuts work
 
 ---
 
