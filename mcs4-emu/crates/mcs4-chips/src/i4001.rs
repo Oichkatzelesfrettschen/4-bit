@@ -18,7 +18,7 @@ pub struct I4001 {
     io_input: u8,
 
     /// Chip select ID (0-15), set at construction
-    chip_id: u8,
+    pub chip_id: u8,
 
     /// Latched address from A1/A2/A3 phases
     address: u8,

@@ -18,10 +18,10 @@ pub struct I4002 {
     output: u8,
 
     /// Chip ID within bank (0-3)
-    chip_id: u8,
+    pub chip_id: u8,
 
     /// Bank ID (0-3, selected by CM-RAM lines)
-    bank_id: u8,
+    pub bank_id: u8,
 
     /// Latched register select from SRC command
     selected_register: u8,
