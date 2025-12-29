@@ -12,7 +12,7 @@ Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4
 - **Language:** Rust with FPGA synthesis support via mcs4-fpga crate
 - **Accuracy Level:** Gate-level with transistor-level stubs for future enhancement
 - **Approach:** Cleanroom implementation while auditing OpenCores Verilog for reference
-- **Scope:** Complete MCS-4 (4004) and MCS-40 (4040) chip families
+- **Scope:** Complete MCS-4 (4004) and MCS-40 (4040) chip families plus second-sources
 
 ---
 
@@ -32,9 +32,13 @@ Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4
 | **4004** | 4-bit CPU | **COMPLETE** | All 46 instructions, ALU, registers, 3-level stack |
 | **4001** | 256x8 ROM + 4-bit I/O | **COMPLETE** | Bus protocol, chip select, I/O ports |
 | **4002** | 320-bit RAM + 4-bit output | **COMPLETE** | 4 regs x 16 chars + status, bus protocol |
+| **4002-1** | 320-bit RAM (Bank 0 address) | NOT STARTED | Same as 4002, hardwired for CM-RAM0 |
+| **4002-2** | 320-bit RAM (Bank 1 address) | NOT STARTED | Same as 4002, hardwired for CM-RAM1 |
 | **4003** | 10-bit shift register | STUB | Basic shift logic, needs bus/clock integration |
 | **4008** | Address latch (8-bit) | NOT STARTED | For standard memory interface |
 | **4009** | I/O buffer/interface | NOT STARTED | Bidirectional bus interface |
+
+**Note:** The 4002-1 and 4002-2 are factory-configured variants of the 4002. The -1 suffix indicates pre-wired response to CM-RAM0, while -2 responds to CM-RAM1. Our 4002 implementation already supports configurable bank_id, so these variants can be emulated with `I4002::new(chip_id, 0)` and `I4002::new(chip_id, 1)`.
 
 ### MCS-40 Family (4040-based, 1974)
 
@@ -52,19 +56,74 @@ Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4
 | **4308** | 1Kx8 ROM | STUB | Basic storage, needs bus protocol |
 | **4316** | 2Kx8 ROM | NOT STARTED | Larger ROM variant |
 | **4702** | 256x8 EPROM | NOT STARTED | UV-erasable PROM |
+| **4702A** | 256x8 EPROM (improved) | NOT STARTED | Improved version of 4702 |
+
+### Bus Interface Chips (Schottky Bipolar)
+
+| Chip | Description | Status | Notes |
+|------|-------------|--------|-------|
+| **3216** | 4-bit parallel bidirectional bus driver | NOT STARTED | Interfaces 4-bit bus to external systems |
+| **3226** | 4-bit parallel bidirectional bus driver | NOT STARTED | Inverted enable vs 3216 |
+
+**Note:** The 3216 and 3226 are Schottky bipolar bus drivers used to interface the MCS-4/40 4-bit bus to external 8-bit systems or peripherals. They handle level shifting and bus isolation. The 3216 and 3226 are functionally similar but have inverted chip enable logic.
+
+### Support Logic Chips
+
+| Chip | Description | Status | Notes |
+|------|-------------|--------|-------|
+| **3205** | 1-of-8 binary decoder | NOT STARTED | High-speed decoder for address decoding |
+| **3404** | 6-bit D-type latch | NOT STARTED | Latch for data/address hold |
+
+**Note:** The 3205 is a high-speed 1-of-8 decoder useful for chip select generation. The 3404 provides latching for addresses or data (6-bit, TTL-compatible).
+
+### Standard Memory (via 4289 Interface)
+
+| Chip | Description | Status | Notes |
+|------|-------------|--------|-------|
+| **2101** | 256x4 static RAM | NOT STARTED | Intel standard SRAM, 350ns |
+| **2102** | 1024x1 static RAM | NOT STARTED | Intel 1Kx1 SRAM, 350ns typical |
+| **1302** | 2048-bit mask ROM | NOT STARTED | Original designation for 4001-class ROM |
+
+**Note:** The 4289 Standard Memory Interface allows the 4040 to use standard (non-MCS-4) memory chips. The 2101 (256x4) and 2102 (1024x1) were Intel's early static RAM products. The 1302 was the original internal designation before the "4000 family" naming convention was adopted.
+
+### CPU Second-Sources and Clones
+
+| Chip | Manufacturer | Status | Notes |
+|------|--------------|--------|-------|
+| **INS4004J** | National Semiconductor | NOT STARTED | 4004 clone, ceramic package |
+| **INS4004D** | National Semiconductor | NOT STARTED | 4004 clone, CerDIP package |
+| **INS4001** | National Semiconductor | NOT STARTED | 4001 ROM clone |
+| **INS4002** | National Semiconductor | NOT STARTED | 4002 RAM clone |
+| **INS4003** | National Semiconductor | NOT STARTED | 4003 shift register clone |
+| **uPD4004** | NEC | NOT STARTED | NEC second-source 4004 |
+| **uPD4040** | NEC | NOT STARTED | NEC second-source 4040 |
+
+**Note:** National Semiconductor was Intel's official second-source for the MCS-4 family (mid-1975). NEC also produced second-source versions. These are pin-compatible and functionally identical; no separate implementation needed beyond behavioral verification.
+
+### 74-Series TTL Support
+
+| Category | Chips | Status | Notes |
+|----------|-------|--------|-------|
+| **Decoders** | 7442, 74154 | NOT STARTED | BCD-to-decimal, 4-to-16 line |
+| **Buffers** | 7407, 74125 | NOT STARTED | Open-collector, tri-state |
+| **Latches** | 7475, 74175 | NOT STARTED | Quad latches for data hold |
+| **Counters** | 7490, 7493 | NOT STARTED | Decade and binary counters |
+| **Drivers** | 7447, 7448 | NOT STARTED | 7-segment display drivers |
+
+**Note:** These 74-series TTL chips are commonly used as glue logic in MCS-4/40 systems. Implementation priority is lower than native MCS-4 chips.
 
 ### Era-Appropriate Peripherals (1971-1976)
 
 | Category | Chips | Status | Notes |
 |----------|-------|--------|-------|
 | **Display Drivers** | 7-segment LED drivers | NOT STARTED | Common anode/cathode support |
-| **Display Drivers** | Character LCD controllers | NOT STARTED | If era-appropriate |
+| **Display Drivers** | Nixie tube drivers | NOT STARTED | High-voltage BCD decoders |
 | **Keyboard Interface** | Matrix keyboard scanner | NOT STARTED | Directly or via 4269 |
 | **Printers** | Parallel printer interface | NOT STARTED | Centronics-style |
 | **Storage** | Paper tape reader | NOT STARTED | Era-appropriate I/O |
 | **Storage** | Cassette interface | NOT STARTED | Audio FSK modulation |
 | **Communication** | Serial UART | NOT STARTED | RS-232 interface |
-| **Expansion** | Bus buffers/transceivers | NOT STARTED | 74xx series compatible |
+| **Expansion** | Bus buffers/transceivers | NOT STARTED | Via 3216/3226 |
 
 ---
 
@@ -92,6 +151,7 @@ Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4
 - SRC addressing (chip/register/character)
 - CM-RAM bank select (0-3)
 - Full bus protocol for read/write operations
+- **Already supports 4002-1/4002-2 variants via bank_id parameter**
 
 ### Stub Chips Needing Implementation
 
@@ -143,6 +203,7 @@ Needs:
 - Address multiplexing
 - Read/write control generation
 - Timing for standard memory
+- Support for 2101, 2102, 4316, 4702A
 
 #### 4308/4316 ROMs (LOW PRIORITY)
 Larger ROM variants (1K/2K x 8-bit).
@@ -152,6 +213,20 @@ Similar to 4001 but:
 - No I/O ports
 
 ### Chips to Create from Scratch
+
+#### 3216/3226 Bus Drivers (MEDIUM PRIORITY)
+4-bit parallel bidirectional bus drivers for system expansion:
+- Direction control
+- Output enable logic
+- TTL-compatible levels
+- Useful for interfacing MCS-4 to external buses
+
+#### 3205 Decoder (LOW PRIORITY)
+High-speed 1-of-8 binary decoder:
+- 3-bit binary input, 8 outputs
+- Active-low outputs
+- Enable inputs for cascading
+- Used for chip select generation
 
 #### 4265 Programmable Peripheral Interface (MEDIUM PRIORITY)
 Similar to Intel 8255 PPI:
@@ -165,6 +240,12 @@ Specialized chip for human interface:
 - Drives up to 16 7-segment displays
 - Debouncing and encoding
 - Interrupt on keypress
+
+#### 4702A EPROM (LOW PRIORITY)
+256 x 8-bit UV-erasable PROM:
+- Same pinout as 4001 ROM (for development)
+- Programming voltage support (for completeness)
+- Read-only mode for normal operation
 
 #### Display Drivers
 For authentic period displays:
@@ -280,23 +361,62 @@ Cycle:  A1 -> A2 -> A3 -> M1 -> M2 -> X1 -> X2 -> X3
 - `docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf` (78MB)
 - `docs/MCS-40/1975_Intel_Data_Catalog.pdf` - Full chip catalog
 
-### External
-- [Intel 4004 50th Anniversary](http://www.intelmemory.com/4004/)
+### External Resources
+- [Intel 4004 50th Anniversary](http://www.4004.com/)
 - [4004 on Wikichip](https://en.wikichip.org/wiki/intel/mcs-4/4004)
+- [MCS-40 on Wikichip](https://en.wikichip.org/wiki/intel/mcs-40)
+- [MCS-40 Users Manual (PDF)](http://bitsavers.informatik.uni-stuttgart.de/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf)
+- [Intel 3205 Datasheet](https://www.cpu-galaxy.at/cpu/ram%20rom%20eprom/other_intel_chips/other_intel-Dateien/P3205_Datasheet.pdf)
+- [Intel 3216 Datasheet (Archive.org)](https://archive.org/details/intel3216parallelbidirectionalbusdriver)
+- [Intel 2102 Static RAM Info](https://w140.com/tekwiki/wiki/Intel_2102)
+- [OpenCores MCS-4 Project](https://opencores.org/projects/mcs-4)
 
 ---
 
 ## Priority Order for Next Session
 
+### Tier 1 - Core Functionality
 1. **4040 CPU** - Core functionality for MCS-40 support
 2. **Disassembler** - Needed for debugging
 3. **GUI Waveform Viewer** - Visual debugging
+
+### Tier 2 - Key Peripherals
 4. **4265 PPI** - Key peripheral for I/O
 5. **4269 Keyboard/Display** - Human interface
-6. **4101 RAM** - MCS-40 memory
-7. **4308/4316 ROM** - Larger program storage
-8. **Display Drivers** - Visual output
-9. **Remaining support chips**
+6. **3216/3226 Bus Drivers** - System expansion
+
+### Tier 3 - Memory Expansion
+7. **4101 RAM** - MCS-40 memory
+8. **4289 Standard Memory Interface** - Enables 2101/2102/4316
+9. **4308/4316 ROM** - Larger program storage
+10. **4702A EPROM** - Development memory
+
+### Tier 4 - Support Logic
+11. **3205 Decoder** - Address decoding
+12. **3404 Latch** - Data/address hold
+13. **74-series TTL** - Glue logic
+
+### Tier 5 - Display and I/O
+14. **Display Drivers** - Visual output
+15. **Keyboard Scanner** - User input
+16. **Serial UART** - Communication
+
+---
+
+## Chip Naming History
+
+Intel's original chip-naming scheme used a four-digit number:
+- First digit: Process technology (1 = PMOS, 2 = NMOS, 3 = Bipolar, 4 = MCS-4 bus)
+- Second digit: Generic function (0 = ROM, 1 = RAM, 2 = shift register, etc.)
+- Last two digits: Sequential number
+
+Under this scheme, the MCS-4 chips would have been:
+- **1302** -> became **4001** (2048-bit ROM)
+- **1105** -> became **4002** (320-bit RAM)
+- **1507** -> became **4003** (shift register)
+- **1202** -> became **4004** (CPU)
+
+Federico Faggin renamed them to the "4000 family" to emphasize they formed a coherent chipset.
 
 ---
 
