@@ -5,185 +5,307 @@
 
 ## Project Goal
 
-Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4 and MCS-40 system with GUI emulator/debugger/programmer, including all support chips (ROM/RAM/I/O).
+Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4 and MCS-40 system with GUI emulator/debugger/programmer, including ALL support chips from the original Intel kits plus era-appropriate peripherals.
 
 ## Architecture Decisions
 
 - **Language:** Rust with FPGA synthesis support via mcs4-fpga crate
 - **Accuracy Level:** Gate-level with transistor-level stubs for future enhancement
 - **Approach:** Cleanroom implementation while auditing OpenCores Verilog for reference
-- **Scope:** Both MCS-4 (4004) and MCS-40 (4040) systems in parallel
+- **Scope:** Complete MCS-4 (4004) and MCS-40 (4040) chip families
 
-## Completed Tasks
+---
 
-### Core Infrastructure
-- [x] mcs4-core: Timing constants, signal types, gate primitives, event-driven simulator
-- [x] mcs4-bus: Two-phase clock, 4-bit data bus, control signals, 8-phase cycle state
-- [x] Workspace structure with 6 crates (core, bus, chips, system, fpga, gui)
+## Chip Implementation Status
 
-### 4004 CPU Implementation
-- [x] Full instruction decoder for all 46 opcodes
-- [x] Complete execute() method with all instruction implementations
-- [x] JCN condition evaluation (invert, acc-zero, carry, test-pin)
-- [x] Register file (16 x 4-bit registers, 8 pairs, 3-level stack)
-- [x] ALU with accumulator, carry, rotate, KBP, DAA
+### Legend
+- **COMPLETE** - Fully implemented with bus protocol and tests
+- **STUB** - Basic structure exists, needs full implementation
+- **NOT STARTED** - Needs to be created
 
-### Support Chips
-- [x] 4001 ROM: 256x8 memory + 4-bit I/O port + bus protocol
-- [x] 4002 RAM: 4 registers x 16 characters + 4 status + output port + bus protocol
-- [x] Bus protocol timing: A1-A3 (address), M1-M2 (memory), X1-X3 (execute)
+---
 
-### System Integration
-- [x] Mcs4System with proper bus timing (ROM/RAM respond before CPU reads)
-- [x] System configurations: minimal(), standard(), maximal()
-- [x] Breakpoint support with run_until_breakpoint()
-- [x] Memory inspection: read_rom(), read_ram()
-- [x] CPU state access: pc(), accumulator(), carry(), register(), register_pair()
+### MCS-4 Family (4004-based, 1971)
 
-### Testing
-- [x] 66 tests passing across all crates
-- [x] Integration tests for LDM instruction execution
-- [x] Breakpoint functionality tested
+| Chip | Description | Status | Notes |
+|------|-------------|--------|-------|
+| **4004** | 4-bit CPU | **COMPLETE** | All 46 instructions, ALU, registers, 3-level stack |
+| **4001** | 256x8 ROM + 4-bit I/O | **COMPLETE** | Bus protocol, chip select, I/O ports |
+| **4002** | 320-bit RAM + 4-bit output | **COMPLETE** | 4 regs x 16 chars + status, bus protocol |
+| **4003** | 10-bit shift register | STUB | Basic shift logic, needs bus/clock integration |
+| **4008** | Address latch (8-bit) | NOT STARTED | For standard memory interface |
+| **4009** | I/O buffer/interface | NOT STARTED | Bidirectional bus interface |
 
-## Remaining Tasks
+### MCS-40 Family (4040-based, 1974)
 
-### 1. Implement 4040 CPU (High Priority)
+| Chip | Description | Status | Notes |
+|------|-------------|--------|-------|
+| **4040** | Enhanced 4-bit CPU | STUB | Needs 24 regs, 7-level stack, interrupts |
+| **4101** | 256x4 static RAM | STUB | Basic storage, needs bus protocol |
+| **4201** | Clock generator | STUB | Generates PHI1/PHI2 from crystal |
+| **4207** | General purpose I/O | NOT STARTED | Parallel I/O expander |
+| **4209** | Address latch | NOT STARTED | For program memory interface |
+| **4211** | Address latch | NOT STARTED | Variant of 4209 |
+| **4265** | Programmable peripheral interface | NOT STARTED | Like 8255 PPI, 24 I/O lines |
+| **4269** | Keyboard/display interface | NOT STARTED | Scans keyboard, drives display |
+| **4289** | Standard memory interface | STUB | Connects to standard memory |
+| **4308** | 1Kx8 ROM | STUB | Basic storage, needs bus protocol |
+| **4316** | 2Kx8 ROM | NOT STARTED | Larger ROM variant |
+| **4702** | 256x8 EPROM | NOT STARTED | UV-erasable PROM |
 
-The Intel 4040 extends the 4004 with:
-- **24 index registers** (vs 16 in 4004) - registers R16-R23
-- **7-level stack** (vs 3-level in 4004)
-- **Interrupt support** with INT input and acknowledgment
-- **HALT/STOP instruction** and single-step capability
-- **Additional instructions:**
-  - HLT (halt processor)
-  - BBS (branch back from interrupt and restore)
-  - LCR (load DCL into accumulator)
-  - OR4/OR5 (logical OR with register pair)
-  - AN4/AN5 (logical AND with register pair)
-  - DB0/DB1 (select register bank 0/1)
-  - EIN/DIN (enable/disable interrupt)
-  - RPM (read program memory - for self-modifying code)
+### Era-Appropriate Peripherals (1971-1976)
 
-**Files to create/modify:**
-- `crates/mcs4-chips/src/i4040/mod.rs` - Main 4040 implementation
-- `crates/mcs4-chips/src/i4040/registers.rs` - Extended register file
-- `crates/mcs4-chips/src/i4040/interrupt.rs` - Interrupt controller
-- `crates/mcs4-system/src/mcs40.rs` - MCS-40 system integration
+| Category | Chips | Status | Notes |
+|----------|-------|--------|-------|
+| **Display Drivers** | 7-segment LED drivers | NOT STARTED | Common anode/cathode support |
+| **Display Drivers** | Character LCD controllers | NOT STARTED | If era-appropriate |
+| **Keyboard Interface** | Matrix keyboard scanner | NOT STARTED | Directly or via 4269 |
+| **Printers** | Parallel printer interface | NOT STARTED | Centronics-style |
+| **Storage** | Paper tape reader | NOT STARTED | Era-appropriate I/O |
+| **Storage** | Cassette interface | NOT STARTED | Audio FSK modulation |
+| **Communication** | Serial UART | NOT STARTED | RS-232 interface |
+| **Expansion** | Bus buffers/transceivers | NOT STARTED | 74xx series compatible |
 
-**Reference:** docs/MCS-40/ directory contains Intel documentation
+---
 
-### 2. Build GUI Waveform Viewer (Medium Priority)
+## Detailed Implementation Notes
 
-Create egui-based waveform display showing:
-- PHI1/PHI2 clock signals
-- SYNC signal
-- CM-ROM/CM-RAM control lines
-- 4-bit data bus values
-- CPU state (PC, accumulator, instruction)
+### Completed Chips
 
-**Technical approach:**
-- Use signal history from `Signal::history()` method
-- Implement zoom/pan for time navigation
-- Color-code different signal types
-- Show decoded instructions alongside waveforms
+#### 4004 CPU (crates/mcs4-chips/src/i4004/)
+- **instruction_decode.rs**: Complete decoder for all 46 instructions
+- **alu.rs**: Accumulator, carry, rotate, KBP, DAA operations
+- **registers.rs**: 16 x 4-bit registers (8 pairs), 12-bit PC, 3-level stack
+- **timing_io.rs**: Bus cycle timing and I/O control
+- **mod.rs**: Execute logic, phase handlers (A1-X3)
+
+#### 4001 ROM (crates/mcs4-chips/src/i4001.rs)
+- 256 x 8-bit ROM storage
+- 4-bit bidirectional I/O port
+- CM-ROM chip select (0-15)
+- Full bus protocol: A1-A3 address latch, M1-M2 data output, X2-X3 I/O
+
+#### 4002 RAM (crates/mcs4-chips/src/i4002.rs)
+- 4 registers x 16 characters x 4 bits (64 nibbles main memory)
+- 4 status characters x 4 bits (16 nibbles status)
+- 4-bit output port latch
+- SRC addressing (chip/register/character)
+- CM-RAM bank select (0-3)
+- Full bus protocol for read/write operations
+
+### Stub Chips Needing Implementation
+
+#### 4040 CPU (HIGH PRIORITY)
+Extended 4004 with:
+- 24 index registers (R0-R23) vs 16 in 4004
+- Register bank switching (DB0/DB1 instructions)
+- 7-level stack vs 3-level
+- Interrupt support (INT pin, EIN/DIN, BBS instructions)
+- HALT/STOP with single-step capability
+- Additional instructions: HLT, BBS, LCR, OR4/OR5, AN4/AN5, RPM
 
 **Files to modify:**
-- `crates/mcs4-gui/src/main.rs` - Already has egui setup
-- Create `crates/mcs4-gui/src/waveform.rs` - Waveform rendering
-- Create `crates/mcs4-gui/src/timing_diagram.rs` - Signal layout
+```
+crates/mcs4-chips/src/i4040/
+├── mod.rs           # Main implementation
+├── registers.rs     # Extended 24-register file
+├── interrupt.rs     # Interrupt controller (NEW)
+└── instruction_decode.rs  # Extended decoder (NEW)
+```
 
-### 3. Add Disassembler and Debugger UI (Medium Priority)
+#### 4003 Shift Register (LOW PRIORITY)
+10-bit serial-in, parallel-out shift register for I/O expansion.
+Current stub has basic shift logic but needs:
+- Clock input handling
+- Serial data input/output
+- Parallel output latching
+- Cascade support for >10 bits
 
-**Disassembler features:**
-- Decode ROM contents to assembly
-- Show instruction addresses and hex bytes
-- Handle two-byte instructions correctly
-- Mark current PC position
+#### 4101 Static RAM (MEDIUM PRIORITY)
+256 x 4-bit static RAM for MCS-40 systems.
+Needs:
+- Full bus protocol implementation
+- Address decoding
+- Read/write timing
+- Chip enable logic
 
-**Debugger UI features:**
-- Register display (R0-R15 or R0-R23 for 4040)
-- Stack display (3 or 7 levels)
-- Memory viewer (ROM and RAM)
+#### 4201 Clock Generator (LOW PRIORITY)
+Generates two-phase non-overlapping clocks from crystal.
+Currently the clock is software-generated in mcs4-bus.
+This chip would provide hardware-accurate timing including:
+- Crystal oscillator interface
+- PHI1/PHI2 generation with proper timing
+- SYNC signal generation
+
+#### 4289 Standard Memory Interface (MEDIUM PRIORITY)
+Allows 4040 to use standard memory chips (not 4001/4002).
+Needs:
+- Address multiplexing
+- Read/write control generation
+- Timing for standard memory
+
+#### 4308/4316 ROMs (LOW PRIORITY)
+Larger ROM variants (1K/2K x 8-bit).
+Similar to 4001 but:
+- Larger address space
+- Different chip select scheme
+- No I/O ports
+
+### Chips to Create from Scratch
+
+#### 4265 Programmable Peripheral Interface (MEDIUM PRIORITY)
+Similar to Intel 8255 PPI:
+- 24 programmable I/O lines
+- 3 ports (A, B, C) with mode control
+- Directly interfaces with 4-bit bus
+
+#### 4269 Keyboard/Display Interface (MEDIUM PRIORITY)
+Specialized chip for human interface:
+- Scans up to 64-key keyboard matrix
+- Drives up to 16 7-segment displays
+- Debouncing and encoding
+- Interrupt on keypress
+
+#### Display Drivers
+For authentic period displays:
+- 7-segment LED (common anode/cathode)
+- Nixie tube interface (via BCD decoder)
+- LED matrix support
+
+---
+
+## System Integration Status
+
+### MCS-4 System (crates/mcs4-system/src/mcs4.rs)
+- **COMPLETE**: Full integration with proper bus timing
+- Configurations: minimal (1 ROM, 1 RAM), standard (4 ROM, 8 RAM), maximal (16 ROM, 16 RAM)
+- Breakpoint support
+- Memory inspection
+- CPU state access
+
+### MCS-40 System (crates/mcs4-system/src/mcs40.rs)
+- **NOT STARTED**: Needs to be created after 4040 CPU is complete
+- Will support 4040 + extended chip set
+- Interrupt handling
+- Standard memory interface support
+
+---
+
+## GUI and Tools Status
+
+### Waveform Viewer (crates/mcs4-gui/)
+- **NOT STARTED**: egui framework is set up
+- Needs signal capture from simulation
+- Time-based visualization of PHI1, PHI2, SYNC, data bus
+- Zoom/pan navigation
+
+### Disassembler
+- **NOT STARTED**: Create crates/mcs4-chips/src/disasm.rs
+- Decode ROM to assembly mnemonics
+- Handle 1-byte and 2-byte instructions
+- Support both 4004 and 4040 instruction sets
+
+### Debugger UI
+- **NOT STARTED**: Needs disassembler first
+- Register display
+- Memory viewer (ROM/RAM)
+- Stack display
 - Single-step execution
-- Run/pause/reset controls
-- Breakpoint management UI
+- Breakpoint management
 
-**Files to create:**
-- `crates/mcs4-chips/src/disasm.rs` - Disassembler logic
-- `crates/mcs4-gui/src/debugger.rs` - Debugger panel
-- `crates/mcs4-gui/src/memory_view.rs` - Memory hex viewer
+---
 
-### 4. Additional Support Chips (Lower Priority)
+## Test Coverage
 
-- **4003:** 10-bit shift register for I/O expansion
-- **4008/4009:** Standard memory interface
-- **4289:** Standard memory interface (MCS-40)
-- **4308/4316:** ROM variants (stubs exist)
+| Crate | Tests | Status |
+|-------|-------|--------|
+| mcs4-core | 22 | PASS |
+| mcs4-bus | 16 | PASS |
+| mcs4-chips | 23 | PASS |
+| mcs4-system | 5 | PASS |
+| **Total** | **66** | **ALL PASS** |
 
-### 5. FPGA Verilog Export (Future)
+---
 
-The mcs4-fpga crate stub exists for generating synthesizable Verilog from the Rust gate-level model. This enables running the emulator on real FPGA hardware.
-
-## Technical Notes
+## Technical Reference
 
 ### Bus Protocol Timing
-
-The MCS-4 uses an 8-phase bus cycle:
 ```
-A1 -> A2 -> A3 -> M1 -> M2 -> X1 -> X2 -> X3
- |     |     |     |     |     |     |     |
- |     |     |     |     |     |     |     +-- I/O read (RDM, RDR, etc.)
- |     |     |     |     |     |     +-------- I/O write (WRM, WRR, etc.)
- |     |     |     |     |     +-------------- Decode instruction
- |     |     |     |     +-------------------- Read OPR (high nibble)
- |     |     |     +-------------------------- Read OPA (low nibble)
- |     |     +-------------------------------- Select ROM chip (CM-ROM)
- |     +-------------------------------------- Address bits 4-7
- +-------------------------------------------- Address bits 0-3, SYNC
+Cycle:  A1 -> A2 -> A3 -> M1 -> M2 -> X1 -> X2 -> X3
+        |     |     |     |     |     |     |     |
+        |     |     |     |     |     |     |     +-- I/O read (RDM, RDR)
+        |     |     |     |     |     |     +-------- I/O write (WRM, WRR)
+        |     |     |     |     |     +-------------- Decode instruction
+        |     |     |     |     +-------------------- Read OPR (high nibble)
+        |     |     |     +-------------------------- Read OPA (low nibble)
+        |     |     +-------------------------------- Select ROM (CM-ROM)
+        |     +-------------------------------------- Address bits 4-7
+        +-------------------------------------------- Address bits 0-3, SYNC
 ```
 
-**Critical timing:** ROM/RAM must put data on bus BEFORE CPU reads during M1/M2/X3 phases.
-
-### Instruction Encoding
-
-Single-byte instructions: 0x00-0xCF, 0xE0-0xFF
-Two-byte instructions: 0x10-0x1F (JCN), 0x20-0x2F (FIM/SRC/FIN/JIN), 0x40-0x4F (JUN), 0x50-0x5F (JMS), 0x70-0x7F (ISZ)
+### Instruction Encoding Quick Reference
+- `0x00-0x0F`: NOP, JCN conditions
+- `0x10-0x1F`: JCN (2-byte conditional jump)
+- `0x20-0x2F`: FIM, SRC, FIN, JIN
+- `0x30-0x3F`: FIM data, SRC pairs
+- `0x40-0x4F`: JUN (2-byte unconditional jump)
+- `0x50-0x5F`: JMS (2-byte call)
+- `0x60-0x6F`: INC (increment register)
+- `0x70-0x7F`: ISZ (2-byte increment and skip if zero)
+- `0x80-0x8F`: ADD (add register to accumulator)
+- `0x90-0x9F`: SUB (subtract register from accumulator)
+- `0xA0-0xAF`: LD (load register to accumulator)
+- `0xB0-0xBF`: XCH (exchange accumulator and register)
+- `0xC0-0xCF`: BBL (branch back and load)
+- `0xD0-0xDF`: LDM (load immediate)
+- `0xE0-0xEF`: I/O and RAM instructions
+- `0xF0-0xFF`: Accumulator group instructions
 
 ### Clock Specifications
+- Typical: 740 kHz (1.35 us period)
+- Range: 500 kHz - 740 kHz
+- PHI1/PHI2: Non-overlapping, ~480ns pulse width
+- 8 phases per machine cycle, 2 cycles per instruction (most)
 
-- Typical frequency: 740 kHz
-- Period: ~1.35 us (1,350,000 ps)
-- Non-overlapping PHI1/PHI2 with defined rise/fall times
+---
 
-## File Structure
+## Documentation References
 
-```
-mcs4-emu/
-├── Cargo.toml                 # Workspace manifest
-├── STATUS.md                  # This file
-├── crates/
-│   ├── mcs4-core/            # Timing, signals, gates, simulator
-│   ├── mcs4-bus/             # Clock, data bus, control, cycles
-│   ├── mcs4-chips/           # 4004, 4040, 4001, 4002, etc.
-│   ├── mcs4-system/          # MCS-4 and MCS-40 system integration
-│   ├── mcs4-fpga/            # Verilog export (stub)
-│   └── mcs4-gui/             # egui-based GUI (stub)
-└── src/
-    └── main.rs               # CLI entry point
-```
+### In Repository
+- `docs/MCS-4/MCS-4_UsersManual_Feb73.pdf` - Original user manual
+- `docs/MCS-4/MCS-4_Assembly_Language_Programming_Manual_Dec73.pdf`
+- `docs/MCS-4/i4001-schematic.gif`, `i4002-schematic.gif`, `i4003-schematic.gif`
+- `docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf` - MCS-40 manual
+- `docs/MCS-40/4040_Datasheet.pdf` - 4040 specifications
+- `docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf` (78MB)
+- `docs/MCS-40/1975_Intel_Data_Catalog.pdf` - Full chip catalog
 
-## Running Tests
+### External
+- [Intel 4004 50th Anniversary](http://www.intelmemory.com/4004/)
+- [4004 on Wikichip](https://en.wikichip.org/wiki/intel/mcs-4/4004)
+
+---
+
+## Priority Order for Next Session
+
+1. **4040 CPU** - Core functionality for MCS-40 support
+2. **Disassembler** - Needed for debugging
+3. **GUI Waveform Viewer** - Visual debugging
+4. **4265 PPI** - Key peripheral for I/O
+5. **4269 Keyboard/Display** - Human interface
+6. **4101 RAM** - MCS-40 memory
+7. **4308/4316 ROM** - Larger program storage
+8. **Display Drivers** - Visual output
+9. **Remaining support chips**
+
+---
+
+## Build and Run
 
 ```bash
 cd mcs4-emu
-cargo test              # Run all 66 tests
-cargo test -p mcs4-system  # Test system integration only
-cargo run               # Run GUI (stub)
+cargo build              # Build all crates
+cargo test               # Run all 66 tests
+cargo run                # Run GUI (stub)
+cargo doc --open         # Generate and view documentation
 ```
-
-## References
-
-- `docs/MCS-4/` - Intel 4004/4001/4002/4003 documentation
-- `docs/MCS-40/` - Intel 4040 and Intellec 4 MOD 40 documentation
-- Original MCS-4 User Manual (1971)
-- Intel Intellec 4 MOD 40 Reference Schematics (78MB PDF)
