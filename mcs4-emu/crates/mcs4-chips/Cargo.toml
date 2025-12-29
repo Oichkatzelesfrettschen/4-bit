@@ -1,0 +1,16 @@
+[package]
+name = "mcs4-chips"
+description = "MCS-4/MCS-40 chip implementations (4004, 4040, 4001, 4002, etc.)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+mcs4-core = { path = "../mcs4-core" }
+mcs4-bus = { path = "../mcs4-bus" }
+tracing.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

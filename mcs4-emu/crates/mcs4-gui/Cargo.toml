@@ -1,0 +1,21 @@
+[package]
+name = "mcs4-gui"
+description = "GUI debugger/programmer for MCS-4/MCS-40"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "mcs4-emu"
+path = "src/main.rs"
+
+[dependencies]
+mcs4-core = { path = "../mcs4-core" }
+mcs4-bus = { path = "../mcs4-bus" }
+mcs4-chips = { path = "../mcs4-chips" }
+mcs4-system = { path = "../mcs4-system" }
+egui.workspace = true
+eframe.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+clap.workspace = true
