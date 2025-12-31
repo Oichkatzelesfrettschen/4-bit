@@ -1,4 +1,10 @@
-# API Reference
+## Disassembler (Zero-Copy)
+- Enum Op (46 ops) with Display; decoder disassemble(rom, pc) -> (Op, bytes, raw).
+- Integration: CLI disasm command; TUI disassembly pane highlighting PC and breakpoints.
+
+## Snapshots (rkyv)
+- Export/import SystemSnapshot archives (*.mcs4.rkyv) for replay and benchmarking (IPS/latency).
+- API: snapshot_export(path, frames) -> Result<()>; snapshot_import(path) -> Result<Vec<SystemSnapshot>>.
 
 ## Emulator Interfaces
 - Build/run: see README.
