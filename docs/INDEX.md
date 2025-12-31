@@ -1,14 +1,21 @@
-# Documentation Index
+# Documentation Quality Checklist (Live)
 
-- README.md — Getting started, build/run
-- ARCHITECTURE.md — System design; 4-bit strategy; SIMD clusters/fuzzing
-- docs/API.md — Public APIs and examples
-- docs/DEPLOYMENT.md — Operations and environment
-- docs/CONTRIBUTING.md — Development workflow
-- docs/TROUBLESHOOTING.md — Common issues
-- docs/ROADMAP.md — Plans and priorities
-- mcs4-emu/STATUS.md — Session log and project status
-- docs/meta/registry.yaml — Metadata registry for discoverability
+- Completeness: README, Architecture, API, Deployment, Troubleshooting, Roadmap, Status present.
+- Accuracy: Nightly toolchain, SIMD cluster plan, 4040 scaffolding reflected.
+- Discoverability: Updated INDEX.md and metadata registry.
+- Maintainability: Versioned; plan to add link check and markdown lint scripts.
+
+# Information Architecture
+
+- Modular docs with central index and metadata registry (docs/meta/registry.yaml).
+- Cross-links: README → ARCHITECTURE (SIMD), ROADMAP; ARCHITECTURE → ROADMAP/STATUS.
+- Update cadence: Update docs on code changes; CI to enforce clippy and doc freshness.
+
+# Synchronization Plan
+
+- Single source of truth: docs/ and top-level files.
+- Registry-driven discovery: docs/meta/registry.yaml kept current; INDEX.md mirrors registry.
+- Automation roadmap: add scripts to validate links, lint markdown, and refresh timestamps.
 
 - README.md
 - ARCHITECTURE.md
