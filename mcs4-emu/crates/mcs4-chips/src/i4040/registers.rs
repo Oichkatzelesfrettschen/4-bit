@@ -1,4 +1,5 @@
 // 4040 register file with bank switching
+#[derive(Default)]
 pub struct RegFile {
     regs: [u8; 24], // 4-bit values in low nibble
     pub bank: u8,   // 0 or 1, affects R0-R7 mapping

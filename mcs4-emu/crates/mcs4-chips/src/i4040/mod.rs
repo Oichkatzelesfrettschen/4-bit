@@ -6,7 +6,7 @@ mod interrupt;
 
 use registers::RegFile;
 use stack::CallStack;
-use interrupt::InterruptCtl;
+use interrupt::InterruptCtrl;
 
 #[derive(Default)]
 pub struct I4040 {
