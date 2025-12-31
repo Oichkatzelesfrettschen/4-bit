@@ -318,7 +318,33 @@ impl Simulator {
 }
 ```
 
-### Portable-SIMD Cluster Execution Design (Deep Dive)
+## UI/UX Modes: CLI, TUI, GUI (Build- and Run-time Selectable)
+
+Build-time features
+- Features: cli, tui, gui (optional). Any combination may be enabled at build.
+- Recommended: enable both tui and gui in dev; cli always available.
+
+Run-time selection
+- Binary flags: `--mode cli|tui|gui`; default honors build-enabled modes (falls back to cli if others missing).
+- Config: env var `MCS4_MODE=cli|tui|gui` overrides default.
+
+CLI (Headless)
+- Purpose: batch execution, ROM fuzzing, regression tests.
+- Interface: commands for load ROM, run cycles, dump state, export traces.
+
+TUI (ratatui + Crossterm)
+- Aesthetic match for era; complex layouts, charts (clock phases), memory views.
+- Panels: CPU state, stack, disassembly, waveform (ASCII), breakpoints.
+- Input: keyboard shortcuts (F5 run, F6 stop, F7 step, etc.).
+
+GUI (pixels + winit)
+- Framebuffer via pixels/WGPU; integer scaling; retro visual fidelity.
+- Window/input via winit; map keys to test pins and ports; render waveform and hex views.
+
+Best Practices
+- Separate UI adapters from core simulation; no UI code in chip/system crates.
+- Shared debugger controller API consumed by CLI/TUI/GUI.
+- Consistent keyboard bindings across TUI/GUI where possible.
 
 - Lane width targets: 8 (AVX2), 16 (AVX-512), fallback 4 on SSE; compile-time const LANES with cfg.
 - Layout (SoA):
