@@ -13,4 +13,9 @@ mcs4-bus = { path = "../mcs4-bus" }
 tracing.workspace = true
 
 [dev-dependencies]
+criterion = "0.5"
 proptest.workspace = true
+
+[[bench]]
+name = "cpu_bench"
+harness = false

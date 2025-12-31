@@ -1,7 +1,15 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2025-12-29
+**Last Updated:** 2025-12-31
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
+
+## Session Log
+- 2025-12-31T05:01:40Z: Senior Code Review Specialist mandate received; enforcing OWASP, performance, testing >=90%, maintainability, and documentation gates across the Next 10 Tasks.
+
+- 2025-12-31T05:00:42Z: Code review gate established per Oaich standards; proceeding with 4040 scaffolding, disasm core, waveform hooks under warnings-as-errors and >=90% coverage.
+- 2025-12-31T05:01:24Z: Senior Code Review Specialist mode engaged; applying OWASP, performance, testing, maintainability gates to Next 10 Tasks before implementation.
+- 2025-12-31: Initiated Tier 1 tasks (4040 CPU design, Disassembler scaffolding, GUI Waveform capture hooks). Updating STATUS.md per milestone.
+- 2025-12-31: 4040 CPU scaffolding marked started; defining register bank model and stack depth invariants.
 
 ## Project Goal
 
@@ -836,7 +844,67 @@ Cycle:  A1 -> A2 -> A3 -> M1 -> M2 -> X1 -> X2 -> X3
 
 ---
 
+## Next 10 Tasks (Execution Plan)
+
+Quality Gates Applied: warnings-as-errors; clippy clean; tests >=90% coverage; shellcheck for scripts (if any).
+1) 4040 registers.rs: implement 24-reg file + bank switching [DONE]
+   - Review gates: unit tests for get/set, bank switch; no unwrap; clippy clean; docs on mapping; property tests for index bounds.
+   - Review gates: unit tests for get/set, bank switch; no unwrap; clippy clean; docs on mapping; property tests for index bounds.
+2) 4040 stack: expand to 7 levels with push/pop invariants [STARTED]
+3) 4040 interrupt.rs: EIN/DIN state, INT vector to 0x003, BBS restore [PLANNED]
+4) 4040 instruction_decode.rs: add 14 new opcodes [PLANNED]
+5) 4040 mod.rs: tick() integrates INT, HLT, bank ops [PLANNED]
+6) Disassembler core: disasm_one/range + format_listing [PLANNED]
+7) Disassembler 4040 support: operand formatting for new ops [PLANNED]
+8) SignalTrace buffer: implement and hook into system tick [PLANNED]
+9) WaveformPanel renderer: digital signals + 4-bit bus hex [PLANNED]
+10) Tests: unit for 4040 ops, interrupts, stack; integration baseline [PLANNED]
+
 ## Priority Order for Next Session
+
+### Tier 1 - Core Functionality (Granular Checklist)
+- 4040 CPU
+  - [x] Create crates/mcs4-chips/src/i4040/ module scaffolding (mod.rs, registers.rs, instruction_decode.rs, interrupt.rs)
+  - [ ] Implement register bank switching (R0-R7 mapped to R0-R7 or R16-R23)
+    - Design: bank: u8 (0/1); idx_map(r in 0..7) => r + bank*16; R8-R15 fixed
+  - [ ] Extend stack to 7 levels with push/pop invariants and overflow tests
+  - [ ] INT pin handling: vector 0x003, auto-disable, SRC save/restore via BBS
+  - [ ] Implement new opcodes (HLT,BBS,LCR,OR4,OR5,AN6,AN7,DB0,DB1,SB0,SB1,EIN,DIN,RPM)
+  - [ ] Backward-compat with 4004: full ISA regression
+  - [ ] Unit tests per instruction + interrupt/stack edge cases
+- Disassembler
+  - [ ] Disasm core (disasm_one, disasm_range, format_listing)
+  - [ ] Operand formatting and auto-labeling
+  - [ ] 4040 opcodes support and tests
+- GUI Waveform Viewer
+  - [ ] SignalTrace buffer implementation and capture hook in tick()
+  - [ ] WaveformPanel renderer (digital lines + 4-bit bus hex)
+  - [ ] Zoom/pan/cursor interactions and performance test (10k+ samples)
+
+### Tier 2 - Key Peripherals
+- 4265 PPI
+  - [ ] Define register set and bus protocol
+  - [ ] Mode control and unit tests
+- 4269 Keyboard/Display
+  - [ ] Matrix scan algorithm and display driver hooks
+- 3216/3226 Bus Drivers
+  - [ ] Direction/OE modeling and TTL level mapping
+
+### Tier 3 - Memory Expansion
+- 4101 RAM
+  - [ ] Addressing, R/W timing, CE logic and tests
+- 4289 Interface
+  - [ ] Address/data muxing and standard memory timings
+- 4308/4316 ROM
+  - [ ] Larger ROM support, CS scheme
+
+### Tier 4 - Support Logic
+- 3205 Decoder, 3404 Latch, 74-series TTL
+  - [ ] Minimal behavioral models and validation
+
+### Tier 5 - Display and I/O
+- Display drivers, Keyboard scanner, Serial UART
+  - [ ] Behavioral models and integration tests
 
 ### Tier 1 - Core Functionality
 1. **4040 CPU** - Core functionality for MCS-40 support
@@ -882,6 +950,22 @@ Under this scheme, the MCS-4 chips would have been:
 Federico Faggin renamed them to the "4000 family" to emphasize they formed a coherent chipset.
 
 ---
+
+## Risk & Quality Gates
+
+## Pre-Commit Quality Review Checklist (Oaich)
+
+Reviewer Mode: Senior Code Review Specialist active as of 2025-12-31T05:01:32Z; applying OWASP, performance, testing (>=90%), maintainability, documentation gates to all Next 10 Tasks and subsequent commits.
+- Security: OWASP pass, input validation for GUI loads, no secrets, proper error handling.
+- Performance: O(n) paths, avoid N+1, no unnecessary cloning; benchmark hot loops.
+- Testing: >=90% coverage backend; unit + integration; property tests for bus protocol; no flakiness.
+- Maintainability: Idiomatic Rust, SRP, cyclomatic < 10, DRY; boundaries clear.
+- Documentation: Public APIs documented, complex algorithms explained, README accurate.
+
+- Security: No unsafe Rust; no secrets; input validation on GUI file loads.
+- Performance: Event-driven sim; avoid unnecessary clone; benchmark critical paths (criterion).
+- Testing: Maintain >=90% coverage; unit + integration; property tests for bus protocol.
+- Documentation: Update ARCHITECTURE.md upon 4040 completion; disasm API docs.
 
 ## Build and Run
 
