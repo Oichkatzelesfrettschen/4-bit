@@ -339,28 +339,13 @@ impl Simulator {
 - Strategy: pack N CPU states; masked operations for branches; gather reads batched.
 - Cranelift (optional): JIT microcode experiments and fuzz acceleration helpers.
 
-## I/O Ports Mapping (RAM/ROM-attached, SRC/ROM I/O)
+## Performance Art Rescope (Zero-Copy, Native Hotpath)
 
-Overview
-- In MCS-4, I/O ports are physically attached to RAM (4002) and ROM (4001) chips.
-- CPU addresses I/O indirectly via SRC (RAM) or special ROM I/O instructions.
-
-RAM I/O (via SRC)
-- Output port latch (4-bit) per 4002 chip; written via WMP; read via RDR.
-- Flow: DCL selects bank → SRC selects chip/register → WRM/WRx write data/status → WMP writes output port → RDM/RDx read.
-- State persists inside chip (distributed state): chip selection, register, character latched by SRC until changed.
-
-ROM I/O (4001)
-- ROM chips can expose input/output lines; accessed during X-phases with ROM I/O control.
-- Fetch phases (M1/M2) coupled with X1/X2/X3 for I/O timing; model pins in ControlSignals and sample during X phases.
-
-Instruction Hooks
-- WMP: write to output port (4002); RDR: read from output port; WR0..WR3/RD0..RD3: write/read status characters.
-- Timing: enforce phase correctness (writes during X2, reads during X3) to match bus protocol.
-
-API Contracts
-- Bus exposes write_output(chip, value) and read_output(chip) with bank/chip resolved via current SRC/DCL.
-- ControlSignals models CM-ROM/CM-RAM and I/O strobes; UI can visualize pin states.
+- Superserialized core: rkyv archives for zero-copy snapshots; time-travel debugging via pointer moves.
+- Hotpath compilation: Release LTO fat, codegen-units=1, panic=abort; const generics to unroll cycle counts.
+- Memory map: mmap ROM (slice &'a [u8]); stack-allocate RAM; avoid Vec in hot loops.
+- Native build: RUSTFLAGS="-C target-cpu=native -C target-feature=+crt-static" for Ryzen-class CPUs.
+- Rationale: 4-bit CPU needs bit-twiddling and cache locality; SIMD reserved for parallel instances.
 
 - Lane width targets: 8 (AVX2), 16 (AVX-512), fallback 4 on SSE; compile-time const LANES with cfg.
 - Layout (SoA):
