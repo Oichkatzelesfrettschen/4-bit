@@ -318,33 +318,35 @@ impl Simulator {
 }
 ```
 
-## UI/UX Modes: CLI, TUI, GUI (Build- and Run-time Selectable)
+## Engineering Reality Check (MCS-4 Emulation)
+- 4004 ~740 kHz; modern CPU has ~6,000 host cycles per emulated cycle.
+- Single-core scalar emulation is sufficient; SIMD is for parallel instances/fuzzing, not single stream.
+- FPU irrelevant; use integer paths; focus on bit-twiddling and cache-friendly layouts.
 
-Build-time features
-- Features: cli, tui, gui (optional). Any combination may be enabled at build.
-- Recommended: enable both tui and gui in dev; cli always available.
+## Core Optimization Stack (Late 2025)
+- modular-bitfield: pack 4-bit fields; ergonomic 4-bit access.
+- bitflags: efficient CPU flags/conditions.
+- smallvec/tinyvec: on-stack call stacks (3-level 4004, 7-level 4040).
+- memchr: fast ROM scanning in decode/loader.
+- bytemuck: zero-copy buffer casting.
+- rkyv: zero-copy snapshots for traces/state.
+- ringbuf: SPSC event bus for UI decoupling.
+- tracing (+subscriber): structured per-opcode logging.
+- criterion: micro-bench loops; IPS metrics.
 
-Run-time selection
-- Binary flags: `--mode cli|tui|gui`; default honors build-enabled modes (falls back to cli if others missing).
-- Config: env var `MCS4_MODE=cli|tui|gui` overrides default.
+## Parallel Emulation (portable-simd, nightly)
+- std::simd: vectorize instances (8/16 lanes); do not vectorize a single stream.
+- Strategy: pack N CPU states; masked operations for branches; gather reads batched.
+- Cranelift (optional): JIT microcode experiments and fuzz acceleration helpers.
 
-CLI (Headless)
-- Purpose: batch execution, ROM fuzzing, regression tests.
-- Interface: commands for load ROM, run cycles, dump state, export traces.
+## Decoupled Frontends (CLI/TUI/GUI)
+- CLI: headless; batch/fuzz/scripting; exports traces and dumps.
+- TUI (ratatui + Crossterm): era-accurate terminal UI; charts for clock phases; hex/disasm/waveform panels.
+- GUI (pixels + winit): framebuffer via WGPU; integer scaling; keyboard mapping to test pins; waveform overlays.
 
-TUI (ratatui + Crossterm)
-- Aesthetic match for era; complex layouts, charts (clock phases), memory views.
-- Panels: CPU state, stack, disassembly, waveform (ASCII), breakpoints.
-- Input: keyboard shortcuts (F5 run, F6 stop, F7 step, etc.).
-
-GUI (pixels + winit)
-- Framebuffer via pixels/WGPU; integer scaling; retro visual fidelity.
-- Window/input via winit; map keys to test pins and ports; render waveform and hex views.
-
-Best Practices
-- Separate UI adapters from core simulation; no UI code in chip/system crates.
-- Shared debugger controller API consumed by CLI/TUI/GUI.
-- Consistent keyboard bindings across TUI/GUI where possible.
+## Event/State Flow
+- Core produces Frame/State and event ring; UI consumes asynchronously; zero-alloc in hot loop.
+- Debugger API shared across CLI/TUI/GUI: start/stop/step, breakpoints, waveform capture.
 
 - Lane width targets: 8 (AVX2), 16 (AVX-512), fallback 4 on SSE; compile-time const LANES with cfg.
 - Layout (SoA):
