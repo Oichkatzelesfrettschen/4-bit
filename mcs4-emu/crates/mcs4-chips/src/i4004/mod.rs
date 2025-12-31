@@ -22,6 +22,7 @@ pub use instruction_decode::{InstructionDecoder, Instruction};
 pub use timing_io::TimingIo;
 
 use mcs4_bus::prelude::*;
+#[allow(unused_imports)]
 use mcs4_core::prelude::*;
 
 /// Intel 4004 CPU
