@@ -1,38 +1,41 @@
-# Documentation Program (2025-12-31T06:29:56Z)
+# Documentation Program (2025-12-31T06:32:29Z)
 
 Objective: Production-grade, registry-driven documentation synchronized with code, covering SIMD cluster execution, dual UI (CLI/TUI/GUI), and emulator architecture. No toy models; complete, elegant docs.
 
-Phases and Deliverables
+MUST DOCUMENT
+- Build/run (README)
+- Architecture and decisions (ARCHITECTURE.md)
+- API interfaces and usage (docs/API.md)
+- Configuration and env variables (docs/DEPLOYMENT.md)
+- Deploy and operate (docs/DEPLOYMENT.md)
+- Breaking changes and migration (docs/CHANGELOG.md)
+- Dependencies and requirements (README)
 
-Phase 1 — Baseline (Done/In Progress)
-- Nightly toolchain, clippy -D warnings gate documented.
-- Portable-SIMD cluster execution captured (Architecture deep dive).
-- Dual UI plan (CLI/TUI/GUI) documented; feature flags and runtime mode selection.
+SHOULD DOCUMENT
+- Troubleshooting (docs/TROUBLESHOOTING.md)
+- Performance tuning and optimization (ARCHITECTURE.md)
+- Contributing (docs/CONTRIBUTING.md)
+- Limitations and workarounds (ARCHITECTURE.md)
+- Testing strategies and coverage (STATUS.md/README)
+- Security considerations (DEPLOYMENT.md)
 
-Phase 2 — Hardening (Execute Now)
-- Complete API.md with scalar + SIMD + UI adapters (CLI/TUI/GUI) quick refs and examples.
-- Expand DEPLOYMENT.md with build matrix (features: simd, cli, tui, gui) and ops workflows.
-- Flesh out TROUBLESHOOTING.md (SIMD lanes, UI backends, common build flags).
-- Add configuration reference (env vars, flags, feature gates).
+NICE TO DOCUMENT
+- History and rationale (ARCHITECTURE.md)
+- Related projects and resources (ARCHITECTURE.md)
+- Future plans and roadmap (docs/ROADMAP.md)
+- Contributors and acknowledgments (README)
+- Benchmarks and performance metrics (README/docs/CHANGELOG.md)
 
-Phase 3 — Automation (Implement)
-- Registry-driven index generation; link_check and md_lint in CI.
-- Doc freshness metrics; staleness alerts; doc build (cargo doc) in CI.
-
-Phase 4 — Scaling (SIMD & Fuzzing)
-- Full API surfaces: CpuStateSimd, CpuSimd, fuzz harness; property tests; scalar-SIMD equivalence.
-- Performance guide: lanes, masks, ROM layout, gather/scatter mitigation; benchmarks.
-
-Operating Standards
-- MUST: build/run, architecture, APIs, config, deploy, breaking changes.
-- SHOULD: troubleshooting, perf, contributing, limitations, testing, security.
-- NICE: history, related projects, roadmap, contributors, benchmarks.
-
-Maintenance Cadence
-- Update docs with code changes; registry timestamp on commit; staleness alert at 90 days.
+Information Architecture
+- Modular docs; central index (docs/INDEX.md); metadata registry (docs/meta/registry.yaml)
+- Cross-links across README, ARCHITECTURE, ROADMAP, STATUS; ToC for long docs
+- Automation: link_check.sh, md_lint.sh; CI builds docs, validates links
 
 SIMD Commitment
-- SIMD plan remains integral: Architecture deep dive + API.md references + Deployment build matrix + Roadmap tasks.
+- SIMD plan integral: Architecture deep dive; API references; Deployment build matrix; Roadmap tasks.
+
+Dual UI Commitment
+- CLI/TUI/GUI documented: build-time features (cli, tui, gui) and runtime selection (--mode).
 
 - README.md
 - ARCHITECTURE.md
