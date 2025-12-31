@@ -318,11 +318,18 @@ impl Simulator {
 }
 ```
 
-## 4-bit Data Handling Strategy
+## Recent Changes (Dec 31, 2025)
 
-- Use modular-bitfield to pack 4-bit registers/flags into integers for ergonomic and efficient bit-twiddling.
-- Use bitflags for CPU flags and condition codes.
-- Use tinyvec/smallvec for call stacks (3-level 4004, 7-level 4040) to avoid heap allocations.
+- Toolchain: switched to rustup nightly via rust-toolchain.toml with rustfmt/clippy.
+- 4040 CPU: scaffolding added (register bank switching, 7-level stack, interrupt controller, core wiring).
+- Decoder: 4040 extended opcodes enum (HLT/DB0/DB1/EIN/DIN, etc.) stubbed and partially wired.
+- GUI: SignalTrace scaffold and Waveform panel stubs added; debugger wiring planned.
+- Docs/Linting: Warnings-as-errors enabled; clippy integrated; modular-bitfield/bitflags/smallvec/tinyvec added.
+
+## 4-bit Data Handling Strategy
+- modular-bitfield for packed 4-bit fields (status/flags/registers) to avoid wasteful 8/32-bit storage.
+- bitflags for condition codes and CPU flags.
+- tinyvec/smallvec for 4004/4040 stacks to avoid heap allocations.
 
 ### Main Window Layout
 ```
