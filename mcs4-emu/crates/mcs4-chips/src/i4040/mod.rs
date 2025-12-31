@@ -9,8 +9,8 @@ use registers::RegFile;
 use stack::CallStack;
 use interrupt::InterruptCtrl;
 
-use crate::i4040::instruction_decode::Op4040;
-use mcs4_bus::BusCycle;
+use crate::i4040::instruction_decode::decode_ext as decode_4040;
+// use mcs4_bus::BusCycle; // unused until tick() implemented
 
 #[derive(Default)]
 pub struct I4040 {
@@ -35,13 +35,14 @@ impl I4040 {
         }
         // Minimal executor: handle control ops fetched from a byte at PC (stub)
         let opcode: u8 = 0; // TODO fetch
-        if let Some(op) = Op4040::decode(opcode) {
+        if let Some(op) = decode_4040(opcode) {
+            use crate::i4040::instruction_decode::Opcode4040 as Op;
             match op {
-                Op4040::Hlt => self.hlt(),
-                Op4040::Db0 => self.regs.db0(),
-                Op4040::Db1 => self.regs.db1(),
-                Op4040::Ein => self.intr.ein(),
-                Op4040::Din => self.intr.din(),
+                Op::Hlt => self.hlt(),
+                Op::Db0 => self.regs.db0(),
+                Op::Db1 => self.regs.db1(),
+                Op::Ein => self.intr.ein(),
+                Op::Din => self.intr.din(),
                 _ => {}
             }
         }
