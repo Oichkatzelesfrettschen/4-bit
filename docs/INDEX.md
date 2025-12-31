@@ -1,38 +1,38 @@
-# Documentation Program (2025-12-31T06:24:26Z)
+# Documentation Program (2025-12-31T06:29:56Z)
 
-Objective: Establish a production-grade, registry-driven documentation system synchronized with code, enabling discovery, correctness, and automation.
+Objective: Production-grade, registry-driven documentation synchronized with code, covering SIMD cluster execution, dual UI (CLI/TUI/GUI), and emulator architecture. No toy models; complete, elegant docs.
 
 Phases and Deliverables
 
 Phase 1 — Baseline (Done/In Progress)
-- Nightly toolchain documented; clippy -D warnings gate; portable-simd cluster design captured.
-- Core docs present: README, ARCHITECTURE, ROADMAP, STATUS, INDEX, metadata registry.
+- Nightly toolchain, clippy -D warnings gate documented.
+- Portable-SIMD cluster execution captured (Architecture deep dive).
+- Dual UI plan (CLI/TUI/GUI) documented; feature flags and runtime mode selection.
 
 Phase 2 — Hardening (Execute Now)
-- Completeness: fill API.md quick reference, DEPLOYMENT.md ops guide, TROUBLESHOOTING.md common failures.
-- Accuracy gates: add doc freshness metrics and link validation script; wire into CI.
-- Discoverability: unify headings, add ToC blocks, cross-links between major docs.
+- Complete API.md with scalar + SIMD + UI adapters (CLI/TUI/GUI) quick refs and examples.
+- Expand DEPLOYMENT.md with build matrix (features: simd, cli, tui, gui) and ops workflows.
+- Flesh out TROUBLESHOOTING.md (SIMD lanes, UI backends, common build flags).
+- Add configuration reference (env vars, flags, feature gates).
 
-Phase 3 — Automation (Plan & Implement)
-- Registry-driven index generation (from docs/meta/registry.yaml).
-- Scripts: link_check.sh, md_lint.sh, registry_validate.sh; nightly job to report staleness.
-- CI: jobs for clippy, docs build (cargo doc), link check, registry validation.
+Phase 3 — Automation (Implement)
+- Registry-driven index generation; link_check and md_lint in CI.
+- Doc freshness metrics; staleness alerts; doc build (cargo doc) in CI.
 
-Phase 4 — Scaling (SIMD & Fuzzing Docs)
-- API surfaces: CpuStateSimd, fuzz harness; examples; property-testing guidance.
-- Performance guide: SIMD lanes, masking, ROM layout; benchmarking checklist.
+Phase 4 — Scaling (SIMD & Fuzzing)
+- Full API surfaces: CpuStateSimd, CpuSimd, fuzz harness; property tests; scalar-SIMD equivalence.
+- Performance guide: lanes, masks, ROM layout, gather/scatter mitigation; benchmarks.
 
 Operating Standards
-- MUST document: build/run, architecture, APIs, config, deploy, breaking changes.
-- SHOULD document: troubleshooting, perf, contributing, limitations, testing, security.
+- MUST: build/run, architecture, APIs, config, deploy, breaking changes.
+- SHOULD: troubleshooting, perf, contributing, limitations, testing, security.
 - NICE: history, related projects, roadmap, contributors, benchmarks.
-- DON’T: duplicate, outdated, trivial code.
 
 Maintenance Cadence
 - Update docs with code changes; registry timestamp on commit; staleness alert at 90 days.
 
-Execution Next
-- Fill API.md/DEPLOYMENT.md/TROUBLESHOOTING.md skeletons; add scripts; wire CI.
+SIMD Commitment
+- SIMD plan remains integral: Architecture deep dive + API.md references + Deployment build matrix + Roadmap tasks.
 
 - README.md
 - ARCHITECTURE.md
