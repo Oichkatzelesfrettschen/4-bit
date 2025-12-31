@@ -15,7 +15,7 @@ pub struct I4040 {
     pub carry: bool,
     pub pc: u16,
     pub stack: CallStack,
-    pub intr: InterruptCtl,
+    pub intr: InterruptCtrl,
     pub halted: bool,
 }
 
