@@ -3,6 +3,7 @@
 mod registers;
 mod stack;
 mod interrupt;
+mod instruction_decode;
 
 use registers::RegFile;
 use stack::CallStack;
@@ -31,13 +32,13 @@ impl I4040 {
         }
         // Minimal executor: handle control ops fetched from a byte at PC (stub)
         let opcode: u8 = 0; // TODO fetch
-        if let Some(op) = super::i4040::instruction_decode::Op4040::decode(opcode) {
+        if let Some(op) = Op4040::decode(opcode) {
             match op {
-                super::i4040::instruction_decode::Op4040::Hlt => self.hlt(),
-                super::i4040::instruction_decode::Op4040::Db0 => self.regs.db0(),
-                super::i4040::instruction_decode::Op4040::Db1 => self.regs.db1(),
-                super::i4040::instruction_decode::Op4040::Ein => self.intr.ein(),
-                super::i4040::instruction_decode::Op4040::Din => self.intr.din(),
+                Op4040::Hlt => self.hlt(),
+                Op4040::Db0 => self.regs.db0(),
+                Op4040::Db1 => self.regs.db1(),
+                Op4040::Ein => self.intr.ein(),
+                Op4040::Din => self.intr.din(),
                 _ => {}
             }
         }
