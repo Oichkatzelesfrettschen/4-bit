@@ -4,7 +4,7 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
-- 2025-12-31T05:37:33Z: Switched repository to rustup nightly; added clippy lint gates (warnings-as-errors) and 4-bit data handling deps (modular-bitfield, bitflags, tinyvec, smallvec). 4040 stack/interrupt/register bank scaffolding landed; decoder stubs and core wiring added.
+- 2025-12-31T05:38:47Z: Scoped SIMD cluster execution plan: vectorize 4004/4040 instances via std::simd (nightly) to fuzz ROMs in parallel; add docs and roadmap entries.
 
 - 2025-12-31T05:00:42Z: Code review gate established per Oaich standards; proceeding with 4040 scaffolding, disasm core, waveform hooks under warnings-as-errors and >=90% coverage.
 - 2025-12-31T05:01:24Z: Senior Code Review Specialist mode engaged; applying OWASP, performance, testing, maintainability gates to Next 10 Tasks before implementation.

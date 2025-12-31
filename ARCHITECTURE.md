@@ -318,13 +318,22 @@ impl Simulator {
 }
 ```
 
-## Recent Changes (Dec 31, 2025)
+## Scaled Execution: 4004 Clusters and ROM Fuzzing (Nightly)
 
-- Toolchain: switched to rustup nightly via rust-toolchain.toml with rustfmt/clippy.
-- 4040 CPU: scaffolding added (register bank switching, 7-level stack, interrupt controller, core wiring).
-- Decoder: 4040 extended opcodes enum (HLT/DB0/DB1/EIN/DIN, etc.) stubbed and partially wired.
-- GUI: SignalTrace scaffold and Waveform panel stubs added; debugger wiring planned.
-- Docs/Linting: Warnings-as-errors enabled; clippy integrated; modular-bitfield/bitflags/smallvec/tinyvec added.
+- Goal: Simulate N instances of 4004/4040 CPUs in parallel to fuzz ROMs or run distributed scenarios.
+- Strategy: Vectorize instances, not instruction streams.
+  - Use portable-simd (std::simd, nightly) to pack 8/16/32 CPU states per SIMD lane (e.g., AVX2/AVX-512).
+  - Execute single-instruction semantics across lanes (e.g., ADD, SUB) while preserving per-lane flags/PC.
+- Design implications:
+  - CPUStateSIMD: structure-of-arrays layout for ACC, CY, PC, regs, stack, flags as Simd<T, LANES>.
+  - Lane masking: conditional branches (JCN/ISZ) require per-lane masks and masked updates to PC/stack.
+  - Bus/model separation: ROM/RAM reads use per-lane addressing; vectorized fetch decodes into per-lane opcodes.
+- Fuzzing pipeline:
+  - Generate ROM corpora; feed batches of 16 ROMs; run vectorized step loops; record crashes/divergences.
+  - Coverage hooks via masked counters; reduce per-lane results.
+- Requirements:
+  - Nightly toolchain enabled (std::simd); baseline scalar path remains for compatibility.
+  - Property tests comparing scalar vs SIMD lanes for correctness.
 
 ## 4-bit Data Handling Strategy
 - modular-bitfield for packed 4-bit fields (status/flags/registers) to avoid wasteful 8/32-bit storage.
