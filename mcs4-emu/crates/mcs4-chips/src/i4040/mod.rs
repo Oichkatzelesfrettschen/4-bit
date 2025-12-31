@@ -9,7 +9,11 @@ use registers::RegFile;
 use stack::CallStack;
 use interrupt::InterruptCtrl;
 
+use crate::i4040::instruction_decode::Op4040;
 use mcs4_bus::BusCycle;
+
+#[derive(Default)]
+pub struct I4040 {
     pub regs: RegFile,
     pub acc: u8,
     pub carry: bool,
