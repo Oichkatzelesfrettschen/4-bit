@@ -31,14 +31,23 @@ Information Architecture
 - Cross-links across README, ARCHITECTURE, ROADMAP, STATUS; ToC for long docs
 - Automation: link_check.sh, md_lint.sh; CI builds docs, validates links
 
-SIMD Commitment
-- SIMD plan integral: Architecture deep dive; API references; Deployment build matrix; Roadmap tasks.
+## Documentation Quality Checklist
+- Completeness: README, build/run, architecture, API, deployment, config, breaking changes
+- Accuracy: examples tested, links valid, no outdated info
+- Discoverability: clear structure, cross-links, ToC, index/registry
+- Maintainability: versioned, updates with code, link checks automated, no duplication
 
-Dual UI Commitment
-- CLI/TUI/GUI documented: build-time features (cli, tui, gui) and runtime selection (--mode).
+## Organization Patterns
+- Modular docs with imports; central index and metadata registry
+- Component docs for major modules; integration guide across components
+- API quick reference + complete reference + tutorials + best practices
 
-- README.md
-- ARCHITECTURE.md
+## Knowledge System Design Process
+- Audit → IA design → Registry → Document & version → Discovery aids → Automate maintenance
+
+## Metrics & Anti-Patterns
+- Metrics: completeness, freshness (90-day alert), link validity, readability
+- Anti-patterns: outdated, duplicated, scattered info; fix via centralization and CI gates
 - docs/API.md
 - docs/DEPLOYMENT.md
 - docs/CONTRIBUTING.md
