@@ -318,7 +318,11 @@ impl Simulator {
 }
 ```
 
-## GUI Requirements
+## 4-bit Data Handling Strategy
+
+- Use modular-bitfield to pack 4-bit registers/flags into integers for ergonomic and efficient bit-twiddling.
+- Use bitflags for CPU flags and condition codes.
+- Use tinyvec/smallvec for call stacks (3-level 4004, 7-level 4040) to avoid heap allocations.
 
 ### Main Window Layout
 ```

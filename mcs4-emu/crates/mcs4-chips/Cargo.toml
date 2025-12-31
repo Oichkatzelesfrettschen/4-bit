@@ -8,6 +8,10 @@ repository.workspace = true
 authors.workspace = true
 
 [dependencies]
+bitflags = "2"
+modular-bitfield = "0.11"
+tinyvec = { version = "1", features = ["alloc"] }
+smallvec = "1"
 mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }
 tracing.workspace = true
