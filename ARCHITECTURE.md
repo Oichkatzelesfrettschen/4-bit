@@ -318,22 +318,39 @@ impl Simulator {
 }
 ```
 
-## Scaled Execution: 4004 Clusters and ROM Fuzzing (Nightly)
+### Portable-SIMD Cluster Execution Design (Deep Dive)
 
-- Goal: Simulate N instances of 4004/4040 CPUs in parallel to fuzz ROMs or run distributed scenarios.
-- Strategy: Vectorize instances, not instruction streams.
-  - Use portable-simd (std::simd, nightly) to pack 8/16/32 CPU states per SIMD lane (e.g., AVX2/AVX-512).
-  - Execute single-instruction semantics across lanes (e.g., ADD, SUB) while preserving per-lane flags/PC.
-- Design implications:
-  - CPUStateSIMD: structure-of-arrays layout for ACC, CY, PC, regs, stack, flags as Simd<T, LANES>.
-  - Lane masking: conditional branches (JCN/ISZ) require per-lane masks and masked updates to PC/stack.
-  - Bus/model separation: ROM/RAM reads use per-lane addressing; vectorized fetch decodes into per-lane opcodes.
-- Fuzzing pipeline:
-  - Generate ROM corpora; feed batches of 16 ROMs; run vectorized step loops; record crashes/divergences.
-  - Coverage hooks via masked counters; reduce per-lane results.
-- Requirements:
-  - Nightly toolchain enabled (std::simd); baseline scalar path remains for compatibility.
-  - Property tests comparing scalar vs SIMD lanes for correctness.
+- Lane width targets: 8 (AVX2), 16 (AVX-512), fallback 4 on SSE; compile-time const LANES with cfg.
+- Layout (SoA):
+  - acc: Simd<u8, LANES> (low nibble), carry: SimdMask<LANES>
+  - pc: Simd<u16, LANES> (12-bit masked), regs: [Simd<u8, LANES>; 16], stack: [Simd<u16, LANES>; 7], sp: Simd<u8, LANES>
+  - flags/status: Simd<u8, LANES> via modular-bitfield encode/decode helpers
+- Fetch/decode:
+  - rom_ptrs: [&[u8]; LANES] or Simd<u32, LANES> base + per-lane offsets; gather loads to fetch OPA/OPR
+  - decode scalar table, apply per-lane masks; future: vector-friendly decode table
+- Execute (examples):
+  - ADD r: value = regs[r]; sum = acc + value + carry.to_int(); carry = sum.gt(0x0F); acc = sum & 0x0F
+  - JCN cond, addr: mask = eval_cond(cond, acc, carry, test); pc = select(mask, (pc & 0xF00)|addr, pc)
+  - ISZ r, addr: inc = (regs[r]+1)&0x0F; zero = inc.eq(0); regs[r]=inc; pc=select(!zero,(pc&0xF00)|addr,pc)
+- Masking utilities:
+  - select(mask, a, b): mask.select(a, b) for Simd values; for arrays, per-lane write with mask
+  - stack push/pop: guard with lane masks; overflow/underflow tracked per lane
+- Bus and memory:
+  - ROM: per-lane pointer/offset; RAM/I/O: lane-indexed arrays; X1/X2/X3 phases advance per-lane
+- Fuzzing harness:
+  - Seed corpus per lane; run N steps; collect coverage (Simd<u32>) and divergence hashes; shrink failing inputs
+- Correctness gates:
+  - Property tests: scalar CPU vs SIMD lane 0..LANES-1 equivalence on random programs
+  - Determinism: ensure masked side effects don't bleed across lanes
+- Performance:
+  - Avoid gather/scatter hot paths by structuring ROM as contiguous banks; precompute per-lane page selects
+  - Batch branch resolution to reduce mask thrash; use bitmasks for conditions
+- API sketch:
+  - CpuSimd<const LANES: usize> { state: CpuStateSimd<LANES>, roms: [RomRef; LANES] }
+  - fn step(&mut self) -> StepResultSimd { /* vectorized phases */ }
+  - fn load_roms(&mut self, roms: [&[u8]; LANES]);
+- Nightly requirements:
+  - std::simd; feature gates in crate root; fallback to scalar when unavailable
 
 ## 4-bit Data Handling Strategy
 - modular-bitfield for packed 4-bit fields (status/flags/registers) to avoid wasteful 8/32-bit storage.
