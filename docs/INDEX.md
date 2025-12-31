@@ -1,43 +1,38 @@
-# Senior Documentation Architect Plan (Live)
+# Documentation Program (2025-12-31T06:24:26Z)
 
-- Role: Design and maintain a distributed knowledge system for the 4-bit project.
-- Scope: README, Architecture, API, Deployment, Troubleshooting, Roadmap, Status, Index, Metadata Registry.
-- Strategy: Registry-driven discovery, modular docs, cross-links, automation for validation and freshness.
+Objective: Establish a production-grade, registry-driven documentation system synchronized with code, enabling discovery, correctness, and automation.
 
-## MUST DOCUMENT (Checklist)
-- Build/run (README)
-- Architecture and decisions (ARCHITECTURE.md)
-- APIs and usage (docs/API.md)
-- Configuration/env (docs/DEPLOYMENT.md)
-- Deploy/operate (docs/DEPLOYMENT.md)
-- Breaking changes/migrations (docs/CHANGELOG.md)
-- Dependencies/requirements (README)
+Phases and Deliverables
 
-## SHOULD DOCUMENT
-- Troubleshooting (docs/TROUBLESHOOTING.md)
-- Performance tuning (ARCHITECTURE.md → Optimization)
-- Contributing (docs/CONTRIBUTING.md)
-- Limitations/workarounds (ARCHITECTURE.md → Limitations)
-- Testing strategies (STATUS.md → Coverage; README → Testing)
-- Security considerations (DEPLOYMENT.md → Security)
+Phase 1 — Baseline (Done/In Progress)
+- Nightly toolchain documented; clippy -D warnings gate; portable-simd cluster design captured.
+- Core docs present: README, ARCHITECTURE, ROADMAP, STATUS, INDEX, metadata registry.
 
-## NICE TO DOCUMENT
-- Historical context (ARCHITECTURE.md → History)
-- Related projects (ARCHITECTURE.md → References)
-- Future plans (docs/ROADMAP.md)
-- Contributors/acknowledgments (README)
-- Benchmarks (docs/CHANGELOG.md / README)
+Phase 2 — Hardening (Execute Now)
+- Completeness: fill API.md quick reference, DEPLOYMENT.md ops guide, TROUBLESHOOTING.md common failures.
+- Accuracy gates: add doc freshness metrics and link validation script; wire into CI.
+- Discoverability: unify headings, add ToC blocks, cross-links between major docs.
 
-## Metadata Registry (YAML)
-- docs/meta/registry.yaml tracks all docs; last_updated set by commit.
-- Enables automated index generation and link validation.
+Phase 3 — Automation (Plan & Implement)
+- Registry-driven index generation (from docs/meta/registry.yaml).
+- Scripts: link_check.sh, md_lint.sh, registry_validate.sh; nightly job to report staleness.
+- CI: jobs for clippy, docs build (cargo doc), link check, registry validation.
 
-## Automation Roadmap
-- Scripts: link check, markdown lint, YAML validate, freshness audit.
-- CI: clippy -D warnings; docs build; link validation.
+Phase 4 — Scaling (SIMD & Fuzzing Docs)
+- API surfaces: CpuStateSimd, fuzz harness; examples; property-testing guidance.
+- Performance guide: SIMD lanes, masking, ROM layout; benchmarking checklist.
 
-## Current Date
-- 2025-12-31T06:23:29.874Z
+Operating Standards
+- MUST document: build/run, architecture, APIs, config, deploy, breaking changes.
+- SHOULD document: troubleshooting, perf, contributing, limitations, testing, security.
+- NICE: history, related projects, roadmap, contributors, benchmarks.
+- DON’T: duplicate, outdated, trivial code.
+
+Maintenance Cadence
+- Update docs with code changes; registry timestamp on commit; staleness alert at 90 days.
+
+Execution Next
+- Fill API.md/DEPLOYMENT.md/TROUBLESHOOTING.md skeletons; add scripts; wire CI.
 
 - README.md
 - ARCHITECTURE.md
