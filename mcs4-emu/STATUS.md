@@ -13,7 +13,9 @@
 
 ## Project Goal
 
-Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4 and MCS-40 system with GUI emulator/debugger/programmer, including ALL support chips from the original Intel kits plus era-appropriate peripherals.
+Build a cycle-accurate, timing-accurate, and electrically-accurate virtual MCS-4
+and MCS-40 system with GUI emulator/debugger/programmer, including ALL support
+chips from the original Intel kits plus era-appropriate peripherals.
 
 ## Architecture Decisions
 
