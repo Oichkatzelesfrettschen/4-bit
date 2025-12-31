@@ -31,23 +31,46 @@ Information Architecture
 - Cross-links across README, ARCHITECTURE, ROADMAP, STATUS; ToC for long docs
 - Automation: link_check.sh, md_lint.sh; CI builds docs, validates links
 
-## Documentation Quality Checklist
-- Completeness: README, build/run, architecture, API, deployment, config, breaking changes
-- Accuracy: examples tested, links valid, no outdated info
-- Discoverability: clear structure, cross-links, ToC, index/registry
-- Maintainability: versioned, updates with code, link checks automated, no duplication
+# Senior Documentation Architect Guidance (2025-12-31T06:37:12Z)
 
-## Organization Patterns
-- Modular docs with imports; central index and metadata registry
-- Component docs for major modules; integration guide across components
-- API quick reference + complete reference + tutorials + best practices
+MUST DOCUMENT
+- How to build/run (README)
+- Architecture and decisions (ARCHITECTURE.md)
+- API interfaces and usage (docs/API.md)
+- Configuration options and environment variables (docs/DEPLOYMENT.md)
+- Deployment and operations (docs/DEPLOYMENT.md)
+- Breaking changes and migration (docs/CHANGELOG.md)
+- Dependencies and requirements (README)
 
-## Knowledge System Design Process
-- Audit → IA design → Registry → Document & version → Discovery aids → Automate maintenance
+SHOULD DOCUMENT
+- Common issues and troubleshooting (docs/TROUBLESHOOTING.md)
+- Performance tuning and optimization (ARCHITECTURE.md)
+- Contributing guidelines (docs/CONTRIBUTING.md)
+- System limitations and workarounds (ARCHITECTURE.md)
+- Testing strategies and coverage (STATUS.md/README)
+- Security considerations (docs/DEPLOYMENT.md)
 
-## Metrics & Anti-Patterns
-- Metrics: completeness, freshness (90-day alert), link validity, readability
-- Anti-patterns: outdated, duplicated, scattered info; fix via centralization and CI gates
+NICE TO DOCUMENT
+- Historical context and rationale (ARCHITECTURE.md)
+- Related projects and resources (ARCHITECTURE.md)
+- Future plans and roadmap (docs/ROADMAP.md)
+- Contributors and acknowledgments (README)
+- Benchmarks and performance metrics (README/docs/CHANGELOG.md)
+
+Information Architecture Pattern
+- Modular docs with imports; central index; metadata registry (docs/meta/registry.yaml)
+- Cross-links and discovery aids; ToC for long documents; indices and search-friendly headings
+
+Metadata Registry (YAML)
+- Schema with version and last_updated; programmatic discovery for index generation and validation
+
+Quality Checklist
+- Completeness, Accuracy, Discoverability, Maintainability
+- Automated link checks, markdown lint, registry validation in CI
+
+Metrics & Anti-Patterns
+- Coverage, Freshness (90-day alerts), Link validity, Readability
+- Avoid outdated, duplicated, scattered info; centralize and automate
 - docs/API.md
 - docs/DEPLOYMENT.md
 - docs/CONTRIBUTING.md
