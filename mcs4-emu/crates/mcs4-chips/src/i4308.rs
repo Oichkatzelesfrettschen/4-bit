@@ -2,6 +2,7 @@
 use mcs4_bus::BusCycle;
 
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub struct I4308 { rom: Vec<u8> }
 impl I4308 { pub fn new() -> Self { Self { rom: vec![0; 1024] } } }
 impl Default for I4308 { fn default() -> Self { Self::new() } }
