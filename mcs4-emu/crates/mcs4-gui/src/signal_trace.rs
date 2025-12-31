@@ -1,4 +1,5 @@
 // Signal trace buffer scaffolding
+#[allow(unused_imports)]
 use std::sync::{Arc,RwLock};
 
 #[derive(Clone, Copy, Debug)]
