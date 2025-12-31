@@ -9,8 +9,7 @@ use registers::RegFile;
 use stack::CallStack;
 use interrupt::InterruptCtrl;
 
-#[derive(Default)]
-pub struct I4040 {
+use mcs4_bus::BusCycle;
     pub regs: RegFile,
     pub acc: u8,
     pub carry: bool,
