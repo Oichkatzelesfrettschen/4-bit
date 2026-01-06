@@ -13,7 +13,8 @@ Guiding rules:
 - Update `mcs4-emu/INSTALLATION.md` with per-crate requirements.
 - Normalize docs registry/INDEX and CI doc checks.
 - Track workspace lint inheritance and MSRV across all crates.
-- Add primary-source citations to `docs/AUDIT.md` for CPU specs.
+- Add primary-source citations to `docs/AUDIT.md` for CPU specs and resolve open gaps.
+- Adopt Rust 2024 edition across the workspace and validate toolchain compatibility.
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.
@@ -44,6 +45,7 @@ Guiding rules:
 - Transistor-level simulation model (event-driven or nodal analysis).
 - Populate inverter/NAND transistor models and simulation parameters.
 - Resolve `transistor.rs` TODOs in `mcs4-core` and ARCHITECTURE stubs.
+- Replace placeholder netlist output in `mcs4-fpga/src/verilog.rs` with gate-level export.
 
 ## Cross-cutting
 - Documentation audit + source validation (claims and specs).

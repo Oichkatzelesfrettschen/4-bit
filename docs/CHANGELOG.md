@@ -5,6 +5,12 @@
 - Began 4040 scaffolding.
 
 ## 2026-01-06
+- Added bitsavers URLs to audit sources and documented derived 4040 clock period interpretation.
+- Updated README with system clock period note and discrete-transistor claim source link.
+- Expanded roadmap to track Rust edition upgrade audit.
+- Upgraded workspace and rustfmt edition to 2024 and resolved clippy collapsible-if warnings.
+- Re-ran fmt, clippy, and workspace tests after edition update.
+- Updated installation and gemini notes to reflect Rust 2024 edition and OCR status.
 - Consolidated workspace configuration at repo root.
 - Added audit log and updated installation, deployment, and roadmap docs.
 - Corrected 4040 clock-rate entry in README.

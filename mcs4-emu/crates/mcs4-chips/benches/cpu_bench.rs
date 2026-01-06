@@ -1,4 +1,4 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{Criterion, black_box, criterion_group, criterion_main};
 use mcs4_bus::{ControlSignals, DataBus};
 use mcs4_chips::i4004::I4004;
 

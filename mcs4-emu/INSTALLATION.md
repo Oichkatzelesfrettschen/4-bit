@@ -2,7 +2,7 @@
 
 ## Toolchain (Required)
 - Rust nightly pinned in `rust-toolchain.toml` (2026-01-06) with components: rustfmt, clippy, miri, llvm-tools-preview.
-- Edition: 2021 (workspace-wide).
+- Edition: 2024 (workspace-wide).
 - MSRV (stable baseline): Rust 1.92.0 (latest stable as of 2026-01-05).
   - Source: https://github.com/rust-lang/rust/releases/tag/1.92.0
 - Cargo resolver v2 (workspace already uses `resolver = "2"`).

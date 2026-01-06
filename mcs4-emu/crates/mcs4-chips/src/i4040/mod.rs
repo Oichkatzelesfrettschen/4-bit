@@ -108,19 +108,20 @@ impl I4040 {
     fn phase_a1(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         // Interrupt Handling (Start of instruction cycle)
         // If not already in second cycle of a 2-byte instruction...
-        if !self.cycle.second_cycle && !self.cycle.two_cycle {
-            if let Some(vector) = self.intr.service(self.current_src()) {
-                // Push current PC to stack
-                // Note: The PC has not been incremented for the NEXT instruction yet,
-                // but we are at the start of fetching the NEXT instruction.
-                // So pushing `self.pc` is correct (it points to the instruction we were about to fetch).
-                if self.stack.push(self.pc).is_err() {
-                    // Stack overflow handling? Real 4040 wraps or corrupts?
-                    // For now, we just proceed (maybe log error)
-                }
-                self.pc = vector;
-                self.halted = false; // Interrupt wakes up HLT
+        if !self.cycle.second_cycle
+            && !self.cycle.two_cycle
+            && let Some(vector) = self.intr.service(self.current_src())
+        {
+            // Push current PC to stack
+            // Note: The PC has not been incremented for the NEXT instruction yet,
+            // but we are at the start of fetching the NEXT instruction.
+            // So pushing `self.pc` is correct (it points to the instruction we were about to fetch).
+            if self.stack.push(self.pc).is_err() {
+                // Stack overflow handling? Real 4040 wraps or corrupts?
+                // For now, we just proceed (maybe log error)
             }
+            self.pc = vector;
+            self.halted = false; // Interrupt wakes up HLT
         }
 
         if self.halted {
@@ -191,10 +192,10 @@ impl I4040 {
             return;
         }
         // Execute instruction (for single-cycle instructions)
-        if !self.decoder.needs_second_byte() {
-            if let Some(instr) = self.decoder.get_instruction() {
-                self.execute(instr, bus);
-            }
+        if !self.decoder.needs_second_byte()
+            && let Some(instr) = self.decoder.get_instruction()
+        {
+            self.execute(instr, bus);
         }
     }
 

@@ -153,11 +153,7 @@ impl ControlSignals {
             }
         }
 
-        if any_selected {
-            Some(bank)
-        } else {
-            None
-        }
+        if any_selected { Some(bank) } else { None }
     }
 
     /// Get currently selected RAM bank (if any)
@@ -172,11 +168,7 @@ impl ControlSignals {
             }
         }
 
-        if any_selected {
-            Some(bank)
-        } else {
-            None
-        }
+        if any_selected { Some(bank) } else { None }
     }
 
     /// Check if TEST input is active (active low)

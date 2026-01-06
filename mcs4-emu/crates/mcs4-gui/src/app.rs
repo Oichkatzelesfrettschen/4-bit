@@ -2,8 +2,8 @@
 
 use std::{
     sync::{
-        atomic::{AtomicBool, Ordering},
         Arc, RwLock,
+        atomic::{AtomicBool, Ordering},
     },
     thread,
     time::Duration,
@@ -49,14 +49,14 @@ impl Mcs4App {
                     continue;
                 }
 
-                if let Ok(mut sys) = sys_clone.write() {
-                    if let Ok(mut trace) = trace_clone.write() {
-                        // Actually, let's step the system multiple times per loop
-                        for _ in 0..100 {
-                            // Capture before step
-                            trace.push(sys.cycles(), &sys.bus, &sys.control, sys.phase(), &sys.clock);
-                            sys.step();
-                        }
+                if let Ok(mut sys) = sys_clone.write()
+                    && let Ok(mut trace) = trace_clone.write()
+                {
+                    // Actually, let's step the system multiple times per loop
+                    for _ in 0..100 {
+                        // Capture before step
+                        trace.push(sys.cycles(), &sys.bus, &sys.control, sys.phase(), &sys.clock);
+                        sys.step();
                     }
                 }
                 thread::sleep(Duration::from_millis(1));
@@ -83,20 +83,20 @@ impl eframe::App for Mcs4App {
                     is_running = !is_running;
                     self.running.store(is_running, Ordering::Relaxed);
                 }
-                if ui.button("Step").clicked() {
-                    if let Ok(mut sys) = self.system.write() {
-                        sys.step();
-                        // Update disasm on step
-                        self.disasm_panel.update(&self.rom_data, sys.pc());
-                    }
+                if ui.button("Step").clicked()
+                    && let Ok(mut sys) = self.system.write()
+                {
+                    sys.step();
+                    // Update disasm on step
+                    self.disasm_panel.update(&self.rom_data, sys.pc());
                 }
-                if ui.button("Reset").clicked() {
-                    if let Ok(mut sys) = self.system.write() {
-                        sys.reset();
-                        // Reload ROM
-                        sys.load_rom(&self.rom_data);
-                        self.disasm_panel.update(&self.rom_data, sys.pc());
-                    }
+                if ui.button("Reset").clicked()
+                    && let Ok(mut sys) = self.system.write()
+                {
+                    sys.reset();
+                    // Reload ROM
+                    sys.load_rom(&self.rom_data);
+                    self.disasm_panel.update(&self.rom_data, sys.pc());
                 }
             });
         });

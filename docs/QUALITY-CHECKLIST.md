@@ -15,3 +15,8 @@
 - 2026-01-06: `cargo clippy-all`
 - 2026-01-06: `cargo test --workspace --locked`
 - 2026-01-06: `scripts/doc_validate.sh`
+- 2026-01-06: `scripts/doc_validate.sh` (post-audit update)
+- 2026-01-06: `cargo fmt --all -- --check` (edition 2024)
+- 2026-01-06: `cargo clippy-all` (edition 2024)
+- 2026-01-06: `cargo test --workspace --locked` (edition 2024)
+- 2026-01-06: `scripts/doc_validate.sh` (post-edition update)

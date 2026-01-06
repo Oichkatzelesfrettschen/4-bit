@@ -11,11 +11,7 @@ impl RegFile {
     }
     #[inline]
     fn map_index(&self, r: usize) -> usize {
-        if r < 8 {
-            r + (self.bank as usize) * 16
-        } else {
-            r
-        }
+        if r < 8 { r + (self.bank as usize) * 16 } else { r }
     }
     #[inline]
     pub fn get(&self, r: usize) -> u8 {

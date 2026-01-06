@@ -19,6 +19,7 @@ Enhanced successor to the 4004 with expanded capabilities:
 - 10 micron process (secondary source; primary confirmation pending; see `docs/AUDIT.md`)
 - 10.8 microsecond instruction cycle (primary)
 - 5.185 MHz system clock (Intellec 4/MOD 40; primary)
+- System clock period 1.35-2.0 usec (derived 0.5-0.74 MHz; CPU max clock not explicitly stated; see `docs/AUDIT.md`)
 - 60 instructions (14 more than 4004)
 - Interrupt capability
 - Additional registers (24 index registers vs 16)
@@ -123,7 +124,7 @@ Key dates:
 
 ## Recent Developments
 
-In November 2025, Klaus Scheffler and Lajos Kintli reportedly completed a discrete-transistor implementation of the complete MCS-4 system, achieving 2x the original clock speed (claim pending verification; see `docs/AUDIT.md`).
+In November 2025, Klaus Scheffler and Lajos Kintli reportedly completed a discrete-transistor implementation of the complete MCS-4 system, achieving 2x the original clock speed (reported on [4004.com](https://www.4004.com/); primary confirmation pending; see `docs/AUDIT.md`).
 
 ## License
 

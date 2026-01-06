@@ -4,6 +4,8 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-06T20:25:27Z: Upgraded workspace to Rust edition 2024, resolved clippy collapsible-if warnings, and reran fmt/clippy/tests.
+- 2026-01-06T20:21:23Z: Added bitsavers source links to AUDIT, marked 4040 clock as derived from system period, and refreshed README/ROADMAP/CHANGELOG/INDEX/registry timestamps.
 - 2026-01-06T20:00:22Z: Installed go-yq + tesseract data, ran fmt/clippy/tests/doc validation, updated AUDIT with OCR clock-period citations, refreshed docs/README/install/development/roadmap/quality logs.
 - 2026-01-06T07:41:40Z: Added root licenses, ran doc registry validation with local yq, and OCR-verified MCS-4 timing from primary datasheets.
 - 2026-01-06T07:36:00Z: Added primary-source citations to AUDIT, updated ARCHITECTURE and ROADMAP, added CI workflow, and enforced clippy warnings-as-errors.
