@@ -6,4 +6,6 @@
 - Configuration documented
 - Troubleshooting
 - Roadmap synced with STATUS
+- Warnings treated as errors (build, test, lint)
 - Automation scripts pass
+- Clean script removes artifacts (target/coverage)

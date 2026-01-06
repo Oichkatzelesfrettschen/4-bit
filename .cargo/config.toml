@@ -1,0 +1,22 @@
+[build]
+rustflags = [
+  "-C", "instrument-coverage",
+  "-C", "link-dead-code",
+  "-C", "force-frame-pointers=yes",
+  "-C", "debuginfo=2",
+  "-C", "target-cpu=native",
+  "-D", "warnings"
+]
+
+[env]
+RUSTDOCFLAGS = "-D warnings"
+LLVM_PROFILE_FILE = "coverage/%p-%m.profraw"
+
+[alias]
+clippy-all = "clippy --all-targets --all-features -- -D warnings"
+fmt-all = "fmt --all"
+miri-all = "miri test"
+audit = "audit"
+deny = "deny check"
+# Coverage with cargo-llvm-cov (requires cargo-llvm-cov installed)
+cov = "llvm-cov --workspace --all-features --lcov --output-path coverage/lcov.info"

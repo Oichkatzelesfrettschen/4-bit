@@ -19,4 +19,7 @@
 - mcs4_system::{Mcs4, Mcs40}
 
 ## Configuration
-- Environment: MCS4_ROM, MCS4_RAM, LOG_LEVEL.
+- Environment variables (planned, not yet wired in code):
+  - MCS4_ROM
+  - MCS4_RAM
+  - LOG_LEVEL (use RUST_LOG for tracing today)

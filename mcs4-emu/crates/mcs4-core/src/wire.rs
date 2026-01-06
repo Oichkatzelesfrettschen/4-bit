@@ -1,7 +1,9 @@
 //! Wire and net modeling for interconnect delay simulation
 
-use crate::signal::SignalId;
-use crate::timing::{Delay, PICOSECOND};
+use crate::{
+    signal::SignalId,
+    timing::{Delay, PICOSECOND},
+};
 
 /// Fanout information for a net
 #[derive(Clone, Debug, Default)]
@@ -55,8 +57,8 @@ impl Wire {
             source,
             destinations,
             fanout,
-            resistance: 10.0,   // Default 10 ohms
-            capacitance: 5.0,   // Default 5 fF base
+            resistance: 10.0, // Default 10 ohms
+            capacitance: 5.0, // Default 5 fF base
         }
     }
 
@@ -130,13 +132,14 @@ pub mod wire_model {
         // Manhattan distance in micrometers
         let dx = (x2 - x1).unsigned_abs();
         let dy = (y2 - y1).unsigned_abs();
-        (dx + dy) as f64
+        f64::from(dx + dy)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::{wire_model, Fanout, Wire};
+    use crate::signal::SignalId;
 
     #[test]
     fn test_fanout_delay() {

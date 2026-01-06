@@ -1,1 +1,35 @@
-metadata:\n  version: "1.0"\n  last_updated: "2025-12-31T05:20:13Z"\n\ndocs:\n  - file: README.md\n    role: overview\n  - file: ARCHITECTURE.md\n    role: architecture\n  - file: docs/API.md\n    role: api\n  - file: docs/DEPLOYMENT.md\n    role: operations\n  - file: docs/CONTRIBUTING.md\n    role: contributing\n  - file: docs/TROUBLESHOOTING.md\n    role: troubleshooting\n  - file: docs/CHANGELOG.md\n    role: changelog\n  - file: docs/ROADMAP.md\n    role: roadmap\n
+metadata:
+  version: "1.0"
+  last_updated: "2026-01-06T08:15:35Z"
+
+docs:
+  - file: README.md
+    role: overview
+  - file: gemini.md
+    role: meta
+  - file: ARCHITECTURE.md
+    role: architecture
+  - file: mcs4-emu/STATUS.md
+    role: status
+  - file: mcs4-emu/INSTALLATION.md
+    role: installation
+  - file: docs/API.md
+    role: api
+  - file: docs/DEPLOYMENT.md
+    role: operations
+  - file: docs/CONTRIBUTING.md
+    role: contributing
+  - file: docs/TROUBLESHOOTING.md
+    role: troubleshooting
+  - file: docs/CHANGELOG.md
+    role: changelog
+  - file: docs/ROADMAP.md
+    role: roadmap
+  - file: docs/INDEX.md
+    role: index
+  - file: docs/DEVELOPMENT.md
+    role: development
+  - file: docs/QUALITY-CHECKLIST.md
+    role: quality
+  - file: docs/AUDIT.md
+    role: audit

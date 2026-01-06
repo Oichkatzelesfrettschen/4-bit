@@ -3,7 +3,11 @@ name = "mcs4-fpga"
 description = "FPGA synthesis support for MCS-4/MCS-40"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
+
+[lints]
+workspace = true
 
 [dependencies]
 mcs4-core = { path = "../mcs4-core" }

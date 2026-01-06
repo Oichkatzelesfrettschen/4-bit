@@ -1,11 +1,12 @@
 //! Event-driven digital simulation engine
 
-use std::cmp::Reverse;
-use std::collections::{BinaryHeap, HashMap};
+use std::{cmp::Reverse, collections::BinaryHeap};
 
-use crate::gate::Gate;
-use crate::signal::{Signal, SignalId, SignalLevel};
-use crate::timing::Time;
+use crate::{
+    gate::Gate,
+    signal::{Signal, SignalId, SignalLevel},
+    timing::Time,
+};
 
 /// A simulation event
 #[derive(Clone, Debug)]
@@ -107,14 +108,14 @@ pub struct Simulator {
     /// Event queue (min-heap by time)
     events: BinaryHeap<Reverse<Event>>,
 
-    /// All signals in the simulation
-    signals: HashMap<SignalId, Signal>,
+    /// All signals in the simulation (using Vec for performance)
+    signals: Vec<Signal>,
 
     /// All gates in the simulation
     gates: Vec<Box<dyn Gate>>,
 
     /// Mapping from signal ID to gates that depend on it
-    signal_to_gates: HashMap<SignalId, Vec<usize>>,
+    signal_to_gates: Vec<Vec<usize>>,
 
     /// Configuration
     config: SimulatorConfig,
@@ -122,8 +123,8 @@ pub struct Simulator {
     /// Statistics
     stats: SimulatorStats,
 
-    /// Next available signal ID
-    next_signal_id: u32,
+    /// Reusable buffer for gate evaluation to avoid allocations
+    eval_buffer: Vec<SignalLevel>,
 }
 
 impl Simulator {
@@ -137,12 +138,12 @@ impl Simulator {
         Self {
             current_time: 0,
             events: BinaryHeap::new(),
-            signals: HashMap::new(),
+            signals: Vec::new(),
             gates: Vec::new(),
-            signal_to_gates: HashMap::new(),
+            signal_to_gates: Vec::new(),
             config,
             stats: SimulatorStats::default(),
-            next_signal_id: 0,
+            eval_buffer: Vec::with_capacity(16),
         }
     }
 
@@ -158,8 +159,7 @@ impl Simulator {
 
     /// Allocate a new signal ID
     pub fn alloc_signal(&mut self, name: impl Into<String>, initial: SignalLevel) -> SignalId {
-        let id = SignalId(self.next_signal_id);
-        self.next_signal_id += 1;
+        let id = SignalId(self.signals.len() as u32);
 
         let signal = if self.config.record_history {
             Signal::with_history_limit(name, initial, self.config.max_history)
@@ -167,7 +167,8 @@ impl Simulator {
             Signal::new(name, initial)
         };
 
-        self.signals.insert(id, signal);
+        self.signals.push(signal);
+        self.signal_to_gates.push(Vec::new());
         id
     }
 
@@ -177,10 +178,10 @@ impl Simulator {
 
         // Register this gate as dependent on its inputs
         for &input in gate.inputs() {
-            self.signal_to_gates
-                .entry(input)
-                .or_default()
-                .push(gate_id);
+            let idx = input.0 as usize;
+            if idx < self.signal_to_gates.len() {
+                self.signal_to_gates[idx].push(gate_id);
+            }
         }
 
         self.gates.push(gate);
@@ -205,20 +206,17 @@ impl Simulator {
 
     /// Get current value of a signal
     pub fn get_signal(&self, id: SignalId) -> SignalLevel {
-        self.signals
-            .get(&id)
-            .map(|s| s.current)
-            .unwrap_or(SignalLevel::X)
+        self.signals.get(id.0 as usize).map_or(SignalLevel::X, |s| s.current)
     }
 
     /// Get signal by ID
     pub fn signal(&self, id: SignalId) -> Option<&Signal> {
-        self.signals.get(&id)
+        self.signals.get(id.0 as usize)
     }
 
     /// Get mutable signal by ID
     pub fn signal_mut(&mut self, id: SignalId) -> Option<&mut Signal> {
-        self.signals.get_mut(&id)
+        self.signals.get_mut(id.0 as usize)
     }
 
     /// Process the next event
@@ -269,9 +267,8 @@ impl Simulator {
     /// Apply an event and propagate changes
     fn apply_event(&mut self, event: &Event) {
         // Get current signal value
-        let signal = match self.signals.get_mut(&event.target) {
-            Some(s) => s,
-            None => return,
+        let Some(signal) = self.signals.get_mut(event.target.0 as usize) else {
+            return;
         };
 
         // Check if value actually changed
@@ -284,13 +281,11 @@ impl Simulator {
         signal.update(event.time, event.value);
 
         // Propagate to dependent gates
-        let dependent_gates: Vec<usize> = self
-            .signal_to_gates
-            .get(&event.target)
-            .cloned()
-            .unwrap_or_default();
-
-        for gate_id in dependent_gates {
+        // Use an index-based loop to avoid borrowing issues while calling evaluate_gate
+        let sig_idx = event.target.0 as usize;
+        let num_dependents = self.signal_to_gates[sig_idx].len();
+        for i in 0..num_dependents {
+            let gate_id = self.signal_to_gates[sig_idx][i];
             self.evaluate_gate(gate_id);
         }
     }
@@ -299,15 +294,14 @@ impl Simulator {
     fn evaluate_gate(&mut self, gate_id: usize) {
         let gate = &self.gates[gate_id];
 
-        // Gather current input values
-        let inputs: Vec<SignalLevel> = gate
-            .inputs()
-            .iter()
-            .map(|&id| self.get_signal(id))
-            .collect();
+        // Gather current input values into reusable buffer
+        self.eval_buffer.clear();
+        for &id in gate.inputs() {
+            self.eval_buffer.push(self.get_signal(id));
+        }
 
         // Evaluate gate
-        let new_output = gate.evaluate(&inputs);
+        let new_output = gate.evaluate(&self.eval_buffer);
         let output_id = gate.output();
         let delay = gate.propagation_delay();
 
@@ -331,14 +325,14 @@ impl Simulator {
         self.events.clear();
         self.stats = SimulatorStats::default();
 
-        for signal in self.signals.values_mut() {
+        for signal in &mut self.signals {
             signal.clear_history();
         }
     }
 
     /// Get all signal IDs
     pub fn signal_ids(&self) -> impl Iterator<Item = SignalId> + '_ {
-        self.signals.keys().copied()
+        (0..self.signals.len()).map(|i| SignalId(i as u32))
     }
 
     /// Check if simulation is complete (no more events)
@@ -361,8 +355,7 @@ impl Default for Simulator {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::gate::Inverter;
-    use crate::timing::NANOSECOND;
+    use crate::{gate::Inverter, timing::NANOSECOND};
 
     #[test]
     fn test_basic_simulation() {
@@ -398,7 +391,7 @@ mod tests {
 
         sim.run_until(400);
 
-        let signal = sim.signal(sig).unwrap();
+        let signal = sim.signal(sig).expect("signal not found");
         assert_eq!(signal.history().len(), 3);
     }
 
@@ -414,13 +407,13 @@ mod tests {
         sim.schedule(200, sig, SignalLevel::Low, EventSource::Stimulus);
 
         // First event should be at time 100
-        let time = sim.step().unwrap();
+        let time = sim.step().expect("expected event at t=100");
         assert_eq!(time, 100);
 
-        let time = sim.step().unwrap();
+        let time = sim.step().expect("expected event at t=200");
         assert_eq!(time, 200);
 
-        let time = sim.step().unwrap();
+        let time = sim.step().expect("expected event at t=300");
         assert_eq!(time, 300);
     }
 }

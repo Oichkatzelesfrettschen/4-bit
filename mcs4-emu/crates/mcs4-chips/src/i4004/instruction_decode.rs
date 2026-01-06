@@ -148,7 +148,7 @@ impl InstructionDecoder {
         // Determine if two-byte instruction
         self.two_byte = matches!(self.opr, 0x1 | 0x2 | 0x4 | 0x5 | 0x7)
             && (self.opr != 0x2 || (self.opa & 0x01) == 0)  // FIM is 2-byte, SRC is 1-byte
-            && (self.opr != 0x3);  // FIN/JIN are 1-byte
+            && (self.opr != 0x3); // FIN/JIN are 1-byte
 
         if !self.two_byte {
             self.instruction = Some(self.decode_single_byte());
@@ -179,7 +179,9 @@ impl InstructionDecoder {
                     Instruction::Src { pair: self.opa >> 1 }
                 } else {
                     // FIM starts here but is 2-byte
-                    Instruction::Invalid { opcode: (self.opr << 4) | self.opa }
+                    Instruction::Invalid {
+                        opcode: (self.opr << 4) | self.opa,
+                    }
                 }
             }
 
@@ -199,49 +201,51 @@ impl InstructionDecoder {
             0xC => Instruction::Bbl { data: self.opa },
             0xD => Instruction::Ldm { data: self.opa },
 
-            0xE => {
-                match self.opa {
-                    0x0 => Instruction::Wrm,
-                    0x1 => Instruction::Wmp,
-                    0x2 => Instruction::Wrr,
-                    0x3 => Instruction::Wpm,
-                    0x4 => Instruction::Wr0,
-                    0x5 => Instruction::Wr1,
-                    0x6 => Instruction::Wr2,
-                    0x7 => Instruction::Wr3,
-                    0x8 => Instruction::Sbm,
-                    0x9 => Instruction::Rdm,
-                    0xA => Instruction::Rdr,
-                    0xB => Instruction::Adm,
-                    0xC => Instruction::Rd0,
-                    0xD => Instruction::Rd1,
-                    0xE => Instruction::Rd2,
-                    0xF => Instruction::Rd3,
-                    _ => Instruction::Invalid { opcode: (self.opr << 4) | self.opa },
-                }
-            }
+            0xE => match self.opa {
+                0x0 => Instruction::Wrm,
+                0x1 => Instruction::Wmp,
+                0x2 => Instruction::Wrr,
+                0x3 => Instruction::Wpm,
+                0x4 => Instruction::Wr0,
+                0x5 => Instruction::Wr1,
+                0x6 => Instruction::Wr2,
+                0x7 => Instruction::Wr3,
+                0x8 => Instruction::Sbm,
+                0x9 => Instruction::Rdm,
+                0xA => Instruction::Rdr,
+                0xB => Instruction::Adm,
+                0xC => Instruction::Rd0,
+                0xD => Instruction::Rd1,
+                0xE => Instruction::Rd2,
+                0xF => Instruction::Rd3,
+                _ => Instruction::Invalid {
+                    opcode: (self.opr << 4) | self.opa,
+                },
+            },
 
-            0xF => {
-                match self.opa {
-                    0x0 => Instruction::Clb,
-                    0x1 => Instruction::Clc,
-                    0x2 => Instruction::Iac,
-                    0x3 => Instruction::Cmc,
-                    0x4 => Instruction::Cma,
-                    0x5 => Instruction::Ral,
-                    0x6 => Instruction::Rar,
-                    0x7 => Instruction::Tcc,
-                    0x8 => Instruction::Dac,
-                    0x9 => Instruction::Tcs,
-                    0xA => Instruction::Stc,
-                    0xB => Instruction::Daa,
-                    0xC => Instruction::Kbp,
-                    0xD => Instruction::Dcl,
-                    _ => Instruction::Invalid { opcode: (self.opr << 4) | self.opa },
-                }
-            }
+            0xF => match self.opa {
+                0x0 => Instruction::Clb,
+                0x1 => Instruction::Clc,
+                0x2 => Instruction::Iac,
+                0x3 => Instruction::Cmc,
+                0x4 => Instruction::Cma,
+                0x5 => Instruction::Ral,
+                0x6 => Instruction::Rar,
+                0x7 => Instruction::Tcc,
+                0x8 => Instruction::Dac,
+                0x9 => Instruction::Tcs,
+                0xA => Instruction::Stc,
+                0xB => Instruction::Daa,
+                0xC => Instruction::Kbp,
+                0xD => Instruction::Dcl,
+                _ => Instruction::Invalid {
+                    opcode: (self.opr << 4) | self.opa,
+                },
+            },
 
-            _ => Instruction::Invalid { opcode: (self.opr << 4) | self.opa },
+            _ => Instruction::Invalid {
+                opcode: (self.opr << 4) | self.opa,
+            },
         }
     }
 
@@ -268,7 +272,9 @@ impl InstructionDecoder {
                 reg: self.opa,
                 addr_low: self.operand,
             },
-            _ => Instruction::Invalid { opcode: (self.opr << 4) | self.opa },
+            _ => Instruction::Invalid {
+                opcode: (self.opr << 4) | self.opa,
+            },
         }
     }
 
@@ -400,7 +406,10 @@ mod tests {
         decoder.decode_second(0xAB);
         assert_eq!(
             decoder.get_instruction(),
-            Some(Instruction::Jun { addr_high: 2, addr_low: 0xAB })
+            Some(Instruction::Jun {
+                addr_high: 2,
+                addr_low: 0xAB
+            })
         );
     }
 
@@ -456,7 +465,10 @@ mod tests {
         assert_eq!(Instruction::Nop.cycles(), 1);
         assert_eq!(Instruction::Nop.mnemonic(), "NOP");
 
-        let jun = Instruction::Jun { addr_high: 0, addr_low: 0 };
+        let jun = Instruction::Jun {
+            addr_high: 0,
+            addr_low: 0,
+        };
         assert_eq!(jun.length(), 2);
         assert_eq!(jun.cycles(), 2);
         assert_eq!(jun.mnemonic(), "JUN");

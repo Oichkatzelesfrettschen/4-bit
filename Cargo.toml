@@ -1,0 +1,129 @@
+[workspace]
+resolver = "2"
+members = [
+  "mcs4-emu/crates/mcs4-core",
+  "mcs4-emu/crates/mcs4-bus",
+  "mcs4-emu/crates/mcs4-chips",
+  "mcs4-emu/crates/mcs4-system",
+  "mcs4-emu/crates/mcs4-gui",
+  "mcs4-emu/crates/mcs4-fpga",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.92"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Oichkatzelesfrettschen/4-bit"
+authors = ["Oichkatzelesfrettschen"]
+
+[workspace.dependencies]
+# --- Core Logic & Bits ---
+modular-bitfield = "0.13"
+bitflags = "2.10"
+bitvec = "1.0"
+tinyvec = { version = "1.10", features = ["alloc", "serde"] }
+num-traits = "0.2"
+unchecked-index = "0.2"
+smallvec = { version = "1.13", features = ["serde", "union", "const_generics", "const_new"] }
+memchr = "2"
+
+# --- Zero-Copy & Persistence ---
+rkyv = { version = "0.8", features = ["bytecheck"] }
+memmap2 = "0.9"
+bytemuck = { version = "1.24", features = ["derive"] }
+zerocopy = { version = "0.8", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+bincode = "1.3"
+
+# --- Compile-Time Optimization ---
+seq-macro = "0.3"
+paste = "1.0"
+static_assertions = "1.1"
+phf = { version = "0.13", features = ["macros"] }
+phf_codegen = "0.13"
+const_format = "0.2"
+likely_stable = "0.2"
+portable-simd = { version = "0.13", package = "core_simd" }
+
+# --- Memory Management ---
+mimalloc = { version = "0.1", default-features = false }
+bumpalo = "3.19"
+
+# --- Parallelism & Math ---
+rayon = "1.11"
+soa-derive = "0.14"
+nalgebra = "0.34"
+simba = "0.9"
+ordered-float = "4.2"
+indexmap = "2.2"
+crossbeam = "0.8"
+
+# --- Observability ---
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# --- Visualization & I/O ---
+pixels = "0.15"
+winit = "0.30"
+ratatui = "0.30"
+crossterm = "0.29"
+notcurses = "3.6"
+ringbuf = "0.4"
+egui = "0.29"
+eframe = "0.29"
+
+# --- Tooling & Testing ---
+clap = { version = "4.5", features = ["derive"] }
+criterion = "0.5"
+proptest = "1.4"
+tempfile = "3"
+anyhow = "1"
+thiserror = "1"
+parking_lot = "0.12"
+once_cell = "1"
+
+# --- Additional requested ---
+u4 = "*"
+r6502 = "*"
+wellen = "*"
+tui-sparkline = "*"
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+unused_must_use = "deny"
+unused = { level = "deny", priority = -1 }
+unreachable_pub = "warn"
+
+[workspace.lints.clippy]
+all = "warn"
+pedantic = { level = "allow", priority = -1 }
+nursery = { level = "allow", priority = -1 }
+cargo = { level = "allow", priority = -1 }
+unwrap_used = "warn"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+debug = false
+incremental = false
+strip = true
+
+[profile.dev]
+opt-level = 1
+debug = true
+split-debuginfo = "unpacked"
+
+[profile.bench]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = false
+
+[profile.profiler]
+inherits = "release"
+debug = true
+strip = false

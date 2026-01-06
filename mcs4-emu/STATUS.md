@@ -1,9 +1,12 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2025-12-31
+**Last Updated:** 2026-01-06
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-06T07:41:40Z: Added root licenses, ran doc registry validation with local yq, and OCR-verified MCS-4 timing from primary datasheets.
+- 2026-01-06T07:36:00Z: Added primary-source citations to AUDIT, updated ARCHITECTURE and ROADMAP, added CI workflow, and enforced clippy warnings-as-errors.
+- 2026-01-06T06:18:27Z: Consolidated roadmap phases; began repo hygiene audit and documentation sync.
 - 2025-12-31T05:38:47Z: Scoped SIMD cluster execution plan: vectorize 4004/4040 instances via std::simd (nightly) to fuzz ROMs in parallel; add docs and roadmap entries.
 
 - 2025-12-31T05:00:42Z: Code review gate established per Oaich standards; proceeding with 4040 scaffolding, disasm core, waveform hooks under warnings-as-errors and >=90% coverage.

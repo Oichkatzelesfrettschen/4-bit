@@ -2,10 +2,18 @@
 
 ## Tools
 - cargo, clippy, rustfmt.
-- Facebook Infer: infer run -o mcs4-emu/infer-out.
-- TLA+: place specs in mcs4-emu/spec and verify with tla2tools.
+- Optional: cargo-deny, cargo-audit, cargo-llvm-cov.
+- yq for docs registry validation.
 - CMake: for optional native tooling, keep separate.
+- Toolchain baseline: MSRV 1.92.0; nightly 2026-01-06 required for portable_simd.
 
 ## Automation
-- scripts/build_time.sh, scripts/bench.sh for baseline.
-- Keep STATUS.md and docs/ROADMAP.md synchronized.
+- scripts/clean.sh to remove build and coverage artifacts.
+- scripts/doc_sync.sh, scripts/doc_validate.sh for docs registry sync/validation.
+- scripts/md_validate.sh, scripts/md_lint.sh, scripts/link_check.sh for docs checks.
+- Keep `mcs4-emu/STATUS.md` and `docs/ROADMAP.md` synchronized.
+- Use `cargo clippy-all` alias to enforce `-D warnings`.
+- CI: `.github/workflows/ci.yml` runs fmt/clippy/tests on nightly.
+
+## Warnings Policy
+- `.cargo/config.toml` enforces `-D warnings` for builds; clippy uses `-D warnings`.

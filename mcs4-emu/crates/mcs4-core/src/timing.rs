@@ -89,7 +89,7 @@ pub fn format_time(t: Time) -> String {
     } else if t >= NANOSECOND {
         format!("{:.3} ns", t as f64 / NANOSECOND as f64)
     } else {
-        format!("{} ps", t)
+        format!("{t} ps")
     }
 }
 

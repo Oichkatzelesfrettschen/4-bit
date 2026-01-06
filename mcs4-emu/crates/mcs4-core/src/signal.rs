@@ -1,24 +1,20 @@
 //! Signal types and signal history tracking
 
-use crate::timing::Time;
+use rkyv::{Archive, Deserialize, Serialize};
 use smallvec::SmallVec;
 
+use crate::timing::Time;
+
 /// Unique identifier for a signal in the simulation
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Archive, Deserialize, Serialize)]
 pub struct SignalId(pub u32);
 
 impl SignalId {
-    pub const INVALID: SignalId = SignalId(u32::MAX);
+    pub const INVALID: Self = Self(u32::MAX);
 }
 
 /// Logic level of a digital signal
-///
-/// Note: The Intel 4004 uses negative logic (pMOS):
-/// - Logic HIGH = Vss = 0V (ground)
-/// - Logic LOW = Vdd = -15V
-///
-/// We abstract this to standard positive logic in the simulator.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default, Archive, Deserialize, Serialize)]
 #[repr(u8)]
 pub enum SignalLevel {
     /// Logic low (0)
@@ -36,49 +32,51 @@ impl SignalLevel {
     /// Returns true if the signal is a defined logic level (not Z or X)
     #[inline]
     pub fn is_defined(self) -> bool {
-        matches!(self, SignalLevel::Low | SignalLevel::High)
+        matches!(self, Self::Low | Self::High)
     }
 
     /// Returns true if signal is logic high
     #[inline]
     pub fn is_high(self) -> bool {
-        self == SignalLevel::High
+        self == Self::High
     }
 
     /// Returns true if signal is logic low
     #[inline]
     pub fn is_low(self) -> bool {
-        self == SignalLevel::Low
+        self == Self::Low
     }
 
     /// Logical NOT
     #[inline]
+    #[must_use]
     pub fn invert(self) -> SignalLevel {
         match self {
-            SignalLevel::Low => SignalLevel::High,
-            SignalLevel::High => SignalLevel::Low,
-            SignalLevel::Z => SignalLevel::X,
-            SignalLevel::X => SignalLevel::X,
+            Self::Low => Self::High,
+            Self::High => Self::Low,
+            Self::Z | Self::X => Self::X,
         }
     }
 
     /// Logical AND
     #[inline]
+    #[must_use]
     pub fn and(self, other: SignalLevel) -> SignalLevel {
         match (self, other) {
-            (SignalLevel::Low, _) | (_, SignalLevel::Low) => SignalLevel::Low,
-            (SignalLevel::High, SignalLevel::High) => SignalLevel::High,
-            _ => SignalLevel::X,
+            (Self::Low, _) | (_, Self::Low) => Self::Low,
+            (Self::High, Self::High) => Self::High,
+            _ => Self::X,
         }
     }
 
     /// Logical OR
     #[inline]
+    #[must_use]
     pub fn or(self, other: SignalLevel) -> SignalLevel {
         match (self, other) {
-            (SignalLevel::High, _) | (_, SignalLevel::High) => SignalLevel::High,
-            (SignalLevel::Low, SignalLevel::Low) => SignalLevel::Low,
-            _ => SignalLevel::X,
+            (Self::High, _) | (_, Self::High) => Self::High,
+            (Self::Low, Self::Low) => Self::Low,
+            _ => Self::X,
         }
     }
 
@@ -89,25 +87,29 @@ impl SignalLevel {
 
         for &level in drivers {
             match level {
-                SignalLevel::High => has_high = true,
-                SignalLevel::Low => has_low = true,
-                SignalLevel::X => return SignalLevel::X,
-                SignalLevel::Z => {}
+                Self::High => has_high = true,
+                Self::Low => has_low = true,
+                Self::X => return Self::X,
+                Self::Z => {}
             }
         }
 
         match (has_high, has_low) {
-            (true, true) => SignalLevel::X,   // Bus fight!
-            (true, false) => SignalLevel::High,
-            (false, true) => SignalLevel::Low,
-            (false, false) => SignalLevel::Z, // No drivers
+            (true, true) => Self::X, // Bus fight!
+            (true, false) => Self::High,
+            (false, true) => Self::Low,
+            (false, false) => Self::Z, // No drivers
         }
     }
 }
 
 impl From<bool> for SignalLevel {
     fn from(b: bool) -> Self {
-        if b { SignalLevel::High } else { SignalLevel::Low }
+        if b {
+            Self::High
+        } else {
+            Self::Low
+        }
     }
 }
 
@@ -280,10 +282,16 @@ mod tests {
         assert_eq!(SignalLevel::resolve(&[SignalLevel::Z, SignalLevel::Z]), SignalLevel::Z);
 
         // Single driver
-        assert_eq!(SignalLevel::resolve(&[SignalLevel::High, SignalLevel::Z]), SignalLevel::High);
+        assert_eq!(
+            SignalLevel::resolve(&[SignalLevel::High, SignalLevel::Z]),
+            SignalLevel::High
+        );
 
         // Bus fight
-        assert_eq!(SignalLevel::resolve(&[SignalLevel::High, SignalLevel::Low]), SignalLevel::X);
+        assert_eq!(
+            SignalLevel::resolve(&[SignalLevel::High, SignalLevel::Low]),
+            SignalLevel::X
+        );
     }
 
     #[test]
@@ -294,9 +302,9 @@ mod tests {
         sig.update(200, SignalLevel::Low);
         sig.update(300, SignalLevel::High);
 
-        assert_eq!(sig.value_at(50), SignalLevel::Low);  // Before first transition (initial Low)
+        assert_eq!(sig.value_at(50), SignalLevel::Low); // Before first transition (initial Low)
         assert_eq!(sig.value_at(150), SignalLevel::High); // After first High at t=100
-        assert_eq!(sig.value_at(250), SignalLevel::Low);  // After Low at t=200
+        assert_eq!(sig.value_at(250), SignalLevel::Low); // After Low at t=200
         assert_eq!(sig.value_at(350), SignalLevel::High); // After High at t=300
     }
 

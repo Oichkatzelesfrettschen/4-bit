@@ -1,6 +1,8 @@
 //! 4-bit bidirectional data bus implementation
 
+use bytemuck::{Pod, Zeroable};
 use mcs4_core::prelude::*;
+use zerocopy::{FromBytes, IntoBytes};
 
 /// 4-bit bidirectional data bus
 ///
@@ -160,7 +162,8 @@ impl Default for DataBus {
 }
 
 /// 12-bit address formed from three bus cycles
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug, Default, Pod, Zeroable, IntoBytes, FromBytes)]
+#[repr(C)]
 pub struct Address12 {
     pub value: u16,
 }
@@ -203,7 +206,8 @@ impl Address12 {
 }
 
 /// 8-bit instruction/data formed from two bus cycles
-#[derive(Clone, Copy, Debug, Default)]
+#[derive(Clone, Copy, Debug, Default, Pod, Zeroable, IntoBytes, FromBytes)]
+#[repr(C)]
 pub struct Byte8 {
     pub value: u8,
 }

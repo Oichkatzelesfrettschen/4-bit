@@ -123,17 +123,15 @@ impl I4002 {
             }
             BusCycle::X2 => {
                 // Write operations during X2
-                if self.selected {
-                    if ctrl.is_io_write() {
-                        // This could be WRM, WMP, or WRx
-                        // For WRM: write to RAM
-                        // For WMP: write to output port
-                        // For WRx: write to status register x
-                        // The exact operation is determined by the instruction decoder
-                        // For now, we store to RAM as the default
-                        let value = bus.read() & 0x0F;
-                        self.ram[self.selected_register as usize][self.selected_char as usize] = value;
-                    }
+                if self.selected && ctrl.is_io_write() {
+                    // This could be WRM, WMP, or WRx
+                    // For WRM: write to RAM
+                    // For WMP: write to output port
+                    // For WRx: write to status register x
+                    // The exact operation is determined by the instruction decoder
+                    // For now, we store to RAM as the default
+                    let value = bus.read() & 0x0F;
+                    self.ram[self.selected_register as usize][self.selected_char as usize] = value;
                 }
             }
             BusCycle::X3 => {

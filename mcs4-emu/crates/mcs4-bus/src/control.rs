@@ -32,7 +32,6 @@ pub struct ControlSignals {
     pub reset: Signal,
 
     // 4040-specific signals:
-
     /// STP - Stop acknowledge (4040 only)
     pub stp: Option<Signal>,
 
@@ -154,7 +153,11 @@ impl ControlSignals {
             }
         }
 
-        if any_selected { Some(bank) } else { None }
+        if any_selected {
+            Some(bank)
+        } else {
+            None
+        }
     }
 
     /// Get currently selected RAM bank (if any)
@@ -169,7 +172,11 @@ impl ControlSignals {
             }
         }
 
-        if any_selected { Some(bank) } else { None }
+        if any_selected {
+            Some(bank)
+        } else {
+            None
+        }
     }
 
     /// Check if TEST input is active (active low)

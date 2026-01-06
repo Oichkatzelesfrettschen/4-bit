@@ -59,9 +59,9 @@ Level 1: Cycle-accurate (BASELINE)
 ## Rust Workspace Structure
 
 ```
-mcs4-emu/
-  Cargo.toml                    # Workspace root
+Cargo.toml                      # Workspace root (canonical)
 
+mcs4-emu/
   crates/
     mcs4-core/                  # Simulation kernel
       src/
@@ -70,6 +70,8 @@ mcs4-emu/
         gate.rs                 # Gate-level primitives
         transistor.rs           # Transistor-level stubs (TODO)
         wire.rs                 # Wire/net modeling
+        signal.rs               # Signal history and types
+        simulator.rs            # Simulation orchestration
 
     mcs4-bus/                   # Bus infrastructure
       src/
@@ -81,6 +83,8 @@ mcs4-emu/
     mcs4-chips/                 # Chip implementations
       src/
         lib.rs
+        disasm.rs
+        simd.rs
         i4004/                  # 4004 CPU
           mod.rs
           alu.rs
@@ -89,40 +93,43 @@ mcs4-emu/
           timing_io.rs
         i4040/                  # 4040 CPU (extends 4004)
           mod.rs
-          interrupts.rs
-        i4001/                  # ROM + I/O
-        i4002/                  # RAM + output
-        i4003/                  # Shift register
-        i4101/                  # Static RAM
-        i4201/                  # Clock generator
-        i4289/                  # Memory interface
-        i4308/                  # Larger ROM
+          instruction_decode.rs
+          interrupt.rs
+          registers.rs
+          stack.rs
+        i4001.rs                # ROM + I/O
+        i4002.rs                # RAM + output
+        i4003.rs                # Shift register
+        i4101.rs                # Static RAM
+        i4201.rs                # Clock generator
+        i4289.rs                # Memory interface
+        i4308.rs                # Larger ROM
+      tests/
+        fuzz_test.rs            # Fuzz regression coverage
 
     mcs4-system/                # Complete system assembly
       src/
         lib.rs
+        cluster.rs              # Multi-core cluster wiring
         mcs4.rs                 # MCS-4 system builder
         mcs40.rs                # MCS-40 system builder
 
     mcs4-gui/                   # GUI debugger
       src/
+        app.rs                  # GUI shell/controller
+        lib.rs
         main.rs
+        signal_trace.rs         # Signal capture utilities
         waveform.rs             # Logic analyzer view
-        registers.rs            # Register inspector
-        memory.rs               # Memory view
-        disasm.rs               # Disassembly view
-        programmer.rs           # ROM programming interface
+        panels/
+          mod.rs
+          disasm.rs
+          waveform.rs
 
     mcs4-fpga/                  # FPGA synthesis support
       src/
         lib.rs
         verilog.rs              # Verilog export
-        yosys.rs                # Yosys integration
-
-  tests/
-    integration/
-      busicom.rs                # Busicom 141-PF calculator test
-      instruction_set.rs        # Full ISA verification
 ```
 
 ## Core Abstractions

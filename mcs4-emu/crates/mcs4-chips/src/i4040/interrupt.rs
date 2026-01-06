@@ -9,12 +9,20 @@ pub struct InterruptCtrl {
 
 impl InterruptCtrl {
     #[inline]
-    pub fn ein(&mut self) { self.enabled = true; }
+    pub fn ein(&mut self) {
+        self.enabled = true;
+    }
     #[inline]
-    pub fn din(&mut self) { self.enabled = false; }
+    pub fn din(&mut self) {
+        self.enabled = false;
+    }
 
     /// Request an interrupt; CPU should check and service at instruction boundary.
-    pub fn request(&mut self) { if self.enabled { self.pending = true; } }
+    pub fn request(&mut self) {
+        if self.enabled {
+            self.pending = true;
+        }
+    }
 
     /// Service the interrupt: returns vector address; disables further interrupts.
     pub fn service(&mut self, current_src: u8) -> Option<u16> {
@@ -23,9 +31,13 @@ impl InterruptCtrl {
             self.enabled = false; // auto-disable
             self.pending = false;
             Some(0x003)
-        } else { None }
+        } else {
+            None
+        }
     }
 
     /// Branch Back from Service (BBS): restore SRC and re-enable optionally.
-    pub fn bbs_restore(&mut self) -> u8 { self.src_save }
+    pub fn bbs_restore(&mut self) -> u8 {
+        self.src_save
+    }
 }

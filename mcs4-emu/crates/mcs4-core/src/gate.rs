@@ -4,8 +4,10 @@
 //! The 4004 was implemented in pMOS technology, primarily using NAND
 //! and NOR gates with depletion-load inverters.
 
-use crate::signal::{SignalId, SignalLevel};
-use crate::timing::{Delay, gate_delay};
+use crate::{
+    signal::{SignalId, SignalLevel},
+    timing::{gate_delay, Delay},
+};
 
 /// Gate type enumeration
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -29,17 +31,16 @@ impl GateType {
     /// Base propagation delay for this gate type
     pub fn base_delay(self) -> Delay {
         match self {
-            GateType::Inv => gate_delay::INV_BASE,
-            GateType::Nand2 | GateType::And2 => gate_delay::NAND2_BASE,
-            GateType::Nand3 => gate_delay::NAND3_BASE,
-            GateType::Nand4 => gate_delay::NAND3_BASE + 2000, // ~2ns more
-            GateType::Nor2 | GateType::Or2 => gate_delay::NOR2_BASE,
-            GateType::Nor3 => gate_delay::NOR3_BASE,
-            GateType::Nor4 => gate_delay::NOR3_BASE + 2000,
-            GateType::Xor2 => gate_delay::NAND2_BASE * 2, // XOR = 2 gate levels
-            GateType::Mux2 => gate_delay::NAND2_BASE * 2,
-            GateType::Latch => gate_delay::INV_BASE * 2,
-            GateType::DFlipFlop => gate_delay::NAND2_BASE * 3,
+            Self::Inv => gate_delay::INV_BASE,
+            Self::Nand2 | Self::And2 => gate_delay::NAND2_BASE,
+            Self::Nand3 => gate_delay::NAND3_BASE,
+            Self::Nand4 => gate_delay::NAND3_BASE + 2000, // ~2ns more
+            Self::Nor2 | Self::Or2 => gate_delay::NOR2_BASE,
+            Self::Nor3 => gate_delay::NOR3_BASE,
+            Self::Nor4 => gate_delay::NOR3_BASE + 2000,
+            Self::Xor2 | Self::Mux2 => gate_delay::NAND2_BASE * 2, // XOR = 2 gate levels
+            Self::Latch => gate_delay::INV_BASE * 2,
+            Self::DFlipFlop => gate_delay::NAND2_BASE * 3,
         }
     }
 }
@@ -378,8 +379,6 @@ impl SRLatch {
         match (s, r) {
             (SignalLevel::High, SignalLevel::Low) => self.state = SignalLevel::High,
             (SignalLevel::Low, SignalLevel::High) => self.state = SignalLevel::Low,
-            (SignalLevel::High, SignalLevel::High) => {} // Invalid - keep current
-            (SignalLevel::Low, SignalLevel::Low) => {}   // Hold
             _ => {}
         }
         (self.state, self.state.invert())

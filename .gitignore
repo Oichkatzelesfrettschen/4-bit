@@ -14,5 +14,16 @@ Thumbs.db
 *.exe
 *.dll
 *.db
+target/
+coverage/
+*.profraw
+*.profdata
+*.lcov
+lcov.info
+infer-out/
+core
+core.*
+*.core
+core.[0-9]*
 logs/
 .claude/

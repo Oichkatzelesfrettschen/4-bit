@@ -1,3 +1,4 @@
+#![feature(portable_simd)]
 //! MCS-4/MCS-40 Chip Implementations
 //!
 //! This crate provides gate-level implementations of the Intel 4-bit
@@ -16,17 +17,20 @@
 //! - [`i4289`] - Standard memory interface
 //! - [`i4308`] - 1Kx8 ROM
 
-pub mod i4004;
-pub mod i4040;
 pub mod i4001;
 pub mod i4002;
 pub mod i4003;
+pub mod i4004;
+pub mod i4040;
 
 // MCS-40 specific chips
 pub mod i4101;
 pub mod i4201;
 pub mod i4289;
 pub mod i4308;
+
+pub mod disasm;
+pub mod simd;
 
 /// Common trait for all chips
 pub trait Chip: Send + Sync {

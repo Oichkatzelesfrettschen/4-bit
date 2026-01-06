@@ -10,6 +10,7 @@ MUST DOCUMENT
 - Deploy and operate (docs/DEPLOYMENT.md)
 - Breaking changes and migration (docs/CHANGELOG.md)
 - Dependencies and requirements (README)
+- Installation requirements (mcs4-emu/INSTALLATION.md)
 
 SHOULD DOCUMENT
 - Troubleshooting (docs/TROUBLESHOOTING.md)
@@ -18,6 +19,7 @@ SHOULD DOCUMENT
 - Limitations and workarounds (ARCHITECTURE.md)
 - Testing strategies and coverage (STATUS.md/README)
 - Security considerations (DEPLOYMENT.md)
+- Audit log and validation status (docs/AUDIT.md)
 
 NICE TO DOCUMENT
 - History and rationale (ARCHITECTURE.md)
@@ -71,11 +73,22 @@ Quality Checklist
 Metrics & Anti-Patterns
 - Coverage, Freshness (90-day alerts), Link validity, Readability
 - Avoid outdated, duplicated, scattered info; centralize and automate
+
+## Registry Snapshot
+<!-- DOCS_REGISTRY_START -->
+- README.md
+- gemini.md
+- ARCHITECTURE.md
+- mcs4-emu/STATUS.md
+- mcs4-emu/INSTALLATION.md
 - docs/API.md
 - docs/DEPLOYMENT.md
 - docs/CONTRIBUTING.md
 - docs/TROUBLESHOOTING.md
 - docs/CHANGELOG.md
 - docs/ROADMAP.md
+- docs/INDEX.md
 - docs/DEVELOPMENT.md
-- docs/meta/registry.yaml
+- docs/QUALITY-CHECKLIST.md
+- docs/AUDIT.md
+<!-- DOCS_REGISTRY_END -->

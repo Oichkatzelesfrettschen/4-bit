@@ -6,15 +6,25 @@ pub struct RegFile {
 }
 
 impl RegFile {
-    pub fn new() -> Self { Self { regs: [0; 24], bank: 0 } }
-    #[inline]
-    fn map_index(&self, r: usize) -> usize {
-        if r < 8 { r + (self.bank as usize) * 16 } else { r }
+    pub fn new() -> Self {
+        Self { regs: [0; 24], bank: 0 }
     }
     #[inline]
-    pub fn get(&self, r: usize) -> u8 { self.regs[self.map_index(r)] & 0x0F }
+    fn map_index(&self, r: usize) -> usize {
+        if r < 8 {
+            r + (self.bank as usize) * 16
+        } else {
+            r
+        }
+    }
     #[inline]
-    pub fn set(&mut self, r: usize, val: u8) { self.regs[self.map_index(r)] = val & 0x0F; }
+    pub fn get(&self, r: usize) -> u8 {
+        self.regs[self.map_index(r)] & 0x0F
+    }
+    #[inline]
+    pub fn set(&mut self, r: usize, val: u8) {
+        self.regs[self.map_index(r)] = val & 0x0F;
+    }
 
     // Register-pair helpers (P0..P7 map to (R0,R1)..(R14,R15) under current bank)
     #[inline]
@@ -31,9 +41,13 @@ impl RegFile {
 
     // Bank control
     #[inline]
-    pub fn db0(&mut self) { self.bank = 0; }
+    pub fn db0(&mut self) {
+        self.bank = 0;
+    }
     #[inline]
-    pub fn db1(&mut self) { self.bank = 1; }
+    pub fn db1(&mut self) {
+        self.bank = 1;
+    }
 }
 
 #[cfg(test)]

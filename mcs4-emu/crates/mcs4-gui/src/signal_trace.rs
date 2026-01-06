@@ -1,31 +1,69 @@
-// Signal trace buffer scaffolding
-#[allow(unused_imports)]
-use std::sync::{Arc,RwLock};
+use std::collections::VecDeque;
 
-#[derive(Clone, Copy, Debug)]
-pub enum BusCycle { A1, A2, A3, M1, M2, X1, X2, X3 }
+use mcs4_bus::prelude::*;
+
+/// Maximum number of samples to keep
+const MAX_SAMPLES: usize = 100_000;
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Sample {
+    pub tick: u64,
+    pub phi1: bool,
+    pub phi2: bool,
+    pub sync: bool,
+    pub data: u8,   // 4-bit data bus
+    pub cm_rom: u8, // 4-bit ROM select
+    pub cm_ram: u8, // 4-bit RAM select
+    pub phase: BusCycle,
+}
 
 pub struct SignalTrace {
-    pub timestamps: Vec<u64>,
-    pub phi1: Vec<bool>,
-    pub phi2: Vec<bool>,
-    pub sync: Vec<bool>,
-    pub data_bus: Vec<u8>,
-    pub cm_rom: Vec<u8>,
-    pub cm_ram: Vec<u8>,
-    pub phase: Vec<BusCycle>,
+    samples: VecDeque<Sample>,
 }
 
 impl SignalTrace {
-    pub fn new() -> Self { Self { timestamps: vec![], phi1: vec![], phi2: vec![], sync: vec![], data_bus: vec![], cm_rom: vec![], cm_ram: vec![], phase: vec![] } }
-    pub fn capture(&mut self, tick: u64, phi1: bool, phi2: bool, sync: bool, data: u8, cm_rom: u8, cm_ram: u8, phase: BusCycle) {
-        self.timestamps.push(tick);
-        self.phi1.push(phi1);
-        self.phi2.push(phi2);
-        self.sync.push(sync);
-        self.data_bus.push(data & 0x0F);
-        self.cm_rom.push(cm_rom & 0x0F);
-        self.cm_ram.push(cm_ram & 0x03);
-        self.phase.push(phase);
+    pub fn new() -> Self {
+        Self {
+            samples: VecDeque::with_capacity(MAX_SAMPLES),
+        }
+    }
+
+    pub fn push(&mut self, tick: u64, bus: &DataBus, ctrl: &ControlSignals, phase: BusCycle, clock: &TwoPhaseClock) {
+        if self.samples.len() >= MAX_SAMPLES {
+            self.samples.pop_front();
+        }
+
+        self.samples.push_back(Sample {
+            tick,
+            phi1: clock.phi1_high(),
+            phi2: clock.phi2_high(),
+            sync: ctrl.sync.current == mcs4_core::signal::SignalLevel::High,
+            data: bus.read(),
+            cm_rom: ctrl.cm_rom(),
+            cm_ram: ctrl.cm_ram(),
+            phase,
+        });
+    }
+
+    pub fn iter(&self) -> std::collections::vec_deque::Iter<'_, Sample> {
+        self.samples.iter()
+    }
+
+    pub fn len(&self) -> usize {
+        self.samples.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.samples.is_empty()
+    }
+
+    pub fn clear(&mut self) {
+        self.samples.clear();
+    }
+}
+
+impl Default for SignalTrace {
+    fn default() -> Self {
+        Self::new()
     }
 }

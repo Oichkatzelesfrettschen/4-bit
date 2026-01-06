@@ -5,7 +5,7 @@
 //! with proper bus protocol timing.
 
 use mcs4_bus::prelude::*;
-use mcs4_chips::{i4004::I4004, i4001::I4001, i4002::I4002};
+use mcs4_chips::{i4001::I4001, i4002::I4002, i4004::I4004};
 
 /// Complete MCS-4 system
 pub struct Mcs4System {
@@ -25,7 +25,7 @@ pub struct Mcs4System {
     pub control: ControlSignals,
 
     /// Two-phase clock generator
-    pub clock: TwoPhaseClockTwoPhaseClock,
+    pub clock: TwoPhaseClock,
 
     /// Current bus cycle phase
     cycle: CycleState,
@@ -46,7 +46,7 @@ impl Mcs4System {
             ram: vec![I4002::new(0, 0)],
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
-            clock: TwoPhaseClockTwoPhaseClock::default_config(),
+            clock: TwoPhaseClock::default_config(),
             cycle: CycleState::new(),
             total_cycles: 0,
             breakpoints: Vec::new(),
@@ -57,12 +57,7 @@ impl Mcs4System {
     pub fn standard() -> Self {
         Self {
             cpu: I4004::new(),
-            rom: vec![
-                I4001::new(0),
-                I4001::new(1),
-                I4001::new(2),
-                I4001::new(3),
-            ],
+            rom: vec![I4001::new(0), I4001::new(1), I4001::new(2), I4001::new(3)],
             ram: vec![
                 // Bank 0
                 I4002::new(0, 0),
@@ -77,7 +72,7 @@ impl Mcs4System {
             ],
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
-            clock: TwoPhaseClockTwoPhaseClock::default_config(),
+            clock: TwoPhaseClock::default_config(),
             cycle: CycleState::new(),
             total_cycles: 0,
             breakpoints: Vec::new(),
@@ -104,7 +99,7 @@ impl Mcs4System {
             ram,
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
-            clock: TwoPhaseClockTwoPhaseClock::default_config(),
+            clock: TwoPhaseClock::default_config(),
             cycle: CycleState::new(),
             total_cycles: 0,
             breakpoints: Vec::new(),
@@ -119,6 +114,14 @@ impl Mcs4System {
                 self.rom[i].load(chunk);
             }
         }
+    }
+
+    /// Load program from a file using memory mapping
+    pub fn load_rom_file(&mut self, path: impl AsRef<std::path::Path>) -> std::io::Result<()> {
+        let file = std::fs::File::open(path)?;
+        let mmap = unsafe { memmap2::Mmap::map(&file)? };
+        self.load_rom(&mmap);
+        Ok(())
     }
 
     /// Load program at specific ROM address

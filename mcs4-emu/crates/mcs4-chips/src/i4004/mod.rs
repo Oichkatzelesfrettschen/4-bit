@@ -12,18 +12,17 @@
 //! - 4-bit accumulator with carry flag
 
 mod alu;
-mod registers;
 mod instruction_decode;
+mod registers;
 mod timing_io;
 
 pub use alu::Alu;
-pub use registers::Registers;
-pub use instruction_decode::{InstructionDecoder, Instruction};
-pub use timing_io::TimingIo;
-
+pub use instruction_decode::{Instruction, InstructionDecoder};
 use mcs4_bus::prelude::*;
 #[allow(unused_imports)]
 use mcs4_core::prelude::*;
+pub use registers::Registers;
+pub use timing_io::TimingIo;
 
 /// Intel 4004 CPU
 pub struct I4004 {
@@ -111,6 +110,7 @@ impl I4004 {
 
     /// Process one bus phase
     pub fn tick(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        tracing::trace!(?phase, pc=%self.registers.pc(), "CPU Tick");
         match phase {
             BusCycle::A1 => self.phase_a1(bus, ctrl),
             BusCycle::A2 => self.phase_a2(bus, ctrl),
@@ -197,6 +197,7 @@ impl I4004 {
 
     /// Execute a decoded instruction
     fn execute(&mut self, instr: Instruction, bus: &mut DataBus) {
+        tracing::debug!(?instr, pc=%self.registers.pc(), acc=%self.alu.accumulator(), "Execute");
         use Instruction::*;
         match instr {
             // Machine control
@@ -365,7 +366,11 @@ impl I4004 {
             result = true;
         }
 
-        if invert { !result } else { result }
+        if invert {
+            !result
+        } else {
+            result
+        }
     }
 }
 

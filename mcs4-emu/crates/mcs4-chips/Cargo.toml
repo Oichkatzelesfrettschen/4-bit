@@ -1,29 +1,51 @@
 [package]
 name = "mcs4-chips"
-description = "MCS-4/MCS-40 chip implementations (4004, 4040, 4001, 4002, etc.)"
+description = "MCS-4/MCS-40 chip implementations"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 authors.workspace = true
 
+[lints]
+workspace = true
+
 [features]
 simd = []
+mimalloc = ["dep:mimalloc"]
 
 [dependencies]
-bitflags = "2"
-modular-bitfield = "0.11"
-tinyvec = { version = "1", features = ["alloc"] }
-smallvec = "1"
-memchr = "2"
-bytemuck = { version = "1", features = ["derive"] }
-rkyv = { version = "0.7", features = ["validation", "strict"] }
+# Optimization
+modular-bitfield.workspace = true
+bitflags.workspace = true
+bitvec.workspace = true
+smallvec.workspace = true
+tinyvec.workspace = true
+bytemuck.workspace = true
+zerocopy.workspace = true
+mimalloc = { workspace = true, optional = true }
+memmap2.workspace = true
+bumpalo.workspace = true
+num-traits.workspace = true
+unchecked-index.workspace = true
+
+# Serialization
+rkyv.workspace = true
+serde.workspace = true
+
+# Workspace
 mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }
 tracing.workspace = true
 
+# Tooling
+paste.workspace = true
+static_assertions.workspace = true
+seq-macro.workspace = true
+
 [dev-dependencies]
-criterion = "0.5"
+criterion.workspace = true
 proptest.workspace = true
 
 [[bench]]

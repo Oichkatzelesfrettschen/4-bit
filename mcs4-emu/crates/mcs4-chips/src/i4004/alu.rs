@@ -9,8 +9,8 @@ pub struct Alu {
     /// Carry flag
     carry: bool,
 
-/// Temporary register (for two-step operations)
-#[allow(dead_code)]
+    /// Temporary register (for two-step operations)
+    #[allow(dead_code)]
     temp: u8,
 }
 

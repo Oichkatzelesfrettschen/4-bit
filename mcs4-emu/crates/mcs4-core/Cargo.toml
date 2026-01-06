@@ -1,22 +1,22 @@
 [package]
 name = "mcs4-core"
-description = "Core simulation primitives for MCS-4/MCS-40 gate-level emulator"
+description = "Core simulation kernel for MCS-4/MCS-40"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
-repository.workspace = true
-authors.workspace = true
+
+[lints]
+workspace = true
 
 [dependencies]
-ordered-float.workspace = true
-indexmap.workspace = true
+modular-bitfield.workspace = true
 smallvec.workspace = true
-serde = { workspace = true, optional = true }
+serde.workspace = true
+rkyv.workspace = true
+bytemuck.workspace = true
+zerocopy.workspace = true
 tracing.workspace = true
 
 [dev-dependencies]
 proptest.workspace = true
-
-[features]
-default = []
-serde = ["dep:serde"]

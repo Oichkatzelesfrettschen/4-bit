@@ -1,15 +1,19 @@
 [package]
 name = "mcs4-bus"
-description = "MCS-4/MCS-40 bus infrastructure and protocol implementation"
+description = "Bus infrastructure for MCS-4 emulator"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
-repository.workspace = true
-authors.workspace = true
+
+[lints]
+workspace = true
 
 [dependencies]
 mcs4-core = { path = "../mcs4-core" }
 tracing.workspace = true
-
-[dev-dependencies]
-proptest.workspace = true
+serde.workspace = true
+rkyv.workspace = true
+bytemuck.workspace = true
+zerocopy.workspace = true
+modular-bitfield.workspace = true

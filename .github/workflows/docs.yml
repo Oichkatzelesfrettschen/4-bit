@@ -1,1 +1,20 @@
-name: Docs CI\non:\n  push:\n    paths:\n      - '**/*.md'\n      - 'docs/meta/registry.yaml'\n      - 'scripts/**'\njobs:\n  validate:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Validate YAML\n        run: scripts/doc_validate.sh || true\n      - name: Doc Sync\n        run: scripts/doc_sync.sh || true\n      - name: Markdown Validate\n        run: scripts/md_validate.sh || true
+name: Docs CI
+on:
+  push:
+    paths:
+      - "**/*.md"
+      - "docs/meta/registry.yaml"
+      - "scripts/**"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yq
+        run: sudo apt-get update && sudo apt-get install -y yq
+      - name: Validate YAML
+        run: scripts/doc_validate.sh
+      - name: Doc Sync
+        run: scripts/doc_sync.sh
+      - name: Markdown Validate
+        run: scripts/md_validate.sh

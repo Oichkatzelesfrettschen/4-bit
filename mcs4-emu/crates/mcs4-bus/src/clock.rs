@@ -73,7 +73,7 @@ impl ClockConfig {
 
 /// Two-phase clock generator
 #[derive(Clone, Debug)]
-pub struct TwoPhaseClockTwoPhaseClock {
+pub struct TwoPhaseClock {
     /// Configuration
     pub config: ClockConfig,
 
@@ -90,7 +90,7 @@ pub struct TwoPhaseClockTwoPhaseClock {
     cycle_count: u64,
 }
 
-impl TwoPhaseClockTwoPhaseClock {
+impl TwoPhaseClock {
     /// Create a new clock generator
     pub fn new(config: ClockConfig) -> Self {
         Self {
@@ -123,7 +123,14 @@ impl TwoPhaseClockTwoPhaseClock {
     }
 
     /// Generate clock events for simulator
-    pub fn schedule_events(&self, sim: &mut Simulator, phi1_id: SignalId, phi2_id: SignalId, start_time: Time, num_cycles: u64) {
+    pub fn schedule_events(
+        &self,
+        sim: &mut Simulator,
+        phi1_id: SignalId,
+        phi2_id: SignalId,
+        start_time: Time,
+        num_cycles: u64,
+    ) {
         let mut t = start_time;
 
         for _ in 0..num_cycles {
@@ -234,7 +241,7 @@ mod tests {
 
     #[test]
     fn test_clock_tick() {
-        let mut clock = TwoPhaseClockTwoPhaseClock::default_config();
+        let mut clock = TwoPhaseClock::default_config();
 
         // First tick should be PHI1 rising
         let edge = clock.tick(0);
@@ -245,17 +252,18 @@ mod tests {
 
     #[test]
     fn test_non_overlapping() {
-        let mut clock = TwoPhaseClockTwoPhaseClock::default_config();
-        let mut t = 0;
+        let mut clock = TwoPhaseClock::default_config();
 
         // Run through multiple cycles
-        for _ in 0..10 {
+        for t in 0..10 {
             let edge = clock.tick(t);
-            t += 1;
 
             // PHI1 and PHI2 should never both be high
-            assert!(!(clock.phi1_high() && clock.phi2_high()),
-                "Clock overlap detected at edge {:?}", edge);
+            assert!(
+                !(clock.phi1_high() && clock.phi2_high()),
+                "Clock overlap detected at edge {:?}",
+                edge
+            );
         }
     }
 }

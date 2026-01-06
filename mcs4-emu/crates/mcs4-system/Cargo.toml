@@ -1,12 +1,25 @@
 [package]
 name = "mcs4-system"
-description = "Complete MCS-4/MCS-40 system assembly"
+description = "System integration for MCS-4 emulator"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
 
 [dependencies]
 mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }
 mcs4-chips = { path = "../mcs4-chips" }
 tracing.workspace = true
+rayon.workspace = true
+memmap2 = "0.9"
+bumpalo = "3"
+
+[dev-dependencies]
+criterion.workspace = true
+tempfile = "3"

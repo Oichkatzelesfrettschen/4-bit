@@ -117,10 +117,7 @@ impl DepletionLoad {
     pub fn new(w: f64, l: f64) -> Self {
         let mut fet = PmosFet::new(w, l);
         fet.vth = 1.0; // Positive threshold for depletion mode
-        Self {
-            fet,
-            vth_dep: 1.0,
-        }
+        Self { fet, vth_dep: 1.0 }
     }
 
     /// Depletion loads are always "on" (conducting)

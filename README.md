@@ -6,22 +6,26 @@ Research archive for Intel's pioneering 4-bit microprocessors: the 4004, 4040, a
 
 ### Intel 4004 (1971)
 The world's first commercially available single-chip microprocessor, designed by Federico Faggin, Ted Hoff, and Stanley Mazor. Key specifications:
-- 4-bit CPU with 2,300 transistors
+- 4-bit CPU (transistor count pending primary confirmation; see `docs/AUDIT.md`)
 - 10 micron process (silicon gate PMOS)
-- 740 kHz clock speed
+- 10.8 microsecond instruction cycle; 8/16 cycles at 750 kHz clock (primary)
 - 46 instructions
 - 4KB program memory addressing
 - 640 bytes data memory addressing
 
 ### Intel 4040 (1974)
 Enhanced successor to the 4004 with expanded capabilities:
-- 4-bit CPU with 3,000 transistors
+- 4-bit CPU (transistor count pending primary confirmation; see `docs/AUDIT.md`)
 - 10 micron process (silicon gate enhancement-load PMOS)
-- 5.185 MHz system clock (10.8 microsecond cycle time)
+- 10.8 microsecond instruction cycle (primary)
+- 5.185 MHz system clock (Intellec 4/MOD 40; primary)
 - 60 instructions (14 more than 4004)
 - Interrupt capability
 - Additional registers (24 index registers vs 16)
-- ~62,000 instructions per second
+- Instruction throughput pending primary confirmation (see `docs/AUDIT.md`)
+
+Spec sources: Intel MCS4 Data Sheet (Nov 1971) and MCS-40 Users Manual (Nov 1974).
+Transistor counts and IPS remain pending primary confirmation; see `docs/AUDIT.md`.
 
 ### MCS-4 System (4004 Family)
 Complete microcomputer system comprising:
@@ -124,6 +128,13 @@ In November 2025, Klaus Scheffler and Lajos Kintli completed a discrete-transist
 ## License
 
 Original Intel documentation is provided under Intel's non-commercial use license as granted for the 4004.com project. Third-party emulators have their own licenses - see individual project repositories.
+
+## Project Status and Roadmap
+
+- Status log: `mcs4-emu/STATUS.md`
+- Roadmap: `docs/ROADMAP.md`
+- Audit log: `docs/AUDIT.md`
+- Installation requirements: `mcs4-emu/INSTALLATION.md`
 
 ## Contributing
 
