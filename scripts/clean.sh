@@ -17,7 +17,10 @@ for dir in "${targets[@]}"; do
 done
 
 find "$ROOT_DIR" \
-  -name "*.profraw" -o \
-  -name "*.profdata" -o \
-  -name "lcov.info" \
+  \( -name "*.profraw" -o \
+     -name "*.profdata" -o \
+     -name "lcov.info" -o \
+     -name "core" -o \
+     -name "core.*" -o \
+     -name "*.core" \) \
   -delete

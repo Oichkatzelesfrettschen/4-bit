@@ -13,12 +13,14 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - Nightly pinned in `rust-toolchain.toml` (2026-01-06) for portable_simd.
 - MSRV baseline: Rust 1.92.0 (stable).
 - Warnings are errors (`.cargo/config.toml`, `cargo clippy-all` alias).
+- Edition: 2021 (workspace-wide).
 
 ## Build and Test
 - `cargo build --workspace --locked`
 - `cargo test --workspace`
 - `cargo clippy-all`
 - `cargo fmt --all`
+- `scripts/doc_validate.sh`
 
 ## Artifacts
 - Build output: `target/`
@@ -26,6 +28,6 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - Cleanup: `scripts/clean.sh`
 
 ## Known Gaps
-- No CI workflow for build/test/clippy yet (docs-only workflow exists).
-- Primary MCS-4 datasheets are scanned; OCR needed for transistor/clock verification.
+- Primary MCS-4/MCS-40 datasheets are scanned; OCR needed for transistor and clock verification.
+- Transistor-level simulation stubs and FPGA netlist export remain placeholders.
 - See `docs/AUDIT.md` and `docs/ROADMAP.md` for ongoing validation work.

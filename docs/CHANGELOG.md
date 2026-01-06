@@ -15,3 +15,8 @@
 - Added gemini.md summary and expanded roadmap tasks.
 - Added MIT and Apache-2.0 license files at repo root.
 - OCR-verified MCS-4 datasheet timing; refreshed audit for chip design references.
+- Clarified installation tooling (go-yq, OCR) and refreshed docs index timestamps.
+- Updated clean script to include core dumps and corrected find logic.
+- Added OCR-derived clock-period citations and noted remaining 4040 clock gaps.
+- Corrected MCS-40 device roles and flagged unverified process/implementation claims in README.
+- Logged latest fmt/clippy/test/doc validation runs in quality checklist.

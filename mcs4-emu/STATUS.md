@@ -4,6 +4,7 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-06T20:00:22Z: Installed go-yq + tesseract data, ran fmt/clippy/tests/doc validation, updated AUDIT with OCR clock-period citations, refreshed docs/README/install/development/roadmap/quality logs.
 - 2026-01-06T07:41:40Z: Added root licenses, ran doc registry validation with local yq, and OCR-verified MCS-4 timing from primary datasheets.
 - 2026-01-06T07:36:00Z: Added primary-source citations to AUDIT, updated ARCHITECTURE and ROADMAP, added CI workflow, and enforced clippy warnings-as-errors.
 - 2026-01-06T06:18:27Z: Consolidated roadmap phases; began repo hygiene audit and documentation sync.

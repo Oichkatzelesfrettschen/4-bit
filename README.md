@@ -7,7 +7,7 @@ Research archive for Intel's pioneering 4-bit microprocessors: the 4004, 4040, a
 ### Intel 4004 (1971)
 The world's first commercially available single-chip microprocessor, designed by Federico Faggin, Ted Hoff, and Stanley Mazor. Key specifications:
 - 4-bit CPU (transistor count pending primary confirmation; see `docs/AUDIT.md`)
-- 10 micron process (silicon gate PMOS)
+- 10 micron process (secondary source; primary confirmation pending; see `docs/AUDIT.md`)
 - 10.8 microsecond instruction cycle; 8/16 cycles at 750 kHz clock (primary)
 - 46 instructions
 - 4KB program memory addressing
@@ -16,7 +16,7 @@ The world's first commercially available single-chip microprocessor, designed by
 ### Intel 4040 (1974)
 Enhanced successor to the 4004 with expanded capabilities:
 - 4-bit CPU (transistor count pending primary confirmation; see `docs/AUDIT.md`)
-- 10 micron process (silicon gate enhancement-load PMOS)
+- 10 micron process (secondary source; primary confirmation pending; see `docs/AUDIT.md`)
 - 10.8 microsecond instruction cycle (primary)
 - 5.185 MHz system clock (Intellec 4/MOD 40; primary)
 - 60 instructions (14 more than 4004)
@@ -39,7 +39,7 @@ Enhanced microcomputer system with:
 - **4040**: Enhanced 4-bit CPU
 - **4289**: Standard memory interface
 - **4308**: 1Kx8-bit ROM
-- **4207/4209/4211**: Clock generators
+- **4207/4209/4211**: General purpose I/O devices
 - **4101**: 256x4-bit static RAM
 - **4201**: Clock generator
 
@@ -123,7 +123,7 @@ Key dates:
 
 ## Recent Developments
 
-In November 2025, Klaus Scheffler and Lajos Kintli completed a discrete-transistor implementation of the complete MCS-4 system, achieving 2x the original clock speed.
+In November 2025, Klaus Scheffler and Lajos Kintli reportedly completed a discrete-transistor implementation of the complete MCS-4 system, achieving 2x the original clock speed (claim pending verification; see `docs/AUDIT.md`).
 
 ## License
 
