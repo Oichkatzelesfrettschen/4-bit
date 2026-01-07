@@ -24,6 +24,13 @@
 - OCR toolchain for scanned PDFs (Arch/CachyOS): `yay -S --needed ocrmypdf jbig2enc` (pulls unpaper/pngquant/img2pdf/python-pikepdf).
 - OCR toolchain for scanned PDFs (Debian/Ubuntu): `sudo apt-get install ocrmypdf tesseract-ocr tesseract-ocr-eng poppler-utils`.
 
+## Optional Analysis Tooling
+- Download accelerators: `aria2`, `axel`, `wget2`.
+- PDF utilities: `pdfcpu`, `pdftk`, `qpdf`.
+- Image/OCR utilities: `gimp`, `gimagereader-qt`, `gocr`, `scantailor-advanced`, `imagemagick`, `graphicsmagick`.
+- Layout/netlist tooling: `klayout`, `xschem`, `ngspice`, `netlistsvg`.
+- Metadata inspection: `exiftool`, `mediainfo`.
+
 ## Build and Test
 - `cargo build --workspace --locked`
 - `cargo test --workspace`

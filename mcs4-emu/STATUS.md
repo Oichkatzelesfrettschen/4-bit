@@ -4,6 +4,12 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-07T06:30:15Z: Added optional analysis tooling list to installation requirements and refreshed docs timestamps.
+- 2026-01-07T06:22:42Z: Logged siliconprawn 4004B die-shot tiles as an external, license-unverified candidate source.
+- 2026-01-07T06:05:07Z: Added 4002/4003 photomicrograph thumbnails from 4004.com, updated provenance evidence, and documented 4040 package-photo references with missing die-shot gap.
+- 2026-01-07T05:46:00Z: Added 4004 schematic bus-label overlay and poly/diffusion transistor overlay with annotation doc.
+- 2026-01-07T05:45:00Z: Added netlist extraction workflow doc for i400x analyzer assets.
+- 2026-01-07T05:44:22Z: Added photomicrograph previews (4004.com) with permissions evidence and updated artifact catalog.
 - 2026-01-07T05:38:53Z: Added chip artifact catalog and audit notes for schematics/mask layers; removed out-of-scope puzzle docs.
 - 2026-01-07T03:58:36Z: Added evidence trail docs (ocr_manifest/ocr_results), OCR sidecars for 4004/4040 datasheets and MCS-4/MCS-40 manuals/specs, and captured 4004 netlist component counts from 4004.com analyzer readme.
 - 2026-01-07T03:19:41Z: Installed ocrmypdf/jbig2enc, OCR-scanned MCS-4/MCS-40 manuals and brochures, and updated audit/tooling docs with 4040 clock-period source and 4004 netlist counts.

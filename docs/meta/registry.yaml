@@ -1,6 +1,6 @@
 metadata:
   version: "1.0"
-  last_updated: "2026-01-07T05:44:22Z"
+  last_updated: "2026-01-07T06:30:15Z"
 
 docs:
   - file: README.md
@@ -35,7 +35,15 @@ docs:
     role: audit
   - file: docs/CHIP_ARTIFACTS.md
     role: reference
+  - file: docs/NETLIST_WORKFLOW.md
+    role: reference
+  - file: docs/LAYER_ANNOTATIONS.md
+    role: reference
+  - file: docs/photomicrographs/README.md
+    role: reference
   - file: docs/evidence/README.md
+    role: evidence
+  - file: docs/evidence/photomicrograph_permissions.md
     role: evidence
   - file: docs/evidence/ocr_manifest.yaml
     role: evidence

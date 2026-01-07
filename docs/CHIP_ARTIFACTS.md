@@ -25,9 +25,13 @@ Local artifacts
 - docs/emulators/i4004-diffusion.bmp
 - docs/emulators/i4004-schematic.bmp
 - docs/emulators/i4004-signals.txt
+- docs/photomicrographs/4004/4004-composite-thumb.jpg
+- docs/4004/annotated/i4004-schematic-bus-labels.png
+- docs/4004/annotated/i4004-poly-diffusion-transistors.png
 
 Notes
 - The emulator layers are used by the i400x analyzer to extract netlists and compare to schematics.
+- External die-shot tiles exist for Intel 4004B at siliconprawn.org (license unverified; not imported).
 ## Intel 4001 (ROM + I/O)
 Local artifacts
 - docs/MCS-4/i4001-schematic.gif
@@ -37,6 +41,7 @@ Local artifacts
 - docs/emulators/i4001-diffusion.bmp
 - docs/emulators/i4001-schematic.bmp
 - docs/emulators/i4001-signals.txt
+- docs/photomicrographs/4001/4001-composite-thumb.jpg
 
 ## Intel 4002 (RAM + output)
 Local artifacts
@@ -47,6 +52,7 @@ Local artifacts
 - docs/emulators/i4002-diffusion.bmp
 - docs/emulators/i4002-schematic.bmp
 - docs/emulators/i4002-signals.txt
+- docs/photomicrographs/4002/4002-composite-thumb.jpg
 
 ## Intel 4003 (shift register)
 Local artifacts
@@ -57,11 +63,16 @@ Local artifacts
 - docs/emulators/i4003-diffusion.bmp
 - docs/emulators/i4003-schematic.bmp
 - docs/emulators/i4003-signals.txt
+- docs/photomicrographs/4003/4003-composite-thumb.jpg
 
 ## Intel 4040 (CPU)
 Local artifacts
 - docs/4040/4040-datasheet.pdf
 - docs/MCS-40/4040_Datasheet.pdf
+
+External photo references
+- https://happytrees.org/chips/Intel_-_P4040 (package photo, CC BY-SA 4.0)
+- https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (package photo, CC BY-SA)
 ## System-level wiring and schematics
 - docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf (board-level wiring)
 - docs/MCS-4/MCS-4_UsersManual_Feb73.pdf (system diagrams)
@@ -72,6 +83,7 @@ Local artifacts
 ## Emulator analyzer reference
 - docs/emulators/readme.txt (analyzer workflow and layer semantics)
 - docs/emulators/license.txt (Intel license for source materials)
+- docs/NETLIST_WORKFLOW.md (local workflow summary)
 
 ## Layer analysis notes (from analyzer readme)
 - Netlists are extracted from both mask layers and schematic bitmaps, then matched.
@@ -80,10 +92,14 @@ Local artifacts
 - Analyzer highlights transistors and wires by signal state and can simulate CPU/ROM/RAM together.
 
 ## Known gaps
-- No confirmed die-shot photos in repo for 4001/4002/4003/4004/4040.
+- No confirmed die-shot photos in repo for 4040 or MCS-40 support chips.
+- Only package photos found so far for 4040; no die photomicrographs located yet.
+- Only thumbnail composite photomicrographs for 4001-4004 are in repo; no full-size composites yet.
+- External 4004B die-shot tiles exist (siliconprawn.org) but license is unverified.
 - No mask-layer sets for 4040 or MCS-40 support chips in repo.
 - No transistor-level layer bitmaps for 4040 in repo.
-- Provenance/licensing for external photomicrograph links not yet recorded.
+- Provenance/licensing for external photomicrograph links is recorded in docs/evidence/photomicrograph_permissions.md.
+- Full-size composite photomicrographs from alumni.media.mit.edu are not imported; license not confirmed.
 
 ## External sources to review next
 - https://www.4004.com/ (schematics, masks, and historical material)
@@ -96,8 +112,16 @@ Local artifacts
 - http://alumni.media.mit.edu/~mcnerney/2009-4004/4004-composite-photo.jpg
 - http://www.intel4004.com/ (schematics and history)
 - https://bitsavers.org/components/intel/ (manuals and schematics)
+- https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (4040 package photo, CC BY-SA)
+- https://happytrees.org/chips/Intel_-_4040_family (CPU Grave Yard, CC BY-SA 4.0)
+- https://happytrees.org/chips/Intel_-_P4040 (CPU Grave Yard P4040 package photo)
+- http://siliconprawn.org/map/intel/ (die-shot map listing; no 4040 entry currently)
+- http://siliconprawn.org/map/intel/4004b/ (4004B die-shot tiles and images; license unverified)
 
 ## Provenance status (external)
-- 4004.com: Intel-licensed materials per site; verify reuse terms before redistribution.
+- 4004.com: CC BY-NC-SA 3.0 statement recorded in docs/evidence/photomicrograph_permissions.md.
 - alumni.media.mit.edu photomicrographs: license not recorded in repo; verify terms.
+- Wikimedia 4040 package photo: CC BY-SA per file page; attribution required.
+- CPU Grave Yard (happytrees.org): CC BY-SA 4.0 per site footer and file page.
+- siliconprawn.org die-shot tiles: license not recorded in repo; verify terms.
 - intel4004.com: license not recorded in repo; verify terms.

@@ -17,6 +17,7 @@ Guiding rules:
 - Adopt Rust 2024 edition across the workspace and validate toolchain compatibility.
 - Track down primary transistor-count sources (Intel reliability reports, data books, or official datasheets).
 - Catalog schematics/mask layers/die shots and document missing artifacts.
+- Locate primary 4040 die shots and MCS-40 support-chip schematics or record verified gaps.
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.

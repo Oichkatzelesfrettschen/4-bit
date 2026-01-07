@@ -25,3 +25,6 @@
 - 2026-01-07: `scripts/doc_validate.sh` (artifact catalog)
 - 2026-01-07: `scripts/doc_validate.sh` (photomicrograph links)
 - 2026-01-07: `scripts/doc_validate.sh` (provenance notes)
+- 2026-01-07: `scripts/doc_validate.sh` (photomicrograph updates)
+- 2026-01-07: `scripts/doc_validate.sh` (siliconprawn references)
+- 2026-01-07: `scripts/doc_validate.sh` (installation tooling update)

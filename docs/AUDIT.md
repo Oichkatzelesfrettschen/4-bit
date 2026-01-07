@@ -57,7 +57,8 @@ with a source URL.
 ## Diagram Coverage
 - Diagram and layer artifacts are indexed in `docs/CHIP_ARTIFACTS.md`.
 - MCS-4 chips have metal/poly/diffusion/via layers plus schematics via the i400x analyzer assets.
-- 4040 has datasheets only; die shots and layer sets are not present in repo.
+- MCS-4 photomicrograph thumbnails (4001-4004) are present under `docs/photomicrographs/`.
+- 4040 has datasheets only; die shots and layer sets are not present in repo, and only package photos have been located so far.
 
 ## Chip Design Verification (Primary Sources)
 

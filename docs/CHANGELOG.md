@@ -33,3 +33,11 @@
 - OCR sidecars added for 4004/4040 datasheets and MCS-4/MCS-40 manuals/specs.
 - Linked audit entries to evidence results and refreshed docs registry timestamps.
 - Added chip artifact catalog for schematics and mask layers.
+- Added photomicrograph previews from 4004.com and permissions evidence.
+- Added netlist extraction workflow doc for i400x analyzer assets.
+- Added annotated 4004 schematic and poly/diffusion overlay plus annotation notes.
+- Added 4002/4003 composite photomicrograph thumbnails from 4004.com and updated artifacts list.
+- Recorded 4040 package photo provenance (Wikimedia/CPU Grave Yard) while noting missing die shots.
+- Updated audit coverage notes for photomicrographs and MCS-40 artifact gaps.
+- Added siliconprawn 4004B die-shot tiles as external, license-unverified references.
+- Expanded installation requirements with optional analysis tooling (download/OCR/layout/metadata).
