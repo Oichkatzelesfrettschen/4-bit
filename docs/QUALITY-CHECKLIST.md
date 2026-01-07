@@ -28,3 +28,4 @@
 - 2026-01-07: `scripts/doc_validate.sh` (photomicrograph updates)
 - 2026-01-07: `scripts/doc_validate.sh` (siliconprawn references)
 - 2026-01-07: `scripts/doc_validate.sh` (installation tooling update)
+- 2026-01-07: `scripts/doc_validate.sh` (4001-4003 overlays)

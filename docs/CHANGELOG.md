@@ -41,3 +41,4 @@
 - Updated audit coverage notes for photomicrographs and MCS-40 artifact gaps.
 - Added siliconprawn 4004B die-shot tiles as external, license-unverified references.
 - Expanded installation requirements with optional analysis tooling (download/OCR/layout/metadata).
+- Added schematic label and poly/diffusion overlays for 4001/4002/4003.

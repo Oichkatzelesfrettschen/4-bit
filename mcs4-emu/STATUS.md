@@ -4,6 +4,7 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-07T06:33:37Z: Added 4001/4002/4003 schematic label overlays and poly/diffusion intersection overlays.
 - 2026-01-07T06:30:15Z: Added optional analysis tooling list to installation requirements and refreshed docs timestamps.
 - 2026-01-07T06:22:42Z: Logged siliconprawn 4004B die-shot tiles as an external, license-unverified candidate source.
 - 2026-01-07T06:05:07Z: Added 4002/4003 photomicrograph thumbnails from 4004.com, updated provenance evidence, and documented 4040 package-photo references with missing die-shot gap.

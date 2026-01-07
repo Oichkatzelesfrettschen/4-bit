@@ -28,3 +28,32 @@ Method
 Notes
 - This is an algorithmic overlay; verify against original masks for precise analysis.
 - Does not include metal/via connectivity, so it is not a full connectivity diagram.
+
+## 4001/4002/4003 schematic bus labels
+- Sources: docs/emulators/i4001-schematic.bmp, docs/emulators/i4002-schematic.bmp, docs/emulators/i4003-schematic.bmp
+- Signal maps: docs/emulators/i4001-signals.txt, docs/emulators/i4002-signals.txt, docs/emulators/i4003-signals.txt
+- Outputs:
+  - docs/4001/annotated/i4001-schematic-bus-labels.png
+  - docs/4002/annotated/i4002-schematic-bus-labels.png
+  - docs/4003/annotated/i4003-schematic-bus-labels.png
+
+Method
+- Labeled clock/reset/bus pads from the analyzer signal maps.
+- 4003 labels include CLOCK/DATA/EN/OUT and Q0-Q9 taps.
+
+Notes
+- Label selection favors bus pins and latch outputs to avoid clutter.
+
+## 4001/4002/4003 transistor overlays (poly + diffusion)
+- Sources: docs/emulators/i4001-poly.bmp, docs/emulators/i4002-poly.bmp, docs/emulators/i4003-poly.bmp
+- Sources: docs/emulators/i4001-diffusion.bmp, docs/emulators/i4002-diffusion.bmp, docs/emulators/i4003-diffusion.bmp
+- Outputs:
+  - docs/4001/annotated/i4001-poly-diffusion-transistors.png
+  - docs/4002/annotated/i4002-poly-diffusion-transistors.png
+  - docs/4003/annotated/i4003-poly-diffusion-transistors.png
+
+Method
+- Same algorithm as the 4004 overlay: threshold masks, color poly/diffusion, highlight intersections.
+
+Notes
+- These overlays are for quick transistor-site visualization only.

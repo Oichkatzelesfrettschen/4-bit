@@ -42,6 +42,8 @@ Local artifacts
 - docs/emulators/i4001-schematic.bmp
 - docs/emulators/i4001-signals.txt
 - docs/photomicrographs/4001/4001-composite-thumb.jpg
+- docs/4001/annotated/i4001-schematic-bus-labels.png
+- docs/4001/annotated/i4001-poly-diffusion-transistors.png
 
 ## Intel 4002 (RAM + output)
 Local artifacts
@@ -53,6 +55,8 @@ Local artifacts
 - docs/emulators/i4002-schematic.bmp
 - docs/emulators/i4002-signals.txt
 - docs/photomicrographs/4002/4002-composite-thumb.jpg
+- docs/4002/annotated/i4002-schematic-bus-labels.png
+- docs/4002/annotated/i4002-poly-diffusion-transistors.png
 
 ## Intel 4003 (shift register)
 Local artifacts
@@ -64,6 +68,8 @@ Local artifacts
 - docs/emulators/i4003-schematic.bmp
 - docs/emulators/i4003-signals.txt
 - docs/photomicrographs/4003/4003-composite-thumb.jpg
+- docs/4003/annotated/i4003-schematic-bus-labels.png
+- docs/4003/annotated/i4003-poly-diffusion-transistors.png
 
 ## Intel 4040 (CPU)
 Local artifacts
