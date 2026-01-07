@@ -18,6 +18,13 @@ Wikimedia Commons 4040 package photo
 - Provenance: uploaded by PantheraLeo1359531 from ZyMOS via happytrees.org/chips (archived).
 - Note: this is a package photo, not a die shot.
 
+Wikimedia Commons Intel 4004 layout poster photo
+- Source: https://commons.wikimedia.org/wiki/File:Chip_layout_from_the_development_phase_of_the_Intel_4004_from_1971,_the_first_microprocessor_of_the_world_(cropped_and_edited_image).jpg
+- Local file: docs/photomicrographs/4004/4004-layout-cc0.jpg
+- SHA256: b9dc17ee1cfd3358d9dab8e711b3d1de5847b517477bf8d0f337d4977f086942
+- License: CC0 1.0 (public domain dedication), per Wikimedia file page.
+- Note: photographed layout poster (not a die photomicrograph); used as layout reference.
+
 CPU Grave Yard (happytrees.org) 4040 package photo
 - Source: https://happytrees.org/chips/File:Ic-photo-Intel--P4040--(4040-CPU).JPG
 - License: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0), per file page.

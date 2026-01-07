@@ -14,6 +14,7 @@ Guiding rules:
 - Normalize docs registry/INDEX and CI doc checks.
 - Track workspace lint inheritance and MSRV across all crates.
 - Add primary-source citations to `docs/AUDIT.md` for CPU specs and resolve open gaps.
+- Resolve OCR pipeline warnings (Ghostscript JPEG issues, tesseract diacritics) and chunked OCR for the 1975 Intel Data Catalog.
 - Adopt Rust 2024 edition across the workspace and validate toolchain compatibility.
 - Track down primary transistor-count sources (Intel reliability reports, data books, or official datasheets).
 - Catalog schematics/mask layers/die shots and document missing artifacts.

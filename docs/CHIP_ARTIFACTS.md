@@ -26,12 +26,14 @@ Local artifacts
 - docs/emulators/i4004-schematic.bmp
 - docs/emulators/i4004-signals.txt
 - docs/photomicrographs/4004/4004-composite-thumb.jpg
+- docs/photomicrographs/4004/4004-layout-cc0.jpg
 - docs/4004/annotated/i4004-schematic-bus-labels.png
 - docs/4004/annotated/i4004-poly-diffusion-transistors.png
 
 Notes
 - The emulator layers are used by the i400x analyzer to extract netlists and compare to schematics.
 - External die-shot tiles exist for Intel 4004B at siliconprawn.org (license unverified; not imported).
+- The CC0 4004 layout poster photo is not a die shot; it is a photographed layout drawing.
 ## Intel 4001 (ROM + I/O)
 Local artifacts
 - docs/MCS-4/i4001-schematic.gif
@@ -79,6 +81,7 @@ Local artifacts
 External photo references
 - https://happytrees.org/chips/Intel_-_P4040 (package photo, CC BY-SA 4.0)
 - https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (package photo, CC BY-SA)
+- https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040 (package photos; license not stated, not imported)
 ## System-level wiring and schematics
 - docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf (board-level wiring)
 - docs/MCS-4/MCS-4_UsersManual_Feb73.pdf (system diagrams)
@@ -106,6 +109,7 @@ External photo references
 - No transistor-level layer bitmaps for 4040 in repo.
 - Provenance/licensing for external photomicrograph links is recorded in docs/evidence/photomicrograph_permissions.md.
 - Full-size composite photomicrographs from alumni.media.mit.edu are not imported; license not confirmed.
+- Wikimedia Commons die-shot galleries list an Intel 4004 layout image but no 4040 die shots.
 
 ## External sources to review next
 - https://www.4004.com/ (schematics, masks, and historical material)
@@ -121,6 +125,8 @@ External photo references
 - https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (4040 package photo, CC BY-SA)
 - https://happytrees.org/chips/Intel_-_4040_family (CPU Grave Yard, CC BY-SA 4.0)
 - https://happytrees.org/chips/Intel_-_P4040 (CPU Grave Yard P4040 package photo)
+- https://commons.wikimedia.org/wiki/Gallery:Die_shots_of_microprocessors (contains CC0 4004 layout image; no 4040 die shots)
+- https://commons.wikimedia.org/wiki/Category:Intel_microprocessor_dies
 - http://siliconprawn.org/map/intel/ (die-shot map listing; no 4040 entry currently)
 - http://siliconprawn.org/map/intel/4004b/ (4004B die-shot tiles and images; license unverified)
 

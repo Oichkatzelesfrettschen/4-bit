@@ -18,7 +18,7 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 
 ## Evidence Trails
 - Evidence files live under `docs/evidence/` with OCR sidecars and hashes.
-- See `docs/evidence/ocr_results.md` for clock period evidence and netlist component counts.
+- See `docs/evidence/ocr_results.md` for clock period evidence (including MCS4 Data Sheet 10.8 usec/750 KHz) and netlist component counts.
 
 ## Build and Test
 - `cargo build --workspace --locked`
@@ -33,7 +33,9 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - Cleanup: `scripts/clean.sh`
 
 ## Known Gaps
-- Primary MCS-4/MCS-40 datasheets are scanned; OCR verified timing (4040 clock period 1.35-2.0 usec), but transistor counts remain unverified in primary docs.
+- Primary MCS-4/MCS-40 datasheets are scanned; OCR verified timing (including MCS4 10.8 usec/750 KHz and 4040 clock period 1.35-2.0 usec), but transistor counts remain unverified in primary docs.
+- 1975 Intel Data Catalog OCR failed due to resource limits; text-layer extraction used as a fallback.
 - Forensic netlist counts for the 4004 are documented on 4004.com (transistor/component breakdown).
+- 4040 die shots remain unverified; only package photos and secondary sources found.
 - Transistor-level simulation stubs and FPGA netlist export remain placeholders.
 - See `docs/AUDIT.md` and `docs/ROADMAP.md` for ongoing validation work.

@@ -1,4 +1,4 @@
-# OCR Evidence Results (2026-01-07T03:58:36Z)
+# OCR Evidence Results (2026-01-07T17:05:31Z)
 
 Clock period evidence (OCR noise preserved)
 - Intel 4004 datasheet sidecar: docs/evidence/ocr/4004-datasheet.txt
@@ -40,6 +40,14 @@ Clock period evidence (OCR noise preserved)
    574	t9p2 Clock Delay ¢ to ¢4 150 ns
    575	tw Data-In, CM, SYNC Write Time 350 100 ns
 ```
+- MCS-4 Data Sheet Nov71 sidecar: docs/evidence/ocr/mcs4_data_sheet_nov71.txt
+```text
+   381	The MCS-4 uses a 10.8 usec instruction cycle. The CPU (4004) generates a synchronizing signal (SYNC), indicating the start of an
+   382	instruction cycle, and sends it to the ROM’s (4001) and RAM’s (4002).
+   384	Basic instruction execution requires 8 or 16 cycles of a 750 KHz clock. In a typical sequence, the CPU sends 12 bits of address to
+   385	the ROM’s in the first three cycles (A4, Ay, A3). The selected ROM chip sends back 8 bits of instruction (OPR, OPA) to the CPU
+   386	in the next two cycles (My, M, ). The instruction is then interpreted and executed in the final three cycles (X, X5, X3). (See
+```
 
 Transistor count evidence (4004.com analyzer)
 - Source: /tmp/i400x_analyzer/unpacked/readme.txt
@@ -58,6 +66,7 @@ Transistor count evidence (4004.com analyzer)
 ```
 Transistor count not found (rg returned no matches)
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs4_users_manual.txt`
+- `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs4_data_sheet_nov71.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_users_manual.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_advance_specs.txt`
 - `rg -n "transistor" docs/evidence/ocr/4004-datasheet.txt docs/evidence/ocr/4040-datasheet.txt`

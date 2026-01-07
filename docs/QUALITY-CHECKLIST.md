@@ -29,3 +29,7 @@
 - 2026-01-07: `scripts/doc_validate.sh` (siliconprawn references)
 - 2026-01-07: `scripts/doc_validate.sh` (installation tooling update)
 - 2026-01-07: `scripts/doc_validate.sh` (4001-4003 overlays)
+
+## Open Warnings
+- OCR pipeline emits Ghostscript 10.6 JPEG warnings and tesseract diacritic alerts; upgrade Ghostscript or rerun with higher-quality scans.
+- OCR of the 1975 Intel Data Catalog failed due to resource limits; requires chunked OCR or alternate extraction.

@@ -1,5 +1,5 @@
 version: "1.0"
-generated_at: "2026-01-07T03:58:36Z"
+generated_at: "2026-01-07T17:05:31Z"
 sources:
   - id: intel-4004-datasheet
     local_path: docs/4004/intel-4004-datasheet.pdf
@@ -16,6 +16,11 @@ sources:
     url: https://bitsavers.org/components/intel/MCS4/MCS-4_UsersManual_Feb73.pdf
     sha256: 90dbf930cbb399b99263c4573da59eb3abe503946b3ef888a4b8dc2c4d8f1f22
     sidecar: docs/evidence/ocr/mcs4_users_manual.txt
+  - id: mcs4-data-sheet-nov71
+    local_path: docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf
+    url: https://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf
+    sha256: 4672da4d81b75c98ef7c8892c9f33d522aa55922d48d6cd4952ecffe9a739622
+    sidecar: docs/evidence/ocr/mcs4_data_sheet_nov71.txt
   - id: mcs40-users-manual-nov74
     local_path: docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf
     url: https://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf

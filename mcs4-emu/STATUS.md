@@ -4,6 +4,8 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-07T17:05:31Z: Imported CC0 Intel 4004 layout poster image from Wikimedia, recorded provenance, and added CPU-collection/Commons references for 4040 image hunting.
+- 2026-01-07T17:05:31Z: OCR sidecar for MCS4 Data Sheet (Nov71), updated evidence manifest/results, and documented 1975 catalog OCR failure + pdfplumber fallback.
 - 2026-01-07T06:33:37Z: Added 4001/4002/4003 schematic label overlays and poly/diffusion intersection overlays.
 - 2026-01-07T06:30:15Z: Added optional analysis tooling list to installation requirements and refreshed docs timestamps.
 - 2026-01-07T06:22:42Z: Logged siliconprawn 4004B die-shot tiles as an external, license-unverified candidate source.

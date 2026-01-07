@@ -1,0 +1,911 @@
+mcs 4 MICRO COMPUTER SET ;
+
+NOVEMBER 1971
+
+= Microprogrammable General = 10.8 Microsecond Instruction
+Purpose Computer Set Cycle i
+
+= 4-Bit Parallel CPU With 45 = Easy Expansion-One CPU can
+Instructions ~ Directly Drive up to 32,768
+
+= Instruction Set Includes Bits of ROM and up to 5120
+Conditional Branching, Jump to  Bits of RAM ;
+Subroutine and Indirect Fetching w Unlimited Number of Output
+
+= Binary and Decimal Arithmetic Lines
+Modes = Single Power Supply Operation
+
+= Addition of Two 8-Digit Numbers (Voo =—15 Volts)
+in 850 Microseconds = Packaged in 16-Pin Dual In- Lme
+
+= 2-Phase Dynamic Operation Configuration
+
+13 H3LNdWO0I 0HIIN PSHLU
+
+The MCS-4 is a microprogrammable computer set designed for applications such as test
+systems, peripherals, terminals, billing machines, measuring systems, numeric and process
+control. The 4004 CPU, 4003 SR, and 4002 RAM are standard building blocks. The 4001
+ROM contains the custom microprogram and is implemented using a metal mask accord-
+ing to customer specifications.
+
+MCS-4 systems interface easily with switches, keyboards, displays, teletypewriters,
+printers, readers, A-D converters and other popular peripherals.
+
+A system built with the MCS-4 micro computer set can have up to 4K x 8 bit ROM words,
+1280 x 4 bit RAM characters and 128 1/0 lines without requiring any interface logic. By
+adding a few simple gates the MCS-4 can have up to 48 RAM and ROM packages in any
+combination, and 192 1/0 lines. The minimum system configuration consists of one CPU
+and one 256 x 8 bit ROM.
+
+The MCS-4 has a very powerful instruction set that allows both binary and decimal
+arithmetic. It includes conditional branching, jump to subroutine, and provides for the
+efficient use of ROM look-up tables by indirect fetching.
+
+The Intel MCS-4 micro computer set (4001/2/3/4) is fabricated with Silicon Gate Tech-
+nology. This low threshold technology allows the design and production of higher
+performance MOS circuits and provides a higher functional density on a monolithic chip
+than conventional MOS technologies.
+
+Copyright Intel Corporation 1971. Contents may not be reproduced in whole or part without the written consent of Intel Corporation.
+mdcs-4 Description
+
+256 x 8 BIT MASK PROGRAMMABLE
+
+4001
+ROM AND 4 BIT 1/0 PORT
+O
+=02
+O]
+el ADDRESS ROM
+Dy oZe>{BUS REGISTER ARRAY
+D, c@‘ 1o ‘ AND 16x16x8
+® DECODER
+D3 o=<>{BUFFER l
+oma— MUX
+1/0g 0 > ; <—®0VDD
+1/04 c‘@ > INPUT
+|/Ozo@4> PORT 4 e <—=0GND
+1/0, 0> .
+UTPUT
+“porT [«
+cL I
+RESET O
+PIN CONFIGURATION
+L 18 :"001
+oata | 012 B m
+BUS QuTRUT
+1o 10,[]3 14[]1/0,| LINES
+The 4001 is a 2048'b|t metal 0,4 13 :unj
+mask programmable ROM pro- o0 ve[]s 12w 18V
+viding custom microprogram- R " jmﬁﬁé‘&
+m!ng capability for th? MCS-4 ’gkgeﬂl;}”[: 7 10 [y ou {eLenn et
+micro computer set. It is organ- e Lsvwe (] o o[ meser
+ized as 256 x 8 bit words.
+
+Address and data are transferred in and out by time
+multiplexing on 4 data bus lines. Timing is internally generated
+using two clock signals, ¢, and ¢,, and a SYNC signal supplied
+by the 4004. Addresses are received from the CPU on three
+time periods following SYNC, and select 1 out of 256 words
+and 1 out of 16 ROM'’s. For that purpose, each ROM is
+identified as #0, 1, 2, through 15, by metal option. A
+Command Line (CM) is also provided and its scope is to select
+a ROM bank (group of 16 ROM’s).
+
+During the two time periods (M1& Msy) following the
+addressing time, information is transferred from the ROM to
+
+the data bus lines.
+
+A second mode of operation of the ROM is as an Input/Output
+control device. In that mode a ROM chip will route
+information to and from data bus lines in and out of 41/0
+external lines. Each chip has the capability to identify itself
+for an 1/0O port operation, recognize an /O port instruction
+and decide whether it is an Input or an Output operation and
+execute the instruction. An external signal (CL) will asyn-
+chironously clear the output register during normal operation.
+
+All internal flip flops (including the output register) will be re-
+set when the RESET line goes low (negative voltage).
+
+Each 1/0 pin can be uniquely chosen as either an input or
+output port by metal option. Direct or inverted input or
+output is optional. An on-chip resistor at the input pins,
+connected to either Vpp or Vg is also optional. (See ordering
+information on page 12).
+
+4002 320 BIT RAM AND 4 BIT OUTPUT PORT
+
+®,¢
+1
+
+@: ¢y
+
+Do o—<->-<® DATA REFRESH ONE OF FOUR REGISTERS
+
+0, Zer{Bus SouNIER Th IN THE RAM ARRAY
+°—<->-@ | ARRAY REGISTER 0
+
+g ®, i ADDRESS 4% 20x4| MEMORY CHARACTER 0
+
+D; o=4>{BUFFER MUX
+
+&
+&
+| E
+! 2
+| L
+| gg
+1 ADDRESS | ! 2
+b . REG. : ==
+| ic
+| =
+VDD°©L’ I_ R/IW | E
+GNDO—> INSTRUCTION| |
+® 1 DECODER i H e
+- MEMORY CHARACTER 15 | &
+- CONTROL STATUS CHARACTER 0 T ]ﬁ =
+- | =8
+<
+0 STATUS CHARACTER 3 5%
+@
+O tems o
+1 @ ;
+0,
+03 CM Pq
+RESET c®
+
+The 4002 performs two func-
+
+PIN CONF N
+tions. As a RAM it stores 320 e
+bits arranged in 4 registers of i FR™]
+
+twenty 4-bit characterseach (16 e 1] = L
+
+main memory characters and 4 B 1|0, [ UNES
+
+status characters). As a vehicle 0, 130,
+
+of communication with periph- oo wsC]s I m
+
+e vices, it is provided with cLOCK {"“"‘“’“’
+ral de , 1tiIsp PHAsH}”'C 6 11[ ] ow coNTRoL
+
+4 output lines and associated pisoeKle, ]
+contro! logic to perform output | s} ey
+operations.
+
+~
+=
+
+HARD WIRED
+[ 17 {cnw SELECT
+INPUT
+
+[ ReseT
+
+®
+©
+
+In the RAM mode, the operation is as follows: When the CPU
+executes an SRC instruction (see Instruction Set on page 5) it
+will send out the contents of the designated index register pair
+during X, and X3 as an address to the RAM, and will activate
+one CM-RAM line at X, for the previously (Note 1) selected
+RAM bank (see Basic Instruction Cycle on page 5).
+
+The data at X, and X5 is interpreted as shown below:
+
+| X3
+
+bg D, Oy Bg
+(0 through 3)
+
+' Main Memory Character #
+
+(0 through 3) (0 through 15)
+
+The status character locations (0 through 3) are selected by
+the OPA portion of one of the I/O and RAM Instructions.
+
+For chip selection, the 4002 is available in two metal options,
+4002-1 and 4002-2. An external pin, Pq (which may be hard
+wired to either Vppor Vgg) is also available for chip selection.
+The chip number is assigned as follows:
+
+Chip# | 40020pton | Pg | Bs b2 @ X,
+0 4002-1 GND g 0
+1 4002-1 Vbp 0 1
+2 4002-2 GND 1 0
+3 4002-2 Vpp 1 1
+
+Timing is internally generated using two clock signals, ¢ and
+¢, , and a sync signal provided by the 4004. Internal refresh
+circuitry maintains data levels in the cells.
+
+All communications with the system is through the data bus.
+The 1I/O port permits data out from the system. When the
+external RESET signal goes low, the memory and all static
+flip-flops (including the output registers) will be cleared. To
+fully clear the memory the RESET signal must be maintained
+for at least 32 memory cycles (32 x 8 clock periods).
+
+mcs-4 Description
+
+10 BIT SERIAL-IN/PARALLEL-OUT,
+
+4003 gER|AL-OUT SHIFT REGISTER (SR)
+Vpp GND
+® | sma POWER
+cr ol Bubeiay ol
+cP P
+
+DATA IN 0] 10 BIT SHIFT REG.
+
+o R W e Wl g el
+
+ENABLE GATES
+
+EEEEEEEEEE
+
+Qp Q; Q; Q3 Qg Q5 Qg Q7 Qg Qg
+
+PIN CONFIGURATION
+
+The 4003 is a 10 bit static shift Puc.sacn'i‘u»gﬂ’”t: 1 16[JE ENABLE INPUT
+register with serial-in, parallel- oata w2 15 ] seRiaL out
+out and serial-out data. Its func- G m 1l Te | -t
+tion is to increase the number ‘Durtuﬁ{mc . 13 1o
+
+of output lines to interface with a vells 1270,
+
+1/0 devices such as keyboards, PARALLEL
+
+. . . [ 139 Foyreuts
+dlsplay§, printers, teletypewrit- | mnautel, ], o0
+ers, switches, readers, A-D con- oe
+
+0,[]s
+verters, etc. ;
+Data is loaded serially and is available in parallel on 10 output
+lines which are accessed through enable logic. When enabled
+(E = low), the shift register contents is read out; when not
+enabled (E = high), the parallel-out lines are at Vgg. The serial-
+out line is not affected by the enable logic.
+
+Data is also available serially permitting an indefinite number
+of similar devices to be cascaded together to provide shift
+register length multiples of 10.
+
+The data shifting is controlled by the CP signal. An internal
+power-on-clear circuit will clear the shift register (Q; = Vgg )
+between the application of the supply voltage and the first
+CP signal.
+
+4002 320 BIT RAM AND 4 BIT OUTPUT PORT
+
+NOTE 1: Bank switching is accomplished by the CPU after receiving
+a “DCL" (designate command line) instruction. Prior to ex-
+ecution of the DCL instruction the desired CM-RAM; code
+has been stored in the accumulator (for example through an
+LDM instruction). During DCL the CM-RAM; code is trans-
+ferred from the accumulator to the CM-RAM register. The
+RAM bank is then selected starting with the next instruction.
+
+4 BIT CENTRAL PROCESSOR UNIT
+
+4004
+(CPU) WITH 45 INSTRUCTIONS
+CM-ROM CM-RAM, CM-RAM; CM-RAM, CM-RAMj #y b,
+of of s s of olfe
+[ CM LOGIC & BUFFERS I TIMING SYNC
+@
+V o—
+o INDEX
+GND o—» Ree. L
+® 16 x4
+5 5‘ RAM
+g INSTR. E
+- DEC. z PROGRAM
+2 8 | | counTER
+4BIT AND
+ADDER stack | T
+AL ax12
+SHIFTER ’;‘AM Y
+INSTR
+=1 REG.
+® o INCRE-
+Dy o<«>{DATA 4 B eta MENTER
+Dy JORG s N
+D, Q—’- 1/0 1 l@
+] S| surren TEST RESET
+PIN CONFIGURATION
+[/ ~
+. [ i 16 ] CM-RAM
+The 4004 is a central processor , A, 3 :
+
+. . D. 15 CM-RAM.
+unit (CPU) designed to work i3 : ' oot
+. . . . 1o ¥
+in conjunction with the other e N “pE
+members of the MCS-4 (4001, ALyt vl
+4002, 4003) for microprogram- G::mv“: i i i
+mable computer applications. uase 1 1L e {33?33?‘
+
+e m g 10 [ ] vest
+The CPU chip consists of a4 bit | sl swe]s o [neser
+
+adder, a 64 bit (16 x 4) index
+register, a 48 bit (4 x 12) program counter and stack (nesting
+up to three levels if possible), an address incrementer, an 8 bit
+instruction register and decoder, and control logic. Information
+flows between the 4004 and the other chips through a 4-line
+data bus. One 4004 may be combined with up to 48 ROM
+(4001) and RAM (4002) chips in any combination.
+
+A typical machine cycle starts with the CPU sending a syn-
+chronization signal (SYNC) to the ROM’s and RAM’s. Next,
+12 bits of ROM address are sent to the data bus using three
+clock cycles (@ .75 MHz). The address is then incremented by
+one and stored in the program counter. The selected ROM
+sends back 8 bits of instruction or data during the following 2
+clock cycles. This information is stored in two registers: OPR
+and OPA. The next three clock cycles are used to execute the
+instruction. (See Basic Instruction Cycle on page 5.)
+
+The ROM bank is controlled by a command ROM control
+signal (CM-ROM) and up to four RAM banks are controlled
+by four command RAM control signals (CM-RAMgy , CM-
+RAM; , CM-RAM, , CM-RAMj3 ). Bank switching is accom-
+plished by the execution of the DCL instruction (see Note 1
+this page).
+
+An input test signal (TEST) is used in conjunction with the
+jump on condition (JCN) instruction. An external RESET
+signal is used to clear all registers and flip-flops. To fully clear
+all registers, the RESET signal must be applied for at least 8
+memory cycles (8 x 8 clock periods). After RESET the program
+will start from ‘0" step and CM-RAM, will be selected.
+
+The instruction repertoire of the 4004 consists of:
+(a) 16 machine instructions (5 of which are double length).
+(b) 14 accumulator group instructions.
+(c) 15 input/output & RAM instructions.
+
+mcs4 Operation
+
+The detailed functional specifications describing the operation of the system, the instruction set, the activity of the CPU for each
+instruction and some programming and hardware examples are published separately and are available upon request. Following is a
+brief outline of the system operation.
+
+The MCS-4 uses a 10.8 usec instruction cycle. The CPU (4004) generates a synchronizing signal (SYNC), indicating the start of an
+instruction cycle, and sends it to the ROM’s (4001) and RAM’s (4002).
+
+Basic instruction execution requires 8 or 16 cycles of a 750 KHz clock. In a typical sequence, the CPU sends 12 bits of address to
+the ROM’s in the first three cycles (A4, Ay, A3). The selected ROM chip sends back 8 bits of instruction (OPR, OPA) to the CPU
+in the next two cycles (My, M, ). The instruction is then interpreted and executed in the final three cycles (X, X5, X3). (See
+Figure 2.)
+
+The CPU, RAM’s and ROM'’s can be controlled by an external RESET line. While RESET is activated the contents of the registers
+and flip-flops are cleared. After RESET, the CPU will start from address 0 and CM-RAM, is selected.
+
+The MCS-4 can have up to 4K x 8 bit ROM words, 1280 x 4 bit RAM characters and 128 1/0 lines, without requiring any interface
+logic. By adding a few simple gates, the MCS-4 can have up to 48 RAM and ROM packages in any combination and 192 1/0 lines.
+
+The 4001, 4002, and 4004 are interconnected by a 4-line data bus (Dy, Dy, D2, D3), used for all information flow between the
+chips except for control signals sent by the CPU on 6 additional lines. The interconnection of the MCS-4 system is shown in
+Figure 1. An expanded configuration is shown. The minimum system configuration consists of one CPU (4004) and one ROM
+(4001). Figure 2 shows the activity on the data bus during each clock period, and how a basic instruction cycle is subdivided.
+
+Each data bus output buffer has three possible states “*1”, /0", and floating. At a given time only one output buffer is allowed to
+drive a data line, therefore, all the other buffers must be in a floating condition. However, more than one input buffer per data
+line can receive data at the same time.
+
+The MCS-4 has a very powerful Instruction Set that allows both binary and decimal arithmetic. It includes conditional branching,
+jump to subroutine and provides for the efficient use of ROM look up tables by indirect fetching. Typically, two 8 digit numbers
+can be added in 850 usec. The complete Instruction Set is shown on pages 5 and 6.
+
+4002-2
+#2
+
+o
+
+o
+
+Figure 1. MCS-4 System Interconnection
+
+mdcs-4 Operation
+
+INSTRUCTION CYCLE
+
+Instruction Sent to
+
+|«——— Address Sent to ROM From CPU ———|<—— E i i
+EPY EromtROM Data is Operated on in the CPU, Or
+le—1.35 us —»] Data or Address is Sent to/from the CPU
+O] e
+./ [\ [\ [\ | WV A I U A WV A B W /
+b2 —
+SYNC -\ ., l_
+Memory
+Subcycles X3 Aq Az Az My My X4 Xy X3
+1f I0R'" The
+The Selected 4001 Is Enabled The CPU The CPU
+The CPU Is Enabled > Selected 4001
+Device Is Enabled Or 4002 Are Is Enabled
+Controlling Enabled, Other-
+Data Bus wise The CPU
+Output Is Enabled
+Data Lower 4t | Widdle &bit | Higher &bt |<—— Instruction to CPU——»| OPA Qut | DAt 0f ABMIESS| e 1o
+to RAM’s and ‘.
+gus Address to Address to Address to P ROM's If I0(1) RAM's If
+ontents ROM's ROM's ROM's (Chip OPA to CPU @) SRC2
+Select Code) OPR to CPU and ROM's (Not Used) Or SRC
+and RAM's Data to CPU
+1f 1000 If IOR
+
+(1) 10 instructions control the flow of information between accumulator in CPU, 1/0 lines in ROM’s and RAM’s and RAM storage. IOR stands for IO Read. In this
+case the CPU will receive data from RAM storage locations or I/0 input lines of 4001's.
+
+(2)  The SRC instruction designates the chip number and address for a following IO instruction.
+
+Figure 2. MCS-4 Basic Instruction Cycle
+
+Instruction Set
+[Those instructions preceded by an asterisk (*) are 2 word instructions that occupy 2 successive locations in ROM]
+MACHINE INSTRUCTIONS
+
+tch iirect fr'm HO Send contents o ind register par ocat| r‘w g
+out as an address. Data fetched is placed into register pair location RRR at
+A1 and Ag time in the Instruction Cy ' . . -
+
+i T RS
+
+tional to ROM address A3, Ag, A1.
+
+See Notes on Page 6. Continued on page 6.
+
+Instruction Set
+
+INPUT/OUTPUT AND RAM INSTRUCTIONS
+
+(The RAM'’s and ROM’s operated on in the |/0O and RAM instructions have been previously selected by the last SRC instruction executed.)
+
+Wnte the contents of 1
+' RAM status character
+
+cumu bl
+: Read the prevlously selected R AM main memory character
+into the accumulator
+
+Add the prewously selected RAM main r
+accumulator thh carry.
+
+NOTES: MThe condition code is assigned as follows:
+Cy =1 Invert jump condition Cy =1 Jump if accumulator is zero Cgq=1 Jump if test signal isa 0
+Cq =0  Notinvert jump condition Cy=1 Jump if carry/link is a 1
+
+Q’RRR is the address of 1 of 8 index register pairs in the CPU.
+
+(3)RRRR is the address of 1 of 16 index registers in the CPU.
+
+(4)Each RAM chip has 4 registers, each with twenty 4-bit characters subdivided into 16 main memory characters and 4 status characters.
+Chip number, RAM register and main memory character are addressed by an SRC instruction. For the selected chip and register, however,
+status character locations are selected by the instruction code (OPA).
+
+Ambient Temperature Under Bias
+
+Storage Temperature
+
+—55°C to +150°C
+
+Input Voltages and Supply Voltage
+
+With Respect to VSS
+
+Power Dissipation
+
++0.5 to —20V
+1.0W
+
+0°Cto +7o°c
+
+*COMMENT
+
+Stresses above those listed under ‘‘Absolute Maximum Ratings”
+may cause permanent damage to the device. This is a stress rating
+only and functional operation of the device at these or any other
+condition above those indicated in the operational sections of this
+
+specification is not implied.
+
+TA = 0°C to +70°C VDD =—15V +5%, VSS GND, toppw = t¢D1 =400 nsec, tpp2 = 150 nsec, unless otherwise specified
+
+Logic 0" is defined as the more positive voltage (V|, VOH) Logic 1" is defined as the more negative voltage (V| , Vo)
+SUPPLY CURRENT
+
+INPUT HIGH VOLTAGE
+(ALL INPUTS EXCEPT CLOCKS)
+
+b
+
+4001/2
+
+4003
+
+loL2
+
+loLs
+
+4004
+
+4001/2
+
+4001/2/4
+
+4003
+
+(1) Typical values are for TA 250C and Nominal Supply Voltages.
+
+loLe
+
+VoL2
+
+RoH1
+
+RoH3
+
+1/0 OUTPUT LINES SINKING
+CURRENT "1 LEVEL
+
+SERIAL OUT SINKING
+CURRENI, ‘1" | EVEL
+
+CM-RAM LINES SINKING
+CURRENT "1 |EVEL
+
+1/0 OUTPUT LINES
+OUTPUT LOW VOLTAGE
+
+OUTPUT RESISTANCE
+DATA LINES 0" LEVEL
+
+PARALLEL-OUT PINS OUTPUT
+
+RESISTANCE 0" | EVEL
+T
+
+CM-ROM OUTPUT
+
+RESISTANCE 0" LEVEL
+
+2.5
+
+1.0
+
+2.5
+
+—12
+
+(2) If non-inverting input option is used, V|| = —6.5 Volts maximum.
+
+2.0
+
+150 250
+
+400 750
+
+mA
+
+mA
+
+Your = 9V
+
+Your = 9V
+
+IOLZ = 60 MA
+
+VouT = 0.5V
+
+VO Ul = -0.5V
+
+Typical D.C. Characteristics
+
+POWER SUPPLY CURRENT POWER SUPPLY CURRENT
+VS. TEMPERATURE VS. TEMPERATURE
+(4001) (4002)
+
+18 —
+
+t¢M '=;;t¢,D1‘r=f-k 400 nsec
+
+. : pw=tp1=400ﬂsec
+| topz = 150 nsec i
+
+typ2 = 150 nsec
+
+— 2 .
+E . . :Ef wE Y k '
+] c 15 -
+o g ciaesy
+- . .
+0 20 40 60 80
+AMBIENT TEMPERATURE (°C) AMBIENT TEMPERATURE (°C)
+POWER SUPPLY CURRENT POWER SUPPLY CURRENT
+VS. TEMPERATURE VS. TEMPERATURE
+(4003) (4004)
+7 36 —
+
+typw = topq = 400 nsec
+""th = 150 nsec
+
+Vpp= —15.75V
+
+POWER SUPPLY CURRENT (mA) - Ippz
+POWER SUPPLY CURRENT (mA) - Ipp,
+
+20
+
+0 szo 40 ’ 60 80 0 20 40 60 80
+AMBIENT TEMPERATURE (°C) AMBIENT TEMPERATURE (°C)
+OUTPUT CURRENT VS. OUTPUT CURRENT VS.
+OUTPUT VOLTAGE OUTPUT VOLTAGE
+(4001, 4002) (4003)
+Vpp = —15.0V
+
+6| 1.2 g B g
+= <
+< : E
+E a} - 8
+= g
+& o
+% 3 § 6 I
+i 5
+5 2 & 4
+& 2
+> o
+S)
+
+1 2
+
+0 -1 -2 -3 -4 -5 =6 =i 0 -1 -2 -3 -4 -5 -6 -7
+OUTPUT VOLTAGE (V) OUTPUT VOLTAGE (V)
+
+4001, 4002, 4004 A.C. Characteristics
+
+T, =0°C to +70°C; Vjyp = —15V + 5%, Vg = GND
+
+PRODUCT | SYMBOL |
+
+4001/2/4
+
+1/0 OUTPUT LINES
+DELAY
+
+oM WRITE TIME
+| CM HOLD TIME
+
+NOTES: (1)Data out, SYNC, CM-ROM, and CM-RAM); lines are clocked out with the trailing edge of the ¢ block.
+(2)The CM-ROM and the selected CM-RAM; lines are always activated during A3 time. They are also activated during M time if an 1/0 and
+RAM instruction was fetched by the CPU, and during X5 time if an SRC instruction was fetched by the CPU.
+(3)Pin Cy_on 4001 is used to asynchronously clear the output flip-flops associated with the 1/O lines.
+
+4001, 4002, 4004 Timing Diagram
+
+Outputs with loading conditions specified on A.C. Characteristics table.
+
+¢4
+) L \ ]
+tF—> -
+t <~  'oH™
+@ -1V .
+DATA BUS LINES
+(Dg. Dy, Dy, D3) @ -5V} DATAIN £ @ —5v @ 5V DATA OUT
+= <—tR
+D fe—
+| \ @ -1V
+4002 OUTPUT LINES, 4001 1/0 OUTPUT LINES
+@ -5V p
+t | Lk
+e = tHC tOS i <_toH
+[ (
+| tWC - rDa @ 1V
+CM LINES
+CM IN £ @ —5V ® —5V CM OUT
+tF"" - e <—IR
+____FE
+V)
+4001 1/0 INPUT LINES
+@ -5V
+Ys ——‘ - —-> “—tIH
+4001 CLEAR LINE (C)
+@ -5V
+— tC -—
+4001 1/0 OUTPUT LINES @ -1V
+Typical Load Characteristics
+SET TIME VS. OUTPUT CAPACITANCE
+(DATA LINES FOR 4001, 4002, 4004 SET TIME VS. OUTPUT CAPACITANCE
+& SYNC FOR 4004) (CM-ROM 4004)
+700 —— 700
+600 600
+500 »
+§ 2 500
+’g 400 'g
+< o 400
+= 300 s
+[= =
+% oo | 5 300
+100 b 200 —
+100 200 300 400 500 600 700 800 0 100 200 300 400 500 600
+
+OUTPUT CAPACITANCE (pF)
+
+OUTPUT CAPACITANCE (pF)
+
+10
+4003 A.C. Characteristics
+
+T, = 0°C to +70°C; V= —15 + 5%, Vg
+
+43
+
+= GND
+
+Blay w1988
+
+nsec
+
+COUT =20 pF
+
+NOTES: (1)tWH can be any time greater than 6 U sec.
+
+(2)pata can occur prior to CP.
+
+4003 Timing Diagram
+
+\i
+
+— tyy | —>
+@ -1V
+
+cp @ -5V 1 - twH
+
+<—tCD
+DATA IN @ —5V
+
+—> th
+@ -1V
+
+DATA OUT t- @ -5V
+Q)
+
+[ty —> tgo j-— —»| t4yo l&—
+ENA
+
+BLE "
+(E) |
+SERIAL OUT \
+Capacitance
+=0V; To= 25°C ; Unmeasured Pins Grounded.
+
+f=1MHz; V|
+
+4001/2/3/4| Cyy
+
+ANeortlll
+| CAPACITANCE |
+
+4002/4
+
+a001/2 | Gy
+
+CLOCK INPUT
+
+4001 | o
+
+aUOfﬁL;NES .
+CAPACITANCE
+
+15
+
+NOTE:
+
+(1) Refers to all input pins except data bus 1/0 and ¢q and @5.
+
+1
+Packaging Information
+
+e { CERAMIC PACKAGE
+vT OUTLINE
+
+&
+
+Td e i
+
+PIN 1 __.085
+050 MAX.} 125 Mﬁn———-—-
+e T 1 0o
+
+7L.o1oi .002 \
+
+% P—»i—».wgép..mo L_—_%%_J
+~— @ . PLASTIC PACKAGE
+OUTLINE
+060/.075 REFE % M%___..
+
+025 REF
+
+U. S. REGIONAL SALES OFFICES
+Tustm 92680
+
+California
+Minnesota an'fapohs 55435*
+New Jetsey . FE ark, 07932
+ORIENT SALES OFFICE INTEL JAPAN
+Japan Tokyo 151 Parkside Flat Bldg.
+No. 4-2-2, Sendagaya
+Shibuya-Ku
+03-403-4747
+Telex: 26364
+
+Ordering Information
+
+(1)
+
+(2)
+
+Belgium
+
+INTEL CORP. 3065 Bowers Avenue, Santa Clara, California 95051 « (408) 246-7501
+
+The 4004 (CPU) is available in ceramic only
+and should be ordered as C4004.
+
+The 4001 (ROM), 4002 (RAM) and 4003
+(SR) are presently available off the shelf in
+plastic only. These devices can be ordered in
+ceramic on special request. Standard devices
+should be ordered as follows:
+
+P4001
+P4002-1
+
+P4002-2
+P4003
+
+Mask Programming of the 4001
+
+The custom patterns, chip numbers and 1/0
+options (including inverting and non-inverting
+inputs or outputs and on-chip resistor con-
+nected to either Vpp or Vgg) must be specified
+on a truth table for each 4001 ordered. Blank
+custom truth tables are available upon request
+from Intel.
+
+Plastic Package
+(Metal Option #1)- Plastic Package
+(Metal Option #2)- Plastic Package
+Plastic Package
+
+~ William T. O'Brien, 17
+(714) 838-1126
+~ Mick Carrier, 4004
+~ (612) 927-4547
+_ John anzzo, 26 Co
+
+EUROPEAN SALES OFFICE
+
+INTEL CORP.
+
+216 Avenue Louise
+Bruxelles 1050, Belgium
+Phone: 492003
+
+Telex: 21060
+
+Bruxelles
+
+7144/1
