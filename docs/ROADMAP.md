@@ -15,6 +15,7 @@ Guiding rules:
 - Track workspace lint inheritance and MSRV across all crates.
 - Add primary-source citations to `docs/AUDIT.md` for CPU specs and resolve open gaps.
 - Adopt Rust 2024 edition across the workspace and validate toolchain compatibility.
+- Track down primary transistor-count sources (Intel reliability reports, data books, or official datasheets).
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.

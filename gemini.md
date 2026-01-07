@@ -14,6 +14,7 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - MSRV baseline: Rust 1.92.0 (stable).
 - Warnings are errors (`.cargo/config.toml`, `cargo clippy-all` alias).
 - Edition: 2024 (workspace-wide).
+- OCR toolchain: tesseract + ocrmypdf (+ jbig2enc, poppler-utils) for searchable scans.
 
 ## Build and Test
 - `cargo build --workspace --locked`
@@ -28,6 +29,7 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - Cleanup: `scripts/clean.sh`
 
 ## Known Gaps
-- Primary MCS-4/MCS-40 datasheets are scanned; OCR verified timing, but transistor counts remain unverified.
+- Primary MCS-4/MCS-40 datasheets are scanned; OCR verified timing (4040 clock period 1.35-2.0 usec), but transistor counts remain unverified in primary docs.
+- Forensic netlist counts for the 4004 are documented on 4004.com (transistor/component breakdown).
 - Transistor-level simulation stubs and FPGA netlist export remain placeholders.
 - See `docs/AUDIT.md` and `docs/ROADMAP.md` for ongoing validation work.

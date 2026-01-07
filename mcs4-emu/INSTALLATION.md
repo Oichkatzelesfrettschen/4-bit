@@ -21,6 +21,8 @@
 - `go-yq` (Arch/CachyOS) or `yq` (Debian/Ubuntu) for `scripts/doc_validate.sh`.
 - `cargo-deny` (policy checks), `cargo-audit` (advisories).
 - `cargo-llvm-cov` for coverage output into `coverage/`.
+- OCR toolchain for scanned PDFs (Arch/CachyOS): `yay -S --needed ocrmypdf jbig2enc` (pulls unpaper/pngquant/img2pdf/python-pikepdf).
+- OCR toolchain for scanned PDFs (Debian/Ubuntu): `sudo apt-get install ocrmypdf tesseract-ocr tesseract-ocr-eng poppler-utils`.
 
 ## Build and Test
 - `cargo build --workspace --locked`

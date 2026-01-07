@@ -4,6 +4,7 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-07T03:19:41Z: Installed ocrmypdf/jbig2enc, OCR-scanned MCS-4/MCS-40 manuals and brochures, and updated audit/tooling docs with 4040 clock-period source and 4004 netlist counts.
 - 2026-01-06T20:25:27Z: Upgraded workspace to Rust edition 2024, resolved clippy collapsible-if warnings, and reran fmt/clippy/tests.
 - 2026-01-06T20:21:23Z: Added bitsavers source links to AUDIT, marked 4040 clock as derived from system period, and refreshed README/ROADMAP/CHANGELOG/INDEX/registry timestamps.
 - 2026-01-06T20:00:22Z: Installed go-yq + tesseract data, ran fmt/clippy/tests/doc validation, updated AUDIT with OCR clock-period citations, refreshed docs/README/install/development/roadmap/quality logs.

@@ -4,7 +4,9 @@
 - cargo, clippy, rustfmt.
 - Optional: cargo-deny, cargo-audit, cargo-llvm-cov.
 - go-yq/yq for docs registry validation (scripts expect the Go yq CLI).
-- OCR: tesseract + tesseract-data-eng for scanned datasheets.
+- OCR toolchain: tesseract + tesseract-data-eng, ocrmypdf, poppler-utils (pdftotext/pdftoppm), imagemagick.
+- OCR optimization: jbig2enc (improves ocrmypdf compression), unpaper, pngquant.
+- Python OCR helpers: python-pytesseract, python-pdfplumber.
 - CMake: for optional native tooling, keep separate.
 - Toolchain baseline: MSRV 1.92.0; nightly 2026-01-06 required for portable_simd.
 
@@ -15,6 +17,10 @@
 - Keep `mcs4-emu/STATUS.md` and `docs/ROADMAP.md` synchronized.
 - Use `cargo clippy-all` alias to enforce `-D warnings`.
 - CI: `.github/workflows/ci.yml` runs fmt/clippy/tests on nightly.
+
+## OCR Workflow
+- Create searchable PDFs with sidecar text: `ocrmypdf --skip-text --sidecar /tmp/out.txt docs/4040/4040-datasheet.pdf /tmp/4040-ocr.pdf`
+- Search OCR output quickly: `rg -n -i "clock period|transistor|3000|2300" /tmp/out.txt`
 
 ## Warnings Policy
 - `.cargo/config.toml` enforces `-D warnings` for builds; clippy uses `-D warnings`.

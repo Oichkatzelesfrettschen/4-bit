@@ -11,6 +11,7 @@
 - Upgraded workspace and rustfmt edition to 2024 and resolved clippy collapsible-if warnings.
 - Re-ran fmt, clippy, and workspace tests after edition update.
 - Updated installation and gemini notes to reflect Rust 2024 edition and OCR status.
+- Added OCR toolchain guidance (ocrmypdf/jbig2enc) and refreshed audit sources for 4040 clock period and 4004 netlist counts.
 - Consolidated workspace configuration at repo root.
 - Added audit log and updated installation, deployment, and roadmap docs.
 - Corrected 4040 clock-rate entry in README.
