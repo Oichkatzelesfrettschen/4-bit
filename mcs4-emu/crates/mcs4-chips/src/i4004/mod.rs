@@ -169,10 +169,10 @@ impl I4004 {
 
     fn phase_x2(&mut self, bus: &mut DataBus, _ctrl: &mut ControlSignals) {
         // Execute instruction (for single-cycle instructions)
-        if !self.decoder.needs_second_byte()
-            && let Some(instr) = self.decoder.get_instruction()
-        {
-            self.execute(instr, bus);
+        if !self.decoder.needs_second_byte() {
+            if let Some(instr) = self.decoder.get_instruction() {
+                self.execute(instr, bus);
+            }
         }
     }
 
@@ -366,7 +366,11 @@ impl I4004 {
             result = true;
         }
 
-        if invert { !result } else { result }
+        if invert {
+            !result
+        } else {
+            result
+        }
     }
 }
 

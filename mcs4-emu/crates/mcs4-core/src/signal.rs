@@ -105,7 +105,11 @@ impl SignalLevel {
 
 impl From<bool> for SignalLevel {
     fn from(b: bool) -> Self {
-        if b { Self::High } else { Self::Low }
+        if b {
+            Self::High
+        } else {
+            Self::Low
+        }
     }
 }
 

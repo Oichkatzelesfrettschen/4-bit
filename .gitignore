@@ -25,5 +25,8 @@ core
 core.*
 *.core
 core.[0-9]*
+*.coredump
+*.coredump.*
+*.dmp
 logs/
 .claude/

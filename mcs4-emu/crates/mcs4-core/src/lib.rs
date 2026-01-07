@@ -13,7 +13,7 @@ pub mod wire;
 pub use gate::{And2, Gate, GateType, Inverter, Nand2, Nand3, Nor2, Nor3, Or2};
 pub use signal::{Signal, SignalId, SignalLevel};
 pub use simulator::{Event, Simulator, SimulatorConfig};
-pub use timing::{Delay, MICROSECOND, NANOSECOND, PICOSECOND, Time};
+pub use timing::{Delay, Time, MICROSECOND, NANOSECOND, PICOSECOND};
 pub use wire::{Fanout, Net, Wire};
 
 /// Prelude for common imports

@@ -6,7 +6,7 @@
 
 use crate::{
     signal::{SignalId, SignalLevel},
-    timing::{Delay, gate_delay},
+    timing::{gate_delay, Delay},
 };
 
 /// Gate type enumeration

@@ -178,11 +178,11 @@ impl WaveformPanel {
             let rect = Rect::from_min_max(Pos2::new(x, top_y), Pos2::new(x + ctx.zoom, bottom_y));
             let stroke = Stroke::new(1.0, ctx.color);
 
-            if let Some(pv) = prev_val
-                && pv != val
-            {
-                ctx.painter
-                    .line_segment([Pos2::new(x, top_y), Pos2::new(x, bottom_y)], stroke);
+            if let Some(pv) = prev_val {
+                if pv != val {
+                    ctx.painter
+                        .line_segment([Pos2::new(x, top_y), Pos2::new(x, bottom_y)], stroke);
+                }
             }
 
             ctx.painter

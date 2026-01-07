@@ -138,7 +138,7 @@ pub mod wire_model {
 
 #[cfg(test)]
 mod tests {
-    use super::{Fanout, Wire, wire_model};
+    use super::{wire_model, Fanout, Wire};
     use crate::signal::SignalId;
 
     #[test]
