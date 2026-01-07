@@ -1,0 +1,665 @@
+721
+cc
+58
+-
+=
+o
+=
+-
+&
+
+MCS MODULES
+
+'MICROCOMPUTER MODULES
+
+MCS4/40™
+
+Modules may be ordered individually. All modules are 8” W|de
+6.18’ high and use standard 100-pin connectors.
+
+imma4-42 Central Processor Module
+
+This is a complete microcomputer svstam with the
+pracessor, program storage, data storage, and 1/0 in a
+single module.
+
+The heart of this madule is Intel’s 4004 single chip four-
+hit parallel processor — p-channel silicon gate MOS.
+Accumulator and sixteen working registers {4-bit),
+Subroutine nesting up to 3 levels.
+
+For development work, the CPU interfaces to standard
+semiconductor memory etements {provided by Intel's
+standard memory and /0 interface set 4008/4009),
+Sockets for 1K bytes of PROM {Intel 1702A PROM} are
+provided.
+
+320 words (4-bit} of data storage (Intel 4002} are
+provided.
+
+Four 4-bit input ports and eight 4-bit output ports {in-
+cludes TTY interface}.
+
+Bus-oriented expansion of memory and 1/0.
+
+Twao phase crystal clock,
+
+imm4-43 Central Processor Moduie
+
+Complete microcomputer system with (ntel’s high per-
+formance 4040 4-bit processor, program storage, data
+storage, /O and system clock in a single module.
+
+60 instructions including decimal arithmetic, register-
+to-register transfers, conditional branching, logical
+operations and 1/0,
+
+(nterrupt capability.
+
+Single step capability.
+
+24 index registers.
+
+Subroutine nesting to 7 levels.
+
+Direct interface capability to alf standard memories (i.e.,
+TTL, NMOS, PMOS, CMOS} through Intel’s 4289
+Standard Memory Interface chip.
+
+Sockets for 1K x 8 bytes of program memory (Intel
+4702A PROM) expandable to 4K x 8 using optional
+imm&-26 or imm4-24 modules.
+
+320 4-bit bytes of data storage (Intel 40{2) expandable
+to 2560 x 4 using optional imm4-22 or imm4-24
+modules.,
+
+Four 4-line input ports and eight 4-line output ports
+expandable to 16 input and 48 output ports using op-
+tional imm4-60, imm4-22 or imm4-24 modules.
+
+Two phase crystal clock.
+
+imm4-22 Instruction/Data Storage Madule
+
+8§46
+
+This microcomputer module has memory capacity iden-
+tical to the Central Processor Module and is used for
+expanding memory and 1/0,
+
+Sockets for 1K bytes of PROM program storage are
+provided.
+
+320 words {4-bit} of data storage are provided.
+
+Four 4-bit input ports and eight 4-bit output ports.
+
+immd-42 Central Pracessor Module
+
+imm4-24 Data Storage Module
+
+]
+*
+
+This microcomputer module has capacity for sixteen
+tnte) 4002 RAMS ~ 1280 words {4-bit) of data storage.
+320 words (4-bit) of data storage are provided.
+
+A maximum Intellec 4 system may contain up to 2560
+words of storage — decoding for this expansion is
+provided.
+
+A 4-bit output port is associated with each RAM on this
+microcomputer module providing sixteen 4-hit cutput
+ports on each module.
+
+All output ports are TTL compatible,
+
+imm4-60 Input/Output Module
+
+This module provides input and output port expansion
+without additional memory.
+
+Eight 4-bit input ports and eight 4-bit output ports are
+provided.
+
+Ports on this module are TTL ¢ompatible.
+' MCS MODULES
+
+MICROCOMPUTER MODULES
+
+MCcs-8™
+
+imm8-82 Central Processor Module
+
+L
+*
+*
+
+Intel's 8080-1 eight-bit paraliel single chip CPU —
+p-channe! silicon gate MOS. .
+
+Accumulator and six 8-bit working registers.
+Subroutine nesting up 1o seven levels.
+
+Interface to 16K 8-bit bytes of PROM, ROM, or RAM
+via the PROM Memory Module and RAM Memary
+Module.
+
+Interface for expansion to eight 8-bit input ports and
+twenty-faur 8-bit output ports, via the 1/0 and Qutput
+Maodules.
+
+Interrupt capability.
+
+Two phase crystal clock.
+
+All module interfaces are TTL compatible.
+
+imm8-60 Input/Output Module
+
+Four 8-bit input ports (32 lines),
+
+Four 8-bit data latching output ports {32 lines).
+One pair of ports for TTY communication.
+
+All input and cutput ports are TTL compatible.
+
+imm8-62 Output Module
+
+Eight 8-bit data atching output ports {64 lines).
+All output ports are TTL compatible.
+
+MCS-80™
+imm8-83 CPU Module
+
+Complete 8-bit parallel central processor module with
+system clacks, interface and control for memory, 1/0O
+ports, and real time interrupt.
+
+Utilizes Intel’s high performance 8080 single chip
+n-channel microcomputer.
+
+2.5 psecond instruction execution time,
+
+78 basic instructions including the entire 8008 instruc-
+tion set,
+
+Direct addressing of up to 64K bytes of any speed ROM,
+PROM, or RAM memory,
+
+Unlimited subroutine nesting.
+
+Seven working registers — six 8-bit general purpose
+registers and an B-bit accumulator.
+
+Separate 16-bit address bus, 8-bit output hus and 3
+multiplexed 8-bit input busses for 1/O input, memory
+input and interrupt data.
+
+Direct addressing of 256 input and 258 output ports.
+Multiple level real time interrupt capability.
+
+Direct memory access capability.
+
+Alt buses TTL comepatible.
+
+imm8-82 Central Processor Module
+
+imm8-61 1/0 Module
+
+Four 8-bit input and four 8-bit latching output ports.
+
+‘Directly compatible with imm8-83 central processor
+
+module.
+Integral asynchronous serial data communications
+capability and teletype interface.
+
+Jumper selectable transmission rates of 110, 1200 or
+2400 baud.
+
+Crystal controlled clack.
+
+Capable of high speed serial communications to 9600
+baud.
+
+TTL compatible.
+
+imm8-63 Output Madule
+
+L 4
+L
+
+Eight 8-bit latching output ports,
+Directly compatible with immB8-83 central processor
+module.
+
+Decoding provided for the selection of up to 256
+individual output ports,
+
+TTL compatible.
+
+5-47
+
+)
+
+o
+ol
+=5
+S
+==
+=
+o
+
+w
+=4
+o=
+=
+=
+Za
+==
+L=
+«
+
+MCS MODULES
+
+MICROCOMPUTER MODULES
+
+COMMON SYSTEM MODULES
+
+imm6-26 PROM Memory Module
+
+® Provides sorkats far un tn civtaan 17024 alastrinnthy
+programmable and erasable PROMs for a system'’s
+fixed program memory {maximum 4K bytes/module}.
+
+* For volume requirements, Intel 2048-bit mask pro-
+grammed MOS ROMs {1302} may be substituted in
+the same maodule.
+
+immB6-28 RAM Memory Module
+
+® A 4K x 8 n-channel MOS memory system using
+intel’s 1024-bit Static RAM {2102).
+
+® Address latching, data latching, and module select
+decoding are provided on the card.
+
+® Provides program §torage for up to 4K instructions.
+
+CONVERSION KITS
+
+imm4-88
+
+The imm4-88 conversion kit provides an upgrade path for
+Intellec®4/MOD 4 microcomputer development systems. It
+includes all the hardware and software required to fully
+support 4020 CPU based microcomputer system develop-
+ment.
+
+The conversion kit contains an imm4-43 CPU module, new
+
+memory controller, new front panel, and any software re- -
+
+quired.
+
+NOTE! Due to necessary wiring changes, these conversions
+are done at the Intel factory. Contact local Intel sales-
+men or representatives for instructions,
+
+BAREBONES SYSTEMS
+
+imm8-81 Barebones 8
+¢ Complete 8008 CPU based microcomputer subsystem
+composed of Intel microcomputer modules which
+are housed in a card cage and interconnected by a
+printed circuit backplane with card sockets.
+e Contains the following modules:”
+imm8-82 Central Processor Module
+imm6-26 PROM Memory Module
+imm8-28 RAM Memary Module {4K Bytes)
+imm8-60 1/0 Module
+® 12 additional sockets available for optional modules.
+® Rack mountable chassis,
+
+648
+
+imm6-70 Universal Prototype Module
+
+A LI INN e 15, 00, 2 v o il whE Wiap
+sockets {maximum of 52 16-pin sockets).
+¢ Provides breadboard capability for developing
+custom and specialized interface circuits.
+imm6-72 Module Extender
+& Extends Intellec modules out of card chassis for ease
+in test and system debugging.
+imm6-76 PROM Programmer Module
+
+#® Provides all timing and level shifting circuitry for pro-
+gramming Intel’s programmable and erasable 17024
+PROMs.
+
+imm8-88
+
+The imm8-88 conversion kit provides an upgrade path for
+[ntetlec 8/MOD 8 microcomputer development systems. [t
+includes all the hardware and software products required
+to fully support 8080 CPU based microcomputer system
+development, With the imm8-88 canversion kit installed in
+an Intellec 8/MOD 8, complete 8080 CPU hardware and
+software development capability is provided,
+
+The conversion kit is installed by simply plugging in the
+three new hardware modules in the appropriate Intellec 8/
+MOD 8 chassis connectors and installing the new system
+manitor. The system can be quickly reconfigured to sup-
+port 8080 CPU chip development by replacmg the originat
+boards and system monitor.
+
+imm8-85 Barebones 80
+
+Same as 881 except the following modules are used:*
+imm8-83 Central Processor Module
+imm6-26 PROM Memory Module
+imm®6-28 RAM Memaory Module (4K Bytes}
+imm8-61 1/0 Module
+
+*See page 647 for moduie descriptions.
+MCS PROTOTYPE SYSTEMS
+
+MCS PROTOTYPE SYSTEMS
+
+Intel distributors are now stocking five new systems which enable even more com-
+panies to take advantage of the benefits of microcomputers at very low cost. The
+systems may be used 1o prototype products and will make low volume manufactur-
+ing maore economical.,
+
+These prototype systems provide the designer with a wide range of price and per-
+formance choices ., . . from lowest cost to highest performance. Additional proto-
+type systems will be offered as newer microcomputer components are developed.
+
+System Number Systam Composition
+
+MCS-80 System A 1 Model 8030 CPU
+8 Model 8107A, 4026 x 1 Dynamic RAMs
+B8 Model 8212, Bipalar 8-bit 1/0 ports
+1 Model 8702A, 256 x 8 PROM
+
+MCS-80 System B .1 Model 8080 CPU
+8 Model 8102-2, 1024 x 1 Static
+N-Channel RAMs
+8 Model 8212, Bipolar 8-bit 1/Q ports
+1 Model 8702A, 256 x 8 PROM
+
+MCS-8 System A 1 Model 8008-t CPU
+8 Mode! 8102, 1024 x 1 Static RAMs
+8 Model 8212, 8-bit 1/Q Latches
+1 Model 8205, 1-Of-8 Decoder
+1 Model 8702A-4, 2566 x 8 PROM
+
+MCS-40 System A 1 Model 4040 CPU
+
+1 Model 4002-1, 320-bit RAM and
+4-bit output port
+
+1 Model 4003, Shift Register
+
+1 Model 4289, Standard Memery and
+1/0 Interface
+
+1 Model 47024, 2048-hit electrically
+Programmable ROW
+
+MCS-4 System A 1 Mode! 4004 CPU
+
+1 Mode! 4002-1, 320-bit RAM and
+4-hit cutput port
+
+1 Model 4003, Shift Register
+
+t Model 4008, Standargd Memary and
+I/0 Interface Set
+
+1 Mode! 4009, Standard Memory and
+1/0 Interface Set
+
+1 Madet 4702A, 2048-bit electrically
+Pregrammable ROM
+
+6-49
+w
+o
+oW
+c -
+
+=
+ez
+=3
+o
+[
+
+SUPPORT SOFTWARE
+
+CROSS PRODUCT SOFTWARE
+
+The following support software is written in ANSI Standard FORTRAN 1V and will
+execuie on most large scale computer systems which have a FORTRAN IV Compiler
+and a minimum 32-bit integer format, The FORTRAN 1V source code of each pro-
+gram is shipped on magnetic tape in the following format:
+
+9 TRACK
+800 B8P
+
+80 Byte unblocked records
+EBCDIC character code
+
+unlabeled tape
+
+These software products are also available on the faollowing timesharing services:
+
+Tymshare u.s., U.K,, France
+General Electric U.S,, Canada
+United Computing Systems u.s.
+
+Honeywell Europe, Australia
+Dentsu Japan
+Timesharing LTD. U.K., Belgium
+
+Contact each timesharing service for further information.
+
+Product
+
+Description
+
+MCS-4
+MAC 4™
+
+SIM 4
+
+MCS40
+MAC 4™
+
+MCS-8
+MAC8™
+
+INTERP/8
+
+PL/M "8
+
+MCS-80
+MAC 80™"
+
+INTERP/80
+
+PL/M" 80
+
+&-50
+
+Macro Assembler — Translates symbolic assembly language
+into MCS-4 machine code.
+
+Simulator — Simulates execution of the 4004 CPU including
+execution of all 46 instructions and (/O operations.
+
+Macro Assembler — Translates symbolic assembly language
+into MCS-40 machine code.
+
+Macro Assembler — Translates symbolic assembly language
+into MCS-8 machine code.
+
+Simulatar — Simulates execution of the 8608 CPU including
+execution of ail 48 instructions and 1/O aperations.
+
+High-level Systems Language Compiler — Translates a source
+program written in PL/M, Intel’s systems programming lan-
+guage, into MCS-8 machine code.
+
+Macre Assembler — Translates symbolic assembly language
+into MCS-80 machine code.
+
+Simulator — Simulates execution of the 8080 CPU including
+execution of all 78 instructions, 1/O operations, the stack
+and interrupt systems.
+
+High-level Systems Language Com'piler — Translates a source
+program written in PL/M, Intel’s systems programming lan-
+gauge, into MCS-80 machine code.
+SUPPORT SOFTWARE
+
+INTELLEC® RESIDENT SOFTWARE
+
+System Monitor
+
+PROM resident for instant operation
+
+Manual or paper tape loading of programs
+
+Program Execution from RAM or PROM
+
+Alteration and display of RAM memory
+
+PROM programming and listing
+
+BNPF or HEX fermat paper tape
+
+Alteration and display of CPU registers {MQOD 80 only)
+CPU breakpaoint capability {MOD 80 only}
+
+Assembler
+
+The assembler translates symbolic assembly Janguage into machine code:
+Built-in paper tape editor (MOD 4 and MOD 40)
+
+Provides source listing with addyess
+
+Error messages
+
+Hexadecimal output format
+
+3 Pass assembler
+
+Full macro capability {(MOD 8 and MOD 80 only)
+
+Conditiona) assembly capability {MOD 8 and MOD 80 only)
+Compatible with cross assemblers
+
+Text Editor
+The text editor provides powerful features for creation and correction of programs.
+
+Editor includes following commands:
+
+string search
+substitution
+insertion
+deletion
+
+Intellec System Monitar Assembler Text Editar
+4/MQOD 4 X X
+4/MOD 40 X X
+8/MOD 8 X X X
+8/MOD 80 X X
+
+w
+o
+-
+e
+CES
+==
+o
+[
+
+172
+o
+o
+o<
+
+=
+2
+= =
+a
+s
+
+652
+
+SUPPORT SOFTWARE
+
+MCS USER'’S LIBRARY
+
+Intel supports a Microcomputer User’s Library for each of
+its 4004/4040 and 8008/8080 CPU'’s. Members of each
+library receive a manual containing documentation for each
+program in the library. Members also recelve updates quar-
+
+farlu AN Amar nenmaenmas ae bk o nee - )
+
+J= = m g e o mEsep ams s s MY LAAs
+
+Each manual contains a program index, a brief description
+of each program, and a camplete assembly language and hex
+
+4004 /4040
+
+® Cross Assembler for PDP-B
+
+® BNPF Tape Generator for PDP.8
+
+= MCS4 Simulator for POP-8
+
+®  Chebyshev Approximation Functions
+
+8008/ 8080
+
+Floating Point Arithmatic Package
+Floating Point | /O Conversion Package
+8-Bit Multiply
+
+8-Bit Divide
+
+16-Bit Multiply
+
+code listing. Atl progrem documentation is supplied in the
+same format. User contributed programs are invited and sub-
+mittal forms are available from Intel. Memberships are avail-
+able free of charge to all accepted contributers. Contact
+;nuz: ;UI ;UII Lieldiis.
+
+A partial listing of programs alfready in these libraries is
+given helow,
+
+® Parity Checker/Generator
+
+® Delay Subroutines
+
+® Cross Assembler for NOVA
+® Bit Manipulation Routine
+
+® 16-Bit Divide
+
+= Signed 16-Bit Multiply
+
+m PROM Programming Routine
+% 24-Bit Multiply
+
+& Quicksort

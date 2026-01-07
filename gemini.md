@@ -34,7 +34,7 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 
 ## Known Gaps
 - Primary MCS-4/MCS-40 datasheets are scanned; OCR verified timing (including MCS4 10.8 usec/750 KHz and 4040 clock period 1.35-2.0 usec), but transistor counts remain unverified in primary docs.
-- 1975 Intel Data Catalog OCR failed due to resource limits; text-layer extraction used as a fallback.
+- 1975 Intel Data Catalog OCR succeeded via chunked runs; warnings persist for Ghostscript/tesseract and large output sizes.
 - Forensic netlist counts for the 4004 are documented on 4004.com (transistor/component breakdown).
 - 4040 die shots remain unverified; only package photos and secondary sources found.
 - Transistor-level simulation stubs and FPGA netlist export remain placeholders.

@@ -23,5 +23,5 @@ Netlist analyzer extraction
 Warnings and limitations
 - ocrmypdf warns about Ghostscript 10.6 JPEG issues and PDF/A size growth.
 - OCR output is noisy; verify against the original PDF pages for final citations.
-- OCR of docs/MCS-40/1975_Intel_Data_Catalog.pdf failed due to resource limits; use pdfplumber or chunked OCR if needed.
+- Chunked OCR of docs/MCS-40/1975_Intel_Data_Catalog.pdf completed; warnings remain for Ghostscript/tesseract and large output sizes.
 - Output PDFs are stored in /tmp and are not committed.

@@ -4,6 +4,7 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-07T17:29:52Z: Chunked OCR for 1975 Intel Data Catalog pages (MCS-4/MCS-40 excerpts), updated evidence results/manifest, and logged OCR warnings.
 - 2026-01-07T17:05:31Z: Imported CC0 Intel 4004 layout poster image from Wikimedia, recorded provenance, and added CPU-collection/Commons references for 4040 image hunting.
 - 2026-01-07T17:05:31Z: OCR sidecar for MCS4 Data Sheet (Nov71), updated evidence manifest/results, and documented 1975 catalog OCR failure + pdfplumber fallback.
 - 2026-01-07T06:33:37Z: Added 4001/4002/4003 schematic label overlays and poly/diffusion intersection overlays.

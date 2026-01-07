@@ -1,0 +1,22 @@
+intel“‘ Memory Systems
+
+in-26 MEMORY SYSTEM
+
+in-26 SERIES RAM MEMORY FEATURES
+
+® Low Cost Memory The in-26 RAM Memory System is designed to
+ High Reliability meet the high reliability and low cost requirements
+" of random access buffer storage applications. The
+* Modular Expandability in26 features a complete memory systern on a
+¢ Moadule Interchangeability single PC board. This memory system has a basic
+e Fast Cycle Time capacity of 4k x 10 and can be expanded to 16k x 10.
+] It is also available in capacities as small as 1k x 10.
+>0 ¢ Low Power Requirements The compact size of this system makes it ideal for
+EE * Compact Size use as a buffer main memory storage for various
+=2 ¢ Field Expandable computer peripheral applications. This memory
+. - -system is designed especially to interface with the
+* 1 Power Supply Voltage MCS-4/MCS-8 series micro processors.
+
+{Refer ta SIM8-01/in-26 Application Note. )
+
+78

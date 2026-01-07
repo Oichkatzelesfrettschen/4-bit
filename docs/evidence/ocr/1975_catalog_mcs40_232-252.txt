@@ -1,0 +1,2128 @@
+v
+«
+3=
+o
+>
+2
+==
+o
+bt
+
+6.2
+
+INTEL MICROCOMPUTER SYSTEMS
+
+FIRST FROM THE BEGINNING IN MICROCOMPUTERS ..........
+
+intel provides a broad range of CPUs, ROMs, PROMs, RAMs, 1/0O devices, and
+peripheral circuits which enable you to quickly put microcomputer systems to work
+for you.
+
+Intel provides Inteflec® program development systems complete with resident soft-
+ware, as well as cross product software for use on large scale computers. Atl cross
+product software is available world wide on time sharing computer services,
+
+Intel also provides training courses and seminars, plus a complete line of documenta-
+tion on all products. Field application engineers are also available to provide accu-
+rate, prompt technical information,
+
+Put it all together and you have the broadest microcomputer systems capability and
+product support available anywhere,
+
+Intel ,..... FIRST ...... and FOREMOST ......
+Page
+Why Use a Microcomputer? . . ... ... .. i veeeivaroenr- 6-3
+MCS-40™ Microcomputer System
+Q004 CPU ., .ttt ittt e e e 66
+ROMS L. ittt ettt tm et 6-13
+PROMS | ... it it ittt e st 6-15
+RAMS . ... .. i iiei it vn e neannann e 6-16
+o ... Hesasasaemstenacsdsstensesananan 6-17
+Peripheral Circuits . . ... ..., ... ... uun, 6-12
+Intellec Systems . ... ..o v ittt it er s e menn 6-21
+MCs-80™ Microcomputer System
+a008,8008-1CPU .. ... ... . ... e ... ©:26
+BOBO CPU .. ... . e e e e 6-29
+ROMs . ..t i it e s e e 6-33
+PROMS ... . i it it i e it et et e 6-34
+RAMS . . ... .. i e e vieaio.. 635
+7 Y 6-38
+Peripheral Circuits . . .. ... ........ ... ... veieeaa. 640
+Intellec Systems . . ... vttt 6-43
+MCSModules ............0cuiivaenun Ceerreeer... 646
+MCS Prototype Systems ... ........c...ritos.nn ... 649
+MCSSupportSoftware . . . ... v ve it ir e nmer e 6-50
+Bipolar Microprocessor System
+Bipolar Microprocessor System Description .. .......... 6-53
+ROMs ... . e e et e 6-81
+PROMS . i it e it e st r e aa e 6-62
+O e e G iie-a.... BB3
+WF-3000 System DevelopmentSet .. .. .............. 6-64
+WHY USE A MICROCOMPUTER?
+
+INTRODUCTION
+
+Since their inception, digital computers have continugusly
+become more efficient, expanding into new applications with
+each major technological impravement. The advent of mini-
+computers enabled the inclusion of digital computers as a
+permanent part of various process control systems. Unfortu-
+nately, the size and cost of minicomputers in “‘dedicated”
+applications has limited their use. Another approach has been
+the use of custom built systems made up of “random logic™
+{i.e., logic gates, flip-flops, counters, etc.}. However, the huge
+expense and development time involved in the design andde-
+bugging of these systems has restricted their use to large
+volume applications where the development costs could be
+spread over a large number of machines,
+
+Today, Intel offers the systems designer a new alterpative
+. . .. the microcomputer. Utilizing the technologies and ex-
+perience gained in becoming the world's largest supplier of
+LSl memory components, (nte! has made the power of the
+digital computer avaifable at the integrated circuit level.
+
+ECONOMICS OF USING MICROCOMPUTERS
+
+Engineers are beceming more aware of the ways in which
+microcomputers can be applied to soive their problems. There
+are five basic reasons why many engineers have begun to use
+microcomputers. These are:
+
+1. Manufacturing costs of products can be significantly
+reduced.
+
+2. Products can get to the market faster providing a com-
+pany with the opportunity to increase product sales
+and market share.
+
+3. Product capability is enhanced allowing manufacturers
+to provide customers with better products which can
+frequently command a higher price in the market place.
+
+4. Development costs and time are reduced.
+
+5. Product reliability is increased which leads to a corre-
+sponding reduction in both service and warranty costs.
+
+Microcomputers simplify almost every phase of product
+development. The first step, as in any product design program,
+is to identify the various functions that the end system is ex-
+pected to perform, These functions are then implemented by
+encoding suitable sequences of instructions (programs) in the
+memory efements. Data and certain types of programs will be
+stored in RAM circuits, while the basic program will be stored
+in ROM circuits. The microprocessar performs all of the sys-
+tem's functions by fetching the instructions in memory, ex-
+ecuting them and communicating the results via the micro-
+computer’s i/Q ports, A single-chip microprocessor, executing
+the programmed logic stored in a single ROM element, can
+perform the same logical functions that have previously re-
+quired many logic gates,
+
+REDUCING MANUFACTURING COSTS
+
+If the burdened manufacturing cast of a digital electronic
+system is divided by the number of ICs, one generally finds
+that the system costs between $2 and $6 per IC to fabricate.
+The higher costs are generally associated with systems manu-
+factured in volumes from 10 to 100 units annually. The table
+below presents a more detailed analysis of the source of these
+surprisingly high costs. The costs, themselves, are stated
+conservatively,
+
+IC .50
+Incoming lnspection .05
+PC Card .50
+Fabrication .05
+Board Test and Rework .10
+Connector .05
+Discretes .05
+Wiring A0
+Power 10
+Catiinewry, Fans, Etc. l)
+
+$1.60
+
+Table 1. System Manufacturing Costs Per IC
+
+The ASP {average sale price) of an Integrated Circuit today
+is approximately 50¢. Incoming inspection and testing of
+these ICs costs the average company 5¢. However, many
+companies are now buying aged and tested circuits for their
+applications in order to increase system reliability. This adds
+about 15¢ 1o unit costs. Simple PC cards may cost as little as
+25¢ an IC position, but the average cost in most applications
+for high quality cards is closer to 50¢. Sophisticated multi-
+layer cards used in many high performance systems frequently
+cost over a doflar a position. When customers put 1Cs in sock-
+ets and then wire wrap cards, the cost per IC position quickly
+approaches $2. Customers with automatic IC insertion equip-
+ment and efficient flow soldering machines can fabricate a
+PC card for as low as 3¢ an IC position, though the average
+price is closer to 5¢. Board test and rework add another dime
+to system cost, while the cost of a connector divided by the
+number of ICs per printed circuit card frequently exceeds S¢.
+In general, resistors, capacitors, power bus bars, etc., add a
+cost of 5¢ an IC position. Systems frequently average one
+wire or more per IC positien and the wires put in with auto-
+matic equipment frequently cost over 10¢. Finally, the cost
+of power supplies and mechanical packaging add another 20¢
+an |C position.
+
+To determine the total savings in system manufacturing
+cost, the user must subtract the cost of implementing an
+equivalent system with a microcomputer. In moderate vol-
+umes, an MCS-40 "with 16,384 bits of ROM, a processor, and
+a minimal amount of RAM can be purchased for under $50.
+This system has the potential of displacing between $150 and
+$600 of system manufacturing cost.
+
+6-2
+
+=)
+o«
+L= ]
+
+W
+o
+ad
+-
+=
+[+
+=
+o
+[ ]
+
+(7
+oo
+W
+E 5
+2a
+==
+Q
+(& ]
+
+How Memory Replaces Random Logic
+
+It can be said that 8 to 16 bits-of memory are the logical
+equivalent of a single gate. Assuming that the type IC used to-
+day contains on the order of 10 gates, then one can conclude
+that logic can be stored in memory in a very cost effective
+fashion, The following table indicates the number of (C's
+which are replaced by a single ROM (Read Only Memory}.
+The table was derived by using the assumptions that 8 to 16
+bits of ROM replace a gate and that on the average an IC con-
+tains 10 gates.
+
+ROM Memaory Gates ICs
+Size Bits Raplaced Replaced
+2048 128-256 13-26
+4096 256-512 25-50
+8192 512-1024 50~100
+16384 1024-2048 100-20Q
+
+Table 1l. Number of ICs Replaced with a ROM
+{Read Only Memory)
+
+Reducing Development Time and Cost
+“Microcomputer systems simplify almost every phase of pro-
+duct development. Because of the extensive design aids and
+software support supplied by Inte! it is relatively easy to de-
+velop application programs that tailor the device to the sys-
+tem. Development cycles can be cut by as long as six to
+twelve months. The table below tabulates a number of the
+steps in adevelopment cycle and indicates how microcomputer
+systems can affect them. Surprisingly, product definition is
+frequently speeded up once the decision has been made to
+use a microcamputer. This is because the incremental cost for
+adding features to the systern is usually small and can be
+easily estimated, For example, added features such as auto-
+
+matic 1ax computation for an electronic cast register may
+only require the addition of a single ROM, The addition of
+one LS chip has a minimal effect on total system cost, power
+and packaging requirements. On the other hand, the same
+function implemented with IC logic might require two or
+three fairly large PC cards filled with MSI and §51.
+
+System and logic design time is also reduced.Programming
+is a faster way to design than using fagic diagrams. PC card
+layout time is reduced simply because there are fewer cards
+to lay out. This reduction in hardware also reduces the load
+on the technical writers who must develop maintenance man-
+vals. Parts lists become shorter, easing the task of transferring
+the product to manufacturing, Cooling, packaging, and power
+distribution problems frequently become trivial. Finally, engi-
+neering changes that are difficult to make and frequently
+tedious to document, become simple program changes. These
+can be made by changing the pattern in a ROM or PROM
+{Programmable Read Onily Memaory} such as [ntel’s 4702A.
+
+Enhanced Product Capability
+
+Product features can be easily added to microcomputer
+systems by simply adding more program storage. Examples of
+such easily added features are: putting automatic tax compu-
+tations into a cash register by adding more ROM, adding
+automatic calibration features to instruments, and making
+traffic controllers that automatically sense traffic load and
+adjust the duration of the signals, etc.
+
+Reduced Complexity
+
+Because microcomputer systems eliminate many ICs and
+consequently the failures associated with these devices, it can
+significantly increase system reliability. Most of the failures
+in a digital system occur becavse an interconnect has failed.
+The use of a typical 16 pin !C will introduce approximately
+36 interconnectors in a system. There are 16 interconnections
+from the chip to the lead frame, 16 from the lead frame to
+the PC card, and approximately 2 interconnections from the
+PC card to the back ptane, and 2 interconnections from back
+plane point to back plane point per IC. [f one ROM elimi-
+nates fifty 1Cs, then it eliminates approximately 1800 inter-
+connections,
+
+Develapment Steps Conventional System
+
+Praogrammed Logic -
+
+Product definition
+System and logic design Dane with logic diagrams
+Debug Done with conventional
+lab instrumentation
+
+PC card layout
+Documentation
+Cooling and packaging
+Power distribution
+
+Engineering changes Done with yellow wire
+
+Simplified because of ease of incorporating features
+
+Can be programmed with design aids {compilers,
+assemblars, editors}
+
+Software and hardware aids reduce time
+
+Fewer cards to layout
+
+Less hardware to document
+
+Reduced system size and power consumption eases job
+Less power to distribute
+
+Change program in PROM
+
+Table Itl. How Devetopment Time and Cost are Reduced with Microcomputers
+
+6-4
+inte|® Silicon Gate MOS 4004
+SINGLE CHIP 4-BIT P-CHANNEL MICROPROCESSOR
+
+«10.8 Microsecond = 4-Bit Parallel CPU With 46
+
+Instruction Cycle Instructions
+» CPU Directly Compatible = Instruction Set Includes
+With MCS-4 ROMs and Conditional Branching,
+RAMs Jump to Subroutine and
+= Easy Expansion—One CPU Indirect Fetching
+can Directly Drive up to - =Binary and Decimal
+
+32,768 Bits of ROM and up Arithmetic Modes
+to 5120 Bits of RAM
+
+The Intel*4004 is a complete 4.bit parallel central processing unit (CPU). It is designed to be used in test systems, terminals,
+billing machines, process control and random logic replacement applications. The 4004 easily interfaces with keyboards,
+switches, displays, A-D canverters, printers and other peripheral equipment.
+
+The CPU can directly address 4K 8-bit instruction words of program memory and 5120 bits of data storage RAM. Sixteen
+index registers are provided for temporary data storage. Up to 16 4-bit input ports and 16 4-bit output ports may also be
+directly addressed.
+
+The 4004 is fabricated with P-channel silicon gate MOS technology.
+
+Dy BI-DIRECTIONAL
+D DATA BUS
+
+DATA BUS
+BUFFER
+
+(4 BIT) (4 BIT)
+INTEANAL DATA BUS INTERNAL DATA 8US
+
+—
+
+| ]
+
+lmcumum‘ro:l l TEMP,
+I_“' -
+
+£
+
+<7
+
+INSTRUCTION
+REGISTER fgh =4
+
+Ak
+
+REGISTER
+MPX
+
+STACK
+MULTIPLEXER
+
+| PROGRAM COUNTER I A A <
+& 112 o ﬁ
+s 10 l Pt
+INSTRUCTION o LEveL o '“'I : ? o2
+= =
+rJARITHMETIC DECODER x LEVEL NO. 2 tmI gl a 141 g @ =
+AND < 2 S
+macHine 7% |5 = o -
+CYCLE LEVELNO.3 3 I Al e 7
+ENCODING @
+A ADDRESS w gl gl
+STALK >
+w
+o ‘D[M ”w
+£
+
+DECINAL ‘ 19 1a)
+apJust 1 12 13
+
+A4
+
+vl e
+§  SCRATCH
+_ TIMING
+- AND I PAD
+CONTROL !
+POWER —_— Y
+SUPPLIES | — o 45V ROM RAM
+CONTROL CONTROL TEST SYNC CLOCKS
+cMRom  ———  TEsT SYNC 1 ¢2 RESET
+CM RAM
+0-3
+
+&5
+MICRD
+
+w
+==
+w
+-
+b |
+a
+=
+o
+(X
+
+.
+i
+
+4004 MICROPROCESSOR
+
+4004 FUNCTIONAL PIN DESCRIPTION
+
+[ —
+0o [t 16 ] cM.ran
+D 2 is CM-AAM
+oara |03 m " | MEmoRY
+8US - : - CONTROL
+1o {0, []3 14 [ emnam, | ourPur
+R 13} cmpam,
+vss [ 5 1247 ] vop
+CLOEK MEMORY
+p}msg1]‘¢l[: B ] mEEET -I__cournm
+OUTPUTS
+CLOCK
+Punsaz}%r_— 7 10 [ Test
+SYNC
+ovtryr | svue CRa 9 ) Reser
+
+Dg-D3
+BIDIRECTIONAL DATA BUS. Alt address and data
+
+communication between the processor and the RAM
+and ROM chips occurs on these 4 lines.
+
+RESET
+
+RESET input. A logic “1” level at this input clears
+all flags and status registers and forces the program
+counter to zero. To completely clear all address
+and index registers, RESET must be applied for 64
+ctack cycles {8 machine cycles).
+
+TEST
+TEST input. The logical state of this signal may be
+tested with the JCN instruction.
+
+SYNC
+
+SYNC output. Synchronization signal generated by
+the processor and set to the ROM and RAM chips.
+It indicates the beginning of an instruction cycle.
+
+[}
+.
+
+CM-ROM
+
+CM-ROM output. This is the ROM selection signal
+sent out by the processor when data is required
+from program memory.
+
+CM-RAMy — CM-RAM3
+
+CM-RAM outputs. These are the bank sefection sig-
+nals for the 4002 RAM chips in the system.
+
+Two phase clock tnputs.
+
+Vss
+Ground reference — most positive voltage,
+
+Vbbp
+-15 5% main supply voltage.
+4004 MICROPROCESSOR
+
+INSTRUCTION SET FORMAT
+
+A. Machine Instructions
+
+® 1 waord instruction — 8-bits requiring 8 clock periods (instruction cycle).
+* 2 word instruction — 16-bits requiring 16 clock periods (2 instruction cycles).
+
+Each instruction is divided into two four-bit fields. The upper 4-bits 15 the OPR field containing the
+operation code. The lower 4-bits is the OP A field containing the modifier. For two word instructions,
+the second word contains address information or data.
+
+The upper 4-bits {OPR) will always be fetched before the lower 4-bits (OPA} during Mq and M5
+times respectively.
+
+ONE WORD INSTRUCTIONS TWO WORD INSTRUCTIONS
+191 INSTAUCTION CYCLE 2nd INSTRLCTION CYCLE
+O3 Dy Dy Dy Dy Dy 0Oy Dg Dy Dy Dy D0y Oy Dy Dy Oy
+Lixbebefefe =] prfel=xdel=]=1~]
+
+g tl--_. Dy Dy
+
+Dy
+L [x [xfxlsi=]x] T
+. | 0P CODE ' MCDIFIER —l | 0f CODE MODLFIER I
+
+CPA
+
+D, o, o oPR ora oFR oPA
+
+) UPPER ADGAESS MIDOLE ADDRESS LOWER ADDRESS
+OF CODE MODIFIER | x| x | x| x
+[ | J I - ' | | Ay Ay Ay Ay | Ay Ay A3 Ay ] Ay Ay By A
+oA
+INCEX REGISTER CONDITION MIDCLE ADDRESS LOWER ADDRESS
+X | x| x| x ADDAESS |
+I [ | ‘ |H A AR lxlxlexlcl C; C3 Gy Ay Ay Ay Ap | Ay Ay A Ay
+oA oR
+TNDEX REGISTER FAIR TNDEX REGISTER
+I ,—[ X [ X ‘ N I X FEGISTER PaT | N | » ‘ . | - I X REGISH l | MICOLE ADGRESS | LOWER ADDAESS
+il A R X R R A R Ay Ay A Ay A A 1 1
+OR oR
+DATA INDEX REGISTER PAIR UPPER DATA LOWER DATA
+X x|k x| x| xix l ADDAESS l I
+| ‘ | 1 ID 6 o U] | | | | A R R X Dy Dy Oy Dy J Dy D Dy Dy
+
+Table |I. Machine Instruction Format
+
+B. Input/Output and RAM Instructions and Accumulator Group Instructions
+
+In these instructions (which are all single word} the OPR contains a 4-bit code which identifies either
+the 1/0 instruction or the accumulator group instruction and the OPA contains a 4-bit code which
+identifies the operation to be performed. Table I illustrates the contents of each 4-hit field.
+
+L
+ool
+o W
+-
+=
+=
+= 2
+o
+[a]
+
+]
+
+NPUT/OLFTRUT & | 1 { 1 %
+
+AAM INSTRUCTIDMS
+
+T
+
+ACEUMULATOR GROUP
+INETRUCTIONS l“'l'!‘l“lxl“|"l
+
+WHERE X = EITHER 4 0" OR & 7"
+
+Tabte 1, 1/Q and Accurnulator Group Instruction Formats
+
+8-7
+4004 MICROPROCESSOR
+
+MCS-4"" INSTRUCTION SET :
+
+[Those instructians praceded Ly an asterisk (*} are 2 word instructions that occupy 2 successive locations in ROM)
+
+MACHINE |INSTRUCTIONS {Logic i - Lov VoMage - Negative Yoltme: Logic 0 - High Valtage = Ground
+
+OoPR - 0fA
+MNEMCHN IC OESCAIPTION OF OPERATION 0;0,0,0 0; 0,0, G
+NQP Nu vgmrption, ¢ o 00 0Oa¢DoDa
+Jmp la ROM addiens Ap A7 A3 Ag Ay &) Ay Ay Iwithin the ame
+e ROM that contalny this JON ruiructiont it condition €y Bz €3 C4'1 g0 C1C2€3%,
+1% 1rue, athereise skip 190 1o the ne gl indlruchOn in sequencdl ‘2 AJ A? ‘J ol Ral Ral Kot
+FiIM Fareh Immedsare (direceh drom AGM Data 03, 01 10 1ndex regisies paw a0 1 0 AR ARG
+mulum AAR 7] 0,0,070, Dy 030, 0y
+SRC Send cegister conirol. Seng the sdidrent (contents of index register pawr ARR} L L A AR
+te ROM and AAM st X7 and X 3 time in the Ingiruerion Cyehe,
+EIN Feach Incheece beown RON, Send cancents o Irdex crgister pair locauan O o001 1 RARG
+Qut a4 an acdress. Dawe deschedt ds placed dnra cegicier pas Iocation AAK.
+- JIIN Scrvd s af cepister palr AR oul a5 #n adkiress D011 "B A
+ll Al and lq !Imr 1n 1he tnstrucilon Cyele.
++JUN O1roo Ag Ay Az Ay
+JU Jump naconditional 18 AOM wiliau Ay Ag Ay ‘2 ‘J A, "2 A| A' A.‘ a,
+“IMS Jumg (o subroutire ROM adarers A3, Ag, Ay, wvr oid address. (Up 7 leved a1 ¢ Ay Ag ﬁg ka
+In sdack b LI L LT Ay Ry A
+INC |acr ey eanieits of smgsin ARAR, 13 0119 RARRA
+sz InTarhen| COALERIS 01 riguter ARRR, G0 ta AGM piklrens Ap, Ay o1+ A ARA
+twithin \he peme REOM (hat conlabns 1his 1SZ snsteyccion] 1 et 98, Ag Ay fg Ay P
+otherwisz ki 199 40 1he rexd Insleuctian n sequencel. 27272 1M
+ADD A conanri of regltiar RRAA 1 dccbimm 1ar with caney. 1000 AR AR
+SUe Subtract contenis ol regliter ARRR 10 arcumulator with bariow, 109011 RR AR
+Lo Load contenis ol regliter RARR 1o atcuimglatil, 1¢ 10 RRRAARA
+ACw Exchange condents of Index saplshee RAA R and scoumulator, 1011 RAAR
+aeL Brarch back {domn ¥ eved In stackl and toad dats DOOD to accumutatar. 1100 DooPO
+LOW Layd daca DD DO 1o scoumuistor. T ro poop
+INPUT/QUTPLT ANC RAM INSTRUCTIDONS
+(The AAM’s and ROy operaiad an in the 10 gnd BAM inirucrions have been prevaously selected by 1ne last SAC insvruction sracured.b
+MNEMONIC GESCARIPTION OF OPERATI ; o 'y
+CRIPHION ERATION r 0,0, 0,0y b30; 0, Oy
+wiriie {he conlenty OF 108 sccufivula gl «0ia The previouthy ekecied
+had NAM main mémary <lisracher 1 v 1@ 900G
+Write the Lontems ol she 100 the petvauily seleceed
+W A4m ourpul pord, 1*10 peon
+Viriie dhe Candeniy OF Ihe sccurnalafor vl The previcaily celecied
+E WRA ROM oulput pact. |10 Linetl 11 v 0 o1 a
+' Wirite the cianfuncs Of INe accumulance inco the previaus!y sedecicd
+| wer i___helf bete of readivriie ceaoram memory Ifar use with 40083003 onivk tra e ¢011
+Wrie she convenis of 1he Jccumulanar «n1o Mhe previousty selecied
+r b o RAN 513105 chaazier D — t110 & raoe
+l [ Wrale 1 cOMIEnTE OF Che CUMuIRtDY INSD the previausly selecrod
+[l WRy |__FLAM statys chasscter | 11 D 1o
+¥ 4 Wice the Lonteni s of 1he accumuiaior smio 15 preveously selecied
+! waz!® | RAK itatwl chavac ier 1140 ¢r1o
+| b Wrate the cuntents ol the proumiuletin 1710 1he B tsousl v selecied
+| wag! . RAM staws characler 3 ri1e e
+Subiracy Ine previously wlu.nd RAM maa memory enaracth o
+[ SeM acCu Mulatar wrth harras vt e 1 ¢ 0
+! [ I R
+noMm In:w’;ne arévlowmly se! eurﬂ AN min memary chasacier 1110 Yo op
+Acad rha 20N 18n15 al (M Prewiously selrcied O uUs por
+ROR into the A0 Liney) t11a rore
+kS T pepvitu iy .ucm) RAM main mermaary tharpcrin 1o
+ADM e el ¢ with gm R Yoo
+rog 4 RAead 14e previously seleceed HE&M Na1Us chal ez ies Dinia Accpinn lAIgr 1 v 1 8 110 ¢
+rop ! Read tha previontly seleersd RAM 413105 characier § into atumislacor. T 10 11 00
+Ap2!4 ead Ihe presiously weleceed A AN fatus chalacier 2 inrd acculrm larar 1110 F 110
+HO:I“' Rear the previtmyy wlected RAM 31a1vs character 3 into sccumulatos, 11 v 0 LI R B |
+v
+==
+[ ACCUMULATOR GROUP INSTRUCTIONS
+-
+<Le Ciear bowh.  1Accumulates and carry] LI I o
+% CLC Clvar carry. 11 v 1 )
+S e Inerement accumul nar. LI I | 10
+CMC Covmglemen caity, Ty 1 01
+CMA Complemant ac¢umalatar, [ T B | 100
+AAL Rovawe 1ot I1Acoumulacor and carryl LIS I I | o1 v
+RaR flavae right.  [Accuasalator and carryd LI I B o110
+TCC Teansmin garey 10 gecuMulaiar and clear carey. 111 [ I I B ]
+D4l Qicrinent accumulsti, 11 v 1 1000
+1ce Trantlas catry WHLIBEr ar chigm corry. 11 11 LY '
+sTC Set camy. 111 1 1o
+PRA Oecimal syus sezumuincod 11 v t ¢ 1
+Keyboard process. Cormverts she contents of |he accumulasor from 3
+KB ane out af lour code o » binary code. 11 ‘ 1 11 o
+ooy Oesignate eamwmand lina L LI | 1100
+
+NOTES '!IThe condiiion code i #sigand ws fodlavs.
+C| <1 IAvls ! jumnd cond 1 lin C? . Jump If 3ccwmularar v 2ero
+Cy =0 Mot lavert jump candhlon Cy=1 Jumodlcorryilink lya %
+12)3RA n the addrees OF t o1 8 Ingee roglsier palrs in che CPLP. )
+{RARRA o the nddress oF 1 of 16 Index. reglsters i 1ne CPU.
+
+(41g ach AAN chip has 4 regicters, rach with twenty 4-b11 chamciers ww Inw 16 maln memory characeees andt 4 status chaccters.
+Chip numdeed, RAM ssgisten and Madl rebMOry chie acinr de
+
+Cq™ 1 dumg It fest tgnad 3 2 0
+
+Aatut charpCrer lacpliond arn Mistied Dy the Intryction code (OFA),
+
+. For thee selected chip and reglyter, Powsyer.
+
+intel  silicon Gate MOS 4040
+
+SINGLE CHIP 4-BIT P-CHANNEL MICROPROCESSOR
+
+* Functionally and Electrically = Single Step Operation
+
+* 14 New Instructions {60 total) Capability
+Including Logical Operations = 24 Index Registers
+
+and Read Program Memory = Subroutine Nesting to 7 Levels
+= Interrupt Capability
+
+The Intei4040 s a complete 4-bit parallel central processing unit {CPU). [t is designed to be used as a replacement for random
+logic design.
+
+The CPU can directly address 4K eight bit instruction wards or 8K with a bank switch. Seven levels of subroutine nesting, in-
+cluding interrupt, and 24 randomly accessable index registers (24x4) are provided as convenient facilities for the designer. The
+index registers may be used for addressing or for scratch pad memory far storing computation results. The interrupt feature
+permits a normal program seduence to be interrupted, with normal program execution continuing after the interrupt service
+routine is completed. Provisions have also been made to permit single-stepping the CPU using the STOP and ACKNOWLEDGE
+signals.
+
+The 4040 is an enhanced version of the 4004 and as such retains all the functional capability of that device, It wiil execute all
+the 4004 instructions, and is also electrically compatible with the other memhers of the MCS-4 family (4001, 4002, 4003).
+
+4040 CPU BLOCK DIAGRAM
+
+- B81-DIRECTIONAL
+O DATA BUS
+
+DATABUS
+BUFFER
+
+4 BIT) 4 BT
+INTEANAL DATA 8US . INTEANAL DATA BUS
+
+4y J N AN {‘s \
+J A > <y J > .
+ACCUMULATOR TEMP, REG, INSTARUCTION STACK REGISTER
+I w] l 16 REGISTER ml“—‘“—" MULTIPLEXER I MPX 2
+4 3 pncaammums[f‘xm o, _ g g
+z Ly =
+LEVEL NC.1 2 3 = %
+INSTAUCTION =
+it ozﬁggsn - LEVEL NO. 2 . 4 5 o
+UNIT 7
+MACHINE [t
+ALY —d CYCLE z LEVEL NG, 3 x| s 7
+<} nal K3
+ENCODING b a
+> « LEVEL NO. 4 x| @ 9
+La (=) w
+4 o
+ird LEVEL ND, 5 Z| 10 1
+LU}
+Py - LEVEL NO.6 < 12 12
+LEVELNO. 7 i 16
+>
+141
+POWER TIMING ADDRESS -] ® 1
+SUPPLIES AND STACK x
+CONTROL Z1 2 3
+—e 10V SINGLE %
+—n +5¢ | CARRY  ROM RAM STEP [ Y 5
+OUT CONTROL  CONTROL  TEST CONTROL  SYNE CLOCKS] g
+Tl e 7
+ey 7 —r—' rtEst| |sToe STOP SYNC ¢1 02 RESEY SCRATCH
+CM ROM CM RAM ACK PAD
+1 03 INTERRUPT
+
+INT ACK
+
+69
+)
+[
+=
+o
+=
+2=
+==
+<)
+O
+
+4040 MICROPROCESSOR
+
+4040 FUNCTIONAL PIN DEFINITION
+
+\—
+
+o [ 2| Jeov
+o [ ]2 22 || emmomg
+o []3 22| ] canomy
+o;[ |+ 21[_] Voo,
+strack | ' 20 [ ] cmrang
+s {_|s 4040 19 [ ] cmaam,
+wr [ ]2 8| ] cMram;
+INT ACK E |} 17 j CM-RAMy
+Vgs E 8 15| svne
+8y D 10 15 j Vop;
+4, ‘:{ n 14 j Voo
+reser [_J12 13| tesr
+
+Do-D3
+BIDIRECTIONAL DATA BUS. All address and
+
+data communication between the processor and
+the RAM and ROM chips occurs on these 4 lines.
+
+STP
+
+STOP input. A logic “1" level on this input causes
+the processor to enter the STOP mode.
+
+STPA :
+
+STOP ACKNOWLEDGE output. This signal is
+present when the processor is in the stopped state.
+Output is “open drain” requiring pull-down
+resistor to Vpp.
+
+INT
+
+INTERRUPT input, A logic “1" level at this input
+causes the processor to enter the INTERRUPT
+mode.
+
+INTA
+
+INTERRUPT ACKNOWLEDGE output. This
+signal acknowledges receipt of an INTERRUPT
+signal and prevents additional INTERRUPTS from
+entering the processor. [t remains active until
+cleared by the execution of the new BRANCH
+BACK and SRC (BBS) instruction. The output is
+"“open drain’” requiring a pull-down resistor
+10 Vpp.
+
+6-10
+
+RESET
+
+RESET input., A logic “17 level at this input clears
+all flag and status registers and forces the program
+counter to zero. To completely clear all address
+and index registers, RESET must be applied for 96
+clock cycles {12 machine cycles).
+
+TEST
+
+TEST input. The iogical state of this signal may be
+tested with the JCN instruction.
+
+SYNC
+
+SYNC output. Synchronization signal generated by
+the processor and sent to ROM and RAM chips. It
+indicates the beginning of an instruction cycle,
+
+CM-RAMg — CM-RAM3
+CM-RAM outputs, These are bank selection signals
+for the 4002 RAM chips in the system.
+
+CM-ROMg — CM-ROM 1
+CM-ROM outputs. These are bank selection signals
+for program ROM chips in the system.
+
+CYy
+
+CARRY output. The state of the carry flip-flop is
+present on this output and updated each X time,
+QOutput is “open-drain” requiring pull down
+resistor to Vop.
+
+61,42  Two phase clock inputs
+Vss Ground reference — most positive
+voltage
+VDo —16V +5% — main supply voltage
+*VDD1 —15V £5% — Timing supply voltage
+**\pp, — Output buffer supply
+
+voltage
+
+*For low power operation
+**May vary depending on system interface
+4040 MICROPROCESSOR
+
+INSTRUCTION SET FORMAT
+
+A. Machine Instructions
+
+* 1 word instruction - 8-bits requiring 8 clock periods {1 instruction cycle)
+* 2 word instruction — 16-bits requiring 16 clock periods {2 instruction cycles)
+
+Each instruction is divided into two 4-bit fields. The upper 4-bits is the OPR field containing the
+operaticn code. The lower 4-bits is the OPA field containing the modifier. For two word
+instructions, the second word contains address information or data.
+
+The upper 4-bits (OPR} will always be feiched before the lower 4-bits {QPA) during M1 and M»
+
+times respectively.
+
+ONE WORD INSTRUCTIONS
+
+MOOIFIER |
+INDEX REGISTER
+x X X X ADDRESS
+R R R i)
+OR
+INGEX REGISTER PAIR
+X X X X ADDRESS
+1) R A X
+QR
+DATA
+
+| QP CODRE I
+
+TWO WORD INSTRUCTIONS
+
+T3t INSTRUCTION CYCLE 2nd INSTRUCTION CYCLE
+
+O 0, Dy 0 By ©0; Dy Dy Dy Dy Dy
+OPR OPH
+I 0Of CODE | MODIFIER | [ OP CADE ] MODIFIER I
+X x X X UPPER ADDRESS MIDDLE ADDRESS LOWER ADORESS
+Ay Ay Ay Ay Ay Az Ay Ap | Ay Ay A, A
+
+OR
+
+[T
+OE
+
+conomrm I I MIDDLE ADDRESS LOWER ADDRESS
+Cq
+
+Ay Ay Az Ay | AL A Ay A
+
+Of
+
+MIDDLE ADORESS LOWER ADDRESS .
+Az Ay Ay Az | Ay AL Ay A
+
+OR
+
+JNDEX REGISTER PAIR UPPER DATA LOWER DATA
+x I ADDRESS l I o, b, b, o, fp, D, D, D
+2 2 2 2 1 1 1 1
+
+Table I. Machine Instruction Format.
+
+B. Input/Output and RAM Instructions and Accumulator Group Instructions
+
+I these instructions {which are al} single word) the OPR contains a 4-bit code which identifies
+either the 1/0 instruction or the accumulator group instruction and the OPA contains a 4-bit
+code which identifies the Operatlon to be performed. Table Il illustrates the contents of each
+
+4-bit field.
+
+0, D,
+
+D, D D
+
+(1
+
+LT
+
+OPR
+
+OPA
+
+INPUT/OUTPUT &
+RAM INSTRUCTIONS
+
+BE
+
+FR BB
+
+ACCUMULATOR GROUP 1 1
+INSTRUCTIONS .
+
+L fe [ i+
+
+WHERE X ~ EfTHER A "0“ OR A “17.
+
+Table II.
+
+1/Q and Accumulator Greup Instruction Formats.
+
+6-11
+
+w
+= =t
+oW
+o
+L=
+-— O
+==
+o
+(& ]
+
+4040 MICROPROCESSOR |
+
+INSTRUCTION SET
+
+Summary of Pracessor Instructions
+*Two Cycle Instructions
+
+Insiruction Code Instruction Code
+Maemonic Descrrption 0PA oPA Mnemanic Deseription OPR OFA
+By 0 By Do B3 By Dy D 03 02 04 By O3 Dy Oy
+MACHINE GROQUP 1/0 and RAM GROUP
+NOP No Operation g o 0 0o 0 0 ¢ 0O WAM Accumolatar (o Selected RAM Main T r 1 0 0 0 ¢
+Memory Character
+HLT Halt 0 0 0 0 0 0 4 1
+P A RAM T 0 0o 0 0
+BEBS Branch Back and SAC 6 0 0 0 g 0 1 0 o c[)cg:lp:::lta;::;tm Seerees
+LCR Command Register to Accumulator 0 0 0 O 0 0 1 WRR Accumulater 10 Selecced ROM 1 1 0 0o 0 t
+OR4 Logical OR, Indax Register 4 and ¢ a 0o 0 0 + 0 @ Qutput Par
+Accumulator Wene Accumulatar wo Seleceed Half Byte T 1 1 0 0 0 1
+) , in Read/Write Prograrms Memory
+0RS Logical 0!]1, Index Ragister § and 0 0 0 o 0 1 0 1 WRD Accumulator o Selec(ed RAN 111 0 1 0
+Anceernulator ) Status Charocter
+ANG Logecal AND, ndex Reyisier 6 and o 0 0 0 a v 1 0 WR1 Aceumulatas 10 Selecied RAM 1T 1 1 9 g 1 Q
+Accemulaar Stotus Character |
+ANT Lagical AND, Index Register 7 and 0 0 0 0 01 1t WA2 Acenmulator 4o Selected RAM o oo
+Accumulater Statis Character 2 .
+| RAM 1 1 1 1 1
+080 Designate AOM Bank 0 o 000 1 6 0 0 WA3  Atsomusi lo Seased 0
+Dal Designate ROM Bonk 1 0 0 0 0 1 0 ¢ 1t SBM Subtract Selected RAM Main 1 1 i 0 1 Q0 @
+SB0 Select Index Ragisier Bank 0 0o 0 o 101 0 Memory Character fram
+581 Select Index Register Bank T 4 0 & 0 i 01 1 Accumuiator wi_th Eorrow
+€N Enable Interrupt o0 00 1160 RO Selscmd AN Wi Memary LI
+DI DHisable huterrupt 9 0 0 ¢ i1 D01 ROA Selected ROM Input Porl 1 i1 0. 1 0 1
+RPM Read Program femory, 00 0 0 LA I B (o Accumulalor
+Half-Byte per Instruction ADM Add Selecied RAMN Mlain Memary 1 1 1 a 1. 0 1
+"IN Jump Condnianof 10 Addrass 8 0 0 Gy C2 C3 Cq4 Character 10 Accamulator with Caery
+A;AgﬁzAzfi]AMﬂ' AQ A:o A2 Az Ay Ay By A RDO Seilgc:::c'l:ﬂﬁ:';'lafnt:lus Character 0 1 1 i Q 1 1 0
+Candition Code, €1C2C304 RD1 Seleered RAM Status Character 1 I T B 1 1 9
+“Fir Feich Immedize, ROM Data D30, g0 1 0 R R R 0O ta Attumulator :
+10 Index Regisier Pair ARR D2 0» Dy D2 Dy Dy Oy Dy AD2 Sclected RAM Status Character 2 i1 1 0 LI B |
+SRC Send fegister Control O 0 1 0 R R R | ) to Accumulaior
+FIN Fetch ndirect, Datafrem ROMte - 0 D 1 1 R R R O AD3 Selacted AAM Status Chasacter 3 LN
+A ) 1o Accunulalor
+Index Regater Pair RAA
+JIN Junep Indirect 10 Address in Repister oo 11 R R A 1| ACCUMULATOR GROUP
+Paic ARR CLA Clear Accumolatar and Carry T 1 1 | 0o o
+= Jun Jump Unconditienal to Address o v 0 9 A3 Ay Ap Az CLe Clear Carry 1 i 1 00 0
+AzAzAq Az Az Az A A A Ay Ay IAC Ingrement Accumulgtor LA I B [ |
+" JMS Jump (@ Subroutine at Address ¢ 1 0 1 Az Az Ay Az CME Comglement Carry 1T 1 1 0 o1
+Andok Bs A> An A Ay Ay Ay A CmAa Complement Accumulator 1 1 1 o i ¢
+NG ( 3rnzn‘ﬁ ’ RRAR 02 12 12 02 ﬂ1 91 R’ R1 RAL Rotate Lef, Accemulator and Carry 1T 1 v 1 a 1 0
+. nerement ”!m' RAR Rotate Right, Accumulatorang Carey 1 1 1 1 o 1 1
+182 Increment Register RARR. Go 10 ¢ 1 11 R A R R ToC Transnd Carry 10 Accumulatae, 11 t 1 a 1 1
+Addrass AoA, if resultisnotzero, Az Az Az Az Ay Ay Ay A Clear Carry
+ollierwise o (0 next instruction DAC Detrement Accumulatar 1 1 1 T o 0
+ADD Add Register ARRA to Accumulater 1 0 o0 @ R R & R TCS Trs:““'cf'"v Subtract and L ! oo
+, ear Carry
+with Corey sTC Set Carey T o1 t oo
+suB Subtract Register RARR {rom t oo 1 R R & R DAA Decimal Adjust Accumulater 1Tt 1 0 1
+w Accumuizior vath Borcaw . KBP Keyj: oard Pratess 1T 1 1t T 10
+o LD Load Contents of Register RARRta 1 0 1 0 R R R R DcL Dasignal Command Ling LI A T 10
+ﬁ Agcumulatpr '
+E XCH Exchange Contents of Register 1T ¢ 1 R R & R NOTES: .
+= ARAR and Accurulator [1} The condition cade is assigned as follows:
+o BEL Branch Back and Load Dawa 0DDD 1 1 0 0 -0 0 D 0 C‘ =1 lnvert 'lump condition
+© te Accnmulater £1=0  Not invert jump coadition
+LDM Load Data DDOD to Accomulator 1 1 0 DD O O Cp=1 Jumgp if accumulater is zero
+
+Cz=1 Jump if carryllink isa 1
+Cq=1 Jump if 1es1 signal isa G
+
+12) AR is tha addcuss of 1 of 8 index register pairs in the
+CPU,
+
+{3) RRRR is tha address of 1 of 16 index ragisters in the
+CPUL.
+
+(4} Each RAM chip bas 4 regisiers, esch with hwenty 4-bit
+characters subdivided mio 16 main memory characters
+and 4 status characters. Chip numbear, RAM ragister
+and main memory character are addressed by an SRC
+instruction. For the selected chip and register, how-
+ever, stalus character facauons are seleciad by the
+instruction code (QPA),
+
+6-12
+
+—_— Ny TN~
+
+4
+ROMs
+4001 ' ] [ wiN
+
+DATA H1E z 1= j"'nl T}
+
+256 X B‘BlT I o ] u o, ones
+
+MASK PROGRAMMABLE o0s M i
+ROM and 4-BIT 1/0 PORT aods J, GFlaes
+T
+
+"I‘::gtlg ‘EI: ; 1o EL(II.'H mIruT
+
+The 4001 is a 2048-bit metal mask programmable ROM providing cus- svm:i,-]u:l: 8 g jm{:n e
+
+tomn gmicroprogramming capability for the MCS-4™ micro computer set. !
+
+11 is organized as 256 x 8-bit word.
+
+Address and data are transferred in and out by time multiplexing on 4 = [ commme e
+
+data bus lines, Timing is internally generated using two clock signals, 20— > "
+
+$ and ¢, and a SYNC signal supplied by the CPl), Addresses are re- -———g,
+
+ceived from the CPU on thres time periads following SYNC, and select
+
+1 out of 268 words and 1 out of 16 ROM's. Far that purpose, each Ve
+
+ROM is identified as #0, 1, 2, through 19, by metal option. & Command o
+
+Line {CM!} is also provided and its scope is to select a ROM bank {group ¥
+
+of 16 ROM"s}. :nc‘—"_""— i;:_,? |- ——————— —a pat
+
+During the two time periods {My & My} following the addressing time, Dy o] fic0ut [T cONTROL
+
+information is transferred from the ROM to the data bus lines, By Creot—in—]
+
+A second mede of operation of the ROM is as an tnput/Output control
+
+Device. In that mode a ROM chip will route information to and from MEMOnY -
+
+data bus lings in and out of 4 1/ externat lines. Each chip has the cap- MLk o
+
+= i}
+
+ahbility to identify itse!f for an 1/O port operation, recognize an 1/0 port
+
+instruction and decide whaether it is an Input or an Output operation g
+
+and execute the instruction, An external signal {CL} will asynchronously oee A REGISTER :>
+clear the output register during normal operation. INTERFACE
+
+L
+DECORER
+
+Each 1/O pin can be uniquely chosen as either an input or output port
+by metal option. Direct or inverted input or output is optional. An on-
+chip resistor at the input pins, connected to either Vpp ot Vgg is also 1B, ¥ Uy
+
+optional, v, 13,
+
+4308
+
+8K
+MASK PROGRAMMABLE ROM
+
+The 4308 ROM is organized as a2 1024 x 8 word array. 11 is functionally
+identical to four 4001 ROMs, as well as electrically compatible to all
+existing MCS-40™ elements.
+
+The 4308 also has 16 programmable 1/0 lines arranged in four 4-bit
+
+L
+poris. Each line may be mask programmed as either an input or output e
+line. The 4308 responds to the g
+RDR, WRR, and SRC commands " N —— 1 =
+for 1/Q operations. e 1 " | S
+Chip select number is set by metal omom o= I' l l l ! l
+mask option. b e S e ]
+o0y D..__’__..L T4 BUS J—— ) :Er?:;;:il ACI AlRLAY
+oy O-.——‘—-—-
+tser ot 2} LA T 4 !
+[ 1 N ST —
+oo [} I 1!
+e 159 159 =S 3
+PR IGPORT I PORT ;0 PORT
+0 1 T 5
+i?lj‘ﬁlﬁln § |41z |7 LEARLS 151\' lﬂl}ﬂ- |31|B
+Q
+(L2 100 Gy (IR W 1y 143 g 110 25 10 0 3y
+
+&-13
+1773
+o
+
+W
+& 5
+=
+==
+]
+[
+
+6-14
+
+ROMs
+
+4316
+
+16,384-BIT STATIC
+MOS ROM
+
+The Intel®4316 is a 16,384 bit static MOS read
+only memory organized as 2048 words by 8-bits,
+This ROM is designed for microcomputer mem-
+ory applications where high performance, large bit
+storage, and simple interfacing are important de-
+sign objectives.
+
+The 4316 access time is 2 usec,
+
+The inputs and outputs are fully TTL compatible,
+This device operates with a single +5V power sup-
+ply. The three chip select inputs are programmable.
+Any combination of active high or low level chip
+select inputs ¢can be defined and the desired chip
+select code is fixed during the masking process.
+These three programmable chip select inputs, as
+well as OR-tie compatibility on the outputs, facili-
+tate easy memory expansion.
+
+A)C 1 = 24 [Yvee
+sz 2o,
+as[]z 2[o;
+a4 2170,
+a5 20[Jo.
+as 1[Jo.
+A ] ane wlJos
+£ m [ [ o
+Ad]e B[]0
+As[Jo 15[ jesy
+A (n 1w []¢s;
+
+eno ez 1afcs,y 0, 0; 0; 0, O5 Og Oy Oy Ve
+F yu— cs.
+® OUTPUT BUFFERS DECODE
+A1 A
+A = Y DECOOER 10F 16x 8
+: CHIP
+Ay 1 ¥ SELECT
+& — PROG
+N — o —
+5
+—_ 2
+" z : t11
+s —| S8 16, 384 BIT
+? - & TELL MATRIX CHIP
+G SELECT
+A B E nppT [ %52
+n B E BUFFERS
+Ao T =S
+R —— e —
+
+MCS-40"
+
+CUSTOM ROM
+GENERAL INFORMATION
+
+MACS § CUSTOM ROM ORDEA FORM
+
+4007 Matw Mirked ROM %
+
+P PU— .
+a 1hy 1 B GrN FLAGWY Chdl 81 Pehe B Tne 13 nibes v, pieeviae OF 164 b Lide
+ot permysmry B sadies Rerds ¥ 14t < I Aty v
+T e L Sl e
+
+T
+CUSTOMER 43 ”wee_
+
+L { YN —_—
+O NUNEIER —— ————
+
+APP oo
+oAt oate _ o O e
+
+INTEL STANDARD MARKING
+
+. [y S—
+
+The mab1ng o #ezam a1 rghl mual conivn e Imte! logu Syemnce
+
+ihe product sy IP4DOM, yhe Irnr g fore! gariam num -
+
+o {PPIPE, 8 qaie code [XKNND, and v 1w Age chin 203 honos B
+N Comamas e
+
+Mamber (EN> Anopignal cunonm she vl nen numker
+My e bquingred 40 e thin ~unber 4221
+Opranad Curcamar Yumber [Weomum B <tarews o el
+
+MASK OPTION SPECIFICATIONS
+
+A CHIPNUSMBEH _ _ _ ihuc e ipecfed - anv nomier fa0m O Buough 15 - 001
+B 'O OPTION — Spenty rha cansernon nombers Yor wach 10 po nesc pagal. Evameiec ol mme ol 1N zaoele 110
+COINE e o Dalow
+[ETIo
+
+rewm = 3 4004 4 oo
+T T T
+N )
+
+C 4001 CUSTOM ROM PATTERN —  Proyprming milemancn phould b e in the fom ol comguler punched
+THALE furhad Ca0n DR 10 6T chia. 3 041 aY1 01 e wyrh sable NuE arconpe; e ome Aete b Inie' Dats
+Carding Fiw cOMOen Dattrea YroRemmora ANEAN ATy, N K COMO MG 0uTh Cibi muy Be vaad Bomd <n Ihe pe-
+licwher cunlomm palawn, M cheschm thaukd e welibon s “P* for & g Mol Onigul = A Wngic *0 Gogacot logic 07|
+o an W Tas 8 ko bpval it * rlngS CE (Ascanye gt THY
+
+ocy shar NOHF = RATVEY PRPR) ~ 4000 DEOS
+
+4001 Custom ROM: Order Farm
+
+All custom ROM orders must be submitted on forms provided
+by intel. Programming information should be sent in the form
+of computer punched cards or punched paper tape. In either
+case, a print-out of the truth table must accompany the order.
+
+2 |’ 43X
+'nté 4308 CUSTOM ROM ORDER FORM now
+
+2308 Muid Mujkad AER
+
+i oo 13 "
+
+B e i e el e AR e i 3 i e g el o e ey
+A e rnM e wan Pele g s (OB DRI 4 TR 4 D A e S ey
+oy b b
+
+o v
+l R L ——————— 30 "er
+A
+SDOAESS L1 YU | P
+L e ——————— A o
+oare .. ] i
+
+INTEL SEANOAAD MARRING
+
+L R N P T DR PR ) ral e ral Ve g 10 et wized lap Gagl e ppe
+" a2 AR i em LG raar e 12 i Y D g Catareg
+10 LEXKAT 030 WP 1At 3 TR
+
+L e L ol
+el el an i ST
+L e R 0
+
+Bt 1L sharm M amd = 1 i BB b 1e e _ e
+* ram eeep hre
+s DesCH |1t l
+Cre e 1D T TR Rl [rre—
+Tl va b ledira wul‘lh\'-'lﬁln"l-h-b TR T Dwe Cuie Camomar lyyrye
+"N TI0M | b
+oy fagaysfafeletalalsfufu i
+waag, Lo | iy il ' ,_I
+|<°ﬂ? E} . “ lid L
+B 1 a 7 iy IS
+O] 5 |11 -
+K38 0
+[N 0
+Lo 4 T »
+VT | 1 [ I
+Ak AdvSEEE
+R OY LIS I YR R Gl S R 4 R
+a7 [ 0
+a1, | o 0
+T ED g
+ol L ilijaiaial
+a3 [ ¥
+CENED N Y
+it L L NO#0AT LINE OPTION SV
+
+4308 Custom ROM Order Form
+PROMs
+
+A DATAOUT1  DATAOQUTS
+OUTPUT
+o= BUFFERS
+
+2K REPROGRAMMABLE
+PROM
+
+The 4702A is a 256 word by 8-bit electrically pro-
+
+1
+
+PRQGRAM ~—u-
+
+2048 BIT
+PROM MATRIX
+
+1256 X 8}
+grammable ROM ideally.suited for microcomputer r
+system development where a fast turn-around and v,
+pattern experimentation are important, The 4702A A2 2] Voo DECODER
+circuitry is entirely static; no clocks are required. L B 23| JVec f
+Access time is 1.7 usec. A 3 22 Vee
+o[ [ INPUT
+The 4702A is packaged in a 24 pin dualinline  <pata out 1[4 wss 21|74 DRIVERS.
+package with a transparent lid, Thfr transparen-t lid -pata 0UT 2[5 2074 f 1 ————— *
+allows the user to expose the chip to uitraviclet Ao Ay Ay
+light to erase the hit pattern. A new pattern can  PATAOUT 3]s 47024 19 J4s
+then be written into the device, *oaTA QUT 3|7 1l A
+The 4702A is designed for use with the MCS-40  -paraourts| |s 75
+CPU’s. *DATA 0UT 6 |9 16 :]VGG
+in-for-pin metal mask programmed ROM, the
+A pin-for-p + meta prog . *DATA OUT 7[_| 10 15[ Ve
+Intel 1302, is ideal for large volume production
+UNS. *0aTA 0UT 8[| 11 (msB) 1] s
+vee (2 13] ] PROGRAM
+*THIS PIN IS THE DATA INPUT LEAD DURING PROGRAMMING.
+1 5 —
+. ‘; ui#w — L
+sT0F | | ack : i 4040 ::;:;
+I ¥ et Cumam | ¥has
+Tﬂj 2] 1] 15 Dz Ressy 1. R P
+1 D R T B
+) | 1] ——— -
+il | DI wr v |~ vl =l v == = -
+02 B
+IJ 2 ‘!“i‘kﬁ‘;;‘ _____ -
+s | 112f3 04 - o cc
+6 | QPR p— “P_‘
+a8 OFA Vs et =
+RESET (L] o123 &
+. +*% AB[ 18 AN — g
+P ) 1] [0 ~ FORT I
+STANDARD 30 J— -
+|:I‘s:2:ze 'a—'—;g T ey eruaeie
+el AQOmMESS OATA mﬂ" 1 1]
+WK 2
+L7 ;: it 16 BERIAL
+o 21 23 I{‘:‘f’A
+i Lo
+kLl 1
+i) Ll nuun‘.wvun
+1l 12121
+Y53
+22 12[0d )
+axm INPYTOUTRYT oo e el
+CONTROL PORT 10 o 5 e
+- sone T il
+[
+A o 1T
+T BRRRE A
+)
+M
+NOTES ¢ AL
+* CONSULT MIS 4D USER'S NANUAL |
+" SEE 2290 DATA SMEET
+- S5 4703A DATA SICET Yoo
+v THESE LINES WAY €E LECODED
+FQR P TD 15 PROMS L T J
+Iv“'di'l'th‘ <10V Snb 10 B PROME Y *+
+
+&15
+RAMs
+
+ONE OF FOQUA REGISTCRS
+
+OF THE Rarda ARRAY
+4002 [N Oa REGISTER [+
+
+i MEMORY CHaRACTER @ ’_—_'i: 3
+320 BlT RAM and n:}é . quru +—
+4-BIT OUTPUT PORT e
+
+o, Mes
+e vl
+
+P
+|
+-
+
+AAIN MEMORY CHARACTERS
+
+&
+
+o
+-
+<
+
+MimiAv¢ -|- 4
+The 4002 performs two functions. As a RAM it stores 320 bits  masi*C o {m';;“t 15 s
+arranged in 4 registers of twenty 4-bit characters each {16 main 530 " n’-‘.‘i"s?.'?%? J-L]
+o M 111
+memory characiers and 4 status characters). It is provided with i } 574 } paser - —I_ -
+4 output lines and associated control lagic to perform output sty conacrin s —H:<
+. |
+
+r . = T STaTUS CHARACTERS
+
+operations status chanacrens |- } O THROUCH
+
+In the RAM mode, the operation is as follows: When the CPU
+executes an SRC instruction (see Basic Instruction Set} it will -
+send out the contents of the designated index register pair dor- n—— e | >
+ing X2 and X3 as an address to the RAM, and will activate one
+CM-RAM fine at X3 for the previously selected RAM bank.
+
+n:, ] ©ATR conrpay [T
+The status character locations (0 through 3} are selected by the :,, oo [*—fwizaoerion [+————= ",
+GPA portion of one of the 1/0 and RAM Instructions. : Elane P ——
+For chip selection, the 4002 is available in two metal options, oava”
+
+4002-1 and 4002-2. An external pin, Py {which may be bard
+wired to either Vpp or Vgg) is also available for chip selection.
+
+TUTRIT
+#ORY
+
+All communications with the system is through the data bus. _
+The 1/O port permits data out from the system, When the ex- i
+
+ternal RESET signal goes low, the memory and all static flip- ! !
+flops {including the output registers) will be cleared. To fully R -
+clear the memory the RESET signal must be maintained for at "
+feast 32 memory cycles {32 x 8 clock periods).
+L
+41 01 £ 22 [ vee
+A, [z 21 ] a,
+1024-BIT STATIC MOS RAR; a s o [ am
+WITH SEPARATE I/0 N= I =5
+A [1s 18 oD
+The Intel®701 is a 256 word by 4:bit static random access 2 15 Hao ] ce2
+memory element using narmally off N-channel MOS devices A, - w6 [ 0o
+integrated on a monolithic array. It uses fully DC stable (static) o s o ‘
+circuitry and therefore requires no clocks or refreshing to op- ¢
+52 ‘erate. The data is read out nondestructively and has the same on [ 14 [ oo,
+Q'::’_E ' polarity as the input data. oo, [ 10 . o,
+§ = The 4101 access time is 1 us, Palqv 12 -1 0o,
+S The 4101 is designed for memory applications where high per-
+formance, low cost, large bit storage and simple interfacing Aoﬁi[;-: y
+are important design objectives. Ay ffi{}-: | EG::
+It is directly TTL compatible in all respects: inputs, outputs, N — L oms
+and a single +5V supply, Two chip-enables allow easy selection Ay QE reoLumRs
+of an individual package when outputs are OR-tied. An output Ad c‘ii’_[}: |
+disable is provided so that data inputs and cutputs can be tied @ T T
+for common 1/Q systems. Output disable is then used to elimi- N ] CoLusN 10 CIRCUITS
+nate any bi-directional logic. ' SR . = l COLmN séiecron
+. u\\?, CONTROL @
+=] ’_t PO,
+Dla ‘,__'s’_.b——— Ay Ag Ay L) 004
+8
+
+-
+o 00,
+CE2 —=
+oD . = PIN NUMBER:
+) O UMBERS
+
+6-16
+/0
+
+ruuse moerfee O € ENABLE INPUT
+DAYA IN[] SERIAL QUT
+4003 PARALLEL %L Yoo
+10-BIT SERIAL-IN/PARALLEL-OUT (= )
+
+SERIAL-OUT SHIFT REGISTER (SR) E
+
+I, PARALLEL
+
+The 4003 is a 10-bit static shift register with serial- ouTPuTS
+) ) o PARALLEL
+in, parallel-out and serial-out data. Its function is to auregrs ] %
+increase the number of output lines te interface Voo Ves [0, L] 0
+with 1/0 devices such as keyboards, displays, T I
+printers, teletypewriters, switches, readers, A-D pr— v
+converters, etc. [WCL‘“"] ! I l R I I T l
+{ 1 Y ¥ ‘ SERIAL
+Data is loaded serially and is available in paralle! paral SNt T T T -
+on 10 cutput lines which are accessed through en- ™ 4 B R A "°
+able logic. When enabled (E = low), the shift regis- A N S
+ter contents is read out; when not enabled (E =
+high}, the parallel-out lines are at Vgg. The serial- —
+v . . BINARY
+out line is not affected by the enable logic. COUNTER
+Data is also available serially permitting an indefi-
+nite number of similar devices to be cascaded to- o‘io-
+gether to provide shift register length multiples of : . i
+10, Lt
+The data shifting is controlled by the CP signal. An (EMABLE] Lo SuTrur gurFeR | !
+internal power-on-clear circuit will clear the shift [ N A
+register {Q; = Vgg} between the application of the L l i & i L l l 1 L
+supply voltage and the first CP signal. Gg Oy @z Oy O, Qg Ug Oy G Og
+a ——— -
+i L1 02 i D
+TEST TEST 7‘ L b CM-Ram 0 S O S
+10 1000 5 CM-Am 1
+! 4 CM-RiM 2
+tPu E EM-RAM 3 |::;3s
+IHEL 'T]T"l 5] haser L Lo o~ | rnanx
+1 SYNC 11l __ -
+DO Dl e s i o et
+D1 Y N N I B v
+: 02 I JITTrITIIT «
+D3
+1212]a Vs 8
+Z 12|34 =
+3 3 Ap 3 3 RDO S | ) =
+B ? Y F 5 AD1 [ 15 <
+B 1 42 ' 3 AD2 13 ’
+1 0 a3 2 7 ADJ [ 1
+T [T as__ 20 ‘:,:gf: ] __aoa 1 4009 *
+RFSET tg 9 9 RO5 3 19 0 Ram
+—_— [TA1 0 P0G 3 W1 L poms
+o7 ) . 1§ n AD7 < wo s [17 2 —-— + o
+T M | | [3e €P 1 1 ENADLE
+* 2 DAT& 11 518
+-1‘1:1« 15 u] |16 aie IN
+. _ 2 .
+||1. E‘f ¢ I in| | DUT «Pag03 V5 SERIAL
+Yoo DATA
+I Qut
+v e nw | e e — e - 6‘ 7|8I 9“0 "I12|I3|
+TOTEPRDOME + » » , PION;;,;’I:SJ:*:';\(
+. OQ=sssnarmevassnvg
+NAQTES PARALLEYL OUTPUTS
+CONSULT MCS A NISER'S MANUSL h
+
+" SEF 4DOR4002 DAL SHEET
+*+4 SEE 470724 CATA SHEET
+
+**** THESE LINES MAY 8E OECODED
+FOR P 10 16 PROME
+W = *5% *B%. Ve * 1OV SN,
+! L2
+B
+ow
+o
+=
+82
+e
+Pt
+
+6-18
+
+1/0
+
+4207, 4209, 4211
+GENERAL PURPOSE 1/0
+
+These three 1O devices expand MCS-40" CPUs. Each device
+has four 4-bit ports designated as input or output. They
+respond to the SRC, RDR, and WRR commands, and Chip
+Select No. 3 {ROM pages 12-15).
+
+Two 4-bit output ports loaded under program con-
+
+trol, Contains the output data word{s}, One 4-bit
+output port as a contral source to steer data and
+control 1/Q device. One 4-bit input port for 1/0O
+
+Two 4-bit input-ports for 1/0 input data. External
+
+strobe simuttaneousty loads input buffer. One 4-bit
+input port for I/Q status input data, One 4-bit out-
+
+put port for 1/O control data.
+
+4207
+
+status input data.
+4209
+4211
+
+Twa 4-bit input ports. Two 4-bit cutput ports.
+
+This device is useful for byte transfers.
+
+4207, 4209, 4211 FUNCTIONAL BLOCK DIAGRAM
+
+— 50
+BYNC O - TIMING 73
+12 L 204
+28
+M © -di—OVon
+=0 Vg
+¥
+[ |
+Dy O—et——3=]
+D, 0—'0—:-1'-‘ °':‘J‘33$3 CONTROL
+D7 O———31 purFer LOGHC
+D3 o2 |
+RESET O - ‘ f -
+hd t : 1 ] |
+- 3 BITS
+cum.oo—;—
+4 ¥ ¥ ¥
+1/0 PORT 1/0 PORT 1/0 PORT )iO PORT
+0 1 2 3
+4207 0903 4207 040y 4207 Co~Ca 4207 59 =S3
+4200 fp~13 4209 13=1> 4209 Cy-Cay 4209 $—S3
+4211 00y 4211 0407 4211 1913 2111517
+
+T
+
+i
+
+J— CLR DATA
+
+A) 4207 o1 DATA "
+DATA ) 5 1—) P&’;‘:;‘
+GP IO 2 -
+m— o] FNTER
+TO CPU 3
+| STATUSFF
+FORMS CONT,
+AS232
+3 CLUTCH-
+9 CONTROL
+STATUSLTS
+LOAC STROBE
+READER
+UVART
+KEYBOARD
+B} 4208 0.1 <' DATA ETC,
+DATA ’ 8
+o 2 ——
+TOCPU
+3 < | STATUSFF
+3
+A
+CLUTCH CONT.
+— 5
+STATUS LTS
+ENABRLE FUNC.
+LOAD STROBE EN cs
+i | e
+o) 4211 DRIVERS
+DATA o1 :>
+a 22X
+TO CPU 2,3 K 2 para
+8 LINK
+4207, 4209, 421
+PIN CONFIGURATION
+vas O] . w[ ) veo
+10y E 3 27 [} 1000
+e B 20 [ 1ony
+van [ 25 [ 10sa
+1o s za [ ] 105y
+o ]s n]ey
+o [} 22[] tuhita
+o' E ] o j (LYY
+o []» 20 :] uo3
+» [ [y,
+swne [t 17 vty
+erhom 12 ™
+reeet [_]13 L o
+1oy [ 15[ 1043
+
+“ | PERIPHERALS
+
+4008/4009
+STANDARD MEMORY AND I/0 INTERFACE SET
+
+The standard memory and /0 interface set {4008/4009) R Ay ko WOy b
+
+provides the complete control functions performed by the ‘ { } - .on
+4001 in MCS-4 systems. The 4008/4009 are completely [ . oo &
+compatible with other members of the MCS-4 family. All oo I wrpuctow ] Teon
+activity is still under control of the 4004 CPU. One set of 0, o] BUFFER Ao =] cateHEs La—aa,
+4008/4008 and several TTL decoders is sufficient to inter- 02 o= ] H : 3:
+face to 4K words of program memory, sixteen four-bit in- ] [—C A
+put perts and sixteen four-bit output ports. i tH
+
+It should be noted that in any MCS-4 system the program - - 1 INTEANAL svme
+memory is distinct from the read/write data storage {4002 - [ GEnERATOR "
+RAM). Using the 4008/4008, programs can now be stored o : 1o rorr
+
+and executed from RAM memory, but this RAM memory wpx : LATCH
+
+is distinct from the 4002 read/write data storage. RAM R - -
+
+program memary will be organized in eight bit words and e
+
+256 word pages, just like the memory array inside the ,?, ,t .! RRR]
+
+4001. Any combination of PROM, ROM, and RAM will . i 10 e0n1 o] voront 32
+be referred to as program memory. A formerty undefined sewect Seets o
+instruction is now used in conjunction with the 4008/4009 o nom o1 o5
+to write data into the RAM program memory. This new 4 ¢4 1 f f
+
+instruction is called WPM (Write Program Memory — 1110 | ] e, R
+
+0011). When an instruction is to be stored in RAM pro- ey -0 Voo
+gram memory, it is written in two four-bit segments, s 10+ Xy o
+The 4008 is the address latch chip which interfaces the ! L
+
+4004 to standard PROMs, ROMs and RAMs used for pro- "o
+
+gram memory, The 4008 latches the eight bit program ad- 4008 Block Diagram
+
+dress sent out by the CPU during A1 and A2 time. During
+A3 time it latches the ROM chip number from the 4004.
+The eight bit program address is then presented at pins AQ
+through A7 and the four bit chip number {also referred to
+as page number) is presented at pins CO through C3. These
+four bits must be decoded externally and one page of pro-
+gram memory is selected.
+
+The 4008 then transfers the eight bit instruction from pro-
+gram memory 1o the 4004 four bits at a time at M1 and
+
+M2. The command signal sent by the CPU activates the Pin Configurations .
+4009 and initiates this transfer. 2 E
+When the CPU executes and SRC (Send Register Control) ; =
+instruction, the 4008 responds by storing the /0 address ADR &, W, 2
+in its eight bit SRC register. The content of this SRC reg- b4y DATS BUS -
+ister is always transferred to the address lines {AQ through PAb e— oaTa  [XN oara ano [t oaTABUS [0 ey
+A7) and the chip select lines {CC through C3) at X1 time. O O ] PUEFERS LN PR eurrERs [ TR
+The appropriate 1/O port is then selected by decoding the ] —_-U ] —” ¢
+chip select lines. The IN and OUT lines of the 4008 indi- o e e [ ara eus
+cate whether an input or output operation will occur., o ronT e BUFFERS
+. - . . - WO BUS
+The 4009 is primarily an instruction and 1/Q transfer de- LL A 11
+vice. When the CPU executes an RDR {Read ROM Port) ) L o B
+instruction, the 4009 will send an input strobe {pin 9) to ' PORT Bus 1
+enable the selected input port, It also enables /O input ¥y s
+buffers to transfer the input data from the 1/0 bus to the o] remma ol e [P
+data bus. When the 4009 interprets a WRR (Write ROM B I R R o A
+Port) instruction, it tranfers output data from the CPU TF ¥ i v '
+- 1o the 1/O bus and sends an output strobe (pin 10) to en- “h n R oot
+ahle the selected output port. 4009 Block Diagram
+
+6-19
+PERIPHERALS
+
+4201 ~
+
+_ auo ]+ 6] ] ¥
+CLOCK GENERATOR on (] 5| vee
+The 4201 generates the two phase clock sighals used by the ez[C] 2 ] o
+
+Th
+
+MCS-40 CPL"s, ROMs, RAMs and 1/0 eircuits. Both MOS and voo (] ¢ s [ reses
+TTL level signals are available, Only an external crystal is re- " 4701 )
+quired for the 4201. An internal divider selected by the MODE weoe [ 5 1 [ reseT
+line divides the crystaf frequency by seven or eight. A RESET w oven [ s 1 [ sroe
+signal generator is also provided for power-on or external reset
+requirements, 4 w ] A
+Switch inputs and the STOP and STOP/ACK signals provide *: []a [ nceosea
+
+the means to single step the 2040 CPL,
+
+— |  bRIVER - -
+e, ay
+KThL 05 HMux —a| 408 -7 GEN. - mas
+2
+] x ——t Vs DRIVER 2 1
+MOGE O - ST
+\—- 1
+far I
+i | DARIVER —] |
+L
+
+{
+
+—
+i
+o
+
+TTE
+
+RESLCT I =] FIF
+
+REZET QLT O I——-—.————I
+MLk, i - e '.'-'I RIMGILE —{1 sTOP
+N.C. - | ETEP FiF I-.—l I l D SFLR ALK
+
+Wi Voo GROUNMD
+
+4289 The 4289 enables the CPU deviges to utilize standard memory components —
+PROMs, ROMs, RAMs, in a memary array to facilitate system pragram de.
+
+STAN DﬂﬁD ME MORY velopment.
+INTERFACE The 4289 also contains an /0 bus enabling expansion of the ROM 1/0 ports,
+using the RDR and WRR commands. The READ PROGRAM MEMORY
+
+(RPM} and WRITE PROGRAM MEMORY {WPM! commands allow the user
+to store data and modify program memory.
+
+o [ 1 se [] veo The 4289 directly addresses 4K of program memaory, and is a functional re-
+o[ 2 wl[ Jwe placement for the 4008, 40089 pair of standard memory interface and 1/0 de-
+o] 33 [] v vices. Programs generated using the 4288 may be committed to ROM {4308
+o [+ a7 [ vos and 4001} with no software changes.
+v
+= E OleE L] 36 j 110y
+Op 4 1401 PORT =0 Co
+= 5 Rt [ | & 3] veo, D) G| | DATABUS . oR ot —=bn
+— O Dz O BUFEERS Y CHIF SELLCT GUFFERS =0 2
+== orrz [ 7 M[ e [y ot AURAEIH MR ] 4 ——-03 0
+=
+= orra [ @ ] e ﬁ 4 4
+OrAQ o 32 I UPfg {De—tan- 1
+- N — N
+opat1 [ |10 -1 g OPAy O] peTruchiom i |LPFERL
+I: 42589 :] ORAY G ARG ILPUT 1
+or PORT DATA
+oraz [] 11 a0 g A o;;? o— o,
+A $IFAZ S|
+oraa [] 12 29 & Pl (3— 3] :> Hs'gg -:> = 2
+o [ 12 28 [ 2  — LOWE R 0
+ﬂ 4 ] MEMOR Y apoREss [0 :z
+ADDRESS o S
+0:[]ra 27 [ - . prke ; EUFFERS 2 ﬁ:
+i N —) 5
+wl]n
+gym [] 15 [ ] As - (: ) ——t ia
+cu s zs| ] e 4 = 47
+nEgeT ] 2 ) Y o
+MEMORY AND — 1
+/0 PGNT COMTROLS O
+w12 2 [ a0 " D DECADE TiminG — 5¥NG
+aur ]9 z[ e
+vgs [ | 0 2] em o o0 0 O
+WGy 1D 6D Kds FiL M GH ouT
+
+&-20
+INTELLEC SYSTEMS
+
+INTELLEC®4/MOD 4
+
+MICROCOMPUTER DEVELOPMENT SYSTEM
+
+= Complete hardware/software development system for
+the design and implementation of 4004 CPU based
+microcamputer systems,
+
+B TTY interface, front panel designer’s console, and high
+spead paper tape reader interface, in conjuaction with
+PROM resident system monitor provide complete pro-
+gram loading, punching, monitoring, interrogation, and
+alteration capabilities.
+
+# Program RAM (4K 8-bit bytes) provides a program de-
+velopment medium which lends itself to rapid and facile
+program manitoring and alteration,
+
+8 Data RAM (320 4-hit bytes expandable to 2560 bytes)
+provides data storage capacity.
+
+® Pyogram PROM {expandable to 4K 8-bit bytes) in con-
+junction with the resident PROM programmer provide
+capability of simulating final ROM resident program.
+
+The Intellec 4/MOD 4 {imm 4-40A) is a complete, self-
+contained microcomputer development system designed
+specifically to support the development and implementation
+of 4004 CPU based microcomputer systems. Its madular de-
+sign provides the flexibility to adapt te any size user system
+and the resident software facilitates program development,
+
+The basic Intellec 4/MOD 4 Microcomputer Development
+System consists of 4 microcomputer madules {CPU, RAM,
+and PROM PROGRAMMER), power supplies, 1/Q connec-
+tors, console, and displays, The heart of the system is the
+imm 4-42 central processor module built around [ntels 4-
+bit 4004 CPU. The imm 4-42 is a complete microcomputer
+system containing the system clock, 1K 8-bit bytes of PROM
+memory, 320 4-bit bytes of data RAM memory, 4 4-bit in-
+put ports and 8 4-bit output ports. The imm 6-28 program
+RAM memory module contains a 4K x 8 memory array
+composed of Intel 2102 static random access memory ele-
+ments. The imm 6-76 PROM programmer module provides
+the capability of programming Intel 1702A PROMs in con-
+junction with the front panel PROM socket and system
+monitor. All 1/O ports are TTL compatible and accessible
+from the back panel 37-pin connectors. The front panel de-
+signer’s console provides a means of monitoring and ¢on-
+trolling system operatian.
+
+The Intellec® modular design allows great design system
+flexibility. Program PROM can be expanded to 4K 8-bit
+bytes using imm 6-26 or imm 4-22 optional modules, Data
+RAM can be expanded to 2560 4-bit bytes using imm 4-24
+modules. 1/O capability can be expanded to 16 4-bit input
+and 48 4-bit output ports using optional imm 4-60 angd
+4-24 modules. The universal prototype card {imm 6-7Q) in
+conjunction with the eleven optional card sockets (which
+
+® PROWM resident system monitor, RAM resident
+assembler.
+
+® Jncludes program development faatures such as address
+search {and pass count), next instruction indication,
+program flow verification.
+
+® |/Q expandable to 16 4-bit input ports and 48 4-bit out-
+put ports (all TTL compatible} allowing
+simulation of entire user system {pracessor and
+peripheral devices).
+
+® Modular design with expansion capability provided for
+up to eleven optional or user designed modules.
+
+contain all essential system signals) provide the capability
+for interfacing custom designed modules.
+
+Program interrogation and alteration can be accomplished
+by using any desired combination of the front panel de-
+signer’s console, a teletype, the imm 4-90 high speed paper
+tape reader, and other Intellec compatible peripherals. The
+front pane! designer’s console provides the capability of
+manually writing data into memory and displaying memory
+contents, menitoring CPU bus ¢ontents during each proces-
+sor subcycle, “freezing’ system status after executing of a
+predefined instruction after a specified number of passes,
+and verifying program flow. The teletype and reader serve
+as vehicles to input and output paper tapes and execute the
+system monitor.
+
+intgllec 4 ‘
+
+- o~ .~ e~
+
+O RN
+
+6-21
+
+U3
+cc
+§3]
+= 5
+2o
+==
+)
+o
+
+o
+[= 4
+w
+5 5
+Sa
+==
+o
+2
+
+§-22
+
+INTELLEC SYSTEMS
+
+INTELLEC®4/MOD 40
+
+MICROCOMPUTER DEVELOPMENT SYSTEM
+
+= Complete hardware/software development system for
+the design and implementation of 4040 CPU based
+microcomputer systems.
+
+m TTY interface, front panel designer’s console, and high
+speed paper-tape readar interface, in conjunction with
+PROM resident system monitor provide complete pro-
+gram loading, punching, monaitoring, interrogation, and
+alteration capabilities.
+
+& Program RAM (4K 8-hit bytes) provides a program
+development medium which lends itself to rapid and
+facile program manitoring and alteration.
+
+® Data RAM (320 4-bit bytes expandable to 2560 bytes)
+provides data storage capacity.
+
+= Program PROM (expandable to 4K 8-bit bytes) in con-
+junction with the resident PROM programmer provide
+capability of simulating final ROM resident program,
+
+The Intellec 4/MOD 40 {imm 4-44A) is a complete, self-
+contained microcomputer development system designed
+specifically to support the development and implementation
+of 4040 CPU based microcomputer systems. !ts modular
+design provides the flexibility to adapt to any size user sys-
+tem and the resident software facilitates program develop-
+ment,
+
+The basic Intellec 4/MOD 40 Microcomputer Development
+System consists of 4 microcomputer modules {CPU, RAM,
+MEMORY CONTROL, and PROM PROGRAMMER), power
+supplies, 1/0 connectors, console, and displays. The heart
+of the system is the imm 4-43 central processor module
+built around Intel’s high perfarmance 4-bit 4040 CPU. The
+imm 4-43 is a complete microcomputer system containing
+the system clock, 1K 8-bit bytes of PROM memory, 320
+4-bit bytes of data RAM memory, 3 4-bit input ports and
+8 4-bit output ports, The imm 6-28 pragram RAM memory
+module contains a 4K x 8 memory array compased of Intel
+2102 static random access memory elements, The imm 4-72
+control module contains the circuitry required to interface
+the central processor module to the program RAM module.
+The imm 6-76 PROM programmer module provides the cap-
+ability of programming Intel 1702A PROMs in conjunction
+with the front panel PROM socket and system monitor, All
+1/Q ports are TTL compatible and accessible from the back
+panel 37-pin connectors. The front pane! designer’s console
+provides a means of monitoring and controlling system
+operation.
+
+The Intellec® modular design allows great design system
+flexibility. Program PROM can be expanded to 4K 8-bit
+bytes using imm 6-26 or imm 4-22 optional modules. Data
+RAM can be expanded to 2560 4-bit bytes using imm 4-24
+modules. I1/O capability can be expanded to 16 4-bit input
+and 48 4-bit output ports using optional imm 4-60 and
+4-24 modules. The universal prototype card {imm 6-70) in
+conjunction with the eleven optional card sockets {which
+contain all essential system signals) provide the capability
+for interfacing custom designed modules.
+
+PROM resident system monitor, RAM resident
+assembler with edit feature included in standard systems
+software.
+
+= Includes such standard program development features
+as program single step, address search {and pass count),
+next instruction indication, program flow verification.
+
+B /O expandable to 16 2-bit input ports and 48 4-hit out-
+put ports (all TTL compatible) allowing “hands-on’
+simulation of entire user system (processor and
+petipheral deviges),
+
+.® RESET, STOP, INTERRUPT control signals available
+
+10 user via back panel.
+
+. Modular design with expansion capability provided for
+
+up to.elavan optional or user designed meodules.
+
+The user RESET IN/OUT, STOP/STOP ACKNOWLEDGE,
+and INTERRUPT/INTERRUPT ACKNOWLEDGE control
+signals are all available at the back panel. Hence, the user
+can interrupt, halt, and reset the resident CPU via his own
+interface.
+
+Program interrogation and alteration can be accomplished
+
+by using any desired combination of the front panel de-
+
+signer‘s console, a teletype, the imm 4-90 high speed paper
+tape reader, and other Intellec compatible peripherals. The
+front panel designer’s console provides the capability of
+manually writing data into memory and displaying memory
+contents, monitoring CPU bus contents during each proces-
+sor subeycle, “freezing’® system status after executing of a
+predefined instruction after a specified number of passes,
+single-stepping the program and verifying program flow. The
+teletype and reader serve as vehicles to input and output
+paper tapes and execute the system monitor.
+
+intellec 4 /40
+
+@

@@ -41,10 +41,10 @@ with a source URL.
 - 2025 discrete-transistor implementation claim: seek a primary publication or build log.
 
 ## Config Gaps
-- Transistor counts for 4004/4040 not found in OCR of MCS-4 Data Sheet, MCS-4 Users Manual, MCS-40 Users Manual, 4040 datasheets, or 1975 Intel Data Catalog.
+- Transistor counts for 4004/4040 not found in OCR of MCS-4 Data Sheet, MCS-4 Users Manual, MCS-40 Users Manual, 4040 datasheets, or chunked 1975 Intel Data Catalog OCR.
 - 4040 primary docs confirm instruction cycle timing and clock period only; CPU max clock rate still derived, not explicitly stated.
 - OCR output for some MCS-4/MCS-40 scans is noisy; re-run with higher quality scans if available.
-- OCR of the 1975 Intel Data Catalog failed due to resource limits; chunked OCR or alternative extraction required.
+- OCR of the 1975 Intel Data Catalog succeeded only via chunked runs; Ghostscript/tesseract warnings remain.
 
 ## OCR Coverage (2026-01)
 - `docs/4004/intel-4004-datasheet.pdf`: clock period confirmed via OCR sidecar in docs/evidence/ocr/4004-datasheet.txt.
@@ -52,7 +52,7 @@ with a source URL.
 - `docs/MCS-4/MCS-4_UsersManual_Feb73.pdf`: no explicit transistor count found; see docs/evidence/ocr/mcs4_users_manual.txt.
 - `docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf`: no explicit transistor count found; see docs/evidence/ocr/mcs40_users_manual.txt.
 - `docs/MCS-40/MCS-40_Advance_Specifications_Sep74.pdf`: no explicit transistor count found; see docs/evidence/ocr/mcs40_advance_specs.txt.
-- `docs/MCS-40/1975_Intel_Data_Catalog.pdf`: text layer present; pdfplumber search found no MCS-4/MCS-40 transistor counts; full OCR failed due to resource limits.
+- `docs/MCS-40/1975_Intel_Data_Catalog.pdf`: chunked OCR in docs/evidence/ocr/1975_catalog_mcs40_232-252.txt, 1975_catalog_mcs40_276-282.txt, 1975_catalog_mcs4_302.txt; no transistor counts found.
 - `docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf`: clock/750 KHz evidence in docs/evidence/ocr/mcs4_data_sheet_nov71.txt.
 
 ## Diagram Coverage
@@ -86,5 +86,5 @@ with a source URL.
 - Confirmed instruction counts (4004: 46, 4040: 60) and 10.8 microsecond instruction cycle via MCS-40 Users Manual.
 - Confirmed 4004 clock at 750 kHz and 10.8 usec instruction cycle via MCS4 Data Sheet (OCR).
 - Confirmed 5.185 MHz system clock for Intellec 4/MOD 40 (system spec, not CPU max clock).
-- 1975 Intel Data Catalog has a text layer; OCR attempt failed due to resource limits.
+- 1975 Intel Data Catalog chunked OCR captured Intellec 4/MOD 4 and 4/MOD 40 memory specs; no transistor counts found.
 - Remaining primary gaps: 4004/4040 transistor counts and 4040 max clock remain unverified in primary sources.

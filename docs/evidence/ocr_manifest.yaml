@@ -1,5 +1,5 @@
 version: "1.0"
-generated_at: "2026-01-07T17:05:31Z"
+generated_at: "2026-01-07T17:29:52Z"
 sources:
   - id: intel-4004-datasheet
     local_path: docs/4004/intel-4004-datasheet.pdf
@@ -21,6 +21,24 @@ sources:
     url: https://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf
     sha256: 4672da4d81b75c98ef7c8892c9f33d522aa55922d48d6cd4952ecffe9a739622
     sidecar: docs/evidence/ocr/mcs4_data_sheet_nov71.txt
+  - id: intel-1975-data-catalog-232-252
+    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
+    url: unknown
+    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
+    sidecar: docs/evidence/ocr/1975_catalog_mcs40_232-252.txt
+    notes: "Chunked OCR pages 232-252 (MCS-4/MCS-40 system excerpts); source URL not recorded."
+  - id: intel-1975-data-catalog-276-282
+    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
+    url: unknown
+    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
+    sidecar: docs/evidence/ocr/1975_catalog_mcs40_276-282.txt
+    notes: "Chunked OCR pages 276-282 (module listings); source URL not recorded."
+  - id: intel-1975-data-catalog-302
+    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
+    url: unknown
+    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
+    sidecar: docs/evidence/ocr/1975_catalog_mcs4_302.txt
+    notes: "Chunked OCR page 302 (MCS-4 mention); source URL not recorded."
   - id: mcs40-users-manual-nov74
     local_path: docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf
     url: https://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf

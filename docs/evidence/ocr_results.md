@@ -1,4 +1,4 @@
-# OCR Evidence Results (2026-01-07T17:05:31Z)
+# OCR Evidence Results (2026-01-07T17:29:52Z)
 
 Clock period evidence (OCR noise preserved)
 - Intel 4004 datasheet sidecar: docs/evidence/ocr/4004-datasheet.txt
@@ -48,6 +48,22 @@ Clock period evidence (OCR noise preserved)
    385	the ROM’s in the first three cycles (A4, Ay, A3). The selected ROM chip sends back 8 bits of instruction (OPR, OPA) to the CPU
    386	in the next two cycles (My, M, ). The instruction is then interpreted and executed in the final three cycles (X, X5, X3). (See
 ```
+- 1975 Intel Data Catalog (Intellec 4/MOD 4 excerpt): docs/evidence/ocr/1975_catalog_mcs40_232-252.txt
+```text
+  1933	imm 4-42 central processor module built around [ntels 4-
+  1934	bit 4004 CPU. The imm 4-42 is a complete microcomputer
+  1935	system containing the system clock, 1K 8-bit bytes of PROM
+  1936	memory, 320 4-bit bytes of data RAM memory, 4 4-bit in-
+  1937	put ports and 8 4-bit output ports. The imm 6-28 program
+```
+- 1975 Intel Data Catalog (Intellec 4/MOD 40 excerpt): docs/evidence/ocr/1975_catalog_mcs40_232-252.txt
+```text
+  2055	of the system is the imm 4-43 central processor module
+  2056	built around Intel’s high perfarmance 4-bit 4040 CPU. The
+  2057	imm 4-43 is a complete microcomputer system containing
+  2058	the system clock, 1K 8-bit bytes of PROM memory, 320
+  2059	4-bit bytes of data RAM memory, 3 4-bit input ports and
+```
 
 Transistor count evidence (4004.com analyzer)
 - Source: /tmp/i400x_analyzer/unpacked/readme.txt
@@ -67,6 +83,9 @@ Transistor count evidence (4004.com analyzer)
 Transistor count not found (rg returned no matches)
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs4_users_manual.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs4_data_sheet_nov71.txt`
+- `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/1975_catalog_mcs40_232-252.txt`
+- `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/1975_catalog_mcs40_276-282.txt`
+- `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/1975_catalog_mcs4_302.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_users_manual.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_advance_specs.txt`
 - `rg -n "transistor" docs/evidence/ocr/4004-datasheet.txt docs/evidence/ocr/4040-datasheet.txt`
