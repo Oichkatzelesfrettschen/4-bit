@@ -5,20 +5,25 @@ Guiding rules:
 - Sync with `mcs4-emu/STATUS.md` after each milestone.
 - Update docs and install requirements with each major change.
 
-## Phase 0 - Repo hygiene and reproducibility (Now)
-- Canonical workspace root is the repo root; configs reconciled.
-- Normalize `Cargo.toml`, `rustfmt.toml`, `deny.toml`, and `.cargo` settings.
-- Define artifact destinations (target/coverage) and add clean scripts.
-- Expand `.gitignore` for core dumps, coverage, profiling, and analysis output.
-- Update `mcs4-emu/INSTALLATION.md` with per-crate requirements.
-- Normalize docs registry/INDEX and CI doc checks.
-- Track workspace lint inheritance and MSRV across all crates.
-- Add primary-source citations to `docs/AUDIT.md` for CPU specs and resolve open gaps.
-- Resolve OCR pipeline warnings (Ghostscript JPEG issues, tesseract diacritics) and chunked OCR for the 1975 Intel Data Catalog.
-- Adopt Rust 2024 edition across the workspace and validate toolchain compatibility.
-- Track down primary transistor-count sources (Intel reliability reports, data books, or official datasheets).
-- Catalog schematics/mask layers/die shots and document missing artifacts.
-- Locate primary 4040 die shots and MCS-40 support-chip schematics or record verified gaps.
+## Phase 0 - Repo hygiene and reproducibility (Complete)
+- Canonical workspace root is the repo root; configs reconciled and `docs/meta/registry.yaml` mirrors every new doc.
+- Normalized `Cargo.toml`, `rustfmt.toml`, `deny.toml`, and `.cargo` settings plus artifact destinations (`target/coverage`, etc.).
+- Expanded `.gitignore` to absorb core dumps, coverage artifacts, profiling, and other temporary outputs.
+- Updated `mcs4-emu/INSTALLATION.md` with per-crate requirements and the new tooling audit checklist.
+- Added reproducible tooling inventory (`docs/TOOLING_AUDIT.md`) and audit script (`scripts/tooling_audit.sh`).
+- Recorded evidence tooling steps in `docs/evidence/README.md`, `docs/evidence/ocr_manifest.yaml`, and the new `docs/evidence/PROVENANCE_CHECKLIST.md`.
+- Chunked OCR for the 1975 Intel Data Catalog and captured datasheet timing claims from reliable sources.
+- Cataloged schematics/mask layers/die shots, documented license gaps, and introduced `scripts/generate_layer_overlays.py` for reproducible overlays.
+- Rust toolchain locked to nightly-2026-01-06 with edition/workspace defaults targeting Rust **2021** + MSRV 1.92.0; warnings-as-errors enforced via clippy/deny.
+- Cataloged transistor counts from the 4004 analyzer, documented missing 4040 die shots, and recorded provenance for each imported image.
+
+## Phase 0.5 - Evidence & photomicrograph audit (In Progress)
+- Track outstanding primary sources (Intel users manuals, catalogs, mask shots) and capture supplemental OCR/transcription notes.
+- Continue hunting vetted 4040/MCS-40 die shots or mask-layer imagery; add provenance notes before importing.
+- Maintain the photomicrograph registry (`docs/photomicrographs/`, `docs/evidence/photomicrograph_permissions.md`) with SHA256 and license notes.
+- Expand the netlist extraction workflow with analyzer notes and annotate which layer intersections remain undocumented.
+- Align `docs/AUDIT.md`, `docs/ARCHITECTURE.md`, and `docs/CHIP_ARTIFACTS.md` with the evidence inventory; highlight gaps remaining for 4040/4289/4308.
+- Keep `docs/ROADMAP.md` and `mcs4-emu/STATUS.md` synchronized after each milestone; log toolchain and documentation pivots explicitly.
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.
