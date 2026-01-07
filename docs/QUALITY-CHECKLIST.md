@@ -23,3 +23,5 @@
 - 2026-01-07: `scripts/doc_validate.sh` (post-OCR/tooling updates)
 - 2026-01-07: `scripts/doc_validate.sh` (evidence trails)
 - 2026-01-07: `scripts/doc_validate.sh` (artifact catalog)
+- 2026-01-07: `scripts/doc_validate.sh` (photomicrograph links)
+- 2026-01-07: `scripts/doc_validate.sh` (provenance notes)

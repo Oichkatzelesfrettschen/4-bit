@@ -83,8 +83,21 @@ Local artifacts
 - No confirmed die-shot photos in repo for 4001/4002/4003/4004/4040.
 - No mask-layer sets for 4040 or MCS-40 support chips in repo.
 - No transistor-level layer bitmaps for 4040 in repo.
+- Provenance/licensing for external photomicrograph links not yet recorded.
 
 ## External sources to review next
 - https://www.4004.com/ (schematics, masks, and historical material)
+- https://www.4004.com/mcs4-masks-schematics-sim.html (mask artwork and composite photomicrographs)
+- http://alumni.media.mit.edu/~mcnerney/2009-4004/4001-masks-composite.jpg
+- http://alumni.media.mit.edu/~mcnerney/2009-4004/4002-masks-composite.jpg
+- http://alumni.media.mit.edu/~mcnerney/2009-4004/4003-masks-composite.jpg
+- http://alumni.media.mit.edu/~mcnerney/2009-4004/4004-masks-composite.jpg
+- http://alumni.media.mit.edu/~mcnerney/2009-4004/4001-composite-photo.jpg
+- http://alumni.media.mit.edu/~mcnerney/2009-4004/4004-composite-photo.jpg
 - http://www.intel4004.com/ (schematics and history)
 - https://bitsavers.org/components/intel/ (manuals and schematics)
+
+## Provenance status (external)
+- 4004.com: Intel-licensed materials per site; verify reuse terms before redistribution.
+- alumni.media.mit.edu photomicrographs: license not recorded in repo; verify terms.
+- intel4004.com: license not recorded in repo; verify terms.
