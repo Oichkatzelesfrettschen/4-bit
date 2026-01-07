@@ -32,3 +32,4 @@
 - Added evidence trail docs (docs/evidence/*) with OCR manifest, results, and reproduction steps.
 - OCR sidecars added for 4004/4040 datasheets and MCS-4/MCS-40 manuals/specs.
 - Linked audit entries to evidence results and refreshed docs registry timestamps.
+- Added initial puzzle game design and rules docs for Keen/KenKen inspiration.

@@ -4,6 +4,7 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-07T04:14:35Z: Added initial puzzle rules and game design docs for Keen/KenKen-based game; updated registry/index/roadmap/changelog.
 - 2026-01-07T03:58:36Z: Added evidence trail docs (ocr_manifest/ocr_results), OCR sidecars for 4004/4040 datasheets and MCS-4/MCS-40 manuals/specs, and captured 4004 netlist component counts from 4004.com analyzer readme.
 - 2026-01-07T03:19:41Z: Installed ocrmypdf/jbig2enc, OCR-scanned MCS-4/MCS-40 manuals and brochures, and updated audit/tooling docs with 4040 clock-period source and 4004 netlist counts.
 - 2026-01-06T20:25:27Z: Upgraded workspace to Rust edition 2024, resolved clippy collapsible-if warnings, and reran fmt/clippy/tests.

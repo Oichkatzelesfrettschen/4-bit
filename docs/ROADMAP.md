@@ -48,6 +48,15 @@ Guiding rules:
 - Resolve `transistor.rs` TODOs in `mcs4-core` and ARCHITECTURE stubs.
 - Replace placeholder netlist output in `mcs4-fpga/src/verilog.rs` with gate-level export.
 
+## Puzzle Game Launch (Keen/KenKen)
+- Consolidate puzzle rules and UI conventions from primary sources.
+- Implement puzzle generator with unique-solution guarantees.
+- Implement validator + solver with explainable hint steps.
+- Build MVP UI (grid, notes, cages, undo/redo, error highlighting).
+- Add daily and campaign modes with deterministic seeds.
+- Package release builds and publish installation instructions.
+- Add attribution and licensing notes for inspirations.
+
 ## Cross-cutting
 - Documentation audit + source validation (claims and specs).
 - Security/license policy via `cargo-deny` and dependency audits.
