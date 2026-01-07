@@ -15,4 +15,5 @@ Notes
 - Full-size composite photos on alumni.media.mit.edu lack explicit license; not imported.
 - The CC0 4004 layout image is a photographed poster (layout drawing), not a die photomicrograph.
 - See docs/evidence/photomicrograph_permissions.md for license evidence.
+- See docs/evidence/PROVENANCE_CHECKLIST.md for the repo's import decision checklist.
 - Photomicrograph assets retain their original licenses; they are not relicensed under repo MIT/Apache terms.

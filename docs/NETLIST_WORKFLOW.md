@@ -21,6 +21,10 @@ Practical steps
 - Run i400x_analyzer_x64.exe and open the relevant chip (4001/4002/4003/4004).
 - Use the compare view to review netlist differences and matched components.
 
+Linux notes
+- The analyzer is a Windows GUI application; on Linux you can try running it under `wine` (not currently required for the repo).
+- For evidence trails that only need component counts, the extracted `readme.txt` in the analyzer bundle is sufficient (see `docs/evidence/README.md`).
+
 Notes
 - The analyzer highlights transistor states and bus waveforms during simulation.
 - Differences noted in 4004 between layout and schematic include TEST pin revision and gate input order.

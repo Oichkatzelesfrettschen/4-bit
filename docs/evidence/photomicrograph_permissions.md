@@ -30,6 +30,11 @@ CPU Grave Yard (happytrees.org) 4040 package photo
 - License: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0), per file page.
 - Note: same image as Wikimedia; package photo only.
 
+cpu-collection.de Intel 4040 entry (package photos + specs table)
+- Source: https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040
+- Page includes a specs table (e.g., “Transistors: 3,000”, “Core Frequency: 0.74 MHz”) and package photos.
+- License: not stated on the page; reuse permissions unconfirmed (link-only).
+
 siliconprawn.org die-shot tiles
 - Source: http://siliconprawn.org/map/intel/4004b/
 - Directory lists 4004B die-shot images, but no license statement is visible on the map or site root.

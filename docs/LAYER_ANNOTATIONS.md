@@ -3,6 +3,11 @@
 Purpose
 - Provide annotated overlays to help interpret MCS-4 mask layers and schematics.
 
+Reproduction
+- Generate or refresh overlays with `scripts/generate_layer_overlays.py`:
+  - `python scripts/generate_layer_overlays.py --all`
+  - Outputs are written under `docs/{4001,4002,4003,4004}/annotated/`.
+
 ## 4004 schematic bus labels
 - Source: docs/emulators/i4004-schematic.bmp
 - Signal map: docs/emulators/i4004-signals.txt

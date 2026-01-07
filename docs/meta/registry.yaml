@@ -1,6 +1,6 @@
 metadata:
   version: "1.0"
-  last_updated: "2026-01-07T19:47:12Z"
+  last_updated: "2026-01-07T20:00:21Z"
 
 docs:
   - file: README.md
@@ -46,6 +46,8 @@ docs:
   - file: docs/evidence/README.md
     role: evidence
   - file: docs/evidence/photomicrograph_permissions.md
+    role: evidence
+  - file: docs/evidence/PROVENANCE_CHECKLIST.md
     role: evidence
   - file: docs/evidence/ocr_manifest.yaml
     role: evidence

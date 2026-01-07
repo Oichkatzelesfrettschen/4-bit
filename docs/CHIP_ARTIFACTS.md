@@ -81,7 +81,7 @@ Local artifacts
 External photo references
 - https://happytrees.org/chips/Intel_-_P4040 (package photo, CC BY-SA 4.0)
 - https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (package photo, CC BY-SA)
-- https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040 (package photos; license not stated, not imported)
+- https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040 (package photos; also lists “Transistors: 3,000” and “Core Frequency: 0.74 MHz”; license not stated, not imported; treat as secondary)
 ## System-level wiring and schematics
 - docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf (board-level wiring)
 - docs/MCS-4/MCS-4_UsersManual_Feb73.pdf (system diagrams)

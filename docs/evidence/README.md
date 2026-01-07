@@ -9,7 +9,7 @@ Layout
 
 Reproduction workflow
 - Fetch PDFs from Bitsavers and ChipDB per ocr_manifest.yaml.
-- Run `ocrmypdf --force-ocr --sidecar <txt> <pdf> /tmp/<out>.pdf`.
+- Prefer `ocrmypdf --skip-text --output-type pdf --sidecar <txt> <pdf> /tmp/<out>.pdf`.
 - Use `rg` and `sed -n` to extract evidence lines.
 - Hash sources with `sha256sum` and update ocr_manifest.yaml.
 

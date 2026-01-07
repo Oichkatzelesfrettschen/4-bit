@@ -1,4 +1,4 @@
-# OCR Evidence Results (2026-01-07T17:29:52Z)
+# OCR Evidence Results (2026-01-07T19:55:20Z)
 
 Clock period evidence (OCR noise preserved)
 - Intel 4004 datasheet sidecar: docs/evidence/ocr/4004-datasheet.txt
@@ -89,6 +89,13 @@ Transistor count not found (rg returned no matches)
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_users_manual.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_advance_specs.txt`
 - `rg -n "transistor" docs/evidence/ocr/4004-datasheet.txt docs/evidence/ocr/4040-datasheet.txt`
+
+Secondary transistor-count claims (not primary sources)
+- cpu-collection.de Intel 4040 entry (license unconfirmed; link-only): https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040
+```text
+Transistors: | 3,000
+Core Frequency: | 0.74 MHz
+```
 
 Context where "transistor" appears without counts
 - MCS-4 Users Manual: docs/evidence/ocr/mcs4_users_manual.txt
