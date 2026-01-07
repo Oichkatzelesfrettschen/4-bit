@@ -54,6 +54,11 @@ with a source URL.
 - `docs/MCS-40/1975_Intel_Data_Catalog.pdf`: no explicit transistor count found.
 - `docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf`: OCR pending in evidence trail; prior notes retained.
 
+## Diagram Coverage
+- Diagram and layer artifacts are indexed in `docs/CHIP_ARTIFACTS.md`.
+- MCS-4 chips have metal/poly/diffusion/via layers plus schematics via the i400x analyzer assets.
+- 4040 has datasheets only; die shots and layer sets are not present in repo.
+
 ## Chip Design Verification (Primary Sources)
 
 ### MCS-4 (4001/4002/4003/4004)

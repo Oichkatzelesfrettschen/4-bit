@@ -1,6 +1,6 @@
 metadata:
   version: "1.0"
-  last_updated: "2026-01-07T04:16:02Z"
+  last_updated: "2026-01-07T05:41:26Z"
 
 docs:
   - file: README.md
@@ -33,10 +33,8 @@ docs:
     role: quality
   - file: docs/AUDIT.md
     role: audit
-  - file: docs/GAME_DESIGN.md
-    role: design
-  - file: docs/PUZZLE_RULES.md
-    role: design
+  - file: docs/CHIP_ARTIFACTS.md
+    role: reference
   - file: docs/evidence/README.md
     role: evidence
   - file: docs/evidence/ocr_manifest.yaml

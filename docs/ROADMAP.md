@@ -16,6 +16,7 @@ Guiding rules:
 - Add primary-source citations to `docs/AUDIT.md` for CPU specs and resolve open gaps.
 - Adopt Rust 2024 edition across the workspace and validate toolchain compatibility.
 - Track down primary transistor-count sources (Intel reliability reports, data books, or official datasheets).
+- Catalog schematics/mask layers/die shots and document missing artifacts.
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.
@@ -47,15 +48,6 @@ Guiding rules:
 - Populate inverter/NAND transistor models and simulation parameters.
 - Resolve `transistor.rs` TODOs in `mcs4-core` and ARCHITECTURE stubs.
 - Replace placeholder netlist output in `mcs4-fpga/src/verilog.rs` with gate-level export.
-
-## Puzzle Game Launch (Keen/KenKen)
-- Consolidate puzzle rules and UI conventions from primary sources.
-- Implement puzzle generator with unique-solution guarantees.
-- Implement validator + solver with explainable hint steps.
-- Build MVP UI (grid, notes, cages, undo/redo, error highlighting).
-- Add daily and campaign modes with deterministic seeds.
-- Package release builds and publish installation instructions.
-- Add attribution and licensing notes for inspirations.
 
 ## Cross-cutting
 - Documentation audit + source validation (claims and specs).
