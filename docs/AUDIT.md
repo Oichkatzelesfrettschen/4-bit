@@ -5,16 +5,21 @@ Initial audit of documentation claims, build hygiene, and configuration alignmen
 This file is a living log. Each claim is marked as verified, contradicted, or pending
 with a source URL.
 
+## Evidence Trails
+- docs/evidence/README.md
+- docs/evidence/ocr_manifest.yaml
+- docs/evidence/ocr_results.md
+
 ## Claims Verification (Phase 1)
 
 | Claim | Source | Status | Notes |
 | --- | --- | --- | --- |
 | Intel 4004 clock: 750 kHz; 10.8 microsecond instruction cycle | docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf ([bitsavers](http://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf)) | Verified (primary, OCR) | Page 4 OCR: 10.8 usec cycle and 750 KHz clock. |
-| Intel 4004 clock period 1.35-2.0 usec | docs/4004/intel-4004-datasheet.pdf | Verified (primary, OCR) | Page 8 OCR: "Clock Period 1.35 2.0 usec". Local scan; online source TBD. |
+| Intel 4004 clock period 1.35-2.0 usec | docs/4004/intel-4004-datasheet.pdf (chipdb mirror: https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf) | Verified (primary, OCR) | See docs/evidence/ocr_results.md; OCR shows "Clock Period 1.35 2.0 usec". |
 | Intel 4004 instruction cycle 10.8 microseconds | docs/4004/intel-4004-datasheet.pdf | Verified (primary, OCR) | Page 1 OCR: "10.8 Microsecond Instruction Cycle". Local scan; online source TBD. |
 | Intel 4004 uses 10 um process | https://en.wikipedia.org/wiki/Intel_4004 | Verified (secondary) | Primary datasheet text does not list this value. |
 | Intel 4004 contains ~2,300 transistors | https://en.wikipedia.org/wiki/Intel_4004 | Verified (secondary) | Not found in OCR of primary datasheets; 4004.com netlist counts differ (see below). |
-| Intel 4040 max clock rate 500-740 kHz | docs/4040/4040-datasheet.pdf (chipdb mirror: https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf) | Derived (primary clock period) | Page 8 OCR: clock period 1.35-2.0 usec implies 0.5-0.74 MHz; CPU max clock not explicitly specified. |
+| Intel 4040 max clock rate 500-740 kHz | docs/4040/4040-datasheet.pdf (chipdb mirror: https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf) | Derived (primary clock period) | See docs/evidence/ocr_results.md; clock period 1.35-2.0 usec implies 0.5-0.74 MHz; CPU max clock not explicitly specified. |
 | Intel 4040 instruction cycle standard 10.8 microseconds | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers](http://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf)) | Verified (primary) | Page 7 and 100: 10.8 microsecond cycle. |
 | Intel 4040 adds 14 instructions for 60 total | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf | Verified (primary) | Page 30: 14 new instructions, 60 total. |
 | Intel 4004 has 46 instructions | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf | Verified (primary) | Page 7: 46 instructions. |
@@ -23,7 +28,7 @@ with a source URL.
 | Intel 4040 contains ~3,000 transistors | https://en.wikipedia.org/wiki/Intel_4040 | Verified (secondary) | Not found in OCR of primary datasheets or 1975 Intel Data Catalog. |
 | Intel 4040 executes ~62,000 IPS | https://en.wikipedia.org/wiki/Intel_4040 | Verified (secondary) | Primary confirmation pending. |
 | 2025 discrete-transistor MCS-4 system at ~2x original clock | https://www.4004.com/ | Verified (secondary) | Homepage claim; primary confirmation pending. |
-| 4004 netlist component counts (layout vs schematics) | https://www.4004.com/mcs4-masks-schematics-sim.html | Verified (secondary, forensic) | 4004.com reports 1,807 transistors in layout and 2,308 total components (transistors + resistors + capacitors + ESD). |
+| 4004 netlist component counts (layout vs schematics) | https://www.4004.com/assets/i400x_analyzer_repacked_20221111.zip | Verified (secondary, forensic) | See docs/evidence/ocr_results.md; readme lists 1,807 transistors and 2,308 total components. |
 | eframe Linux dependencies list (xcb/xkbcommon/ssl) | https://github.com/emilk/egui/blob/master/crates/eframe/README.md | Verified | Used in INSTALLATION.md. |
 
 ## Immediate Discrepancies
@@ -41,13 +46,13 @@ with a source URL.
 - OCR output for some MCS-4/MCS-40 scans is noisy; re-run with higher quality scans if available.
 
 ## OCR Coverage (2026-01)
-- `docs/4004/intel-4004-datasheet.pdf`: instruction timing confirmed; no transistor count found.
-- `docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf`: 750 kHz clock and 10.8 usec cycle confirmed.
-- `docs/MCS-40/4040_Datasheet.pdf` + `docs/4040/4040-datasheet.pdf`: clock period 1.35-2.0 usec confirmed; no explicit transistor count.
-- `docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf`: system clock period and instruction cycle confirmed; no transistor count.
-- `docs/MCS-40/MCS-40_Advance_Specifications_Sep74.pdf`: no explicit transistor count found.
+- `docs/4004/intel-4004-datasheet.pdf`: clock period confirmed via OCR sidecar in docs/evidence/ocr/4004-datasheet.txt.
+- `docs/4040/4040-datasheet.pdf`: clock period confirmed via OCR sidecar in docs/evidence/ocr/4040-datasheet.txt.
+- `docs/MCS-4/MCS-4_UsersManual_Feb73.pdf`: no explicit transistor count found; see docs/evidence/ocr/mcs4_users_manual.txt.
+- `docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf`: no explicit transistor count found; see docs/evidence/ocr/mcs40_users_manual.txt.
+- `docs/MCS-40/MCS-40_Advance_Specifications_Sep74.pdf`: no explicit transistor count found; see docs/evidence/ocr/mcs40_advance_specs.txt.
 - `docs/MCS-40/1975_Intel_Data_Catalog.pdf`: no explicit transistor count found.
-- `docs/MCS-4/MCS-4_UsersManual_Feb73.pdf`: no explicit transistor count found.
+- `docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf`: OCR pending in evidence trail; prior notes retained.
 
 ## Chip Design Verification (Primary Sources)
 

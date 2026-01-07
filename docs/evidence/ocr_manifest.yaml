@@ -1,0 +1,37 @@
+version: "1.0"
+generated_at: "2026-01-07T03:58:36Z"
+sources:
+  - id: intel-4004-datasheet
+    local_path: docs/4004/intel-4004-datasheet.pdf
+    url: https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf
+    sha256: d244a3aed2eb83722c567c84adc2da68609fb75209fee73c6fa8da695805ca1a
+    sidecar: docs/evidence/ocr/4004-datasheet.txt
+  - id: intel-4040-datasheet
+    local_path: docs/4040/4040-datasheet.pdf
+    url: https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf
+    sha256: 9091a128df1ec785a5abe338ca8779bc99ce601b1f3269c3178fcd45468c9c35
+    sidecar: docs/evidence/ocr/4040-datasheet.txt
+  - id: mcs4-users-manual-feb73
+    local_path: docs/MCS-4/MCS-4_UsersManual_Feb73.pdf
+    url: https://bitsavers.org/components/intel/MCS4/MCS-4_UsersManual_Feb73.pdf
+    sha256: 90dbf930cbb399b99263c4573da59eb3abe503946b3ef888a4b8dc2c4d8f1f22
+    sidecar: docs/evidence/ocr/mcs4_users_manual.txt
+  - id: mcs40-users-manual-nov74
+    local_path: docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf
+    url: https://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf
+    sha256: fe37193f3e0dcba6b176f29a67420d2ca7a0d4f548b6710d5705af0a6e00d63b
+    sidecar: docs/evidence/ocr/mcs40_users_manual.txt
+  - id: mcs40-advance-specs-sep74
+    local_path: docs/MCS-40/MCS-40_Advance_Specifications_Sep74.pdf
+    url: https://bitsavers.org/components/intel/MCS40/MCS_40_Microcomputer_Set_Advance_Specifications_Sep74.pdf
+    sha256: b23f4957c7c93e8fb3589f482e5e2552d5db6d7db5afdce794fb72b4c8d1a580
+    sidecar: docs/evidence/ocr/mcs40_advance_specs.txt
+  - id: 4004-netlist-analyzer-zip
+    local_path: /tmp/i400x_analyzer_repacked_20221111.zip
+    url: https://www.4004.com/assets/i400x_analyzer_repacked_20221111.zip
+    sha256: 7a3c9396f0019f397190ed36466a584923d6fdffb07edf9949360af9321485ce
+    notes: "Extract with password; see docs/evidence/README.md"
+  - id: 4004-netlist-analyzer-readme
+    local_path: /tmp/i400x_analyzer/unpacked/readme.txt
+    sha256: 0f2acb89f9707295026a31d58dbb37787ab4d4151ad08ad9cb3c61288779d410
+    notes: "Extracted from 4004.com analyzer zip"

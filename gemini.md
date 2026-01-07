@@ -16,6 +16,10 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - Edition: 2024 (workspace-wide).
 - OCR toolchain: tesseract + ocrmypdf (+ jbig2enc, poppler-utils) for searchable scans.
 
+## Evidence Trails
+- Evidence files live under `docs/evidence/` with OCR sidecars and hashes.
+- See `docs/evidence/ocr_results.md` for clock period evidence and netlist component counts.
+
 ## Build and Test
 - `cargo build --workspace --locked`
 - `cargo test --workspace`

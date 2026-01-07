@@ -27,3 +27,8 @@
 - Added OCR-derived clock-period citations and noted remaining 4040 clock gaps.
 - Corrected MCS-40 device roles and flagged unverified process/implementation claims in README.
 - Logged latest fmt/clippy/test/doc validation runs in quality checklist.
+
+## 2026-01-07
+- Added evidence trail docs (docs/evidence/*) with OCR manifest, results, and reproduction steps.
+- OCR sidecars added for 4004/4040 datasheets and MCS-4/MCS-40 manuals/specs.
+- Linked audit entries to evidence results and refreshed docs registry timestamps.

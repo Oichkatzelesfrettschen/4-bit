@@ -21,3 +21,4 @@
 - 2026-01-06: `cargo test --workspace --locked` (edition 2024)
 - 2026-01-06: `scripts/doc_validate.sh` (post-edition update)
 - 2026-01-07: `scripts/doc_validate.sh` (post-OCR/tooling updates)
+- 2026-01-07: `scripts/doc_validate.sh` (evidence trails)
