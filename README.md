@@ -124,11 +124,15 @@ Key dates:
 
 ## Recent Developments
 
-In November 2025, Klaus Scheffler and Lajos Kintli reportedly completed a discrete-transistor implementation of the complete MCS-4 system, achieving 2x the original clock speed (reported on [4004.com](https://www.4004.com/); primary confirmation pending; see `docs/AUDIT.md`).
+In November 2025, Klaus Scheffler and Lajos Kintli reportedly completed a discrete-transistor
+implementation of the complete MCS-4 system, achieving 2x the original clock speed
+(reported on [4004.com](https://www.4004.com/); primary confirmation pending; see `docs/AUDIT.md`).
 
 ## License
 
-Original Intel documentation is provided under Intel's non-commercial use license as granted for the 4004.com project. Third-party emulators have their own licenses - see individual project repositories.
+Original Intel documentation is provided under Intel's non-commercial use license as granted
+for the 4004.com project. Third-party emulators have their own licenses - see individual
+project repositories.
 
 ## Project Status and Roadmap
 
@@ -136,6 +140,7 @@ Original Intel documentation is provided under Intel's non-commercial use licens
 - Roadmap: `docs/ROADMAP.md`
 - Audit log: `docs/AUDIT.md`
 - Installation requirements: `mcs4-emu/INSTALLATION.md`
+- Requirements entrypoint: `requirements.md`
 
 ## Contributing
 

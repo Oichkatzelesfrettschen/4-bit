@@ -1,0 +1,15 @@
+# RAM status register roundtrip fixture (WR1/RD1)
+#
+# ACC=0xB
+# P0 = 0x01 -> chip=0, reg=0, char=1
+# SRC P0 (latch address)
+# WR1 (write ACC to status register 1)
+# ACC=0x0, then RD1 to read back into ACC
+DB          # LDM 0xB
+20 01       # FIM P0, 0x01
+21          # SRC P0
+E5          # WR1
+D0          # LDM 0x0
+ED          # RD1
+00          # NOP
+

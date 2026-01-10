@@ -1,0 +1,79 @@
+{
+  "outputs": [
+    {
+      "chip": "4001",
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+        "schematic_sha256": "84f6e4b89e128a3c83aa8b1410627c8e5e232d27b04c0debda3c4ce749230464",
+        "signals_txt": "docs/emulators/i4001-signals.txt"
+      },
+      "outputs": {
+        "text": "docs/evidence/ocr_schematics/4001_schematic.txt",
+        "tsv": "docs/evidence/ocr_schematics/4001_schematic.tsv"
+      },
+      "params": {
+        "invert": false,
+        "psm": 11,
+        "scale": 4
+      }
+    },
+    {
+      "chip": "4002",
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4002-schematic.bmp",
+        "schematic_sha256": "6b363327824419fda0eb1ca133d9a4d7213c947528f8f485239c4f8e51117672",
+        "signals_txt": "docs/emulators/i4002-signals.txt"
+      },
+      "outputs": {
+        "text": "docs/evidence/ocr_schematics/4002_schematic.txt",
+        "tsv": "docs/evidence/ocr_schematics/4002_schematic.tsv"
+      },
+      "params": {
+        "invert": false,
+        "psm": 11,
+        "scale": 4
+      }
+    },
+    {
+      "chip": "4003",
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+        "schematic_sha256": "e401f6f7a509043cf3e0117f91d64aa190dbff54ab8cda4b5583c2f574b22230",
+        "signals_txt": "docs/emulators/i4003-signals.txt"
+      },
+      "outputs": {
+        "text": "docs/evidence/ocr_schematics/4003_schematic.txt",
+        "tsv": "docs/evidence/ocr_schematics/4003_schematic.tsv"
+      },
+      "params": {
+        "invert": false,
+        "psm": 11,
+        "scale": 4
+      }
+    },
+    {
+      "chip": "4004",
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4004-schematic.bmp",
+        "schematic_sha256": "f86192a8aedd69336c65a94bb4211faeb32831f78fa8a054dcc18afb92c5746c",
+        "signals_txt": "docs/emulators/i4004-signals.txt"
+      },
+      "outputs": {
+        "text": "docs/evidence/ocr_schematics/4004_schematic.txt",
+        "tsv": "docs/evidence/ocr_schematics/4004_schematic.tsv"
+      },
+      "params": {
+        "invert": false,
+        "psm": 11,
+        "scale": 4
+      }
+    }
+  ],
+  "params": {
+    "invert": false,
+    "psm": 11,
+    "scale": 4
+  },
+  "tesseract_version": "5.5.2",
+  "tool": "scripts/ocr_schematics.py"
+}

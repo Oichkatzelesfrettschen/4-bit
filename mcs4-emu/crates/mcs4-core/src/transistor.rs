@@ -8,6 +8,56 @@
 
 use crate::timing::Time;
 
+/// Power-supply convention used by transistor-level helpers.
+///
+/// The historical 4004 pMOS process used a negative supply, but this crate avoids baking in a sign
+/// convention at the type level. Use `Supply::mcs4_pmos()` for the repo's default evidence tooling.
+#[derive(Clone, Copy, Debug)]
+pub struct Supply {
+    pub vdd: f64,
+    pub vss: f64,
+}
+
+impl Supply {
+    pub const fn new(vdd: f64, vss: f64) -> Self {
+        Self { vdd, vss }
+    }
+
+    /// Default convention for this repo's transistor stubs (pMOS with a negative supply rail).
+    pub const fn mcs4_pmos() -> Self {
+        Self { vdd: -15.0, vss: 0.0 }
+    }
+
+    /// Midpoint threshold used for coarse digital classification.
+    pub fn vmid(self) -> f64 {
+        (self.vdd + self.vss) * 0.5
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum DigitalLevel {
+    Vdd,
+    Vss,
+}
+
+impl DigitalLevel {
+    pub fn as_voltage(self, supply: Supply) -> f64 {
+        match self {
+            Self::Vdd => supply.vdd,
+            Self::Vss => supply.vss,
+        }
+    }
+}
+
+pub fn classify_digital(v: f64, supply: Supply) -> DigitalLevel {
+    // Treat values closer to VDD as VDD, else VSS. This is intentionally simplistic.
+    if (v - supply.vdd).abs() <= (v - supply.vss).abs() {
+        DigitalLevel::Vdd
+    } else {
+        DigitalLevel::Vss
+    }
+}
+
 /// pMOS transistor model
 ///
 /// The 4004 uses enhancement-mode pMOS transistors with depletion-mode
@@ -85,9 +135,22 @@ impl PmosFet {
 
     /// Is the transistor conducting?
     pub fn is_on(&self) -> bool {
-        // pMOS is on when Vgs < Vth (both negative)
-        let vgs = self.vg - self.vs;
-        vgs < self.vth
+        self.is_on_with(Supply::mcs4_pmos())
+    }
+
+    /// Is the transistor conducting, using a specific supply convention?
+    ///
+    /// This is still a simplified check; it mainly exists to avoid hardcoding a single supply
+    /// polarity into future switch-level solvers.
+    pub fn is_on_with(&self, supply: Supply) -> bool {
+        // Interpret node voltages relative to the supplied rails to decide Vgs polarity.
+        // For the default MCS-4 pMOS convention (VDD=-15, VSS=0), a more-negative gate is an
+        // "asserted" gate. We normalize to a digital gate classification and use that as a switch.
+        let gate = classify_digital(self.vg, supply);
+        match gate {
+            DigitalLevel::Vdd => true,
+            DigitalLevel::Vss => false,
+        }
     }
 
     /// Drain-source current (simplified)
@@ -276,6 +339,15 @@ mod tests {
         // Gate at Vdd (-15V), Source at 0V -> Vgs = -15V < Vth, should be on
         fet.set_voltages(-15.0, 0.0, -15.0);
         assert!(fet.is_on());
+    }
+
+    #[test]
+    fn classify_digital_uses_nearest_rail() {
+        let supply = Supply::mcs4_pmos();
+        assert_eq!(classify_digital(0.0, supply), DigitalLevel::Vss);
+        assert_eq!(classify_digital(-15.0, supply), DigitalLevel::Vdd);
+        assert_eq!(classify_digital(-14.0, supply), DigitalLevel::Vdd);
+        assert_eq!(classify_digital(-1.0, supply), DigitalLevel::Vss);
     }
 
     #[test]

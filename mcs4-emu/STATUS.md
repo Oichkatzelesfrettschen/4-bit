@@ -1,9 +1,20 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-01-07
+**Last Updated:** 2026-01-10
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-10T05:55:16Z: Added instruction-specific I/O decoding (`IoOp`) to avoid always-on RAM/ROM
+  peripherals; moved read-oriented ops to X3; latched SRC into RAM selection; added end-to-end
+  ROM fixtures (SRC/WRM/RDM + WRR/RDR) for both MCS-4 and MCS-40, including `.hex` fixture parsing;
+  fixed “bank 0 means selected” ambiguity by gating CM-ROM/CM-RAM on explicit enable and asserting
+  CM-RAM only during RAM I/O (bank selected via DCL).
+- 2026-01-10T05:27:55Z: Fixed two-byte instruction fetch + PC semantics for 4004/4040 (JUN/JMS/JCN);
+  implemented 4040 TEST pin for JCN; corrected X2/X3 bus ordering so CPU writes latch correctly;
+  added cluster port reads/tests; disambiguated ROM/RAM bank 0 vs "none selected" in ControlSignals.
+- 2026-01-10T05:02:27Z: Added `requirements.md` entrypoints and a `scripts/todo_scan.sh`
+  generator; fixed doc link/line-length issues; clarified workspace edition remains 2021 (prior
+  2024 mention was stale).
 - 2026-01-07T17:29:52Z: Chunked OCR for 1975 Intel Data Catalog pages (MCS-4/MCS-40 excerpts), updated evidence results/manifest, and logged OCR warnings.
 - 2026-01-07T17:05:31Z: Imported CC0 Intel 4004 layout poster image from Wikimedia, recorded provenance, and added CPU-collection/Commons references for 4040 image hunting.
 - 2026-01-07T17:05:31Z: OCR sidecar for MCS4 Data Sheet (Nov71), updated evidence manifest/results, and documented 1975 catalog OCR failure + pdfplumber fallback.
@@ -15,11 +26,15 @@
 - 2026-01-07T05:45:00Z: Added netlist extraction workflow doc for i400x analyzer assets.
 - 2026-01-07T05:44:22Z: Added photomicrograph previews (4004.com) with permissions evidence and updated artifact catalog.
 - 2026-01-07T05:38:53Z: Added chip artifact catalog and audit notes for schematics/mask layers; removed out-of-scope puzzle docs.
-- 2026-01-07T03:58:36Z: Added evidence trail docs (ocr_manifest/ocr_results), OCR sidecars for 4004/4040 datasheets and MCS-4/MCS-40 manuals/specs, and captured 4004 netlist component counts from 4004.com analyzer readme.
+- 2026-01-07T03:58:36Z: Added evidence trail docs (ocr_manifest/ocr_results), OCR sidecars for
+  4004/4040 datasheets and MCS-4/MCS-40 manuals/specs, and captured 4004 netlist component
+  counts from 4004.com analyzer readme.
 - 2026-01-07T03:19:41Z: Installed ocrmypdf/jbig2enc, OCR-scanned MCS-4/MCS-40 manuals and brochures, and updated audit/tooling docs with 4040 clock-period source and 4004 netlist counts.
 - 2026-01-06T20:25:27Z: Upgraded workspace to Rust edition 2024, resolved clippy collapsible-if warnings, and reran fmt/clippy/tests.
 - 2026-01-06T20:21:23Z: Added bitsavers source links to AUDIT, marked 4040 clock as derived from system period, and refreshed README/ROADMAP/CHANGELOG/INDEX/registry timestamps.
-- 2026-01-06T20:00:22Z: Installed go-yq + tesseract data, ran fmt/clippy/tests/doc validation, updated AUDIT with OCR clock-period citations, refreshed docs/README/install/development/roadmap/quality logs.
+- 2026-01-06T20:00:22Z: Installed go-yq + tesseract data, ran fmt/clippy/tests/doc validation,
+  updated AUDIT with OCR clock-period citations, refreshed docs/README/install/development/
+  roadmap/quality logs.
 - 2026-01-06T07:41:40Z: Added root licenses, ran doc registry validation with local yq, and OCR-verified MCS-4 timing from primary datasheets.
 - 2026-01-06T07:36:00Z: Added primary-source citations to AUDIT, updated ARCHITECTURE and ROADMAP, added CI workflow, and enforced clippy warnings-as-errors.
 - 2026-01-06T06:18:27Z: Consolidated roadmap phases; began repo hygiene audit and documentation sync.
@@ -67,7 +82,10 @@ chips from the original Intel kits plus era-appropriate peripherals.
 | **4008** | Address latch (8-bit) | NOT STARTED | For standard memory interface |
 | **4009** | I/O buffer/interface | NOT STARTED | Bidirectional bus interface |
 
-**Note:** The 4002-1 and 4002-2 are factory-configured variants of the 4002. The -1 suffix indicates pre-wired response to CM-RAM0, while -2 responds to CM-RAM1. Our 4002 implementation already supports configurable bank_id, so these variants can be emulated with `I4002::new(chip_id, 0)` and `I4002::new(chip_id, 1)`.
+**Note:** The 4002-1 and 4002-2 are factory-configured variants of the 4002. The -1 suffix
+indicates pre-wired response to CM-RAM0, while -2 responds to CM-RAM1. Our 4002 implementation
+already supports configurable bank_id, so these variants can be emulated with
+`I4002::new(chip_id, 0)` and `I4002::new(chip_id, 1)`.
 
 ### MCS-40 Family (4040-based, 1974)
 
@@ -94,7 +112,9 @@ chips from the original Intel kits plus era-appropriate peripherals.
 | **3216** | 4-bit parallel bidirectional bus driver | NOT STARTED | Interfaces 4-bit bus to external systems |
 | **3226** | 4-bit parallel bidirectional bus driver | NOT STARTED | Inverted enable vs 3216 |
 
-**Note:** The 3216 and 3226 are Schottky bipolar bus drivers used to interface the MCS-4/40 4-bit bus to external 8-bit systems or peripherals. They handle level shifting and bus isolation. The 3216 and 3226 are functionally similar but have inverted chip enable logic.
+**Note:** The 3216 and 3226 are Schottky bipolar bus drivers used to interface the MCS-4/40 4-bit
+bus to external 8-bit systems or peripherals. They handle level shifting and bus isolation. The
+3216 and 3226 are functionally similar but have inverted chip enable logic.
 
 ### Support Logic Chips
 
@@ -113,7 +133,9 @@ chips from the original Intel kits plus era-appropriate peripherals.
 | **2102** | 1024x1 static RAM | NOT STARTED | Intel 1Kx1 SRAM, 350ns typical |
 | **1302** | 2048-bit mask ROM | NOT STARTED | Original designation for 4001-class ROM |
 
-**Note:** The 4289 Standard Memory Interface allows the 4040 to use standard (non-MCS-4) memory chips. The 2101 (256x4) and 2102 (1024x1) were Intel's early static RAM products. The 1302 was the original internal designation before the "4000 family" naming convention was adopted.
+**Note:** The 4289 Standard Memory Interface allows the 4040 to use standard (non-MCS-4) memory
+chips. The 2101 (256x4) and 2102 (1024x1) were Intel's early static RAM products. The 1302 was
+the original internal designation before the "4000 family" naming convention was adopted.
 
 ### CPU Second-Sources and Clones
 
@@ -127,7 +149,9 @@ chips from the original Intel kits plus era-appropriate peripherals.
 | **uPD4004** | NEC | NOT STARTED | NEC second-source 4004 |
 | **uPD4040** | NEC | NOT STARTED | NEC second-source 4040 |
 
-**Note:** National Semiconductor was Intel's official second-source for the MCS-4 family (mid-1975). NEC also produced second-source versions. These are pin-compatible and functionally identical; no separate implementation needed beyond behavioral verification.
+**Note:** National Semiconductor was Intel's official second-source for the MCS-4 family
+(mid-1975). NEC also produced second-source versions. These are pin-compatible and functionally
+identical; no separate implementation needed beyond behavioral verification.
 
 ### 74-Series TTL Support
 
@@ -976,7 +1000,9 @@ Federico Faggin renamed them to the "4000 family" to emphasize they formed a coh
 
 ## Pre-Commit Quality Review Checklist (Oaich)
 
-Reviewer Mode: Senior Code Review Specialist active as of 2025-12-31T05:01:32Z; applying OWASP, performance, testing (>=90%), maintainability, documentation gates to all Next 10 Tasks and subsequent commits.
+Reviewer Mode: Senior Code Review Specialist active as of 2025-12-31T05:01:32Z; applying OWASP,
+performance, testing (>=90%), maintainability, documentation gates to all Next 10 Tasks and
+subsequent commits.
 - Security: OWASP pass, input validation for GUI loads, no secrets, proper error handling.
 - Performance: O(n) paths, avoid N+1, no unnecessary cloning; benchmark hot loops.
 - Testing: >=90% coverage backend; unit + integration; property tests for bus protocol; no flakiness.

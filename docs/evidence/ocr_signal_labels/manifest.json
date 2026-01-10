@@ -1,0 +1,80 @@
+{
+  "outputs": [
+    {
+      "chip": "4001",
+      "counts": {
+        "labels_total": 31,
+        "mismatch": 27,
+        "ok": 4,
+        "skipped": 19,
+        "total": 50
+      },
+      "crops_dir": "docs/evidence/ocr_signal_labels/4001/crops",
+      "report_json": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
+      "report_tsv": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.tsv"
+    },
+    {
+      "chip": "4002",
+      "counts": {
+        "labels_total": 50,
+        "mismatch": 49,
+        "ok": 1,
+        "skipped": 0,
+        "total": 50
+      },
+      "crops_dir": "docs/evidence/ocr_signal_labels/4002/crops",
+      "report_json": "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.json",
+      "report_tsv": "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.tsv"
+    },
+    {
+      "chip": "4003",
+      "counts": {
+        "labels_total": 14,
+        "mismatch": 14,
+        "ok": 0,
+        "skipped": 0,
+        "total": 14
+      },
+      "crops_dir": "docs/evidence/ocr_signal_labels/4003/crops",
+      "report_json": "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.json",
+      "report_tsv": "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.tsv"
+    },
+    {
+      "chip": "4004",
+      "counts": {
+        "labels_total": 50,
+        "mismatch": 50,
+        "ok": 0,
+        "skipped": 0,
+        "total": 50
+      },
+      "crops_dir": "docs/evidence/ocr_signal_labels/4004/crops",
+      "report_json": "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.json",
+      "report_tsv": "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.tsv"
+    }
+  ],
+  "params": {
+    "aliases": "/home/eirikr/Github/4-bit/scripts/ocr_signal_aliases.json",
+    "candidates": 6,
+    "crop_h": 90,
+    "crop_w": 240,
+    "fallback": false,
+    "invert": false,
+    "labels_only": true,
+    "limit": 50,
+    "max_dist": 220.0,
+    "min_conf": 60.0,
+    "min_score": 0.85,
+    "mode": "region",
+    "name_regex": "",
+    "pad": 10,
+    "psm": 7,
+    "region_h": 240,
+    "region_w": 640,
+    "scale": 4,
+    "use_distance": false,
+    "whitelist": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_~()+&/-"
+  },
+  "tesseract_version": "5.5.2",
+  "tool": "scripts/ocr_signal_labels.py"
+}

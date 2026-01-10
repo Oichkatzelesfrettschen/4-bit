@@ -1,6 +1,8 @@
 # Documentation Program (2026-01-07T06:33:37Z)
 
-Objective: Production-grade, registry-driven documentation synchronized with code, covering SIMD cluster execution, dual UI (CLI/TUI/GUI), and emulator architecture. No toy models; complete, elegant docs.
+Objective: Production-grade, registry-driven documentation synchronized with code, covering SIMD
+cluster execution, dual UI (CLI/TUI/GUI), and emulator architecture. No toy models; complete,
+elegant docs.
 
 MUST DOCUMENT
 - Build/run (README)
@@ -18,7 +20,7 @@ SHOULD DOCUMENT
 - Contributing (docs/CONTRIBUTING.md)
 - Limitations and workarounds (ARCHITECTURE.md)
 - Testing strategies and coverage (STATUS.md/README)
-- Security considerations (DEPLOYMENT.md)
+- Security considerations (docs/DEPLOYMENT.md)
 - Audit log and validation status (docs/AUDIT.md)
 
 NICE TO DOCUMENT
@@ -26,7 +28,7 @@ NICE TO DOCUMENT
 - Related projects and resources (ARCHITECTURE.md)
 - Future plans and roadmap (docs/ROADMAP.md)
 - Contributors and acknowledgments (README)
-- Benchmarks and performance metrics (README/docs/CHANGELOG.md)
+- Benchmarks and performance metrics (docs/CHANGELOG.md)
 
 Information Architecture
 - Modular docs; central index (docs/INDEX.md); metadata registry (docs/meta/registry.yaml)
@@ -57,7 +59,7 @@ NICE TO DOCUMENT
 - Related projects and resources (ARCHITECTURE.md)
 - Future plans and roadmap (docs/ROADMAP.md)
 - Contributors and acknowledgments (README)
-- Benchmarks and performance metrics (README/docs/CHANGELOG.md)
+- Benchmarks and performance metrics (docs/CHANGELOG.md)
 
 Information Architecture Pattern
 - Modular docs with imports; central index; metadata registry (docs/meta/registry.yaml)
@@ -77,26 +79,34 @@ Metrics & Anti-Patterns
 ## Registry Snapshot
 <!-- DOCS_REGISTRY_START -->
 - README.md
+- requirements.md
 - gemini.md
+- claude.md
 - ARCHITECTURE.md
 - mcs4-emu/STATUS.md
 - mcs4-emu/INSTALLATION.md
+- mcs4-emu/requirements.md
 - docs/API.md
 - docs/DEPLOYMENT.md
 - docs/CONTRIBUTING.md
 - docs/TROUBLESHOOTING.md
 - docs/CHANGELOG.md
 - docs/ROADMAP.md
+- docs/TODO.md
 - docs/INDEX.md
 - docs/DEVELOPMENT.md
 - docs/QUALITY-CHECKLIST.md
 - docs/AUDIT.md
+- docs/TOOLING_AUDIT.md
 - docs/CHIP_ARTIFACTS.md
 - docs/NETLIST_WORKFLOW.md
 - docs/LAYER_ANNOTATIONS.md
 - docs/photomicrographs/README.md
 - docs/evidence/README.md
+- docs/evidence/DIAGRAM_EXTRACTION.md
+- docs/evidence/OCR_SIGNAL_LABELS.md
 - docs/evidence/photomicrograph_permissions.md
+- docs/evidence/PROVENANCE_CHECKLIST.md
 - docs/evidence/ocr_manifest.yaml
 - docs/evidence/ocr_results.md
 <!-- DOCS_REGISTRY_END -->

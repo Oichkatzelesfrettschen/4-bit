@@ -52,11 +52,20 @@ pub struct I4040 {
     /// Currently selected RAM chip
     ram_chip: u8,
 
+    /// Currently selected RAM bank (set by DCL / SB0 / SB1)
+    ram_bank: u8,
+
+    /// Test pin input (directly readable via JCN)
+    test_pin: bool,
+
     /// Pending I/O data
     io_data: u8,
 
     /// Halted state (HLT instruction)
     pub halted: bool,
+
+    /// True if an instruction explicitly updated PC (taken branches, jumps, calls, returns).
+    pc_modified: bool,
 
     /// Program Counter
     pc: u16,
@@ -75,10 +84,18 @@ impl I4040 {
             instruction_byte: 0,
             ram_address: 0,
             ram_chip: 0,
+            ram_bank: 0,
+            test_pin: false,
             io_data: 0,
             halted: false,
+            pc_modified: false,
             pc: 0,
         }
+    }
+
+    /// Set the test pin state (used by JCN condition bit 0)
+    pub fn set_test_pin(&mut self, state: bool) {
+        self.test_pin = state;
     }
 
     /// Process one bus phase
@@ -105,10 +122,23 @@ impl I4040 {
         self.pc
     }
 
+    pub fn ram_address(&self) -> u8 {
+        self.ram_address & 0x0F
+    }
+
+    pub fn ram_chip(&self) -> u8 {
+        self.ram_chip & 0x0F
+    }
+
     fn phase_a1(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        ctrl.clear_io_op();
+        ctrl.deselect_ram(0);
         // Interrupt Handling (Start of instruction cycle)
         // If not already in second cycle of a 2-byte instruction...
         if !self.cycle.second_cycle && !self.cycle.two_cycle {
+            if ctrl.interrupt_pending() {
+                self.intr.request();
+            }
             if let Some(vector) = self.intr.service(self.current_src()) {
                 // Push current PC to stack
                 // Note: The PC has not been incremented for the NEXT instruction yet,
@@ -133,7 +163,7 @@ impl I4040 {
         // Output address bits 0-3 and assert SYNC
         let addr = self.pc;
         bus.write((addr & 0x0F) as u8);
-        ctrl.assert_sync(0); // TODO: pass chip select info?
+        ctrl.assert_sync(0);
     }
 
     fn phase_a2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
@@ -174,7 +204,7 @@ impl I4040 {
         self.instruction_byte = (self.instruction_byte & 0x0F) | ((opr & 0x0F) << 4);
     }
 
-    fn phase_x1(&mut self, _bus: &mut DataBus, _ctrl: &mut ControlSignals) {
+    fn phase_x1(&mut self, _bus: &mut DataBus, ctrl: &mut ControlSignals) {
         if self.halted {
             return;
         }
@@ -184,39 +214,111 @@ impl I4040 {
         } else {
             self.decoder.decode_first(self.instruction_byte);
         }
+        self.pc_modified = false;
+
+        ctrl.io_op = match self.decoder.get_instruction() {
+            Some(Instruction::Src { .. }) => Some(IoOp::Src),
+            Some(Instruction::Wrm) => Some(IoOp::RamMainWrite),
+            Some(Instruction::Rdm | Instruction::Adm | Instruction::Sbm) => Some(IoOp::RamMainRead),
+            Some(Instruction::Wmp) => Some(IoOp::RamPortWrite),
+            Some(Instruction::Wrr) => Some(IoOp::RomPortWrite),
+            Some(Instruction::Rdr) => Some(IoOp::RomPortRead),
+            Some(Instruction::Wr0) => Some(IoOp::RamStatusWrite(0)),
+            Some(Instruction::Wr1) => Some(IoOp::RamStatusWrite(1)),
+            Some(Instruction::Wr2) => Some(IoOp::RamStatusWrite(2)),
+            Some(Instruction::Wr3) => Some(IoOp::RamStatusWrite(3)),
+            Some(Instruction::Rd0) => Some(IoOp::RamStatusRead(0)),
+            Some(Instruction::Rd1) => Some(IoOp::RamStatusRead(1)),
+            Some(Instruction::Rd2) => Some(IoOp::RamStatusRead(2)),
+            Some(Instruction::Rd3) => Some(IoOp::RamStatusRead(3)),
+            _ => None,
+        };
+
+        if matches!(
+            ctrl.io_op,
+            Some(
+                IoOp::Src
+                    | IoOp::RamMainWrite
+                    | IoOp::RamMainRead
+                    | IoOp::RamPortWrite
+                    | IoOp::RamStatusWrite(_)
+                    | IoOp::RamStatusRead(_)
+            )
+        ) {
+            ctrl.select_ram(self.ram_bank, 0);
+        }
     }
 
-    fn phase_x2(&mut self, bus: &mut DataBus, _ctrl: &mut ControlSignals) {
+    fn phase_x2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         if self.halted {
             return;
         }
-        // Execute instruction (for single-cycle instructions)
-        if !self.decoder.needs_second_byte() {
-            if let Some(instr) = self.decoder.get_instruction() {
+        // Execute instruction (for single-cycle instructions).
+        // Read-oriented ops are executed in X3 after peripherals drive the bus.
+        if let Some(instr) = self.decoder.get_instruction() {
+            let is_read = matches!(
+                instr,
+                Instruction::Rdm
+                    | Instruction::Rdr
+                    | Instruction::Rd0
+                    | Instruction::Rd1
+                    | Instruction::Rd2
+                    | Instruction::Rd3
+                    | Instruction::Adm
+                    | Instruction::Sbm
+            );
+            if !is_read {
                 self.execute(instr, bus);
             }
         }
+
+        // SRC bus behavior (best-effort):
+        // X2 outputs the chip+register nibble (chip in bits 0-1, reg in bits 2-3).
+        if ctrl.io_op == Some(IoOp::Src) {
+            bus.write(self.ram_chip & 0x0F);
+        }
     }
 
-    fn phase_x3(&mut self, _bus: &mut DataBus, _ctrl: &mut ControlSignals) {
+    fn phase_x3(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         if self.halted {
             return;
         }
-        // Increment PC after execution
+
+        // SRC bus behavior (best-effort):
+        // X3 outputs the character nibble to complete SRC latching in 4002.
+        if ctrl.io_op == Some(IoOp::Src) {
+            bus.write(self.ram_address & 0x0F);
+        }
+
+        // Execute read-oriented instructions after peripherals have driven the bus in X3.
         if let Some(instr) = self.decoder.get_instruction() {
-            // For two-byte instructions, only increment after second cycle
-            if instr.length() == 1 || self.cycle.second_cycle {
-                self.pc = (self.pc + 1) & 0xFFF;
+            let is_read = matches!(
+                instr,
+                Instruction::Rdm
+                    | Instruction::Rdr
+                    | Instruction::Rd0
+                    | Instruction::Rd1
+                    | Instruction::Rd2
+                    | Instruction::Rd3
+                    | Instruction::Adm
+                    | Instruction::Sbm
+            );
+            if is_read {
+                self.execute(instr, bus);
             }
-            // Set up for second cycle if needed
-            if instr.length() == 2 && !self.cycle.second_cycle {
-                self.cycle.two_cycle = true;
-                self.cycle.second_cycle = true;
-                self.pc = (self.pc + 1) & 0xFFF;
-            } else {
-                self.cycle.two_cycle = false;
-                self.cycle.second_cycle = false;
-            }
+        }
+
+        // Two-byte instruction: schedule operand fetch for next machine cycle.
+        if self.decoder.needs_second_byte() && !self.cycle.second_cycle {
+            self.cycle.set_two_cycle();
+            self.pc = (self.pc + 1) & 0xFFF;
+            return;
+        }
+
+        // Instruction complete: default is to advance PC by one byte unless the instruction
+        // explicitly changed PC (taken branch/jump/call/return).
+        if self.decoder.get_instruction().is_some() && !self.pc_modified {
+            self.pc = (self.pc + 1) & 0xFFF;
         }
     }
 
@@ -234,6 +336,7 @@ impl I4040 {
                 // Pop stack
                 if let Ok(ret_addr) = self.stack.pop() {
                     self.pc = ret_addr;
+                    self.pc_modified = true;
                 }
             }
             Instruction::Lcr => {
@@ -263,10 +366,10 @@ impl I4040 {
             Instruction::Db0 => self.registers.db0(),
             Instruction::Db1 => self.registers.db1(),
             Instruction::Sb0 => {
-                // Select RAM Bank 0
+                self.ram_bank = 0;
             }
             Instruction::Sb1 => {
-                // Select RAM Bank 1
+                self.ram_bank = 1;
             }
             Instruction::Ein => self.intr.ein(),
             Instruction::Din => self.intr.din(),
@@ -288,15 +391,19 @@ impl I4040 {
             }
             Instruction::Jun { addr_high, addr_low } => {
                 self.pc = ((addr_high as u16) << 8) | (addr_low as u16);
+                self.pc_modified = true;
             }
             Instruction::Jms { addr_high, addr_low } => {
-                if self.stack.push(self.pc).is_ok() {
+                let return_addr = (self.pc + 1) & 0x0FFF;
+                if self.stack.push(return_addr).is_ok() {
                     self.pc = ((addr_high as u16) << 8) | (addr_low as u16);
+                    self.pc_modified = true;
                 }
             }
             Instruction::Bbl { data } => {
                 if let Ok(ret) = self.stack.pop() {
                     self.pc = ret;
+                    self.pc_modified = true;
                 }
                 self.alu.load(data);
             }
@@ -309,6 +416,7 @@ impl I4040 {
                 self.registers.set(reg as usize, val);
                 if val != 0 {
                     self.pc = (self.pc & 0xF00) | (addr_low as u16);
+                    self.pc_modified = true;
                 }
             }
             Instruction::Add { reg } => self.alu.add(self.registers.get(reg as usize)),
@@ -337,6 +445,10 @@ impl I4040 {
             Instruction::Stc => self.alu.stc(),
             Instruction::Daa => self.alu.daa(),
             Instruction::Kbp => self.alu.kbp(),
+            Instruction::Dcl => {
+                // Designate command line: selects CM-RAM lines for subsequent RAM operations.
+                self.ram_bank = self.alu.accumulator() & 0x0F;
+            }
 
             // I/O
             Instruction::Wrm => bus.write(self.alu.accumulator()),
@@ -369,7 +481,9 @@ impl I4040 {
                 if test_carry && self.alu.carry() {
                     cond = true;
                 }
-                if test_test { /* TODO read test pin */ }
+                if test_test && self.test_pin {
+                    cond = true;
+                }
 
                 if invert {
                     cond = !cond;
@@ -377,6 +491,7 @@ impl I4040 {
 
                 if cond {
                     self.pc = (self.pc & 0xF00) | (addr_low as u16);
+                    self.pc_modified = true;
                 }
             }
 

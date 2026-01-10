@@ -1,0 +1,66 @@
+{
+  "analyzer_reference_4004": {
+    "layout_capacitors": 66,
+    "layout_gate_protectors": 8,
+    "layout_resistors": 427,
+    "layout_transistors": 1807,
+    "schematic_capacitors_effective": 0,
+    "schematic_capacitors_minus_caps": 66,
+    "schematic_capacitors_total": 66,
+    "schematic_gate_protectors": 8,
+    "schematic_resistors": 427,
+    "schematic_transistors_effective": 1741,
+    "schematic_transistors_minus_caps": 66,
+    "schematic_transistors_total": 1807
+  },
+  "chips": [
+    {
+      "chip": "4001",
+      "components_kept": 2228,
+      "components_total": 2232,
+      "source": "docs/evidence/transistors/4001_poly_diffusion_transistors.json"
+    },
+    {
+      "chip": "4002",
+      "components_kept": 819,
+      "components_total": 834,
+      "source": "docs/evidence/transistors/4002_poly_diffusion_transistors.json"
+    },
+    {
+      "chip": "4003",
+      "components_kept": 102,
+      "components_total": 102,
+      "source": "docs/evidence/transistors/4003_poly_diffusion_transistors.json"
+    },
+    {
+      "analyzer_reference": {
+        "layout_capacitors": 66,
+        "layout_gate_protectors": 8,
+        "layout_resistors": 427,
+        "layout_transistors": 1807,
+        "schematic_capacitors_effective": 0,
+        "schematic_capacitors_minus_caps": 66,
+        "schematic_capacitors_total": 66,
+        "schematic_gate_protectors": 8,
+        "schematic_resistors": 427,
+        "schematic_transistors_effective": 1741,
+        "schematic_transistors_minus_caps": 66,
+        "schematic_transistors_total": 1807
+      },
+      "chip": "4004",
+      "components_kept": 1543,
+      "components_total": 1804,
+      "delta_vs_analyzer_layout": -3,
+      "source": "docs/evidence/transistors/4004_poly_diffusion_transistors.json"
+    }
+  ],
+  "inputs": {
+    "outputs": [
+      "docs/evidence/transistors/4001_poly_diffusion_transistors.json",
+      "docs/evidence/transistors/4002_poly_diffusion_transistors.json",
+      "docs/evidence/transistors/4003_poly_diffusion_transistors.json",
+      "docs/evidence/transistors/4004_poly_diffusion_transistors.json"
+    ]
+  },
+  "tool": "scripts/transistor_metrics.py"
+}

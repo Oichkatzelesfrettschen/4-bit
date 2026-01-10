@@ -1,0 +1,77 @@
+{
+  "outputs": [
+    {
+      "chip": "4001",
+      "counts": {
+        "out_of_bounds": 0,
+        "parse_errors": 0,
+        "points": 89
+      },
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+        "schematic_size": {
+          "h": 1360,
+          "w": 2864
+        },
+        "signals_txt": "docs/emulators/i4001-signals.txt"
+      },
+      "out_of_bounds": [],
+      "parse_errors": []
+    },
+    {
+      "chip": "4002",
+      "counts": {
+        "out_of_bounds": 0,
+        "parse_errors": 0,
+        "points": 416
+      },
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4002-schematic.bmp",
+        "schematic_size": {
+          "h": 2760,
+          "w": 3250
+        },
+        "signals_txt": "docs/emulators/i4002-signals.txt"
+      },
+      "out_of_bounds": [],
+      "parse_errors": []
+    },
+    {
+      "chip": "4003",
+      "counts": {
+        "out_of_bounds": 0,
+        "parse_errors": 0,
+        "points": 14
+      },
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+        "schematic_size": {
+          "h": 740,
+          "w": 1064
+        },
+        "signals_txt": "docs/emulators/i4003-signals.txt"
+      },
+      "out_of_bounds": [],
+      "parse_errors": []
+    },
+    {
+      "chip": "4004",
+      "counts": {
+        "out_of_bounds": 0,
+        "parse_errors": 0,
+        "points": 275
+      },
+      "inputs": {
+        "schematic_bmp": "docs/emulators/i4004-schematic.bmp",
+        "schematic_size": {
+          "h": 4020,
+          "w": 3250
+        },
+        "signals_txt": "docs/emulators/i4004-signals.txt"
+      },
+      "out_of_bounds": [],
+      "parse_errors": []
+    }
+  ],
+  "tool": "scripts/verify_signals_txt.py"
+}

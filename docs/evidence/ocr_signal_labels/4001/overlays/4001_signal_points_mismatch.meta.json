@@ -1,0 +1,17 @@
+{
+  "chip": "4001",
+  "inputs": {
+    "report_json": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
+    "report_sha256": "2b26fa617b56d7af1af60873b97c968d54b6725e4f09600dcfc42a86768b4203",
+    "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+    "schematic_sha256": "84f6e4b89e128a3c83aa8b1410627c8e5e232d27b04c0debda3c4ce749230464",
+    "signals_sha256": "4c02635bfd0d463717ae65bc11b00aeafd6cde6d7cbc179a4da954cd95058bf6",
+    "signals_txt": "docs/emulators/i4001-signals.txt"
+  },
+  "limit": 200,
+  "mode": "mismatch",
+  "outputs": {
+    "overlay_png": "docs/evidence/ocr_signal_labels/4001/overlays/4001_signal_points_mismatch.png"
+  },
+  "tool": "scripts/render_signal_overlays.py"
+}

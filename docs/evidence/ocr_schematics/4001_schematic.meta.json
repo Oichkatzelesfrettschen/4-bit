@@ -1,0 +1,17 @@
+{
+  "chip": "4001",
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+    "schematic_sha256": "84f6e4b89e128a3c83aa8b1410627c8e5e232d27b04c0debda3c4ce749230464",
+    "signals_txt": "docs/emulators/i4001-signals.txt"
+  },
+  "outputs": {
+    "text": "docs/evidence/ocr_schematics/4001_schematic.txt",
+    "tsv": "docs/evidence/ocr_schematics/4001_schematic.tsv"
+  },
+  "params": {
+    "invert": false,
+    "psm": 11,
+    "scale": 4
+  }
+}

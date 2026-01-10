@@ -114,17 +114,12 @@ impl Cluster {
     }
 
     fn read_port(&self, sys_id: SystemId, port: PortType) -> u8 {
-        if let Some(_sys) = self.systems.get(sys_id) {
+        if let Some(sys) = self.systems.get(sys_id) {
             match port {
-                PortType::RomPort(_id) => {
-                    // TODO: implement read_rom_port in Mcs4System
-                    0
-                }
-                PortType::RamPort(_chip) => {
-                    // TODO: implement read_ram_port in Mcs4System
-                    0
-                }
-                PortType::TestPin => 0,
+                PortType::RomPort(id) => sys.read_rom_port(id).unwrap_or(0) & 0x0F,
+                // Current PortType doesn't encode bank; use bank 0 (matches minimal/most tests).
+                PortType::RamPort(chip) => sys.read_ram_port(0, chip).unwrap_or(0) & 0x0F,
+                PortType::TestPin => u8::from(sys.test_pin()),
                 PortType::ResetPin => 0,
             }
         } else {
@@ -169,5 +164,46 @@ mod tests {
         cluster.add_system(s2);
 
         cluster.step();
+    }
+
+    #[test]
+    fn test_cluster_test_pin_propagation() {
+        let mut cluster = Cluster::new();
+        let mut s1 = Mcs4System::minimal();
+        let s2 = Mcs4System::minimal();
+
+        s1.set_test_pin(true);
+
+        let id1 = cluster.add_system(s1);
+        let id2 = cluster.add_system(s2);
+
+        cluster.connect(id1, PortType::TestPin, id2, PortType::TestPin);
+        cluster.step();
+
+        assert!(cluster.systems[id2].test_pin());
+    }
+
+    #[test]
+    fn test_cluster_reads_ram_port() {
+        let mut cluster = Cluster::new();
+        let mut s1 = Mcs4System::minimal();
+
+        s1.ram[0].wmp(0xB);
+
+        let id1 = cluster.add_system(s1);
+        assert_eq!(cluster.read_port(id1, PortType::RamPort(0)), 0x0B);
+    }
+
+    #[test]
+    fn test_cluster_reads_rom_port() {
+        let mut cluster = Cluster::new();
+        let mut s1 = Mcs4System::minimal();
+
+        // LDM 0xA; WRR; NOP
+        s1.load_rom(&[0xDA, 0xE2, 0x00]);
+        s1.run_cycles(2);
+
+        let id1 = cluster.add_system(s1);
+        assert_eq!(cluster.read_port(id1, PortType::RomPort(0)), 0x0A);
     }
 }

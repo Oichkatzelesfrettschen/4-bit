@@ -17,7 +17,7 @@ use crate::{
     signal_trace::SignalTrace,
 };
 
-pub(crate) struct Mcs4App {
+pub struct Mcs4App {
     // Emulator
     system: Arc<RwLock<Mcs4System>>,
     _trace: Arc<RwLock<SignalTrace>>,
@@ -32,7 +32,7 @@ pub(crate) struct Mcs4App {
 }
 
 impl Mcs4App {
-    pub(crate) fn new(_cc: &eframe::CreationContext<'_>) -> Self {
+    pub fn new(_cc: &eframe::CreationContext<'_>) -> Self {
         let system = Arc::new(RwLock::new(Mcs4System::minimal()));
         let trace = Arc::new(RwLock::new(SignalTrace::new()));
         let running = Arc::new(AtomicBool::new(false));

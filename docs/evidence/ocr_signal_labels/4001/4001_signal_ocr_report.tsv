@@ -1,0 +1,51 @@
+idx	x	y	expected	expected_kind	expected_norm	ocr_norm	score	ok	reason	best_conf	best_dist_px	region_tokens_total	region_tokens_confident	region_max_similarity	region_ocr_calls
+0	2570	119	~A11/2	label	~A11/2		0.000	0	ocr_no_tokens			0	0		1
+1	2617	119	A12/2	label	A12/2		0.000	0	ocr_no_tokens			0	0		1
+2	2664	119	~A21/2	label	~A21/2		0.000	0	ocr_no_tokens			0	0		1
+3	2711	119	A22/2	label	A22/2		0.000	0	ocr_no_tokens			0	0		1
+4	2479	150	A11/2	label	A11/2		0.000	0	ocr_no_tokens			0	0		1
+5	30	190	D0_PAD	label	D0_PAD	D0	1.000	1	matched	0.0	0.0	0	0		0
+6	611	292	DO0	label	DO0		0.000	0	ocr_no_tokens			0	0		1
+7	2715	322	~CLK1	label	~CLK1		0.000	0	ocr_no_tokens			0	0		1
+8	30	327	IO0	label	IO0		0.000	0	ocr_no_tokens			0	0		1
+9	2527	354	SYNC+A11S+A11/2+A21/2	expression	SYNC+A11S+A11/2+A21/2		0.000	0	skipped_expression			0	0		0
+10	30	371	D1_PAD	label	D1_PAD	D1	1.000	1	matched	0.0	0.0	0	0		0
+11	2464	398	~(SYNC+A11S+A11/2+A21/2)	expression	~(SYNC+A11S+A11/2+A21/2)		0.000	0	skipped_expression			0	0		0
+12	2582	398	~(SYNC+A11S)	expression	~(SYNC+A11S)		0.000	0	skipped_expression			0	0		0
+13	611	473	DO1	label	DO1		0.000	0	ocr_no_tokens			0	0		1
+14	2783	503	D2	label	D2		0.000	0	ocr_no_tokens			0	0		1
+15	30	508	IO1	label	IO1		0.000	0	ocr_no_tokens			0	0		1
+16	2482	533	D3&D2&([A22/2][CLK2])	expression	D3&D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+17	2806	547	~D2	label	~D2		0.000	0	ocr_no_tokens			0	0		1
+18	30	552	D2_PAD	label	D2_PAD	D2	1.000	1	matched	0.0	0.0	0	0		0
+19	2482	557	D3&D2&([A12/2][CLK2])	expression	D3&D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+20	2482	581	D3&~D2&([A22/2][CLK2])	expression	D3&~D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+21	2783	592	D3	label	D3		0.000	0	ocr_no_tokens			0	0		1
+22	2482	605	D3&~D2&([A12/2][CLK2])	expression	D3&~D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+23	2482	629	~D3&D2&([A12/2][CLK2])	expression	~D3&D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+24	2806	636	~D3	label	~D3		0.000	0	ocr_no_tokens			0	0		1
+25	2482	653	~D3&D2&([A22/2][CLK2])	expression	~D3&D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+26	611	654	DO2	label	DO2		0.000	0	ocr_no_tokens			0	0		1
+27	2482	677	~D3&~D2&([A22/2][CLK2])	expression	~D3&~D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+28	30	689	IO2	label	IO2		0.000	0	ocr_no_tokens			0	0		1
+29	973	693	MEMD0	label	MEMD0		0.000	0	ocr_no_tokens			0	0		1
+30	1325	693	MEMD1	label	MEMD1		0.000	0	ocr_low_conf			1	0	0.067	1
+31	1677	693	MEMD2	label	MEMD2		0.000	0	ocr_no_tokens			0	0		1
+32	2029	693	MEMD3	label	MEMD3		0.000	0	ocr_no_tokens			0	0		1
+33	2482	701	~D3&~D2&([A12/2][CLK2])	expression	~D3&~D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+34	2482	725	~D1&~D0&([A12/2][CLK2])	expression	~D1&~D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+35	30	733	D3_PAD	label	D3_PAD	D3	1.000	1	matched	0.0	0.0	0	0		0
+36	2783	747	D0	label	D0		0.000	0	ocr_no_tokens			0	0		1
+37	2482	749	~D1&~D0&([A22/2][CLK2])	expression	~D1&~D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+38	2482	773	~D1&D0&([A22/2][CLK2])	expression	~D1&D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+39	2806	791	~D0	label	~D0		0.000	0	ocr_no_tokens			0	0		1
+40	2482	797	~D1&D0&([A12/2][CLK2])	expression	~D1&D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+41	111	813	~IOWRITE	label	~IOWRITE		0.000	0	ocr_no_tokens			0	0		1
+42	2482	821	D1&~D0&([A12/2][CLK2])	expression	D1&~D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
+43	611	835	DO3	label	DO3		0.000	0	ocr_no_tokens			0	0		1
+44	2783	836	D1	label	D1		0.000	0	ocr_no_tokens			0	0		1
+45	2482	845	D1&~D0&([A22/2][CLK2])	expression	D1&~D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+46	2482	869	D1&D0&([A22/2][CLK2])	expression	D1&D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
+47	30	870	IO3	label	IO3		0.000	0	ocr_no_tokens			0	0		1
+48	2806	880	~D1	label	~D1		0.000	0	ocr_no_tokens			0	0		1
+49	2482	893	D1&D0&([A12/2][CLK2])	expression	D1&D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0

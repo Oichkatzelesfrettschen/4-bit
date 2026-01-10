@@ -1,0 +1,17 @@
+{
+  "chip": "4003",
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+    "schematic_sha256": "e401f6f7a509043cf3e0117f91d64aa190dbff54ab8cda4b5583c2f574b22230",
+    "signals_txt": "docs/emulators/i4003-signals.txt"
+  },
+  "outputs": {
+    "text": "docs/evidence/ocr_schematics/4003_schematic.txt",
+    "tsv": "docs/evidence/ocr_schematics/4003_schematic.tsv"
+  },
+  "params": {
+    "invert": false,
+    "psm": 11,
+    "scale": 4
+  }
+}

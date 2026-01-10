@@ -5,7 +5,16 @@
 //! with proper bus protocol timing.
 
 use mcs4_bus::prelude::*;
-use mcs4_chips::{i4001::I4001, i4002::I4002, i4004::I4004};
+use mcs4_chips::{i4001::I4001, i4002::I4002, i4003::I4003, i4004::I4004};
+
+use crate::fixture::load_hex_bytes;
+
+#[derive(Clone, Debug)]
+struct AttachedShiftReg {
+    bank: u8,
+    chip: u8,
+    dev: I4003,
+}
 
 /// Complete MCS-4 system
 pub struct Mcs4System {
@@ -17,6 +26,9 @@ pub struct Mcs4System {
 
     /// RAM chips (up to 4 banks x 4 chips = 16 x 4002)
     pub ram: Vec<I4002>,
+
+    /// Optional attached 4003 shift registers (wired to a RAM output port, best-effort).
+    shift_regs: Vec<AttachedShiftReg>,
 
     /// 4-bit bidirectional data bus
     pub bus: DataBus,
@@ -44,6 +56,7 @@ impl Mcs4System {
             cpu: I4004::new(),
             rom: vec![I4001::new(0)],
             ram: vec![I4002::new(0, 0)],
+            shift_regs: Vec::new(),
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
             clock: TwoPhaseClock::default_config(),
@@ -70,6 +83,7 @@ impl Mcs4System {
                 I4002::new(2, 1),
                 I4002::new(3, 1),
             ],
+            shift_regs: Vec::new(),
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
             clock: TwoPhaseClock::default_config(),
@@ -97,6 +111,7 @@ impl Mcs4System {
             cpu: I4004::new(),
             rom,
             ram,
+            shift_regs: Vec::new(),
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
             clock: TwoPhaseClock::default_config(),
@@ -104,6 +119,22 @@ impl Mcs4System {
             total_cycles: 0,
             breakpoints: Vec::new(),
         }
+    }
+
+    /// Attach a 4003 shift register to a specific RAM output port (bank + chip).
+    ///
+    /// Best-effort wiring model: whenever `WMP` updates the selected RAM output port, we shift in
+    /// the output port bit0 into the 4003.
+    pub fn attach_i4003(&mut self, bank: u8, chip: u8) {
+        self.shift_regs.push(AttachedShiftReg {
+            bank: bank & 0x03,
+            chip: chip & 0x03,
+            dev: I4003::new(),
+        });
+    }
+
+    pub fn i4003_parallel_out(&self, index: usize) -> Option<u16> {
+        self.shift_regs.get(index).map(|s| s.dev.parallel_out())
     }
 
     /// Load program into ROM starting at address 0
@@ -121,6 +152,13 @@ impl Mcs4System {
         let file = std::fs::File::open(path)?;
         let mmap = unsafe { memmap2::Mmap::map(&file)? };
         self.load_rom(&mmap);
+        Ok(())
+    }
+
+    /// Load a ROM fixture from a whitespace-separated hex text file.
+    pub fn load_rom_hex_file(&mut self, path: impl AsRef<std::path::Path>) -> Result<(), crate::FixtureError> {
+        let bytes = load_hex_bytes(path)?;
+        self.load_rom(&bytes);
         Ok(())
     }
 
@@ -170,20 +208,61 @@ impl Mcs4System {
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
             }
 
-            // Execute phases: bidirectional data exchange
-            BusCycle::X1 | BusCycle::X2 | BusCycle::X3 => {
-                // For X2 (writes): CPU puts data, RAM stores
-                // For X3 (reads): RAM puts data, CPU reads
-                // RAM responds first to handle reads
+            // Execute phases: bidirectional data exchange.
+            //
+            // Ordering matters:
+            // - X2 is write-oriented (CPU drives, peripherals latch).
+            // - X3 is read-oriented (peripherals drive, CPU latches), except SRC which uses the
+            //   bus in X3 for the second nibble of the address latch.
+            BusCycle::X1 => {
+                self.cpu.tick(phase, &mut self.bus, &mut self.control);
                 for ram in &mut self.ram {
                     ram.tick_bus(phase, &mut self.bus, &self.control);
                 }
-                // ROM I/O ports also active during X phases
                 for rom in &mut self.rom {
                     rom.tick_bus(phase, &mut self.bus, &self.control);
                 }
-                // CPU processes data
+            }
+            BusCycle::X2 => {
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                for ram in &mut self.ram {
+                    ram.tick_bus(phase, &mut self.bus, &self.control);
+                }
+                if self.control.io_op == Some(IoOp::RamPortWrite) {
+                    for sr in &mut self.shift_regs {
+                        if let Some(ram) = self
+                            .ram
+                            .iter()
+                            .find(|r| r.bank_id() == sr.bank && r.chip_id() == sr.chip && r.is_selected())
+                        {
+                            let bit = (ram.output() & 0x01) != 0;
+                            sr.dev.shift_in(bit);
+                        }
+                    }
+                }
+                for rom in &mut self.rom {
+                    rom.tick_bus(phase, &mut self.bus, &self.control);
+                }
+            }
+            BusCycle::X3 => {
+                if self.control.io_op == Some(IoOp::Src) {
+                    // SRC uses the bus in X3, so CPU must drive before RAM latches.
+                    self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                    for ram in &mut self.ram {
+                        ram.tick_bus(phase, &mut self.bus, &self.control);
+                    }
+                    for rom in &mut self.rom {
+                        rom.tick_bus(phase, &mut self.bus, &self.control);
+                    }
+                } else {
+                    for ram in &mut self.ram {
+                        ram.tick_bus(phase, &mut self.bus, &self.control);
+                    }
+                    for rom in &mut self.rom {
+                        rom.tick_bus(phase, &mut self.bus, &self.control);
+                    }
+                    self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                }
             }
         }
 
@@ -253,6 +332,34 @@ impl Mcs4System {
     /// Set the CPU test pin
     pub fn set_test_pin(&mut self, state: bool) {
         self.cpu.set_test_pin(state);
+    }
+
+    /// Get the CPU test pin
+    pub fn test_pin(&self) -> bool {
+        self.cpu.test_pin()
+    }
+
+    /// Read the 4-bit ROM I/O port output latch for the given ROM chip.
+    pub fn read_rom_port(&self, chip_id: u8) -> Option<u8> {
+        self.rom
+            .iter()
+            .find(|rom| rom.chip_id == (chip_id & 0x0F))
+            .map(|rom| rom.io_output())
+    }
+
+    /// Set the 4-bit ROM I/O port input latch for the given ROM chip.
+    pub fn write_rom_port_input(&mut self, chip_id: u8, value: u8) {
+        if let Some(rom) = self.rom.iter_mut().find(|rom| rom.chip_id == (chip_id & 0x0F)) {
+            rom.set_io_input(value);
+        }
+    }
+
+    /// Read the 4-bit RAM output port latch for the given bank/chip.
+    pub fn read_ram_port(&self, bank_id: u8, chip_id: u8) -> Option<u8> {
+        self.ram
+            .iter()
+            .find(|ram| ram.bank_id == (bank_id & 0x03) && ram.chip_id == (chip_id & 0x03))
+            .map(|ram| ram.output())
     }
 
     /// Get current program counter
@@ -335,6 +442,29 @@ mod tests {
     }
 
     #[test]
+    fn test_i4003_shifts_from_ram_output_port() {
+        let mut sys = Mcs4System::minimal();
+        sys.attach_i4003(0, 0);
+
+        // Select chip=0, reg=0, char=1 once, then do WMP ten times.
+        // Each WMP shifts in ACC bit0 (via RAM output bit0).
+        let mut program = vec![
+            0x20, 0x01, // FIM P0, 0x01
+            0x21, // SRC P0
+        ];
+        for bit in [true, false, true, false, true, false, true, false, true, false] {
+            program.push(if bit { 0xD1 } else { 0xD0 }); // LDM 0/1
+            program.push(0xE1); // WMP
+        }
+        program.push(0x00); // NOP
+        sys.load_rom(&program);
+
+        sys.run_cycles(30);
+
+        assert_eq!(sys.i4003_parallel_out(0), Some(0x2AA));
+    }
+
+    #[test]
     fn test_load_and_run() {
         let mut sys = Mcs4System::minimal();
 
@@ -372,5 +502,194 @@ mod tests {
         let hit = sys.run_until_breakpoint(100);
         assert!(hit);
         assert_eq!(sys.pc(), 4);
+    }
+
+    #[test]
+    fn test_two_byte_jun_jumps_to_target() {
+        let mut sys = Mcs4System::minimal();
+
+        // JUN 0x005 (two-byte instruction): 0x40 0x05
+        sys.load_rom(&[0x40, 0x05, 0x00, 0x00, 0x00, 0x00]);
+
+        // First machine cycle fetches opcode, then advances PC to fetch operand.
+        sys.run_cycles(1);
+        assert_eq!(sys.pc(), 1);
+
+        // Second machine cycle fetches operand and executes the jump.
+        sys.run_cycles(1);
+        assert_eq!(sys.pc(), 0x005);
+    }
+
+    #[test]
+    fn test_two_byte_jms_and_bbl_return_address() {
+        let mut sys = Mcs4System::minimal();
+
+        // JMS 0x004 (two-byte instruction): 0x50 0x04
+        // At 0x004: BBL 0xA
+        sys.load_rom(&[0x50, 0x04, 0x00, 0x00, 0x00, 0x00]);
+        sys.load_rom_at(0x004, &[0xCA]);
+
+        sys.run_cycles(1);
+        assert_eq!(sys.pc(), 1);
+
+        // Execute call; next fetch should begin at subroutine target (0x004).
+        sys.run_cycles(1);
+        assert_eq!(sys.pc(), 0x004);
+
+        // Execute BBL 0xA, which returns to 0x002 (next instruction after JMS operand).
+        sys.run_cycles(1);
+        assert_eq!(sys.accumulator(), 0xA);
+        assert_eq!(sys.pc(), 0x002);
+    }
+
+    #[test]
+    fn test_wrr_writes_rom_io_port() {
+        let mut sys = Mcs4System::minimal();
+
+        // LDM 0xA; WRR; NOP
+        sys.load_rom(&[0xDA, 0xE2, 0x00]);
+
+        sys.run_cycles(2);
+
+        assert_eq!(sys.rom[0].io_output(), 0xA);
+    }
+
+    #[test]
+    fn test_wpm_has_no_side_effects_by_default() {
+        let mut sys = Mcs4System::minimal();
+
+        // Seed ROM with a known byte; WPM is currently treated as "bus write with no modeled target".
+        sys.rom[0].write_direct(0x10, 0x99);
+
+        // LDM 0xA; WPM; NOP
+        sys.load_rom(&[0xDA, 0xE3, 0x00]);
+
+        sys.run_cycles(4);
+
+        // ROM contents should not have been modified.
+        assert_eq!(sys.rom[0].read_direct(0x10), 0x99);
+        // ROM I/O port should not have been modified (that's WRR).
+        assert_eq!(sys.rom[0].io_output(), 0x0);
+    }
+
+    #[test]
+    fn test_end_to_end_src_wrm_rdm_roundtrip() {
+        let mut sys = Mcs4System::minimal();
+
+        // ACC=0xA
+        // P0 = 0x01 -> chip=0, reg=0, char=1 (hi nibble encodes reg:chip as (reg<<2)|chip)
+        // SRC P0 (latch address)
+        // WRM (write ACC to RAM[reg][char])
+        // ACC=0x0, then RDM to read back into ACC
+        sys.load_rom(&[
+            0xDA, // LDM 0xA
+            0x20, 0x01, // FIM P0, 0x01
+            0x21, // SRC P0
+            0xE0, // WRM
+            0xD0, // LDM 0x0
+            0xE9, // RDM
+            0x00, // NOP
+        ]);
+
+        // 1 + 2 + 1 + 1 + 1 + 1 + 1 = 8 machine cycles (approx; run a bit extra for safety).
+        sys.run_cycles(10);
+
+        assert_eq!(sys.accumulator(), 0xA);
+        assert_eq!(sys.read_ram(0, 0, 0, 1), Some(0xA));
+    }
+
+    #[test]
+    fn test_wrm_without_src_does_not_write() {
+        let mut sys = Mcs4System::minimal();
+
+        // LDM 0xA; WRM; NOP
+        sys.load_rom(&[0xDA, 0xE0, 0x00]);
+
+        // Run a few cycles; WRM should be ignored without a preceding SRC.
+        sys.run_cycles(6);
+
+        assert_eq!(sys.ram[0].read_direct(0, 0), 0x0);
+    }
+
+    #[test]
+    fn test_src_drives_bus_over_x2_x3() {
+        let mut sys = Mcs4System::minimal();
+
+        // FIM P0, 0x68 ; SRC P0 ; NOP
+        // 0x68 encodes chip_reg=0x6 (chip=2, reg=1) and char=0x8.
+        sys.load_rom(&[0x20, 0x68, 0x21, 0x00]);
+
+        let mut saw_x2 = false;
+        let mut saw_x3 = false;
+
+        for _ in 0..(8 * 10) {
+            let phase = sys.phase();
+            let is_src = sys.control.io_op == Some(IoOp::Src);
+
+            sys.step();
+
+            if is_src && phase == BusCycle::X2 {
+                assert_eq!(sys.bus.read(), 0x06);
+                saw_x2 = true;
+            }
+            if is_src && phase == BusCycle::X3 {
+                assert_eq!(sys.bus.read(), 0x08);
+                saw_x3 = true;
+            }
+
+            if saw_x2 && saw_x3 {
+                break;
+            }
+        }
+
+        assert!(saw_x2);
+        assert!(saw_x3);
+    }
+
+    #[test]
+    fn test_fixture_src_wrm_rdm_hex_executes() {
+        let mut sys = Mcs4System::minimal();
+
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("fixtures")
+            .join("src_wrm_rdm.hex");
+        sys.load_rom_hex_file(path).expect("load fixture");
+
+        sys.run_cycles(10);
+
+        assert_eq!(sys.accumulator(), 0xA);
+        assert_eq!(sys.read_ram(0, 0, 0, 1), Some(0xA));
+    }
+
+    #[test]
+    fn test_fixture_rom_port_wrr_rdr_hex_executes() {
+        let mut sys = Mcs4System::minimal();
+
+        sys.rom[0].set_io_input(0xC);
+
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("fixtures")
+            .join("rom_port_wrr_rdr.hex");
+        sys.load_rom_hex_file(path).expect("load fixture");
+
+        sys.run_cycles(12);
+
+        assert_eq!(sys.rom[0].io_output(), 0xA);
+        assert_eq!(sys.accumulator(), 0xC);
+    }
+
+    #[test]
+    fn test_fixture_ram_status_wr1_rd1_hex_executes() {
+        let mut sys = Mcs4System::minimal();
+
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("fixtures")
+            .join("ram_status_wr1_rd1.hex");
+        sys.load_rom_hex_file(path).expect("load fixture");
+
+        sys.run_cycles(12);
+
+        assert_eq!(sys.accumulator(), 0xB);
+        assert_eq!(sys.ram[0].read_status(1), 0xB);
     }
 }

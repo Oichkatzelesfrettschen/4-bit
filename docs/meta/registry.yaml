@@ -5,7 +5,11 @@ metadata:
 docs:
   - file: README.md
     role: overview
+  - file: requirements.md
+    role: requirements
   - file: gemini.md
+    role: meta
+  - file: claude.md
     role: meta
   - file: ARCHITECTURE.md
     role: architecture
@@ -13,6 +17,8 @@ docs:
     role: status
   - file: mcs4-emu/INSTALLATION.md
     role: installation
+  - file: mcs4-emu/requirements.md
+    role: requirements
   - file: docs/API.md
     role: api
   - file: docs/DEPLOYMENT.md
@@ -25,6 +31,8 @@ docs:
     role: changelog
   - file: docs/ROADMAP.md
     role: roadmap
+  - file: docs/TODO.md
+    role: tracking
   - file: docs/INDEX.md
     role: index
   - file: docs/DEVELOPMENT.md
@@ -44,6 +52,10 @@ docs:
   - file: docs/photomicrographs/README.md
     role: reference
   - file: docs/evidence/README.md
+    role: evidence
+  - file: docs/evidence/DIAGRAM_EXTRACTION.md
+    role: evidence
+  - file: docs/evidence/OCR_SIGNAL_LABELS.md
     role: evidence
   - file: docs/evidence/photomicrograph_permissions.md
     role: evidence

@@ -13,6 +13,26 @@ pub enum ChipSelect {
     Ram(u8),
 }
 
+/// High-level bus I/O operation currently in progress (best-effort).
+///
+/// This is a pragmatic model used to avoid "always-on" peripheral behavior.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum IoOp {
+    /// SRC: latch RAM chip/register/character address.
+    Src,
+    /// ROM port write/read (4001): WRR / RDR.
+    RomPortWrite,
+    RomPortRead,
+    /// RAM main memory write/read (4002): WRM / RDM / ADM / SBM.
+    RamMainWrite,
+    RamMainRead,
+    /// RAM output port write (4002): WMP.
+    RamPortWrite,
+    /// RAM status nibble write/read (4002): WR0-3 / RD0-3.
+    RamStatusWrite(u8),
+    RamStatusRead(u8),
+}
+
 /// Control signals for the MCS-4 bus
 #[derive(Clone, Debug)]
 pub struct ControlSignals {
@@ -22,8 +42,17 @@ pub struct ControlSignals {
     /// CM-ROM0 through CM-ROM3 - ROM bank select
     pub cm_rom: [Signal; 4],
 
+    /// True if ROM chip-select is enabled (allows selecting bank 0 distinctly from "none").
+    rom_enabled: bool,
+
     /// CM-RAM0 through CM-RAM3 - RAM bank select
     pub cm_ram: [Signal; 4],
+
+    /// True if RAM chip-select is enabled (allows selecting bank 0 distinctly from "none").
+    ram_enabled: bool,
+
+    /// Decoded I/O operation for the current instruction/cycle.
+    pub io_op: Option<IoOp>,
 
     /// TEST - External test input (active low)
     pub test: Signal,
@@ -53,12 +82,15 @@ impl ControlSignals {
                 Signal::new("CM-ROM2", SignalLevel::Low),
                 Signal::new("CM-ROM3", SignalLevel::Low),
             ],
+            rom_enabled: false,
             cm_ram: [
                 Signal::new("CM-RAM0", SignalLevel::Low),
                 Signal::new("CM-RAM1", SignalLevel::Low),
                 Signal::new("CM-RAM2", SignalLevel::Low),
                 Signal::new("CM-RAM3", SignalLevel::Low),
             ],
+            ram_enabled: false,
+            io_op: None,
             test: Signal::new("TEST", SignalLevel::High), // Active low
             reset: Signal::new("RESET", SignalLevel::Low),
             stp: None,
@@ -77,18 +109,29 @@ impl ControlSignals {
                 Signal::new("CM-ROM2", SignalLevel::Low),
                 Signal::new("CM-ROM3", SignalLevel::Low),
             ],
+            rom_enabled: false,
             cm_ram: [
                 Signal::new("CM-RAM0", SignalLevel::Low),
                 Signal::new("CM-RAM1", SignalLevel::Low),
                 Signal::new("CM-RAM2", SignalLevel::Low),
                 Signal::new("CM-RAM3", SignalLevel::Low),
             ],
+            ram_enabled: false,
+            io_op: None,
             test: Signal::new("TEST", SignalLevel::High),
             reset: Signal::new("RESET", SignalLevel::Low),
             stp: Some(Signal::new("STP", SignalLevel::Low)),
             stop: Some(Signal::new("STOP", SignalLevel::Low)),
             int: Some(Signal::new("INT", SignalLevel::Low)),
         }
+    }
+
+    pub fn set_io_op(&mut self, op: IoOp) {
+        self.io_op = Some(op);
+    }
+
+    pub fn clear_io_op(&mut self) {
+        self.io_op = None;
     }
 
     /// Assert SYNC signal
@@ -103,6 +146,7 @@ impl ControlSignals {
 
     /// Select ROM bank (0-15)
     pub fn select_rom(&mut self, bank: u8, time: Time) {
+        self.rom_enabled = true;
         let bank = bank & 0x0F;
         for (i, signal) in self.cm_rom.iter_mut().enumerate() {
             let level = if (bank >> i) & 1 == 1 {
@@ -116,6 +160,7 @@ impl ControlSignals {
 
     /// Select RAM bank (0-15)
     pub fn select_ram(&mut self, bank: u8, time: Time) {
+        self.ram_enabled = true;
         let bank = bank & 0x0F;
         for (i, signal) in self.cm_ram.iter_mut().enumerate() {
             let level = if (bank >> i) & 1 == 1 {
@@ -129,6 +174,7 @@ impl ControlSignals {
 
     /// Deselect all ROM banks
     pub fn deselect_rom(&mut self, time: Time) {
+        self.rom_enabled = false;
         for signal in &mut self.cm_rom {
             signal.update(time, SignalLevel::Low);
         }
@@ -136,6 +182,7 @@ impl ControlSignals {
 
     /// Deselect all RAM banks
     pub fn deselect_ram(&mut self, time: Time) {
+        self.ram_enabled = false;
         for signal in &mut self.cm_ram {
             signal.update(time, SignalLevel::Low);
         }
@@ -143,39 +190,29 @@ impl ControlSignals {
 
     /// Get currently selected ROM bank (if any)
     pub fn selected_rom(&self) -> Option<u8> {
-        let mut bank = 0u8;
-        let mut any_selected = false;
-
-        for (i, signal) in self.cm_rom.iter().enumerate() {
-            if signal.current == SignalLevel::High {
-                bank |= 1 << i;
-                any_selected = true;
-            }
+        if !self.rom_enabled {
+            return None;
         }
-
-        if any_selected {
-            Some(bank)
-        } else {
-            None
-        }
+        Some(self.cm_rom())
     }
 
     /// Get currently selected RAM bank (if any)
     pub fn selected_ram(&self) -> Option<u8> {
-        let mut bank = 0u8;
-        let mut any_selected = false;
-
-        for (i, signal) in self.cm_ram.iter().enumerate() {
-            if signal.current == SignalLevel::High {
-                bank |= 1 << i;
-                any_selected = true;
-            }
+        if !self.ram_enabled {
+            return None;
         }
+        Some(self.cm_ram())
+    }
 
-        if any_selected {
-            Some(bank)
-        } else {
-            None
+    /// Get selected chip as a single enum value (best-effort).
+    ///
+    /// Note: MCS-4/MCS-40 can have both ROM and RAM selects present depending on phase and
+    /// instruction. This helper is primarily for diagnostics and logging.
+    pub fn selected_chip(&self) -> ChipSelect {
+        match (self.selected_rom(), self.selected_ram()) {
+            (Some(rom), _) => ChipSelect::Rom(rom),
+            (None, Some(ram)) => ChipSelect::Ram(ram),
+            (None, None) => ChipSelect::None,
         }
     }
 
@@ -242,16 +279,19 @@ impl ControlSignals {
     /// Check if an I/O write operation is in progress
     /// This is set during X2 phase for WRR/WRM/WMP/WRx instructions
     pub fn is_io_write(&self) -> bool {
-        // In a full implementation, this would be decoded from control lines
-        // For now, we use a simplified check based on ROM selection
-        self.selected_rom().is_some()
+        matches!(
+            self.io_op,
+            Some(IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_) | IoOp::Src)
+        )
     }
 
     /// Check if an I/O read operation is in progress
     /// This is set during X3 phase for RDR/RDM/RDx instructions
     pub fn is_io_read(&self) -> bool {
-        // In a full implementation, this would be decoded from control lines
-        self.selected_rom().is_some()
+        matches!(
+            self.io_op,
+            Some(IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_))
+        )
     }
 }
 
@@ -262,6 +302,9 @@ mod tests {
     #[test]
     fn test_rom_select() {
         let mut ctrl = ControlSignals::mcs4();
+
+        ctrl.select_rom(0, 0);
+        assert_eq!(ctrl.selected_rom(), Some(0));
 
         ctrl.select_rom(5, 0); // Binary 0101
         assert_eq!(ctrl.selected_rom(), Some(5));
@@ -298,5 +341,28 @@ mod tests {
         assert!(ctrl.stp.is_some());
         assert!(ctrl.stop.is_some());
         assert!(ctrl.int.is_some());
+    }
+
+    #[test]
+    fn test_io_op_helpers() {
+        let mut ctrl = ControlSignals::mcs4();
+        assert!(!ctrl.is_io_write());
+        assert!(!ctrl.is_io_read());
+
+        ctrl.io_op = Some(IoOp::Src);
+        assert!(ctrl.is_io_write());
+        assert!(!ctrl.is_io_read());
+
+        ctrl.io_op = Some(IoOp::RamMainWrite);
+        assert!(ctrl.is_io_write());
+        assert!(!ctrl.is_io_read());
+
+        ctrl.io_op = Some(IoOp::RamMainRead);
+        assert!(!ctrl.is_io_write());
+        assert!(ctrl.is_io_read());
+
+        ctrl.io_op = Some(IoOp::RomPortRead);
+        assert!(!ctrl.is_io_write());
+        assert!(ctrl.is_io_read());
     }
 }

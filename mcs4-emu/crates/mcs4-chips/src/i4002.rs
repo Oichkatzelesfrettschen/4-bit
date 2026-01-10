@@ -29,6 +29,12 @@ pub struct I4002 {
     /// Latched character address from SRC command
     selected_char: u8,
 
+    /// Was this chip selected by the most recent SRC?
+    src_selected: bool,
+
+    /// SRC in progress for this chip (chip/reg latched, waiting for char nibble).
+    src_pending: bool,
+
     /// Is this chip selected for current transaction?
     selected: bool,
 
@@ -47,6 +53,8 @@ impl I4002 {
             bank_id: bank_id & 0x03,
             selected_register: 0,
             selected_char: 0,
+            src_selected: false,
+            src_pending: false,
             selected: false,
             phase: BusCycle::A1,
         }
@@ -97,49 +105,77 @@ impl I4002 {
         self.selected
     }
 
-    /// Set the SRC address (called by system when CPU executes SRC)
-    pub fn set_src_address(&mut self, chip: u8, reg: u8, char_addr: u8) {
-        if (chip & 0x03) == self.chip_id {
-            self.selected_register = reg & 0x03;
-            self.selected_char = char_addr & 0x0F;
-        }
-    }
-
     /// Process a bus phase
     pub fn tick_bus(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &ControlSignals) {
         self.phase = phase;
 
         // Check if we're selected by CM-RAM bank
-        let ram_bank = ctrl.cm_ram();
-        let bank_selected = ram_bank == self.bank_id;
+        let bank_selected = ctrl.selected_ram() == Some(self.bank_id);
 
         match phase {
             BusCycle::A1 | BusCycle::A2 | BusCycle::A3 | BusCycle::M1 | BusCycle::M2 => {
                 // Address and memory phases - RAM doesn't respond
             }
             BusCycle::X1 => {
-                // Check selection - in real hardware this would be from SRC
-                self.selected = bank_selected;
+                // Check selection for non-SRC operations.
+                // SRC itself updates src_selected during X2/X3.
+                self.selected = match ctrl.io_op {
+                    Some(IoOp::Src) => false,
+                    _ => bank_selected && self.src_selected,
+                };
             }
             BusCycle::X2 => {
+                // SRC latches chip+register in X2 (one nibble).
+                if bank_selected && ctrl.io_op == Some(IoOp::Src) {
+                    let chip_reg = bus.read() & 0x0F;
+                    let chip = chip_reg & 0x03;
+                    let reg = (chip_reg >> 2) & 0x03;
+
+                    if chip == self.chip_id {
+                        self.selected_register = reg;
+                        self.src_pending = true;
+                    } else {
+                        self.src_pending = false;
+                    }
+                }
+
                 // Write operations during X2
-                if self.selected && ctrl.is_io_write() {
-                    // This could be WRM, WMP, or WRx
-                    // For WRM: write to RAM
-                    // For WMP: write to output port
-                    // For WRx: write to status register x
-                    // The exact operation is determined by the instruction decoder
-                    // For now, we store to RAM as the default
-                    let value = bus.read() & 0x0F;
-                    self.ram[self.selected_register as usize][self.selected_char as usize] = value;
+                if self.selected {
+                    match ctrl.io_op {
+                        Some(IoOp::RamMainWrite) => {
+                            let value = bus.read() & 0x0F;
+                            self.ram[self.selected_register as usize][self.selected_char as usize] = value;
+                        }
+                        Some(IoOp::RamPortWrite) => {
+                            self.output = bus.read() & 0x0F;
+                        }
+                        Some(IoOp::RamStatusWrite(idx)) => {
+                            self.status[(idx & 3) as usize] = bus.read() & 0x0F;
+                        }
+                        _ => {}
+                    }
                 }
             }
             BusCycle::X3 => {
+                // SRC latches character in X3 (second nibble).
+                if bank_selected && ctrl.io_op == Some(IoOp::Src) && self.src_pending {
+                    self.selected_char = bus.read() & 0x0F;
+                    self.src_selected = true;
+                    self.src_pending = false;
+                }
+
                 // Read operations during X3
-                if self.selected && ctrl.is_io_read() {
-                    // RDM: read from RAM
-                    let value = self.ram[self.selected_register as usize][self.selected_char as usize];
-                    bus.write(value);
+                if self.selected {
+                    match ctrl.io_op {
+                        Some(IoOp::RamMainRead) => {
+                            let value = self.ram[self.selected_register as usize][self.selected_char as usize];
+                            bus.write(value);
+                        }
+                        Some(IoOp::RamStatusRead(idx)) => {
+                            bus.write(self.status[(idx & 3) as usize]);
+                        }
+                        _ => {}
+                    }
                 }
             }
         }
@@ -188,6 +224,8 @@ impl super::Chip for I4002 {
         self.output = 0;
         self.selected_register = 0;
         self.selected_char = 0;
+        self.src_selected = false;
+        self.src_pending = false;
         self.selected = false;
         self.phase = BusCycle::A1;
     }
@@ -246,8 +284,20 @@ mod tests {
         assert_eq!(ram.chip_id(), 2);
         assert_eq!(ram.bank_id(), 1);
 
-        // Set SRC address for this chip
-        ram.set_src_address(2, 1, 8);
+        // Simulate SRC bus transfer:
+        // - X2: chip+register nibble (chip in bits 0-1, reg in bits 2-3)
+        // - X3: character nibble
+        let mut bus = DataBus::new();
+        let mut ctrl = ControlSignals::mcs4();
+        ctrl.select_ram(1, 0);
+        ctrl.io_op = Some(IoOp::Src);
+
+        let chip_reg = 2u8 | (1u8 << 2);
+        bus.write(chip_reg);
+        ram.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+
+        bus.write(8);
+        ram.tick_bus(BusCycle::X3, &mut bus, &ctrl);
 
         // Now WRM/RDM use that address
         ram.wrm(0x7);

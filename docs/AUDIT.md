@@ -14,22 +14,24 @@ with a source URL.
 
 | Claim | Source | Status | Notes |
 | --- | --- | --- | --- |
-| Intel 4004 clock: 750 kHz; 10.8 microsecond instruction cycle | docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf ([bitsavers](http://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf)) | Verified (primary, OCR) | Page 4 OCR: 10.8 usec cycle and 750 KHz clock; see docs/evidence/ocr/mcs4_data_sheet_nov71.txt. |
-| Intel 4004 clock period 1.35-2.0 usec | docs/4004/intel-4004-datasheet.pdf (chipdb mirror: https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf) | Verified (primary, OCR) | See docs/evidence/ocr_results.md; OCR shows "Clock Period 1.35 2.0 usec". |
+| 4004: 750 kHz; 10.8 usec cycle | docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf ([bitsavers][bitsavers-mcs4-data-sheet]) | Verified (primary) | OCR: docs/evidence/ocr/mcs4_data_sheet_nov71.txt (p4). |
+| Intel 4004 clock period 1.35-2.0 usec | docs/4004/intel-4004-datasheet.pdf ([chipdb mirror][chipdb-4004-datasheet]) | Verified (primary, OCR) | OCR sidecar in docs/evidence/ocr_results.md. |
 | Intel 4004 instruction cycle 10.8 microseconds | docs/4004/intel-4004-datasheet.pdf | Verified (primary, OCR) | Page 1 OCR: "10.8 Microsecond Instruction Cycle". Local scan; online source TBD. |
-| Intel 4004 uses 10 um process | https://en.wikipedia.org/wiki/Intel_4004 | Verified (secondary) | Primary datasheet text does not list this value. |
-| Intel 4004 contains ~2,300 transistors | https://en.wikipedia.org/wiki/Intel_4004 | Verified (secondary) | Not found in OCR of primary datasheets; 4004.com netlist counts differ (see below). |
-| Intel 4040 max clock rate 500-740 kHz | docs/4040/4040-datasheet.pdf (chipdb mirror: https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf) | Derived (primary clock period) | See docs/evidence/ocr_results.md; clock period 1.35-2.0 usec implies 0.5-0.74 MHz; CPU max clock not explicitly specified. |
-| Intel 4040 instruction cycle standard 10.8 microseconds | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers](http://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf)) | Verified (primary) | Page 7 and 100: 10.8 microsecond cycle. |
+| Intel 4004 uses 10 um process | [Wikipedia][wiki-4004] | Verified (secondary) | Primary datasheet text does not list this value. |
+| Intel 4004 contains ~2,300 transistors | [Wikipedia][wiki-4004] | Verified (secondary) | Not found in OCR of primary datasheets; 4004.com netlist counts differ (see below). |
+| Intel 4004 executes ~92,000 IPS | [Wikipedia][wiki-4004] | Verified (secondary) | Primary confirmation pending. |
+| 4040 clock: 1.35-2.0 usec period (derived 0.5-0.74 MHz) | docs/4040/4040-datasheet.pdf ([chipdb mirror][chipdb-4040-datasheet]) | Derived (primary) | OCR: docs/evidence/ocr_results.md. |
+| Intel 4040 max clock 500-740 kHz | [Wikipedia][wiki-4040] | Verified (secondary) | Matches clock-period-derived range; primary explicit spec pending. |
+| 4040: 10.8 usec instruction cycle | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers][bitsavers-mcs40-users-manual]) | Verified (primary) | Pages 7 and 100. |
 | Intel 4040 adds 14 instructions for 60 total | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf | Verified (primary) | Page 30: 14 new instructions, 60 total. |
 | Intel 4004 has 46 instructions | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf | Verified (primary) | Page 7: 46 instructions. |
-| Intellec 4/MOD 40 system clock nominal 5.185 MHz | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers](http://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf)) | Verified (primary) | Page 100: system clock spec, not CPU max clock. |
-| MCS-40 system clock period 1.35-2.0 usec (rise/fall 50 ns; width 380-480 ns) | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers](http://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf)) | Verified (primary) | Page 103: system characteristics table. |
-| Intel 4040 contains ~3,000 transistors | https://en.wikipedia.org/wiki/Intel_4040 | Verified (secondary) | Not found in OCR of primary datasheets or 1975 Intel Data Catalog. |
-| Intel 4040 executes ~62,000 IPS | https://en.wikipedia.org/wiki/Intel_4040 | Verified (secondary) | Primary confirmation pending. |
-| 2025 discrete-transistor MCS-4 system at ~2x original clock | https://www.4004.com/ | Verified (secondary) | Homepage claim; primary confirmation pending. |
-| 4004 netlist component counts (layout vs schematics) | https://www.4004.com/assets/i400x_analyzer_repacked_20221111.zip | Verified (secondary, forensic) | See docs/evidence/ocr_results.md; readme lists 1,807 transistors and 2,308 total components. |
-| eframe Linux dependencies list (xcb/xkbcommon/ssl) | https://github.com/emilk/egui/blob/master/crates/eframe/README.md | Verified | Used in INSTALLATION.md. |
+| Intellec 4/MOD 40: 5.185 MHz system clock | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers][bitsavers-mcs40-users-manual]) | Verified (primary) | Page 100 (system clock, not CPU max). |
+| MCS-40 system clock period 1.35-2.0 usec | docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf ([bitsavers][bitsavers-mcs40-users-manual]) | Verified (primary) | Page 103 (system characteristics). |
+| Intel 4040 contains ~3,000 transistors | [Wikipedia][wiki-4040] | Verified (secondary) | Not found in OCR of primary datasheets or 1975 Intel Data Catalog. |
+| Intel 4040 executes ~62,000 IPS | [Wikipedia][wiki-4040] | Verified (secondary) | Primary confirmation pending. |
+| 2025 discrete-transistor MCS-4 system at ~2x original clock | [4004.com][site-4004] | Verified (secondary) | Nov 2025 update cites ~1.5 MHz and "÷8" instruction rate; primary confirmation pending. |
+| 4004 analyzer netlist counts (readme) | [4004.com analyzer repack ZIP][i400x-analyzer-zip] | Verified (secondary, forensic) | OCR: docs/evidence/ocr_results.md. |
+| eframe Linux dependencies list (xcb/xkbcommon/ssl) | [eframe README][eframe-readme] | Verified | Used in INSTALLATION.md. |
 
 ## Immediate Discrepancies
 - README now aligns with primary instruction-cycle timing; CPU max clock for 4040 remains derived from system clock spec (not explicitly stated).
@@ -88,3 +90,13 @@ with a source URL.
 - Confirmed 5.185 MHz system clock for Intellec 4/MOD 40 (system spec, not CPU max clock).
 - 1975 Intel Data Catalog chunked OCR captured Intellec 4/MOD 4 and 4/MOD 40 memory specs; no transistor counts found.
 - Remaining primary gaps: 4004/4040 transistor counts and 4040 max clock remain unverified in primary sources.
+
+[bitsavers-mcs4-data-sheet]: http://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf
+[bitsavers-mcs40-users-manual]: http://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf
+[chipdb-4004-datasheet]: https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf
+[chipdb-4040-datasheet]: https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf
+[eframe-readme]: https://github.com/emilk/egui/blob/master/crates/eframe/README.md
+[i400x-analyzer-zip]: https://www.4004.com/assets/i400x_analyzer_repacked_20221111.zip
+[site-4004]: https://www.4004.com/
+[wiki-4004]: https://en.wikipedia.org/wiki/Intel_4004
+[wiki-4040]: https://en.wikipedia.org/wiki/Intel_4040

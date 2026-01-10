@@ -81,7 +81,9 @@ Local artifacts
 External photo references
 - https://happytrees.org/chips/Intel_-_P4040 (package photo, CC BY-SA 4.0)
 - https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (package photo, CC BY-SA)
-- https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040 (package photos; also lists “Transistors: 3,000” and “Core Frequency: 0.74 MHz”; license not stated, not imported; treat as secondary)
+- cpu-collection (package photos; also lists “Transistors: 3,000” and “Core Frequency: 0.74 MHz”;
+  license not stated, not imported; treat as secondary):
+  https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040
 ## System-level wiring and schematics
 - docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf (board-level wiring)
 - docs/MCS-4/MCS-4_UsersManual_Feb73.pdf (system diagrams)
@@ -93,6 +95,11 @@ External photo references
 - docs/emulators/readme.txt (analyzer workflow and layer semantics)
 - docs/emulators/license.txt (Intel license for source materials)
 - docs/NETLIST_WORKFLOW.md (local workflow summary)
+
+Derived (machine-readable) extractions
+- docs/evidence/DIAGRAM_EXTRACTION.md (summary + limitations)
+- docs/evidence/ocr_schematics/ (pytesseract outputs for i400x schematic bitmaps)
+- docs/evidence/transistors/ (poly/diffusion intersection “candidate transistor” components)
 
 ## Layer analysis notes (from analyzer readme)
 - Netlists are extracted from both mask layers and schematic bitmaps, then matched.

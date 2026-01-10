@@ -1,0 +1,17 @@
+{
+  "chip": "4002",
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4002-schematic.bmp",
+    "schematic_sha256": "6b363327824419fda0eb1ca133d9a4d7213c947528f8f485239c4f8e51117672",
+    "signals_txt": "docs/emulators/i4002-signals.txt"
+  },
+  "outputs": {
+    "text": "docs/evidence/ocr_schematics/4002_schematic.txt",
+    "tsv": "docs/evidence/ocr_schematics/4002_schematic.tsv"
+  },
+  "params": {
+    "invert": false,
+    "psm": 11,
+    "scale": 4
+  }
+}

@@ -220,6 +220,27 @@ pub struct PmosFet {
 }
 ```
 
+#### Switch-Level Model (planned)
+
+The next fidelity step is a *switch-level* simulator (digital resolution with transistor-controlled
+connectivity), used to validate gate-level behavior against extracted transistor candidates.
+
+Design sketch:
+- Represent circuit nodes as a graph with explicit *supply nodes* (`VDD`, `VSS`) plus internal nets.
+- Model each transistor as an ideal bidirectional switch between two nodes, controlled by a gate:
+  - enhancement pMOS: conducts when the gate is asserted for the process’ convention (to be
+    standardized in code as a `LogicConvention` rather than relying on voltage sign).
+  - depletion load: always conducting (acts as a weak pull).
+- Per timestep, compute connectivity of “currently conducting” switches (Union-Find / DSU), then
+  resolve each connected component to a stable digital state:
+  - If connected to exactly one supply: that supply dominates.
+  - If connected to both supplies: mark contention (error in the model or missing resistive behavior).
+  - If connected to no supply: float (Z), optionally retain last state via node capacitance.
+- Provide an adapter to map resolved node states to the existing gate/bus `SignalLevel` values.
+
+This is intentionally “digital-first”: analog effects (RC delay, charge sharing, bootstrap behavior)
+are layered on later, once connectivity and contention handling are stable and testable.
+
 ### Bus Protocol
 
 ```rust

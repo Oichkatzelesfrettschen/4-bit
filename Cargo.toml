@@ -84,12 +84,6 @@ thiserror = "1"
 parking_lot = "0.12"
 once_cell = "1"
 
-# --- Additional requested ---
-u4 = "*"
-r6502 = "*"
-wellen = "*"
-tui-sparkline = "*"
-
 [workspace.lints.rust]
 unsafe_op_in_unsafe_fn = "deny"
 unused_must_use = "deny"

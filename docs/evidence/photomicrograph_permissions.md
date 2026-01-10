@@ -4,7 +4,13 @@
 - Source: https://www.4004.com/mcs4-masks-schematics-sim.html
 - Extract:
 ```
-<li>       <!--Creative Commons License-->       The works on this web site are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-Noncommercial-Share Alike 3.0 License</a>.</li>
+<li>
+  <!--Creative Commons License-->
+  The works on this web site are licensed under a
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    Creative Commons Attribution-Noncommercial-Share Alike 3.0 License
+  </a>.
+</li>
 ```
 
 MIT 2009-4004 directory

@@ -3,7 +3,7 @@
 Guiding rules:
 - Warnings are errors for builds, tests, and linting.
 - Sync with `mcs4-emu/STATUS.md` after each milestone.
-- Update docs and install requirements with each major change.
+- Update docs and install requirements with each major change (`requirements.md`, `mcs4-emu/INSTALLATION.md`).
 
 ## Phase 0 - Repo hygiene and reproducibility (Complete)
 - Canonical workspace root is the repo root; configs reconciled and `docs/meta/registry.yaml` mirrors every new doc.
@@ -22,20 +22,21 @@ Guiding rules:
 - Continue hunting vetted 4040/MCS-40 die shots or mask-layer imagery; add provenance notes before importing.
 - Maintain the photomicrograph registry (`docs/photomicrographs/`, `docs/evidence/photomicrograph_permissions.md`) with SHA256 and license notes.
 - Expand the netlist extraction workflow with analyzer notes and annotate which layer intersections remain undocumented.
-- Align `docs/AUDIT.md`, `docs/ARCHITECTURE.md`, and `docs/CHIP_ARTIFACTS.md` with the evidence inventory; highlight gaps remaining for 4040/4289/4308.
+- Align `docs/AUDIT.md`, `ARCHITECTURE.md`, and `docs/CHIP_ARTIFACTS.md` with the evidence inventory; highlight gaps remaining for 4040/4289/4308.
 - Keep `docs/ROADMAP.md` and `mcs4-emu/STATUS.md` synchronized after each milestone; log toolchain and documentation pivots explicitly.
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.
 - Harden 4004/4040 decode paths with golden vectors and fuzz regression tests.
 - Disassembler correctness (4004 + 4040) with unit tests and ROM fixtures.
-- Implement 4040 test pin behavior and JCN/ISZ edge cases.
+- (Done) Implement 4040 TEST pin behavior for `JCN` condition bit 0.
 - Resolve 4040 chip-select/test-pin TODOs in `crates/mcs4-chips/src/i4040/`.
 
 ## Phase 2 - Support chips and system integration
 - Implement bus-accurate 4003, 4101, 4201, 4289, 4308 protocols.
 - Finish MCS-4/MCS-40 system integration in `mcs4-system`.
-- Cluster I/O wiring: implement ROM/RAM port reads/writes in `Cluster`.
+- (Done) Cluster I/O wiring: ROM/RAM port reads in `Cluster`.
+- (Done) Gate RAM/ROM side-effects on decoded I/O ops (avoid “always-on” behavior) and add ROM `.hex` fixtures.
 - 4308 bus protocol and timing detail coverage.
 - Close TODOs in `mcs4-system/src/cluster.rs` and `mcs4-chips/src/i4308.rs`.
 
@@ -60,4 +61,4 @@ Guiding rules:
 - Documentation audit + source validation (claims and specs).
 - Security/license policy via `cargo-deny` and dependency audits.
 - Expand ARCHITECTURE.md with canonical workspace layout and module map.
-- Keep `docs/ROADMAP.md` aligned with `mcs4-emu/STATUS.md` and TODO scans.
+- Keep `docs/ROADMAP.md` aligned with `mcs4-emu/STATUS.md` and TODO scans (`scripts/todo_scan.sh` → `docs/TODO.md`).

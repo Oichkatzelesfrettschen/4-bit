@@ -72,11 +72,11 @@ impl Registers {
         self.index[base + 1] = value & 0x0F;
     }
 
-    /// Push PC to stack and set new PC (for JMS)
-    pub fn call(&mut self, addr: u16) {
-        self.stack[self.sp as usize] = self.pc;
+    /// Push return address to stack and set new PC (for JMS)
+    pub fn call(&mut self, return_addr: u16, target: u16) {
+        self.stack[self.sp as usize] = return_addr & 0x0FFF;
         self.sp = (self.sp + 1) % 3;
-        self.pc = addr & 0x0FFF;
+        self.pc = target & 0x0FFF;
     }
 
     /// Pop PC from stack (for BBL)
@@ -150,16 +150,16 @@ mod tests {
         let mut regs = Registers::new();
 
         regs.set_pc(0x100);
-        regs.call(0x200);
+        regs.call(0x101, 0x200);
         assert_eq!(regs.pc(), 0x200);
 
-        regs.call(0x300);
+        regs.call(0x201, 0x300);
         assert_eq!(regs.pc(), 0x300);
 
         regs.ret();
-        assert_eq!(regs.pc(), 0x200);
+        assert_eq!(regs.pc(), 0x201);
 
         regs.ret();
-        assert_eq!(regs.pc(), 0x100);
+        assert_eq!(regs.pc(), 0x101);
     }
 }

@@ -23,6 +23,14 @@ impl I4003 {
         Self::default()
     }
 
+    /// Shift in one serial bit (one clock pulse).
+    pub fn shift_in(&mut self, bit: bool) {
+        self.set_data_in(bit);
+        // Ensure a clean rising edge.
+        self.set_clock(false);
+        self.set_clock(true);
+    }
+
     /// Set serial data input
     pub fn set_data_in(&mut self, state: bool) {
         self.serial_in = state;
@@ -58,5 +66,20 @@ impl super::Chip for I4003 {
     }
     fn tick(&mut self, _phase: BusCycle) {
         // Behavioral model: clock is driven by I/O instructions (WMP/WRR)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn shift_in_builds_parallel_word() {
+        let mut sr = I4003::new();
+        // 10-bit pattern 1010101010 (msb first)
+        for bit in [true, false, true, false, true, false, true, false, true, false] {
+            sr.shift_in(bit);
+        }
+        assert_eq!(sr.parallel_out(), 0x2AA);
     }
 }

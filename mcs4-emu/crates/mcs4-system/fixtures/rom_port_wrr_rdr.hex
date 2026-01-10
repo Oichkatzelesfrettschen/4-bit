@@ -1,0 +1,9 @@
+# ROM port write/read fixture (4001)
+#
+# Writes ACC=0xA to the ROM output port (WRR), then reads the ROM input port (RDR) into ACC.
+DA          # LDM 0xA
+E2          # WRR
+D0          # LDM 0x0 (clear ACC so RDR effect is visible)
+EA          # RDR
+00          # NOP
+

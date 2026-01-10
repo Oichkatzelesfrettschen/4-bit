@@ -110,8 +110,7 @@ impl I4001 {
             }
             BusCycle::A3 => {
                 // Check if we're selected by CM-ROM
-                let rom_select = ctrl.cm_rom();
-                self.selected = rom_select == self.chip_id;
+                self.selected = ctrl.selected_rom() == Some(self.chip_id);
             }
             BusCycle::M1 => {
                 // Output OPA (lower nibble of instruction) if selected
@@ -132,13 +131,13 @@ impl I4001 {
             }
             BusCycle::X2 => {
                 // WRR: Write ROM port (from accumulator via bus)
-                if self.selected && ctrl.is_io_write() {
+                if self.selected && ctrl.io_op == Some(IoOp::RomPortWrite) {
                     self.io_output = bus.read() & 0x0F;
                 }
             }
             BusCycle::X3 => {
                 // RDR: Read ROM port (to accumulator via bus)
-                if self.selected && ctrl.is_io_read() {
+                if self.selected && ctrl.io_op == Some(IoOp::RomPortRead) {
                     bus.write(self.io_input);
                 }
             }

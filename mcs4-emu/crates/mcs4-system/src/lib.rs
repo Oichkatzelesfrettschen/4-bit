@@ -1,10 +1,12 @@
 //! MCS-4 System Integration
 
 pub mod cluster;
+pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
 
 pub use cluster::Cluster;
+pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 pub use mcs4::Mcs4System;
 
 #[cfg(test)]

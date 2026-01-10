@@ -1,0 +1,15 @@
+# End-to-end RAM roundtrip fixture (MCS-4/MCS-40)
+#
+# ACC=0xA
+# P0 = 0x01 -> chip=0, reg=0, char=1 (hi nibble encodes reg:chip as (reg<<2)|chip)
+# SRC P0 (latch address)
+# WRM (write ACC to RAM[reg][char])
+# ACC=0x0, then RDM to read back into ACC
+DA          # LDM 0xA
+20 01       # FIM P0, 0x01
+21          # SRC P0
+E0          # WRM
+D0          # LDM 0x0
+E9          # RDM
+00          # NOP
+

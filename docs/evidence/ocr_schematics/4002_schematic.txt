@@ -1,0 +1,281 @@
+DO
+
+ISt et e et et e e e e e e e e e e e e e e
+
+a ouUTo
+
+l—i
+
+Jf
+
+N BN RN B R RN B R RS R R R RS N R
+
+it
+
+N BN RN B R RN B R RS R R R RS N R
+
+|
+
+a OUT1
+
+II
+
+I
+
+||
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+D1
+
+I
+
+it
+
+i
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+a oUT2
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+-
+
+||
+
+it
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+I
+
+il
+
+D2
+
+II
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+o ouT3
+
+||
+
+i
+
+it
+
+|
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+i
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+D3
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+It
+
+II
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+i
+
+il
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+C A P P P P P P P P P P P P P P P Pl P P P
+
+|
+
+B
+
+oo P o o oA P o o oA P e o oA A ek o oA PR A
+
+|
+
+PERF PERF REPF REPF REP R P P P P P P P e e et et pefee pefer e
+
+I
+
+B
+
+I
+
+4 M s O W W
+
+I I O
+
+DiESE:
+
+ol
+
+ST S =S
+
+E-E-ﬂl_ﬂll-ﬂlﬂ-ﬂll-ﬂlﬂ-l-l-l-
+
+T [ D [y o [y D by B by b by e [y ek
+
+i
+
+[
+
+I
+
+I
+
+' (o e e e A SN N N U N .
+
+|
+
+I I —
+
+I
+
+|||
+
+A e
+
+— | |
+
+i
+
+U S
+
+U S
+
+U S
+
+U S
+
+o
+
+VDD
+
+GND
+
+|
+
+"1
+
+||| ||
+
+qae
+
+CLK1
+
+T 1 -
+
+CLK2
+
+a
+
+s
+
+i
+
+SYNC
+
+I e—
+
+I
+
+_—__
+
+|
+
+;I__
+
+|
+
+A
+
+—
+
+L 'd
+
+L
+
+J
+
+ENpEEENEN
+
+csno
+
+4002-142
+
+|
+
+|
+
+|
+
+metal option
+
+1,
+
+Hs
+
+|
+
+CM
+
+|
+
+|
+
+||
+
+H
+
+|
+
+]
+
+|
+
+|
+
+]
+
+=4
+
+4
+
+I
+
+LT
+
+=
+
+- |
+
+1 [ ]
+
+-
+
+ERE
+
+1 1
+
+1NN
+
+)_,Fg—-ll RESET
+
+NI
+
+=y
+
+e
+
+. 0000000000000 00000000
+
+.——

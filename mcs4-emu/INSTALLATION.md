@@ -37,6 +37,12 @@
 - `cargo test --workspace`
 - `cargo clippy --all-targets --all-features -D warnings`
 
+## Fixture Runner (No GUI Interaction)
+The `mcs4-emu` binary supports running `.hex` fixtures from `mcs4-emu/crates/mcs4-system/fixtures`:
+
+- Run a fixture: `cargo run -p mcs4-gui -- --mode fixture --system mcs4 --fixture src_wrm_rdm --cycles 12`
+- Provide ROM port input (for `RDR` fixtures): `--rom-io-input 12 --rom-io-chip 0`
+
 ## Module Notes
 - `mcs4-core`: pure Rust; no native deps.
 - `mcs4-bus`: pure Rust; no native deps.
