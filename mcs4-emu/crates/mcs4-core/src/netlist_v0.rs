@@ -4,8 +4,9 @@
 //! `docs/evidence/netlists_v0/`. These are *layout-mask* connectivity outputs; they are not
 //! (yet) a full analyzer-grade schematic↔layout reconciled netlist.
 
-use serde::Deserialize;
 use std::path::Path;
+
+use serde::Deserialize;
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct NetlistV0 {
@@ -132,9 +133,7 @@ pub struct NetlistV0SourceComponent {
     pub poly_diff_id: u32,
 }
 
-pub fn load_netlist_v0(
-    path: impl AsRef<Path>,
-) -> Result<NetlistV0, Box<dyn std::error::Error + Send + Sync>> {
+pub fn load_netlist_v0(path: impl AsRef<Path>) -> Result<NetlistV0, Box<dyn std::error::Error + Send + Sync>> {
     let text = std::fs::read_to_string(path)?;
     let netlist: NetlistV0 = serde_json::from_str(&text)?;
     Ok(netlist)

@@ -132,8 +132,13 @@ impl I4002 {
                     if chip == self.chip_id {
                         self.selected_register = reg;
                         self.src_pending = true;
+                        // SRC selects exactly one chip at a time within the active bank; clear the
+                        // prior selection until the character nibble is latched in X3.
+                        self.src_selected = false;
                     } else {
                         self.src_pending = false;
+                        // Clear any stale selection from a previous SRC targeting another chip.
+                        self.src_selected = false;
                     }
                 }
 
@@ -312,5 +317,51 @@ mod tests {
         ram.wrm(0x7);
         assert_eq!(ram.rdm(), 0x7);
         assert_eq!(ram.read_direct(1, 8), 0x7);
+    }
+
+    #[test]
+    fn test_src_clears_other_chip_selection_in_bank() {
+        let mut ram0 = I4002::new(0, 0);
+        let mut ram1 = I4002::new(1, 0);
+
+        let mut bus = DataBus::new();
+        let mut ctrl = ControlSignals::mcs4();
+        ctrl.select_ram(0, 0);
+
+        // SRC selects chip 0, reg 0, char 3.
+        ctrl.io_op = Some(IoOp::Src);
+        bus.write(0u8);
+        ram0.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        ram1.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+
+        bus.write(3);
+        ram0.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+        ram1.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+
+        // WRM writes only to chip 0 (chip 1 must stay inactive).
+        ctrl.io_op = Some(IoOp::RamMainWrite);
+        bus.write(0xA);
+        ram0.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        ram1.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        assert_eq!(ram0.read_direct(0, 3), 0xA);
+        assert_eq!(ram1.read_direct(0, 3), 0x0);
+
+        // SRC now targets chip 1, reg 2, char 4; this must clear chip 0 selection.
+        ctrl.io_op = Some(IoOp::Src);
+        bus.write(1u8 | (2u8 << 2));
+        ram0.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        ram1.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+
+        bus.write(4);
+        ram0.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+        ram1.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+
+        // WRM should write only to chip 1, not to chip 0.
+        ctrl.io_op = Some(IoOp::RamMainWrite);
+        bus.write(0xB);
+        ram0.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        ram1.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        assert_eq!(ram0.read_direct(0, 3), 0xA);
+        assert_eq!(ram1.read_direct(2, 4), 0xB);
     }
 }
