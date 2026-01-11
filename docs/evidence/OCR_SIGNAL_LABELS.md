@@ -18,6 +18,19 @@ verification report, and a prioritized mismatch list for manual review.
 
 Outputs land in `docs/evidence/ocr_signal_labels/<chip>/`.
 
+## ROI / coordinate schema
+
+All `signals.txt` files use the same coordinate system:
+- Absolute pixel coordinates in the corresponding `i400x-schematic.bmp`
+- Origin at the top-left corner
+- 0-based indexing
+
+Current ROI strategy is point-centered and parameterized (see `./scripts/ocr_signal_labels.py --help`):
+- Base region around the `(x,y)` point: `--region-w 640`, `--region-h 240`
+- Candidate OCR crops are derived from detected “text-like components” inside that region, padded by `--pad 10`
+- For fallback alias scans (e.g. pin numbers like `01`/`02`), the script probes multiple offsets around the point
+  and runs token OCR on small windows (bounded search, not an unbounded scan).
+
 ## Overlays
 
 To visually audit point placement and mismatches on top of the schematic:
