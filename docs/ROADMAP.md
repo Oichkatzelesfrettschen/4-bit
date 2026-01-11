@@ -19,7 +19,8 @@ Guiding rules:
     analyzer-reported 4004 transistor counts (Δ currently -3).
 
 ### Not implemented yet (key blockers)
-- No full multi-layer connectivity netlist extraction (metal/poly/diffusion + vias/contacts stitching).
+- No full analyzer-grade netlist extraction + reconciliation:
+  - `netlist_v0` layout stitching exists (`docs/evidence/netlists_v0/`), but it does not yet extract a schematic netlist nor match schematic↔layout nets.
 - No transistor-/switch-level solver consuming extracted devices; `mcs4-core/src/transistor.rs` remains a stub model.
 - 4040 CPU remains a stub; MCS-40 support chips are incomplete (4101/4201/4289/4308 protocols, etc.).
 
@@ -44,7 +45,7 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - **Analyzer readme / netlist notes** → structured extracts:
   - Keep analyzer-derived component counts and quirks referenced in `docs/evidence/ocr_results.md` and `docs/NETLIST_WORKFLOW.md`.
 - **Future (netlist extraction)** → machine-readable netlist JSON:
-  - Implement layer tracing and stitching, then emit a deterministic netlist format that can be regression-tested and tied to emulator timing.
+  - Build on `netlist_v0` by adding schematic-netlist extraction + schematic↔layout matching + switch-level solving.
 
 ## Phase 0 - Repo hygiene and reproducibility (Complete)
 - Canonical workspace root is the repo root; configs reconciled and `docs/meta/registry.yaml` mirrors every new doc.

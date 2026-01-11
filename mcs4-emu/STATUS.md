@@ -4,6 +4,10 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-11T22:45:00Z: Added deterministic `netlist_v0` layout connectivity extraction from i400x mask layers
+  (`scripts/extract_netlist_v0.py`) with committed outputs in `docs/evidence/netlists_v0/` plus a metrics summarizer
+  (`scripts/netlist_v0_metrics.py`). Clarified schematic-vs-layout coordinate spaces (signals points are schematic refs),
+  updated `docs/NETLIST_WORKFLOW.md`, and logged local OCR/GPU tooling snapshot.
 - 2026-01-11T21:30:00Z: OCR pipeline performance audit + tuning: added per-call tesseract timeouts and reduced OCR call budget
   (fast-crop match + caching) in `scripts/ocr_signal_labels.py`. Benchmarked faster label verification on the 4004 subset.
   Verified CUDA-capable toolchain (RTX 4070 Ti, CUDA 13.1) but CUDA-backed `onnxruntime-gpu` wheels for Python 3.13 report CPU-only
