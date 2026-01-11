@@ -265,6 +265,28 @@ pub struct Clock {
 }
 ```
 
+#### Control-Line Timing Assumptions
+
+This emulator models the *observable* external bus protocol at the system boundary:
+- Instruction decode happens in `X1`, but external I/O control lines are only asserted during the
+  *transfer* phases (`X2` for writes, `X3` for reads).
+- `SRC` is special: it spans `X2+X3` because it is effectively an addressing transfer used to set up
+  subsequent RAM operations.
+- `CM-RAM` and `CM-ROM` selection are gated to the same transfer phases so that peripherals are not
+  “always-on” on the bus.
+
+System scheduling detail:
+- In `X3` (read-oriented), peripherals tick before the CPU latches. To avoid a “late” decode, the
+  system must present `io_op` to peripherals prior to their `tick_bus()` call in `X3`.
+
+##### I/O Operation Timing Table
+
+| Instruction family | `io_op` asserted | Bus driver | Notes |
+|---|---:|---|---|
+| `WRM`, `WMP`, `WRR`, status write (`WR0`..`WR3`) | `X2` | CPU | Peripherals should not overwrite the bus in `X2`. |
+| `RDM`, `RDR`, status read (`RD0`..`RD3`), `ADM`, `SBM` | `X3` | Peripheral | CPU latches in `X3`; CPU should not overwrite the bus in `X3`. |
+| `SRC` | `X2+X3` | CPU | Address/setup transfer; often paired with RAM ops. |
+
 ## Timing Model
 
 ### Clock Specifications (from datasheet)
