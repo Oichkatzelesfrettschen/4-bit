@@ -67,6 +67,11 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Align `docs/AUDIT.md`, `ARCHITECTURE.md`, and `docs/CHIP_ARTIFACTS.md` with the evidence inventory; highlight gaps remaining for 4040/4289/4308.
 - Keep `docs/ROADMAP.md` and `mcs4-emu/STATUS.md` synchronized after each milestone; log toolchain and documentation pivots explicitly.
 - Keep OCR pipelines bounded and deterministic (timeouts, caching) and preserve canonical evidence outputs under `docs/evidence/`.
+- Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
+  - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
+  - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.
+  - Memory control outputs (`~CM-ROM`, `~CM-RAM`, `~SYNC`, `~WR`, `~RD`) and their gating logic.
+  - Reset / test-related logic (noting the analyzer readme’s TEST-pin revision mismatch).
 
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.

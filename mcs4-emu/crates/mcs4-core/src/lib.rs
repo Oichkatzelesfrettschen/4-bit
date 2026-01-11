@@ -4,6 +4,7 @@
 //! and transistor-level simulation of Intel 4004/4040 microcomputer systems.
 
 pub mod gate;
+pub mod netlist_v0;
 pub mod signal;
 pub mod simulator;
 pub mod timing;

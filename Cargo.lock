@@ -2089,6 +2089,7 @@ dependencies = [
  "proptest",
  "rkyv",
  "serde",
+ "serde_json",
  "smallvec",
  "tracing",
  "zerocopy",
