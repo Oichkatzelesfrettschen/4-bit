@@ -82,3 +82,8 @@ Provide these exceptions in `scripts/ocr_signal_aliases.json`, keyed by chip:
 - GPU note: CUDA is available on this workstation, but the current OCR workflow uses `tesseract`.
   CUDA-backed OCR via `onnxruntime-gpu` is not currently viable on Python 3.13 (the wheel reports
   CPU-only providers), while the system `onnxruntime` build *does* expose `CUDAExecutionProvider`.
+- Tooling snapshot (local workstation):
+  - `tesseract 5.5.x` + `leptonica 1.87.x` installed system-wide.
+  - `opencv-cuda` / `python-opencv-cuda` and `python-onnxruntime-opt-cuda` are installed system-wide.
+  - In practice, GPU acceleration is currently easiest to apply to **image preprocessing** (OpenCV),
+    while OCR itself remains `tesseract`-CPU unless/until we adopt a CUDA-capable OCR engine.
