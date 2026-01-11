@@ -1,0 +1,118 @@
+{
+  "in_dir": "docs/evidence/schematic_net_names_v0",
+  "rows": [
+    {
+      "bytes": 32702,
+      "chip": "4001",
+      "net_names": 89,
+      "ocr_reason_top": [
+        [
+          "no_similar_token",
+          29
+        ],
+        [
+          "skipped_expression",
+          26
+        ],
+        [
+          "ocr_low_conf",
+          13
+        ],
+        [
+          "not_printed_near_point",
+          10
+        ],
+        [
+          "mismatch",
+          7
+        ]
+      ],
+      "path": "docs/evidence/schematic_net_names_v0/4001_schematic_net_names_v0.json",
+      "points_with_ocr": 89,
+      "signals_points": 89
+    },
+    {
+      "bytes": 149178,
+      "chip": "4002",
+      "net_names": 416,
+      "ocr_reason_top": [
+        [
+          "ocr_low_conf",
+          311
+        ],
+        [
+          "no_similar_token",
+          57
+        ],
+        [
+          "not_printed_near_point",
+          25
+        ],
+        [
+          "skipped_expression",
+          10
+        ],
+        [
+          "mismatch",
+          8
+        ]
+      ],
+      "path": "docs/evidence/schematic_net_names_v0/4002_schematic_net_names_v0.json",
+      "points_with_ocr": 416,
+      "signals_points": 416
+    },
+    {
+      "bytes": 5498,
+      "chip": "4003",
+      "net_names": 14,
+      "ocr_reason_top": [
+        [
+          "no_similar_token",
+          8
+        ],
+        [
+          "not_printed_near_point",
+          4
+        ],
+        [
+          "mismatch",
+          2
+        ]
+      ],
+      "path": "docs/evidence/schematic_net_names_v0/4003_schematic_net_names_v0.json",
+      "points_with_ocr": 14,
+      "signals_points": 14
+    },
+    {
+      "bytes": 96734,
+      "chip": "4004",
+      "net_names": 275,
+      "ocr_reason_top": [
+        [
+          "ocr_low_conf",
+          115
+        ],
+        [
+          "no_similar_token",
+          73
+        ],
+        [
+          "not_printed_near_point",
+          39
+        ],
+        [
+          "skipped_expression",
+          27
+        ],
+        [
+          "mismatch",
+          14
+        ]
+      ],
+      "path": "docs/evidence/schematic_net_names_v0/4004_schematic_net_names_v0.json",
+      "points_with_ocr": 275,
+      "signals_points": 275
+    }
+  ],
+  "tool": "scripts/schematic_net_names_v0_metrics.py"
+}

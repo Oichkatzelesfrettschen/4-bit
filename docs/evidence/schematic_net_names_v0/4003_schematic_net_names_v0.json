@@ -1,0 +1,306 @@
+{
+  "chip": "4003",
+  "counts": {
+    "net_names": 14,
+    "points_with_ocr": 14,
+    "signals_points": 14
+  },
+  "inputs": {
+    "ocr_report_json": "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.json",
+    "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+    "sha256": {
+      "ocr_report_json": "0959cb102e439e38b49e519de58dc3c1ec7f48f77a2554007b7f7a558d8912c7",
+      "schematic_bmp": "e401f6f7a509043cf3e0117f91d64aa190dbff54ab8cda4b5583c2f574b22230",
+      "signals_txt": "0afd09622ba573bc49e83772e64f02f05c732da2b28f28099a3f3c80931a02fd"
+    },
+    "signals_txt": "docs/emulators/i4003-signals.txt"
+  },
+  "nets": [
+    {
+      "name": "CLOCK",
+      "point_indices": [
+        0
+      ]
+    },
+    {
+      "name": "DATA",
+      "point_indices": [
+        1
+      ]
+    },
+    {
+      "name": "EN",
+      "point_indices": [
+        2
+      ]
+    },
+    {
+      "name": "OUT",
+      "point_indices": [
+        3
+      ]
+    },
+    {
+      "name": "Q0",
+      "point_indices": [
+        4
+      ]
+    },
+    {
+      "name": "Q1",
+      "point_indices": [
+        5
+      ]
+    },
+    {
+      "name": "Q2",
+      "point_indices": [
+        6
+      ]
+    },
+    {
+      "name": "Q3",
+      "point_indices": [
+        7
+      ]
+    },
+    {
+      "name": "Q4",
+      "point_indices": [
+        8
+      ]
+    },
+    {
+      "name": "Q5",
+      "point_indices": [
+        9
+      ]
+    },
+    {
+      "name": "Q6",
+      "point_indices": [
+        10
+      ]
+    },
+    {
+      "name": "Q7",
+      "point_indices": [
+        11
+      ]
+    },
+    {
+      "name": "Q8",
+      "point_indices": [
+        12
+      ]
+    },
+    {
+      "name": "Q9",
+      "point_indices": [
+        13
+      ]
+    }
+  ],
+  "points": [
+    {
+      "idx": 0,
+      "name": "CLOCK",
+      "ocr": {
+        "expected": "Q0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 24,
+      "y": 173
+    },
+    {
+      "idx": 1,
+      "name": "DATA",
+      "ocr": {
+        "expected": "Q1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 24,
+      "y": 441
+    },
+    {
+      "idx": 2,
+      "name": "EN",
+      "ocr": {
+        "expected": "Q2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 24,
+      "y": 546
+    },
+    {
+      "idx": 3,
+      "name": "OUT",
+      "ocr": {
+        "expected": "Q3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 24,
+      "y": 670
+    },
+    {
+      "idx": 4,
+      "name": "Q0",
+      "ocr": {
+        "expected": "Q4",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 514,
+      "y": 66
+    },
+    {
+      "idx": 5,
+      "name": "Q1",
+      "ocr": {
+        "expected": "CLOCK",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 644,
+      "y": 66
+    },
+    {
+      "idx": 6,
+      "name": "Q2",
+      "ocr": {
+        "expected": "DATA",
+        "ocr_norm": "T",
+        "ocr_raw": "T",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 774,
+      "y": 66
+    },
+    {
+      "idx": 7,
+      "name": "Q3",
+      "ocr": {
+        "expected": "Q5",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 904,
+      "y": 66
+    },
+    {
+      "idx": 8,
+      "name": "Q4",
+      "ocr": {
+        "expected": "Q6",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 1034,
+      "y": 66
+    },
+    {
+      "idx": 9,
+      "name": "Q5",
+      "ocr": {
+        "expected": "Q7",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 514,
+      "y": 446
+    },
+    {
+      "idx": 10,
+      "name": "Q6",
+      "ocr": {
+        "expected": "Q8",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 644,
+      "y": 446
+    },
+    {
+      "idx": 11,
+      "name": "Q7",
+      "ocr": {
+        "expected": "Q9",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 774,
+      "y": 446
+    },
+    {
+      "idx": 12,
+      "name": "Q8",
+      "ocr": {
+        "expected": "EN",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 904,
+      "y": 446
+    },
+    {
+      "idx": 13,
+      "name": "Q9",
+      "ocr": {
+        "expected": "OUT",
+        "ocr_norm": "OD",
+        "ocr_raw": "OD",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 1034,
+      "y": 446
+    }
+  ],
+  "schema": {
+    "description": "Schematic net names from signals.txt (schematic-space), with optional OCR join.",
+    "version": 0
+  }
+}

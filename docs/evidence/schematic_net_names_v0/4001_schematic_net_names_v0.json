@@ -1,0 +1,1806 @@
+{
+  "chip": "4001",
+  "counts": {
+    "net_names": 89,
+    "points_with_ocr": 89,
+    "signals_points": 89
+  },
+  "inputs": {
+    "ocr_report_json": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
+    "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+    "sha256": {
+      "ocr_report_json": "7b7067d6c1a4afc81a3434cd24ecd1c27c3da1f5a2b2e2927b772cee232a27d3",
+      "schematic_bmp": "84f6e4b89e128a3c83aa8b1410627c8e5e232d27b04c0debda3c4ce749230464",
+      "signals_txt": "4c02635bfd0d463717ae65bc11b00aeafd6cde6d7cbc179a4da954cd95058bf6"
+    },
+    "signals_txt": "docs/emulators/i4001-signals.txt"
+  },
+  "nets": [
+    {
+      "name": "(RESET)",
+      "point_indices": [
+        31
+      ]
+    },
+    {
+      "name": "A11/2",
+      "point_indices": [
+        36
+      ]
+    },
+    {
+      "name": "A12",
+      "point_indices": [
+        15
+      ]
+    },
+    {
+      "name": "A12/2",
+      "point_indices": [
+        33
+      ]
+    },
+    {
+      "name": "A22",
+      "point_indices": [
+        17
+      ]
+    },
+    {
+      "name": "A22/2",
+      "point_indices": [
+        35
+      ]
+    },
+    {
+      "name": "A32",
+      "point_indices": [
+        19
+      ]
+    },
+    {
+      "name": "CHIPNUM",
+      "point_indices": [
+        60
+      ]
+    },
+    {
+      "name": "CHIPSEL",
+      "point_indices": [
+        64
+      ]
+    },
+    {
+      "name": "CL",
+      "point_indices": [
+        3
+      ]
+    },
+    {
+      "name": "CLK1",
+      "point_indices": [
+        0
+      ]
+    },
+    {
+      "name": "CLK2",
+      "point_indices": [
+        1
+      ]
+    },
+    {
+      "name": "CM",
+      "point_indices": [
+        9
+      ]
+    },
+    {
+      "name": "D0",
+      "point_indices": [
+        40
+      ]
+    },
+    {
+      "name": "D0_PAD",
+      "point_indices": [
+        4
+      ]
+    },
+    {
+      "name": "D1",
+      "point_indices": [
+        41
+      ]
+    },
+    {
+      "name": "D1&D0&([A12/2][CLK2])",
+      "point_indices": [
+        88
+      ]
+    },
+    {
+      "name": "D1&D0&([A22/2][CLK2])",
+      "point_indices": [
+        87
+      ]
+    },
+    {
+      "name": "D1&~D0&([A12/2][CLK2])",
+      "point_indices": [
+        85
+      ]
+    },
+    {
+      "name": "D1&~D0&([A22/2][CLK2])",
+      "point_indices": [
+        86
+      ]
+    },
+    {
+      "name": "D1_PAD",
+      "point_indices": [
+        5
+      ]
+    },
+    {
+      "name": "D2",
+      "point_indices": [
+        42
+      ]
+    },
+    {
+      "name": "D2+~D1+D0",
+      "point_indices": [
+        58
+      ]
+    },
+    {
+      "name": "D2_PAD",
+      "point_indices": [
+        6
+      ]
+    },
+    {
+      "name": "D3",
+      "point_indices": [
+        43
+      ]
+    },
+    {
+      "name": "D3&D2&([A12/2][CLK2])",
+      "point_indices": [
+        74
+      ]
+    },
+    {
+      "name": "D3&D2&([A22/2][CLK2])",
+      "point_indices": [
+        73
+      ]
+    },
+    {
+      "name": "D3&~D2&([A12/2][CLK2])",
+      "point_indices": [
+        76
+      ]
+    },
+    {
+      "name": "D3&~D2&([A22/2][CLK2])",
+      "point_indices": [
+        75
+      ]
+    },
+    {
+      "name": "D3_PAD",
+      "point_indices": [
+        7
+      ]
+    },
+    {
+      "name": "DO0",
+      "point_indices": [
+        52
+      ]
+    },
+    {
+      "name": "DO1",
+      "point_indices": [
+        53
+      ]
+    },
+    {
+      "name": "DO2",
+      "point_indices": [
+        54
+      ]
+    },
+    {
+      "name": "DO3",
+      "point_indices": [
+        55
+      ]
+    },
+    {
+      "name": "IO0",
+      "point_indices": [
+        10
+      ]
+    },
+    {
+      "name": "IO1",
+      "point_indices": [
+        11
+      ]
+    },
+    {
+      "name": "IO2",
+      "point_indices": [
+        12
+      ]
+    },
+    {
+      "name": "IO3",
+      "point_indices": [
+        13
+      ]
+    },
+    {
+      "name": "IOREAD",
+      "point_indices": [
+        66
+      ]
+    },
+    {
+      "name": "IOWRITE",
+      "point_indices": [
+        68
+      ]
+    },
+    {
+      "name": "M11",
+      "point_indices": [
+        56
+      ]
+    },
+    {
+      "name": "M12",
+      "point_indices": [
+        21
+      ]
+    },
+    {
+      "name": "M21",
+      "point_indices": [
+        57
+      ]
+    },
+    {
+      "name": "M22",
+      "point_indices": [
+        23
+      ]
+    },
+    {
+      "name": "M22&SRCFF&CM&D3&~D2&D1&~D0",
+      "point_indices": [
+        65
+      ]
+    },
+    {
+      "name": "M22&SRCFF&CM&~D3&~D2&D1&~D0",
+      "point_indices": [
+        67
+      ]
+    },
+    {
+      "name": "MBUSREAD",
+      "point_indices": [
+        70
+      ]
+    },
+    {
+      "name": "MEMD0",
+      "point_indices": [
+        48
+      ]
+    },
+    {
+      "name": "MEMD1",
+      "point_indices": [
+        49
+      ]
+    },
+    {
+      "name": "MEMD2",
+      "point_indices": [
+        50
+      ]
+    },
+    {
+      "name": "MEMD3",
+      "point_indices": [
+        51
+      ]
+    },
+    {
+      "name": "RESET",
+      "point_indices": [
+        2
+      ]
+    },
+    {
+      "name": "SRCFF",
+      "point_indices": [
+        62
+      ]
+    },
+    {
+      "name": "SYNC",
+      "point_indices": [
+        8
+      ]
+    },
+    {
+      "name": "SYNC+A11S+A11/2+A21/2",
+      "point_indices": [
+        38
+      ]
+    },
+    {
+      "name": "X12",
+      "point_indices": [
+        25
+      ]
+    },
+    {
+      "name": "X22",
+      "point_indices": [
+        27
+      ]
+    },
+    {
+      "name": "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)",
+      "point_indices": [
+        71
+      ]
+    },
+    {
+      "name": "~(CM&X22&CLK2)",
+      "point_indices": [
+        61
+      ]
+    },
+    {
+      "name": "~(M22&SRCFF&CM)",
+      "point_indices": [
+        63
+      ]
+    },
+    {
+      "name": "~(SYNC+A11S)",
+      "point_indices": [
+        37
+      ]
+    },
+    {
+      "name": "~(SYNC+A11S+A11/2+A21/2)",
+      "point_indices": [
+        39
+      ]
+    },
+    {
+      "name": "~A11",
+      "point_indices": [
+        14
+      ]
+    },
+    {
+      "name": "~A11/2",
+      "point_indices": [
+        32
+      ]
+    },
+    {
+      "name": "~A21",
+      "point_indices": [
+        16
+      ]
+    },
+    {
+      "name": "~A21/2",
+      "point_indices": [
+        34
+      ]
+    },
+    {
+      "name": "~A31",
+      "point_indices": [
+        18
+      ]
+    },
+    {
+      "name": "~CHIPNUM",
+      "point_indices": [
+        59
+      ]
+    },
+    {
+      "name": "~CLK1",
+      "point_indices": [
+        28
+      ]
+    },
+    {
+      "name": "~CLK2",
+      "point_indices": [
+        29
+      ]
+    },
+    {
+      "name": "~D0",
+      "point_indices": [
+        44
+      ]
+    },
+    {
+      "name": "~D1",
+      "point_indices": [
+        45
+      ]
+    },
+    {
+      "name": "~D1&D0&([A12/2][CLK2])",
+      "point_indices": [
+        84
+      ]
+    },
+    {
+      "name": "~D1&D0&([A22/2][CLK2])",
+      "point_indices": [
+        83
+      ]
+    },
+    {
+      "name": "~D1&~D0&([A12/2][CLK2])",
+      "point_indices": [
+        81
+      ]
+    },
+    {
+      "name": "~D1&~D0&([A22/2][CLK2])",
+      "point_indices": [
+        82
+      ]
+    },
+    {
+      "name": "~D2",
+      "point_indices": [
+        46
+      ]
+    },
+    {
+      "name": "~D3",
+      "point_indices": [
+        47
+      ]
+    },
+    {
+      "name": "~D3&D2&([A12/2][CLK2])",
+      "point_indices": [
+        77
+      ]
+    },
+    {
+      "name": "~D3&D2&([A22/2][CLK2])",
+      "point_indices": [
+        78
+      ]
+    },
+    {
+      "name": "~D3&~D2&([A12/2][CLK2])",
+      "point_indices": [
+        80
+      ]
+    },
+    {
+      "name": "~D3&~D2&([A22/2][CLK2])",
+      "point_indices": [
+        79
+      ]
+    },
+    {
+      "name": "~EXTBUSDRIVE",
+      "point_indices": [
+        72
+      ]
+    },
+    {
+      "name": "~IOWRITE",
+      "point_indices": [
+        69
+      ]
+    },
+    {
+      "name": "~M11",
+      "point_indices": [
+        20
+      ]
+    },
+    {
+      "name": "~M21",
+      "point_indices": [
+        22
+      ]
+    },
+    {
+      "name": "~RESET",
+      "point_indices": [
+        30
+      ]
+    },
+    {
+      "name": "~X11",
+      "point_indices": [
+        24
+      ]
+    },
+    {
+      "name": "~X21",
+      "point_indices": [
+        26
+      ]
+    }
+  ],
+  "points": [
+    {
+      "idx": 0,
+      "name": "CLK1",
+      "ocr": {
+        "expected": "~A11/2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 1155
+    },
+    {
+      "idx": 1,
+      "name": "CLK2",
+      "ocr": {
+        "expected": "A12/2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 1233
+    },
+    {
+      "idx": 2,
+      "name": "RESET",
+      "ocr": {
+        "expected": "~A21/2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 989
+    },
+    {
+      "idx": 3,
+      "name": "CL",
+      "ocr": {
+        "expected": "A22/2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 907
+    },
+    {
+      "idx": 4,
+      "name": "D0_PAD",
+      "ocr": {
+        "expected": "A11/2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 190
+    },
+    {
+      "idx": 5,
+      "name": "D1_PAD",
+      "ocr": {
+        "expected": "D0_PAD",
+        "ocr_norm": "D0",
+        "ocr_raw": "D0",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 30,
+      "y": 371
+    },
+    {
+      "idx": 6,
+      "name": "D2_PAD",
+      "ocr": {
+        "expected": "DO0",
+        "ocr_norm": "0",
+        "ocr_raw": "0",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.5
+      },
+      "x": 30,
+      "y": 552
+    },
+    {
+      "idx": 7,
+      "name": "D3_PAD",
+      "ocr": {
+        "expected": "~CLK1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 733
+    },
+    {
+      "idx": 8,
+      "name": "SYNC",
+      "ocr": {
+        "expected": "IO0",
+        "ocr_norm": "I",
+        "ocr_raw": "I",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.5
+      },
+      "x": 30,
+      "y": 1316
+    },
+    {
+      "idx": 9,
+      "name": "CM",
+      "ocr": {
+        "expected": "SYNC+A11S+A11/2+A21/2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 1073
+    },
+    {
+      "idx": 10,
+      "name": "IO0",
+      "ocr": {
+        "expected": "D1_PAD",
+        "ocr_norm": "D1",
+        "ocr_raw": "D1",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 30,
+      "y": 327
+    },
+    {
+      "idx": 11,
+      "name": "IO1",
+      "ocr": {
+        "expected": "~(SYNC+A11S+A11/2+A21/2)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 508
+    },
+    {
+      "idx": 12,
+      "name": "IO2",
+      "ocr": {
+        "expected": "~(SYNC+A11S)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 689
+    },
+    {
+      "idx": 13,
+      "name": "IO3",
+      "ocr": {
+        "expected": "DO1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.5
+      },
+      "x": 30,
+      "y": 870
+    },
+    {
+      "idx": 14,
+      "name": "~A11",
+      "ocr": {
+        "expected": "D2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 117,
+      "y": 1316
+    },
+    {
+      "idx": 15,
+      "name": "A12",
+      "ocr": {
+        "expected": "IO1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 155,
+      "y": 1316
+    },
+    {
+      "idx": 16,
+      "name": "~A21",
+      "ocr": {
+        "expected": "D3&D2&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 193,
+      "y": 1316
+    },
+    {
+      "idx": 17,
+      "name": "A22",
+      "ocr": {
+        "expected": "~D2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 231,
+      "y": 1316
+    },
+    {
+      "idx": 18,
+      "name": "~A31",
+      "ocr": {
+        "expected": "D2_PAD",
+        "ocr_norm": "D2",
+        "ocr_raw": "D2",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 269,
+      "y": 1316
+    },
+    {
+      "idx": 19,
+      "name": "A32",
+      "ocr": {
+        "expected": "D3&D2&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 307,
+      "y": 1316
+    },
+    {
+      "idx": 20,
+      "name": "~M11",
+      "ocr": {
+        "expected": "D3&~D2&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 345,
+      "y": 1316
+    },
+    {
+      "idx": 21,
+      "name": "M12",
+      "ocr": {
+        "expected": "D3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 383,
+      "y": 1316
+    },
+    {
+      "idx": 22,
+      "name": "~M21",
+      "ocr": {
+        "expected": "D3&~D2&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 421,
+      "y": 1316
+    },
+    {
+      "idx": 23,
+      "name": "M22",
+      "ocr": {
+        "expected": "~D3&D2&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 459,
+      "y": 1316
+    },
+    {
+      "idx": 24,
+      "name": "~X11",
+      "ocr": {
+        "expected": "~D3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 497,
+      "y": 1316
+    },
+    {
+      "idx": 25,
+      "name": "X12",
+      "ocr": {
+        "expected": "~D3&D2&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 535,
+      "y": 1316
+    },
+    {
+      "idx": 26,
+      "name": "~X21",
+      "ocr": {
+        "expected": "DO2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 573,
+      "y": 1316
+    },
+    {
+      "idx": 27,
+      "name": "X22",
+      "ocr": {
+        "expected": "~D3&~D2&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 611,
+      "y": 1316
+    },
+    {
+      "idx": 28,
+      "name": "~CLK1",
+      "ocr": {
+        "expected": "IO2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2715,
+      "y": 322
+    },
+    {
+      "idx": 29,
+      "name": "~CLK2",
+      "ocr": {
+        "expected": "MEMD0",
+        "ocr_norm": "M",
+        "ocr_raw": "M",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.3333333333333333
+      },
+      "x": 122,
+      "y": 1046
+    },
+    {
+      "idx": 30,
+      "name": "~RESET",
+      "ocr": {
+        "expected": "MEMD1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.3333333333333333
+      },
+      "x": 94,
+      "y": 973
+    },
+    {
+      "idx": 31,
+      "name": "(RESET)",
+      "ocr": {
+        "expected": "MEMD2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 121,
+      "y": 973
+    },
+    {
+      "idx": 32,
+      "name": "~A11/2",
+      "ocr": {
+        "expected": "MEMD3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2570,
+      "y": 119
+    },
+    {
+      "idx": 33,
+      "name": "A12/2",
+      "ocr": {
+        "expected": "~D3&~D2&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2617,
+      "y": 119
+    },
+    {
+      "idx": 34,
+      "name": "~A21/2",
+      "ocr": {
+        "expected": "~D1&~D0&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2664,
+      "y": 119
+    },
+    {
+      "idx": 35,
+      "name": "A22/2",
+      "ocr": {
+        "expected": "D3_PAD",
+        "ocr_norm": "D3",
+        "ocr_raw": "D3",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 2711,
+      "y": 119
+    },
+    {
+      "idx": 36,
+      "name": "A11/2",
+      "ocr": {
+        "expected": "D0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2479,
+      "y": 150
+    },
+    {
+      "idx": 37,
+      "name": "~(SYNC+A11S)",
+      "ocr": {
+        "expected": "~D1&~D0&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2582,
+      "y": 398
+    },
+    {
+      "idx": 38,
+      "name": "SYNC+A11S+A11/2+A21/2",
+      "ocr": {
+        "expected": "~D1&D0&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2527,
+      "y": 354
+    },
+    {
+      "idx": 39,
+      "name": "~(SYNC+A11S+A11/2+A21/2)",
+      "ocr": {
+        "expected": "~D0",
+        "ocr_norm": "G-LTJ-0--I",
+        "ocr_raw": "G-LTJ-0--I",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.15384615384615385
+      },
+      "x": 2464,
+      "y": 398
+    },
+    {
+      "idx": 40,
+      "name": "D0",
+      "ocr": {
+        "expected": "~D1&D0&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2783,
+      "y": 747
+    },
+    {
+      "idx": 41,
+      "name": "D1",
+      "ocr": {
+        "expected": "~IOWRITE",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2783,
+      "y": 836
+    },
+    {
+      "idx": 42,
+      "name": "D2",
+      "ocr": {
+        "expected": "D1&~D0&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2783,
+      "y": 503
+    },
+    {
+      "idx": 43,
+      "name": "D3",
+      "ocr": {
+        "expected": "DO3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 2783,
+      "y": 592
+    },
+    {
+      "idx": 44,
+      "name": "~D0",
+      "ocr": {
+        "expected": "D1",
+        "ocr_norm": "1_1_1",
+        "ocr_raw": "1_1_1",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2857142857142857
+      },
+      "x": 2806,
+      "y": 791
+    },
+    {
+      "idx": 45,
+      "name": "~D1",
+      "ocr": {
+        "expected": "D1&~D0&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2806,
+      "y": 880
+    },
+    {
+      "idx": 46,
+      "name": "~D2",
+      "ocr": {
+        "expected": "D1&D0&([A22/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2806,
+      "y": 547
+    },
+    {
+      "idx": 47,
+      "name": "~D3",
+      "ocr": {
+        "expected": "IO3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2806,
+      "y": 636
+    },
+    {
+      "idx": 48,
+      "name": "MEMD0",
+      "ocr": {
+        "expected": "~D1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 973,
+      "y": 693
+    },
+    {
+      "idx": 49,
+      "name": "MEMD1",
+      "ocr": {
+        "expected": "D1&D0&([A12/2][CLK2])",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 1325,
+      "y": 693
+    },
+    {
+      "idx": 50,
+      "name": "MEMD2",
+      "ocr": {
+        "expected": "CL",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1677,
+      "y": 693
+    },
+    {
+      "idx": 51,
+      "name": "MEMD3",
+      "ocr": {
+        "expected": "IOWRITE",
+        "ocr_norm": "T",
+        "ocr_raw": "T",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 2029,
+      "y": 693
+    },
+    {
+      "idx": 52,
+      "name": "DO0",
+      "ocr": {
+        "expected": "~RESET",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 611,
+      "y": 292
+    },
+    {
+      "idx": 53,
+      "name": "DO1",
+      "ocr": {
+        "expected": "(RESET)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 611,
+      "y": 473
+    },
+    {
+      "idx": 54,
+      "name": "DO2",
+      "ocr": {
+        "expected": "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 611,
+      "y": 654
+    },
+    {
+      "idx": 55,
+      "name": "DO3",
+      "ocr": {
+        "expected": "RESET",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 611,
+      "y": 835
+    },
+    {
+      "idx": 56,
+      "name": "M11",
+      "ocr": {
+        "expected": "~EXTBUSDRIVE",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 366,
+      "y": 1205
+    },
+    {
+      "idx": 57,
+      "name": "M21",
+      "ocr": {
+        "expected": "MBUSREAD",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 399,
+      "y": 1205
+    },
+    {
+      "idx": 58,
+      "name": "D2+~D1+D0",
+      "ocr": {
+        "expected": "M22&SRCFF&CM&~D3&~D2&D1&~D0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2656,
+      "y": 1250
+    },
+    {
+      "idx": 59,
+      "name": "~CHIPNUM",
+      "ocr": {
+        "expected": "IOREAD",
+        "ocr_norm": "I-",
+        "ocr_raw": "I-",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 2550,
+      "y": 1051
+    },
+    {
+      "idx": 60,
+      "name": "CHIPNUM",
+      "ocr": {
+        "expected": "M22&SRCFF&CM&D3&~D2&D1&~D0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 682,
+      "y": 1316
+    },
+    {
+      "idx": 61,
+      "name": "~(CM&X22&CLK2)",
+      "ocr": {
+        "expected": "~CLK2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 579,
+      "y": 1161
+    },
+    {
+      "idx": 62,
+      "name": "SRCFF",
+      "ocr": {
+        "expected": "~CHIPNUM",
+        "ocr_norm": "DUND&F",
+        "ocr_raw": "DUND&F",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.14285714285714285
+      },
+      "x": 473,
+      "y": 1196
+    },
+    {
+      "idx": 63,
+      "name": "~(M22&SRCFF&CM)",
+      "ocr": {
+        "expected": "CM",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 436,
+      "y": 1161
+    },
+    {
+      "idx": 64,
+      "name": "CHIPSEL",
+      "ocr": {
+        "expected": "CLK1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 217,
+      "y": 1205
+    },
+    {
+      "idx": 65,
+      "name": "M22&SRCFF&CM&D3&~D2&D1&~D0",
+      "ocr": {
+        "expected": "~(M22&SRCFF&CM)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 661,
+      "y": 1026
+    },
+    {
+      "idx": 66,
+      "name": "IOREAD",
+      "ocr": {
+        "expected": "~(CM&X22&CLK2)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 550,
+      "y": 1026
+    },
+    {
+      "idx": 67,
+      "name": "M22&SRCFF&CM&~D3&~D2&D1&~D0",
+      "ocr": {
+        "expected": "SRCFF",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 476,
+      "y": 1026
+    },
+    {
+      "idx": 68,
+      "name": "IOWRITE",
+      "ocr": {
+        "expected": "CHIPSEL",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 381,
+      "y": 969
+    },
+    {
+      "idx": 69,
+      "name": "~IOWRITE",
+      "ocr": {
+        "expected": "M11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 111,
+      "y": 813
+    },
+    {
+      "idx": 70,
+      "name": "MBUSREAD",
+      "ocr": {
+        "expected": "M21",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 359,
+      "y": 1026
+    },
+    {
+      "idx": 71,
+      "name": "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)",
+      "ocr": {
+        "expected": "CLK2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 316,
+      "y": 974
+    },
+    {
+      "idx": 72,
+      "name": "~EXTBUSDRIVE",
+      "ocr": {
+        "expected": "D2+~D1+D0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 187,
+      "y": 1011
+    },
+    {
+      "idx": 73,
+      "name": "D3&D2&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "SYNC",
+        "ocr_norm": "N",
+        "ocr_raw": "N",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 2482,
+      "y": 533
+    },
+    {
+      "idx": 74,
+      "name": "D3&D2&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "~A11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 557
+    },
+    {
+      "idx": 75,
+      "name": "D3&~D2&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "A12",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 581
+    },
+    {
+      "idx": 76,
+      "name": "D3&~D2&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "~A21",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 605
+    },
+    {
+      "idx": 77,
+      "name": "~D3&D2&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "A22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 629
+    },
+    {
+      "idx": 78,
+      "name": "~D3&D2&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "~A31",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 653
+    },
+    {
+      "idx": 79,
+      "name": "~D3&~D2&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "A32",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 677
+    },
+    {
+      "idx": 80,
+      "name": "~D3&~D2&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "~M11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 701
+    },
+    {
+      "idx": 81,
+      "name": "~D1&~D0&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "M12",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 725
+    },
+    {
+      "idx": 82,
+      "name": "~D1&~D0&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "~M21",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 749
+    },
+    {
+      "idx": 83,
+      "name": "~D1&D0&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "M22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 773
+    },
+    {
+      "idx": 84,
+      "name": "~D1&D0&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "~X11",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 2482,
+      "y": 797
+    },
+    {
+      "idx": 85,
+      "name": "D1&~D0&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "X12",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.5
+      },
+      "x": 2482,
+      "y": 821
+    },
+    {
+      "idx": 86,
+      "name": "D1&~D0&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "~X21",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 2482,
+      "y": 845
+    },
+    {
+      "idx": 87,
+      "name": "D1&D0&([A22/2][CLK2])",
+      "ocr": {
+        "expected": "X22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2482,
+      "y": 869
+    },
+    {
+      "idx": 88,
+      "name": "D1&D0&([A12/2][CLK2])",
+      "ocr": {
+        "expected": "CHIPNUM",
+        "ocr_norm": "I",
+        "ocr_raw": "I",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 2482,
+      "y": 893
+    }
+  ],
+  "schema": {
+    "description": "Schematic net names from signals.txt (schematic-space), with optional OCR join.",
+    "version": 0
+  }
+}

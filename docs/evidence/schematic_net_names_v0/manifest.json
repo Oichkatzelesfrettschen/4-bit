@@ -1,0 +1,22 @@
+{
+  "outputs": [
+    {
+      "chip": "4001",
+      "output": "docs/evidence/schematic_net_names_v0/4001_schematic_net_names_v0.json"
+    },
+    {
+      "chip": "4002",
+      "output": "docs/evidence/schematic_net_names_v0/4002_schematic_net_names_v0.json"
+    },
+    {
+      "chip": "4003",
+      "output": "docs/evidence/schematic_net_names_v0/4003_schematic_net_names_v0.json"
+    },
+    {
+      "chip": "4004",
+      "output": "docs/evidence/schematic_net_names_v0/4004_schematic_net_names_v0.json"
+    }
+  ],
+  "params": {},
+  "tool": "scripts/extract_schematic_nets_v0.py"
+}

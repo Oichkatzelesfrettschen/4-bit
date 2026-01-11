@@ -1,0 +1,223 @@
+{
+  "anchors_resolved": [],
+  "anchors_unresolved": [],
+  "chip": "4003",
+  "counts": {
+    "anchors_resolved": 0,
+    "anchors_total": 0,
+    "anchors_unresolved": 0,
+    "layout_nodes": 490,
+    "schematic_net_names": 14
+  },
+  "inputs": {
+    "anchors": "docs/evidence/schematic_layout_anchors_v0.json",
+    "layout_netlist_v0": "docs/evidence/netlists_v0/4003_netlist_v0.json",
+    "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4003_schematic_net_names_v0.json"
+  },
+  "schema": {
+    "description": "Scaffold report for matching schematic net names (signals.txt) to layout nodes (netlist_v0).",
+    "version": 0
+  },
+  "top_layout_node_candidates": [
+    {
+      "diffusion_area": 3330,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 389,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 1990,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 361,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 1904,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 277,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 1882,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 278,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 1882,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 284,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 1880,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 276,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 874,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 279,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 732,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 370,
+      "poly_area": 0,
+      "terminal_degree": 2
+    },
+    {
+      "diffusion_area": 36417,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 489,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 8132,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 157,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 5159,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 152,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 3109,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 151,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 2131,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 297,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1962,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 365,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1924,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 363,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1910,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 367,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1880,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 359,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1827,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 275,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1622,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 415,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1331,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 236,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1324,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 286,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1316,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 235,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1315,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 237,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1297,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 239,
+      "poly_area": 0,
+      "terminal_degree": 1
+    },
+    {
+      "diffusion_area": 1291,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 386,
+      "poly_area": 0,
+      "terminal_degree": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema": {
+    "version": 0,
+    "description": "Manual anchors for matching schematic net names (signals.txt) to layout node IDs (netlist_v0)."
+  },
+  "notes": [
+    "Schematic and layout are different coordinate spaces; matching requires anchors + iterative refinement.",
+    "Start by mapping external pins (VDD, GND, D0..D3, CLK1/CLK2, SYNC, RESET, CM, TEST) to layout node IDs.",
+    "Use scripts/match_schematic_layout_v0.py to get candidate layout nodes by degree/area, then fill in layout_node."
+  ],
+  "anchors": {
+    "4004": {
+      "CLK1": { "layout_node": null, "note": "External clock pin (signals.txt entry)." },
+      "CLK2": { "layout_node": null, "note": "External clock pin (signals.txt entry)." },
+      "SYNC": { "layout_node": null, "note": "SYNC output pin (signals.txt entry)." },
+      "POC_PAD": { "layout_node": null, "note": "Power-on clear pad (signals.txt entry)." },
+      "TEST_PAD": { "layout_node": null, "note": "TEST pad; analyzer readme notes schematic vs mask revision mismatch here." },
+      "D0_PAD": { "layout_node": null, "note": "External data bus pad D0." },
+      "D1_PAD": { "layout_node": null, "note": "External data bus pad D1." },
+      "D2_PAD": { "layout_node": null, "note": "External data bus pad D2." },
+      "D3_PAD": { "layout_node": null, "note": "External data bus pad D3." },
+      "CMROM": { "layout_node": null, "note": "ROM chip-select output pin." },
+      "CMRAM0": { "layout_node": null, "note": "RAM chip-select output pin (bank 0)." },
+      "CMRAM1": { "layout_node": null, "note": "RAM chip-select output pin (bank 1)." },
+      "CMRAM2": { "layout_node": null, "note": "RAM chip-select output pin (bank 2)." },
+      "CMRAM3": { "layout_node": null, "note": "RAM chip-select output pin (bank 3)." }
+    }
+  }
+}

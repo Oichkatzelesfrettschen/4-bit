@@ -1,0 +1,322 @@
+{
+  "anchors_resolved": [],
+  "anchors_unresolved": [
+    {
+      "layout_node": null,
+      "name": "CLK1",
+      "note": "External clock pin (signals.txt entry).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "CLK2",
+      "note": "External clock pin (signals.txt entry).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "CMRAM0",
+      "note": "RAM chip-select output pin (bank 0).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "CMRAM1",
+      "note": "RAM chip-select output pin (bank 1).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "CMRAM2",
+      "note": "RAM chip-select output pin (bank 2).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "CMRAM3",
+      "note": "RAM chip-select output pin (bank 3).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "CMROM",
+      "note": "ROM chip-select output pin.",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "D0_PAD",
+      "note": "External data bus pad D0.",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "D1_PAD",
+      "note": "External data bus pad D1.",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "D2_PAD",
+      "note": "External data bus pad D2.",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "D3_PAD",
+      "note": "External data bus pad D3.",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "POC_PAD",
+      "note": "Power-on clear pad (signals.txt entry).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "SYNC",
+      "note": "SYNC output pin (signals.txt entry).",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    },
+    {
+      "layout_node": null,
+      "name": "TEST_PAD",
+      "note": "TEST pad; analyzer readme notes schematic vs mask revision mismatch here.",
+      "present_in_schematic": true,
+      "status": "unresolved"
+    }
+  ],
+  "chip": "4004",
+  "counts": {
+    "anchors_resolved": 0,
+    "anchors_total": 14,
+    "anchors_unresolved": 14,
+    "layout_nodes": 3448,
+    "schematic_net_names": 275
+  },
+  "inputs": {
+    "anchors": "docs/evidence/schematic_layout_anchors_v0.json",
+    "layout_netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+    "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4004_schematic_net_names_v0.json"
+  },
+  "schema": {
+    "description": "Scaffold report for matching schematic net names (signals.txt) to layout nodes (netlist_v0).",
+    "version": 0
+  },
+  "top_layout_node_candidates": [
+    {
+      "diffusion_area": 43032,
+      "gate_degree": 65,
+      "metal_area": 232361,
+      "node": 415,
+      "poly_area": 139896,
+      "terminal_degree": 64
+    },
+    {
+      "diffusion_area": 19923,
+      "gate_degree": 5,
+      "metal_area": 411436,
+      "node": 3,
+      "poly_area": 29575,
+      "terminal_degree": 53
+    },
+    {
+      "diffusion_area": 17530,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 1230,
+      "poly_area": 0,
+      "terminal_degree": 34
+    },
+    {
+      "diffusion_area": 1931,
+      "gate_degree": 12,
+      "metal_area": 9524,
+      "node": 409,
+      "poly_area": 12730,
+      "terminal_degree": 16
+    },
+    {
+      "diffusion_area": 183,
+      "gate_degree": 0,
+      "metal_area": 3883,
+      "node": 101,
+      "poly_area": 0,
+      "terminal_degree": 15
+    },
+    {
+      "diffusion_area": 179,
+      "gate_degree": 0,
+      "metal_area": 3513,
+      "node": 66,
+      "poly_area": 0,
+      "terminal_degree": 15
+    },
+    {
+      "diffusion_area": 179,
+      "gate_degree": 0,
+      "metal_area": 3628,
+      "node": 84,
+      "poly_area": 0,
+      "terminal_degree": 14
+    },
+    {
+      "diffusion_area": 183,
+      "gate_degree": 0,
+      "metal_area": 3614,
+      "node": 70,
+      "poly_area": 0,
+      "terminal_degree": 14
+    },
+    {
+      "diffusion_area": 11948,
+      "gate_degree": 0,
+      "metal_area": 0,
+      "node": 1229,
+      "poly_area": 0,
+      "terminal_degree": 14
+    },
+    {
+      "diffusion_area": 1869,
+      "gate_degree": 0,
+      "metal_area": 5371,
+      "node": 397,
+      "poly_area": 0,
+      "terminal_degree": 12
+    },
+    {
+      "diffusion_area": 170,
+      "gate_degree": 0,
+      "metal_area": 3926,
+      "node": 81,
+      "poly_area": 0,
+      "terminal_degree": 12
+    },
+    {
+      "diffusion_area": 2328,
+      "gate_degree": 3,
+      "metal_area": 2931,
+      "node": 417,
+      "poly_area": 1308,
+      "terminal_degree": 12
+    },
+    {
+      "diffusion_area": 3622,
+      "gate_degree": 0,
+      "metal_area": 5456,
+      "node": 433,
+      "poly_area": 0,
+      "terminal_degree": 11
+    },
+    {
+      "diffusion_area": 171,
+      "gate_degree": 0,
+      "metal_area": 3556,
+      "node": 53,
+      "poly_area": 0,
+      "terminal_degree": 11
+    },
+    {
+      "diffusion_area": 179,
+      "gate_degree": 0,
+      "metal_area": 3539,
+      "node": 99,
+      "poly_area": 0,
+      "terminal_degree": 11
+    },
+    {
+      "diffusion_area": 4128,
+      "gate_degree": 4,
+      "metal_area": 23200,
+      "node": 246,
+      "poly_area": 7310,
+      "terminal_degree": 9
+    },
+    {
+      "diffusion_area": 1263,
+      "gate_degree": 0,
+      "metal_area": 2282,
+      "node": 426,
+      "poly_area": 3937,
+      "terminal_degree": 9
+    },
+    {
+      "diffusion_area": 165,
+      "gate_degree": 0,
+      "metal_area": 3814,
+      "node": 48,
+      "poly_area": 0,
+      "terminal_degree": 8
+    },
+    {
+      "diffusion_area": 103,
+      "gate_degree": 0,
+      "metal_area": 2613,
+      "node": 63,
+      "poly_area": 0,
+      "terminal_degree": 8
+    },
+    {
+      "diffusion_area": 104,
+      "gate_degree": 0,
+      "metal_area": 2363,
+      "node": 83,
+      "poly_area": 0,
+      "terminal_degree": 8
+    },
+    {
+      "diffusion_area": 114,
+      "gate_degree": 0,
+      "metal_area": 2696,
+      "node": 80,
+      "poly_area": 0,
+      "terminal_degree": 7
+    },
+    {
+      "diffusion_area": 96,
+      "gate_degree": 0,
+      "metal_area": 2630,
+      "node": 97,
+      "poly_area": 0,
+      "terminal_degree": 7
+    },
+    {
+      "diffusion_area": 671,
+      "gate_degree": 0,
+      "metal_area": 7377,
+      "node": 356,
+      "poly_area": 3321,
+      "terminal_degree": 6
+    },
+    {
+      "diffusion_area": 1484,
+      "gate_degree": 0,
+      "metal_area": 6857,
+      "node": 359,
+      "poly_area": 519,
+      "terminal_degree": 6
+    },
+    {
+      "diffusion_area": 1209,
+      "gate_degree": 5,
+      "metal_area": 4804,
+      "node": 143,
+      "poly_area": 3761,
+      "terminal_degree": 6
+    }
+  ]
+}

@@ -4,6 +4,10 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-11T23:20:00Z: Added schematic-net name extraction (`docs/evidence/schematic_net_names_v0/`) joined with OCR results,
+  plus a schematic↔layout matching scaffold (`docs/evidence/schematic_layout_match_v0/`) driven by manual anchors in
+  `docs/evidence/schematic_layout_anchors_v0.json`. Extended `netlist_v0` outputs with per-node stats (layer areas + degrees)
+  to support candidate node ranking for pin/rail anchoring.
 - 2026-01-11T22:45:00Z: Added deterministic `netlist_v0` layout connectivity extraction from i400x mask layers
   (`scripts/extract_netlist_v0.py`) with committed outputs in `docs/evidence/netlists_v0/` plus a metrics summarizer
   (`scripts/netlist_v0_metrics.py`). Clarified schematic-vs-layout coordinate spaces (signals points are schematic refs),

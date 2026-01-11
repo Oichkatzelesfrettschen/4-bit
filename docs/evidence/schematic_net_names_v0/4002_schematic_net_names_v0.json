@@ -1,0 +1,8346 @@
+{
+  "chip": "4002",
+  "counts": {
+    "net_names": 416,
+    "points_with_ocr": 416,
+    "signals_points": 416
+  },
+  "inputs": {
+    "ocr_report_json": "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.json",
+    "schematic_bmp": "docs/emulators/i4002-schematic.bmp",
+    "sha256": {
+      "ocr_report_json": "2cfa3eab0cfa72cfcf825cec7655c378df3b3189268ea6bb9b5d625678ad814d",
+      "schematic_bmp": "6b363327824419fda0eb1ca133d9a4d7213c947528f8f485239c4f8e51117672",
+      "signals_txt": "9985d13745bfcf93f6d5e31c1f7d7ad8b22a9a2edfcfc11915435851c990ce9b"
+    },
+    "signals_txt": "docs/emulators/i4002-signals.txt"
+  },
+  "nets": [
+    {
+      "name": "(RESET)",
+      "point_indices": [
+        37
+      ]
+    },
+    {
+      "name": "A12",
+      "point_indices": [
+        19
+      ]
+    },
+    {
+      "name": "A22",
+      "point_indices": [
+        21
+      ]
+    },
+    {
+      "name": "A32",
+      "point_indices": [
+        23
+      ]
+    },
+    {
+      "name": "CLK1",
+      "point_indices": [
+        0
+      ]
+    },
+    {
+      "name": "CLK1&(M11+X11)",
+      "point_indices": [
+        63
+      ]
+    },
+    {
+      "name": "CLK1&(M21+RAM_WRITE&X21)",
+      "point_indices": [
+        95
+      ]
+    },
+    {
+      "name": "CLK1&X11",
+      "point_indices": [
+        80
+      ]
+    },
+    {
+      "name": "CLK2",
+      "point_indices": [
+        1
+      ]
+    },
+    {
+      "name": "CLK2&(M12+X12)&~RESET",
+      "point_indices": [
+        62
+      ]
+    },
+    {
+      "name": "CLK2&(M22+RAM_WRITE&X22&~RESET)",
+      "point_indices": [
+        79
+      ]
+    },
+    {
+      "name": "CLK2&X32&SRC_SEL_COMMAND",
+      "point_indices": [
+        68
+      ]
+    },
+    {
+      "name": "CM",
+      "point_indices": [
+        9
+      ]
+    },
+    {
+      "name": "COMMAND",
+      "point_indices": [
+        38
+      ]
+    },
+    {
+      "name": "CS",
+      "point_indices": [
+        3
+      ]
+    },
+    {
+      "name": "D0",
+      "point_indices": [
+        14
+      ]
+    },
+    {
+      "name": "D0_PAD",
+      "point_indices": [
+        4
+      ]
+    },
+    {
+      "name": "D1",
+      "point_indices": [
+        15
+      ]
+    },
+    {
+      "name": "D1_PAD",
+      "point_indices": [
+        5
+      ]
+    },
+    {
+      "name": "D2",
+      "point_indices": [
+        16
+      ]
+    },
+    {
+      "name": "D2_PAD",
+      "point_indices": [
+        6
+      ]
+    },
+    {
+      "name": "D3",
+      "point_indices": [
+        17
+      ]
+    },
+    {
+      "name": "D3_PAD",
+      "point_indices": [
+        7
+      ]
+    },
+    {
+      "name": "M12",
+      "point_indices": [
+        25
+      ]
+    },
+    {
+      "name": "M22",
+      "point_indices": [
+        27
+      ]
+    },
+    {
+      "name": "OPA0",
+      "point_indices": [
+        46
+      ]
+    },
+    {
+      "name": "OPA1",
+      "point_indices": [
+        44
+      ]
+    },
+    {
+      "name": "OPA2",
+      "point_indices": [
+        50
+      ]
+    },
+    {
+      "name": "OPA3",
+      "point_indices": [
+        47
+      ]
+    },
+    {
+      "name": "OUT0",
+      "point_indices": [
+        10
+      ]
+    },
+    {
+      "name": "OUT1",
+      "point_indices": [
+        11
+      ]
+    },
+    {
+      "name": "OUT2",
+      "point_indices": [
+        12
+      ]
+    },
+    {
+      "name": "OUT3",
+      "point_indices": [
+        13
+      ]
+    },
+    {
+      "name": "RAM_COMMAND",
+      "point_indices": [
+        42
+      ]
+    },
+    {
+      "name": "RAM_OUTPUT",
+      "point_indices": [
+        54
+      ]
+    },
+    {
+      "name": "RAM_OUTPUT&X22&~RESET",
+      "point_indices": [
+        61
+      ]
+    },
+    {
+      "name": "RAM_READ",
+      "point_indices": [
+        52
+      ]
+    },
+    {
+      "name": "RAM_READ&X21&~RESET",
+      "point_indices": [
+        59
+      ]
+    },
+    {
+      "name": "RAM_WRITE",
+      "point_indices": [
+        55
+      ]
+    },
+    {
+      "name": "RAM_WRITE&X22&~RESET",
+      "point_indices": [
+        60
+      ]
+    },
+    {
+      "name": "REG0",
+      "point_indices": [
+        90
+      ]
+    },
+    {
+      "name": "REG0.M0.0",
+      "point_indices": [
+        344
+      ]
+    },
+    {
+      "name": "REG0.M0.1",
+      "point_indices": [
+        364
+      ]
+    },
+    {
+      "name": "REG0.M0.2",
+      "point_indices": [
+        384
+      ]
+    },
+    {
+      "name": "REG0.M0.3",
+      "point_indices": [
+        404
+      ]
+    },
+    {
+      "name": "REG0.M1.0",
+      "point_indices": [
+        346
+      ]
+    },
+    {
+      "name": "REG0.M1.1",
+      "point_indices": [
+        366
+      ]
+    },
+    {
+      "name": "REG0.M1.2",
+      "point_indices": [
+        386
+      ]
+    },
+    {
+      "name": "REG0.M1.3",
+      "point_indices": [
+        406
+      ]
+    },
+    {
+      "name": "REG0.M10.0",
+      "point_indices": [
+        337
+      ]
+    },
+    {
+      "name": "REG0.M10.1",
+      "point_indices": [
+        357
+      ]
+    },
+    {
+      "name": "REG0.M10.2",
+      "point_indices": [
+        377
+      ]
+    },
+    {
+      "name": "REG0.M10.3",
+      "point_indices": [
+        397
+      ]
+    },
+    {
+      "name": "REG0.M11.0",
+      "point_indices": [
+        339
+      ]
+    },
+    {
+      "name": "REG0.M11.1",
+      "point_indices": [
+        359
+      ]
+    },
+    {
+      "name": "REG0.M11.2",
+      "point_indices": [
+        379
+      ]
+    },
+    {
+      "name": "REG0.M11.3",
+      "point_indices": [
+        399
+      ]
+    },
+    {
+      "name": "REG0.M12.0",
+      "point_indices": [
+        349
+      ]
+    },
+    {
+      "name": "REG0.M12.1",
+      "point_indices": [
+        369
+      ]
+    },
+    {
+      "name": "REG0.M12.2",
+      "point_indices": [
+        389
+      ]
+    },
+    {
+      "name": "REG0.M12.3",
+      "point_indices": [
+        409
+      ]
+    },
+    {
+      "name": "REG0.M13.0",
+      "point_indices": [
+        351
+      ]
+    },
+    {
+      "name": "REG0.M13.1",
+      "point_indices": [
+        371
+      ]
+    },
+    {
+      "name": "REG0.M13.2",
+      "point_indices": [
+        391
+      ]
+    },
+    {
+      "name": "REG0.M13.3",
+      "point_indices": [
+        411
+      ]
+    },
+    {
+      "name": "REG0.M14.0",
+      "point_indices": [
+        341
+      ]
+    },
+    {
+      "name": "REG0.M14.1",
+      "point_indices": [
+        361
+      ]
+    },
+    {
+      "name": "REG0.M14.2",
+      "point_indices": [
+        381
+      ]
+    },
+    {
+      "name": "REG0.M14.3",
+      "point_indices": [
+        401
+      ]
+    },
+    {
+      "name": "REG0.M15.0",
+      "point_indices": [
+        343
+      ]
+    },
+    {
+      "name": "REG0.M15.1",
+      "point_indices": [
+        363
+      ]
+    },
+    {
+      "name": "REG0.M15.2",
+      "point_indices": [
+        383
+      ]
+    },
+    {
+      "name": "REG0.M15.3",
+      "point_indices": [
+        403
+      ]
+    },
+    {
+      "name": "REG0.M2.0",
+      "point_indices": [
+        336
+      ]
+    },
+    {
+      "name": "REG0.M2.1",
+      "point_indices": [
+        356
+      ]
+    },
+    {
+      "name": "REG0.M2.2",
+      "point_indices": [
+        376
+      ]
+    },
+    {
+      "name": "REG0.M2.3",
+      "point_indices": [
+        396
+      ]
+    },
+    {
+      "name": "REG0.M3.0",
+      "point_indices": [
+        338
+      ]
+    },
+    {
+      "name": "REG0.M3.1",
+      "point_indices": [
+        358
+      ]
+    },
+    {
+      "name": "REG0.M3.2",
+      "point_indices": [
+        378
+      ]
+    },
+    {
+      "name": "REG0.M3.3",
+      "point_indices": [
+        398
+      ]
+    },
+    {
+      "name": "REG0.M4.0",
+      "point_indices": [
+        348
+      ]
+    },
+    {
+      "name": "REG0.M4.1",
+      "point_indices": [
+        368
+      ]
+    },
+    {
+      "name": "REG0.M4.2",
+      "point_indices": [
+        388
+      ]
+    },
+    {
+      "name": "REG0.M4.3",
+      "point_indices": [
+        408
+      ]
+    },
+    {
+      "name": "REG0.M5.0",
+      "point_indices": [
+        350
+      ]
+    },
+    {
+      "name": "REG0.M5.1",
+      "point_indices": [
+        370
+      ]
+    },
+    {
+      "name": "REG0.M5.2",
+      "point_indices": [
+        390
+      ]
+    },
+    {
+      "name": "REG0.M5.3",
+      "point_indices": [
+        410
+      ]
+    },
+    {
+      "name": "REG0.M6.0",
+      "point_indices": [
+        340
+      ]
+    },
+    {
+      "name": "REG0.M6.1",
+      "point_indices": [
+        360
+      ]
+    },
+    {
+      "name": "REG0.M6.2",
+      "point_indices": [
+        380
+      ]
+    },
+    {
+      "name": "REG0.M6.3",
+      "point_indices": [
+        400
+      ]
+    },
+    {
+      "name": "REG0.M7.0",
+      "point_indices": [
+        342
+      ]
+    },
+    {
+      "name": "REG0.M7.1",
+      "point_indices": [
+        362
+      ]
+    },
+    {
+      "name": "REG0.M7.2",
+      "point_indices": [
+        382
+      ]
+    },
+    {
+      "name": "REG0.M7.3",
+      "point_indices": [
+        402
+      ]
+    },
+    {
+      "name": "REG0.M8.0",
+      "point_indices": [
+        345
+      ]
+    },
+    {
+      "name": "REG0.M8.1",
+      "point_indices": [
+        365
+      ]
+    },
+    {
+      "name": "REG0.M8.2",
+      "point_indices": [
+        385
+      ]
+    },
+    {
+      "name": "REG0.M8.3",
+      "point_indices": [
+        405
+      ]
+    },
+    {
+      "name": "REG0.M9.0",
+      "point_indices": [
+        347
+      ]
+    },
+    {
+      "name": "REG0.M9.1",
+      "point_indices": [
+        367
+      ]
+    },
+    {
+      "name": "REG0.M9.2",
+      "point_indices": [
+        387
+      ]
+    },
+    {
+      "name": "REG0.M9.3",
+      "point_indices": [
+        407
+      ]
+    },
+    {
+      "name": "REG0.S0.0",
+      "point_indices": [
+        354
+      ]
+    },
+    {
+      "name": "REG0.S0.1",
+      "point_indices": [
+        374
+      ]
+    },
+    {
+      "name": "REG0.S0.2",
+      "point_indices": [
+        394
+      ]
+    },
+    {
+      "name": "REG0.S0.3",
+      "point_indices": [
+        414
+      ]
+    },
+    {
+      "name": "REG0.S1.0",
+      "point_indices": [
+        352
+      ]
+    },
+    {
+      "name": "REG0.S1.1",
+      "point_indices": [
+        372
+      ]
+    },
+    {
+      "name": "REG0.S1.2",
+      "point_indices": [
+        392
+      ]
+    },
+    {
+      "name": "REG0.S1.3",
+      "point_indices": [
+        412
+      ]
+    },
+    {
+      "name": "REG0.S2.0",
+      "point_indices": [
+        353
+      ]
+    },
+    {
+      "name": "REG0.S2.1",
+      "point_indices": [
+        373
+      ]
+    },
+    {
+      "name": "REG0.S2.2",
+      "point_indices": [
+        393
+      ]
+    },
+    {
+      "name": "REG0.S2.3",
+      "point_indices": [
+        413
+      ]
+    },
+    {
+      "name": "REG0.S3.0",
+      "point_indices": [
+        355
+      ]
+    },
+    {
+      "name": "REG0.S3.1",
+      "point_indices": [
+        375
+      ]
+    },
+    {
+      "name": "REG0.S3.2",
+      "point_indices": [
+        395
+      ]
+    },
+    {
+      "name": "REG0.S3.3",
+      "point_indices": [
+        415
+      ]
+    },
+    {
+      "name": "REG1",
+      "point_indices": [
+        87
+      ]
+    },
+    {
+      "name": "REG1.M0.0",
+      "point_indices": [
+        264
+      ]
+    },
+    {
+      "name": "REG1.M0.1",
+      "point_indices": [
+        284
+      ]
+    },
+    {
+      "name": "REG1.M0.2",
+      "point_indices": [
+        304
+      ]
+    },
+    {
+      "name": "REG1.M0.3",
+      "point_indices": [
+        324
+      ]
+    },
+    {
+      "name": "REG1.M1.0",
+      "point_indices": [
+        266
+      ]
+    },
+    {
+      "name": "REG1.M1.1",
+      "point_indices": [
+        286
+      ]
+    },
+    {
+      "name": "REG1.M1.2",
+      "point_indices": [
+        306
+      ]
+    },
+    {
+      "name": "REG1.M1.3",
+      "point_indices": [
+        326
+      ]
+    },
+    {
+      "name": "REG1.M10.0",
+      "point_indices": [
+        257
+      ]
+    },
+    {
+      "name": "REG1.M10.1",
+      "point_indices": [
+        277
+      ]
+    },
+    {
+      "name": "REG1.M10.2",
+      "point_indices": [
+        297
+      ]
+    },
+    {
+      "name": "REG1.M10.3",
+      "point_indices": [
+        317
+      ]
+    },
+    {
+      "name": "REG1.M11.0",
+      "point_indices": [
+        259
+      ]
+    },
+    {
+      "name": "REG1.M11.1",
+      "point_indices": [
+        279
+      ]
+    },
+    {
+      "name": "REG1.M11.2",
+      "point_indices": [
+        299
+      ]
+    },
+    {
+      "name": "REG1.M11.3",
+      "point_indices": [
+        319
+      ]
+    },
+    {
+      "name": "REG1.M12.0",
+      "point_indices": [
+        269
+      ]
+    },
+    {
+      "name": "REG1.M12.1",
+      "point_indices": [
+        289
+      ]
+    },
+    {
+      "name": "REG1.M12.2",
+      "point_indices": [
+        309
+      ]
+    },
+    {
+      "name": "REG1.M12.3",
+      "point_indices": [
+        329
+      ]
+    },
+    {
+      "name": "REG1.M13.0",
+      "point_indices": [
+        271
+      ]
+    },
+    {
+      "name": "REG1.M13.1",
+      "point_indices": [
+        291
+      ]
+    },
+    {
+      "name": "REG1.M13.2",
+      "point_indices": [
+        311
+      ]
+    },
+    {
+      "name": "REG1.M13.3",
+      "point_indices": [
+        331
+      ]
+    },
+    {
+      "name": "REG1.M14.0",
+      "point_indices": [
+        261
+      ]
+    },
+    {
+      "name": "REG1.M14.1",
+      "point_indices": [
+        281
+      ]
+    },
+    {
+      "name": "REG1.M14.2",
+      "point_indices": [
+        301
+      ]
+    },
+    {
+      "name": "REG1.M14.3",
+      "point_indices": [
+        321
+      ]
+    },
+    {
+      "name": "REG1.M15.0",
+      "point_indices": [
+        263
+      ]
+    },
+    {
+      "name": "REG1.M15.1",
+      "point_indices": [
+        283
+      ]
+    },
+    {
+      "name": "REG1.M15.2",
+      "point_indices": [
+        303
+      ]
+    },
+    {
+      "name": "REG1.M15.3",
+      "point_indices": [
+        323
+      ]
+    },
+    {
+      "name": "REG1.M2.0",
+      "point_indices": [
+        256
+      ]
+    },
+    {
+      "name": "REG1.M2.1",
+      "point_indices": [
+        276
+      ]
+    },
+    {
+      "name": "REG1.M2.2",
+      "point_indices": [
+        296
+      ]
+    },
+    {
+      "name": "REG1.M2.3",
+      "point_indices": [
+        316
+      ]
+    },
+    {
+      "name": "REG1.M3.0",
+      "point_indices": [
+        258
+      ]
+    },
+    {
+      "name": "REG1.M3.1",
+      "point_indices": [
+        278
+      ]
+    },
+    {
+      "name": "REG1.M3.2",
+      "point_indices": [
+        298
+      ]
+    },
+    {
+      "name": "REG1.M3.3",
+      "point_indices": [
+        318
+      ]
+    },
+    {
+      "name": "REG1.M4.0",
+      "point_indices": [
+        268
+      ]
+    },
+    {
+      "name": "REG1.M4.1",
+      "point_indices": [
+        288
+      ]
+    },
+    {
+      "name": "REG1.M4.2",
+      "point_indices": [
+        308
+      ]
+    },
+    {
+      "name": "REG1.M4.3",
+      "point_indices": [
+        328
+      ]
+    },
+    {
+      "name": "REG1.M5.0",
+      "point_indices": [
+        270
+      ]
+    },
+    {
+      "name": "REG1.M5.1",
+      "point_indices": [
+        290
+      ]
+    },
+    {
+      "name": "REG1.M5.2",
+      "point_indices": [
+        310
+      ]
+    },
+    {
+      "name": "REG1.M5.3",
+      "point_indices": [
+        330
+      ]
+    },
+    {
+      "name": "REG1.M6.0",
+      "point_indices": [
+        260
+      ]
+    },
+    {
+      "name": "REG1.M6.1",
+      "point_indices": [
+        280
+      ]
+    },
+    {
+      "name": "REG1.M6.2",
+      "point_indices": [
+        300
+      ]
+    },
+    {
+      "name": "REG1.M6.3",
+      "point_indices": [
+        320
+      ]
+    },
+    {
+      "name": "REG1.M7.0",
+      "point_indices": [
+        262
+      ]
+    },
+    {
+      "name": "REG1.M7.1",
+      "point_indices": [
+        282
+      ]
+    },
+    {
+      "name": "REG1.M7.2",
+      "point_indices": [
+        302
+      ]
+    },
+    {
+      "name": "REG1.M7.3",
+      "point_indices": [
+        322
+      ]
+    },
+    {
+      "name": "REG1.M8.0",
+      "point_indices": [
+        265
+      ]
+    },
+    {
+      "name": "REG1.M8.1",
+      "point_indices": [
+        285
+      ]
+    },
+    {
+      "name": "REG1.M8.2",
+      "point_indices": [
+        305
+      ]
+    },
+    {
+      "name": "REG1.M8.3",
+      "point_indices": [
+        325
+      ]
+    },
+    {
+      "name": "REG1.M9.0",
+      "point_indices": [
+        267
+      ]
+    },
+    {
+      "name": "REG1.M9.1",
+      "point_indices": [
+        287
+      ]
+    },
+    {
+      "name": "REG1.M9.2",
+      "point_indices": [
+        307
+      ]
+    },
+    {
+      "name": "REG1.M9.3",
+      "point_indices": [
+        327
+      ]
+    },
+    {
+      "name": "REG1.S0.0",
+      "point_indices": [
+        274
+      ]
+    },
+    {
+      "name": "REG1.S0.1",
+      "point_indices": [
+        294
+      ]
+    },
+    {
+      "name": "REG1.S0.2",
+      "point_indices": [
+        314
+      ]
+    },
+    {
+      "name": "REG1.S0.3",
+      "point_indices": [
+        334
+      ]
+    },
+    {
+      "name": "REG1.S1.0",
+      "point_indices": [
+        272
+      ]
+    },
+    {
+      "name": "REG1.S1.1",
+      "point_indices": [
+        292
+      ]
+    },
+    {
+      "name": "REG1.S1.2",
+      "point_indices": [
+        312
+      ]
+    },
+    {
+      "name": "REG1.S1.3",
+      "point_indices": [
+        332
+      ]
+    },
+    {
+      "name": "REG1.S2.0",
+      "point_indices": [
+        273
+      ]
+    },
+    {
+      "name": "REG1.S2.1",
+      "point_indices": [
+        293
+      ]
+    },
+    {
+      "name": "REG1.S2.2",
+      "point_indices": [
+        313
+      ]
+    },
+    {
+      "name": "REG1.S2.3",
+      "point_indices": [
+        333
+      ]
+    },
+    {
+      "name": "REG1.S3.0",
+      "point_indices": [
+        275
+      ]
+    },
+    {
+      "name": "REG1.S3.1",
+      "point_indices": [
+        295
+      ]
+    },
+    {
+      "name": "REG1.S3.2",
+      "point_indices": [
+        315
+      ]
+    },
+    {
+      "name": "REG1.S3.3",
+      "point_indices": [
+        335
+      ]
+    },
+    {
+      "name": "REG2",
+      "point_indices": [
+        88
+      ]
+    },
+    {
+      "name": "REG2.M0.0",
+      "point_indices": [
+        184
+      ]
+    },
+    {
+      "name": "REG2.M0.1",
+      "point_indices": [
+        204
+      ]
+    },
+    {
+      "name": "REG2.M0.2",
+      "point_indices": [
+        224
+      ]
+    },
+    {
+      "name": "REG2.M0.3",
+      "point_indices": [
+        244
+      ]
+    },
+    {
+      "name": "REG2.M1.0",
+      "point_indices": [
+        186
+      ]
+    },
+    {
+      "name": "REG2.M1.1",
+      "point_indices": [
+        206
+      ]
+    },
+    {
+      "name": "REG2.M1.2",
+      "point_indices": [
+        226
+      ]
+    },
+    {
+      "name": "REG2.M1.3",
+      "point_indices": [
+        246
+      ]
+    },
+    {
+      "name": "REG2.M10.0",
+      "point_indices": [
+        177
+      ]
+    },
+    {
+      "name": "REG2.M10.1",
+      "point_indices": [
+        197
+      ]
+    },
+    {
+      "name": "REG2.M10.2",
+      "point_indices": [
+        217
+      ]
+    },
+    {
+      "name": "REG2.M10.3",
+      "point_indices": [
+        237
+      ]
+    },
+    {
+      "name": "REG2.M11.0",
+      "point_indices": [
+        179
+      ]
+    },
+    {
+      "name": "REG2.M11.1",
+      "point_indices": [
+        199
+      ]
+    },
+    {
+      "name": "REG2.M11.2",
+      "point_indices": [
+        219
+      ]
+    },
+    {
+      "name": "REG2.M11.3",
+      "point_indices": [
+        239
+      ]
+    },
+    {
+      "name": "REG2.M12.0",
+      "point_indices": [
+        189
+      ]
+    },
+    {
+      "name": "REG2.M12.1",
+      "point_indices": [
+        209
+      ]
+    },
+    {
+      "name": "REG2.M12.2",
+      "point_indices": [
+        229
+      ]
+    },
+    {
+      "name": "REG2.M12.3",
+      "point_indices": [
+        249
+      ]
+    },
+    {
+      "name": "REG2.M13.0",
+      "point_indices": [
+        191
+      ]
+    },
+    {
+      "name": "REG2.M13.1",
+      "point_indices": [
+        211
+      ]
+    },
+    {
+      "name": "REG2.M13.2",
+      "point_indices": [
+        231
+      ]
+    },
+    {
+      "name": "REG2.M13.3",
+      "point_indices": [
+        251
+      ]
+    },
+    {
+      "name": "REG2.M14.0",
+      "point_indices": [
+        181
+      ]
+    },
+    {
+      "name": "REG2.M14.1",
+      "point_indices": [
+        201
+      ]
+    },
+    {
+      "name": "REG2.M14.2",
+      "point_indices": [
+        221
+      ]
+    },
+    {
+      "name": "REG2.M14.3",
+      "point_indices": [
+        241
+      ]
+    },
+    {
+      "name": "REG2.M15.0",
+      "point_indices": [
+        183
+      ]
+    },
+    {
+      "name": "REG2.M15.1",
+      "point_indices": [
+        203
+      ]
+    },
+    {
+      "name": "REG2.M15.2",
+      "point_indices": [
+        223
+      ]
+    },
+    {
+      "name": "REG2.M15.3",
+      "point_indices": [
+        243
+      ]
+    },
+    {
+      "name": "REG2.M2.0",
+      "point_indices": [
+        176
+      ]
+    },
+    {
+      "name": "REG2.M2.1",
+      "point_indices": [
+        196
+      ]
+    },
+    {
+      "name": "REG2.M2.2",
+      "point_indices": [
+        216
+      ]
+    },
+    {
+      "name": "REG2.M2.3",
+      "point_indices": [
+        236
+      ]
+    },
+    {
+      "name": "REG2.M3.0",
+      "point_indices": [
+        178
+      ]
+    },
+    {
+      "name": "REG2.M3.1",
+      "point_indices": [
+        198
+      ]
+    },
+    {
+      "name": "REG2.M3.2",
+      "point_indices": [
+        218
+      ]
+    },
+    {
+      "name": "REG2.M3.3",
+      "point_indices": [
+        238
+      ]
+    },
+    {
+      "name": "REG2.M4.0",
+      "point_indices": [
+        188
+      ]
+    },
+    {
+      "name": "REG2.M4.1",
+      "point_indices": [
+        208
+      ]
+    },
+    {
+      "name": "REG2.M4.2",
+      "point_indices": [
+        228
+      ]
+    },
+    {
+      "name": "REG2.M4.3",
+      "point_indices": [
+        248
+      ]
+    },
+    {
+      "name": "REG2.M5.0",
+      "point_indices": [
+        190
+      ]
+    },
+    {
+      "name": "REG2.M5.1",
+      "point_indices": [
+        210
+      ]
+    },
+    {
+      "name": "REG2.M5.2",
+      "point_indices": [
+        230
+      ]
+    },
+    {
+      "name": "REG2.M5.3",
+      "point_indices": [
+        250
+      ]
+    },
+    {
+      "name": "REG2.M6.0",
+      "point_indices": [
+        180
+      ]
+    },
+    {
+      "name": "REG2.M6.1",
+      "point_indices": [
+        200
+      ]
+    },
+    {
+      "name": "REG2.M6.2",
+      "point_indices": [
+        220
+      ]
+    },
+    {
+      "name": "REG2.M6.3",
+      "point_indices": [
+        240
+      ]
+    },
+    {
+      "name": "REG2.M7.0",
+      "point_indices": [
+        182
+      ]
+    },
+    {
+      "name": "REG2.M7.1",
+      "point_indices": [
+        202
+      ]
+    },
+    {
+      "name": "REG2.M7.2",
+      "point_indices": [
+        222
+      ]
+    },
+    {
+      "name": "REG2.M7.3",
+      "point_indices": [
+        242
+      ]
+    },
+    {
+      "name": "REG2.M8.0",
+      "point_indices": [
+        185
+      ]
+    },
+    {
+      "name": "REG2.M8.1",
+      "point_indices": [
+        205
+      ]
+    },
+    {
+      "name": "REG2.M8.2",
+      "point_indices": [
+        225
+      ]
+    },
+    {
+      "name": "REG2.M8.3",
+      "point_indices": [
+        245
+      ]
+    },
+    {
+      "name": "REG2.M9.0",
+      "point_indices": [
+        187
+      ]
+    },
+    {
+      "name": "REG2.M9.1",
+      "point_indices": [
+        207
+      ]
+    },
+    {
+      "name": "REG2.M9.2",
+      "point_indices": [
+        227
+      ]
+    },
+    {
+      "name": "REG2.M9.3",
+      "point_indices": [
+        247
+      ]
+    },
+    {
+      "name": "REG2.S0.0",
+      "point_indices": [
+        194
+      ]
+    },
+    {
+      "name": "REG2.S0.1",
+      "point_indices": [
+        214
+      ]
+    },
+    {
+      "name": "REG2.S0.2",
+      "point_indices": [
+        234
+      ]
+    },
+    {
+      "name": "REG2.S0.3",
+      "point_indices": [
+        254
+      ]
+    },
+    {
+      "name": "REG2.S1.0",
+      "point_indices": [
+        192
+      ]
+    },
+    {
+      "name": "REG2.S1.1",
+      "point_indices": [
+        212
+      ]
+    },
+    {
+      "name": "REG2.S1.2",
+      "point_indices": [
+        232
+      ]
+    },
+    {
+      "name": "REG2.S1.3",
+      "point_indices": [
+        252
+      ]
+    },
+    {
+      "name": "REG2.S2.0",
+      "point_indices": [
+        193
+      ]
+    },
+    {
+      "name": "REG2.S2.1",
+      "point_indices": [
+        213
+      ]
+    },
+    {
+      "name": "REG2.S2.2",
+      "point_indices": [
+        233
+      ]
+    },
+    {
+      "name": "REG2.S2.3",
+      "point_indices": [
+        253
+      ]
+    },
+    {
+      "name": "REG2.S3.0",
+      "point_indices": [
+        195
+      ]
+    },
+    {
+      "name": "REG2.S3.1",
+      "point_indices": [
+        215
+      ]
+    },
+    {
+      "name": "REG2.S3.2",
+      "point_indices": [
+        235
+      ]
+    },
+    {
+      "name": "REG2.S3.3",
+      "point_indices": [
+        255
+      ]
+    },
+    {
+      "name": "REG3",
+      "point_indices": [
+        89
+      ]
+    },
+    {
+      "name": "REG3.M0.0",
+      "point_indices": [
+        104
+      ]
+    },
+    {
+      "name": "REG3.M0.1",
+      "point_indices": [
+        124
+      ]
+    },
+    {
+      "name": "REG3.M0.2",
+      "point_indices": [
+        144
+      ]
+    },
+    {
+      "name": "REG3.M0.3",
+      "point_indices": [
+        164
+      ]
+    },
+    {
+      "name": "REG3.M1.0",
+      "point_indices": [
+        106
+      ]
+    },
+    {
+      "name": "REG3.M1.1",
+      "point_indices": [
+        126
+      ]
+    },
+    {
+      "name": "REG3.M1.2",
+      "point_indices": [
+        146
+      ]
+    },
+    {
+      "name": "REG3.M1.3",
+      "point_indices": [
+        166
+      ]
+    },
+    {
+      "name": "REG3.M10.0",
+      "point_indices": [
+        97
+      ]
+    },
+    {
+      "name": "REG3.M10.1",
+      "point_indices": [
+        117
+      ]
+    },
+    {
+      "name": "REG3.M10.2",
+      "point_indices": [
+        137
+      ]
+    },
+    {
+      "name": "REG3.M10.3",
+      "point_indices": [
+        157
+      ]
+    },
+    {
+      "name": "REG3.M11.0",
+      "point_indices": [
+        99
+      ]
+    },
+    {
+      "name": "REG3.M11.1",
+      "point_indices": [
+        119
+      ]
+    },
+    {
+      "name": "REG3.M11.2",
+      "point_indices": [
+        139
+      ]
+    },
+    {
+      "name": "REG3.M11.3",
+      "point_indices": [
+        159
+      ]
+    },
+    {
+      "name": "REG3.M12.0",
+      "point_indices": [
+        109
+      ]
+    },
+    {
+      "name": "REG3.M12.1",
+      "point_indices": [
+        129
+      ]
+    },
+    {
+      "name": "REG3.M12.2",
+      "point_indices": [
+        149
+      ]
+    },
+    {
+      "name": "REG3.M12.3",
+      "point_indices": [
+        169
+      ]
+    },
+    {
+      "name": "REG3.M13.0",
+      "point_indices": [
+        111
+      ]
+    },
+    {
+      "name": "REG3.M13.1",
+      "point_indices": [
+        131
+      ]
+    },
+    {
+      "name": "REG3.M13.2",
+      "point_indices": [
+        151
+      ]
+    },
+    {
+      "name": "REG3.M13.3",
+      "point_indices": [
+        171
+      ]
+    },
+    {
+      "name": "REG3.M14.0",
+      "point_indices": [
+        101
+      ]
+    },
+    {
+      "name": "REG3.M14.1",
+      "point_indices": [
+        121
+      ]
+    },
+    {
+      "name": "REG3.M14.2",
+      "point_indices": [
+        141
+      ]
+    },
+    {
+      "name": "REG3.M14.3",
+      "point_indices": [
+        161
+      ]
+    },
+    {
+      "name": "REG3.M15.0",
+      "point_indices": [
+        103
+      ]
+    },
+    {
+      "name": "REG3.M15.1",
+      "point_indices": [
+        123
+      ]
+    },
+    {
+      "name": "REG3.M15.2",
+      "point_indices": [
+        143
+      ]
+    },
+    {
+      "name": "REG3.M15.3",
+      "point_indices": [
+        163
+      ]
+    },
+    {
+      "name": "REG3.M2.0",
+      "point_indices": [
+        96
+      ]
+    },
+    {
+      "name": "REG3.M2.1",
+      "point_indices": [
+        116
+      ]
+    },
+    {
+      "name": "REG3.M2.2",
+      "point_indices": [
+        136
+      ]
+    },
+    {
+      "name": "REG3.M2.3",
+      "point_indices": [
+        156
+      ]
+    },
+    {
+      "name": "REG3.M3.0",
+      "point_indices": [
+        98
+      ]
+    },
+    {
+      "name": "REG3.M3.1",
+      "point_indices": [
+        118
+      ]
+    },
+    {
+      "name": "REG3.M3.2",
+      "point_indices": [
+        138
+      ]
+    },
+    {
+      "name": "REG3.M3.3",
+      "point_indices": [
+        158
+      ]
+    },
+    {
+      "name": "REG3.M4.0",
+      "point_indices": [
+        108
+      ]
+    },
+    {
+      "name": "REG3.M4.1",
+      "point_indices": [
+        128
+      ]
+    },
+    {
+      "name": "REG3.M4.2",
+      "point_indices": [
+        148
+      ]
+    },
+    {
+      "name": "REG3.M4.3",
+      "point_indices": [
+        168
+      ]
+    },
+    {
+      "name": "REG3.M5.0",
+      "point_indices": [
+        110
+      ]
+    },
+    {
+      "name": "REG3.M5.1",
+      "point_indices": [
+        130
+      ]
+    },
+    {
+      "name": "REG3.M5.2",
+      "point_indices": [
+        150
+      ]
+    },
+    {
+      "name": "REG3.M5.3",
+      "point_indices": [
+        170
+      ]
+    },
+    {
+      "name": "REG3.M6.0",
+      "point_indices": [
+        100
+      ]
+    },
+    {
+      "name": "REG3.M6.1",
+      "point_indices": [
+        120
+      ]
+    },
+    {
+      "name": "REG3.M6.2",
+      "point_indices": [
+        140
+      ]
+    },
+    {
+      "name": "REG3.M6.3",
+      "point_indices": [
+        160
+      ]
+    },
+    {
+      "name": "REG3.M7.0",
+      "point_indices": [
+        102
+      ]
+    },
+    {
+      "name": "REG3.M7.1",
+      "point_indices": [
+        122
+      ]
+    },
+    {
+      "name": "REG3.M7.2",
+      "point_indices": [
+        142
+      ]
+    },
+    {
+      "name": "REG3.M7.3",
+      "point_indices": [
+        162
+      ]
+    },
+    {
+      "name": "REG3.M8.0",
+      "point_indices": [
+        105
+      ]
+    },
+    {
+      "name": "REG3.M8.1",
+      "point_indices": [
+        125
+      ]
+    },
+    {
+      "name": "REG3.M8.2",
+      "point_indices": [
+        145
+      ]
+    },
+    {
+      "name": "REG3.M8.3",
+      "point_indices": [
+        165
+      ]
+    },
+    {
+      "name": "REG3.M9.0",
+      "point_indices": [
+        107
+      ]
+    },
+    {
+      "name": "REG3.M9.1",
+      "point_indices": [
+        127
+      ]
+    },
+    {
+      "name": "REG3.M9.2",
+      "point_indices": [
+        147
+      ]
+    },
+    {
+      "name": "REG3.M9.3",
+      "point_indices": [
+        167
+      ]
+    },
+    {
+      "name": "REG3.S0.0",
+      "point_indices": [
+        114
+      ]
+    },
+    {
+      "name": "REG3.S0.1",
+      "point_indices": [
+        134
+      ]
+    },
+    {
+      "name": "REG3.S0.2",
+      "point_indices": [
+        154
+      ]
+    },
+    {
+      "name": "REG3.S0.3",
+      "point_indices": [
+        174
+      ]
+    },
+    {
+      "name": "REG3.S1.0",
+      "point_indices": [
+        112
+      ]
+    },
+    {
+      "name": "REG3.S1.1",
+      "point_indices": [
+        132
+      ]
+    },
+    {
+      "name": "REG3.S1.2",
+      "point_indices": [
+        152
+      ]
+    },
+    {
+      "name": "REG3.S1.3",
+      "point_indices": [
+        172
+      ]
+    },
+    {
+      "name": "REG3.S2.0",
+      "point_indices": [
+        113
+      ]
+    },
+    {
+      "name": "REG3.S2.1",
+      "point_indices": [
+        133
+      ]
+    },
+    {
+      "name": "REG3.S2.2",
+      "point_indices": [
+        153
+      ]
+    },
+    {
+      "name": "REG3.S2.3",
+      "point_indices": [
+        173
+      ]
+    },
+    {
+      "name": "REG3.S3.0",
+      "point_indices": [
+        115
+      ]
+    },
+    {
+      "name": "REG3.S3.1",
+      "point_indices": [
+        135
+      ]
+    },
+    {
+      "name": "REG3.S3.2",
+      "point_indices": [
+        155
+      ]
+    },
+    {
+      "name": "REG3.S3.3",
+      "point_indices": [
+        175
+      ]
+    },
+    {
+      "name": "REGSEL0",
+      "point_indices": [
+        91
+      ]
+    },
+    {
+      "name": "REGSEL1",
+      "point_indices": [
+        93
+      ]
+    },
+    {
+      "name": "RESET",
+      "point_indices": [
+        2
+      ]
+    },
+    {
+      "name": "RFSH.0",
+      "point_indices": [
+        70
+      ]
+    },
+    {
+      "name": "RFSH.1",
+      "point_indices": [
+        71
+      ]
+    },
+    {
+      "name": "RFSH.2",
+      "point_indices": [
+        72
+      ]
+    },
+    {
+      "name": "RFSH.3",
+      "point_indices": [
+        73
+      ]
+    },
+    {
+      "name": "RFSH.4",
+      "point_indices": [
+        74
+      ]
+    },
+    {
+      "name": "ROM_IO",
+      "point_indices": [
+        53
+      ]
+    },
+    {
+      "name": "SRC.0",
+      "point_indices": [
+        75
+      ]
+    },
+    {
+      "name": "SRC.1",
+      "point_indices": [
+        76
+      ]
+    },
+    {
+      "name": "SRC.2",
+      "point_indices": [
+        77
+      ]
+    },
+    {
+      "name": "SRC.3",
+      "point_indices": [
+        78
+      ]
+    },
+    {
+      "name": "SRC_RAM_SEL",
+      "point_indices": [
+        65
+      ]
+    },
+    {
+      "name": "SRC_SEL_COMMAND",
+      "point_indices": [
+        67
+      ]
+    },
+    {
+      "name": "SYNC",
+      "point_indices": [
+        8
+      ]
+    },
+    {
+      "name": "X11",
+      "point_indices": [
+        34
+      ]
+    },
+    {
+      "name": "X12",
+      "point_indices": [
+        29
+      ]
+    },
+    {
+      "name": "X22",
+      "point_indices": [
+        31
+      ]
+    },
+    {
+      "name": "X32",
+      "point_indices": [
+        33
+      ]
+    },
+    {
+      "name": "[RAM_READ&X21&~RESET]",
+      "point_indices": [
+        86
+      ]
+    },
+    {
+      "name": "[RAM_WRITE&X22&~RESET]",
+      "point_indices": [
+        85
+      ]
+    },
+    {
+      "name": "[RESET]",
+      "point_indices": [
+        64
+      ]
+    },
+    {
+      "name": "[X12+X22]",
+      "point_indices": [
+        81
+      ]
+    },
+    {
+      "name": "[X12+X22]&RAM_READ",
+      "point_indices": [
+        82
+      ]
+    },
+    {
+      "name": "~(COMMAND&M22&CLK2)",
+      "point_indices": [
+        39
+      ]
+    },
+    {
+      "name": "~(COMMAND&X22&CLK2)",
+      "point_indices": [
+        40
+      ]
+    },
+    {
+      "name": "~A11",
+      "point_indices": [
+        18
+      ]
+    },
+    {
+      "name": "~A21",
+      "point_indices": [
+        20
+      ]
+    },
+    {
+      "name": "~A31",
+      "point_indices": [
+        22
+      ]
+    },
+    {
+      "name": "~CLK2",
+      "point_indices": [
+        83
+      ]
+    },
+    {
+      "name": "~DRIVE_EXT_DATABUS",
+      "point_indices": [
+        84
+      ]
+    },
+    {
+      "name": "~M11",
+      "point_indices": [
+        24
+      ]
+    },
+    {
+      "name": "~M21",
+      "point_indices": [
+        26
+      ]
+    },
+    {
+      "name": "~OPA0",
+      "point_indices": [
+        45
+      ]
+    },
+    {
+      "name": "~OPA1",
+      "point_indices": [
+        43
+      ]
+    },
+    {
+      "name": "~OPA2",
+      "point_indices": [
+        49
+      ]
+    },
+    {
+      "name": "~OPA3",
+      "point_indices": [
+        48
+      ]
+    },
+    {
+      "name": "~RAM_COMMAND_EXECUTE",
+      "point_indices": [
+        51
+      ]
+    },
+    {
+      "name": "~RAM_OUTPUT",
+      "point_indices": [
+        57
+      ]
+    },
+    {
+      "name": "~RAM_READ",
+      "point_indices": [
+        58
+      ]
+    },
+    {
+      "name": "~RAM_SEL",
+      "point_indices": [
+        41
+      ]
+    },
+    {
+      "name": "~RAM_WRITE",
+      "point_indices": [
+        56
+      ]
+    },
+    {
+      "name": "~REGSEL0",
+      "point_indices": [
+        92
+      ]
+    },
+    {
+      "name": "~REGSEL1",
+      "point_indices": [
+        94
+      ]
+    },
+    {
+      "name": "~RESET",
+      "point_indices": [
+        36
+      ]
+    },
+    {
+      "name": "~SRC_SEL_COMMAND",
+      "point_indices": [
+        66
+      ]
+    },
+    {
+      "name": "~X11",
+      "point_indices": [
+        28
+      ]
+    },
+    {
+      "name": "~X11+~CLK2&X32&SRC_SEL_COMMAND",
+      "point_indices": [
+        69
+      ]
+    },
+    {
+      "name": "~X21",
+      "point_indices": [
+        30
+      ]
+    },
+    {
+      "name": "~X22",
+      "point_indices": [
+        35
+      ]
+    },
+    {
+      "name": "~X31",
+      "point_indices": [
+        32
+      ]
+    }
+  ],
+  "points": [
+    {
+      "idx": 0,
+      "name": "CLK1",
+      "ocr": {
+        "expected": "REG3.M2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 40,
+      "y": 2114
+    },
+    {
+      "idx": 1,
+      "name": "CLK2",
+      "ocr": {
+        "expected": "REG3.M10.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 40,
+      "y": 2194
+    },
+    {
+      "idx": 2,
+      "name": "RESET",
+      "ocr": {
+        "expected": "REG3.M3.0",
+        "ocr_norm": "0",
+        "ocr_raw": "0",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 2747,
+      "y": 2594
+    },
+    {
+      "idx": 3,
+      "name": "CS",
+      "ocr": {
+        "expected": "REG3.M11.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 400,
+      "y": 2383
+    },
+    {
+      "idx": 4,
+      "name": "D0_PAD",
+      "ocr": {
+        "expected": "REG3.M6.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 153
+    },
+    {
+      "idx": 5,
+      "name": "D1_PAD",
+      "ocr": {
+        "expected": "REG3.M14.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 391
+    },
+    {
+      "idx": 6,
+      "name": "D2_PAD",
+      "ocr": {
+        "expected": "REG3.M7.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 629
+    },
+    {
+      "idx": 7,
+      "name": "D3_PAD",
+      "ocr": {
+        "expected": "REG3.M15.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 30,
+      "y": 867
+    },
+    {
+      "idx": 8,
+      "name": "SYNC",
+      "ocr": {
+        "expected": "REG3.M0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 40,
+      "y": 2274
+    },
+    {
+      "idx": 9,
+      "name": "CM",
+      "ocr": {
+        "expected": "REG3.M8.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1072,
+      "y": 2423
+    },
+    {
+      "idx": 10,
+      "name": "OUT0",
+      "ocr": {
+        "expected": "REG3.M1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3182,
+      "y": 168
+    },
+    {
+      "idx": 11,
+      "name": "OUT1",
+      "ocr": {
+        "expected": "REG3.M9.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3182,
+      "y": 326
+    },
+    {
+      "idx": 12,
+      "name": "OUT2",
+      "ocr": {
+        "expected": "REG3.M4.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3182,
+      "y": 484
+    },
+    {
+      "idx": 13,
+      "name": "OUT3",
+      "ocr": {
+        "expected": "REG3.M12.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3182,
+      "y": 642
+    },
+    {
+      "idx": 14,
+      "name": "D0",
+      "ocr": {
+        "expected": "REG3.M5.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 242,
+      "y": 219
+    },
+    {
+      "idx": 15,
+      "name": "D1",
+      "ocr": {
+        "expected": "REG3.M13.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 242,
+      "y": 457
+    },
+    {
+      "idx": 16,
+      "name": "D2",
+      "ocr": {
+        "expected": "REG3.S1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 242,
+      "y": 695
+    },
+    {
+      "idx": 17,
+      "name": "D3",
+      "ocr": {
+        "expected": "REG3.S2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 242,
+      "y": 933
+    },
+    {
+      "idx": 18,
+      "name": "~A11",
+      "ocr": {
+        "expected": "REG3.S0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 189,
+      "y": 2316
+    },
+    {
+      "idx": 19,
+      "name": "A12",
+      "ocr": {
+        "expected": "REG3.S3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 189,
+      "y": 2354
+    },
+    {
+      "idx": 20,
+      "name": "~A21",
+      "ocr": {
+        "expected": "D0_PAD",
+        "ocr_norm": "D0",
+        "ocr_raw": "D0",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 189,
+      "y": 2392
+    },
+    {
+      "idx": 21,
+      "name": "A22",
+      "ocr": {
+        "expected": "OUT0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 189,
+      "y": 2430
+    },
+    {
+      "idx": 22,
+      "name": "~A31",
+      "ocr": {
+        "expected": "REG3.M2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 189,
+      "y": 2468
+    },
+    {
+      "idx": 23,
+      "name": "A32",
+      "ocr": {
+        "expected": "REG3.M10.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 189,
+      "y": 2506
+    },
+    {
+      "idx": 24,
+      "name": "~M11",
+      "ocr": {
+        "expected": "REG3.M3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 189,
+      "y": 2544
+    },
+    {
+      "idx": 25,
+      "name": "M12",
+      "ocr": {
+        "expected": "REG3.M11.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2346
+    },
+    {
+      "idx": 26,
+      "name": "~M21",
+      "ocr": {
+        "expected": "REG3.M6.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2384
+    },
+    {
+      "idx": 27,
+      "name": "M22",
+      "ocr": {
+        "expected": "REG3.M14.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2422
+    },
+    {
+      "idx": 28,
+      "name": "~X11",
+      "ocr": {
+        "expected": "REG3.M7.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2460
+    },
+    {
+      "idx": 29,
+      "name": "X12",
+      "ocr": {
+        "expected": "REG3.M15.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2498
+    },
+    {
+      "idx": 30,
+      "name": "~X21",
+      "ocr": {
+        "expected": "REG3.M0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2536
+    },
+    {
+      "idx": 31,
+      "name": "X22",
+      "ocr": {
+        "expected": "REG3.M8.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2574
+    },
+    {
+      "idx": 32,
+      "name": "~X31",
+      "ocr": {
+        "expected": "REG3.M1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2612
+    },
+    {
+      "idx": 33,
+      "name": "X32",
+      "ocr": {
+        "expected": "REG3.M9.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3149,
+      "y": 2650
+    },
+    {
+      "idx": 34,
+      "name": "X11",
+      "ocr": {
+        "expected": "REG3.M4.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 459,
+      "y": 2687
+    },
+    {
+      "idx": 35,
+      "name": "~X22",
+      "ocr": {
+        "expected": "REG3.M12.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2937,
+      "y": 2550
+    },
+    {
+      "idx": 36,
+      "name": "~RESET",
+      "ocr": {
+        "expected": "REG3.M5.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2678,
+      "y": 2594
+    },
+    {
+      "idx": 37,
+      "name": "(RESET)",
+      "ocr": {
+        "expected": "REG3.M13.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2633,
+      "y": 2594
+    },
+    {
+      "idx": 38,
+      "name": "COMMAND",
+      "ocr": {
+        "expected": "REG3.S1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 968,
+      "y": 2423
+    },
+    {
+      "idx": 39,
+      "name": "~(COMMAND&M22&CLK2)",
+      "ocr": {
+        "expected": "REG3.S2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 923,
+      "y": 2589
+    },
+    {
+      "idx": 40,
+      "name": "~(COMMAND&X22&CLK2)",
+      "ocr": {
+        "expected": "REG3.S0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 862,
+      "y": 2589
+    },
+    {
+      "idx": 41,
+      "name": "~RAM_SEL",
+      "ocr": {
+        "expected": "REG3.S3.1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 580,
+      "y": 2421
+    },
+    {
+      "idx": 42,
+      "name": "RAM_COMMAND",
+      "ocr": {
+        "expected": "D0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 815,
+      "y": 2482
+    },
+    {
+      "idx": 43,
+      "name": "~OPA1",
+      "ocr": {
+        "expected": "REG3.M2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1461,
+      "y": 2426
+    },
+    {
+      "idx": 44,
+      "name": "OPA1",
+      "ocr": {
+        "expected": "REG3.M10.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1479,
+      "y": 2442
+    },
+    {
+      "idx": 45,
+      "name": "~OPA0",
+      "ocr": {
+        "expected": "REG3.M3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1538,
+      "y": 2426
+    },
+    {
+      "idx": 46,
+      "name": "OPA0",
+      "ocr": {
+        "expected": "REG3.M11.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1556,
+      "y": 2442
+    },
+    {
+      "idx": 47,
+      "name": "OPA3",
+      "ocr": {
+        "expected": "REG3.M6.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1614,
+      "y": 2426
+    },
+    {
+      "idx": 48,
+      "name": "~OPA3",
+      "ocr": {
+        "expected": "REG3.M14.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1632,
+      "y": 2442
+    },
+    {
+      "idx": 49,
+      "name": "~OPA2",
+      "ocr": {
+        "expected": "REG3.M7.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1671,
+      "y": 2426
+    },
+    {
+      "idx": 50,
+      "name": "OPA2",
+      "ocr": {
+        "expected": "REG3.M15.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1693,
+      "y": 2442
+    },
+    {
+      "idx": 51,
+      "name": "~RAM_COMMAND_EXECUTE",
+      "ocr": {
+        "expected": "REG3.M0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1419,
+      "y": 2583
+    },
+    {
+      "idx": 52,
+      "name": "RAM_READ",
+      "ocr": {
+        "expected": "REG3.M8.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1724,
+      "y": 2610
+    },
+    {
+      "idx": 53,
+      "name": "ROM_IO",
+      "ocr": {
+        "expected": "REG3.M1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1828,
+      "y": 2512
+    },
+    {
+      "idx": 54,
+      "name": "RAM_OUTPUT",
+      "ocr": {
+        "expected": "REG3.M9.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1886,
+      "y": 2496
+    },
+    {
+      "idx": 55,
+      "name": "RAM_WRITE",
+      "ocr": {
+        "expected": "REG3.M4.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1949,
+      "y": 2431
+    },
+    {
+      "idx": 56,
+      "name": "~RAM_WRITE",
+      "ocr": {
+        "expected": "REG3.M12.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2027,
+      "y": 2415
+    },
+    {
+      "idx": 57,
+      "name": "~RAM_OUTPUT",
+      "ocr": {
+        "expected": "REG3.M5.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2027,
+      "y": 2516
+    },
+    {
+      "idx": 58,
+      "name": "~RAM_READ",
+      "ocr": {
+        "expected": "REG3.M13.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2027,
+      "y": 2594
+    },
+    {
+      "idx": 59,
+      "name": "RAM_READ&X21&~RESET",
+      "ocr": {
+        "expected": "REG3.S1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2579,
+      "y": 2408
+    },
+    {
+      "idx": 60,
+      "name": "RAM_WRITE&X22&~RESET",
+      "ocr": {
+        "expected": "REG3.S2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2689,
+      "y": 2408
+    },
+    {
+      "idx": 61,
+      "name": "RAM_OUTPUT&X22&~RESET",
+      "ocr": {
+        "expected": "REG3.S0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2800,
+      "y": 2408
+    },
+    {
+      "idx": 62,
+      "name": "CLK2&(M12+X12)&~RESET",
+      "ocr": {
+        "expected": "REG3.S3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 3139,
+      "y": 1587
+    },
+    {
+      "idx": 63,
+      "name": "CLK1&(M11+X11)",
+      "ocr": {
+        "expected": "OUT1",
+        "ocr_norm": "4_1",
+        "ocr_raw": "4_1",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2857142857142857
+      },
+      "x": 3148,
+      "y": 1088
+    },
+    {
+      "idx": 64,
+      "name": "[RESET]",
+      "ocr": {
+        "expected": "REG3.M2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 3148,
+      "y": 948
+    },
+    {
+      "idx": 65,
+      "name": "SRC_RAM_SEL",
+      "ocr": {
+        "expected": "REG3.M10.3",
+        "ocr_norm": "3",
+        "ocr_raw": "3",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2222222222222222
+      },
+      "x": 1041,
+      "y": 2551
+    },
+    {
+      "idx": 66,
+      "name": "~SRC_SEL_COMMAND",
+      "ocr": {
+        "expected": "REG3.M3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1105,
+      "y": 2567
+    },
+    {
+      "idx": 67,
+      "name": "SRC_SEL_COMMAND",
+      "ocr": {
+        "expected": "REG3.M11.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1147,
+      "y": 2567
+    },
+    {
+      "idx": 68,
+      "name": "CLK2&X32&SRC_SEL_COMMAND",
+      "ocr": {
+        "expected": "REG3.M6.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1219,
+      "y": 2583
+    },
+    {
+      "idx": 69,
+      "name": "~X11+~CLK2&X32&SRC_SEL_COMMAND",
+      "ocr": {
+        "expected": "REG3.M14.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1267,
+      "y": 2583
+    },
+    {
+      "idx": 70,
+      "name": "RFSH.0",
+      "ocr": {
+        "expected": "REG3.M7.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 755,
+      "y": 1896
+    },
+    {
+      "idx": 71,
+      "name": "RFSH.1",
+      "ocr": {
+        "expected": "REG3.M15.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1169,
+      "y": 1896
+    },
+    {
+      "idx": 72,
+      "name": "RFSH.2",
+      "ocr": {
+        "expected": "REG3.M0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1583,
+      "y": 1896
+    },
+    {
+      "idx": 73,
+      "name": "RFSH.3",
+      "ocr": {
+        "expected": "REG3.M8.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1997,
+      "y": 1896
+    },
+    {
+      "idx": 74,
+      "name": "RFSH.4",
+      "ocr": {
+        "expected": "REG3.M1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2411,
+      "y": 1896
+    },
+    {
+      "idx": 75,
+      "name": "SRC.0",
+      "ocr": {
+        "expected": "REG3.M9.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 947,
+      "y": 1936
+    },
+    {
+      "idx": 76,
+      "name": "SRC.1",
+      "ocr": {
+        "expected": "REG3.M4.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1361,
+      "y": 1936
+    },
+    {
+      "idx": 77,
+      "name": "SRC.2",
+      "ocr": {
+        "expected": "REG3.M12.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1775,
+      "y": 1936
+    },
+    {
+      "idx": 78,
+      "name": "SRC.3",
+      "ocr": {
+        "expected": "REG3.M5.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2189,
+      "y": 1936
+    },
+    {
+      "idx": 79,
+      "name": "CLK2&(M22+RAM_WRITE&X22&~RESET)",
+      "ocr": {
+        "expected": "REG3.M13.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2807,
+      "y": 1946
+    },
+    {
+      "idx": 80,
+      "name": "CLK1&X11",
+      "ocr": {
+        "expected": "REG3.S1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 180,
+      "y": 2654
+    },
+    {
+      "idx": 81,
+      "name": "[X12+X22]",
+      "ocr": {
+        "expected": "REG3.S2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 418,
+      "y": 2673
+    },
+    {
+      "idx": 82,
+      "name": "[X12+X22]&RAM_READ",
+      "ocr": {
+        "expected": "REG3.S0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 279,
+      "y": 2608
+    },
+    {
+      "idx": 83,
+      "name": "~CLK2",
+      "ocr": {
+        "expected": "REG3.S3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 143,
+      "y": 2175
+    },
+    {
+      "idx": 84,
+      "name": "~DRIVE_EXT_DATABUS",
+      "ocr": {
+        "expected": "D1_PAD",
+        "ocr_norm": "D1",
+        "ocr_raw": "D1",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 208,
+      "y": 1901
+    },
+    {
+      "idx": 85,
+      "name": "[RAM_WRITE&X22&~RESET]",
+      "ocr": {
+        "expected": "REG2.M2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 559,
+      "y": 1397
+    },
+    {
+      "idx": 86,
+      "name": "[RAM_READ&X21&~RESET]",
+      "ocr": {
+        "expected": "REG2.M10.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 559,
+      "y": 1503
+    },
+    {
+      "idx": 87,
+      "name": "REG1",
+      "ocr": {
+        "expected": "REG2.M3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 363,
+      "y": 1338
+    },
+    {
+      "idx": 88,
+      "name": "REG2",
+      "ocr": {
+        "expected": "REG2.M11.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 405,
+      "y": 1338
+    },
+    {
+      "idx": 89,
+      "name": "REG3",
+      "ocr": {
+        "expected": "REG2.M6.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 447,
+      "y": 1338
+    },
+    {
+      "idx": 90,
+      "name": "REG0",
+      "ocr": {
+        "expected": "REG2.M14.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 489,
+      "y": 1338
+    },
+    {
+      "idx": 91,
+      "name": "REGSEL0",
+      "ocr": {
+        "expected": "REG2.M7.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 473,
+      "y": 1530
+    },
+    {
+      "idx": 92,
+      "name": "~REGSEL0",
+      "ocr": {
+        "expected": "REG2.M15.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 449,
+      "y": 1587
+    },
+    {
+      "idx": 93,
+      "name": "REGSEL1",
+      "ocr": {
+        "expected": "REG2.M0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 473,
+      "y": 1662
+    },
+    {
+      "idx": 94,
+      "name": "~REGSEL1",
+      "ocr": {
+        "expected": "REG2.M8.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 449,
+      "y": 1719
+    },
+    {
+      "idx": 95,
+      "name": "CLK1&(M21+RAM_WRITE&X21)",
+      "ocr": {
+        "expected": "REG2.M1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2822,
+      "y": 2190
+    },
+    {
+      "idx": 96,
+      "name": "REG3.M2.0",
+      "ocr": {
+        "expected": "REG2.M9.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 121
+    },
+    {
+      "idx": 97,
+      "name": "REG3.M10.0",
+      "ocr": {
+        "expected": "REG2.M4.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 121
+    },
+    {
+      "idx": 98,
+      "name": "REG3.M3.0",
+      "ocr": {
+        "expected": "REG2.M12.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 121
+    },
+    {
+      "idx": 99,
+      "name": "REG3.M11.0",
+      "ocr": {
+        "expected": "REG2.M5.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 121
+    },
+    {
+      "idx": 100,
+      "name": "REG3.M6.0",
+      "ocr": {
+        "expected": "REG2.M13.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 121
+    },
+    {
+      "idx": 101,
+      "name": "REG3.M14.0",
+      "ocr": {
+        "expected": "REG2.S1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 121
+    },
+    {
+      "idx": 102,
+      "name": "REG3.M7.0",
+      "ocr": {
+        "expected": "REG2.S2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 121
+    },
+    {
+      "idx": 103,
+      "name": "REG3.M15.0",
+      "ocr": {
+        "expected": "REG2.S0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 121
+    },
+    {
+      "idx": 104,
+      "name": "REG3.M0.0",
+      "ocr": {
+        "expected": "REG2.S3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 121
+    },
+    {
+      "idx": 105,
+      "name": "REG3.M8.0",
+      "ocr": {
+        "expected": "D1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.6666666666666666
+      },
+      "x": 1606,
+      "y": 121
+    },
+    {
+      "idx": 106,
+      "name": "REG3.M1.0",
+      "ocr": {
+        "expected": "REG2.M2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 121
+    },
+    {
+      "idx": 107,
+      "name": "REG3.M9.0",
+      "ocr": {
+        "expected": "REG2.M10.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 121
+    },
+    {
+      "idx": 108,
+      "name": "REG3.M4.0",
+      "ocr": {
+        "expected": "REG2.M3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 121
+    },
+    {
+      "idx": 109,
+      "name": "REG3.M12.0",
+      "ocr": {
+        "expected": "REG2.M11.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 121
+    },
+    {
+      "idx": 110,
+      "name": "REG3.M5.0",
+      "ocr": {
+        "expected": "REG2.M6.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 121
+    },
+    {
+      "idx": 111,
+      "name": "REG3.M13.0",
+      "ocr": {
+        "expected": "REG2.M14.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 121
+    },
+    {
+      "idx": 112,
+      "name": "REG3.S1.0",
+      "ocr": {
+        "expected": "REG2.M7.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 121
+    },
+    {
+      "idx": 113,
+      "name": "REG3.S2.0",
+      "ocr": {
+        "expected": "REG2.M15.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 121
+    },
+    {
+      "idx": 114,
+      "name": "REG3.S0.0",
+      "ocr": {
+        "expected": "REG2.M0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 121
+    },
+    {
+      "idx": 115,
+      "name": "REG3.S3.0",
+      "ocr": {
+        "expected": "REG2.M8.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 121
+    },
+    {
+      "idx": 116,
+      "name": "REG3.M2.1",
+      "ocr": {
+        "expected": "REG2.M1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 193
+    },
+    {
+      "idx": 117,
+      "name": "REG3.M10.1",
+      "ocr": {
+        "expected": "REG2.M9.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 193
+    },
+    {
+      "idx": 118,
+      "name": "REG3.M3.1",
+      "ocr": {
+        "expected": "REG2.M4.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 193
+    },
+    {
+      "idx": 119,
+      "name": "REG3.M11.1",
+      "ocr": {
+        "expected": "REG2.M12.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 193
+    },
+    {
+      "idx": 120,
+      "name": "REG3.M6.1",
+      "ocr": {
+        "expected": "REG2.M5.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 193
+    },
+    {
+      "idx": 121,
+      "name": "REG3.M14.1",
+      "ocr": {
+        "expected": "REG2.M13.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 193
+    },
+    {
+      "idx": 122,
+      "name": "REG3.M7.1",
+      "ocr": {
+        "expected": "REG2.S1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 193
+    },
+    {
+      "idx": 123,
+      "name": "REG3.M15.1",
+      "ocr": {
+        "expected": "REG2.S2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 193
+    },
+    {
+      "idx": 124,
+      "name": "REG3.M0.1",
+      "ocr": {
+        "expected": "REG2.S0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 193
+    },
+    {
+      "idx": 125,
+      "name": "REG3.M8.1",
+      "ocr": {
+        "expected": "REG2.S3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 193
+    },
+    {
+      "idx": 126,
+      "name": "REG3.M1.1",
+      "ocr": {
+        "expected": "OUT2",
+        "ocr_norm": "O",
+        "ocr_raw": "O",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 1712,
+      "y": 193
+    },
+    {
+      "idx": 127,
+      "name": "REG3.M9.1",
+      "ocr": {
+        "expected": "REG2.M2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 193
+    },
+    {
+      "idx": 128,
+      "name": "REG3.M4.1",
+      "ocr": {
+        "expected": "REG2.M10.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 193
+    },
+    {
+      "idx": 129,
+      "name": "REG3.M12.1",
+      "ocr": {
+        "expected": "REG2.M3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 193
+    },
+    {
+      "idx": 130,
+      "name": "REG3.M5.1",
+      "ocr": {
+        "expected": "REG2.M11.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 193
+    },
+    {
+      "idx": 131,
+      "name": "REG3.M13.1",
+      "ocr": {
+        "expected": "REG2.M6.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 193
+    },
+    {
+      "idx": 132,
+      "name": "REG3.S1.1",
+      "ocr": {
+        "expected": "REG2.M14.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 193
+    },
+    {
+      "idx": 133,
+      "name": "REG3.S2.1",
+      "ocr": {
+        "expected": "REG2.M7.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 193
+    },
+    {
+      "idx": 134,
+      "name": "REG3.S0.1",
+      "ocr": {
+        "expected": "REG2.M15.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 193
+    },
+    {
+      "idx": 135,
+      "name": "REG3.S3.1",
+      "ocr": {
+        "expected": "REG2.M0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 193
+    },
+    {
+      "idx": 136,
+      "name": "REG3.M2.2",
+      "ocr": {
+        "expected": "REG2.M8.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 265
+    },
+    {
+      "idx": 137,
+      "name": "REG3.M10.2",
+      "ocr": {
+        "expected": "REG2.M1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 265
+    },
+    {
+      "idx": 138,
+      "name": "REG3.M3.2",
+      "ocr": {
+        "expected": "REG2.M9.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 265
+    },
+    {
+      "idx": 139,
+      "name": "REG3.M11.2",
+      "ocr": {
+        "expected": "REG2.M4.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 265
+    },
+    {
+      "idx": 140,
+      "name": "REG3.M6.2",
+      "ocr": {
+        "expected": "REG2.M12.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 265
+    },
+    {
+      "idx": 141,
+      "name": "REG3.M14.2",
+      "ocr": {
+        "expected": "REG2.M5.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 265
+    },
+    {
+      "idx": 142,
+      "name": "REG3.M7.2",
+      "ocr": {
+        "expected": "REG2.M13.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 265
+    },
+    {
+      "idx": 143,
+      "name": "REG3.M15.2",
+      "ocr": {
+        "expected": "REG2.S1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 265
+    },
+    {
+      "idx": 144,
+      "name": "REG3.M0.2",
+      "ocr": {
+        "expected": "REG2.S2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 265
+    },
+    {
+      "idx": 145,
+      "name": "REG3.M8.2",
+      "ocr": {
+        "expected": "REG2.S0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 265
+    },
+    {
+      "idx": 146,
+      "name": "REG3.M1.2",
+      "ocr": {
+        "expected": "REG2.S3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 265
+    },
+    {
+      "idx": 147,
+      "name": "REG3.M9.2",
+      "ocr": {
+        "expected": "REG2.M2.3",
+        "ocr_norm": "3",
+        "ocr_raw": "3",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 1818,
+      "y": 265
+    },
+    {
+      "idx": 148,
+      "name": "REG3.M4.2",
+      "ocr": {
+        "expected": "REG2.M10.3",
+        "ocr_norm": "3",
+        "ocr_raw": "3",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2222222222222222
+      },
+      "x": 1924,
+      "y": 265
+    },
+    {
+      "idx": 149,
+      "name": "REG3.M12.2",
+      "ocr": {
+        "expected": "REG2.M3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 265
+    },
+    {
+      "idx": 150,
+      "name": "REG3.M5.2",
+      "ocr": {
+        "expected": "REG2.M11.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 265
+    },
+    {
+      "idx": 151,
+      "name": "REG3.M13.2",
+      "ocr": {
+        "expected": "REG2.M6.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 265
+    },
+    {
+      "idx": 152,
+      "name": "REG3.S1.2",
+      "ocr": {
+        "expected": "REG2.M14.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 265
+    },
+    {
+      "idx": 153,
+      "name": "REG3.S2.2",
+      "ocr": {
+        "expected": "REG2.M7.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 265
+    },
+    {
+      "idx": 154,
+      "name": "REG3.S0.2",
+      "ocr": {
+        "expected": "REG2.M15.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 265
+    },
+    {
+      "idx": 155,
+      "name": "REG3.S3.2",
+      "ocr": {
+        "expected": "REG2.M0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 265
+    },
+    {
+      "idx": 156,
+      "name": "REG3.M2.3",
+      "ocr": {
+        "expected": "REG2.M8.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 337
+    },
+    {
+      "idx": 157,
+      "name": "REG3.M10.3",
+      "ocr": {
+        "expected": "REG2.M1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 337
+    },
+    {
+      "idx": 158,
+      "name": "REG3.M3.3",
+      "ocr": {
+        "expected": "REG2.M9.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 337
+    },
+    {
+      "idx": 159,
+      "name": "REG3.M11.3",
+      "ocr": {
+        "expected": "REG2.M4.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 337
+    },
+    {
+      "idx": 160,
+      "name": "REG3.M6.3",
+      "ocr": {
+        "expected": "REG2.M12.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 337
+    },
+    {
+      "idx": 161,
+      "name": "REG3.M14.3",
+      "ocr": {
+        "expected": "REG2.M5.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 337
+    },
+    {
+      "idx": 162,
+      "name": "REG3.M7.3",
+      "ocr": {
+        "expected": "REG2.M13.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 337
+    },
+    {
+      "idx": 163,
+      "name": "REG3.M15.3",
+      "ocr": {
+        "expected": "REG2.S1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 337
+    },
+    {
+      "idx": 164,
+      "name": "REG3.M0.3",
+      "ocr": {
+        "expected": "REG2.S2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 337
+    },
+    {
+      "idx": 165,
+      "name": "REG3.M8.3",
+      "ocr": {
+        "expected": "REG2.S0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 337
+    },
+    {
+      "idx": 166,
+      "name": "REG3.M1.3",
+      "ocr": {
+        "expected": "REG2.S3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 337
+    },
+    {
+      "idx": 167,
+      "name": "REG3.M9.3",
+      "ocr": {
+        "expected": "D2_PAD",
+        "ocr_norm": "D2",
+        "ocr_raw": "D2",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 1818,
+      "y": 337
+    },
+    {
+      "idx": 168,
+      "name": "REG3.M4.3",
+      "ocr": {
+        "expected": "OUT3",
+        "ocr_norm": "3",
+        "ocr_raw": "3",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 1924,
+      "y": 337
+    },
+    {
+      "idx": 169,
+      "name": "REG3.M12.3",
+      "ocr": {
+        "expected": "D2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 337
+    },
+    {
+      "idx": 170,
+      "name": "REG3.M5.3",
+      "ocr": {
+        "expected": "REG1.M2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 337
+    },
+    {
+      "idx": 171,
+      "name": "REG3.M13.3",
+      "ocr": {
+        "expected": "REG1.M10.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 337
+    },
+    {
+      "idx": 172,
+      "name": "REG3.S1.3",
+      "ocr": {
+        "expected": "REG1.M3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 337
+    },
+    {
+      "idx": 173,
+      "name": "REG3.S2.3",
+      "ocr": {
+        "expected": "REG1.M11.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 337
+    },
+    {
+      "idx": 174,
+      "name": "REG3.S0.3",
+      "ocr": {
+        "expected": "REG1.M6.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 337
+    },
+    {
+      "idx": 175,
+      "name": "REG3.S3.3",
+      "ocr": {
+        "expected": "REG1.M14.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 337
+    },
+    {
+      "idx": 176,
+      "name": "REG2.M2.0",
+      "ocr": {
+        "expected": "REG1.M7.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 409
+    },
+    {
+      "idx": 177,
+      "name": "REG2.M10.0",
+      "ocr": {
+        "expected": "REG1.M15.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 409
+    },
+    {
+      "idx": 178,
+      "name": "REG2.M3.0",
+      "ocr": {
+        "expected": "REG1.M0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 409
+    },
+    {
+      "idx": 179,
+      "name": "REG2.M11.0",
+      "ocr": {
+        "expected": "REG1.M8.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 409
+    },
+    {
+      "idx": 180,
+      "name": "REG2.M6.0",
+      "ocr": {
+        "expected": "REG1.M1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 409
+    },
+    {
+      "idx": 181,
+      "name": "REG2.M14.0",
+      "ocr": {
+        "expected": "REG1.M9.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 409
+    },
+    {
+      "idx": 182,
+      "name": "REG2.M7.0",
+      "ocr": {
+        "expected": "REG1.M4.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 409
+    },
+    {
+      "idx": 183,
+      "name": "REG2.M15.0",
+      "ocr": {
+        "expected": "REG1.M12.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 409
+    },
+    {
+      "idx": 184,
+      "name": "REG2.M0.0",
+      "ocr": {
+        "expected": "REG1.M5.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 409
+    },
+    {
+      "idx": 185,
+      "name": "REG2.M8.0",
+      "ocr": {
+        "expected": "REG1.M13.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 409
+    },
+    {
+      "idx": 186,
+      "name": "REG2.M1.0",
+      "ocr": {
+        "expected": "REG1.S1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 409
+    },
+    {
+      "idx": 187,
+      "name": "REG2.M9.0",
+      "ocr": {
+        "expected": "REG1.S2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 409
+    },
+    {
+      "idx": 188,
+      "name": "REG2.M4.0",
+      "ocr": {
+        "expected": "REG1.S0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 409
+    },
+    {
+      "idx": 189,
+      "name": "REG2.M12.0",
+      "ocr": {
+        "expected": "REG1.S3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 409
+    },
+    {
+      "idx": 190,
+      "name": "REG2.M5.0",
+      "ocr": {
+        "expected": "REG1.M2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 409
+    },
+    {
+      "idx": 191,
+      "name": "REG2.M13.0",
+      "ocr": {
+        "expected": "REG1.M10.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 409
+    },
+    {
+      "idx": 192,
+      "name": "REG2.S1.0",
+      "ocr": {
+        "expected": "REG1.M3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 409
+    },
+    {
+      "idx": 193,
+      "name": "REG2.S2.0",
+      "ocr": {
+        "expected": "REG1.M11.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 409
+    },
+    {
+      "idx": 194,
+      "name": "REG2.S0.0",
+      "ocr": {
+        "expected": "REG1.M6.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 409
+    },
+    {
+      "idx": 195,
+      "name": "REG2.S3.0",
+      "ocr": {
+        "expected": "REG1.M14.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 409
+    },
+    {
+      "idx": 196,
+      "name": "REG2.M2.1",
+      "ocr": {
+        "expected": "REG1.M7.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 481
+    },
+    {
+      "idx": 197,
+      "name": "REG2.M10.1",
+      "ocr": {
+        "expected": "REG1.M15.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 481
+    },
+    {
+      "idx": 198,
+      "name": "REG2.M3.1",
+      "ocr": {
+        "expected": "REG1.M0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 481
+    },
+    {
+      "idx": 199,
+      "name": "REG2.M11.1",
+      "ocr": {
+        "expected": "REG1.M8.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 481
+    },
+    {
+      "idx": 200,
+      "name": "REG2.M6.1",
+      "ocr": {
+        "expected": "REG1.M1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 481
+    },
+    {
+      "idx": 201,
+      "name": "REG2.M14.1",
+      "ocr": {
+        "expected": "REG1.M9.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 481
+    },
+    {
+      "idx": 202,
+      "name": "REG2.M7.1",
+      "ocr": {
+        "expected": "REG1.M4.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 481
+    },
+    {
+      "idx": 203,
+      "name": "REG2.M15.1",
+      "ocr": {
+        "expected": "REG1.M12.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 481
+    },
+    {
+      "idx": 204,
+      "name": "REG2.M0.1",
+      "ocr": {
+        "expected": "REG1.M5.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 481
+    },
+    {
+      "idx": 205,
+      "name": "REG2.M8.1",
+      "ocr": {
+        "expected": "REG1.M13.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 481
+    },
+    {
+      "idx": 206,
+      "name": "REG2.M1.1",
+      "ocr": {
+        "expected": "REG1.S1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 481
+    },
+    {
+      "idx": 207,
+      "name": "REG2.M9.1",
+      "ocr": {
+        "expected": "REG1.S2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 481
+    },
+    {
+      "idx": 208,
+      "name": "REG2.M4.1",
+      "ocr": {
+        "expected": "REG1.S0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 481
+    },
+    {
+      "idx": 209,
+      "name": "REG2.M12.1",
+      "ocr": {
+        "expected": "REG1.S3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 481
+    },
+    {
+      "idx": 210,
+      "name": "REG2.M5.1",
+      "ocr": {
+        "expected": "REG1.M2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 481
+    },
+    {
+      "idx": 211,
+      "name": "REG2.M13.1",
+      "ocr": {
+        "expected": "REG1.M10.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 481
+    },
+    {
+      "idx": 212,
+      "name": "REG2.S1.1",
+      "ocr": {
+        "expected": "REG1.M3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 481
+    },
+    {
+      "idx": 213,
+      "name": "REG2.S2.1",
+      "ocr": {
+        "expected": "REG1.M11.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 481
+    },
+    {
+      "idx": 214,
+      "name": "REG2.S0.1",
+      "ocr": {
+        "expected": "REG1.M6.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 481
+    },
+    {
+      "idx": 215,
+      "name": "REG2.S3.1",
+      "ocr": {
+        "expected": "REG1.M14.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 481
+    },
+    {
+      "idx": 216,
+      "name": "REG2.M2.2",
+      "ocr": {
+        "expected": "REG1.M7.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 553
+    },
+    {
+      "idx": 217,
+      "name": "REG2.M10.2",
+      "ocr": {
+        "expected": "REG1.M15.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 553
+    },
+    {
+      "idx": 218,
+      "name": "REG2.M3.2",
+      "ocr": {
+        "expected": "REG1.M0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 553
+    },
+    {
+      "idx": 219,
+      "name": "REG2.M11.2",
+      "ocr": {
+        "expected": "REG1.M8.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 553
+    },
+    {
+      "idx": 220,
+      "name": "REG2.M6.2",
+      "ocr": {
+        "expected": "REG1.M1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 553
+    },
+    {
+      "idx": 221,
+      "name": "REG2.M14.2",
+      "ocr": {
+        "expected": "REG1.M9.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 553
+    },
+    {
+      "idx": 222,
+      "name": "REG2.M7.2",
+      "ocr": {
+        "expected": "REG1.M4.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 553
+    },
+    {
+      "idx": 223,
+      "name": "REG2.M15.2",
+      "ocr": {
+        "expected": "REG1.M12.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 553
+    },
+    {
+      "idx": 224,
+      "name": "REG2.M0.2",
+      "ocr": {
+        "expected": "REG1.M5.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 553
+    },
+    {
+      "idx": 225,
+      "name": "REG2.M8.2",
+      "ocr": {
+        "expected": "REG1.M13.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 553
+    },
+    {
+      "idx": 226,
+      "name": "REG2.M1.2",
+      "ocr": {
+        "expected": "REG1.S1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 553
+    },
+    {
+      "idx": 227,
+      "name": "REG2.M9.2",
+      "ocr": {
+        "expected": "REG1.S2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 553
+    },
+    {
+      "idx": 228,
+      "name": "REG2.M4.2",
+      "ocr": {
+        "expected": "REG1.S0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 553
+    },
+    {
+      "idx": 229,
+      "name": "REG2.M12.2",
+      "ocr": {
+        "expected": "REG1.S3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 553
+    },
+    {
+      "idx": 230,
+      "name": "REG2.M5.2",
+      "ocr": {
+        "expected": "D3_PAD",
+        "ocr_norm": "D3",
+        "ocr_raw": "D3",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 2136,
+      "y": 553
+    },
+    {
+      "idx": 231,
+      "name": "REG2.M13.2",
+      "ocr": {
+        "expected": "REG1.M2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 553
+    },
+    {
+      "idx": 232,
+      "name": "REG2.S1.2",
+      "ocr": {
+        "expected": "REG1.M10.3",
+        "ocr_norm": "3",
+        "ocr_raw": "3",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2222222222222222
+      },
+      "x": 2348,
+      "y": 553
+    },
+    {
+      "idx": 233,
+      "name": "REG2.S2.2",
+      "ocr": {
+        "expected": "REG1.M3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 553
+    },
+    {
+      "idx": 234,
+      "name": "REG2.S0.2",
+      "ocr": {
+        "expected": "REG1.M11.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 553
+    },
+    {
+      "idx": 235,
+      "name": "REG2.S3.2",
+      "ocr": {
+        "expected": "REG1.M6.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 553
+    },
+    {
+      "idx": 236,
+      "name": "REG2.M2.3",
+      "ocr": {
+        "expected": "REG1.M14.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 625
+    },
+    {
+      "idx": 237,
+      "name": "REG2.M10.3",
+      "ocr": {
+        "expected": "REG1.M7.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 625
+    },
+    {
+      "idx": 238,
+      "name": "REG2.M3.3",
+      "ocr": {
+        "expected": "REG1.M15.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 625
+    },
+    {
+      "idx": 239,
+      "name": "REG2.M11.3",
+      "ocr": {
+        "expected": "REG1.M0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 625
+    },
+    {
+      "idx": 240,
+      "name": "REG2.M6.3",
+      "ocr": {
+        "expected": "REG1.M8.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 625
+    },
+    {
+      "idx": 241,
+      "name": "REG2.M14.3",
+      "ocr": {
+        "expected": "REG1.M1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 625
+    },
+    {
+      "idx": 242,
+      "name": "REG2.M7.3",
+      "ocr": {
+        "expected": "REG1.M9.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 625
+    },
+    {
+      "idx": 243,
+      "name": "REG2.M15.3",
+      "ocr": {
+        "expected": "REG1.M4.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 625
+    },
+    {
+      "idx": 244,
+      "name": "REG2.M0.3",
+      "ocr": {
+        "expected": "REG1.M12.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 625
+    },
+    {
+      "idx": 245,
+      "name": "REG2.M8.3",
+      "ocr": {
+        "expected": "REG1.M5.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 625
+    },
+    {
+      "idx": 246,
+      "name": "REG2.M1.3",
+      "ocr": {
+        "expected": "REG1.M13.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 625
+    },
+    {
+      "idx": 247,
+      "name": "REG2.M9.3",
+      "ocr": {
+        "expected": "REG1.S1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 625
+    },
+    {
+      "idx": 248,
+      "name": "REG2.M4.3",
+      "ocr": {
+        "expected": "REG1.S2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 625
+    },
+    {
+      "idx": 249,
+      "name": "REG2.M12.3",
+      "ocr": {
+        "expected": "REG1.S0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 625
+    },
+    {
+      "idx": 250,
+      "name": "REG2.M5.3",
+      "ocr": {
+        "expected": "REG1.S3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 625
+    },
+    {
+      "idx": 251,
+      "name": "REG2.M13.3",
+      "ocr": {
+        "expected": "D3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 625
+    },
+    {
+      "idx": 252,
+      "name": "REG2.S1.3",
+      "ocr": {
+        "expected": "[RESET]",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 625
+    },
+    {
+      "idx": 253,
+      "name": "REG2.S2.3",
+      "ocr": {
+        "expected": "REG0.M2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 625
+    },
+    {
+      "idx": 254,
+      "name": "REG2.S0.3",
+      "ocr": {
+        "expected": "REG0.M10.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 625
+    },
+    {
+      "idx": 255,
+      "name": "REG2.S3.3",
+      "ocr": {
+        "expected": "REG0.M3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 625
+    },
+    {
+      "idx": 256,
+      "name": "REG1.M2.0",
+      "ocr": {
+        "expected": "REG0.M11.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 697
+    },
+    {
+      "idx": 257,
+      "name": "REG1.M10.0",
+      "ocr": {
+        "expected": "REG0.M6.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 697
+    },
+    {
+      "idx": 258,
+      "name": "REG1.M3.0",
+      "ocr": {
+        "expected": "REG0.M14.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 697
+    },
+    {
+      "idx": 259,
+      "name": "REG1.M11.0",
+      "ocr": {
+        "expected": "REG0.M7.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 697
+    },
+    {
+      "idx": 260,
+      "name": "REG1.M6.0",
+      "ocr": {
+        "expected": "REG0.M15.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 697
+    },
+    {
+      "idx": 261,
+      "name": "REG1.M14.0",
+      "ocr": {
+        "expected": "REG0.M0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 697
+    },
+    {
+      "idx": 262,
+      "name": "REG1.M7.0",
+      "ocr": {
+        "expected": "REG0.M8.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 697
+    },
+    {
+      "idx": 263,
+      "name": "REG1.M15.0",
+      "ocr": {
+        "expected": "REG0.M1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 697
+    },
+    {
+      "idx": 264,
+      "name": "REG1.M0.0",
+      "ocr": {
+        "expected": "REG0.M9.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 697
+    },
+    {
+      "idx": 265,
+      "name": "REG1.M8.0",
+      "ocr": {
+        "expected": "REG0.M4.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 697
+    },
+    {
+      "idx": 266,
+      "name": "REG1.M1.0",
+      "ocr": {
+        "expected": "REG0.M12.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 697
+    },
+    {
+      "idx": 267,
+      "name": "REG1.M9.0",
+      "ocr": {
+        "expected": "REG0.M5.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 697
+    },
+    {
+      "idx": 268,
+      "name": "REG1.M4.0",
+      "ocr": {
+        "expected": "REG0.M13.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 697
+    },
+    {
+      "idx": 269,
+      "name": "REG1.M12.0",
+      "ocr": {
+        "expected": "REG0.S1.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 697
+    },
+    {
+      "idx": 270,
+      "name": "REG1.M5.0",
+      "ocr": {
+        "expected": "REG0.S2.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 697
+    },
+    {
+      "idx": 271,
+      "name": "REG1.M13.0",
+      "ocr": {
+        "expected": "REG0.S0.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 697
+    },
+    {
+      "idx": 272,
+      "name": "REG1.S1.0",
+      "ocr": {
+        "expected": "REG0.S3.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 697
+    },
+    {
+      "idx": 273,
+      "name": "REG1.S2.0",
+      "ocr": {
+        "expected": "REG0.M2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 697
+    },
+    {
+      "idx": 274,
+      "name": "REG1.S0.0",
+      "ocr": {
+        "expected": "REG0.M10.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 697
+    },
+    {
+      "idx": 275,
+      "name": "REG1.S3.0",
+      "ocr": {
+        "expected": "REG0.M3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 697
+    },
+    {
+      "idx": 276,
+      "name": "REG1.M2.1",
+      "ocr": {
+        "expected": "REG0.M11.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 769
+    },
+    {
+      "idx": 277,
+      "name": "REG1.M10.1",
+      "ocr": {
+        "expected": "REG0.M6.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 769
+    },
+    {
+      "idx": 278,
+      "name": "REG1.M3.1",
+      "ocr": {
+        "expected": "REG0.M14.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 769
+    },
+    {
+      "idx": 279,
+      "name": "REG1.M11.1",
+      "ocr": {
+        "expected": "REG0.M7.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 769
+    },
+    {
+      "idx": 280,
+      "name": "REG1.M6.1",
+      "ocr": {
+        "expected": "REG0.M15.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 769
+    },
+    {
+      "idx": 281,
+      "name": "REG1.M14.1",
+      "ocr": {
+        "expected": "REG0.M0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 769
+    },
+    {
+      "idx": 282,
+      "name": "REG1.M7.1",
+      "ocr": {
+        "expected": "REG0.M8.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 769
+    },
+    {
+      "idx": 283,
+      "name": "REG1.M15.1",
+      "ocr": {
+        "expected": "REG0.M1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 769
+    },
+    {
+      "idx": 284,
+      "name": "REG1.M0.1",
+      "ocr": {
+        "expected": "REG0.M9.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 769
+    },
+    {
+      "idx": 285,
+      "name": "REG1.M8.1",
+      "ocr": {
+        "expected": "REG0.M4.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 769
+    },
+    {
+      "idx": 286,
+      "name": "REG1.M1.1",
+      "ocr": {
+        "expected": "REG0.M12.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 769
+    },
+    {
+      "idx": 287,
+      "name": "REG1.M9.1",
+      "ocr": {
+        "expected": "REG0.M5.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 769
+    },
+    {
+      "idx": 288,
+      "name": "REG1.M4.1",
+      "ocr": {
+        "expected": "REG0.M13.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 769
+    },
+    {
+      "idx": 289,
+      "name": "REG1.M12.1",
+      "ocr": {
+        "expected": "REG0.S1.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 769
+    },
+    {
+      "idx": 290,
+      "name": "REG1.M5.1",
+      "ocr": {
+        "expected": "REG0.S2.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 769
+    },
+    {
+      "idx": 291,
+      "name": "REG1.M13.1",
+      "ocr": {
+        "expected": "REG0.S0.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 769
+    },
+    {
+      "idx": 292,
+      "name": "REG1.S1.1",
+      "ocr": {
+        "expected": "REG0.S3.1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 769
+    },
+    {
+      "idx": 293,
+      "name": "REG1.S2.1",
+      "ocr": {
+        "expected": "CLK1&(M11+X11)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 769
+    },
+    {
+      "idx": 294,
+      "name": "REG1.S0.1",
+      "ocr": {
+        "expected": "REG0.M2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 769
+    },
+    {
+      "idx": 295,
+      "name": "REG1.S3.1",
+      "ocr": {
+        "expected": "REG0.M10.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 769
+    },
+    {
+      "idx": 296,
+      "name": "REG1.M2.2",
+      "ocr": {
+        "expected": "REG0.M3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 841
+    },
+    {
+      "idx": 297,
+      "name": "REG1.M10.2",
+      "ocr": {
+        "expected": "REG0.M11.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 841
+    },
+    {
+      "idx": 298,
+      "name": "REG1.M3.2",
+      "ocr": {
+        "expected": "REG0.M6.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 841
+    },
+    {
+      "idx": 299,
+      "name": "REG1.M11.2",
+      "ocr": {
+        "expected": "REG0.M14.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 841
+    },
+    {
+      "idx": 300,
+      "name": "REG1.M6.2",
+      "ocr": {
+        "expected": "REG0.M7.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 841
+    },
+    {
+      "idx": 301,
+      "name": "REG1.M14.2",
+      "ocr": {
+        "expected": "REG0.M15.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 841
+    },
+    {
+      "idx": 302,
+      "name": "REG1.M7.2",
+      "ocr": {
+        "expected": "REG0.M0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 841
+    },
+    {
+      "idx": 303,
+      "name": "REG1.M15.2",
+      "ocr": {
+        "expected": "REG0.M8.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 841
+    },
+    {
+      "idx": 304,
+      "name": "REG1.M0.2",
+      "ocr": {
+        "expected": "REG0.M1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 841
+    },
+    {
+      "idx": 305,
+      "name": "REG1.M8.2",
+      "ocr": {
+        "expected": "REG0.M9.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 841
+    },
+    {
+      "idx": 306,
+      "name": "REG1.M1.2",
+      "ocr": {
+        "expected": "REG0.M4.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 841
+    },
+    {
+      "idx": 307,
+      "name": "REG1.M9.2",
+      "ocr": {
+        "expected": "REG0.M12.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 841
+    },
+    {
+      "idx": 308,
+      "name": "REG1.M4.2",
+      "ocr": {
+        "expected": "REG0.M5.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 841
+    },
+    {
+      "idx": 309,
+      "name": "REG1.M12.2",
+      "ocr": {
+        "expected": "REG0.M13.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 841
+    },
+    {
+      "idx": 310,
+      "name": "REG1.M5.2",
+      "ocr": {
+        "expected": "REG0.S1.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 841
+    },
+    {
+      "idx": 311,
+      "name": "REG1.M13.2",
+      "ocr": {
+        "expected": "REG0.S2.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 841
+    },
+    {
+      "idx": 312,
+      "name": "REG1.S1.2",
+      "ocr": {
+        "expected": "REG0.S0.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 841
+    },
+    {
+      "idx": 313,
+      "name": "REG1.S2.2",
+      "ocr": {
+        "expected": "REG0.S3.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 841
+    },
+    {
+      "idx": 314,
+      "name": "REG1.S0.2",
+      "ocr": {
+        "expected": "REG0.M2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 841
+    },
+    {
+      "idx": 315,
+      "name": "REG1.S3.2",
+      "ocr": {
+        "expected": "REG0.M10.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 841
+    },
+    {
+      "idx": 316,
+      "name": "REG1.M2.3",
+      "ocr": {
+        "expected": "REG0.M3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 913
+    },
+    {
+      "idx": 317,
+      "name": "REG1.M10.3",
+      "ocr": {
+        "expected": "REG0.M11.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 913
+    },
+    {
+      "idx": 318,
+      "name": "REG1.M3.3",
+      "ocr": {
+        "expected": "REG0.M6.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 913
+    },
+    {
+      "idx": 319,
+      "name": "REG1.M11.3",
+      "ocr": {
+        "expected": "REG0.M14.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 913
+    },
+    {
+      "idx": 320,
+      "name": "REG1.M6.3",
+      "ocr": {
+        "expected": "REG0.M7.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 913
+    },
+    {
+      "idx": 321,
+      "name": "REG1.M14.3",
+      "ocr": {
+        "expected": "REG0.M15.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 913
+    },
+    {
+      "idx": 322,
+      "name": "REG1.M7.3",
+      "ocr": {
+        "expected": "REG0.M0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 913
+    },
+    {
+      "idx": 323,
+      "name": "REG1.M15.3",
+      "ocr": {
+        "expected": "REG0.M8.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 913
+    },
+    {
+      "idx": 324,
+      "name": "REG1.M0.3",
+      "ocr": {
+        "expected": "REG0.M1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 913
+    },
+    {
+      "idx": 325,
+      "name": "REG1.M8.3",
+      "ocr": {
+        "expected": "REG0.M9.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 913
+    },
+    {
+      "idx": 326,
+      "name": "REG1.M1.3",
+      "ocr": {
+        "expected": "REG0.M4.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 913
+    },
+    {
+      "idx": 327,
+      "name": "REG1.M9.3",
+      "ocr": {
+        "expected": "REG0.M12.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 913
+    },
+    {
+      "idx": 328,
+      "name": "REG1.M4.3",
+      "ocr": {
+        "expected": "REG0.M5.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 913
+    },
+    {
+      "idx": 329,
+      "name": "REG1.M12.3",
+      "ocr": {
+        "expected": "REG0.M13.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 913
+    },
+    {
+      "idx": 330,
+      "name": "REG1.M5.3",
+      "ocr": {
+        "expected": "REG0.S1.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 913
+    },
+    {
+      "idx": 331,
+      "name": "REG1.M13.3",
+      "ocr": {
+        "expected": "REG0.S2.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 913
+    },
+    {
+      "idx": 332,
+      "name": "REG1.S1.3",
+      "ocr": {
+        "expected": "REG0.S0.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 913
+    },
+    {
+      "idx": 333,
+      "name": "REG1.S2.3",
+      "ocr": {
+        "expected": "REG0.S3.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 913
+    },
+    {
+      "idx": 334,
+      "name": "REG1.S0.3",
+      "ocr": {
+        "expected": "REG1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 2560,
+      "y": 913
+    },
+    {
+      "idx": 335,
+      "name": "REG1.S3.3",
+      "ocr": {
+        "expected": "REG2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 913
+    },
+    {
+      "idx": 336,
+      "name": "REG0.M2.0",
+      "ocr": {
+        "expected": "REG3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 985
+    },
+    {
+      "idx": 337,
+      "name": "REG0.M10.0",
+      "ocr": {
+        "expected": "REG0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 985
+    },
+    {
+      "idx": 338,
+      "name": "REG0.M3.0",
+      "ocr": {
+        "expected": "[RAM_WRITE&X22&~RESET]",
+        "ocr_norm": "D-I_LT-I_LD",
+        "ocr_raw": "D-I_LT-I_LD",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.12903225806451613
+      },
+      "x": 864,
+      "y": 985
+    },
+    {
+      "idx": 339,
+      "name": "REG0.M11.0",
+      "ocr": {
+        "expected": "[RAM_READ&X21&~RESET]",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 985
+    },
+    {
+      "idx": 340,
+      "name": "REG0.M6.0",
+      "ocr": {
+        "expected": "REGSEL0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 985
+    },
+    {
+      "idx": 341,
+      "name": "REG0.M14.0",
+      "ocr": {
+        "expected": "~REGSEL0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 985
+    },
+    {
+      "idx": 342,
+      "name": "REG0.M7.0",
+      "ocr": {
+        "expected": "CLK2&(M12+X12)&~RESET",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 985
+    },
+    {
+      "idx": 343,
+      "name": "REG0.M15.0",
+      "ocr": {
+        "expected": "REGSEL1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.25
+      },
+      "x": 1394,
+      "y": 985
+    },
+    {
+      "idx": 344,
+      "name": "REG0.M0.0",
+      "ocr": {
+        "expected": "~REGSEL1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 985
+    },
+    {
+      "idx": 345,
+      "name": "REG0.M8.0",
+      "ocr": {
+        "expected": "RFSH.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 985
+    },
+    {
+      "idx": 346,
+      "name": "REG0.M1.0",
+      "ocr": {
+        "expected": "RFSH.1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.3333333333333333
+      },
+      "x": 1712,
+      "y": 985
+    },
+    {
+      "idx": 347,
+      "name": "REG0.M9.0",
+      "ocr": {
+        "expected": "RFSH.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 985
+    },
+    {
+      "idx": 348,
+      "name": "REG0.M4.0",
+      "ocr": {
+        "expected": "RFSH.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 985
+    },
+    {
+      "idx": 349,
+      "name": "REG0.M12.0",
+      "ocr": {
+        "expected": "RFSH.4",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 985
+    },
+    {
+      "idx": 350,
+      "name": "REG0.M5.0",
+      "ocr": {
+        "expected": "~DRIVE_EXT_DATABUS",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 985
+    },
+    {
+      "idx": 351,
+      "name": "REG0.M13.0",
+      "ocr": {
+        "expected": "SRC.0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 985
+    },
+    {
+      "idx": 352,
+      "name": "REG0.S1.0",
+      "ocr": {
+        "expected": "SRC.1",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 2348,
+      "y": 985
+    },
+    {
+      "idx": 353,
+      "name": "REG0.S2.0",
+      "ocr": {
+        "expected": "SRC.2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 985
+    },
+    {
+      "idx": 354,
+      "name": "REG0.S0.0",
+      "ocr": {
+        "expected": "SRC.3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 985
+    },
+    {
+      "idx": 355,
+      "name": "REG0.S3.0",
+      "ocr": {
+        "expected": "CLK2&(M22+RAM_WRITE&X22&~RESET)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 985
+    },
+    {
+      "idx": 356,
+      "name": "REG0.M2.1",
+      "ocr": {
+        "expected": "CLK1",
+        "ocr_norm": "C",
+        "ocr_raw": "C",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 652,
+      "y": 1057
+    },
+    {
+      "idx": 357,
+      "name": "REG0.M10.1",
+      "ocr": {
+        "expected": "~CLK2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 1057
+    },
+    {
+      "idx": 358,
+      "name": "REG0.M3.1",
+      "ocr": {
+        "expected": "CLK1&(M21+RAM_WRITE&X21)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 1057
+    },
+    {
+      "idx": 359,
+      "name": "REG0.M11.1",
+      "ocr": {
+        "expected": "CLK2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 1057
+    },
+    {
+      "idx": 360,
+      "name": "REG0.M6.1",
+      "ocr": {
+        "expected": "SYNC",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1076,
+      "y": 1057
+    },
+    {
+      "idx": 361,
+      "name": "REG0.M14.1",
+      "ocr": {
+        "expected": "~A11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 1057
+    },
+    {
+      "idx": 362,
+      "name": "REG0.M7.1",
+      "ocr": {
+        "expected": "M12",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 1057
+    },
+    {
+      "idx": 363,
+      "name": "REG0.M15.1",
+      "ocr": {
+        "expected": "A12",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.5
+      },
+      "x": 1394,
+      "y": 1057
+    },
+    {
+      "idx": 364,
+      "name": "REG0.M0.1",
+      "ocr": {
+        "expected": "CS",
+        "ocr_norm": "CS",
+        "ocr_raw": "CS",
+        "ok": true,
+        "reason": "matched",
+        "score": 1.0
+      },
+      "x": 1500,
+      "y": 1057
+    },
+    {
+      "idx": 365,
+      "name": "REG0.M8.1",
+      "ocr": {
+        "expected": "~M21",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 1057
+    },
+    {
+      "idx": 366,
+      "name": "REG0.M1.1",
+      "ocr": {
+        "expected": "~A21",
+        "ocr_norm": "1",
+        "ocr_raw": "1",
+        "ok": false,
+        "reason": "mismatch",
+        "score": 0.4
+      },
+      "x": 1712,
+      "y": 1057
+    },
+    {
+      "idx": 367,
+      "name": "REG0.M9.1",
+      "ocr": {
+        "expected": "RAM_READ&X21&~RESET",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 1057
+    },
+    {
+      "idx": 368,
+      "name": "REG0.M4.1",
+      "ocr": {
+        "expected": "RAM_WRITE&X22&~RESET",
+        "ocr_norm": "I",
+        "ocr_raw": "I",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.09523809523809523
+      },
+      "x": 1924,
+      "y": 1057
+    },
+    {
+      "idx": 369,
+      "name": "REG0.M12.1",
+      "ocr": {
+        "expected": "RAM_OUTPUT&X22&~RESET",
+        "ocr_norm": "T",
+        "ocr_raw": "T",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.09090909090909091
+      },
+      "x": 2030,
+      "y": 1057
+    },
+    {
+      "idx": 370,
+      "name": "REG0.M5.1",
+      "ocr": {
+        "expected": "~RAM_WRITE",
+        "ocr_norm": "_L_O",
+        "ocr_raw": "_L_O",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.14285714285714285
+      },
+      "x": 2136,
+      "y": 1057
+    },
+    {
+      "idx": 371,
+      "name": "REG0.M13.1",
+      "ocr": {
+        "expected": "~RAM_SEL",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 1057
+    },
+    {
+      "idx": 372,
+      "name": "REG0.S1.1",
+      "ocr": {
+        "expected": "M22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 1057
+    },
+    {
+      "idx": 373,
+      "name": "REG0.S2.1",
+      "ocr": {
+        "expected": "COMMAND",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 1057
+    },
+    {
+      "idx": 374,
+      "name": "REG0.S0.1",
+      "ocr": {
+        "expected": "CM",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 1057
+    },
+    {
+      "idx": 375,
+      "name": "REG0.S3.1",
+      "ocr": {
+        "expected": "~OPA1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 1057
+    },
+    {
+      "idx": 376,
+      "name": "REG0.M2.2",
+      "ocr": {
+        "expected": "~OPA0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 652,
+      "y": 1129
+    },
+    {
+      "idx": 377,
+      "name": "REG0.M10.2",
+      "ocr": {
+        "expected": "OPA3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 758,
+      "y": 1129
+    },
+    {
+      "idx": 378,
+      "name": "REG0.M3.2",
+      "ocr": {
+        "expected": "~OPA2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 1129
+    },
+    {
+      "idx": 379,
+      "name": "REG0.M11.2",
+      "ocr": {
+        "expected": "A22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 1129
+    },
+    {
+      "idx": 380,
+      "name": "REG0.M6.2",
+      "ocr": {
+        "expected": "RAM_WRITE",
+        "ocr_norm": "_I__0_I__0",
+        "ocr_raw": "_I__0_I__0",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.21052631578947367
+      },
+      "x": 1076,
+      "y": 1129
+    },
+    {
+      "idx": 381,
+      "name": "REG0.M14.2",
+      "ocr": {
+        "expected": "OPA1",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 1129
+    },
+    {
+      "idx": 382,
+      "name": "REG0.M7.2",
+      "ocr": {
+        "expected": "OPA0",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 1129
+    },
+    {
+      "idx": 383,
+      "name": "REG0.M15.2",
+      "ocr": {
+        "expected": "~OPA3",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 1129
+    },
+    {
+      "idx": 384,
+      "name": "REG0.M0.2",
+      "ocr": {
+        "expected": "OPA2",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 1129
+    },
+    {
+      "idx": 385,
+      "name": "REG0.M8.2",
+      "ocr": {
+        "expected": "~X11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1606,
+      "y": 1129
+    },
+    {
+      "idx": 386,
+      "name": "REG0.M1.2",
+      "ocr": {
+        "expected": "~A31",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 1129
+    },
+    {
+      "idx": 387,
+      "name": "REG0.M9.2",
+      "ocr": {
+        "expected": "RAM_COMMAND",
+        "ocr_norm": "A",
+        "ocr_raw": "A",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.16666666666666666
+      },
+      "x": 1818,
+      "y": 1129
+    },
+    {
+      "idx": 388,
+      "name": "REG0.M4.2",
+      "ocr": {
+        "expected": "RAM_OUTPUT",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 1129
+    },
+    {
+      "idx": 389,
+      "name": "REG0.M12.2",
+      "ocr": {
+        "expected": "X12",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 1129
+    },
+    {
+      "idx": 390,
+      "name": "REG0.M5.2",
+      "ocr": {
+        "expected": "A32",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 1129
+    },
+    {
+      "idx": 391,
+      "name": "REG0.M13.2",
+      "ocr": {
+        "expected": "ROM_IO",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 1129
+    },
+    {
+      "idx": 392,
+      "name": "REG0.S1.2",
+      "ocr": {
+        "expected": "~RAM_OUTPUT",
+        "ocr_norm": "A__",
+        "ocr_raw": "A__",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2857142857142857
+      },
+      "x": 2348,
+      "y": 1129
+    },
+    {
+      "idx": 393,
+      "name": "REG0.S2.2",
+      "ocr": {
+        "expected": "~X21",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2454,
+      "y": 1129
+    },
+    {
+      "idx": 394,
+      "name": "REG0.S0.2",
+      "ocr": {
+        "expected": "~M11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 1129
+    },
+    {
+      "idx": 395,
+      "name": "REG0.S3.2",
+      "ocr": {
+        "expected": "~X22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 1129
+    },
+    {
+      "idx": 396,
+      "name": "REG0.M2.3",
+      "ocr": {
+        "expected": "SRC_RAM_SEL",
+        "ocr_norm": "JL",
+        "ocr_raw": "JL",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.15384615384615385
+      },
+      "x": 652,
+      "y": 1201
+    },
+    {
+      "idx": 397,
+      "name": "REG0.M10.3",
+      "ocr": {
+        "expected": "~SRC_SEL_COMMAND",
+        "ocr_norm": "LII",
+        "ocr_raw": "LII",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.10526315789473684
+      },
+      "x": 758,
+      "y": 1201
+    },
+    {
+      "idx": 398,
+      "name": "REG0.M3.3",
+      "ocr": {
+        "expected": "SRC_SEL_COMMAND",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 864,
+      "y": 1201
+    },
+    {
+      "idx": 399,
+      "name": "REG0.M11.3",
+      "ocr": {
+        "expected": "X22",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 970,
+      "y": 1201
+    },
+    {
+      "idx": 400,
+      "name": "REG0.M6.3",
+      "ocr": {
+        "expected": "CLK2&X32&SRC_SEL_COMMAND",
+        "ocr_norm": "L",
+        "ocr_raw": "L",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.08
+      },
+      "x": 1076,
+      "y": 1201
+    },
+    {
+      "idx": 401,
+      "name": "REG0.M14.3",
+      "ocr": {
+        "expected": "~X11+~CLK2&X32&SRC_SEL_COMMAND",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 1182,
+      "y": 1201
+    },
+    {
+      "idx": 402,
+      "name": "REG0.M7.3",
+      "ocr": {
+        "expected": "~RAM_COMMAND_EXECUTE",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1288,
+      "y": 1201
+    },
+    {
+      "idx": 403,
+      "name": "REG0.M15.3",
+      "ocr": {
+        "expected": "~(COMMAND&X22&CLK2)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 1394,
+      "y": 1201
+    },
+    {
+      "idx": 404,
+      "name": "REG0.M0.3",
+      "ocr": {
+        "expected": "~(COMMAND&M22&CLK2)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 1500,
+      "y": 1201
+    },
+    {
+      "idx": 405,
+      "name": "REG0.M8.3",
+      "ocr": {
+        "expected": "~RAM_READ",
+        "ocr_norm": "M",
+        "ocr_raw": "M",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2
+      },
+      "x": 1606,
+      "y": 1201
+    },
+    {
+      "idx": 406,
+      "name": "REG0.M1.3",
+      "ocr": {
+        "expected": "(RESET)",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 1712,
+      "y": 1201
+    },
+    {
+      "idx": 407,
+      "name": "REG0.M9.3",
+      "ocr": {
+        "expected": "~RESET",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1818,
+      "y": 1201
+    },
+    {
+      "idx": 408,
+      "name": "REG0.M4.3",
+      "ocr": {
+        "expected": "RESET",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 1924,
+      "y": 1201
+    },
+    {
+      "idx": 409,
+      "name": "REG0.M12.3",
+      "ocr": {
+        "expected": "[X12+X22]&RAM_READ",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2030,
+      "y": 1201
+    },
+    {
+      "idx": 410,
+      "name": "REG0.M5.3",
+      "ocr": {
+        "expected": "RAM_READ",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2136,
+      "y": 1201
+    },
+    {
+      "idx": 411,
+      "name": "REG0.M13.3",
+      "ocr": {
+        "expected": "~X31",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2242,
+      "y": 1201
+    },
+    {
+      "idx": 412,
+      "name": "REG0.S1.3",
+      "ocr": {
+        "expected": "X32",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "ocr_low_conf",
+        "score": 0.0
+      },
+      "x": 2348,
+      "y": 1201
+    },
+    {
+      "idx": 413,
+      "name": "REG0.S2.3",
+      "ocr": {
+        "expected": "CLK1&X11",
+        "ocr_norm": "1F",
+        "ocr_raw": "1F",
+        "ok": false,
+        "reason": "not_printed_near_point",
+        "score": 0.2
+      },
+      "x": 2454,
+      "y": 1201
+    },
+    {
+      "idx": 414,
+      "name": "REG0.S0.3",
+      "ocr": {
+        "expected": "[X12+X22]",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "skipped_expression",
+        "score": 0.0
+      },
+      "x": 2560,
+      "y": 1201
+    },
+    {
+      "idx": 415,
+      "name": "REG0.S3.3",
+      "ocr": {
+        "expected": "X11",
+        "ocr_norm": "",
+        "ocr_raw": "",
+        "ok": false,
+        "reason": "no_similar_token",
+        "score": 0.0
+      },
+      "x": 2666,
+      "y": 1201
+    }
+  ],
+  "schema": {
+    "description": "Schematic net names from signals.txt (schematic-space), with optional OCR join.",
+    "version": 0
+  }
+}

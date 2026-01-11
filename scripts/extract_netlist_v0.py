@@ -247,9 +247,9 @@ def main() -> int:
 
         diffusion_split = diffusion & (~poly) if args.diffusion_split else diffusion
 
-        m_n, m_lab, _m_stats, _m_cent = connected_components(metal)
-        p_n, p_lab, _p_stats, _p_cent = connected_components(poly)
-        d_n, d_lab, _d_stats, _d_cent = connected_components(diffusion_split)
+        m_n, m_lab, m_stats, _m_cent = connected_components(metal)
+        p_n, p_lab, p_stats, _p_cent = connected_components(poly)
+        d_n, d_lab, d_stats, _d_cent = connected_components(diffusion_split)
 
         m_count = int(m_n - 1)
         p_count = int(p_n - 1)
@@ -333,6 +333,30 @@ def main() -> int:
         def node_of(layer: str, label: int) -> int:
             return int(root_to_node[dsu.find(gid(layer, label))])
 
+        node_count = int(len(roots))
+        node_metal_area = [0] * node_count
+        node_poly_area = [0] * node_count
+        node_diff_area = [0] * node_count
+        node_metal_cc = [0] * node_count
+        node_poly_cc = [0] * node_count
+        node_diff_cc = [0] * node_count
+
+        for lab in range(1, m_count + 1):
+            area = int(m_stats[lab][cv2.CC_STAT_AREA])
+            n = node_of("metal", lab)
+            node_metal_area[n] += area
+            node_metal_cc[n] += 1
+        for lab in range(1, p_count + 1):
+            area = int(p_stats[lab][cv2.CC_STAT_AREA])
+            n = node_of("poly", lab)
+            node_poly_area[n] += area
+            node_poly_cc[n] += 1
+        for lab in range(1, d_count + 1):
+            area = int(d_stats[lab][cv2.CC_STAT_AREA])
+            n = node_of("diffusion", lab)
+            node_diff_area[n] += area
+            node_diff_cc[n] += 1
+
         # Load transistor candidates from existing extraction.
         trans = json.loads(spec.transistors_json.read_text(encoding="utf-8"))
         comps = trans.get("components", [])
@@ -342,6 +366,8 @@ def main() -> int:
         pad = int(args.pad)
         transistors: list[dict[str, object]] = []
         ambiguous = 0
+        node_gate_degree = [0] * node_count
+        node_terminal_degree = [0] * node_count
         for c in comps:
             if not isinstance(c, dict):
                 continue
@@ -376,6 +402,9 @@ def main() -> int:
                     "source_component": {"poly_diff_id": int(c.get("id", 0))},
                 }
             )
+            node_gate_degree[node_of("poly", int(gate_lab))] += 1
+            node_terminal_degree[node_of("diffusion", int(terms[0]))] += 1
+            node_terminal_degree[node_of("diffusion", int(terms[1]))] += 1
 
         # Map signals.txt points to a node by layer label at that coordinate.
         # NOTE: i400x_signals.txt reference points are defined on the *schematic* bitmap,
@@ -387,6 +416,20 @@ def main() -> int:
         out_json = out_dir / f"{chip.lower()}_netlist_v0.json"
         schematic_img = Image.open(spec.schematic_bmp)
         schematic_w, schematic_h = schematic_img.size
+        node_stats = [
+            {
+                "node": i,
+                "metal_area": int(node_metal_area[i]),
+                "poly_area": int(node_poly_area[i]),
+                "diffusion_area": int(node_diff_area[i]),
+                "metal_components": int(node_metal_cc[i]),
+                "poly_components": int(node_poly_cc[i]),
+                "diffusion_components": int(node_diff_cc[i]),
+                "gate_degree": int(node_gate_degree[i]),
+                "terminal_degree": int(node_terminal_degree[i]),
+            }
+            for i in range(node_count)
+        ]
         payload = {
             "chip": chip,
             "schema": {
@@ -425,6 +468,7 @@ def main() -> int:
                 "transistors_ambiguous": int(ambiguous),
                 "signals_points": int(len(signal_ref_points)),
             },
+            "node_stats": node_stats,
             "signals": {"space": "schematic", "schematic_reference_points": signal_ref_points},
             "devices": {"transistors": transistors},
         }
