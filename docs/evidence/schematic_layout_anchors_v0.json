@@ -12,8 +12,6 @@
   ],
   "anchors": {
     "4004": {
-      "R0.0": { "layout_node": 596, "note": "Layout pad box labeled R0 (from layout_pad_labels_v0 human crop box_101)." },
-      "R1.0": { "layout_node": 595, "note": "Layout pad box labeled R1 (from layout_pad_labels_v0 human crop box_100)." },
       "CLK1": { "layout_node": 49, "note": "Printed pin label `01` on metal mask (human crop box_016_node_49.png); alias mapping: CLK1<->01." },
       "CLK2": { "layout_node": 17, "note": "Printed pin label `02` on metal mask (human crop box_001_node_17.png); alias mapping: CLK2<->02." },
       "SYNC": { "layout_node": null, "note": "SYNC output pin (signals.txt entry)." },
@@ -23,11 +21,11 @@
       "D1_PAD": { "layout_node": 598, "note": "Printed pad label `D1` on metal mask (human crop box_103_node_598.png)." },
       "D2_PAD": { "layout_node": 597, "note": "Printed pad label `D2` on metal mask (human crop box_102_node_597.png)." },
       "D3_PAD": { "layout_node": 432, "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png)." },
-      "CMROM": { "layout_node": null, "note": "ROM chip-select output pin." },
-      "CMRAM0": { "layout_node": null, "note": "RAM chip-select output pin (bank 0)." },
-      "CMRAM1": { "layout_node": null, "note": "RAM chip-select output pin (bank 1)." },
-      "CMRAM2": { "layout_node": null, "note": "RAM chip-select output pin (bank 2)." },
-      "CMRAM3": { "layout_node": null, "note": "RAM chip-select output pin (bank 3)." }
+      "CMROM": { "layout_node": 71, "note": "Printed pad label `RM` on metal mask; treated as `CMROM` (ROM chip-select). (See crop: docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png)" },
+      "CMRAM0": { "layout_node": 596, "note": "Printed pad label `R0` on metal mask; treated as `CMRAM0` (RAM select bank 0). (human crop box_101_node_596.png)" },
+      "CMRAM1": { "layout_node": 595, "note": "Printed pad label `R1` on metal mask; treated as `CMRAM1` (RAM select bank 1). (human crop box_100_node_595.png)" },
+      "CMRAM2": { "layout_node": 518, "note": "Printed pad label `R2` on metal mask; treated as `CMRAM2` (RAM select bank 2). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png)" },
+      "CMRAM3": { "layout_node": 441, "note": "Printed pad label `R3` on metal mask; treated as `CMRAM3` (RAM select bank 3). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png)" }
     }
   }
 }

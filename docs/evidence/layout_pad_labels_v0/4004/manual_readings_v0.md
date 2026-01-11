@@ -16,10 +16,14 @@ The canonical crops live in `docs/evidence/layout_pad_labels_v0/4004/human_crops
 | `D2` | 597 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_102_node_597.png` |
 | `D1` | 598 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_103_node_598.png` |
 | `D0` | 592 | (pad bbox overlay) `docs/evidence/layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png` |
-| `R1` | 595 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_100_node_595.png` |
-| `R0` | 596 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_101_node_596.png` |
+| `R1` | 595 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_100_node_595.png` (used as `CMRAM1`) |
+| `R0` | 596 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_101_node_596.png` (used as `CMRAM0`) |
+| `R2` | 518 | `docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png` (used as `CMRAM2`) |
+| `R3` | 441 | `docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png` (used as `CMRAM3`) |
+| `RM` | 71 | (node bbox crop) `docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png` (used as `CMROM`) |
 
 ## Open items (next)
 
-- Find `D2`, `D1`, `D0` pads (likely adjacent/near `D3` along the right and bottom edges).
+- Confirm `RM` token via robust OCR (currently best-effort; crop is visually unambiguous).
 - Determine whether printed `T` corresponds to `TEST_PAD` or a different package/pad marking.
+- Identify `SYNC` and `POC_PAD` labels (likely single-letter `S` and `C` on top edge).

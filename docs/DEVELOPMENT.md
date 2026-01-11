@@ -21,6 +21,9 @@
 ## OCR Workflow
 - Create searchable PDFs with sidecar text: `ocrmypdf --skip-text --sidecar /tmp/out.txt docs/4040/4040-datasheet.pdf /tmp/4040-ocr.pdf`
 - Search OCR output quickly: `rg -n -i "clock period|transistor|3000|2300" /tmp/out.txt`
+- Extract PDF pages as PNGs (avoid PBM/PGM display issues): `pdftoppm -png -r 300 input.pdf /tmp/pages/page`
+- Convert PBM/PGM/PPM/PNM → PNG when needed: `python3 scripts/convert_pnm_to_png.py --out-dir /tmp/pages /tmp/pages --recursive`
+- Layout edge-label OCR (4004): `python3 scripts/detect_layout_edge_labels_v0.py --chip 4004 --edges left --band 360 --min-area 200 --max-area 240000 --min-fill 0.10 --pad 30 --write-crops`
 
 ## Warnings Policy
 - `.cargo/config.toml` enforces `-D warnings` for builds; clippy uses `-D warnings`.

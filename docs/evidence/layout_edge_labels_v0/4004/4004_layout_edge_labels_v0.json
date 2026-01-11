@@ -1,0 +1,231 @@
+{
+  "chip": "4004",
+  "counts": {
+    "detections": 2
+  },
+  "detections": [
+    {
+      "bbox": {
+        "area": 10196,
+        "fill": 0.7551473855725078,
+        "h": 157,
+        "w": 86,
+        "x": 26,
+        "y": 2086
+      },
+      "best_ocr": {
+        "conf": 95.0,
+        "crop": "head",
+        "inv": false,
+        "psm": -1,
+        "raw": null,
+        "rot": 0,
+        "token": "R2",
+        "vote_count": 4
+      },
+      "normalized_token": "R2",
+      "ocr_roi": {
+        "x0": 0,
+        "x1": 142,
+        "y0": 2056,
+        "y1": 2273
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 13428,
+        "metal_bbox": {
+          "x0": 26,
+          "x1": 290,
+          "y0": 2086,
+          "y1": 2525
+        },
+        "node": 518,
+        "score": 0.028515515479743528,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 111,
+        "y": 2140
+      },
+      "token": "R2",
+      "tries": [
+        {
+          "conf": 95.0,
+          "crop": "head",
+          "inv": false,
+          "psm": -1,
+          "raw": null,
+          "rot": 0,
+          "token": "R2",
+          "vote_count": 4
+        },
+        {
+          "conf": 95.0,
+          "crop": "head",
+          "inv": true,
+          "psm": -1,
+          "raw": null,
+          "rot": 0,
+          "token": "R2",
+          "vote_count": 4
+        },
+        {
+          "conf": 90.0,
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": "R2"
+        },
+        {
+          "conf": 90.0,
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": "R2"
+        },
+        {
+          "conf": 75.0,
+          "crop": "head",
+          "inv": false,
+          "psm": -1,
+          "raw": null,
+          "rot": 90,
+          "token": "B",
+          "vote_count": 5
+        },
+        {
+          "conf": 75.0,
+          "crop": "head",
+          "inv": true,
+          "psm": -1,
+          "raw": null,
+          "rot": 90,
+          "token": "B",
+          "vote_count": 5
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "area": 9770,
+        "fill": 0.8114617940199336,
+        "h": 140,
+        "w": 86,
+        "x": 26,
+        "y": 1785
+      },
+      "best_ocr": {
+        "conf": 95.0,
+        "crop": "head",
+        "inv": false,
+        "psm": -1,
+        "raw": null,
+        "rot": 0,
+        "token": "R3",
+        "vote_count": 4
+      },
+      "normalized_token": "R3",
+      "ocr_roi": {
+        "x0": 0,
+        "x1": 142,
+        "y0": 1755,
+        "y1": 1955
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 14734,
+        "metal_bbox": {
+          "x0": 26,
+          "x1": 199,
+          "y0": 1785,
+          "y1": 2511
+        },
+        "node": 441,
+        "score": 0.028793942685515383,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 111,
+        "y": 1839
+      },
+      "token": "R3",
+      "tries": [
+        {
+          "conf": 95.0,
+          "crop": "head",
+          "inv": false,
+          "psm": -1,
+          "raw": null,
+          "rot": 0,
+          "token": "R3",
+          "vote_count": 4
+        },
+        {
+          "conf": 95.0,
+          "crop": "head",
+          "inv": true,
+          "psm": -1,
+          "raw": null,
+          "rot": 0,
+          "token": "R3",
+          "vote_count": 4
+        },
+        {
+          "conf": 91.0,
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": "R3"
+        },
+        {
+          "conf": 91.0,
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": "R3"
+        },
+        {
+          "conf": 75.0,
+          "crop": "head",
+          "inv": false,
+          "psm": -1,
+          "raw": null,
+          "rot": 90,
+          "token": "B",
+          "vote_count": 5
+        },
+        {
+          "conf": 71.0,
+          "crop": "full",
+          "inv": false,
+          "psm": -1,
+          "raw": null,
+          "rot": 270,
+          "token": "2I",
+          "vote_count": 2
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "metal_bmp": "docs/emulators/i4004-metal.bmp",
+    "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+    "sha256": {
+      "metal_bmp": "c06cce7cf479809d617489d1d5a20f031c4425ea783ac4738e2874bda36a5c13"
+    }
+  },
+  "params": {
+    "band": 360,
+    "edges": [
+      "left"
+    ],
+    "max_area": 240000,
+    "min_area": 200,
+    "min_fill": 0.1,
+    "pad": 30
+  },
+  "schema": {
+    "description": "Detected periphery label blocks on metal mask with OCR + node suggestion.",
+    "version": 0
+  }
+}

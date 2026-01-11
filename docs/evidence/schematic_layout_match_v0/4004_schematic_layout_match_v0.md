@@ -6,16 +6,11 @@
 
 ## Anchors
 
-- Resolved: `8` / `16`
-- Unresolved: `8`
+- Resolved: `11` / `14`
+- Unresolved: `3`
 
 ### Unresolved anchors
 
-- `CMRAM0` (present_in_schematic=True)
-- `CMRAM1` (present_in_schematic=True)
-- `CMRAM2` (present_in_schematic=True)
-- `CMRAM3` (present_in_schematic=True)
-- `CMROM` (present_in_schematic=True)
 - `POC_PAD` (present_in_schematic=True)
 - `SYNC` (present_in_schematic=True)
 - `TEST_PAD` (present_in_schematic=True)

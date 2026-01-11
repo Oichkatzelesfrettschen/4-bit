@@ -15,6 +15,41 @@
       "status": "resolved"
     },
     {
+      "layout_node": 596,
+      "name": "CMRAM0",
+      "note": "Printed pad label `R0` on metal mask; treated as `CMRAM0` (RAM select bank 0). (human crop box_101_node_596.png)",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 595,
+      "name": "CMRAM1",
+      "note": "Printed pad label `R1` on metal mask; treated as `CMRAM1` (RAM select bank 1). (human crop box_100_node_595.png)",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 518,
+      "name": "CMRAM2",
+      "note": "Printed pad label `R2` on metal mask; treated as `CMRAM2` (RAM select bank 2). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png)",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 441,
+      "name": "CMRAM3",
+      "note": "Printed pad label `R3` on metal mask; treated as `CMRAM3` (RAM select bank 3). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png)",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 71,
+      "name": "CMROM",
+      "note": "Printed pad label `RM` on metal mask; treated as `CMROM` (ROM chip-select). (See crop: docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png)",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
       "layout_node": 592,
       "name": "D0_PAD",
       "note": "Printed pad label `D0` on metal mask; pad metal bbox aligns with node 592. (See debug overlay: layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png)",
@@ -41,58 +76,9 @@
       "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png).",
       "present_in_schematic": true,
       "status": "resolved"
-    },
-    {
-      "layout_node": 596,
-      "name": "R0.0",
-      "note": "Layout pad box labeled R0 (from layout_pad_labels_v0 human crop box_101).",
-      "present_in_schematic": true,
-      "status": "resolved"
-    },
-    {
-      "layout_node": 595,
-      "name": "R1.0",
-      "note": "Layout pad box labeled R1 (from layout_pad_labels_v0 human crop box_100).",
-      "present_in_schematic": true,
-      "status": "resolved"
     }
   ],
   "anchors_unresolved": [
-    {
-      "layout_node": null,
-      "name": "CMRAM0",
-      "note": "RAM chip-select output pin (bank 0).",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "CMRAM1",
-      "note": "RAM chip-select output pin (bank 1).",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "CMRAM2",
-      "note": "RAM chip-select output pin (bank 2).",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "CMRAM3",
-      "note": "RAM chip-select output pin (bank 3).",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "CMROM",
-      "note": "ROM chip-select output pin.",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
     {
       "layout_node": null,
       "name": "POC_PAD",
@@ -117,9 +103,9 @@
   ],
   "chip": "4004",
   "counts": {
-    "anchors_resolved": 8,
-    "anchors_total": 16,
-    "anchors_unresolved": 8,
+    "anchors_resolved": 11,
+    "anchors_total": 14,
+    "anchors_unresolved": 3,
     "layout_nodes": 3448,
     "schematic_net_names": 275
   },
