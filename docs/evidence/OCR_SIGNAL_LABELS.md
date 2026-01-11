@@ -32,6 +32,15 @@ Current ROI strategy is point-centered and parameterized (see `./scripts/ocr_sig
   and runs token OCR on small windows (bounded search, not an unbounded scan).
 - To avoid long-running `tesseract` hangs, use `--tesseract-timeout` (default `2.0` seconds per call).
 
+## Performance
+
+Quick local benchmark (4004 subset; 40 points; `CLK*`, `SYNC`, `D0..D3`):
+- Before call-budget tuning: ~50s wall time
+- After tuning + caching + fast-crop pass: ~27s wall time
+
+Recommended fast calibration invocation:
+- `./scripts/ocr_signal_labels.py --chip 4004 --name-regex '^(CLK1|CLK2|SYNC|D0|D1|D2|D3)$' --limit 40 --save-mismatches 0`
+
 ## Overlays
 
 To visually audit point placement and mismatches on top of the schematic:
@@ -70,3 +79,6 @@ Provide these exceptions in `scripts/ocr_signal_aliases.json`, keyed by chip:
 
 - Many labels in `i4004-schematic.bmp` are vertical/rotated; OCR quality depends heavily on preprocessing.
 - Expect mismatches; the value is the deterministic mismatch set + annotated crops for inspection.
+- GPU note: CUDA is available on this workstation, but the current OCR workflow uses `tesseract`.
+  CUDA-backed OCR via `onnxruntime-gpu` is not currently viable on Python 3.13 (the wheel reports
+  CPU-only providers), while the system `onnxruntime` build *does* expose `CUDAExecutionProvider`.

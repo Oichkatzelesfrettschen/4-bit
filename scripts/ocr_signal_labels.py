@@ -6,6 +6,7 @@ import csv
 import hashlib
 import json
 import re
+from collections import deque
 from dataclasses import dataclass
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -34,6 +35,35 @@ class ChipSpec:
 ROOT = Path(__file__).resolve().parents[1]
 
 TESSERACT_TIMEOUT_S: float | None = None
+
+# Best-effort in-process cache for repeated OCR calls (mostly helps during fallbacks).
+# Bounded to avoid unbounded growth on full-chip runs.
+_OCR_CACHE_MAX = 4096
+_OCR_TOKENS_CACHE: dict[tuple[str, int, str], list[dict[str, object]]] = {}
+_OCR_STRING_CACHE: dict[tuple[str, int, str], str] = {}
+_OCR_CACHE_ORDER: deque[tuple[str, str, int, str]] = deque()
+
+
+def _img_fingerprint(img: Image.Image) -> str:
+    h = hashlib.blake2b(digest_size=16)
+    h.update(img.mode.encode("utf-8"))
+    h.update(str(img.size).encode("utf-8"))
+    h.update(img.tobytes())
+    return h.hexdigest()
+
+
+def _cache_put(kind: str, key: tuple[str, int, str]) -> None:
+    _OCR_CACHE_ORDER.append((kind, key[0], int(key[1]), str(key[2])))
+    if len(_OCR_CACHE_ORDER) <= _OCR_CACHE_MAX:
+        return
+    # Evict roughly FIFO; best-effort only.
+    while len(_OCR_CACHE_ORDER) > _OCR_CACHE_MAX:
+        k = _OCR_CACHE_ORDER.popleft()
+        k_kind, fp, psm, wl = k
+        if k_kind == "tokens":
+            _OCR_TOKENS_CACHE.pop((fp, int(psm), str(wl)), None)
+        else:
+            _OCR_STRING_CACHE.pop((fp, int(psm), str(wl)), None)
 
 
 def specs() -> dict[str, ChipSpec]:
@@ -296,6 +326,12 @@ def candidate_offsets(region_w: int, region_h: int) -> list[tuple[int, int]]:
 
 def ocr_tokens(pre: Image.Image, *, psm: int, whitelist: str) -> list[dict[str, object]]:
     # Use TSV so we can select the best nearby recognized token.
+    fp = _img_fingerprint(pre)
+    cache_key = (fp, int(psm), str(whitelist))
+    cached = _OCR_TOKENS_CACHE.get(cache_key)
+    if cached is not None:
+        return list(cached)
+
     config = f'--psm {psm} -c tessedit_char_whitelist="{whitelist}"'
     try:
         tsv = pytesseract.image_to_data(
@@ -336,7 +372,9 @@ def ocr_tokens(pre: Image.Image, *, psm: int, whitelist: str) -> list[dict[str, 
                 "center": {"x": left + width / 2.0, "y": top + height / 2.0},
             }
         )
-    return out
+    _OCR_TOKENS_CACHE[cache_key] = out
+    _cache_put("tokens", cache_key)
+    return list(out)
 
 
 def find_text_components(region_gray: np.ndarray) -> list[dict[str, object]]:
@@ -486,11 +524,20 @@ def score_match(expected: str, observed: str) -> float:
     return SequenceMatcher(a=expected, b=observed).ratio()
 
 def ocr_single_line(img: Image.Image, *, psm: int, whitelist: str) -> str:
+    fp = _img_fingerprint(img)
+    cache_key = (fp, int(psm), str(whitelist))
+    cached = _OCR_STRING_CACHE.get(cache_key)
+    if cached is not None:
+        return str(cached)
+
     config = f'--psm {psm} -c tessedit_char_whitelist="{whitelist}"'
     try:
-        return pytesseract.image_to_string(img, config=config, timeout=TESSERACT_TIMEOUT_S)
+        out = pytesseract.image_to_string(img, config=config, timeout=TESSERACT_TIMEOUT_S)
     except Exception:
         return ""
+    _OCR_STRING_CACHE[cache_key] = out
+    _cache_put("string", cache_key)
+    return str(out)
 
 
 def safe_slug(name: str) -> str:
@@ -540,9 +587,9 @@ def main() -> int:
         default=ROOT / "scripts" / "ocr_signal_aliases.json",
         help="Optional JSON aliases: {\"4004\": {\"CLK1\": [\"01\"]}}",
     )
-    parser.add_argument("--candidates", type=int, default=6, help="How many nearby text components to try (mode=crop)")
+    parser.add_argument("--candidates", type=int, default=4, help="How many nearby text components to try (mode=crop)")
     parser.add_argument("--pad", type=int, default=10, help="Padding around component bbox (source pixels, mode=crop)")
-    parser.add_argument("--max-calls", type=int, default=120, help="Max OCR calls per point (mode=crop)")
+    parser.add_argument("--max-calls", type=int, default=60, help="Max OCR calls per point (mode=crop)")
     parser.add_argument(
         "--whitelist",
         default="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_~()+&/-",
@@ -682,6 +729,32 @@ def main() -> int:
                     best_region_offset = (0, 0)
                     best_region_rotation_deg = 0
                     best_region_psm = None
+
+            # Fast-path: for short expected labels (e.g. D0/D1/SYNC), try a single small crop OCR pass
+            # before doing expensive component enumeration. This keeps determinism and is bounded.
+            if best_score < args.min_score and classify_expected(p.name) == "label" and 1 <= len(expected_norm) <= 6:
+                crop = crop_around(img, x=p.x, y=p.y, w=args.crop_w, h=args.crop_h)
+                pre = preprocess(crop, scale=args.scale, invert=bool(args.invert))
+                for deg, pre_rot in rotate_variants(pre):
+                    tokens = ocr_tokens(pre_rot, psm=int(args.psm), whitelist=args.whitelist)
+                    for t in tokens:
+                        s = str(t.get("norm", ""))
+                        if not s:
+                            continue
+                        if s == expected_norm or expected_norm in s:
+                            best = t
+                            best_score = 1.0
+                            best_bbox = t.get("bbox")
+                            best_bbox_frame = "fast_crop"
+                            best_dist = 0.0
+                            best_conf = float(t.get("conf", 0.0))
+                            best_region_bbox = base_region_bbox
+                            best_region_offset = (0, 0)
+                            best_region_rotation_deg = int(deg)
+                            best_region_psm = int(args.psm)
+                            break
+                    if best_score >= args.min_score:
+                        break
 
             # For longer textual aliases (e.g. TEST), do a bounded offset+token scan.
             if best_score < args.min_score and alias_ok and is_text_alias(alias_ok):
