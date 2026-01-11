@@ -340,22 +340,61 @@ def main() -> int:
         node_metal_cc = [0] * node_count
         node_poly_cc = [0] * node_count
         node_diff_cc = [0] * node_count
+        node_metal_bbox = [None] * node_count
+        node_poly_bbox = [None] * node_count
+        node_diff_bbox = [None] * node_count
 
         for lab in range(1, m_count + 1):
             area = int(m_stats[lab][cv2.CC_STAT_AREA])
+            x = int(m_stats[lab][cv2.CC_STAT_LEFT])
+            y = int(m_stats[lab][cv2.CC_STAT_TOP])
+            w = int(m_stats[lab][cv2.CC_STAT_WIDTH])
+            h = int(m_stats[lab][cv2.CC_STAT_HEIGHT])
             n = node_of("metal", lab)
             node_metal_area[n] += area
             node_metal_cc[n] += 1
+            bb = node_metal_bbox[n]
+            if bb is None:
+                node_metal_bbox[n] = [x, y, x + w, y + h]
+            else:
+                bb[0] = min(bb[0], x)
+                bb[1] = min(bb[1], y)
+                bb[2] = max(bb[2], x + w)
+                bb[3] = max(bb[3], y + h)
         for lab in range(1, p_count + 1):
             area = int(p_stats[lab][cv2.CC_STAT_AREA])
+            x = int(p_stats[lab][cv2.CC_STAT_LEFT])
+            y = int(p_stats[lab][cv2.CC_STAT_TOP])
+            w = int(p_stats[lab][cv2.CC_STAT_WIDTH])
+            h = int(p_stats[lab][cv2.CC_STAT_HEIGHT])
             n = node_of("poly", lab)
             node_poly_area[n] += area
             node_poly_cc[n] += 1
+            bb = node_poly_bbox[n]
+            if bb is None:
+                node_poly_bbox[n] = [x, y, x + w, y + h]
+            else:
+                bb[0] = min(bb[0], x)
+                bb[1] = min(bb[1], y)
+                bb[2] = max(bb[2], x + w)
+                bb[3] = max(bb[3], y + h)
         for lab in range(1, d_count + 1):
             area = int(d_stats[lab][cv2.CC_STAT_AREA])
+            x = int(d_stats[lab][cv2.CC_STAT_LEFT])
+            y = int(d_stats[lab][cv2.CC_STAT_TOP])
+            w = int(d_stats[lab][cv2.CC_STAT_WIDTH])
+            h = int(d_stats[lab][cv2.CC_STAT_HEIGHT])
             n = node_of("diffusion", lab)
             node_diff_area[n] += area
             node_diff_cc[n] += 1
+            bb = node_diff_bbox[n]
+            if bb is None:
+                node_diff_bbox[n] = [x, y, x + w, y + h]
+            else:
+                bb[0] = min(bb[0], x)
+                bb[1] = min(bb[1], y)
+                bb[2] = max(bb[2], x + w)
+                bb[3] = max(bb[3], y + h)
 
         # Load transistor candidates from existing extraction.
         trans = json.loads(spec.transistors_json.read_text(encoding="utf-8"))
@@ -427,6 +466,21 @@ def main() -> int:
                 "diffusion_components": int(node_diff_cc[i]),
                 "gate_degree": int(node_gate_degree[i]),
                 "terminal_degree": int(node_terminal_degree[i]),
+                "metal_bbox": (
+                    {"x0": int(node_metal_bbox[i][0]), "y0": int(node_metal_bbox[i][1]), "x1": int(node_metal_bbox[i][2]), "y1": int(node_metal_bbox[i][3])}
+                    if node_metal_bbox[i] is not None
+                    else None
+                ),
+                "poly_bbox": (
+                    {"x0": int(node_poly_bbox[i][0]), "y0": int(node_poly_bbox[i][1]), "x1": int(node_poly_bbox[i][2]), "y1": int(node_poly_bbox[i][3])}
+                    if node_poly_bbox[i] is not None
+                    else None
+                ),
+                "diffusion_bbox": (
+                    {"x0": int(node_diff_bbox[i][0]), "y0": int(node_diff_bbox[i][1]), "x1": int(node_diff_bbox[i][2]), "y1": int(node_diff_bbox[i][3])}
+                    if node_diff_bbox[i] is not None
+                    else None
+                ),
             }
             for i in range(node_count)
         ]

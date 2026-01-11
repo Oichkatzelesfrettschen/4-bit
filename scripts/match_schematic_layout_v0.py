@@ -28,6 +28,14 @@ def chip_paths(chip: str) -> ChipPaths:
         schematic_names=ROOT / "docs" / "evidence" / "schematic_net_names_v0" / f"{chip.lower()}_schematic_net_names_v0.json",
     )
 
+def load_pad_candidates(chip: str) -> list[dict[str, object]]:
+    p = ROOT / "docs" / "evidence" / "layout_pad_candidates_v0" / f"{chip.lower()}_layout_pad_candidates_v0.json"
+    if not p.exists():
+        return []
+    obj = json.loads(p.read_text(encoding="utf-8"))
+    cand = obj.get("candidates", [])
+    return cand if isinstance(cand, list) else []
+
 
 def top_candidates(layout: dict, k: int) -> list[dict[str, int]]:
     stats = layout.get("node_stats", [])
@@ -113,6 +121,7 @@ def main() -> int:
                 unresolved.append(row)
 
         top = top_candidates(layout, k=int(args.candidates))
+        pad_like = load_pad_candidates(chip)[: int(args.candidates)]
 
         out_json = out_dir / f"{chip.lower()}_schematic_layout_match_v0.json"
         payload = {
@@ -134,6 +143,7 @@ def main() -> int:
                 "layout_nodes": int(layout.get("counts", {}).get("nodes", 0)),
             },
             "top_layout_node_candidates": top,
+            "pad_like_layout_nodes": pad_like,
             "anchors_resolved": resolved,
             "anchors_unresolved": unresolved,
         }
@@ -164,6 +174,18 @@ def main() -> int:
                 f"| {n['node']} | {n['terminal_degree']} | {n['gate_degree']} | {n['metal_area']} | {n['diffusion_area']} | {n['poly_area']} |"
             )
         lines.append("")
+
+        if pad_like:
+            lines.append("## Pad-like nodes (periphery metal, ranked)\n")
+            lines.append("Source: `docs/evidence/layout_pad_candidates_v0/`\n")
+            lines.append("| Node | edge_distance | metal_area | terminal_degree | gate_degree | metal_bbox |")
+            lines.append("|---:|---:|---:|---:|---:|---|")
+            for r in pad_like:
+                bb = r.get("metal_bbox") or {}
+                lines.append(
+                    f"| {int(r.get('node', 0))} | {int(r.get('edge_distance', 0))} | {int(r.get('metal_area', 0))} | {int(r.get('terminal_degree', 0))} | {int(r.get('gate_degree', 0))} | ({bb.get('x0')},{bb.get('y0')})-({bb.get('x1')},{bb.get('y1')}) |"
+                )
+            lines.append("")
         out_md.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -172,4 +194,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

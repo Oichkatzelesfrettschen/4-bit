@@ -14,6 +14,333 @@
     "layout_netlist_v0": "docs/evidence/netlists_v0/4003_netlist_v0.json",
     "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4003_schematic_net_names_v0.json"
   },
+  "pad_like_layout_nodes": [
+    {
+      "edge_distance": 0,
+      "gate_degree": 0,
+      "metal_area": 33232,
+      "metal_bbox": {
+        "x0": 1852,
+        "x1": 2105,
+        "y0": 1298,
+        "y1": 1456
+      },
+      "node": 138,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 26,
+      "gate_degree": 0,
+      "metal_area": 236902,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 2155,
+        "y0": 26,
+        "y1": 1317
+      },
+      "node": 2,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 26,
+      "gate_degree": 0,
+      "metal_area": 37091,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 901,
+        "y0": 26,
+        "y1": 345
+      },
+      "node": 0,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 26,
+      "gate_degree": 0,
+      "metal_area": 34661,
+      "metal_bbox": {
+        "x0": 466,
+        "x1": 1190,
+        "y0": 26,
+        "y1": 345
+      },
+      "node": 1,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 26,
+      "gate_degree": 0,
+      "metal_area": 29817,
+      "metal_bbox": {
+        "x0": 1232,
+        "x1": 1480,
+        "y0": 26,
+        "y1": 345
+      },
+      "node": 3,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 27,
+      "gate_degree": 0,
+      "metal_area": 29863,
+      "metal_bbox": {
+        "x0": 1536,
+        "x1": 1768,
+        "y0": 27,
+        "y1": 345
+      },
+      "node": 4,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 27,
+      "gate_degree": 0,
+      "metal_area": 23796,
+      "metal_bbox": {
+        "x0": 2150,
+        "x1": 2298,
+        "y0": 27,
+        "y1": 236
+      },
+      "node": 5,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 28,
+      "gate_degree": 0,
+      "metal_area": 35013,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 773,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 129,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 28,
+      "gate_degree": 0,
+      "metal_area": 31892,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 611,
+        "y0": 295,
+        "y1": 476
+      },
+      "node": 19,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 28,
+      "gate_degree": 0,
+      "metal_area": 29725,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 480,
+        "y0": 994,
+        "y1": 1194
+      },
+      "node": 109,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 30,
+      "gate_degree": 0,
+      "metal_area": 28891,
+      "metal_bbox": {
+        "x0": 1985,
+        "x1": 2298,
+        "y0": 911,
+        "y1": 1269
+      },
+      "node": 98,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 30,
+      "gate_degree": 0,
+      "metal_area": 27668,
+      "metal_bbox": {
+        "x0": 2070,
+        "x1": 2298,
+        "y0": 1063,
+        "y1": 1413
+      },
+      "node": 122,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 30,
+      "gate_degree": 0,
+      "metal_area": 25175,
+      "metal_bbox": {
+        "x0": 2150,
+        "x1": 2298,
+        "y0": 535,
+        "y1": 762
+      },
+      "node": 44,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 30,
+      "gate_degree": 0,
+      "metal_area": 663,
+      "metal_bbox": {
+        "x0": 684,
+        "x1": 721,
+        "y0": 1396,
+        "y1": 1426
+      },
+      "node": 140,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 30,
+      "gate_degree": 0,
+      "metal_area": 365,
+      "metal_bbox": {
+        "x0": 639,
+        "x1": 669,
+        "y0": 1396,
+        "y1": 1426
+      },
+      "node": 139,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 36,
+      "gate_degree": 0,
+      "metal_area": 8510,
+      "metal_bbox": {
+        "x0": 730,
+        "x1": 893,
+        "y0": 1262,
+        "y1": 1420
+      },
+      "node": 135,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 44,
+      "gate_degree": 4,
+      "metal_area": 152987,
+      "metal_bbox": {
+        "x0": 336,
+        "x1": 2082,
+        "y0": 65,
+        "y1": 1412
+      },
+      "node": 7,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 44,
+      "gate_degree": 0,
+      "metal_area": 32427,
+      "metal_bbox": {
+        "x0": 416,
+        "x1": 1059,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 130,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 44,
+      "gate_degree": 0,
+      "metal_area": 31730,
+      "metal_bbox": {
+        "x0": 1232,
+        "x1": 1637,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 132,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 44,
+      "gate_degree": 0,
+      "metal_area": 29201,
+      "metal_bbox": {
+        "x0": 936,
+        "x1": 1345,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 131,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 64,
+      "gate_degree": 0,
+      "metal_area": 431,
+      "metal_bbox": {
+        "x0": 364,
+        "x1": 387,
+        "y0": 64,
+        "y1": 89
+      },
+      "node": 6,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 74,
+      "gate_degree": 0,
+      "metal_area": 28241,
+      "metal_bbox": {
+        "x0": 311,
+        "x1": 1841,
+        "y0": 74,
+        "y1": 855
+      },
+      "node": 8,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 75,
+      "gate_degree": 0,
+      "metal_area": 3173,
+      "metal_bbox": {
+        "x0": 639,
+        "x1": 714,
+        "y0": 1290,
+        "y1": 1381
+      },
+      "node": 137,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 77,
+      "gate_degree": 0,
+      "metal_area": 1331,
+      "metal_bbox": {
+        "x0": 609,
+        "x1": 624,
+        "y0": 1290,
+        "y1": 1379
+      },
+      "node": 136,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 88,
+      "gate_degree": 0,
+      "metal_area": 2251,
+      "metal_bbox": {
+        "x0": 844,
+        "x1": 893,
+        "y0": 88,
+        "y1": 184
+      },
+      "node": 13,
+      "terminal_degree": 0
+    }
+  ],
   "schema": {
     "description": "Scaffold report for matching schematic net names (signals.txt) to layout nodes (netlist_v0).",
     "version": 0

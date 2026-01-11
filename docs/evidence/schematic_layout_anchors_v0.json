@@ -5,11 +5,15 @@
   },
   "notes": [
     "Schematic and layout are different coordinate spaces; matching requires anchors + iterative refinement.",
-    "Start by mapping external pins (VDD, GND, D0..D3, CLK1/CLK2, SYNC, RESET, CM, TEST) to layout node IDs.",
-    "Use scripts/match_schematic_layout_v0.py to get candidate layout nodes by degree/area, then fill in layout_node."
+    "Start by mapping obvious external pads from signals.txt (e.g. *_PAD, CLK1/CLK2, SYNC, CMROM/CMRAM*).",
+    "Use `docs/evidence/schematic_layout_match_v0/<chip>_schematic_layout_match_v0.md` to see both: (1) degree/area candidates and (2) periphery pad-like candidates.",
+    "Use the rendered overlays/crops under `docs/evidence/layout_pad_candidates_v0/<chip>/` to visually inspect candidate nodes on the metal mask.",
+    "Then fill `layout_node` for each anchor and re-run `python3 scripts/match_schematic_layout_v0.py --chip <chip>`."
   ],
   "anchors": {
     "4004": {
+      "R0.0": { "layout_node": 596, "note": "Layout pad box labeled R0 (from layout_pad_labels_v0 human crop box_101)." },
+      "R1.0": { "layout_node": 595, "note": "Layout pad box labeled R1 (from layout_pad_labels_v0 human crop box_100)." },
       "CLK1": { "layout_node": null, "note": "External clock pin (signals.txt entry)." },
       "CLK2": { "layout_node": null, "note": "External clock pin (signals.txt entry)." },
       "SYNC": { "layout_node": null, "note": "SYNC output pin (signals.txt entry)." },

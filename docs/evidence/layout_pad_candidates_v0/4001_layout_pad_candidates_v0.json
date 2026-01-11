@@ -1,0 +1,540 @@
+{
+  "candidates": [
+    {
+      "edge_distance": 0,
+      "gate_degree": 0,
+      "metal_area": 17479,
+      "metal_bbox": {
+        "x0": 2179,
+        "x1": 2425,
+        "y0": 1659,
+        "y1": 1768
+      },
+      "node": 2540,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 59,
+      "gate_degree": 0,
+      "metal_area": 209272,
+      "metal_bbox": {
+        "x0": 105,
+        "x1": 2653,
+        "y0": 89,
+        "y1": 1528
+      },
+      "node": 2,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 59,
+      "gate_degree": 0,
+      "metal_area": 28360,
+      "metal_bbox": {
+        "x0": 659,
+        "x1": 2653,
+        "y0": 280,
+        "y1": 945
+      },
+      "node": 14,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 59,
+      "gate_degree": 0,
+      "metal_area": 10894,
+      "metal_bbox": {
+        "x0": 407,
+        "x1": 582,
+        "y0": 1620,
+        "y1": 1709
+      },
+      "node": 2538,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 35,
+      "metal_area": 131576,
+      "metal_bbox": {
+        "x0": 201,
+        "x1": 2484,
+        "y0": 332,
+        "y1": 1708
+      },
+      "node": 20,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 0,
+      "metal_area": 27688,
+      "metal_bbox": {
+        "x0": 530,
+        "x1": 2652,
+        "y0": 265,
+        "y1": 618
+      },
+      "node": 13,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 0,
+      "metal_area": 17213,
+      "metal_bbox": {
+        "x0": 1113,
+        "x1": 2097,
+        "y0": 1534,
+        "y1": 1708
+      },
+      "node": 2522,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 0,
+      "metal_area": 14871,
+      "metal_bbox": {
+        "x0": 1113,
+        "x1": 1723,
+        "y0": 1547,
+        "y1": 1708
+      },
+      "node": 2523,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 0,
+      "metal_area": 11441,
+      "metal_bbox": {
+        "x0": 741,
+        "x1": 935,
+        "y0": 1620,
+        "y1": 1708
+      },
+      "node": 2539,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 0,
+      "metal_area": 10814,
+      "metal_bbox": {
+        "x0": 636,
+        "x1": 833,
+        "y0": 60,
+        "y1": 163
+      },
+      "node": 1,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 60,
+      "gate_degree": 0,
+      "metal_area": 10675,
+      "metal_bbox": {
+        "x0": 194,
+        "x1": 370,
+        "y0": 60,
+        "y1": 149
+      },
+      "node": 0,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 61,
+      "gate_degree": 0,
+      "metal_area": 22652,
+      "metal_bbox": {
+        "x0": 1112,
+        "x1": 2651,
+        "y0": 1135,
+        "y1": 1567
+      },
+      "node": 1536,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 62,
+      "gate_degree": 0,
+      "metal_area": 9568,
+      "metal_bbox": {
+        "x0": 62,
+        "x1": 159,
+        "y0": 1467,
+        "y1": 1603
+      },
+      "node": 2519,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 72,
+      "gate_degree": 0,
+      "metal_area": 21555,
+      "metal_bbox": {
+        "x0": 1113,
+        "x1": 2640,
+        "y0": 1436,
+        "y1": 1606
+      },
+      "node": 2514,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 89,
+      "gate_degree": 0,
+      "metal_area": 24043,
+      "metal_bbox": {
+        "x0": 271,
+        "x1": 1812,
+        "y0": 89,
+        "y1": 325
+      },
+      "node": 3,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 90,
+      "gate_degree": 0,
+      "metal_area": 30463,
+      "metal_bbox": {
+        "x0": 400,
+        "x1": 2541,
+        "y0": 90,
+        "y1": 325
+      },
+      "node": 4,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 105,
+      "gate_degree": 0,
+      "metal_area": 11202,
+      "metal_bbox": {
+        "x0": 105,
+        "x1": 191,
+        "y0": 386,
+        "y1": 595
+      },
+      "node": 111,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 116,
+      "gate_degree": 0,
+      "metal_area": 401,
+      "metal_bbox": {
+        "x0": 116,
+        "x1": 125,
+        "y0": 1308,
+        "y1": 1353
+      },
+      "node": 2158,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 119,
+      "gate_degree": 0,
+      "metal_area": 10358,
+      "metal_bbox": {
+        "x0": 146,
+        "x1": 1077,
+        "y0": 1137,
+        "y1": 1649
+      },
+      "node": 1537,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 122,
+      "gate_degree": 0,
+      "metal_area": 488,
+      "metal_bbox": {
+        "x0": 1441,
+        "x1": 1481,
+        "y0": 1608,
+        "y1": 1646
+      },
+      "node": 2534,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 126,
+      "gate_degree": 0,
+      "metal_area": 425,
+      "metal_bbox": {
+        "x0": 1374,
+        "x1": 1410,
+        "y0": 1607,
+        "y1": 1642
+      },
+      "node": 2528,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 129,
+      "gate_degree": 0,
+      "metal_area": 246,
+      "metal_bbox": {
+        "x0": 1495,
+        "x1": 1506,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "node": 2530,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 129,
+      "gate_degree": 0,
+      "metal_area": 174,
+      "metal_bbox": {
+        "x0": 1509,
+        "x1": 1521,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "node": 2531,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 129,
+      "gate_degree": 0,
+      "metal_area": 136,
+      "metal_bbox": {
+        "x0": 1486,
+        "x1": 1492,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "node": 2529,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 129,
+      "gate_degree": 0,
+      "metal_area": 136,
+      "metal_bbox": {
+        "x0": 1524,
+        "x1": 1530,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "node": 2532,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 130,
+      "gate_degree": 0,
+      "metal_area": 3152,
+      "metal_bbox": {
+        "x0": 130,
+        "x1": 140,
+        "y0": 642,
+        "y1": 1085
+      },
+      "node": 1072,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 130,
+      "gate_degree": 0,
+      "metal_area": 164,
+      "metal_bbox": {
+        "x0": 1424,
+        "x1": 1439,
+        "y0": 1615,
+        "y1": 1638
+      },
+      "node": 2537,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 130,
+      "gate_degree": 0,
+      "metal_area": 69,
+      "metal_bbox": {
+        "x0": 1419,
+        "x1": 1422,
+        "y0": 1615,
+        "y1": 1638
+      },
+      "node": 2536,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 132,
+      "gate_degree": 0,
+      "metal_area": 703,
+      "metal_bbox": {
+        "x0": 132,
+        "x1": 205,
+        "y0": 349,
+        "y1": 380
+      },
+      "node": 27,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 133,
+      "gate_degree": 0,
+      "metal_area": 6021,
+      "metal_bbox": {
+        "x0": 133,
+        "x1": 550,
+        "y0": 1107,
+        "y1": 1572
+      },
+      "node": 1461,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 133,
+      "gate_degree": 0,
+      "metal_area": 191,
+      "metal_bbox": {
+        "x0": 1381,
+        "x1": 1401,
+        "y0": 1614,
+        "y1": 1635
+      },
+      "node": 2535,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 135,
+      "gate_degree": 0,
+      "metal_area": 964,
+      "metal_bbox": {
+        "x0": 260,
+        "x1": 288,
+        "y0": 1578,
+        "y1": 1633
+      },
+      "node": 2525,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 135,
+      "gate_degree": 0,
+      "metal_area": 921,
+      "metal_bbox": {
+        "x0": 301,
+        "x1": 328,
+        "y0": 1578,
+        "y1": 1633
+      },
+      "node": 2526,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 135,
+      "gate_degree": 0,
+      "metal_area": 876,
+      "metal_bbox": {
+        "x0": 221,
+        "x1": 252,
+        "y0": 1578,
+        "y1": 1633
+      },
+      "node": 2524,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 135,
+      "gate_degree": 0,
+      "metal_area": 436,
+      "metal_bbox": {
+        "x0": 343,
+        "x1": 351,
+        "y0": 1578,
+        "y1": 1633
+      },
+      "node": 2527,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 146,
+      "gate_degree": 0,
+      "metal_area": 9829,
+      "metal_bbox": {
+        "x0": 159,
+        "x1": 1077,
+        "y0": 1162,
+        "y1": 1622
+      },
+      "node": 1608,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 146,
+      "gate_degree": 0,
+      "metal_area": 4216,
+      "metal_bbox": {
+        "x0": 146,
+        "x1": 210,
+        "y0": 582,
+        "y1": 1100
+      },
+      "node": 868,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 156,
+      "gate_degree": 0,
+      "metal_area": 12,
+      "metal_bbox": {
+        "x0": 1419,
+        "x1": 1422,
+        "y0": 1608,
+        "y1": 1612
+      },
+      "node": 2533,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 157,
+      "gate_degree": 0,
+      "metal_area": 3545,
+      "metal_bbox": {
+        "x0": 157,
+        "x1": 183,
+        "y0": 703,
+        "y1": 1174
+      },
+      "node": 1193,
+      "terminal_degree": 0
+    },
+    {
+      "edge_distance": 159,
+      "gate_degree": 0,
+      "metal_area": 3685,
+      "metal_bbox": {
+        "x0": 159,
+        "x1": 742,
+        "y0": 898,
+        "y1": 1092
+      },
+      "node": 1278,
+      "terminal_degree": 0
+    }
+  ],
+  "chip": "4001",
+  "counts": {
+    "candidates_emitted": 40,
+    "candidates_total": 60
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4001_netlist_v0.json"
+  },
+  "params": {
+    "edge_max": 220,
+    "top": 40
+  },
+  "schema": {
+    "description": "Ranked pad-like layout nodes (border-touching metal) from netlist_v0.",
+    "version": 0
+  }
+}

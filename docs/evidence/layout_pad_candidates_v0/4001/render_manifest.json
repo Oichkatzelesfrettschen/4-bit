@@ -1,0 +1,17 @@
+{
+  "chip": "4001",
+  "inputs": {
+    "candidates": "docs/evidence/layout_pad_candidates_v0/4001_layout_pad_candidates_v0.json",
+    "netlist_v0": "docs/emulators/i4001-metal.bmp"
+  },
+  "outputs": {
+    "crops_dir": "docs/evidence/layout_pad_candidates_v0/4001/crops",
+    "overlay": "docs/evidence/layout_pad_candidates_v0/4001/4001_metal_pad_candidates_v0.png"
+  },
+  "params": {
+    "downscale": 2,
+    "max_crops": 16,
+    "pad": 30
+  },
+  "tool": "scripts/render_layout_pad_candidates_v0.py"
+}

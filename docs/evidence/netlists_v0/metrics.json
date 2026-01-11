@@ -2,7 +2,7 @@
   "in_dir": "docs/evidence/netlists_v0",
   "rows": [
     {
-      "bytes": 2038577,
+      "bytes": 3006324,
       "chip": "4001",
       "components": {
         "diffusion": 3202,
@@ -22,7 +22,7 @@
       }
     },
     {
-      "bytes": 1043744,
+      "bytes": 1638947,
       "chip": "4002",
       "components": {
         "diffusion": 2449,
@@ -42,7 +42,7 @@
       }
     },
     {
-      "bytes": 135915,
+      "bytes": 223817,
       "chip": "4003",
       "components": {
         "diffusion": 347,
@@ -62,7 +62,7 @@
       }
     },
     {
-      "bytes": 1190582,
+      "bytes": 1794387,
       "chip": "4004",
       "components": {
         "diffusion": 2810,
