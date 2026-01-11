@@ -3,6 +3,7 @@
 use std::path::{Path, PathBuf};
 
 use clap::{Parser, ValueEnum};
+use mcs4_bus::prelude::{BusCycle, IoOp};
 use mcs4_gui::Mcs4App;
 
 #[global_allocator]
@@ -45,12 +46,40 @@ struct Args {
     /// ROM chip ID (0-15) to apply `--rom-io-input` to.
     #[arg(long, default_value_t = 0)]
     rom_io_chip: u8,
+
+    /// Fail the fixture run if any I/O control op appears in the wrong bus phase.
+    #[arg(long, default_value_t = false)]
+    strict_io_phases: bool,
 }
 
 fn fixtures_dir() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../mcs4-system/fixtures")
         .to_path_buf()
+}
+
+fn validate_io_phase(phase: BusCycle, io_op: Option<IoOp>) {
+    if phase == BusCycle::X1 {
+        assert_eq!(io_op, None, "io_op must be deasserted in X1");
+        return;
+    }
+
+    let Some(op) = io_op else {
+        return;
+    };
+
+    match op {
+        IoOp::Src => assert!(
+            matches!(phase, BusCycle::X2 | BusCycle::X3),
+            "SRC must assert io_op only in X2/X3 (got {phase:?})"
+        ),
+        IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_) => {
+            assert_eq!(phase, BusCycle::X2, "write io_op must occur in X2");
+        }
+        IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_) => {
+            assert_eq!(phase, BusCycle::X3, "read io_op must occur in X3");
+        }
+    }
 }
 
 fn main() -> eframe::Result<()> {
@@ -103,7 +132,13 @@ fn run_fixture(args: Args) -> eframe::Result<()> {
                 eprintln!("failed to load fixture {}: {e}", path.display());
                 return Ok(());
             }
-            sys.run_cycles(args.cycles);
+            for _ in 0..(args.cycles * 8) {
+                let phase = sys.phase();
+                sys.step();
+                if args.strict_io_phases {
+                    validate_io_phase(phase, sys.control.io_op);
+                }
+            }
             println!(
                 "system=mcs4 cycles={} pc=0x{:03X} acc=0x{:X}",
                 args.cycles,
@@ -123,7 +158,13 @@ fn run_fixture(args: Args) -> eframe::Result<()> {
                 eprintln!("failed to load fixture {}: {e}", path.display());
                 return Ok(());
             }
-            sys.run_cycles(args.cycles);
+            for _ in 0..(args.cycles * 8) {
+                let phase = sys.phase();
+                sys.step();
+                if args.strict_io_phases {
+                    validate_io_phase(phase, sys.control.io_op);
+                }
+            }
             println!(
                 "system=mcs40 cycles={} pc=0x{:03X} acc=0x{:X}",
                 args.cycles,
