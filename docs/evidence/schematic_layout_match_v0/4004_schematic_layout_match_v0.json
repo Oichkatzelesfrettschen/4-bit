@@ -15,6 +15,27 @@
       "status": "resolved"
     },
     {
+      "layout_node": 592,
+      "name": "D0_PAD",
+      "note": "Printed pad label `D0` on metal mask; pad metal bbox aligns with node 592. (See debug overlay: layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png)",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 598,
+      "name": "D1_PAD",
+      "note": "Printed pad label `D1` on metal mask (human crop box_103_node_598.png).",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 597,
+      "name": "D2_PAD",
+      "note": "Printed pad label `D2` on metal mask (human crop box_102_node_597.png).",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
       "layout_node": 432,
       "name": "D3_PAD",
       "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png).",
@@ -74,27 +95,6 @@
     },
     {
       "layout_node": null,
-      "name": "D0_PAD",
-      "note": "External data bus pad D0.",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "D1_PAD",
-      "note": "External data bus pad D1.",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "D2_PAD",
-      "note": "External data bus pad D2.",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
       "name": "POC_PAD",
       "note": "Power-on clear pad (signals.txt entry).",
       "present_in_schematic": true,
@@ -117,9 +117,9 @@
   ],
   "chip": "4004",
   "counts": {
-    "anchors_resolved": 5,
+    "anchors_resolved": 8,
     "anchors_total": 16,
-    "anchors_unresolved": 11,
+    "anchors_unresolved": 8,
     "layout_nodes": 3448,
     "schematic_net_names": 275
   },
