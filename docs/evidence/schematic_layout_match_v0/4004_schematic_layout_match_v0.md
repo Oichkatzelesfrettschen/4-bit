@@ -6,13 +6,11 @@
 
 ## Anchors
 
-- Resolved: `2` / `16`
-- Unresolved: `14`
+- Resolved: `5` / `16`
+- Unresolved: `11`
 
 ### Unresolved anchors
 
-- `CLK1` (present_in_schematic=True)
-- `CLK2` (present_in_schematic=True)
 - `CMRAM0` (present_in_schematic=True)
 - `CMRAM1` (present_in_schematic=True)
 - `CMRAM2` (present_in_schematic=True)
@@ -21,7 +19,6 @@
 - `D0_PAD` (present_in_schematic=True)
 - `D1_PAD` (present_in_schematic=True)
 - `D2_PAD` (present_in_schematic=True)
-- `D3_PAD` (present_in_schematic=True)
 - `POC_PAD` (present_in_schematic=True)
 - `SYNC` (present_in_schematic=True)
 - `TEST_PAD` (present_in_schematic=True)

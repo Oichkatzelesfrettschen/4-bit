@@ -25,6 +25,11 @@ def main() -> int:
     p.add_argument("--out-dir", type=Path, default=None)
     p.add_argument("--pad", type=int, default=70)
     p.add_argument("--limit", type=int, default=80)
+    p.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite existing crop files (default: skip already-rendered crops).",
+    )
     args = p.parse_args()
 
     chip = args.chip
@@ -57,6 +62,9 @@ def main() -> int:
         bb = r["ink_bbox"]
         x, y, w, h = int(bb["x"]), int(bb["y"]), int(bb["w"]), int(bb["h"])
         node = int(r["suggested"]["node"])
+        out_path = out_dir / f"box_{i:03d}_node_{node}.png"
+        if out_path.exists() and not args.force:
+            continue
         pad = int(args.pad)
         x0 = max(0, x - pad)
         y0 = max(0, y - pad)
@@ -66,11 +74,11 @@ def main() -> int:
         d = ImageDraw.Draw(crop)
         d.rectangle([x - x0, y - y0, x - x0 + w, y - y0 + h], outline=(255, 0, 0), width=3)
         d.text((4, 4), f"box#{i} node={node}", fill=(0, 0, 255), font=font)
-        crop.save(out_dir / f"box_{i:03d}_node_{node}.png")
+        # Lock down PNG output as much as PIL allows so repeated runs don't churn git.
+        crop.save(out_path, format="PNG", optimize=False, compress_level=9)
 
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

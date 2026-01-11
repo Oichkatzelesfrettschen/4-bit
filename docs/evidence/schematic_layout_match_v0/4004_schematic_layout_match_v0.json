@@ -1,6 +1,27 @@
 {
   "anchors_resolved": [
     {
+      "layout_node": 49,
+      "name": "CLK1",
+      "note": "Printed pin label `01` on metal mask (human crop box_016_node_49.png); alias mapping: CLK1<->01.",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 17,
+      "name": "CLK2",
+      "note": "Printed pin label `02` on metal mask (human crop box_001_node_17.png); alias mapping: CLK2<->02.",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
+      "layout_node": 432,
+      "name": "D3_PAD",
+      "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png).",
+      "present_in_schematic": true,
+      "status": "resolved"
+    },
+    {
       "layout_node": 596,
       "name": "R0.0",
       "note": "Layout pad box labeled R0 (from layout_pad_labels_v0 human crop box_101).",
@@ -16,20 +37,6 @@
     }
   ],
   "anchors_unresolved": [
-    {
-      "layout_node": null,
-      "name": "CLK1",
-      "note": "External clock pin (signals.txt entry).",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
-      "name": "CLK2",
-      "note": "External clock pin (signals.txt entry).",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
     {
       "layout_node": null,
       "name": "CMRAM0",
@@ -88,13 +95,6 @@
     },
     {
       "layout_node": null,
-      "name": "D3_PAD",
-      "note": "External data bus pad D3.",
-      "present_in_schematic": true,
-      "status": "unresolved"
-    },
-    {
-      "layout_node": null,
       "name": "POC_PAD",
       "note": "Power-on clear pad (signals.txt entry).",
       "present_in_schematic": true,
@@ -117,9 +117,9 @@
   ],
   "chip": "4004",
   "counts": {
-    "anchors_resolved": 2,
+    "anchors_resolved": 5,
     "anchors_total": 16,
-    "anchors_unresolved": 14,
+    "anchors_unresolved": 11,
     "layout_nodes": 3448,
     "schematic_net_names": 275
   },
