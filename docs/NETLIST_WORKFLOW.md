@@ -42,6 +42,14 @@ Schematic-space (v0) naming + matching scaffold
   - Uses `docs/evidence/schematic_layout_anchors_v0.json` for manual anchor mapping.
   - Outputs under `docs/evidence/schematic_layout_match_v0/`.
 
+Layout pad anchoring helpers (v0)
+- `netlist_v0` now includes per-node bounding boxes and degree/area statistics (`node_stats`) to support pin/pad anchoring.
+- Pad tooling outputs:
+  - Ranked “pad-like” periphery nodes: `docs/evidence/layout_pad_candidates_v0/` (plus overlays + crops).
+  - Detected pad label boxes + geometry-based node suggestions: `docs/evidence/layout_pad_labels_v0/`.
+- Current limitation: OCR of pad-box glyphs is unreliable; the workflow is to use the rendered crops to read labels and then
+  update `docs/evidence/schematic_layout_anchors_v0.json`.
+
 How to run
 - Generate (or regenerate) all netlists: `python3 scripts/extract_netlist_v0.py --all`
 - Summarize counts: `python3 scripts/netlist_v0_metrics.py --out-json docs/evidence/netlists_v0/metrics.json --out-md docs/evidence/netlists_v0/metrics.md`

@@ -4,6 +4,11 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-12T00:00:00Z: Added layout pad anchoring helpers:
+  - `netlist_v0` now includes node bounding boxes/areas (`node_stats`) to enable geometry-based matching.
+  - Added pad-like node ranking + overlays (`docs/evidence/layout_pad_candidates_v0/`).
+  - Added pad label box detection + node suggestions + human crops (`docs/evidence/layout_pad_labels_v0/`).
+  - Seeded first 4004 anchors (R0/R1 pads) in `docs/evidence/schematic_layout_anchors_v0.json`.
 - 2026-01-11T23:20:00Z: Added schematic-net name extraction (`docs/evidence/schematic_net_names_v0/`) joined with OCR results,
   plus a schematic↔layout matching scaffold (`docs/evidence/schematic_layout_match_v0/`) driven by manual anchors in
   `docs/evidence/schematic_layout_anchors_v0.json`. Extended `netlist_v0` outputs with per-node stats (layer areas + degrees)

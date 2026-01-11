@@ -24,6 +24,9 @@ Guiding rules:
 - Schematic connectivity extraction is still missing (component recognition on `i400x-schematic.bmp`), but we now have:
   - Schematic net-name artifacts (`docs/evidence/schematic_net_names_v0/`) joined with OCR evidence.
   - A schematic↔layout matching scaffold (`docs/evidence/schematic_layout_match_v0/`) driven by manual anchors + layout node stats.
+- Pad anchoring is now partially tractable:
+  - `netlist_v0` includes per-node bboxes/areas and pad-like node ranking (`docs/evidence/layout_pad_candidates_v0/`).
+  - Geometry-based node suggestions for pad label boxes exist under `docs/evidence/layout_pad_labels_v0/`.
 - No transistor-/switch-level solver consuming extracted devices; `mcs4-core/src/transistor.rs` remains a stub model.
 - 4040 CPU remains a stub; MCS-40 support chips are incomplete (4101/4201/4289/4308 protocols, etc.).
 
