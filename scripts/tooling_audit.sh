@@ -100,6 +100,22 @@ python_mod pdfminer
 python_mod pytesseract
 python_mod PIL
 python_mod cv2
+python - <<'PY'
+import importlib.util
+
+def has(mod: str) -> bool:
+  return importlib.util.find_spec(mod) is not None
+
+if has("onnxruntime"):
+  import onnxruntime as ort
+  print("INFO onnxruntime.providers", ort.get_available_providers())
+
+if has("torch"):
+  import torch
+  print("INFO torch.cuda.is_available", torch.cuda.is_available())
+  if torch.cuda.is_available():
+    print("INFO torch.cuda.device0", torch.cuda.get_device_name(0))
+PY
 python_mod ocrmypdf
 python_mod pikepdf
 python_mod fitz

@@ -45,6 +45,20 @@ Principles
 **Layout/netlist tooling (optional)**
 - `klayout`, `xschem`, `ngspice`, `netlistsvg`
 
+## GPU-Accelerated OCR (Optional)
+
+This repo’s default OCR path is **Tesseract** (CPU), which is good for reproducible text extraction but can be slow.
+If you want higher throughput for large-scale page rasterization + OCR experiments, a GPU stack can help.
+
+**Common building blocks**
+- CUDA driver/toolkit (NVIDIA): required for CUDA-backed inference.
+- `python-opencv-cuda`: can accelerate parts of image preprocessing (resize/threshold/denoise) when the pipeline supports it.
+- `python-onnxruntime-opt-cuda`: provides `onnxruntime` with `CUDAExecutionProvider` (useful for ONNX OCR models).
+- `python-pytorch-opt-cuda`: enables CUDA for Torch-based OCR pipelines.
+
+**OCR frameworks (not required by the repo)**
+- EasyOCR, PaddleOCR, or custom ONNX models (typically faster than Tesseract on modern GPUs, but heavier dependencies).
+
 ## Arch/CachyOS Install (Reference)
 
 Minimal required:
@@ -52,6 +66,9 @@ Minimal required:
 
 Recommended evidence extras:
 - `yay -S --needed python-pdfplumber python-pytesseract python-pymupdf pdfcpu pdftk imagemagick exiftool scantailor-advanced unpaper`
+
+Optional GPU stack (NVIDIA):
+- `yay -S --needed cuda cudnn python-opencv-cuda python-onnxruntime-opt-cuda python-pytorch-opt-cuda`
 
 Acquisition + UI helpers:
 - `yay -S --needed aria2 wget2 axel rclone gimp inkscape gimagereader-qt gocr`
