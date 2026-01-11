@@ -30,6 +30,7 @@ Current ROI strategy is point-centered and parameterized (see `./scripts/ocr_sig
 - Candidate OCR crops are derived from detected “text-like components” inside that region, padded by `--pad 10`
 - For fallback alias scans (e.g. pin numbers like `01`/`02`), the script probes multiple offsets around the point
   and runs token OCR on small windows (bounded search, not an unbounded scan).
+- To avoid long-running `tesseract` hangs, use `--tesseract-timeout` (default `2.0` seconds per call).
 
 ## Overlays
 

@@ -33,6 +33,8 @@ class ChipSpec:
 
 ROOT = Path(__file__).resolve().parents[1]
 
+TESSERACT_TIMEOUT_S: float | None = None
+
 
 def specs() -> dict[str, ChipSpec]:
     def emu(p: str) -> Path:
@@ -295,7 +297,15 @@ def candidate_offsets(region_w: int, region_h: int) -> list[tuple[int, int]]:
 def ocr_tokens(pre: Image.Image, *, psm: int, whitelist: str) -> list[dict[str, object]]:
     # Use TSV so we can select the best nearby recognized token.
     config = f'--psm {psm} -c tessedit_char_whitelist="{whitelist}"'
-    tsv = pytesseract.image_to_data(pre, config=config, output_type=pytesseract.Output.STRING)
+    try:
+        tsv = pytesseract.image_to_data(
+            pre,
+            config=config,
+            output_type=pytesseract.Output.STRING,
+            timeout=TESSERACT_TIMEOUT_S,
+        )
+    except Exception:
+        return []
     lines = [ln for ln in tsv.splitlines() if ln.strip()]
     if not lines:
         return []
@@ -477,7 +487,10 @@ def score_match(expected: str, observed: str) -> float:
 
 def ocr_single_line(img: Image.Image, *, psm: int, whitelist: str) -> str:
     config = f'--psm {psm} -c tessedit_char_whitelist="{whitelist}"'
-    return pytesseract.image_to_string(img, config=config)
+    try:
+        return pytesseract.image_to_string(img, config=config, timeout=TESSERACT_TIMEOUT_S)
+    except Exception:
+        return ""
 
 
 def safe_slug(name: str) -> str:
@@ -516,6 +529,12 @@ def main() -> int:
     parser.add_argument("--name-regex", default="", help="Only process expected names matching this regex")
     parser.add_argument("--fallback", action="store_true", help="Enable expensive fallbacks (offsets/rotations/psm variants)")
     parser.add_argument(
+        "--tesseract-timeout",
+        type=float,
+        default=2.0,
+        help="Per-call timeout (seconds) for tesseract invocations; 0 disables the timeout",
+    )
+    parser.add_argument(
         "--aliases",
         type=Path,
         default=ROOT / "scripts" / "ocr_signal_aliases.json",
@@ -530,6 +549,9 @@ def main() -> int:
         help="Tesseract character whitelist",
     )
     args = parser.parse_args()
+
+    global TESSERACT_TIMEOUT_S
+    TESSERACT_TIMEOUT_S = None if float(args.tesseract_timeout) <= 0.0 else float(args.tesseract_timeout)
 
     selected = set(args.chip or [])
     if args.all:
