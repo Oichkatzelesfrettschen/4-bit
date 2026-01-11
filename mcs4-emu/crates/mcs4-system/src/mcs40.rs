@@ -89,6 +89,7 @@ impl Mcs40System {
             }
             BusCycle::X2 => {
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                let bus_after_cpu = self.bus.read();
                 // X2 is write-oriented; enable RAM bank select only for write/SRC operations.
                 if self.cpu.x2_ram_bank_select() {
                     self.control.select_ram(self.cpu.ram_bank(), 0);
@@ -100,6 +101,18 @@ impl Mcs40System {
                 }
                 for r in &mut self.rom {
                     r.tick_bus(phase, &mut self.bus, &self.control);
+                }
+
+                // In X2, the CPU is the bus driver for write-oriented ops; peripherals should not alter the value.
+                if self.control.is_io_write() {
+                    debug_assert_eq!(
+                        self.bus.read(),
+                        bus_after_cpu,
+                        "bus changed during X2 write; io_op={:?} ram_sel={:?} rom_sel={:?}",
+                        self.control.io_op,
+                        self.control.selected_ram(),
+                        self.control.selected_rom(),
+                    );
                 }
             }
             BusCycle::X3 => {
@@ -132,7 +145,20 @@ impl Mcs40System {
                     for r in &mut self.rom {
                         r.tick_bus(phase, &mut self.bus, &self.control);
                     }
+                    let bus_before_cpu = self.bus.read();
                     self.cpu.tick(phase, &mut self.bus, &mut self.control);
+
+                    // In X3, peripherals are the bus driver for read-oriented ops; the CPU should not alter the value.
+                    if self.control.is_io_read() {
+                        debug_assert_eq!(
+                            self.bus.read(),
+                            bus_before_cpu,
+                            "bus changed during X3 read; io_op={:?} ram_sel={:?} rom_sel={:?}",
+                            self.control.io_op,
+                            self.control.selected_ram(),
+                            self.control.selected_rom(),
+                        );
+                    }
                 }
             }
         }
@@ -337,6 +363,109 @@ mod tests {
 
         assert_eq!(sys.rom[0].io_output(), 0xA);
         assert_eq!(sys.cpu.alu.accumulator(), 0xC);
+    }
+
+    #[test]
+    fn test_rom_io_op_is_phase_accurate() {
+        let mut sys = Mcs40System::new();
+
+        // LDM 0xA ; WRR ; LDM 0x0 ; RDR ; NOP
+        sys.load_rom(&[0xDA, 0xE2, 0xD0, 0xEA, 0x00]);
+
+        let mut saw_wrr = false;
+        let mut saw_rdr = false;
+
+        for _ in 0..(8 * 20) {
+            let phase = sys.phase();
+            sys.step();
+
+            match sys.control.io_op {
+                Some(IoOp::RomPortWrite) => {
+                    assert_eq!(phase, BusCycle::X2);
+                    // ROM port ops should not require CM-RAM.
+                    assert_eq!(sys.control.selected_ram(), None);
+                    saw_wrr = true;
+                }
+                Some(IoOp::RomPortRead) => {
+                    assert_eq!(phase, BusCycle::X3);
+                    assert_eq!(sys.control.selected_ram(), None);
+                    saw_rdr = true;
+                }
+                _ => {}
+            }
+
+            if saw_wrr && saw_rdr {
+                break;
+            }
+        }
+
+        assert!(saw_wrr);
+        assert!(saw_rdr);
+    }
+
+    #[test]
+    fn test_io_op_not_asserted_in_x1() {
+        let mut sys = Mcs40System::new();
+
+        // SRC P0 ; WRM ; RDM ; NOP
+        sys.load_rom(&[0x21, 0xE0, 0xE9, 0x00]);
+
+        let mut saw_x1 = false;
+        for _ in 0..(8 * 10) {
+            let phase = sys.phase();
+            sys.step();
+            if phase == BusCycle::X1 {
+                assert_eq!(sys.control.io_op, None);
+                saw_x1 = true;
+                break;
+            }
+        }
+        assert!(saw_x1);
+    }
+
+    #[test]
+    fn test_cm_ram_only_asserted_during_transfer_phases() {
+        let mut sys = Mcs40System::new();
+
+        // FIM P0, 0x68 ; SRC P0 ; WRM ; RDM ; NOP
+        sys.load_rom(&[0x20, 0x68, 0x21, 0xE0, 0xE9, 0x00]);
+
+        let mut saw_x1 = false;
+        let mut saw_x2 = false;
+        let mut saw_x3 = false;
+
+        for _ in 0..(8 * 20) {
+            let phase = sys.phase();
+            sys.step();
+
+            match phase {
+                BusCycle::X1 => {
+                    assert_eq!(sys.control.selected_ram(), None);
+                    saw_x1 = true;
+                }
+                BusCycle::X2 => {
+                    if sys.control.is_io_write() {
+                        assert!(sys.control.selected_ram().is_some());
+                        saw_x2 = true;
+                    }
+                }
+                BusCycle::X3 => {
+                    if sys.control.io_op == Some(IoOp::Src) || sys.control.is_io_read() {
+                        assert!(sys.control.selected_ram().is_some());
+                        saw_x3 = true;
+                    }
+                }
+                _ => {}
+            }
+
+            if saw_x1 && saw_x2 && saw_x3 {
+                break;
+            }
+        }
+
+        assert!(saw_x1);
+        assert!(saw_x2);
+        assert!(saw_x3);
     }
 
     #[test]

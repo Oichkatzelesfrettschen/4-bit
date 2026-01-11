@@ -36,7 +36,7 @@ Guiding rules:
 - Implement bus-accurate 4003, 4101, 4201, 4289, 4308 protocols.
 - Finish MCS-4/MCS-40 system integration in `mcs4-system`.
 - (Done) Cluster I/O wiring: ROM/RAM port reads in `Cluster`.
-- (Done) Gate RAM/ROM side-effects on decoded I/O ops (avoid “always-on” behavior), implement realistic `SRC` bus nibbles, and add end-to-end `.hex` fixtures (+ CLI fixture runner mode).
+- (Done) Gate RAM/ROM side-effects on decoded I/O ops (avoid “always-on” behavior), implement realistic `SRC` bus nibbles, and add end-to-end `.hex` fixtures (+ CLI fixture runner mode); refine to phase-accurate control assertion (I/O op asserted only during X2/X3 transfer phases).
 - 4308 bus protocol and timing detail coverage.
 - Close TODOs in `mcs4-system/src/cluster.rs` and `mcs4-chips/src/i4308.rs`.
 

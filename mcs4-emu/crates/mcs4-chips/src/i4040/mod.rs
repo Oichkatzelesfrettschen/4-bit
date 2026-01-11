@@ -284,8 +284,10 @@ impl I4040 {
         // Assert write-oriented I/O op only during X2 (SRC spans X2+X3).
         ctrl.clear_io_op();
         if let Some(op) = self.decoded_io_op {
-            if matches!(op, IoOp::Src | IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_))
-            {
+            if matches!(
+                op,
+                IoOp::Src | IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_)
+            ) {
                 ctrl.set_io_op(op);
             }
         }
@@ -323,7 +325,10 @@ impl I4040 {
         // Assert read-oriented I/O op only during X3 (SRC spans X2+X3).
         ctrl.clear_io_op();
         if let Some(op) = self.decoded_io_op {
-            if matches!(op, IoOp::Src | IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_)) {
+            if matches!(
+                op,
+                IoOp::Src | IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_)
+            ) {
                 ctrl.set_io_op(op);
             }
         }

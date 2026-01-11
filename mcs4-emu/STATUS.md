@@ -4,6 +4,9 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-11T02:20:00Z: Made RAM/ROM I/O control-line decoding phase-accurate: `io_op` is asserted only during transfer phases
+  (X2 writes, X3 reads; `SRC` spans both), and CM-RAM is only asserted during transfer phases. Added bus-stability assertions
+  in system step loops and added negative timing tests to ensure ROM/RAM I/O ops are not asserted in X1.
 - 2026-01-11T00:36:40Z: Made `SRC` bus semantics more realistic by having the CPU drive chip/reg in X2 and char in X3,
   and having 4002 latch those nibbles from the bus; added/validated end-to-end `.hex` fixture execution via `mcs4-emu --mode fixture`
   (including ROM port input injection for `RDR`); extended evidence tooling with coordinate OCR verification (overlays + metrics + smoke test),

@@ -293,6 +293,11 @@ impl ControlSignals {
             Some(IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_))
         )
     }
+
+    /// Compact debug snapshot of the bus control state (for assertions/logging).
+    pub fn debug_snapshot(&self) -> (Option<u8>, Option<u8>, Option<IoOp>) {
+        (self.selected_rom(), self.selected_ram(), self.io_op)
+    }
 }
 
 #[cfg(test)]
