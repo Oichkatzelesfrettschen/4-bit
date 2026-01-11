@@ -1,0 +1,711 @@
+{
+  "chip": "4003",
+  "counts": {
+    "components": {
+      "diffusion": 347,
+      "metal": 151,
+      "poly": 201
+    },
+    "nodes": 490,
+    "signals_points": 14,
+    "stitches": {
+      "contacts": 0,
+      "vias": 209
+    },
+    "stitches_ambiguous": {
+      "contacts": 0,
+      "vias": 0
+    },
+    "transistors_ambiguous": 64,
+    "transistors_kept": 38
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 157,
+        "b_node": 489,
+        "bbox": {
+          "h": 1456,
+          "w": 2328,
+          "x": 0,
+          "y": 0
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 1
+        }
+      },
+      {
+        "a_node": 144,
+        "b_node": 151,
+        "bbox": {
+          "h": 105,
+          "w": 41,
+          "x": 1977,
+          "y": 72
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 3
+        }
+      },
+      {
+        "a_node": 152,
+        "b_node": 185,
+        "bbox": {
+          "h": 56,
+          "w": 39,
+          "x": 1925,
+          "y": 333
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 5
+        }
+      },
+      {
+        "a_node": 267,
+        "b_node": 275,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 552,
+          "y": 562
+        },
+        "gate_node": 64,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 33
+        }
+      },
+      {
+        "a_node": 269,
+        "b_node": 276,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 842,
+          "y": 562
+        },
+        "gate_node": 65,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 34
+        }
+      },
+      {
+        "a_node": 271,
+        "b_node": 277,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 1131,
+          "y": 562
+        },
+        "gate_node": 66,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 35
+        }
+      },
+      {
+        "a_node": 273,
+        "b_node": 278,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 1421,
+          "y": 561
+        },
+        "gate_node": 67,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 36
+        }
+      },
+      {
+        "a_node": 239,
+        "b_node": 279,
+        "bbox": {
+          "h": 61,
+          "w": 38,
+          "x": 389,
+          "y": 568
+        },
+        "gate_node": 58,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 37
+        }
+      },
+      {
+        "a_node": 235,
+        "b_node": 280,
+        "bbox": {
+          "h": 61,
+          "w": 38,
+          "x": 678,
+          "y": 568
+        },
+        "gate_node": 54,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 38
+        }
+      },
+      {
+        "a_node": 236,
+        "b_node": 281,
+        "bbox": {
+          "h": 61,
+          "w": 37,
+          "x": 969,
+          "y": 568
+        },
+        "gate_node": 55,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 39
+        }
+      },
+      {
+        "a_node": 237,
+        "b_node": 282,
+        "bbox": {
+          "h": 61,
+          "w": 37,
+          "x": 1258,
+          "y": 568
+        },
+        "gate_node": 56,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 40
+        }
+      },
+      {
+        "a_node": 238,
+        "b_node": 283,
+        "bbox": {
+          "h": 60,
+          "w": 37,
+          "x": 1548,
+          "y": 568
+        },
+        "gate_node": 57,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 41
+        }
+      },
+      {
+        "a_node": 263,
+        "b_node": 288,
+        "bbox": {
+          "h": 65,
+          "w": 25,
+          "x": 454,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 42
+        }
+      },
+      {
+        "a_node": 276,
+        "b_node": 290,
+        "bbox": {
+          "h": 65,
+          "w": 24,
+          "x": 744,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 43
+        }
+      },
+      {
+        "a_node": 265,
+        "b_node": 277,
+        "bbox": {
+          "h": 64,
+          "w": 24,
+          "x": 1034,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 44
+        }
+      },
+      {
+        "a_node": 261,
+        "b_node": 278,
+        "bbox": {
+          "h": 64,
+          "w": 24,
+          "x": 1323,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 45
+        }
+      },
+      {
+        "a_node": 262,
+        "b_node": 284,
+        "bbox": {
+          "h": 64,
+          "w": 24,
+          "x": 1612,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 46
+        }
+      },
+      {
+        "a_node": 279,
+        "b_node": 297,
+        "bbox": {
+          "h": 117,
+          "w": 52,
+          "x": 337,
+          "y": 600
+        },
+        "gate_node": 74,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 47
+        }
+      },
+      {
+        "a_node": 284,
+        "b_node": 303,
+        "bbox": {
+          "h": 84,
+          "w": 50,
+          "x": 1711,
+          "y": 599
+        },
+        "gate_node": 68,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 48
+        }
+      },
+      {
+        "a_node": 286,
+        "b_node": 310,
+        "bbox": {
+          "h": 20,
+          "w": 26,
+          "x": 1764,
+          "y": 663
+        },
+        "gate_node": 72,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 49
+        }
+      },
+      {
+        "a_node": 327,
+        "b_node": 331,
+        "bbox": {
+          "h": 55,
+          "w": 84,
+          "x": 1794,
+          "y": 793
+        },
+        "gate_node": 79,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 61
+        }
+      },
+      {
+        "a_node": 360,
+        "b_node": 370,
+        "bbox": {
+          "h": 82,
+          "w": 67,
+          "x": 1901,
+          "y": 824
+        },
+        "gate_node": 78,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 62
+        }
+      },
+      {
+        "a_node": 354,
+        "b_node": 373,
+        "bbox": {
+          "h": 65,
+          "w": 26,
+          "x": 1034,
+          "y": 842
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 63
+        }
+      },
+      {
+        "a_node": 355,
+        "b_node": 374,
+        "bbox": {
+          "h": 65,
+          "w": 26,
+          "x": 1323,
+          "y": 842
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 64
+        }
+      },
+      {
+        "a_node": 356,
+        "b_node": 375,
+        "bbox": {
+          "h": 65,
+          "w": 27,
+          "x": 1612,
+          "y": 842
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 65
+        }
+      },
+      {
+        "a_node": 352,
+        "b_node": 359,
+        "bbox": {
+          "h": 64,
+          "w": 27,
+          "x": 454,
+          "y": 843
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 66
+        }
+      },
+      {
+        "a_node": 353,
+        "b_node": 361,
+        "bbox": {
+          "h": 64,
+          "w": 27,
+          "x": 744,
+          "y": 843
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 67
+        }
+      },
+      {
+        "a_node": 363,
+        "b_node": 379,
+        "bbox": {
+          "h": 66,
+          "w": 57,
+          "x": 906,
+          "y": 860
+        },
+        "gate_node": 88,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 68
+        }
+      },
+      {
+        "a_node": 364,
+        "b_node": 385,
+        "bbox": {
+          "h": 62,
+          "w": 34,
+          "x": 1088,
+          "y": 860
+        },
+        "gate_node": 101,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 69
+        }
+      },
+      {
+        "a_node": 365,
+        "b_node": 381,
+        "bbox": {
+          "h": 66,
+          "w": 58,
+          "x": 1194,
+          "y": 860
+        },
+        "gate_node": 90,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 70
+        }
+      },
+      {
+        "a_node": 366,
+        "b_node": 386,
+        "bbox": {
+          "h": 62,
+          "w": 35,
+          "x": 1377,
+          "y": 860
+        },
+        "gate_node": 102,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 71
+        }
+      },
+      {
+        "a_node": 367,
+        "b_node": 383,
+        "bbox": {
+          "h": 66,
+          "w": 57,
+          "x": 1485,
+          "y": 860
+        },
+        "gate_node": 92,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 72
+        }
+      },
+      {
+        "a_node": 358,
+        "b_node": 387,
+        "bbox": {
+          "h": 62,
+          "w": 35,
+          "x": 1666,
+          "y": 860
+        },
+        "gate_node": 103,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 73
+        }
+      },
+      {
+        "a_node": 368,
+        "b_node": 390,
+        "bbox": {
+          "h": 61,
+          "w": 34,
+          "x": 509,
+          "y": 861
+        },
+        "gate_node": 99,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 74
+        }
+      },
+      {
+        "a_node": 361,
+        "b_node": 377,
+        "bbox": {
+          "h": 65,
+          "w": 57,
+          "x": 615,
+          "y": 861
+        },
+        "gate_node": 86,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 75
+        }
+      },
+      {
+        "a_node": 362,
+        "b_node": 384,
+        "bbox": {
+          "h": 61,
+          "w": 35,
+          "x": 798,
+          "y": 861
+        },
+        "gate_node": 100,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 76
+        }
+      },
+      {
+        "a_node": 370,
+        "b_node": 389,
+        "bbox": {
+          "h": 54,
+          "w": 62,
+          "x": 1882,
+          "y": 892
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 77
+        }
+      },
+      {
+        "a_node": 389,
+        "b_node": 415,
+        "bbox": {
+          "h": 79,
+          "w": 85,
+          "x": 1828,
+          "y": 950
+        },
+        "gate_node": 110,
+        "kind": "pmos_candidate",
+        "source_component": {
+          "poly_diff_id": 83
+        }
+      }
+    ]
+  },
+  "inputs": {
+    "contacts_bmp": null,
+    "diffusion_bmp": "docs/emulators/i4003-diffusion.bmp",
+    "layout_shape": {
+      "h": 1456,
+      "w": 2328
+    },
+    "metal_bmp": "docs/emulators/i4003-metal.bmp",
+    "poly_bmp": "docs/emulators/i4003-poly.bmp",
+    "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+    "schematic_shape": {
+      "h": 740,
+      "w": 1064
+    },
+    "sha256": {
+      "contacts": null,
+      "diffusion": "e388ee9cfed1d0f56a2612566b5bc353558fb0604e5cc54663ab0867b8794bbf",
+      "metal": "2877d3efe53f3bd59f34e3f7c0d469a43b870c602323e7831ab5095b789ad731",
+      "poly": "177ca4f3394b5fc13ff6b347bf89f5536c307f53d1d78e48cbec9cc4ca4351ea",
+      "schematic_bmp": "e401f6f7a509043cf3e0117f91d64aa190dbff54ab8cda4b5583c2f574b22230",
+      "signals_txt": "0afd09622ba573bc49e83772e64f02f05c732da2b28f28099a3f3c80931a02fd",
+      "transistors_json": "b784e2e9e3f971a0bbc97e860457533e90db3b5f7708e2427c15f57a0d8e1673",
+      "vias": "0ff7b972d438427e34a168fd5651b4c1853d839b446049e1d5e54ef9d67e4bf5"
+    },
+    "signals_txt": "docs/emulators/i4003-signals.txt",
+    "transistors_json": "docs/evidence/transistors/4003_poly_diffusion_transistors.json",
+    "vias_bmp": "docs/emulators/i4003-vias.bmp"
+  },
+  "params": {
+    "diffusion_split": true,
+    "dilate": 0,
+    "pad": 3,
+    "polarity": "auto",
+    "stitch_max_labels": 4,
+    "threshold": 128
+  },
+  "schema": {
+    "description": "Partial connectivity netlist from i400x layer bitmaps (stitching via+contact; diffusion optionally split by poly).",
+    "version": 0
+  },
+  "signals": {
+    "schematic_reference_points": [
+      {
+        "name": "CLOCK",
+        "x": 24,
+        "y": 173
+      },
+      {
+        "name": "DATA",
+        "x": 24,
+        "y": 441
+      },
+      {
+        "name": "EN",
+        "x": 24,
+        "y": 546
+      },
+      {
+        "name": "OUT",
+        "x": 24,
+        "y": 670
+      },
+      {
+        "name": "Q0",
+        "x": 514,
+        "y": 66
+      },
+      {
+        "name": "Q1",
+        "x": 644,
+        "y": 66
+      },
+      {
+        "name": "Q2",
+        "x": 774,
+        "y": 66
+      },
+      {
+        "name": "Q3",
+        "x": 904,
+        "y": 66
+      },
+      {
+        "name": "Q4",
+        "x": 1034,
+        "y": 66
+      },
+      {
+        "name": "Q5",
+        "x": 514,
+        "y": 446
+      },
+      {
+        "name": "Q6",
+        "x": 644,
+        "y": 446
+      },
+      {
+        "name": "Q7",
+        "x": 774,
+        "y": 446
+      },
+      {
+        "name": "Q8",
+        "x": 904,
+        "y": 446
+      },
+      {
+        "name": "Q9",
+        "x": 1034,
+        "y": 446
+      }
+    ],
+    "space": "schematic"
+  }
+}

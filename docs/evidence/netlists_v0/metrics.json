@@ -1,0 +1,86 @@
+{
+  "in_dir": "docs/evidence/netlists_v0",
+  "rows": [
+    {
+      "bytes": 616031,
+      "chip": "4001",
+      "components": {
+        "diffusion": 3202,
+        "metal": 2597,
+        "poly": 532
+      },
+      "nodes": 5744,
+      "path": "docs/evidence/netlists_v0/4001_netlist_v0.json",
+      "signals_points": 89,
+      "stitches": {
+        "contacts": 0,
+        "vias": 587
+      },
+      "transistors": {
+        "ambiguous": 228,
+        "kept": 2000
+      }
+    },
+    {
+      "bytes": 229286,
+      "chip": "4002",
+      "components": {
+        "diffusion": 2449,
+        "metal": 933,
+        "poly": 1046
+      },
+      "nodes": 3280,
+      "path": "docs/evidence/netlists_v0/4002_netlist_v0.json",
+      "signals_points": 416,
+      "stitches": {
+        "contacts": 0,
+        "vias": 1148
+      },
+      "transistors": {
+        "ambiguous": 179,
+        "kept": 640
+      }
+    },
+    {
+      "bytes": 14406,
+      "chip": "4003",
+      "components": {
+        "diffusion": 347,
+        "metal": 151,
+        "poly": 201
+      },
+      "nodes": 490,
+      "path": "docs/evidence/netlists_v0/4003_netlist_v0.json",
+      "signals_points": 14,
+      "stitches": {
+        "contacts": 0,
+        "vias": 209
+      },
+      "transistors": {
+        "ambiguous": 64,
+        "kept": 38
+      }
+    },
+    {
+      "bytes": 335170,
+      "chip": "4004",
+      "components": {
+        "diffusion": 2810,
+        "metal": 652,
+        "poly": 1354
+      },
+      "nodes": 3448,
+      "path": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+      "signals_points": 275,
+      "stitches": {
+        "contacts": 586,
+        "vias": 782
+      },
+      "transistors": {
+        "ambiguous": 512,
+        "kept": 1031
+      }
+    }
+  ],
+  "tool": "scripts/netlist_v0_metrics.py"
+}

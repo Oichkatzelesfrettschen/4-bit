@@ -1,0 +1,29 @@
+{
+  "outputs": [
+    {
+      "chip": "4001",
+      "output": "docs/evidence/netlists_v0/4001_netlist_v0.json"
+    },
+    {
+      "chip": "4002",
+      "output": "docs/evidence/netlists_v0/4002_netlist_v0.json"
+    },
+    {
+      "chip": "4003",
+      "output": "docs/evidence/netlists_v0/4003_netlist_v0.json"
+    },
+    {
+      "chip": "4004",
+      "output": "docs/evidence/netlists_v0/4004_netlist_v0.json"
+    }
+  ],
+  "params": {
+    "diffusion_split": true,
+    "dilate": 0,
+    "pad": 3,
+    "polarity": "auto",
+    "stitch_max_labels": 4,
+    "threshold": 128
+  },
+  "tool": "scripts/extract_netlist_v0.py"
+}
