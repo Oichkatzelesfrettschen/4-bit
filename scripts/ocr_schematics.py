@@ -43,6 +43,10 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def rel_or_abs(path: Path) -> str:
+    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+
+
 def preprocess(img: Image.Image, *, scale: int, invert: bool) -> Image.Image:
     gray = np.asarray(img.convert("L"))
     if scale != 1:
@@ -115,14 +119,14 @@ def main() -> int:
         meta = {
             "chip": chip,
             "inputs": {
-                "schematic_bmp": str(spec.schematic_bmp.relative_to(ROOT)),
-                "signals_txt": str(spec.signals_txt.relative_to(ROOT)),
+                "schematic_bmp": rel_or_abs(spec.schematic_bmp),
+                "signals_txt": rel_or_abs(spec.signals_txt),
                 "schematic_sha256": sha256(spec.schematic_bmp),
             },
             "params": {"scale": args.scale, "psm": args.psm, "invert": bool(args.invert)},
             "outputs": {
-                "text": str(out_txt.relative_to(ROOT)),
-                "tsv": str(out_tsv.relative_to(ROOT)),
+                "text": rel_or_abs(out_txt),
+                "tsv": rel_or_abs(out_tsv),
             },
         }
         out_meta.write_text(json.dumps(meta, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -134,4 +138,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

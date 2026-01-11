@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "version": 0,
+    "description": "Small, stable OCR benchmark set for 4004 metal-mask edge label crops."
+  },
+  "items": [
+    {
+      "id": "4004_edge_R1",
+      "expected": "R1",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png"
+    },
+    {
+      "id": "4004_edge_R2",
+      "expected": "R2",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png"
+    },
+    {
+      "id": "4004_edge_R3",
+      "expected": "R3",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png"
+    },
+    {
+      "id": "4004_edge_RM",
+      "expected": "RM",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png"
+    },
+    {
+      "id": "4004_edge_D2",
+      "expected": "D2",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png"
+    }
+  ]
+}

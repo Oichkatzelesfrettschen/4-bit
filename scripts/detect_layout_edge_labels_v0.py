@@ -14,8 +14,27 @@ import numpy as np
 import pytesseract
 from PIL import Image, ImageDraw, ImageFont
 
+from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop, preprocess_label_for_ocr
+
 
 ROOT = Path(__file__).resolve().parents[1]
+
+TESSERACT_CMD = Path("/usr/bin/tesseract")
+if TESSERACT_CMD.exists():
+    pytesseract.pytesseract.tesseract_cmd = str(TESSERACT_CMD)
+
+_OCR_DATA_CACHE: dict[str, dict] = {}
+_OCR_STRING_CACHE: dict[str, str] = {}
+
+
+def _ocr_cache_key(img: np.ndarray, cfg: str, *, kind: str) -> str:
+    h = hashlib.sha1()
+    h.update(kind.encode("utf-8"))
+    h.update(b"\0")
+    h.update(cfg.encode("utf-8"))
+    h.update(b"\0")
+    h.update(memoryview(img).tobytes())
+    return h.hexdigest()
 
 
 def sha256(path: Path) -> str:
@@ -59,7 +78,11 @@ def ocr_token(img: np.ndarray, *, psm: int) -> tuple[str, float]:
     """
     whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     cfg = f"--psm {int(psm)} -l eng -c tessedit_char_whitelist={whitelist}"
-    data = pytesseract.image_to_data(img, config=cfg, output_type=pytesseract.Output.DICT)
+    key = _ocr_cache_key(img, cfg, kind="data")
+    data = _OCR_DATA_CACHE.get(key)
+    if data is None:
+        data = pytesseract.image_to_data(img, config=cfg, output_type=pytesseract.Output.DICT)
+        _OCR_DATA_CACHE[key] = data
     best = ("", -1.0)
     for txt, conf in zip(data.get("text", []), data.get("conf", [])):
         t = (txt or "").strip().upper()
@@ -122,7 +145,11 @@ def ocr_token_sweep(img: np.ndarray, *, psms: tuple[int, ...]) -> list[dict]:
     for psm in psms:
         cfg = f"--psm {int(psm)} -l eng -c tessedit_char_whitelist={whitelist}"
         # String is better than TSV for multi-token labels like RM, R2, etc.
-        raw = pytesseract.image_to_string(img, config=cfg)
+        key = _ocr_cache_key(img, cfg, kind="string")
+        raw = _OCR_STRING_CACHE.get(key)
+        if raw is None:
+            raw = pytesseract.image_to_string(img, config=cfg)
+            _OCR_STRING_CACHE[key] = raw
         for t in token_candidates(raw):
             votes[t] = votes.get(t, 0) + 1
             tries.append({"token": t, "conf": -1.0, "psm": int(psm), "raw": raw})
@@ -224,17 +251,6 @@ def extract_label_roi_for_ocr(gray: np.ndarray) -> np.ndarray:
         return gray
     return extract_label_roi(gray)
 
-def label_head_crop(gray: np.ndarray, *, frac: float = 0.42) -> np.ndarray:
-    """
-    Many periphery labels are in the top part of a tall crop (e.g. RM with a long pointer).
-    Cropping to the head region helps OCR focus on the text.
-    """
-    if gray.size == 0:
-        return gray
-    h, w = gray.shape[:2]
-    hh = max(1, int(round(float(h) * float(frac))))
-    return gray[0:hh, 0:w]
-
 
 @dataclass(frozen=True)
 class ChipSpec:
@@ -260,6 +276,18 @@ def main() -> int:
     p.add_argument("--max-area", type=int, default=120000, help="Max component area (in binarized mask).")
     p.add_argument("--min-fill", type=float, default=0.22, help="Min fill ratio (area/(w*h)) for a component bbox.")
     p.add_argument(
+        "--min-area-ocr",
+        type=int,
+        default=250,
+        help="Min component area for OCR candidates (allows long-arrow labels like RM).",
+    )
+    p.add_argument(
+        "--min-fill-ocr",
+        type=float,
+        default=0.06,
+        help="Min fill ratio for OCR candidates (allows sparse, wire-connected labels).",
+    )
+    p.add_argument(
         "--edges",
         default="top,bottom,left,right",
         help="Comma-separated edges to search: top,bottom,left,right",
@@ -270,6 +298,16 @@ def main() -> int:
         "--write-crops",
         action="store_true",
         help="Write per-detection OCR crops under out-dir for manual review.",
+    )
+    p.add_argument(
+        "--deep",
+        action="store_true",
+        help="Use a slow, exhaustive OCR sweep (rotations + more PSMs); intended for debugging only.",
+    )
+    p.add_argument(
+        "--cuda-preproc",
+        action="store_true",
+        help="Use OpenCV CUDA for resize during preprocessing (if available).",
     )
     args = p.parse_args()
 
@@ -310,8 +348,11 @@ def main() -> int:
     blocks = cv2.morphologyEx(edge2, cv2.MORPH_OPEN, k_block, iterations=1)
     blocks = cv2.morphologyEx(blocks, cv2.MORPH_CLOSE, k_small, iterations=3)
 
-    # External contours.
-    contours, _ = cv2.findContours(blocks, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # External contours:
+    # - strict contours: used to infer “label bboxes” cleanly (high fill)
+    # - ocr contours: include sparse/long-arrow candidates (RM) so OCR can decide
+    contours_strict, _ = cv2.findContours(blocks, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours_ocr, _ = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     allowed = {
         # canonical external labels we expect to see
@@ -340,17 +381,85 @@ def main() -> int:
         "L": "T",
     }
 
+    # Tokens that should only be accepted from “strict” (label-like) candidates.
+    # Raw edge-band contours include lots of wiring fragments that OCR can hallucinate as 'T'.
+    strict_only_tokens = {"T", "C", "S", "G", "V", "L", "01", "02", "4004"}
+
+    def candidate_bboxes_from_contours(contours, *, min_area: int, max_area: int, min_fill: float) -> list[dict]:
+        out: list[dict] = []
+        for cnt in contours:
+            x, y, ww, hh = cv2.boundingRect(cnt)
+            area = int(cv2.contourArea(cnt))
+            if area < int(min_area) or area > int(max_area):
+                continue
+            if ww < 16 or hh < 16:
+                continue
+            fill = float(area) / float(max(1, ww * hh))
+            if fill < float(min_fill):
+                continue
+            out.append({"x": int(x), "y": int(y), "w": int(ww), "h": int(hh), "area": int(area), "fill": float(fill)})
+        return out
+
+    strict_bbs = candidate_bboxes_from_contours(
+        contours_strict,
+        min_area=int(args.min_area),
+        max_area=int(args.max_area),
+        min_fill=float(args.min_fill),
+    )
+    ocr_bbs = candidate_bboxes_from_contours(
+        contours_ocr,
+        min_area=int(args.min_area_ocr),
+        max_area=int(args.max_area),
+        min_fill=float(args.min_fill_ocr),
+    )
+
+    # Merge candidates by bbox overlap (prefer strict bbox geometry if present).
+    def iou(a: dict, b: dict) -> float:
+        ax0, ay0, ax1, ay1 = a["x"], a["y"], a["x"] + a["w"], a["y"] + a["h"]
+        bx0, by0, bx1, by1 = b["x"], b["y"], b["x"] + b["w"], b["y"] + b["h"]
+        ix0, iy0 = max(ax0, bx0), max(ay0, by0)
+        ix1, iy1 = min(ax1, bx1), min(ay1, by1)
+        iw, ih = max(0, ix1 - ix0), max(0, iy1 - iy0)
+        inter = float(iw * ih)
+        if inter <= 0:
+            return 0.0
+        union = float((ax1 - ax0) * (ay1 - ay0) + (bx1 - bx0) * (by1 - by0) - inter)
+        return inter / union if union > 0 else 0.0
+
+    candidates: list[dict] = []
+    used_strict: set[int] = set()
+    for ob in ocr_bbs:
+        # Cheap prefilter: long-wire blobs are plentiful; only consider OCR-candidates that
+        # are at least moderately label-like.
+        o_aspect = float(min(ob["w"], ob["h"])) / float(max(ob["w"], ob["h"]))
+        if o_aspect < 0.10:
+            continue
+        if float(ob["fill"]) < 0.10:
+            continue
+        best_idx = None
+        best_iou = 0.0
+        for i, sb in enumerate(strict_bbs):
+            if i in used_strict:
+                continue
+            v = iou(ob, sb)
+            if v > best_iou:
+                best_iou = v
+                best_idx = i
+        if best_idx is not None and best_iou >= 0.25:
+            sb = strict_bbs[best_idx]
+            used_strict.add(best_idx)
+            candidates.append({**sb, "kind": "strict"})
+        else:
+            candidates.append({**ob, "kind": "ocr"})
+    for i, sb in enumerate(strict_bbs):
+        if i not in used_strict:
+            candidates.append({**sb, "kind": "strict"})
+
     detections = []
-    for cnt in contours:
-        x, y, ww, hh = cv2.boundingRect(cnt)
-        area = int(cv2.contourArea(cnt))
-        if area < int(args.min_area) or area > int(args.max_area):
-            continue
-        if ww < 16 or hh < 16:
-            continue
-        fill = float(area) / float(max(1, ww * hh))
-        if fill < float(args.min_fill):
-            continue
+    for bb in candidates:
+        x, y, ww, hh = int(bb["x"]), int(bb["y"]), int(bb["w"]), int(bb["h"])
+        area = int(bb["area"])
+        fill = float(bb["fill"])
 
         # Crop for OCR.
         pad = int(args.pad)
@@ -360,22 +469,41 @@ def main() -> int:
         y1 = min(h, y + hh + pad)
         crop_full = img[y0:y1, x0:x1]
         crop = extract_label_roi_for_ocr(crop_full)
+        # RM-style callouts benefit from restricting to the “head” region and isolating glyphs.
+        crop_head = head_crop(crop, frac=0.42) if crop.shape[0] > 180 else crop
+        crop_roi = extract_dense_component(crop_head)
+        crop_text = crop_label_text_roi(crop_roi)
+        if crop_text.shape[0] >= 18 and crop_text.shape[1] >= 18:
+            crop_roi = crop_text
 
         # Pointer tip: compute from the component mask when possible (helps for RM, where bbox is far
         # from the arrow tip), falling back to bbox-right-mid.
-        tip = compute_tip_in_bbox(blocks[y : y + hh, x : x + ww], x=x, y=y, w=ww, h=hh)
+        # Tip: for “ocr” candidates computed from the raw edge band, the clean block mask may be empty.
+        block_mask = blocks[y : y + hh, x : x + ww]
+        tip = compute_tip_in_bbox(block_mask, x=x, y=y, w=ww, h=hh)
 
-        # OCR tries: invert, contrast, and 90-degree rotations.
+        # OCR tries:
+        # - default: small sweep only (fast)
+        # - deep: exhaustive rotations + more psms (slow, for forensics)
+        deep = bool(args.deep)
+        use_cuda_preproc = bool(args.cuda_preproc)
+        psms_data = (7, 11) if not deep else (3, 4, 6, 7, 8, 10, 11, 13)
+        psms_sweep = (7, 11) if not deep else (7, 8, 10, 11, 13)
+        rotations = (0,) if not deep else (0, 90, 180, 270)
         tries = []
-        for inv in (False, True):
-            base = crop.copy()
-            if inv:
-                base = 255 - base
-            base = cv2.normalize(base, None, 0, 255, cv2.NORM_MINMAX)
-            base = cv2.resize(base, (base.shape[1] * 3, base.shape[0] * 3), interpolation=cv2.INTER_NEAREST)
-            # Otsu is more robust than a fixed threshold for these crops.
-            base = cv2.threshold(base, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-            for rot in (0, 90, 180, 270):
+        inv_order = (True, False) if not deep else (False, True)
+        for inv in inv_order:
+            # Adaptive threshold tends to help on white-on-black labels.
+            base = preprocess_label_for_ocr(
+                crop_roi,
+                scale=3,
+                invert=inv,
+                use_clahe=True,
+                threshold="adaptive",
+                border=10,
+                use_cuda=use_cuda_preproc,
+            )
+            for rot in rotations:
                 if rot == 90:
                     t = cv2.rotate(base, cv2.ROTATE_90_CLOCKWISE)
                 elif rot == 180:
@@ -385,39 +513,49 @@ def main() -> int:
                 else:
                     t = base
                 # First: TSV-based single-token best guess.
-                for psm in (7, 8, 10, 11):
+                local_best = {"token": "", "conf": -1.0, "psm": 0}
+                for psm in psms_data:
                     tok, conf = ocr_token(t, psm=psm)
                     tok = normalize_token(tok)
-                    tries.append({"token": tok, "conf": float(conf), "inv": inv, "rot": rot, "psm": int(psm)})
-                # Second: string-based sweep to recover multi-char tokens like RM.
-                for r in ocr_token_sweep(t, psms=(7, 8, 10, 11, 13)):
-                    tries.append(
-                        {
-                            "token": r["token"],
-                            "conf": float(r.get("conf", -1.0)),
-                            "inv": inv,
-                            "rot": rot,
-                            "psm": int(r.get("psm", -1)),
-                            "raw": r.get("raw"),
-                            "vote_count": r.get("vote_count"),
-                            "crop": "full",
-                        }
-                    )
-                # Third: try a head-crop for tall arrow labels (improves RM detection).
-                head = label_head_crop(t, frac=0.42)
-                for r in ocr_token_sweep(head, psms=(7, 8, 10, 11, 13)):
-                    tries.append(
-                        {
-                            "token": r["token"],
-                            "conf": float(r.get("conf", -1.0)),
-                            "inv": inv,
-                            "rot": rot,
-                            "psm": int(r.get("psm", -1)),
-                            "raw": r.get("raw"),
-                            "vote_count": r.get("vote_count"),
-                            "crop": "head",
-                        }
-                    )
+                    c = float(conf)
+                    tries.append({"token": tok, "conf": c, "inv": inv, "rot": rot, "psm": int(psm), "crop": "full"})
+                    if c > float(local_best["conf"]):
+                        local_best = {"token": tok, "conf": c, "psm": int(psm)}
+
+                # Second: (deep) or (fast fallback) string sweep to recover multi-char tokens like RM.
+                # In fast mode, only do this if we didn't get a plausible multi-char token.
+                needs_sweep = deep or (len(str(local_best.get("token", ""))) < 2 and float(local_best.get("conf", -1.0)) < 80.0)
+                if needs_sweep:
+                    for r in ocr_token_sweep(t, psms=psms_sweep):
+                        tries.append(
+                            {
+                                "token": r["token"],
+                                "conf": float(r.get("conf", -1.0)),
+                                "inv": inv,
+                                "rot": rot,
+                                "psm": int(r.get("psm", -1)),
+                                "raw": r.get("raw"),
+                                "vote_count": r.get("vote_count"),
+                                "crop": "full",
+                            }
+                        )
+
+                # Third (deep only): try an additional head-crop string sweep.
+                if deep:
+                    head = head_crop(t, frac=0.42)
+                    for r in ocr_token_sweep(head, psms=(7, 8, 10, 11, 13)):
+                        tries.append(
+                            {
+                                "token": r["token"],
+                                "conf": float(r.get("conf", -1.0)),
+                                "inv": inv,
+                                "rot": rot,
+                                "psm": int(r.get("psm", -1)),
+                                "raw": r.get("raw"),
+                                "vote_count": r.get("vote_count"),
+                                "crop": "head",
+                            }
+                        )
 
         tries = sorted(tries, key=lambda r: r["conf"], reverse=True)
         best = tries[0] if tries else {"token": "", "conf": -1.0, "inv": False, "rot": 0}
@@ -429,6 +567,8 @@ def main() -> int:
 
         # Only keep plausible tokens.
         if token not in allowed:
+            continue
+        if str(bb.get("kind")) != "strict" and token in strict_only_tokens:
             continue
 
         # Suggest layout node by distance to metal bbox from tip point, with penalty for huge nets.
@@ -485,6 +625,7 @@ def main() -> int:
                 "tries": tries[:6],
                 "suggested_layout_node": best_node_payload,
                 "ocr_roi": {"x0": int(x0), "y0": int(y0), "x1": int(x1), "y1": int(y1)},
+                "candidate_kind": str(bb.get("kind", "unknown")),
             }
         )
 

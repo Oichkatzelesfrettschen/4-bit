@@ -59,6 +59,14 @@ If you want higher throughput for large-scale page rasterization + OCR experimen
 **OCR frameworks (not required by the repo)**
 - EasyOCR, PaddleOCR, or custom ONNX models (typically faster than Tesseract on modern GPUs, but heavier dependencies).
 
+## Repo-local OCR Benchmarking
+
+For label OCR changes, use the stable micro-benchmark set:
+- `python3 scripts/ocr_benchmark_v0.py --bench docs/evidence/ocr_benchmarks_v0/layout_edge_labels_4004_v0.json`
+
+Implementation note:
+- `scripts/ocr_preprocess_v0.py` sets `pytesseract.pytesseract.tesseract_cmd` to `/usr/bin/tesseract` when present to avoid PATH-related flakiness.
+
 ## Arch/CachyOS Install (Reference)
 
 Minimal required:
