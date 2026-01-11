@@ -30,3 +30,6 @@ core.[0-9]*
 *.dmp
 logs/
 .claude/
+
+# Generated OCR evidence artifacts (regeneratable)
+docs/evidence/ocr_signal_labels/*/crops/

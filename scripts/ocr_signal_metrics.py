@@ -123,21 +123,7 @@ def main() -> int:
     args = p.parse_args()
 
     in_dir = Path(args.in_dir)
-    manifest_path = in_dir / "manifest.json"
-
-    reports: list[Path] = []
-    if manifest_path.exists():
-        manifest = load_json(manifest_path)
-        outputs = manifest.get("outputs", []) if isinstance(manifest, dict) else []
-        if isinstance(outputs, list):
-            for o in outputs:
-                if not isinstance(o, dict):
-                    continue
-                rel = o.get("report_json")
-                if isinstance(rel, str) and rel:
-                    reports.append(ROOT / rel)
-    else:
-        reports = list(in_dir.glob("*/**/*_signal_ocr_report.json"))
+    reports = list(in_dir.glob("*/**/*_signal_ocr_report.json"))
 
     reports = [p for p in reports if p.exists()]
     if not reports:
@@ -178,4 +164,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

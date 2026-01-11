@@ -68,7 +68,7 @@ def parse_signals_txt(path: Path) -> tuple[list[SignalPoint], list[dict[str, obj
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Sanity-check docs/emulators/i400x-signals.txt coordinate maps.")
+    parser = argparse.ArgumentParser(description="Sanity-check docs/emulators/i400{1,2,3,4}-signals.txt coordinate maps.")
     parser.add_argument("--chip", action="append", choices=sorted(specs().keys()), help="Chip to check (repeatable)")
     parser.add_argument("--all", action="store_true", help="Check all supported chips")
     parser.add_argument(
@@ -85,7 +85,16 @@ def main() -> int:
     if not selected:
         parser.error("select --all or at least one --chip")
 
-    out: dict[str, object] = {"tool": "scripts/verify_signals_txt.py", "outputs": []}
+    out: dict[str, object] = {
+        "tool": "scripts/verify_signals_txt.py",
+        "schema": {
+            "format": "x,y,name",
+            "coordinates": "pixel",
+            "origin": "top-left",
+            "indexing": "0-based",
+        },
+        "outputs": [],
+    }
     had_errors = False
 
     for chip in sorted(selected):
@@ -130,4 +139,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

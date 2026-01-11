@@ -1,6 +1,6 @@
 # OCR Signal Label Verification (i400x `signals.txt`)
 
-Goal: turn the `docs/emulators/i400x-signals.txt` coordinate maps into a reproducible OCR-based
+Goal: turn the `docs/emulators/i400{1,2,3,4}-signals.txt` coordinate maps into a reproducible OCR-based
 verification report, and a prioritized mismatch list for manual review.
 
 ## Quick start
@@ -13,6 +13,8 @@ verification report, and a prioritized mismatch list for manual review.
   - `./scripts/ocr_signal_labels.py --chip 4001 --labels-only`
 - Summarize reports into a regression-friendly table:
   - `./scripts/ocr_signal_metrics.py`
+- Rebuild the multi-chip manifest (if you ran chips separately):
+  - `./scripts/ocr_signal_manifest.py`
 
 Outputs land in `docs/evidence/ocr_signal_labels/<chip>/`.
 
@@ -30,6 +32,7 @@ This workflow is implemented and produces deterministic reports, but OCR accurac
 - Many `signals.txt` entries appear to be *internal net names* that are not printed near the coordinate.
 - Many printed labels are vertical and very small, and OCR frequently fails (`reason=ocr_no_tokens` / `ocr_low_conf`).
 - Some coordinates point at a node, while the schematic prints a *pin label* nearby; these need aliases.
+- Some coordinates are on long wires/empty space; when no text-like components are detected, the report uses `reason=no_text_components`.
 
 You can see per-chip counts in:
 - `docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json`

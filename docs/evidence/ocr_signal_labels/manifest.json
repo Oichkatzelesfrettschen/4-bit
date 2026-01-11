@@ -3,11 +3,11 @@
     {
       "chip": "4001",
       "counts": {
-        "labels_total": 31,
-        "mismatch": 27,
+        "labels_total": 63,
+        "mismatch": 59,
         "ok": 4,
-        "skipped": 19,
-        "total": 50
+        "skipped": 26,
+        "total": 89
       },
       "crops_dir": "docs/evidence/ocr_signal_labels/4001/crops",
       "report_json": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
@@ -16,11 +16,11 @@
     {
       "chip": "4002",
       "counts": {
-        "labels_total": 50,
-        "mismatch": 49,
-        "ok": 1,
-        "skipped": 0,
-        "total": 50
+        "labels_total": 406,
+        "mismatch": 401,
+        "ok": 5,
+        "skipped": 10,
+        "total": 416
       },
       "crops_dir": "docs/evidence/ocr_signal_labels/4002/crops",
       "report_json": "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.json",
@@ -42,11 +42,11 @@
     {
       "chip": "4004",
       "counts": {
-        "labels_total": 50,
-        "mismatch": 50,
-        "ok": 0,
-        "skipped": 0,
-        "total": 50
+        "labels_total": 248,
+        "mismatch": 241,
+        "ok": 7,
+        "skipped": 27,
+        "total": 275
       },
       "crops_dir": "docs/evidence/ocr_signal_labels/4004/crops",
       "report_json": "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.json",
@@ -61,7 +61,7 @@
     "fallback": false,
     "invert": false,
     "labels_only": true,
-    "limit": 50,
+    "limit": 0,
     "max_dist": 220.0,
     "min_conf": 60.0,
     "min_score": 0.85,

@@ -1,51 +1,276 @@
 idx	x	y	expected	expected_kind	expected_norm	ocr_norm	score	ok	reason	best_conf	best_dist_px	region_tokens_total	region_tokens_confident	region_max_similarity	region_ocr_calls
-0	1963	117	R1.0	label	R10		0.000	0	ocr_no_tokens			0	0		1
-1	2069	117	R3.0	label	R30		0.000	0	ocr_no_tokens			0	0		1
-2	2175	117	R5.0	label	R50		0.000	0	ocr_no_tokens			0	0		1
-3	2281	117	R7.0	label	R70		0.000	0	ocr_no_tokens			0	0		1
-4	2387	117	R9.0	label	R90		0.000	0	ocr_no_tokens			0	0		1
-5	2493	117	R11.0	label	R110		0.000	0	ocr_no_tokens			0	0		1
-6	2599	117	R13.0	label	R130		0.000	0	ocr_no_tokens			0	0		1
-7	2705	117	R15.0	label	R150		0.000	0	ocr_no_tokens			0	0		1
-8	826	119	PC0.11	label	PC011		0.000	0	ocr_no_tokens			0	0		1
-9	932	119	PC1.11	label	PC111		0.000	0	ocr_no_tokens			0	0		1
-10	1038	119	PC2.11	label	PC211		0.000	0	ocr_no_tokens			0	0		1
-11	1144	119	PC3.11	label	PC311		0.000	0	ocr_no_tokens			0	0		1
-12	1963	189	R0.0	label	R00		0.000	0	ocr_no_tokens			0	0		1
-13	2069	189	R2.0	label	R20		0.000	0	ocr_no_tokens			0	0		1
-14	2175	189	R4.0	label	R40		0.000	0	ocr_no_tokens			0	0		1
-15	2281	189	R6.0	label	R60		0.000	0	ocr_no_tokens			0	0		1
-16	2387	189	R8.0	label	R80		0.000	0	ocr_no_tokens			0	0		1
-17	2493	189	R10.0	label	R100		0.000	0	ocr_no_tokens			0	0		1
-18	2599	189	R12.0	label	R120		0.000	0	ocr_no_tokens			0	0		1
-19	2705	189	R14.0	label	R140		0.000	0	ocr_no_tokens			0	0		1
-20	826	191	PC0.7	label	PC07		0.000	0	ocr_no_tokens			0	0		1
-21	932	191	PC1.7	label	PC17		0.000	0	ocr_no_tokens			0	0		1
-22	1038	191	PC2.7	label	PC27		0.000	0	ocr_no_tokens			0	0		1
-23	1144	191	PC3.7	label	PC37		0.000	0	ocr_no_tokens			0	0		1
-24	1963	261	R0.1	label	R01		0.000	0	ocr_no_tokens			0	0		1
-25	2069	261	R2.1	label	R21		0.000	0	ocr_no_tokens			0	0		1
-26	2175	261	R4.1	label	R41		0.000	0	ocr_no_tokens			0	0		1
-27	2281	261	R6.1	label	R61		0.000	0	ocr_no_tokens			0	0		1
-28	2387	261	R8.1	label	R81		0.000	0	ocr_no_tokens			0	0		1
-29	2493	261	R10.1	label	R101		0.000	0	ocr_no_tokens			0	0		1
-30	2599	261	R12.1	label	R121		0.000	0	ocr_no_tokens			0	0		1
-31	2705	261	R14.1	label	R141		0.000	0	ocr_no_tokens			0	0		1
-32	826	263	PC0.3	label	PC03		0.000	0	ocr_no_tokens			0	0		1
-33	932	263	PC1.3	label	PC13		0.000	0	ocr_no_tokens			0	0		1
-34	1038	263	PC2.3	label	PC23		0.000	0	ocr_no_tokens			0	0		1
-35	1144	263	PC3.3	label	PC33		0.000	0	ocr_no_tokens			0	0		1
-36	1963	333	R1.1	label	R11		0.000	0	ocr_no_tokens			0	0		1
-37	2069	333	R3.1	label	R31		0.000	0	ocr_no_tokens			0	0		1
-38	2175	333	R5.1	label	R51		0.000	0	ocr_no_tokens			0	0		1
-39	2281	333	R7.1	label	R71		0.000	0	ocr_no_tokens			0	0		1
-40	2387	333	R9.1	label	R91		0.000	0	ocr_no_tokens			0	0		1
-41	2493	333	R11.1	label	R111		0.000	0	ocr_no_tokens			0	0		1
-42	2599	333	R13.1	label	R131		0.000	0	ocr_no_tokens			0	0		1
-43	2705	333	R15.1	label	R151		0.000	0	ocr_no_tokens			0	0		1
-44	826	335	PC0.2	label	PC02		0.000	0	ocr_no_tokens			0	0		1
-45	932	335	PC1.2	label	PC12		0.000	0	ocr_no_tokens			0	0		1
-46	1038	335	PC2.2	label	PC22		0.000	0	ocr_no_tokens			0	0		1
-47	1144	335	PC3.2	label	PC32		0.000	0	ocr_no_tokens			0	0		1
-48	1963	405	R1.2	label	R12		0.000	0	ocr_no_tokens			0	0		1
-49	2069	405	R3.2	label	R32		0.000	0	ocr_no_tokens			0	0		1
+0	1963	117	R1.0	label	R10		0.000	0	ocr_low_conf			5	0	0.400	6
+1	2069	117	R3.0	label	R30		0.000	0	no_similar_token			11	3	0.111	6
+2	2175	117	R5.0	label	R50		0.000	0	ocr_low_conf			24	0	0.286	6
+3	2281	117	R7.0	label	R70		0.000	0	ocr_low_conf			10	0	0.222	6
+4	2387	117	R9.0	label	R90		0.000	0	ocr_low_conf			10	0	0.222	6
+5	2493	117	R11.0	label	R110		0.000	0	ocr_low_conf			6	0	0.333	6
+6	2599	117	R13.0	label	R130		0.000	0	ocr_low_conf			11	0	0.000	6
+7	2705	117	R15.0	label	R150		0.000	0	no_similar_token			10	1	0.133	6
+8	826	119	PC0.11	label	PC011		0.000	0	ocr_low_conf			9	0	0.250	6
+9	932	119	PC1.11	label	PC111		0.000	0	not_printed_near_point			21	1	0.000	6
+10	1038	119	PC2.11	label	PC211		0.000	0	ocr_low_conf			10	0	0.000	6
+11	1144	119	PC3.11	label	PC311		0.000	0	ocr_low_conf			9	0	0.000	6
+12	1963	189	R0.0	label	R00		0.000	0	ocr_low_conf			9	0	0.000	6
+13	2069	189	R2.0	label	R20		0.000	0	no_similar_token			22	2	0.500	6
+14	2175	189	R4.0	label	R40		0.000	0	ocr_low_conf			13	0	0.333	6
+15	2281	189	R6.0	label	R60		0.000	0	ocr_low_conf			16	0	0.500	6
+16	2387	189	R8.0	label	R80		0.000	0	ocr_low_conf			16	0	0.500	6
+17	2493	189	R10.0	label	R100		0.000	0	ocr_low_conf			14	0	0.250	6
+18	2599	189	R12.0	label	R120		0.000	0	no_similar_token			30	1	0.400	6
+19	2705	189	R14.0	label	R140		0.000	0	ocr_low_conf			11	0	0.400	6
+20	826	191	PC0.7	label	PC07		0.000	0	ocr_low_conf			14	0	0.000	6
+21	932	191	PC1.7	label	PC17		0.000	0	ocr_low_conf			15	0	0.400	6
+22	1038	191	PC2.7	label	PC27		0.000	0	ocr_low_conf			13	0	0.400	6
+23	1144	191	PC3.7	label	PC37		0.000	0	ocr_low_conf			12	0	0.000	6
+24	1963	261	R0.1	label	R01		0.000	0	ocr_low_conf			8	0	0.000	6
+25	2069	261	R2.1	label	R21		0.000	0	ocr_low_conf			13	0	0.333	6
+26	2175	261	R4.1	label	R41		0.000	0	no_similar_token			16	1	0.333	6
+27	2281	261	R6.1	label	R61		0.000	0	ocr_low_conf			12	0	0.167	6
+28	2387	261	R8.1	label	R81		0.000	0	ocr_low_conf			12	0	0.167	6
+29	2493	261	R10.1	label	R101		0.000	0	ocr_low_conf			11	0	0.000	6
+30	2599	261	R12.1	label	R121		0.000	0	ocr_low_conf			11	0	0.000	6
+31	2705	261	R14.1	label	R141		0.000	0	ocr_low_conf			10	0	0.143	6
+32	826	263	PC0.3	label	PC03		0.000	0	ocr_low_conf			10	0	0.400	6
+33	932	263	PC1.3	label	PC13	3	0.400	0	mismatch	75.7		27	4	0.400	6
+34	1038	263	PC2.3	label	PC23		0.000	0	ocr_low_conf			22	0	0.222	6
+35	1144	263	PC3.3	label	PC33	3	0.400	0	mismatch	75.7		20	4	0.400	6
+36	1963	333	R1.1	label	R11		0.000	0	ocr_low_conf			11	0	0.333	6
+37	2069	333	R3.1	label	R31		0.000	0	ocr_low_conf			12	0	0.200	6
+38	2175	333	R5.1	label	R51		0.000	0	no_similar_token			16	1	0.333	6
+39	2281	333	R7.1	label	R71		0.000	0	ocr_low_conf			12	0	0.167	6
+40	2387	333	R9.1	label	R91		0.000	0	ocr_low_conf			12	0	0.167	6
+41	2493	333	R11.1	label	R111		0.000	0	ocr_low_conf			11	0	0.000	6
+42	2599	333	R13.1	label	R131		0.000	0	ocr_low_conf			11	0	0.182	6
+43	2705	333	R15.1	label	R151		0.000	0	ocr_low_conf			12	0	0.400	6
+44	826	335	PC0.2	label	PC02		0.000	0	ocr_low_conf			8	0	0.400	6
+45	932	335	PC1.2	label	PC12		0.000	0	ocr_low_conf			14	0	0.000	6
+46	1038	335	PC2.2	label	PC22		0.000	0	ocr_low_conf			23	0	0.286	6
+47	1144	335	PC3.2	label	PC32	3	0.400	0	mismatch	72.3		24	2	0.400	6
+48	1963	405	R1.2	label	R12		0.000	0	no_similar_token			15	1	0.500	6
+49	2069	405	R3.2	label	R32		0.000	0	no_similar_token			15	1	0.500	6
+50	2175	405	R5.2	label	R52		0.000	0	no_similar_token			16	1	0.333	6
+51	2281	405	R7.2	label	R72		0.000	0	ocr_low_conf			12	0	0.167	6
+52	2387	405	R9.2	label	R92		0.000	0	ocr_low_conf			12	0	0.167	6
+53	2493	405	R11.2	label	R112		0.000	0	ocr_low_conf			11	0	0.118	6
+54	2599	405	R13.2	label	R132		0.000	0	ocr_low_conf			11	0	0.182	6
+55	2705	405	R15.2	label	R152		0.000	0	ocr_low_conf			12	0	0.400	6
+56	826	407	PC0.6	label	PC06		0.000	0	not_printed_near_point			26	2	0.000	6
+57	932	407	PC1.6	label	PC16		0.000	0	ocr_low_conf			16	0	0.133	6
+58	1038	407	PC2.6	label	PC26		0.000	0	ocr_low_conf			23	0	0.286	6
+59	1144	407	PC3.6	label	PC36	3	0.400	0	mismatch	72.3		24	2	0.400	6
+60	1963	477	R0.2	label	R02		0.000	0	no_similar_token			18	2	0.500	6
+61	2069	477	R2.2	label	R22		0.000	0	ocr_low_conf			13	0	0.500	6
+62	2175	477	R4.2	label	R42		0.000	0	no_similar_token			16	1	0.333	6
+63	2281	477	R6.2	label	R62		0.000	0	ocr_low_conf			12	0	0.167	6
+64	2387	477	R8.2	label	R82		0.000	0	ocr_low_conf			12	0	0.167	6
+65	2493	477	R10.2	label	R102		0.000	0	ocr_low_conf			11	0	0.000	6
+66	2599	477	R12.2	label	R122		0.000	0	ocr_low_conf			11	0	0.182	6
+67	2705	477	R14.2	label	R142		0.000	0	ocr_low_conf			12	0	0.400	6
+68	826	479	PC0.10	label	PC010		0.000	0	not_printed_near_point			16	1	0.000	6
+69	932	479	PC1.10	label	PC110		0.000	0	ocr_low_conf			12	0	0.333	6
+70	1038	479	PC2.10	label	PC210		0.000	0	ocr_low_conf			23	0	0.286	6
+71	1144	479	PC3.10	label	PC310	3	0.333	0	not_printed_near_point	72.3		24	2	0.333	6
+72	1963	549	R0.3	label	R03		0.000	0	no_similar_token			12	1	0.400	6
+73	2069	549	R2.3	label	R23		0.000	0	ocr_low_conf			18	0	0.400	6
+74	2175	549	R4.3	label	R43		0.000	0	ocr_low_conf			15	0	0.200	6
+75	2281	549	R6.3	label	R63		0.000	0	ocr_low_conf			12	0	0.200	6
+76	2387	549	R8.3	label	R83		0.000	0	ocr_low_conf			12	0	0.200	6
+77	2493	549	R10.3	label	R103		0.000	0	ocr_low_conf			5	0	0.091	6
+78	2599	549	R12.3	label	R123		0.000	0	no_similar_token			17	3	0.333	6
+79	2705	549	R14.3	label	R143		0.000	0	no_similar_token			13	1	0.333	6
+80	826	551	PC0.9	label	PC09		0.000	0	ocr_low_conf			10	0	0.400	6
+81	932	551	PC1.9	label	PC19		0.000	0	ocr_low_conf			10	0	0.250	6
+82	1038	551	PC2.9	label	PC29		0.000	0	ocr_low_conf			23	0	0.286	6
+83	1144	551	PC3.9	label	PC39	3	0.400	0	mismatch	72.3		24	2	0.400	6
+84	1963	621	R1.3	label	R13		0.000	0	ocr_low_conf			15	0	0.333	6
+85	2069	621	R3.3	label	R33		0.000	0	no_similar_token			20	1	0.200	6
+86	2175	621	R5.3	label	R53		0.000	0	ocr_low_conf			21	0	0.400	6
+87	2281	621	R7.3	label	R73		0.000	0	ocr_low_conf			10	0	0.400	6
+88	2387	621	R9.3	label	R93		0.000	0	ocr_low_conf			15	0	0.000	6
+89	2493	621	R11.3	label	R113		0.000	0	no_similar_token			22	2	0.444	6
+90	2599	621	R13.3	label	R133		0.000	0	ocr_low_conf			9	0	0.400	6
+91	2705	621	R15.3	label	R153		0.000	0	ocr_low_conf			7	0	0.400	6
+92	826	623	PC0.5	label	PC05		0.000	0	ocr_low_conf			8	0	0.400	6
+93	932	623	PC1.5	label	PC15		0.000	0	no_similar_token			16	1	0.400	6
+94	1038	623	PC2.5	label	PC25		0.000	0	ocr_low_conf			23	0	0.286	6
+95	1144	623	PC3.5	label	PC35	5	0.400	0	mismatch	60.5		19	3	0.400	6
+96	826	695	PC0.1	label	PC01		0.000	0	no_similar_token			15	1	0.400	6
+97	932	695	PC1.1	label	PC11		0.000	0	ocr_low_conf			14	0	0.000	6
+98	1038	695	PC2.1	label	PC21		0.000	0	ocr_low_conf			23	0	0.333	6
+99	1144	695	PC3.1	label	PC31		0.000	0	ocr_low_conf			18	0	0.182	6
+100	826	767	PC0.0	label	PC00		0.000	0	ocr_low_conf			12	0	0.400	6
+101	932	767	PC1.0	label	PC10		0.000	0	ocr_low_conf			16	0	0.333	6
+102	1038	767	PC2.0	label	PC20		0.000	0	ocr_low_conf			23	0	0.286	6
+103	1144	767	PC3.0	label	PC30	3	0.400	0	mismatch	76.7		21	2	0.400	6
+104	1422	787	ADDR-RFSH.1	label	ADDR-RFSH1	H	0.182	0	not_printed_near_point	76.9		21	1	0.308	6
+105	1633	788	ADDR-RFSH.0	label	ADDR-RFSH0	-L	0.167	0	not_printed_near_point	64.2		30	9	0.182	6
+106	826	839	PC0.4	label	PC04		0.000	0	ocr_low_conf			20	0	0.286	6
+107	932	839	PC1.4	label	PC14		0.000	0	ocr_low_conf			18	0	0.400	6
+108	1038	839	PC2.4	label	PC24		0.000	0	ocr_low_conf			12	0	0.286	6
+109	1144	839	PC3.4	label	PC34		0.000	0	ocr_low_conf			13	0	0.250	6
+110	826	911	PC0.8	label	PC08	0_1	0.286	0	not_printed_near_point	63.8		17	2	0.333	6
+111	932	911	PC1.8	label	PC18		0.000	0	no_similar_token			15	1	0.286	6
+112	1038	911	PC2.8	label	PC28		0.000	0	ocr_low_conf			13	0	0.000	6
+113	1144	911	PC3.8	label	PC38		0.000	0	not_printed_near_point			16	3	0.000	6
+114	1423	1044	ADDR-PTR.1	label	ADDR-PTR1	-	0.200	0	not_printed_near_point	93.8		46	7	0.333	6
+115	1633	1045	ADDR-PTR.0	label	ADDR-PTR0	T	0.200	0	not_printed_near_point	95.2		63	16	0.286	6
+116	1824	1075	WRAB1	label	WRAB1	1	0.333	0	not_printed_near_point	66.9		43	6	0.333	6
+117	1837	1075	RRAB1	label	RRAB1		0.000	0	no_similar_token			46	4	0.500	6
+118	1851	1075	WRAB0	label	WRAB0		0.000	0	no_similar_token			52	4	0.400	6
+119	1864	1075	RRAB0	label	RRAB0		0.000	0	no_similar_token			57	11	0.600	6
+120	1877	1075	CLK2&SC(A12+M12)	expression	CLK2&SC(A12+M12)		0.000	0	skipped_expression			0	0		0
+121	1890	1075	(~POC)&CLK2&SC(A32+X12)	expression	(~POC)&CLK2&SC(A32+X12)		0.000	0	skipped_expression			0	0		0
+122	2066	1079	SC&A22	label	SC&A22		0.000	0	no_similar_token			43	6	0.286	6
+123	1950	1080	~(FIN&X12)	expression	~(FIN&X12)		0.000	0	skipped_expression			0	0		0
+124	2840	1084	SC(A22+M22)CLK2	expression	SC(A22+M22)CLK2		0.000	0	skipped_expression			0	0		0
+125	701	1087	(~POC)CLK2(X12+X32)~INH	expression	(~POC)CLK2(X12+X32)~INH		0.000	0	skipped_expression			0	0		0
+126	740	1087	((~SC)(JIN+FIN))CLK1(M11+X21~INH)	expression	((~SC)(JIN+FIN))CLK1(M11+X21~INH)		0.000	0	skipped_expression			0	0		0
+127	1255	1115	(~INH)(X11+X31)CLK1	expression	(~INH)(X11+X31)CLK1		0.000	0	skipped_expression			0	0		0
+128	2233	1116	REG-RFSH.0	label	REG-RFSH0	EI-	0.333	0	not_printed_near_point	60.3		61	11	0.429	6
+129	2445	1116	REG-RFSH.1	label	REG-RFSH1	EI-	0.333	0	not_printed_near_point	61.5		39	11	0.333	6
+130	2656	1116	REG-RFSH.2	label	REG-RFSH2	-	0.200	0	not_printed_near_point	88.3		34	4	0.364	6
+131	2134	1275	SC&A12&CLK2	label	SC&A12&CLK2		0.000	0	no_similar_token			30	5	0.167	6
+132	258	1465	WADB2	label	WADB2	A	0.333	0	not_printed_near_point	76.6		26	4	0.333	6
+133	363	1465	WADB1	label	WADB1		0.000	0	no_similar_token			26	6	0.333	6
+134	497	1465	WADB0	label	WADB0		0.000	0	no_similar_token			19	4	0.222	6
+135	1398	1697	CLK2(JMS&DC&M22+BBL(M22+X12+X22))	expression	CLK2(JMS&DC&M22+BBL(M22+X12+X22))		0.000	0	skipped_expression			0	0		0
+136	1814	1697	~INH	label	~INH	I	0.400	0	mismatch	66.2		16	2	0.400	6
+137	1840	1711	INH	label	INH	II	0.400	0	mismatch	80.3		28	3	0.500	6
+138	2806	1711	SC&M12&CLK2	label	SC&M12&CLK2	L	0.167	0	not_printed_near_point	67.4		29	1	0.200	6
+139	1642	1720	(~INH)&X32&CLK2	expression	(~INH)&X32&CLK2		0.000	0	skipped_expression			0	0		0
+140	2045	1824	DC	label	DC		0.000	0	not_printed_near_point			19	2	0.000	6
+141	715	1838	RADB2	label	RADB2		0.000	0	no_similar_token			7	1	0.222	6
+142	821	1838	RADB1	label	RADB1		0.000	0	ocr_low_conf			11	0	0.000	6
+143	926	1838	RADB0	label	RADB0		0.000	0	no_similar_token			13	2	0.286	6
+144	2919	1852	SC&M22&CLK2	label	SC&M22&CLK2		0.000	0	no_similar_token			12	1	0.167	6
+145	74	1979	M12+M22+CLK1~(M11+M12)	expression	M12+M22+CLK1~(M11+M12)		0.000	0	skipped_expression			0	0		0
+146	3001	1979	L	label	L		0.000	0	no_similar_token			11	2	1.000	6
+147	2848	2047	~OPR.3	label	~OPR3		0.000	0	not_printed_near_point			14	5	0.000	6
+148	1377	2056	FIN+FIM	expression	FIN+FIM		0.000	0	skipped_expression			0	0		0
+149	1412	2056	ISZ	label	ISZ		0.000	0	no_similar_token			15	2	0.500	6
+150	1447	2056	JCN	label	JCN		0.000	0	not_printed_near_point			8	2	0.000	6
+151	1482	2056	BBL	label	BBL		0.000	0	no_similar_token			10	3	0.500	6
+152	1518	2056	JMS	label	JMS		0.000	0	no_similar_token			13	3	0.333	6
+153	1665	2056	FIM+SRC	expression	FIM+SRC		0.000	0	skipped_expression			0	0		0
+154	1701	2056	IO	label	IO		0.000	0	ocr_low_conf			8	0	0.667	6
+155	1736	2056	OPE	label	OPE		0.000	0	ocr_low_conf			7	0	0.286	6
+156	1877	2056	JCN+ISZ	expression	JCN+ISZ		0.000	0	skipped_expression			0	0		0
+157	1912	2056	JUN+JMS	expression	JUN+JMS		0.000	0	skipped_expression			0	0		0
+158	1947	2056	JIN+FIN	expression	JIN+FIN		0.000	0	skipped_expression			0	0		0
+159	2264	2056	FIN+FIM+SRC+JIN	expression	FIN+FIM+SRC+JIN		0.000	0	skipped_expression			0	0		0
+160	2334	2056	INC+ISZ+XCH	expression	INC+ISZ+XCH		0.000	0	skipped_expression			0	0		0
+161	2546	2056	INC+ISZ+ADD+SUB+XCH+LD	expression	INC+ISZ+ADD+SUB+XCH+LD		0.000	0	skipped_expression			0	0		0
+162	2722	2056	LDM/BBL	label	LDM/BBL		0.000	0	no_similar_token			16	2	0.250	6
+163	2757	2056	JUN2+JMS2	expression	JUN2+JMS2		0.000	0	skipped_expression			0	0		0
+164	2848	2082	OPR.3	label	OPR3		0.000	0	not_printed_near_point			18	1	0.000	6
+165	2848	2101	~OPR.2	label	~OPR2		0.000	0	no_similar_token			19	3	0.250	6
+166	2848	2136	OPR.2	label	OPR2		0.000	0	no_similar_token			20	8	0.400	6
+167	2848	2156	~OPR.1	label	~OPR1		0.000	0	ocr_low_conf			16	0	0.333	6
+168	2848	2191	OPR.1	label	OPR1	1	0.400	0	mismatch	61.7		9	1	0.400	6
+169	2848	2211	~OPR.0	label	~OPR0		0.000	0	not_printed_near_point			9	1	0.000	6
+170	2848	2246	OPR.0	label	OPR0		0.000	0	no_similar_token			12	2	0.400	6
+171	539	2267	SC	label	SC		0.000	0	no_similar_token			13	1	0.667	6
+172	2848	2289	~OPA.3	label	~OPA3		0.000	0	no_similar_token			14	4	0.286	6
+173	80	2318	CLK1	label	CLK1	01	1.000	1	matched	0.0	0.0	0	0		0
+174	2848	2324	OPA.3	label	OPA3		0.000	0	no_similar_token			19	2	0.400	6
+175	2848	2345	~OPA.2	label	~OPA2		0.000	0	ocr_low_conf			7	0	0.000	6
+176	779	2359	~CN	label	~CN		0.000	0	no_similar_token			13	6	0.500	6
+177	2848	2380	OPA.2	label	OPA2		0.000	0	no_similar_token			18	4	0.400	6
+178	80	2398	CLK2	label	CLK2	02	1.000	1	matched	0.0	0.0	0	0		0
+179	2848	2401	~OPA.1	label	~OPA1		0.000	0	ocr_low_conf			15	0	0.333	6
+180	2848	2436	OPA.1	label	OPA1		0.000	0	ocr_low_conf			14	0	0.400	6
+181	2848	2457	~OPA.0	label	~OPA0		0.000	0	ocr_low_conf			28	0	0.333	6
+182	2848	2492	OPA.0	label	OPA0		0.000	0	no_similar_token			38	4	0.400	6
+183	1475	2547	ADD_0	label	ADD_0	0	0.333	0	not_printed_near_point	75.1		33	12	0.333	6
+184	1588	2547	ACC_0	label	ACC_0	_	0.333	0	not_printed_near_point	73.7		33	7	0.333	6
+185	1602	2547	CY_1	label	CY_1	1	0.400	0	mismatch	81.9		30	4	0.400	6
+186	1694	2547	~SRC	label	~SRC	IS	0.333	0	not_printed_near_point	60.9		55	11	0.400	6
+187	1722	2547	~I/O	label	~I/O		0.000	0	no_similar_token			33	5	0.400	6
+188	1757	2547	~OPE	label	~OPE		0.000	0	no_similar_token			33	4	0.400	6
+189	975	2602	TEST_PAD	label	TEST_PAD	TEST	1.000	1	matched	0.0	0.0	0	0		0
+190	2865	2640	OPA-IB	label	OPA-IB		0.000	0	no_similar_token			32	4	0.286	6
+191	1841	2660	DCL	label	DCL		0.000	0	not_printed_near_point			18	4	0.000	6
+192	1877	2660	O-IB	label	O-IB		0.000	0	no_similar_token			18	1	0.400	6
+193	1912	2660	KBP	label	KBP		0.000	0	no_similar_token			25	1	0.400	6
+194	1947	2660	TCS	label	TCS	T	0.500	0	mismatch	95.5		31	13	0.500	6
+195	1982	2660	DAA	label	DAA		0.000	0	no_similar_token			28	12	0.500	6
+196	2017	2660	INC/ISZ	label	INC/ISZ		0.000	0	ocr_low_conf			11	0	0.222	6
+197	2052	2660	XCH	label	XCH		0.000	0	ocr_low_conf			11	0	0.200	6
+198	2123	2660	IOW	label	IOW		0.000	0	ocr_low_conf			6	0	0.200	6
+199	2158	2660	RAR	label	RAR		0.000	0	ocr_low_conf			8	0	0.000	6
+200	2193	2660	RAL	label	RAL		0.000	0	ocr_low_conf			10	0	0.500	6
+201	2228	2660	CMA	label	CMA		0.000	0	ocr_low_conf			6	0	0.000	6
+202	2264	2660	TCC	label	TCC		0.000	0	ocr_low_conf			10	0	0.000	6
+203	2299	2660	STC	label	STC		0.000	0	ocr_low_conf			7	0	0.333	6
+204	2334	2660	CMC	label	CMC		0.000	0	not_printed_near_point			9	1	0.000	6
+205	2369	2660	DAC	label	DAC		0.000	0	ocr_low_conf			11	0	0.000	6
+206	2383	2660	SUB_GROUP(6)	expression	SUB_GROUP(6)		0.000	0	skipped_expression			0	0		0
+207	2404	2660	IAC	label	IAC		0.000	0	not_printed_near_point			14	1	0.000	6
+208	2418	2660	ADD_GROUP(4)	expression	ADD_GROUP(4)		0.000	0	skipped_expression			0	0		0
+209	2440	2660	CLC	label	CLC		0.000	0	no_similar_token			12	1	0.500	6
+210	2454	2660	READ_ACC(3)	expression	READ_ACC(3)		0.000	0	skipped_expression			0	0		0
+211	2475	2660	CLB	label	CLB	B	0.500	0	mismatch	66.1		27	4	0.500	6
+212	2510	2660	SBM	label	SBM		0.000	0	not_printed_near_point			16	2	0.000	6
+213	2546	2660	ADM	label	ADM		0.000	0	no_similar_token			16	1	0.500	6
+214	2560	2660	WRITE_CARRY(2)	expression	WRITE_CARRY(2)		0.000	0	skipped_expression			0	0		0
+215	2581	2660	IOR	label	IOR		0.000	0	no_similar_token			21	1	0.400	6
+216	2597	2660	WRITE_ACC(1)	expression	WRITE_ACC(1)		0.000	0	skipped_expression			0	0		0
+217	2616	2660	LD	label	LD		0.000	0	no_similar_token			21	2	0.667	6
+218	2651	2660	SUB	label	SUB		0.000	0	no_similar_token			22	1	0.500	6
+219	2665	2660	INC_GROUP(5)	expression	INC_GROUP(5)		0.000	0	skipped_expression			0	0		0
+220	2686	2660	ADD	label	ADD		0.000	0	no_similar_token			36	6	0.500	6
+221	145	2815	SYNC	label	SYNC		0.000	0	ocr_low_conf			4	0	0.000	6
+222	309	2888	X32	label	X32		0.000	0	ocr_low_conf			3	0	0.400	6
+223	309	2981	X22	label	X22		0.000	0	ocr_low_conf			9	0	0.000	6
+224	563	3020	~(X21&~CLK2)	expression	~(X21&~CLK2)		0.000	0	skipped_expression			0	0		0
+225	708	3020	~(X31&~CLK2)	expression	~(X31&~CLK2)		0.000	0	skipped_expression			0	0		0
+226	309	3053	X12	label	X12		0.000	0	ocr_low_conf			9	0	0.400	6
+227	309	3126	M22	label	M22		0.000	0	ocr_low_conf			4	0	0.000	6
+228	2792	3177	D3	label	D3		0.000	0	no_similar_token			34	5	0.667	6
+229	3104	3184	D3_PAD	label	D3_PAD	D3	1.000	1	matched	0.0	0.0	0	0		0
+230	309	3198	M12	label	M12		0.000	0	ocr_low_conf			9	0	0.000	6
+231	1189	3223	CY-IB	label	CY-IB		0.000	0	ocr_low_conf			1	0	0.000	6
+232	1428	3231	ADC-CY	label	ADC-CY		0.000	0	ocr_low_conf			9	0	0.250	6
+233	1481	3231	ADD-ACC	label	ADD-ACC	-	0.250	0	not_printed_near_point	65.0		6	1	0.250	6
+234	1533	3231	ADSR	label	ADSR		0.000	0	ocr_low_conf			7	0	0.182	6
+235	1586	3231	ADSL	label	ADSL		0.000	0	no_similar_token			9	1	0.400	6
+236	1639	3231	ACC-ADAC	label	ACC-ADAC		0.000	0	ocr_low_conf			12	0	0.267	6
+237	1691	3231	ACC-ADA	label	ACC-ADA		0.000	0	ocr_low_conf			10	0	0.429	6
+238	1744	3231	CY-ADA	label	CY-ADA		0.000	0	no_similar_token			11	1	0.308	6
+239	1797	3231	CY-ADAC	label	CY-ADAC		0.000	0	no_similar_token			14	1	0.250	6
+240	1137	3243	ADD-IB	label	ADD-IB		0.000	0	ocr_low_conf			7	0	0.286	6
+241	794	3252	~COM	label	~COM		0.000	0	not_printed_near_point			9	2	0.000	6
+242	1256	3263	ACB-IB	label	ACB-IB		0.000	0	ocr_low_conf			13	0	0.286	6
+243	309	3271	A32	label	A32		0.000	0	no_similar_token			15	1	0.500	6
+244	436	3310	POC_PAD	label	POC_PAD		0.000	0	ocr_low_conf			19	0	0.250	6
+245	309	3344	A22	label	A22		0.000	0	not_printed_near_point			21	1	0.000	6
+246	1460	3403	CY	label	CY		0.000	0	not_printed_near_point			3	1	0.000	6
+247	2792	3411	D2	label	D2		0.000	0	not_printed_near_point			23	3	0.000	6
+248	309	3416	A12	label	A12	1	0.500	0	mismatch	92.7		19	2	0.500	6
+249	3104	3418	D2_PAD	label	D2_PAD	D2	1.000	1	matched	0.0	0.0	0	0		0
+250	471	3442	POC	label	POC		0.000	0	no_similar_token			22	1	0.500	6
+251	2256	3496	~TMP.0	label	~TMP0		0.000	0	no_similar_token			10	1	0.333	6
+252	1460	3522	ACC.0	label	ACC0	_1__-0	0.200	0	not_printed_near_point	61.5		14	6	0.200	6
+253	2256	3529	TMP.0	label	TMP0		0.000	0	no_similar_token			12	4	0.333	6
+254	399	3581	DCL.2	label	DCL2		0.000	0	no_similar_token			19	1	0.400	6
+255	42	3594	CMRAM3	label	CMRAM3		0.000	0	no_similar_token			20	3	0.364	6
+256	2256	3615	~TMP.1	label	~TMP1	T	0.333	0	not_printed_near_point	96.2		21	5	0.333	6
+257	1460	3641	ACC.1	label	ACC1		0.000	0	no_similar_token			15	2	0.400	6
+258	2792	3645	D1	label	D1		0.000	0	no_similar_token			20	2	0.400	6
+259	2256	3648	TMP.1	label	TMP1		0.000	0	ocr_low_conf			8	0	0.000	6
+260	3104	3652	D1_PAD	label	D1_PAD	D1	1.000	1	matched	0.0	0.0	0	0		0
+261	42	3674	CMRAM2	label	CMRAM2		0.000	0	no_similar_token			14	1	0.286	6
+262	398	3687	DCL.1	label	DCL1		0.000	0	ocr_low_conf			13	0	0.400	6
+263	2256	3733	~TMP.2	label	~TMP2	T	0.333	0	not_printed_near_point	63.2		21	2	0.333	6
+264	42	3753	CMRAM1	label	CMRAM1		0.000	0	no_similar_token			16	1	0.444	6
+265	1460	3759	ACC.2	label	ACC2		0.000	0	no_similar_token			16	2	0.400	6
+266	2256	3766	TMP.2	label	TMP2		0.000	0	no_similar_token			19	4	0.400	6
+267	398	3792	DCL.0	label	DCL0		0.000	0	ocr_low_conf			12	0	0.333	6
+268	42	3832	CMRAM0	label	CMRAM0	M-	0.250	0	not_printed_near_point	61.5		23	2	0.286	6
+269	2256	3852	~TMP.3	label	~TMP3		0.000	0	ocr_low_conf			6	0	0.000	6
+270	1460	3878	ACC.3	label	ACC3		0.000	0	not_printed_near_point			20	2	0.000	6
+271	2792	3879	D0	label	D0		0.000	0	not_printed_near_point			21	2	0.000	6
+272	2256	3885	TMP.3	label	TMP3		0.000	0	no_similar_token			13	1	0.400	6
+273	3104	3886	D0_PAD	label	D0_PAD	D0	1.000	1	matched	0.0	0.0	0	0		0
+274	42	3911	CMROM	label	CMROM		0.000	0	no_similar_token			19	3	0.333	6

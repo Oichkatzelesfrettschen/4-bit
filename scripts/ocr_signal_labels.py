@@ -123,12 +123,15 @@ def classify_no_match_reason(
     tokens_total: int,
     tokens_confident: int,
     max_similarity: float | None,
+    components_total: int | None = None,
 ) -> str:
     # Split "no_token" into actionable buckets:
     # - OCR returned nothing (likely too tiny / line removal ate it / wrong region)
     # - OCR returned tokens but all below confidence threshold (too tiny / noisy)
     # - OCR returned confident tokens, but none similar to expected (likely net-name not printed here)
     if tokens_total <= 0:
+        if components_total is not None and components_total <= 0:
+            return "no_text_components"
         return "ocr_no_tokens"
     if tokens_confident <= 0:
         return "ocr_low_conf"
@@ -636,6 +639,7 @@ def main() -> int:
             region_tokens_confident = 0
             region_max_similarity = None
             region_ocr_calls = 0
+            region_components_total = 0
 
             # Fast alias resolution (pin labels, D0/D1, etc) without doing full OCR.
             if alias_ok and is_short_alias(alias_ok):
@@ -702,6 +706,7 @@ def main() -> int:
                         c["orientation"] = orient
                         comps.append(c)
 
+                region_components_total = len(comps)
                 comps.sort(key=lambda c: (float(c.get("dist", 0.0)), -int(c.get("area", 0))))
                 comps = comps[: max(1, int(args.candidates))]
                 union_comps = build_union_candidates(comps)
@@ -762,13 +767,25 @@ def main() -> int:
                 if best_score >= args.min_score:
                     # alias already resolved
                     pass
-                psm_variants = [int(args.psm)]
+                # Pre-compute "is there any text-like blob in the base region?" to classify
+                # "OCR empty" vs "likely no label printed near this coordinate".
+                base_region_gray = crop_around(img, x=p.x, y=p.y, w=args.region_w, h=args.region_h).convert("L")
+                base_np = np.asarray(base_region_gray)
+                region_components_total = len(find_text_components_oriented(base_np, orientation="h")) + len(
+                    find_text_components_oriented(base_np, orientation="v")
+                )
+                # Region mode often contains multiple nearby labels; always try a small PSM set.
+                psm_variants = [int(args.psm), 6]
                 offset_variants = [(0, 0)]
-                rotation_variants = [(0, None)]
+                rotation_degs = [0]
                 if args.fallback:
                     psm_variants = [int(args.psm), 7, 11]
                     offset_variants = candidate_offsets(args.region_w, args.region_h)
-                    rotation_variants = [(deg, None) for deg in (0, 90, 180, 270)]
+                    rotation_degs = [0, 90, 180, 270]
+                else:
+                    # Cheap vertical-label assist: if the expected token contains letters, also try 90/270.
+                    if any(ch.isalpha() for ch in expected_norm):
+                        rotation_degs = [0, 90, 270]
 
                 for dx, dy in offset_variants:
                     if best_score >= args.min_score and not args.fallback:
@@ -784,7 +801,7 @@ def main() -> int:
                     px = p.x - region_left
                     py = p.y - region_top
 
-                    for deg, _ in rotation_variants:
+                    for deg in rotation_degs:
                         pre = pre0 if deg == 0 else pre0.rotate(deg, expand=True)
                         for psm in psm_variants:
                             region_ocr_calls += 1
@@ -850,12 +867,14 @@ def main() -> int:
                             tokens_total=region_tokens_total,
                             tokens_confident=region_tokens_confident,
                             max_similarity=region_max_similarity,
+                            components_total=region_components_total,
                         ),
                         "best_bbox_frame": best_bbox_frame,
                         "best_region_bbox": best_region_bbox,
                         "best_region_offset": list(best_region_offset) if best_region_offset is not None else None,
                         "best_region_rotation_deg": best_region_rotation_deg,
                         "best_region_psm": best_region_psm,
+                        "region_components_total": region_components_total,
                         "region_tokens_total": region_tokens_total,
                         "region_tokens_confident": region_tokens_confident,
                         "region_max_similarity": region_max_similarity,
@@ -896,7 +915,7 @@ def main() -> int:
             )
 
         # Save worst mismatches for inspection (deterministic ordering).
-        worst = [r for r in rows if r.get("reason") in ("ocr_no_tokens", "ocr_low_conf", "mismatch")]
+        worst = [r for r in rows if r.get("reason") in ("no_text_components", "ocr_no_tokens", "ocr_low_conf", "mismatch")]
         worst.sort(key=lambda r: (float(r.get("score", 0.0)), str(r.get("expected_norm", "")), int(r.get("idx", 0))))
         for r in worst[: max(0, int(args.save_mismatches))]:
             p = points[int(r["idx"])]
@@ -957,7 +976,7 @@ def main() -> int:
         out_json.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
         with out_tsv.open("w", encoding="utf-8", newline="") as f:
-            w = csv.writer(f, delimiter="\t")
+            w = csv.writer(f, delimiter="\t", lineterminator="\n")
             w.writerow(
                 [
                     "idx",

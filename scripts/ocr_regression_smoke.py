@@ -29,6 +29,20 @@ def main() -> int:
         shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # 0) Pure classification sanity: keep mismatch buckets stable for downstream metrics.
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from ocr_signal_labels import classify_no_match_reason  # noqa: E402
+
+    if (
+        classify_no_match_reason(tokens_total=0, tokens_confident=0, max_similarity=None, components_total=0)
+        != "no_text_components"
+    ):
+        sys.stderr.write("expected tokens_total=0/components_total=0 => no_text_components\n")
+        return 1
+    if classify_no_match_reason(tokens_total=0, tokens_confident=0, max_similarity=None, components_total=3) != "ocr_no_tokens":
+        sys.stderr.write("expected tokens_total=0/components_total>0 => ocr_no_tokens\n")
+        return 1
+
     # 1) Basic format/coordinate sanity on all signal maps.
     run([sys.executable, "scripts/verify_signals_txt.py", "--all", "--out", str(out_dir / "signals_txt_audit.json")])
 
@@ -67,4 +81,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

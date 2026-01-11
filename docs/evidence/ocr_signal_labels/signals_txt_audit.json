@@ -73,5 +73,11 @@
       "parse_errors": []
     }
   ],
+  "schema": {
+    "coordinates": "pixel",
+    "format": "x,y,name",
+    "indexing": "0-based",
+    "origin": "top-left"
+  },
   "tool": "scripts/verify_signals_txt.py"
 }

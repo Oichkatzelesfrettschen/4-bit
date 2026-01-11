@@ -1,6 +1,6 @@
 metadata:
   version: "1.0"
-  last_updated: "2026-01-07T20:00:21Z"
+  last_updated: "2026-01-11T00:36:40Z"
 
 docs:
   - file: README.md
@@ -54,6 +54,10 @@ docs:
   - file: docs/evidence/README.md
     role: evidence
   - file: docs/evidence/DIAGRAM_EXTRACTION.md
+    role: evidence
+  - file: docs/evidence/audit_claims_backlog.md
+    role: evidence
+  - file: docs/evidence/PRIMARY_SOURCES_BACKLOG.md
     role: evidence
   - file: docs/evidence/OCR_SIGNAL_LABELS.md
     role: evidence

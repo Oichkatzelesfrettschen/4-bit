@@ -1,9 +1,13 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-01-10
+**Last Updated:** 2026-01-11
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-11T00:36:40Z: Made `SRC` bus semantics more realistic by having the CPU drive chip/reg in X2 and char in X3,
+  and having 4002 latch those nibbles from the bus; added/validated end-to-end `.hex` fixture execution via `mcs4-emu --mode fixture`
+  (including ROM port input injection for `RDR`); extended evidence tooling with coordinate OCR verification (overlays + metrics + smoke test),
+  `signals.txt` coordinate sanity checks, and transistor candidate extraction metrics with analyzer cross-checks.
 - 2026-01-10T05:55:16Z: Added instruction-specific I/O decoding (`IoOp`) to avoid always-on RAM/ROM
   peripherals; moved read-oriented ops to X3; latched SRC into RAM selection; added end-to-end
   ROM fixtures (SRC/WRM/RDM + WRR/RDR) for both MCS-4 and MCS-40, including `.hex` fixture parsing;
@@ -30,7 +34,8 @@
   4004/4040 datasheets and MCS-4/MCS-40 manuals/specs, and captured 4004 netlist component
   counts from 4004.com analyzer readme.
 - 2026-01-07T03:19:41Z: Installed ocrmypdf/jbig2enc, OCR-scanned MCS-4/MCS-40 manuals and brochures, and updated audit/tooling docs with 4040 clock-period source and 4004 netlist counts.
-- 2026-01-06T20:25:27Z: Upgraded workspace to Rust edition 2024, resolved clippy collapsible-if warnings, and reran fmt/clippy/tests.
+- 2026-01-06T20:25:27Z: Attempted upgrade to Rust edition 2024; later reverted to workspace-wide Rust 2021 for stability/compatibility
+  (see repo root `rust-toolchain.toml` + INSTALLATION notes).
 - 2026-01-06T20:21:23Z: Added bitsavers source links to AUDIT, marked 4040 clock as derived from system period, and refreshed README/ROADMAP/CHANGELOG/INDEX/registry timestamps.
 - 2026-01-06T20:00:22Z: Installed go-yq + tesseract data, ran fmt/clippy/tests/doc validation,
   updated AUDIT with OCR clock-period citations, refreshed docs/README/install/development/

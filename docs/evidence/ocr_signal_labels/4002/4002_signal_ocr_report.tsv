@@ -1,51 +1,417 @@
 idx	x	y	expected	expected_kind	expected_norm	ocr_norm	score	ok	reason	best_conf	best_dist_px	region_tokens_total	region_tokens_confident	region_max_similarity	region_ocr_calls
-0	652	121	REG3.M2.0	label	REG3M20		0.000	0	ocr_no_tokens			0	0		1
-1	758	121	REG3.M10.0	label	REG3M100		0.000	0	ocr_no_tokens			0	0		1
-2	864	121	REG3.M3.0	label	REG3M30		0.000	0	ocr_no_tokens			0	0		1
-3	970	121	REG3.M11.0	label	REG3M110		0.000	0	ocr_no_tokens			0	0		1
-4	1076	121	REG3.M6.0	label	REG3M60		0.000	0	ocr_no_tokens			0	0		1
-5	1182	121	REG3.M14.0	label	REG3M140		0.000	0	ocr_no_tokens			0	0		1
-6	1288	121	REG3.M7.0	label	REG3M70		0.000	0	ocr_no_tokens			0	0		1
-7	1394	121	REG3.M15.0	label	REG3M150		0.000	0	ocr_no_tokens			0	0		1
-8	1500	121	REG3.M0.0	label	REG3M00		0.000	0	ocr_no_tokens			0	0		1
-9	1606	121	REG3.M8.0	label	REG3M80		0.000	0	ocr_no_tokens			0	0		1
-10	1712	121	REG3.M1.0	label	REG3M10		0.000	0	ocr_no_tokens			0	0		1
-11	1818	121	REG3.M9.0	label	REG3M90		0.000	0	ocr_no_tokens			0	0		1
-12	1924	121	REG3.M4.0	label	REG3M40		0.000	0	ocr_no_tokens			0	0		1
-13	2030	121	REG3.M12.0	label	REG3M120		0.000	0	ocr_no_tokens			0	0		1
-14	2136	121	REG3.M5.0	label	REG3M50		0.000	0	ocr_no_tokens			0	0		1
-15	2242	121	REG3.M13.0	label	REG3M130		0.000	0	ocr_no_tokens			0	0		1
-16	2348	121	REG3.S1.0	label	REG3S10		0.000	0	ocr_no_tokens			0	0		1
-17	2454	121	REG3.S2.0	label	REG3S20		0.000	0	ocr_no_tokens			0	0		1
-18	2560	121	REG3.S0.0	label	REG3S00		0.000	0	ocr_no_tokens			0	0		1
-19	2666	121	REG3.S3.0	label	REG3S30		0.000	0	ocr_no_tokens			0	0		1
+0	652	121	REG3.M2.0	label	REG3M20		0.000	0	no_similar_token			21	2	0.250	6
+1	758	121	REG3.M10.0	label	REG3M100		0.000	0	ocr_low_conf			13	0	0.308	6
+2	864	121	REG3.M3.0	label	REG3M30	0	0.250	0	not_printed_near_point	60.3		10	1	0.333	6
+3	970	121	REG3.M11.0	label	REG3M110		0.000	0	ocr_low_conf			10	0	0.353	6
+4	1076	121	REG3.M6.0	label	REG3M60		0.000	0	ocr_low_conf			10	0	0.375	6
+5	1182	121	REG3.M14.0	label	REG3M140		0.000	0	ocr_low_conf			10	0	0.353	6
+6	1288	121	REG3.M7.0	label	REG3M70		0.000	0	ocr_low_conf			10	0	0.375	6
+7	1394	121	REG3.M15.0	label	REG3M150		0.000	0	ocr_low_conf			10	0	0.353	6
+8	1500	121	REG3.M0.0	label	REG3M00		0.000	0	ocr_low_conf			10	0	0.375	6
+9	1606	121	REG3.M8.0	label	REG3M80		0.000	0	ocr_low_conf			10	0	0.375	6
+10	1712	121	REG3.M1.0	label	REG3M10		0.000	0	ocr_low_conf			10	0	0.375	6
+11	1818	121	REG3.M9.0	label	REG3M90		0.000	0	ocr_low_conf			10	0	0.375	6
+12	1924	121	REG3.M4.0	label	REG3M40		0.000	0	ocr_low_conf			10	0	0.375	6
+13	2030	121	REG3.M12.0	label	REG3M120		0.000	0	ocr_low_conf			10	0	0.353	6
+14	2136	121	REG3.M5.0	label	REG3M50		0.000	0	ocr_low_conf			10	0	0.375	6
+15	2242	121	REG3.M13.0	label	REG3M130		0.000	0	ocr_low_conf			10	0	0.353	6
+16	2348	121	REG3.S1.0	label	REG3S10		0.000	0	ocr_low_conf			10	0	0.375	6
+17	2454	121	REG3.S2.0	label	REG3S20		0.000	0	ocr_low_conf			10	0	0.200	6
+18	2560	121	REG3.S0.0	label	REG3S00		0.000	0	ocr_low_conf			10	0	0.308	6
+19	2666	121	REG3.S3.0	label	REG3S30		0.000	0	no_similar_token			13	1	0.250	6
 20	30	153	D0_PAD	label	D0_PAD	D0	1.000	1	matched	0.0	0.0	0	0		0
-21	3182	168	OUT0	label	OUT0		0.000	0	ocr_low_conf			3	0	0.500	1
-22	652	193	REG3.M2.1	label	REG3M21		0.000	0	ocr_no_tokens			0	0		1
-23	758	193	REG3.M10.1	label	REG3M101		0.000	0	ocr_no_tokens			0	0		1
-24	864	193	REG3.M3.1	label	REG3M31		0.000	0	ocr_no_tokens			0	0		1
-25	970	193	REG3.M11.1	label	REG3M111		0.000	0	ocr_no_tokens			0	0		1
-26	1076	193	REG3.M6.1	label	REG3M61		0.000	0	ocr_no_tokens			0	0		1
-27	1182	193	REG3.M14.1	label	REG3M141		0.000	0	ocr_no_tokens			0	0		1
-28	1288	193	REG3.M7.1	label	REG3M71		0.000	0	ocr_no_tokens			0	0		1
-29	1394	193	REG3.M15.1	label	REG3M151		0.000	0	ocr_no_tokens			0	0		1
-30	1500	193	REG3.M0.1	label	REG3M01		0.000	0	ocr_no_tokens			0	0		1
-31	1606	193	REG3.M8.1	label	REG3M81		0.000	0	ocr_no_tokens			0	0		1
-32	1712	193	REG3.M1.1	label	REG3M11		0.000	0	ocr_no_tokens			0	0		1
-33	1818	193	REG3.M9.1	label	REG3M91		0.000	0	ocr_no_tokens			0	0		1
-34	1924	193	REG3.M4.1	label	REG3M41		0.000	0	ocr_no_tokens			0	0		1
-35	2030	193	REG3.M12.1	label	REG3M121		0.000	0	ocr_no_tokens			0	0		1
-36	2136	193	REG3.M5.1	label	REG3M51		0.000	0	ocr_no_tokens			0	0		1
-37	2242	193	REG3.M13.1	label	REG3M131		0.000	0	ocr_no_tokens			0	0		1
-38	2348	193	REG3.S1.1	label	REG3S11		0.000	0	ocr_no_tokens			0	0		1
-39	2454	193	REG3.S2.1	label	REG3S21		0.000	0	ocr_no_tokens			0	0		1
-40	2560	193	REG3.S0.1	label	REG3S01		0.000	0	ocr_no_tokens			0	0		1
-41	2666	193	REG3.S3.1	label	REG3S31		0.000	0	ocr_no_tokens			0	0		1
-42	242	219	D0	label	D0		0.000	0	ocr_no_tokens			0	0		1
-43	652	265	REG3.M2.2	label	REG3M22		0.000	0	ocr_no_tokens			0	0		1
-44	758	265	REG3.M10.2	label	REG3M102		0.000	0	ocr_no_tokens			0	0		1
-45	864	265	REG3.M3.2	label	REG3M32		0.000	0	ocr_no_tokens			0	0		1
-46	970	265	REG3.M11.2	label	REG3M112		0.000	0	ocr_no_tokens			0	0		1
-47	1076	265	REG3.M6.2	label	REG3M62		0.000	0	ocr_no_tokens			0	0		1
-48	1182	265	REG3.M14.2	label	REG3M142		0.000	0	ocr_no_tokens			0	0		1
-49	1288	265	REG3.M7.2	label	REG3M72		0.000	0	ocr_no_tokens			0	0		1
+21	3182	168	OUT0	label	OUT0		0.000	0	no_similar_token			30	8	0.500	6
+22	652	193	REG3.M2.1	label	REG3M21		0.000	0	ocr_low_conf			6	0	0.222	6
+23	758	193	REG3.M10.1	label	REG3M101		0.000	0	no_similar_token			12	1	0.222	6
+24	864	193	REG3.M3.1	label	REG3M31		0.000	0	ocr_low_conf			15	0	0.250	6
+25	970	193	REG3.M11.1	label	REG3M111		0.000	0	ocr_low_conf			16	0	0.353	6
+26	1076	193	REG3.M6.1	label	REG3M61		0.000	0	ocr_low_conf			16	0	0.375	6
+27	1182	193	REG3.M14.1	label	REG3M141		0.000	0	ocr_low_conf			16	0	0.353	6
+28	1288	193	REG3.M7.1	label	REG3M71		0.000	0	ocr_low_conf			16	0	0.375	6
+29	1394	193	REG3.M15.1	label	REG3M151		0.000	0	ocr_low_conf			16	0	0.353	6
+30	1500	193	REG3.M0.1	label	REG3M01		0.000	0	ocr_low_conf			16	0	0.375	6
+31	1606	193	REG3.M8.1	label	REG3M81		0.000	0	ocr_low_conf			16	0	0.375	6
+32	1712	193	REG3.M1.1	label	REG3M11		0.000	0	ocr_low_conf			16	0	0.375	6
+33	1818	193	REG3.M9.1	label	REG3M91		0.000	0	ocr_low_conf			16	0	0.375	6
+34	1924	193	REG3.M4.1	label	REG3M41		0.000	0	ocr_low_conf			16	0	0.375	6
+35	2030	193	REG3.M12.1	label	REG3M121		0.000	0	ocr_low_conf			16	0	0.353	6
+36	2136	193	REG3.M5.1	label	REG3M51		0.000	0	ocr_low_conf			16	0	0.375	6
+37	2242	193	REG3.M13.1	label	REG3M131		0.000	0	ocr_low_conf			16	0	0.353	6
+38	2348	193	REG3.S1.1	label	REG3S11		0.000	0	ocr_low_conf			16	0	0.375	6
+39	2454	193	REG3.S2.1	label	REG3S21		0.000	0	ocr_low_conf			26	0	0.250	6
+40	2560	193	REG3.S0.1	label	REG3S01		0.000	0	ocr_low_conf			12	0	0.250	6
+41	2666	193	REG3.S3.1	label	REG3S31	1	0.250	0	not_printed_near_point	72.3		15	2	0.250	6
+42	242	219	D0	label	D0		0.000	0	ocr_low_conf			17	0	0.000	6
+43	652	265	REG3.M2.2	label	REG3M22		0.000	0	no_similar_token			16	2	0.143	6
+44	758	265	REG3.M10.2	label	REG3M102		0.000	0	ocr_low_conf			17	0	0.200	6
+45	864	265	REG3.M3.2	label	REG3M32		0.000	0	ocr_low_conf			12	0	0.308	6
+46	970	265	REG3.M11.2	label	REG3M112		0.000	0	ocr_low_conf			12	0	0.353	6
+47	1076	265	REG3.M6.2	label	REG3M62		0.000	0	ocr_low_conf			12	0	0.375	6
+48	1182	265	REG3.M14.2	label	REG3M142		0.000	0	ocr_low_conf			12	0	0.353	6
+49	1288	265	REG3.M7.2	label	REG3M72		0.000	0	ocr_low_conf			12	0	0.375	6
+50	1394	265	REG3.M15.2	label	REG3M152		0.000	0	ocr_low_conf			12	0	0.353	6
+51	1500	265	REG3.M0.2	label	REG3M02		0.000	0	ocr_low_conf			12	0	0.375	6
+52	1606	265	REG3.M8.2	label	REG3M82		0.000	0	ocr_low_conf			12	0	0.375	6
+53	1712	265	REG3.M1.2	label	REG3M12		0.000	0	ocr_low_conf			12	0	0.375	6
+54	1818	265	REG3.M9.2	label	REG3M92		0.000	0	ocr_low_conf			12	0	0.375	6
+55	1924	265	REG3.M4.2	label	REG3M42		0.000	0	ocr_low_conf			12	0	0.375	6
+56	2030	265	REG3.M12.2	label	REG3M122		0.000	0	ocr_low_conf			12	0	0.353	6
+57	2136	265	REG3.M5.2	label	REG3M52		0.000	0	ocr_low_conf			12	0	0.375	6
+58	2242	265	REG3.M13.2	label	REG3M132		0.000	0	ocr_low_conf			12	0	0.353	6
+59	2348	265	REG3.S1.2	label	REG3S12		0.000	0	ocr_low_conf			12	0	0.375	6
+60	2454	265	REG3.S2.2	label	REG3S22		0.000	0	ocr_low_conf			13	0	0.250	6
+61	2560	265	REG3.S0.2	label	REG3S02		0.000	0	ocr_low_conf			11	0	0.250	6
+62	2666	265	REG3.S3.2	label	REG3S32		0.000	0	no_similar_token			14	1	0.286	6
+63	3182	326	OUT1	label	OUT1	4_1	0.286	0	not_printed_near_point	61.3		31	8	0.400	6
+64	652	337	REG3.M2.3	label	REG3M23		0.000	0	ocr_low_conf			14	0	0.286	6
+65	758	337	REG3.M10.3	label	REG3M103	3	0.222	0	not_printed_near_point	76.7		20	1	0.222	6
+66	864	337	REG3.M3.3	label	REG3M33		0.000	0	ocr_low_conf			12	0	0.462	6
+67	970	337	REG3.M11.3	label	REG3M113		0.000	0	ocr_low_conf			12	0	0.353	6
+68	1076	337	REG3.M6.3	label	REG3M63		0.000	0	ocr_low_conf			12	0	0.375	6
+69	1182	337	REG3.M14.3	label	REG3M143		0.000	0	ocr_low_conf			12	0	0.353	6
+70	1288	337	REG3.M7.3	label	REG3M73		0.000	0	ocr_low_conf			12	0	0.375	6
+71	1394	337	REG3.M15.3	label	REG3M153		0.000	0	ocr_low_conf			12	0	0.353	6
+72	1500	337	REG3.M0.3	label	REG3M03		0.000	0	ocr_low_conf			12	0	0.375	6
+73	1606	337	REG3.M8.3	label	REG3M83		0.000	0	ocr_low_conf			12	0	0.375	6
+74	1712	337	REG3.M1.3	label	REG3M13		0.000	0	ocr_low_conf			12	0	0.375	6
+75	1818	337	REG3.M9.3	label	REG3M93		0.000	0	ocr_low_conf			12	0	0.375	6
+76	1924	337	REG3.M4.3	label	REG3M43		0.000	0	ocr_low_conf			12	0	0.375	6
+77	2030	337	REG3.M12.3	label	REG3M123		0.000	0	ocr_low_conf			12	0	0.353	6
+78	2136	337	REG3.M5.3	label	REG3M53		0.000	0	ocr_low_conf			12	0	0.375	6
+79	2242	337	REG3.M13.3	label	REG3M133		0.000	0	ocr_low_conf			12	0	0.353	6
+80	2348	337	REG3.S1.3	label	REG3S13		0.000	0	ocr_low_conf			12	0	0.375	6
+81	2454	337	REG3.S2.3	label	REG3S23		0.000	0	ocr_low_conf			13	0	0.250	6
+82	2560	337	REG3.S0.3	label	REG3S03		0.000	0	ocr_low_conf			10	0	0.250	6
+83	2666	337	REG3.S3.3	label	REG3S33		0.000	0	no_similar_token			13	1	0.429	6
+84	30	391	D1_PAD	label	D1_PAD	D1	1.000	1	matched	0.0	0.0	0	0		0
+85	652	409	REG2.M2.0	label	REG2M20		0.000	0	ocr_low_conf			11	0	0.222	6
+86	758	409	REG2.M10.0	label	REG2M100		0.000	0	ocr_low_conf			12	0	0.200	6
+87	864	409	REG2.M3.0	label	REG2M30		0.000	0	ocr_low_conf			12	0	0.308	6
+88	970	409	REG2.M11.0	label	REG2M110		0.000	0	ocr_low_conf			12	0	0.353	6
+89	1076	409	REG2.M6.0	label	REG2M60		0.000	0	ocr_low_conf			12	0	0.375	6
+90	1182	409	REG2.M14.0	label	REG2M140		0.000	0	ocr_low_conf			12	0	0.353	6
+91	1288	409	REG2.M7.0	label	REG2M70		0.000	0	ocr_low_conf			12	0	0.375	6
+92	1394	409	REG2.M15.0	label	REG2M150		0.000	0	ocr_low_conf			12	0	0.353	6
+93	1500	409	REG2.M0.0	label	REG2M00		0.000	0	ocr_low_conf			12	0	0.375	6
+94	1606	409	REG2.M8.0	label	REG2M80		0.000	0	ocr_low_conf			12	0	0.375	6
+95	1712	409	REG2.M1.0	label	REG2M10		0.000	0	ocr_low_conf			12	0	0.375	6
+96	1818	409	REG2.M9.0	label	REG2M90		0.000	0	ocr_low_conf			12	0	0.375	6
+97	1924	409	REG2.M4.0	label	REG2M40		0.000	0	ocr_low_conf			12	0	0.375	6
+98	2030	409	REG2.M12.0	label	REG2M120		0.000	0	ocr_low_conf			12	0	0.353	6
+99	2136	409	REG2.M5.0	label	REG2M50		0.000	0	ocr_low_conf			12	0	0.375	6
+100	2242	409	REG2.M13.0	label	REG2M130		0.000	0	ocr_low_conf			12	0	0.353	6
+101	2348	409	REG2.S1.0	label	REG2S10		0.000	0	ocr_low_conf			12	0	0.375	6
+102	2454	409	REG2.S2.0	label	REG2S20		0.000	0	ocr_low_conf			13	0	0.250	6
+103	2560	409	REG2.S0.0	label	REG2S00		0.000	0	ocr_low_conf			10	0	0.250	6
+104	2666	409	REG2.S3.0	label	REG2S30		0.000	0	no_similar_token			14	2	0.250	6
+105	242	457	D1	label	D1	1	0.667	0	mismatch	70.3		17	2	0.667	6
+106	652	481	REG2.M2.1	label	REG2M21		0.000	0	no_similar_token			16	1	0.250	6
+107	758	481	REG2.M10.1	label	REG2M101		0.000	0	no_similar_token			23	2	0.364	6
+108	864	481	REG2.M3.1	label	REG2M31		0.000	0	ocr_low_conf			12	0	0.308	6
+109	970	481	REG2.M11.1	label	REG2M111		0.000	0	ocr_low_conf			12	0	0.353	6
+110	1076	481	REG2.M6.1	label	REG2M61		0.000	0	ocr_low_conf			12	0	0.375	6
+111	1182	481	REG2.M14.1	label	REG2M141		0.000	0	ocr_low_conf			12	0	0.353	6
+112	1288	481	REG2.M7.1	label	REG2M71		0.000	0	ocr_low_conf			12	0	0.375	6
+113	1394	481	REG2.M15.1	label	REG2M151		0.000	0	ocr_low_conf			12	0	0.353	6
+114	1500	481	REG2.M0.1	label	REG2M01		0.000	0	ocr_low_conf			12	0	0.375	6
+115	1606	481	REG2.M8.1	label	REG2M81		0.000	0	ocr_low_conf			12	0	0.375	6
+116	1712	481	REG2.M1.1	label	REG2M11		0.000	0	ocr_low_conf			12	0	0.375	6
+117	1818	481	REG2.M9.1	label	REG2M91		0.000	0	ocr_low_conf			12	0	0.375	6
+118	1924	481	REG2.M4.1	label	REG2M41		0.000	0	ocr_low_conf			12	0	0.375	6
+119	2030	481	REG2.M12.1	label	REG2M121		0.000	0	ocr_low_conf			12	0	0.353	6
+120	2136	481	REG2.M5.1	label	REG2M51		0.000	0	ocr_low_conf			12	0	0.375	6
+121	2242	481	REG2.M13.1	label	REG2M131		0.000	0	ocr_low_conf			12	0	0.353	6
+122	2348	481	REG2.S1.1	label	REG2S11		0.000	0	ocr_low_conf			12	0	0.375	6
+123	2454	481	REG2.S2.1	label	REG2S21		0.000	0	ocr_low_conf			13	0	0.250	6
+124	2560	481	REG2.S0.1	label	REG2S01		0.000	0	ocr_low_conf			10	0	0.250	6
+125	2666	481	REG2.S3.1	label	REG2S31		0.000	0	no_similar_token			13	1	0.250	6
+126	3182	484	OUT2	label	OUT2	O	0.400	0	mismatch	85.3		33	10	0.400	6
+127	652	553	REG2.M2.2	label	REG2M22		0.000	0	ocr_low_conf			13	0	0.222	6
+128	758	553	REG2.M10.2	label	REG2M102		0.000	0	ocr_low_conf			17	0	0.200	6
+129	864	553	REG2.M3.2	label	REG2M32		0.000	0	ocr_low_conf			12	0	0.308	6
+130	970	553	REG2.M11.2	label	REG2M112		0.000	0	ocr_low_conf			12	0	0.353	6
+131	1076	553	REG2.M6.2	label	REG2M62		0.000	0	ocr_low_conf			12	0	0.375	6
+132	1182	553	REG2.M14.2	label	REG2M142		0.000	0	ocr_low_conf			12	0	0.353	6
+133	1288	553	REG2.M7.2	label	REG2M72		0.000	0	ocr_low_conf			12	0	0.375	6
+134	1394	553	REG2.M15.2	label	REG2M152		0.000	0	ocr_low_conf			12	0	0.353	6
+135	1500	553	REG2.M0.2	label	REG2M02		0.000	0	ocr_low_conf			12	0	0.375	6
+136	1606	553	REG2.M8.2	label	REG2M82		0.000	0	ocr_low_conf			12	0	0.375	6
+137	1712	553	REG2.M1.2	label	REG2M12		0.000	0	ocr_low_conf			12	0	0.375	6
+138	1818	553	REG2.M9.2	label	REG2M92		0.000	0	ocr_low_conf			12	0	0.375	6
+139	1924	553	REG2.M4.2	label	REG2M42		0.000	0	ocr_low_conf			12	0	0.375	6
+140	2030	553	REG2.M12.2	label	REG2M122		0.000	0	ocr_low_conf			12	0	0.353	6
+141	2136	553	REG2.M5.2	label	REG2M52		0.000	0	ocr_low_conf			12	0	0.375	6
+142	2242	553	REG2.M13.2	label	REG2M132		0.000	0	ocr_low_conf			12	0	0.353	6
+143	2348	553	REG2.S1.2	label	REG2S12		0.000	0	ocr_low_conf			12	0	0.375	6
+144	2454	553	REG2.S2.2	label	REG2S22		0.000	0	ocr_low_conf			13	0	0.250	6
+145	2560	553	REG2.S0.2	label	REG2S02		0.000	0	ocr_low_conf			11	0	0.250	6
+146	2666	553	REG2.S3.2	label	REG2S32		0.000	0	no_similar_token			14	1	0.250	6
+147	652	625	REG2.M2.3	label	REG2M23	3	0.250	0	not_printed_near_point	76.7		16	1	0.250	6
+148	758	625	REG2.M10.3	label	REG2M103	3	0.222	0	not_printed_near_point	76.7		20	1	0.222	6
+149	864	625	REG2.M3.3	label	REG2M33		0.000	0	ocr_low_conf			12	0	0.462	6
+150	970	625	REG2.M11.3	label	REG2M113		0.000	0	ocr_low_conf			12	0	0.353	6
+151	1076	625	REG2.M6.3	label	REG2M63		0.000	0	ocr_low_conf			12	0	0.375	6
+152	1182	625	REG2.M14.3	label	REG2M143		0.000	0	ocr_low_conf			12	0	0.353	6
+153	1288	625	REG2.M7.3	label	REG2M73		0.000	0	ocr_low_conf			12	0	0.375	6
+154	1394	625	REG2.M15.3	label	REG2M153		0.000	0	ocr_low_conf			12	0	0.353	6
+155	1500	625	REG2.M0.3	label	REG2M03		0.000	0	ocr_low_conf			12	0	0.375	6
+156	1606	625	REG2.M8.3	label	REG2M83		0.000	0	ocr_low_conf			12	0	0.375	6
+157	1712	625	REG2.M1.3	label	REG2M13		0.000	0	ocr_low_conf			12	0	0.375	6
+158	1818	625	REG2.M9.3	label	REG2M93		0.000	0	ocr_low_conf			12	0	0.375	6
+159	1924	625	REG2.M4.3	label	REG2M43		0.000	0	ocr_low_conf			12	0	0.375	6
+160	2030	625	REG2.M12.3	label	REG2M123		0.000	0	ocr_low_conf			12	0	0.353	6
+161	2136	625	REG2.M5.3	label	REG2M53		0.000	0	ocr_low_conf			12	0	0.375	6
+162	2242	625	REG2.M13.3	label	REG2M133		0.000	0	ocr_low_conf			12	0	0.353	6
+163	2348	625	REG2.S1.3	label	REG2S13		0.000	0	ocr_low_conf			12	0	0.375	6
+164	2454	625	REG2.S2.3	label	REG2S23		0.000	0	ocr_low_conf			13	0	0.250	6
+165	2560	625	REG2.S0.3	label	REG2S03		0.000	0	ocr_low_conf			12	0	0.250	6
+166	2666	625	REG2.S3.3	label	REG2S33		0.000	0	no_similar_token			12	1	0.286	6
+167	30	629	D2_PAD	label	D2_PAD	D2	1.000	1	matched	0.0	0.0	0	0		0
+168	3182	642	OUT3	label	OUT3	3	0.400	0	mismatch	89.0		24	5	0.400	6
+169	242	695	D2	label	D2		0.000	0	ocr_low_conf			9	0	0.500	6
+170	652	697	REG1.M2.0	label	REG1M20		0.000	0	ocr_low_conf			11	0	0.200	6
+171	758	697	REG1.M10.0	label	REG1M100		0.000	0	ocr_low_conf			12	0	0.200	6
+172	864	697	REG1.M3.0	label	REG1M30		0.000	0	ocr_low_conf			12	0	0.182	6
+173	970	697	REG1.M11.0	label	REG1M110		0.000	0	ocr_low_conf			12	0	0.353	6
+174	1076	697	REG1.M6.0	label	REG1M60		0.000	0	ocr_low_conf			12	0	0.375	6
+175	1182	697	REG1.M14.0	label	REG1M140		0.000	0	ocr_low_conf			12	0	0.353	6
+176	1288	697	REG1.M7.0	label	REG1M70		0.000	0	ocr_low_conf			12	0	0.375	6
+177	1394	697	REG1.M15.0	label	REG1M150		0.000	0	ocr_low_conf			12	0	0.353	6
+178	1500	697	REG1.M0.0	label	REG1M00		0.000	0	ocr_low_conf			12	0	0.375	6
+179	1606	697	REG1.M8.0	label	REG1M80		0.000	0	ocr_low_conf			12	0	0.375	6
+180	1712	697	REG1.M1.0	label	REG1M10		0.000	0	ocr_low_conf			12	0	0.375	6
+181	1818	697	REG1.M9.0	label	REG1M90		0.000	0	ocr_low_conf			12	0	0.375	6
+182	1924	697	REG1.M4.0	label	REG1M40		0.000	0	ocr_low_conf			12	0	0.375	6
+183	2030	697	REG1.M12.0	label	REG1M120		0.000	0	ocr_low_conf			12	0	0.353	6
+184	2136	697	REG1.M5.0	label	REG1M50		0.000	0	ocr_low_conf			12	0	0.375	6
+185	2242	697	REG1.M13.0	label	REG1M130		0.000	0	ocr_low_conf			12	0	0.353	6
+186	2348	697	REG1.S1.0	label	REG1S10		0.000	0	ocr_low_conf			12	0	0.375	6
+187	2454	697	REG1.S2.0	label	REG1S20		0.000	0	ocr_low_conf			13	0	0.250	6
+188	2560	697	REG1.S0.0	label	REG1S00		0.000	0	ocr_low_conf			11	0	0.250	6
+189	2666	697	REG1.S3.0	label	REG1S30		0.000	0	no_similar_token			12	1	0.250	6
+190	652	769	REG1.M2.1	label	REG1M21		0.000	0	ocr_low_conf			13	0	0.222	6
+191	758	769	REG1.M10.1	label	REG1M101		0.000	0	no_similar_token			23	2	0.364	6
+192	864	769	REG1.M3.1	label	REG1M31		0.000	0	ocr_low_conf			12	0	0.182	6
+193	970	769	REG1.M11.1	label	REG1M111		0.000	0	ocr_low_conf			12	0	0.353	6
+194	1076	769	REG1.M6.1	label	REG1M61		0.000	0	ocr_low_conf			12	0	0.375	6
+195	1182	769	REG1.M14.1	label	REG1M141		0.000	0	ocr_low_conf			12	0	0.353	6
+196	1288	769	REG1.M7.1	label	REG1M71		0.000	0	ocr_low_conf			12	0	0.375	6
+197	1394	769	REG1.M15.1	label	REG1M151		0.000	0	ocr_low_conf			12	0	0.353	6
+198	1500	769	REG1.M0.1	label	REG1M01		0.000	0	ocr_low_conf			12	0	0.375	6
+199	1606	769	REG1.M8.1	label	REG1M81		0.000	0	ocr_low_conf			12	0	0.375	6
+200	1712	769	REG1.M1.1	label	REG1M11		0.000	0	ocr_low_conf			12	0	0.375	6
+201	1818	769	REG1.M9.1	label	REG1M91		0.000	0	ocr_low_conf			12	0	0.375	6
+202	1924	769	REG1.M4.1	label	REG1M41		0.000	0	ocr_low_conf			12	0	0.375	6
+203	2030	769	REG1.M12.1	label	REG1M121		0.000	0	ocr_low_conf			12	0	0.353	6
+204	2136	769	REG1.M5.1	label	REG1M51		0.000	0	ocr_low_conf			12	0	0.375	6
+205	2242	769	REG1.M13.1	label	REG1M131		0.000	0	ocr_low_conf			12	0	0.353	6
+206	2348	769	REG1.S1.1	label	REG1S11		0.000	0	ocr_low_conf			12	0	0.375	6
+207	2454	769	REG1.S2.1	label	REG1S21		0.000	0	ocr_low_conf			13	0	0.250	6
+208	2560	769	REG1.S0.1	label	REG1S01		0.000	0	ocr_low_conf			10	0	0.250	6
+209	2666	769	REG1.S3.1	label	REG1S31		0.000	0	no_similar_token			12	1	0.250	6
+210	652	841	REG1.M2.2	label	REG1M22		0.000	0	ocr_low_conf			9	0	0.250	6
+211	758	841	REG1.M10.2	label	REG1M102		0.000	0	ocr_low_conf			17	0	0.200	6
+212	864	841	REG1.M3.2	label	REG1M32		0.000	0	ocr_low_conf			12	0	0.308	6
+213	970	841	REG1.M11.2	label	REG1M112		0.000	0	ocr_low_conf			12	0	0.353	6
+214	1076	841	REG1.M6.2	label	REG1M62		0.000	0	ocr_low_conf			12	0	0.375	6
+215	1182	841	REG1.M14.2	label	REG1M142		0.000	0	ocr_low_conf			12	0	0.353	6
+216	1288	841	REG1.M7.2	label	REG1M72		0.000	0	ocr_low_conf			12	0	0.375	6
+217	1394	841	REG1.M15.2	label	REG1M152		0.000	0	ocr_low_conf			12	0	0.353	6
+218	1500	841	REG1.M0.2	label	REG1M02		0.000	0	ocr_low_conf			12	0	0.375	6
+219	1606	841	REG1.M8.2	label	REG1M82		0.000	0	ocr_low_conf			12	0	0.375	6
+220	1712	841	REG1.M1.2	label	REG1M12		0.000	0	ocr_low_conf			12	0	0.375	6
+221	1818	841	REG1.M9.2	label	REG1M92		0.000	0	ocr_low_conf			12	0	0.375	6
+222	1924	841	REG1.M4.2	label	REG1M42		0.000	0	ocr_low_conf			12	0	0.375	6
+223	2030	841	REG1.M12.2	label	REG1M122		0.000	0	ocr_low_conf			12	0	0.353	6
+224	2136	841	REG1.M5.2	label	REG1M52		0.000	0	ocr_low_conf			12	0	0.375	6
+225	2242	841	REG1.M13.2	label	REG1M132		0.000	0	ocr_low_conf			12	0	0.353	6
+226	2348	841	REG1.S1.2	label	REG1S12		0.000	0	ocr_low_conf			12	0	0.375	6
+227	2454	841	REG1.S2.2	label	REG1S22		0.000	0	ocr_low_conf			13	0	0.250	6
+228	2560	841	REG1.S0.2	label	REG1S02		0.000	0	ocr_low_conf			12	0	0.250	6
+229	2666	841	REG1.S3.2	label	REG1S32		0.000	0	no_similar_token			13	1	0.250	6
+230	30	867	D3_PAD	label	D3_PAD	D3	1.000	1	matched	0.0	0.0	0	0		0
+231	652	913	REG1.M2.3	label	REG1M23		0.000	0	ocr_low_conf			20	0	0.222	6
+232	758	913	REG1.M10.3	label	REG1M103	3	0.222	0	not_printed_near_point	76.7		20	1	0.222	6
+233	864	913	REG1.M3.3	label	REG1M33		0.000	0	ocr_low_conf			12	0	0.308	6
+234	970	913	REG1.M11.3	label	REG1M113		0.000	0	ocr_low_conf			12	0	0.353	6
+235	1076	913	REG1.M6.3	label	REG1M63		0.000	0	ocr_low_conf			12	0	0.375	6
+236	1182	913	REG1.M14.3	label	REG1M143		0.000	0	ocr_low_conf			12	0	0.353	6
+237	1288	913	REG1.M7.3	label	REG1M73		0.000	0	ocr_low_conf			12	0	0.375	6
+238	1394	913	REG1.M15.3	label	REG1M153		0.000	0	ocr_low_conf			12	0	0.353	6
+239	1500	913	REG1.M0.3	label	REG1M03		0.000	0	ocr_low_conf			12	0	0.375	6
+240	1606	913	REG1.M8.3	label	REG1M83		0.000	0	ocr_low_conf			12	0	0.375	6
+241	1712	913	REG1.M1.3	label	REG1M13		0.000	0	ocr_low_conf			12	0	0.375	6
+242	1818	913	REG1.M9.3	label	REG1M93		0.000	0	ocr_low_conf			12	0	0.375	6
+243	1924	913	REG1.M4.3	label	REG1M43		0.000	0	ocr_low_conf			12	0	0.375	6
+244	2030	913	REG1.M12.3	label	REG1M123		0.000	0	ocr_low_conf			12	0	0.353	6
+245	2136	913	REG1.M5.3	label	REG1M53		0.000	0	ocr_low_conf			12	0	0.375	6
+246	2242	913	REG1.M13.3	label	REG1M133		0.000	0	ocr_low_conf			12	0	0.353	6
+247	2348	913	REG1.S1.3	label	REG1S13		0.000	0	ocr_low_conf			12	0	0.375	6
+248	2454	913	REG1.S2.3	label	REG1S23		0.000	0	ocr_low_conf			13	0	0.250	6
+249	2560	913	REG1.S0.3	label	REG1S03		0.000	0	ocr_low_conf			12	0	0.250	6
+250	2666	913	REG1.S3.3	label	REG1S33		0.000	0	no_similar_token			12	1	0.286	6
+251	242	933	D3	label	D3		0.000	0	not_printed_near_point			20	3	0.000	6
+252	3148	948	[RESET]	label	RESET		0.000	0	not_printed_near_point			8	1	0.000	6
+253	652	985	REG0.M2.0	label	REG0M20		0.000	0	ocr_low_conf			17	0	0.222	6
+254	758	985	REG0.M10.0	label	REG0M100		0.000	0	ocr_low_conf			12	0	0.200	6
+255	864	985	REG0.M3.0	label	REG0M30		0.000	0	ocr_low_conf			12	0	0.182	6
+256	970	985	REG0.M11.0	label	REG0M110		0.000	0	ocr_low_conf			12	0	0.353	6
+257	1076	985	REG0.M6.0	label	REG0M60		0.000	0	ocr_low_conf			12	0	0.375	6
+258	1182	985	REG0.M14.0	label	REG0M140		0.000	0	ocr_low_conf			12	0	0.353	6
+259	1288	985	REG0.M7.0	label	REG0M70		0.000	0	ocr_low_conf			12	0	0.375	6
+260	1394	985	REG0.M15.0	label	REG0M150		0.000	0	ocr_low_conf			12	0	0.353	6
+261	1500	985	REG0.M0.0	label	REG0M00		0.000	0	ocr_low_conf			12	0	0.375	6
+262	1606	985	REG0.M8.0	label	REG0M80		0.000	0	ocr_low_conf			12	0	0.375	6
+263	1712	985	REG0.M1.0	label	REG0M10		0.000	0	ocr_low_conf			12	0	0.375	6
+264	1818	985	REG0.M9.0	label	REG0M90		0.000	0	ocr_low_conf			12	0	0.375	6
+265	1924	985	REG0.M4.0	label	REG0M40		0.000	0	ocr_low_conf			12	0	0.375	6
+266	2030	985	REG0.M12.0	label	REG0M120		0.000	0	ocr_low_conf			12	0	0.353	6
+267	2136	985	REG0.M5.0	label	REG0M50		0.000	0	ocr_low_conf			12	0	0.375	6
+268	2242	985	REG0.M13.0	label	REG0M130		0.000	0	ocr_low_conf			12	0	0.353	6
+269	2348	985	REG0.S1.0	label	REG0S10		0.000	0	ocr_low_conf			12	0	0.375	6
+270	2454	985	REG0.S2.0	label	REG0S20		0.000	0	ocr_low_conf			13	0	0.250	6
+271	2560	985	REG0.S0.0	label	REG0S00		0.000	0	ocr_low_conf			13	0	0.250	6
+272	2666	985	REG0.S3.0	label	REG0S30		0.000	0	no_similar_token			10	1	0.222	6
+273	652	1057	REG0.M2.1	label	REG0M21		0.000	0	ocr_low_conf			16	0	0.182	6
+274	758	1057	REG0.M10.1	label	REG0M101		0.000	0	no_similar_token			23	2	0.364	6
+275	864	1057	REG0.M3.1	label	REG0M31		0.000	0	ocr_low_conf			12	0	0.182	6
+276	970	1057	REG0.M11.1	label	REG0M111		0.000	0	ocr_low_conf			12	0	0.353	6
+277	1076	1057	REG0.M6.1	label	REG0M61		0.000	0	ocr_low_conf			12	0	0.375	6
+278	1182	1057	REG0.M14.1	label	REG0M141		0.000	0	ocr_low_conf			12	0	0.353	6
+279	1288	1057	REG0.M7.1	label	REG0M71		0.000	0	ocr_low_conf			12	0	0.375	6
+280	1394	1057	REG0.M15.1	label	REG0M151		0.000	0	ocr_low_conf			12	0	0.353	6
+281	1500	1057	REG0.M0.1	label	REG0M01		0.000	0	ocr_low_conf			12	0	0.375	6
+282	1606	1057	REG0.M8.1	label	REG0M81		0.000	0	ocr_low_conf			12	0	0.375	6
+283	1712	1057	REG0.M1.1	label	REG0M11		0.000	0	ocr_low_conf			12	0	0.375	6
+284	1818	1057	REG0.M9.1	label	REG0M91		0.000	0	ocr_low_conf			12	0	0.375	6
+285	1924	1057	REG0.M4.1	label	REG0M41		0.000	0	ocr_low_conf			12	0	0.375	6
+286	2030	1057	REG0.M12.1	label	REG0M121		0.000	0	ocr_low_conf			12	0	0.353	6
+287	2136	1057	REG0.M5.1	label	REG0M51		0.000	0	ocr_low_conf			12	0	0.375	6
+288	2242	1057	REG0.M13.1	label	REG0M131		0.000	0	ocr_low_conf			12	0	0.353	6
+289	2348	1057	REG0.S1.1	label	REG0S11		0.000	0	ocr_low_conf			12	0	0.375	6
+290	2454	1057	REG0.S2.1	label	REG0S21		0.000	0	ocr_low_conf			13	0	0.250	6
+291	2560	1057	REG0.S0.1	label	REG0S01		0.000	0	ocr_low_conf			12	0	0.250	6
+292	2666	1057	REG0.S3.1	label	REG0S31		0.000	0	no_similar_token			10	1	0.250	6
+293	3148	1088	CLK1&(M11+X11)	expression	CLK1&(M11+X11)		0.000	0	skipped_expression			0	0		0
+294	652	1129	REG0.M2.2	label	REG0M22		0.000	0	no_similar_token			14	1	0.222	6
+295	758	1129	REG0.M10.2	label	REG0M102		0.000	0	ocr_low_conf			11	0	0.267	6
+296	864	1129	REG0.M3.2	label	REG0M32		0.000	0	ocr_low_conf			17	0	0.250	6
+297	970	1129	REG0.M11.2	label	REG0M112		0.000	0	ocr_low_conf			12	0	0.133	6
+298	1076	1129	REG0.M6.2	label	REG0M62		0.000	0	ocr_low_conf			12	0	0.111	6
+299	1182	1129	REG0.M14.2	label	REG0M142		0.000	0	ocr_low_conf			12	0	0.133	6
+300	1288	1129	REG0.M7.2	label	REG0M72		0.000	0	ocr_low_conf			12	0	0.143	6
+301	1394	1129	REG0.M15.2	label	REG0M152		0.000	0	ocr_low_conf			12	0	0.267	6
+302	1500	1129	REG0.M0.2	label	REG0M02		0.000	0	ocr_low_conf			12	0	0.111	6
+303	1606	1129	REG0.M8.2	label	REG0M82		0.000	0	ocr_low_conf			12	0	0.111	6
+304	1712	1129	REG0.M1.2	label	REG0M12		0.000	0	ocr_low_conf			12	0	0.143	6
+305	1818	1129	REG0.M9.2	label	REG0M92		0.000	0	ocr_low_conf			12	0	0.111	6
+306	1924	1129	REG0.M4.2	label	REG0M42		0.000	0	ocr_low_conf			12	0	0.111	6
+307	2030	1129	REG0.M12.2	label	REG0M122		0.000	0	ocr_low_conf			12	0	0.133	6
+308	2136	1129	REG0.M5.2	label	REG0M52		0.000	0	ocr_low_conf			12	0	0.143	6
+309	2242	1129	REG0.M13.2	label	REG0M132		0.000	0	ocr_low_conf			12	0	0.267	6
+310	2348	1129	REG0.S1.2	label	REG0S12		0.000	0	ocr_low_conf			12	0	0.167	6
+311	2454	1129	REG0.S2.2	label	REG0S22		0.000	0	ocr_low_conf			19	0	0.364	6
+312	2560	1129	REG0.S0.2	label	REG0S02		0.000	0	ocr_low_conf			9	0	0.444	6
+313	2666	1129	REG0.S3.2	label	REG0S32		0.000	0	ocr_low_conf			10	0	0.308	6
+314	652	1201	REG0.M2.3	label	REG0M23		0.000	0	ocr_low_conf			21	0	0.364	6
+315	758	1201	REG0.M10.3	label	REG0M103		0.000	0	no_similar_token			24	2	0.222	6
+316	864	1201	REG0.M3.3	label	REG0M33		0.000	0	no_similar_token			20	4	0.200	6
+317	970	1201	REG0.M11.3	label	REG0M113		0.000	0	ocr_low_conf			10	0	0.200	6
+318	1076	1201	REG0.M6.3	label	REG0M63		0.000	0	ocr_low_conf			10	0	0.222	6
+319	1182	1201	REG0.M14.3	label	REG0M143		0.000	0	ocr_low_conf			10	0	0.200	6
+320	1288	1201	REG0.M7.3	label	REG0M73		0.000	0	ocr_low_conf			10	0	0.222	6
+321	1394	1201	REG0.M15.3	label	REG0M153		0.000	0	ocr_low_conf			10	0	0.200	6
+322	1500	1201	REG0.M0.3	label	REG0M03		0.000	0	ocr_low_conf			10	0	0.222	6
+323	1606	1201	REG0.M8.3	label	REG0M83		0.000	0	ocr_low_conf			10	0	0.222	6
+324	1712	1201	REG0.M1.3	label	REG0M13		0.000	0	ocr_low_conf			10	0	0.222	6
+325	1818	1201	REG0.M9.3	label	REG0M93		0.000	0	ocr_low_conf			10	0	0.222	6
+326	1924	1201	REG0.M4.3	label	REG0M43		0.000	0	ocr_low_conf			10	0	0.222	6
+327	2030	1201	REG0.M12.3	label	REG0M123		0.000	0	ocr_low_conf			10	0	0.200	6
+328	2136	1201	REG0.M5.3	label	REG0M53		0.000	0	ocr_low_conf			10	0	0.222	6
+329	2242	1201	REG0.M13.3	label	REG0M133		0.000	0	ocr_low_conf			10	0	0.200	6
+330	2348	1201	REG0.S1.3	label	REG0S13		0.000	0	ocr_low_conf			10	0	0.250	6
+331	2454	1201	REG0.S2.3	label	REG0S23		0.000	0	ocr_low_conf			13	0	0.222	6
+332	2560	1201	REG0.S0.3	label	REG0S03		0.000	0	no_similar_token			24	2	0.250	6
+333	2666	1201	REG0.S3.3	label	REG0S33		0.000	0	ocr_low_conf			13	0	0.250	6
+334	363	1338	REG1	label	REG1	1	0.400	0	mismatch	65.8		25	3	0.500	6
+335	405	1338	REG2	label	REG2		0.000	0	ocr_low_conf			26	0	0.400	6
+336	447	1338	REG3	label	REG3		0.000	0	ocr_low_conf			30	0	0.400	6
+337	489	1338	REG0	label	REG0		0.000	0	no_similar_token			32	3	0.400	6
+338	559	1397	[RAM_WRITE&X22&~RESET]	label	RAM_WRITE&X22&~RESET	D-I_LT-I_LD	0.129	0	not_printed_near_point	60.4		35	3	0.296	6
+339	559	1503	[RAM_READ&X21&~RESET]	label	RAM_READ&X21&~RESET		0.000	0	ocr_low_conf			32	0	0.312	6
+340	473	1530	REGSEL0	label	REGSEL0		0.000	0	no_similar_token			22	2	0.333	6
+341	449	1587	~REGSEL0	label	~REGSEL0		0.000	0	ocr_low_conf			9	0	0.375	6
+342	3139	1587	CLK2&(M12+X12)&~RESET	expression	CLK2&(M12+X12)&~RESET		0.000	0	skipped_expression			0	0		0
+343	473	1662	REGSEL1	label	REGSEL1	1	0.250	0	not_printed_near_point	77.6		23	8	0.250	6
+344	449	1719	~REGSEL1	label	~REGSEL1		0.000	0	no_similar_token			6	1	0.333	6
+345	755	1896	RFSH.0	label	RFSH0		0.000	0	not_printed_near_point			21	4	0.000	6
+346	1169	1896	RFSH.1	label	RFSH1	1	0.333	0	not_printed_near_point	64.8		31	7	0.333	6
+347	1583	1896	RFSH.2	label	RFSH2		0.000	0	no_similar_token			23	7	0.333	6
+348	1997	1896	RFSH.3	label	RFSH3		0.000	0	no_similar_token			29	5	0.333	6
+349	2411	1896	RFSH.4	label	RFSH4		0.000	0	no_similar_token			29	3	0.333	6
+350	208	1901	~DRIVE_EXT_DATABUS	label	~DRIVE_EXT_DATABUS		0.000	0	ocr_low_conf			6	0	0.200	6
+351	947	1936	SRC.0	label	SRC0		0.000	0	no_similar_token			21	1	0.400	6
+352	1361	1936	SRC.1	label	SRC1	1	0.400	0	mismatch	85.2		22	3	0.400	6
+353	1775	1936	SRC.2	label	SRC2		0.000	0	no_similar_token			22	3	0.333	6
+354	2189	1936	SRC.3	label	SRC3		0.000	0	no_similar_token			29	8	0.333	6
+355	2807	1946	CLK2&(M22+RAM_WRITE&X22&~RESET)	expression	CLK2&(M22+RAM_WRITE&X22&~RESET)		0.000	0	skipped_expression			0	0		0
+356	40	2114	CLK1	label	CLK1	C	0.400	0	mismatch	70.8		54	14	0.400	6
+357	143	2175	~CLK2	label	~CLK2		0.000	0	no_similar_token			51	8	0.667	6
+358	2822	2190	CLK1&(M21+RAM_WRITE&X21)	expression	CLK1&(M21+RAM_WRITE&X21)		0.000	0	skipped_expression			0	0		0
+359	40	2194	CLK2	label	CLK2		0.000	0	no_similar_token			31	2	0.571	6
+360	40	2274	SYNC	label	SYNC		0.000	0	no_similar_token			22	1	0.333	6
+361	189	2316	~A11	label	~A11		0.000	0	no_similar_token			25	1	0.400	6
+362	3149	2346	M12	label	M12		0.000	0	ocr_low_conf			1	0	0.000	6
+363	189	2354	A12	label	A12	1	0.500	0	mismatch	80.5		74	15	0.500	6
+364	400	2383	CS	label	CS	CS	1.000	1	matched	77.8		20	3	1.000	6
+365	3149	2384	~M21	label	~M21		0.000	0	ocr_low_conf			3	0	0.222	6
+366	189	2392	~A21	label	~A21	1	0.400	0	mismatch	66.7		20	2	0.400	6
+367	2579	2408	RAM_READ&X21&~RESET	label	RAM_READ&X21&~RESET		0.000	0	no_similar_token			17	4	0.167	6
+368	2689	2408	RAM_WRITE&X22&~RESET	label	RAM_WRITE&X22&~RESET	I	0.095	0	not_printed_near_point	97.3		18	2	0.261	6
+369	2800	2408	RAM_OUTPUT&X22&~RESET	label	RAM_OUTPUT&X22&~RESET	T	0.091	0	not_printed_near_point	96.1		29	1	0.174	6
+370	2027	2415	~RAM_WRITE	label	~RAM_WRITE	_L_O	0.143	0	not_printed_near_point	69.7		29	5	0.333	6
+371	580	2421	~RAM_SEL	label	~RAM_SEL		0.000	0	no_similar_token			25	1	0.333	6
+372	3149	2422	M22	label	M22		0.000	0	ocr_low_conf			6	0	0.250	6
+373	968	2423	COMMAND	label	COMMAND		0.000	0	no_similar_token			32	4	0.222	6
+374	1072	2423	CM	label	CM		0.000	0	no_similar_token			27	4	0.500	6
+375	1461	2426	~OPA1	label	~OPA1		0.000	0	no_similar_token			12	1	0.333	6
+376	1538	2426	~OPA0	label	~OPA0		0.000	0	ocr_low_conf			16	0	0.182	6
+377	1614	2426	OPA3	label	OPA3		0.000	0	no_similar_token			10	1	0.200	6
+378	1671	2426	~OPA2	label	~OPA2		0.000	0	no_similar_token			16	1	0.250	6
+379	189	2430	A22	label	A22		0.000	0	no_similar_token			9	1	0.500	6
+380	1949	2431	RAM_WRITE	label	RAM_WRITE	_I__0_I__0	0.211	0	not_printed_near_point	61.1		21	3	0.211	6
+381	1479	2442	OPA1	label	OPA1		0.000	0	no_similar_token			18	2	0.286	6
+382	1556	2442	OPA0	label	OPA0		0.000	0	ocr_low_conf			15	0	0.333	6
+383	1632	2442	~OPA3	label	~OPA3		0.000	0	no_similar_token			19	3	0.286	6
+384	1693	2442	OPA2	label	OPA2		0.000	0	no_similar_token			21	1	0.400	6
+385	3149	2460	~X11	label	~X11		0.000	0	ocr_low_conf			3	0	0.400	6
+386	189	2468	~A31	label	~A31		0.000	0	not_printed_near_point			19	5	0.000	6
+387	815	2482	RAM_COMMAND	label	RAM_COMMAND	A	0.167	0	not_printed_near_point	63.2		32	2	0.167	6
+388	1886	2496	RAM_OUTPUT	label	RAM_OUTPUT		0.000	0	ocr_low_conf			12	0	0.182	6
+389	3149	2498	X12	label	X12		0.000	0	ocr_low_conf			4	0	0.000	6
+390	189	2506	A32	label	A32		0.000	0	no_similar_token			12	1	0.250	6
+391	1828	2512	ROM_IO	label	ROM_IO		0.000	0	no_similar_token			18	2	0.286	6
+392	2027	2516	~RAM_OUTPUT	label	~RAM_OUTPUT	A__	0.286	0	not_printed_near_point	77.6		10	2	0.286	6
+393	3149	2536	~X21	label	~X21		0.000	0	ocr_low_conf			3	0	0.222	6
+394	189	2544	~M11	label	~M11		0.000	0	ocr_low_conf			11	0	0.667	6
+395	2937	2550	~X22	label	~X22		0.000	0	ocr_low_conf			5	0	0.000	6
+396	1041	2551	SRC_RAM_SEL	label	SRC_RAM_SEL	JL	0.154	0	not_printed_near_point	63.5		16	3	0.190	6
+397	1105	2567	~SRC_SEL_COMMAND	label	~SRC_SEL_COMMAND	LII	0.105	0	not_printed_near_point	67.3		25	2	0.154	6
+398	1147	2567	SRC_SEL_COMMAND	label	SRC_SEL_COMMAND		0.000	0	no_similar_token			24	2	0.200	6
+399	3149	2574	X22	label	X22		0.000	0	ocr_low_conf			4	0	0.000	6
+400	1219	2583	CLK2&X32&SRC_SEL_COMMAND	label	CLK2&X32&SRC_SEL_COMMAND	L	0.080	0	not_printed_near_point	82.0		25	6	0.143	6
+401	1267	2583	~X11+~CLK2&X32&SRC_SEL_COMMAND	expression	~X11+~CLK2&X32&SRC_SEL_COMMAND		0.000	0	skipped_expression			0	0		0
+402	1419	2583	~RAM_COMMAND_EXECUTE	label	~RAM_COMMAND_EXECUTE		0.000	0	no_similar_token			31	1	0.167	6
+403	862	2589	~(COMMAND&X22&CLK2)	expression	~(COMMAND&X22&CLK2)		0.000	0	skipped_expression			0	0		0
+404	923	2589	~(COMMAND&M22&CLK2)	expression	~(COMMAND&M22&CLK2)		0.000	0	skipped_expression			0	0		0
+405	2027	2594	~RAM_READ	label	~RAM_READ	M	0.200	0	not_printed_near_point	61.5		8	2	0.200	6
+406	2633	2594	(RESET)	expression	(RESET)		0.000	0	skipped_expression			0	0		0
+407	2678	2594	~RESET	label	~RESET		0.000	0	no_similar_token			21	3	0.923	6
+408	2747	2594	RESET	label	RESET		0.000	0	no_similar_token			23	3	0.286	6
+409	279	2608	[X12+X22]&RAM_READ	expression	X12+X22&RAM_READ		0.000	0	skipped_expression			0	0		0
+410	1724	2610	RAM_READ	label	RAM_READ		0.000	0	no_similar_token			19	2	0.222	6
+411	3149	2612	~X31	label	~X31		0.000	0	ocr_low_conf			3	0	0.000	6
+412	3149	2650	X32	label	X32		0.000	0	ocr_low_conf			3	0	0.500	6
+413	180	2654	CLK1&X11	label	CLK1&X11	1F	0.200	0	not_printed_near_point	66.6		12	1	0.200	6
+414	418	2673	[X12+X22]	expression	X12+X22		0.000	0	skipped_expression			0	0		0
+415	459	2687	X11	label	X11		0.000	0	no_similar_token			19	2	0.286	6

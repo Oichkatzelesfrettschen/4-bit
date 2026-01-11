@@ -2,17 +2,19 @@
   "chips": [
     {
       "chip": "4001",
-      "labels_total": 31,
-      "mismatch": 27,
+      "labels_total": 63,
+      "mismatch": 59,
       "ok": 4,
-      "ok_rate": 0.12903225806451613,
+      "ok_rate": 0.06349206349206349,
       "reasons": {
         "matched": 4,
-        "ocr_low_conf": 1,
-        "ocr_no_tokens": 26,
-        "skipped_expression": 19
+        "mismatch": 7,
+        "no_similar_token": 29,
+        "not_printed_near_point": 10,
+        "ocr_low_conf": 13,
+        "skipped_expression": 26
       },
-      "skipped": 19,
+      "skipped": 26,
       "top_mismatched_expected": [
         {
           "count": 1,
@@ -118,17 +120,32 @@
     },
     {
       "chip": "4002",
-      "labels_total": 50,
-      "mismatch": 49,
-      "ok": 1,
-      "ok_rate": 0.02,
+      "labels_total": 406,
+      "mismatch": 401,
+      "ok": 5,
+      "ok_rate": 0.012315270935960592,
       "reasons": {
-        "matched": 1,
-        "ocr_low_conf": 1,
-        "ocr_no_tokens": 48
+        "matched": 5,
+        "mismatch": 8,
+        "no_similar_token": 57,
+        "not_printed_near_point": 25,
+        "ocr_low_conf": 311,
+        "skipped_expression": 10
       },
-      "skipped": 0,
+      "skipped": 10,
       "top_mismatched_expected": [
+        {
+          "count": 2,
+          "expected_norm": "RESET"
+        },
+        {
+          "count": 2,
+          "expected_norm": "RAM_WRITE&X22&~RESET"
+        },
+        {
+          "count": 2,
+          "expected_norm": "RAM_READ&X21&~RESET"
+        },
         {
           "count": 1,
           "expected_norm": "REG3M20"
@@ -216,18 +233,6 @@
         {
           "count": 1,
           "expected_norm": "REG3M21"
-        },
-        {
-          "count": 1,
-          "expected_norm": "REG3M101"
-        },
-        {
-          "count": 1,
-          "expected_norm": "REG3M31"
-        },
-        {
-          "count": 1,
-          "expected_norm": "REG3M111"
         }
       ]
     },
@@ -238,8 +243,9 @@
       "ok": 0,
       "ok_rate": 0.0,
       "reasons": {
-        "ocr_low_conf": 2,
-        "ocr_no_tokens": 12
+        "mismatch": 2,
+        "no_similar_token": 8,
+        "not_printed_near_point": 4
       },
       "skipped": 0,
       "top_mismatched_expected": [
@@ -303,14 +309,19 @@
     },
     {
       "chip": "4004",
-      "labels_total": 50,
-      "mismatch": 50,
-      "ok": 0,
-      "ok_rate": 0.0,
+      "labels_total": 248,
+      "mismatch": 241,
+      "ok": 7,
+      "ok_rate": 0.028225806451612902,
       "reasons": {
-        "ocr_no_tokens": 50
+        "matched": 7,
+        "mismatch": 14,
+        "no_similar_token": 73,
+        "not_printed_near_point": 39,
+        "ocr_low_conf": 115,
+        "skipped_expression": 27
       },
-      "skipped": 0,
+      "skipped": 27,
       "top_mismatched_expected": [
         {
           "count": 1,
@@ -417,10 +428,10 @@
   ],
   "inputs": {
     "reports": [
-      "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
       "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.json",
-      "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.json",
-      "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.json"
+      "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.json",
+      "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
+      "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.json"
     ]
   },
   "tool": "scripts/ocr_signal_metrics.py"

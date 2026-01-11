@@ -104,6 +104,8 @@ Metrics & Anti-Patterns
 - docs/photomicrographs/README.md
 - docs/evidence/README.md
 - docs/evidence/DIAGRAM_EXTRACTION.md
+- docs/evidence/audit_claims_backlog.md
+- docs/evidence/PRIMARY_SOURCES_BACKLOG.md
 - docs/evidence/OCR_SIGNAL_LABELS.md
 - docs/evidence/photomicrograph_permissions.md
 - docs/evidence/PROVENANCE_CHECKLIST.md

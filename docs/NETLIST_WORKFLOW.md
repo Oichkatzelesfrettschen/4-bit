@@ -7,7 +7,7 @@ Purpose
 Inputs (per chip)
 - Layer bitmaps: metal, vias, poly, diffusion (plus contacts for 4004).
 - Schematic bitmap: i400x-schematic.bmp.
-- Signal map: i400x-signals.txt.
+- Signal map: `docs/emulators/i400{1,2,3,4}-signals.txt`.
 
 Workflow summary (from docs/emulators/readme.txt)
 - Extract netlist from mask layers.

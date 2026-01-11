@@ -1,0 +1,49 @@
+{
+  "backlog": [
+    {
+      "claim": "Intel 4004 executes ~92,000 IPS",
+      "notes": "Primary confirmation pending.",
+      "reason": "pending_in_notes",
+      "source": "[Wikipedia][wiki-4004]",
+      "status": "Verified (secondary)"
+    },
+    {
+      "claim": "4040 clock: 1.35-2.0 usec period (derived 0.5-0.74 MHz)",
+      "notes": "OCR: docs/evidence/ocr_results.md.",
+      "reason": "status=Derived (primary)",
+      "source": "docs/4040/4040-datasheet.pdf ([chipdb mirror][chipdb-4040-datasheet])",
+      "status": "Derived (primary)"
+    },
+    {
+      "claim": "Intel 4040 max clock 500-740 kHz",
+      "notes": "Matches clock-period-derived range; primary explicit spec pending.",
+      "reason": "pending_in_notes",
+      "source": "[Wikipedia][wiki-4040]",
+      "status": "Verified (secondary)"
+    },
+    {
+      "claim": "Intel 4040 executes ~62,000 IPS",
+      "notes": "Primary confirmation pending.",
+      "reason": "pending_in_notes",
+      "source": "[Wikipedia][wiki-4040]",
+      "status": "Verified (secondary)"
+    },
+    {
+      "claim": "2025 discrete-transistor MCS-4 system at ~2x original clock",
+      "notes": "Nov 2025 update cites ~1.5 MHz and \"\u00f78\" instruction rate; primary confirmation pending.",
+      "reason": "pending_in_notes",
+      "source": "[4004.com][site-4004]",
+      "status": "Verified (secondary)"
+    }
+  ],
+  "inputs": {
+    "audit": "docs/AUDIT.md"
+  },
+  "next_verification_targets": [
+    "MCS-4/MCS-40 primary datasheets, Intel reliability reports, or data books that explicitly list 4004/4040 transistor counts.",
+    "4040 CPU max clock rate explicitly stated in a primary datasheet or hardware spec (not just derived from clock period).",
+    "Memory addressing claims (ROM/RAM limits) vs primary manuals.",
+    "2025 discrete-transistor implementation claim: seek a primary publication or build log."
+  ],
+  "tool": "scripts/audit_claims_backlog.py"
+}
