@@ -77,6 +77,8 @@ impl Mcs40System {
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
             }
             BusCycle::X1 => {
+                // No data transfer yet; keep RAM bank select inactive to avoid "always-on" behavior.
+                self.control.deselect_ram(0);
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
                 for r in &mut self.ram {
                     r.tick_bus(phase, &mut self.bus, &self.control);
@@ -87,6 +89,12 @@ impl Mcs40System {
             }
             BusCycle::X2 => {
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                // X2 is write-oriented; enable RAM bank select only for write/SRC operations.
+                if self.cpu.x2_ram_bank_select() {
+                    self.control.select_ram(self.cpu.ram_bank(), 0);
+                } else {
+                    self.control.deselect_ram(0);
+                }
                 for r in &mut self.ram {
                     r.tick_bus(phase, &mut self.bus, &self.control);
                 }
@@ -95,9 +103,12 @@ impl Mcs40System {
                 }
             }
             BusCycle::X3 => {
-                if self.control.io_op == Some(IoOp::Src) {
+                // X3 is read-oriented (peripherals drive, CPU latches), except SRC which uses the
+                // bus in X3 for the second nibble of the address latch.
+                if self.cpu.x3_cpu_drives_first() {
                     // SRC uses the bus in X3, so CPU must drive before RAM latches.
                     self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                    self.control.select_ram(self.cpu.ram_bank(), 0);
                     for r in &mut self.ram {
                         r.tick_bus(phase, &mut self.bus, &self.control);
                     }
@@ -105,6 +116,16 @@ impl Mcs40System {
                         r.tick_bus(phase, &mut self.bus, &self.control);
                     }
                 } else {
+                    // For read-oriented ops, peripherals must see the control op before they drive the bus in X3.
+                    self.control.clear_io_op();
+                    if let Some(op) = self.cpu.x3_peripheral_io_op() {
+                        self.control.set_io_op(op);
+                    }
+                    if self.cpu.x3_ram_bank_select() {
+                        self.control.select_ram(self.cpu.ram_bank(), 0);
+                    } else {
+                        self.control.deselect_ram(0);
+                    }
                     for r in &mut self.ram {
                         r.tick_bus(phase, &mut self.bus, &self.control);
                     }
@@ -159,6 +180,10 @@ impl Mcs40System {
 
     pub fn pc(&self) -> u16 {
         self.cpu.pc()
+    }
+
+    pub fn phase(&self) -> BusCycle {
+        self.cycle.phase
     }
 }
 
@@ -327,6 +352,43 @@ mod tests {
 
         assert_eq!(sys.cpu.alu.accumulator(), 0xB);
         assert_eq!(sys.ram[0].read_status(1), 0xB);
+    }
+
+    #[test]
+    fn test_io_op_is_phase_accurate() {
+        let mut sys = Mcs40System::new();
+
+        // FIM P0, 0x68 ; SRC P0 ; LDM 0xA ; WRM ; LDM 0x0 ; RDM ; NOP
+        sys.load_rom(&[0x20, 0x68, 0x21, 0xDA, 0xE0, 0xD0, 0xE9, 0x00]);
+
+        let mut saw_wrm = false;
+        let mut saw_rdm = false;
+
+        for _ in 0..(8 * 20) {
+            let phase = sys.phase();
+            sys.step();
+
+            match sys.control.io_op {
+                Some(IoOp::RamMainWrite) => {
+                    assert_eq!(phase, BusCycle::X2);
+                    assert!(sys.control.selected_ram().is_some());
+                    saw_wrm = true;
+                }
+                Some(IoOp::RamMainRead) => {
+                    assert_eq!(phase, BusCycle::X3);
+                    assert!(sys.control.selected_ram().is_some());
+                    saw_rdm = true;
+                }
+                _ => {}
+            }
+
+            if saw_wrm && saw_rdm {
+                break;
+            }
+        }
+
+        assert!(saw_wrm);
+        assert!(saw_rdm);
     }
 
     #[test]

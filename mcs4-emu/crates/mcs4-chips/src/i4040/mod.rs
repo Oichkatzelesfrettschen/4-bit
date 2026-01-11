@@ -61,6 +61,9 @@ pub struct I4040 {
     /// Pending I/O data
     io_data: u8,
 
+    /// Decoded high-level I/O operation for the current instruction (used for phase-accurate control lines).
+    decoded_io_op: Option<IoOp>,
+
     /// Halted state (HLT instruction)
     pub halted: bool,
 
@@ -87,9 +90,44 @@ impl I4040 {
             ram_bank: 0,
             test_pin: false,
             io_data: 0,
+            decoded_io_op: None,
             halted: false,
             pc_modified: false,
             pc: 0,
+        }
+    }
+
+    /// Get currently selected RAM bank (set by DCL / SB0 / SB1)
+    pub fn ram_bank(&self) -> u8 {
+        self.ram_bank
+    }
+
+    /// True if X3 should run CPU before peripherals (SRC drives the bus in X3).
+    pub fn x3_cpu_drives_first(&self) -> bool {
+        matches!(self.decoder.get_instruction(), Some(Instruction::Src { .. }))
+    }
+
+    /// True if the current instruction needs CM-RAM asserted during X2.
+    pub fn x2_ram_bank_select(&self) -> bool {
+        matches!(
+            self.decoded_io_op,
+            Some(IoOp::Src | IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RamStatusWrite(_))
+        )
+    }
+
+    /// True if the current instruction needs CM-RAM asserted during X3.
+    pub fn x3_ram_bank_select(&self) -> bool {
+        matches!(
+            self.decoded_io_op,
+            Some(IoOp::Src | IoOp::RamMainRead | IoOp::RamStatusRead(_))
+        )
+    }
+
+    /// I/O op that peripherals should observe during X3 (before the CPU latches the bus).
+    pub fn x3_peripheral_io_op(&self) -> Option<IoOp> {
+        match self.decoded_io_op {
+            Some(op @ (IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_))) => Some(op),
+            _ => None,
         }
     }
 
@@ -216,7 +254,9 @@ impl I4040 {
         }
         self.pc_modified = false;
 
-        ctrl.io_op = match self.decoder.get_instruction() {
+        // Phase-accurate I/O control lines: latch the decoded op in X1, but only
+        // assert `ctrl.io_op` during the actual transfer phase (X2 write, X3 read).
+        self.decoded_io_op = match self.decoder.get_instruction() {
             Some(Instruction::Src { .. }) => Some(IoOp::Src),
             Some(Instruction::Wrm) => Some(IoOp::RamMainWrite),
             Some(Instruction::Rdm | Instruction::Adm | Instruction::Sbm) => Some(IoOp::RamMainRead),
@@ -233,25 +273,21 @@ impl I4040 {
             Some(Instruction::Rd3) => Some(IoOp::RamStatusRead(3)),
             _ => None,
         };
-
-        if matches!(
-            ctrl.io_op,
-            Some(
-                IoOp::Src
-                    | IoOp::RamMainWrite
-                    | IoOp::RamMainRead
-                    | IoOp::RamPortWrite
-                    | IoOp::RamStatusWrite(_)
-                    | IoOp::RamStatusRead(_)
-            )
-        ) {
-            ctrl.select_ram(self.ram_bank, 0);
-        }
+        ctrl.clear_io_op();
     }
 
     fn phase_x2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         if self.halted {
             return;
+        }
+
+        // Assert write-oriented I/O op only during X2 (SRC spans X2+X3).
+        ctrl.clear_io_op();
+        if let Some(op) = self.decoded_io_op {
+            if matches!(op, IoOp::Src | IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_))
+            {
+                ctrl.set_io_op(op);
+            }
         }
         // Execute instruction (for single-cycle instructions).
         // Read-oriented ops are executed in X3 after peripherals drive the bus.
@@ -282,6 +318,14 @@ impl I4040 {
     fn phase_x3(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         if self.halted {
             return;
+        }
+
+        // Assert read-oriented I/O op only during X3 (SRC spans X2+X3).
+        ctrl.clear_io_op();
+        if let Some(op) = self.decoded_io_op {
+            if matches!(op, IoOp::Src | IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_)) {
+                ctrl.set_io_op(op);
+            }
         }
 
         // SRC bus behavior (best-effort):

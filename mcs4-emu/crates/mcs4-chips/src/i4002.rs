@@ -117,14 +117,12 @@ impl I4002 {
                 // Address and memory phases - RAM doesn't respond
             }
             BusCycle::X1 => {
-                // Check selection for non-SRC operations.
-                // SRC itself updates src_selected during X2/X3.
-                self.selected = match ctrl.io_op {
-                    Some(IoOp::Src) => false,
-                    _ => bank_selected && self.src_selected,
-                };
+                // Phase-accurate model: selection is evaluated in the transfer phase (X2/X3).
+                self.selected = false;
             }
             BusCycle::X2 => {
+                self.selected = bank_selected && self.src_selected;
+
                 // SRC latches chip+register in X2 (one nibble).
                 if bank_selected && ctrl.io_op == Some(IoOp::Src) {
                     let chip_reg = bus.read() & 0x0F;
@@ -140,7 +138,7 @@ impl I4002 {
                 }
 
                 // Write operations during X2
-                if self.selected {
+                if self.selected && ctrl.is_io_write() && ctrl.io_op != Some(IoOp::Src) {
                     match ctrl.io_op {
                         Some(IoOp::RamMainWrite) => {
                             let value = bus.read() & 0x0F;
@@ -154,9 +152,16 @@ impl I4002 {
                         }
                         _ => {}
                     }
+                } else if ctrl.io_op == Some(IoOp::Src) {
+                    // SRC uses the bus in X2, but the RAM selection is per-chip nibble, not `self.selected`.
+                    // Keep `self.selected` as "SRC previously selected" for subsequent operations.
+                } else {
+                    self.selected = false;
                 }
             }
             BusCycle::X3 => {
+                self.selected = bank_selected && self.src_selected;
+
                 // SRC latches character in X3 (second nibble).
                 if bank_selected && ctrl.io_op == Some(IoOp::Src) && self.src_pending {
                     self.selected_char = bus.read() & 0x0F;
@@ -165,7 +170,7 @@ impl I4002 {
                 }
 
                 // Read operations during X3
-                if self.selected {
+                if self.selected && ctrl.is_io_read() && ctrl.io_op != Some(IoOp::Src) {
                     match ctrl.io_op {
                         Some(IoOp::RamMainRead) => {
                             let value = self.ram[self.selected_register as usize][self.selected_char as usize];
@@ -176,6 +181,10 @@ impl I4002 {
                         }
                         _ => {}
                     }
+                } else if ctrl.io_op == Some(IoOp::Src) {
+                    // SRC uses the bus in X3 to latch the character nibble.
+                } else {
+                    self.selected = false;
                 }
             }
         }
