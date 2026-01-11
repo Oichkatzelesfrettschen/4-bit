@@ -139,9 +139,16 @@ def main() -> int:
     out_json = Path(args.out_json) if args.out_json else (in_dir / "metrics.json")
     out_md = Path(args.out_md) if args.out_md else (in_dir / "metrics.md")
 
+    def maybe_rel(path: Path) -> str:
+        p = path.resolve()
+        try:
+            return str(p.relative_to(ROOT))
+        except ValueError:
+            return str(p)
+
     payload = {
         "tool": "scripts/ocr_signal_metrics.py",
-        "inputs": {"reports": [str(p.relative_to(ROOT)) for p in reports]},
+        "inputs": {"reports": [maybe_rel(p) for p in reports]},
         "chips": [
             {
                 "chip": m.chip,

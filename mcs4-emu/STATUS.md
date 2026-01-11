@@ -4,6 +4,10 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-11T21:30:00Z: OCR pipeline performance audit + tuning: added per-call tesseract timeouts and reduced OCR call budget
+  (fast-crop match + caching) in `scripts/ocr_signal_labels.py`. Benchmarked faster label verification on the 4004 subset.
+  Verified CUDA-capable toolchain (RTX 4070 Ti, CUDA 13.1) but CUDA-backed `onnxruntime-gpu` wheels for Python 3.13 report CPU-only
+  providers; keeping `tesseract` as the primary OCR engine for now.
 - 2026-01-11T02:20:00Z: Made RAM/ROM I/O control-line decoding phase-accurate: `io_op` is asserted only during transfer phases
   (X2 writes, X3 reads; `SRC` spans both), and CM-RAM is only asserted during transfer phases. Added bus-stability assertions
   in system step loops and added negative timing tests to ensure ROM/RAM I/O ops are not asserted in X1.
