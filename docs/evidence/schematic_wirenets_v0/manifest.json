@@ -1,0 +1,11 @@
+{
+  "outputs": [
+    {
+      "chip": "4004",
+      "output_json": "docs/evidence/schematic_wirenets_v0/4004/4004_schematic_wirenets_v0.json",
+      "output_png": "docs/evidence/schematic_wirenets_v0/4004/4004_schematic_wirenets_v0.png"
+    }
+  ],
+  "params": {},
+  "tool": "scripts/extract_schematic_wirenets_v0.py"
+}

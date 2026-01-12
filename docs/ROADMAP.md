@@ -76,6 +76,8 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Keep OCR pipelines bounded and deterministic (timeouts, caching) and preserve canonical evidence outputs under `docs/evidence/`.
 - Maintain OCR micro-benchmarks for tiny label crops (`docs/evidence/ocr_benchmarks_v0/`) and a larger labeled-crops manifest (`docs/evidence/ocr_manifests_v0/`) so changes can be evaluated for both accuracy and throughput.
 - Keep edge-label OCR fast by default (`scripts/detect_layout_edge_labels_v0.py`; `--deep` only for debugging, `--cuda-preproc` optional, `--backend auto` for ONNX experiments).
+- Maintain a minimal schematic↔layout bridge artifact (`docs/evidence/netlists_v1/`) so anchor signals can be traced end-to-end through extraction outputs.
+- Keep schematic connectivity tracing explicitly heuristic until component-aware parsing exists (`docs/evidence/schematic_connectivity_v0/`).
 - Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
   - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
   - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.

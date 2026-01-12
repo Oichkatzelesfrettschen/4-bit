@@ -1,0 +1,3050 @@
+{
+  "chip": "4004",
+  "components": [
+    {
+      "area": 601599,
+      "bbox": {
+        "h": 4004,
+        "w": 3111,
+        "x": 27,
+        "y": 7
+      },
+      "id": 1,
+      "point_indices": [
+        0,
+        1,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274
+      ]
+    },
+    {
+      "area": 1969,
+      "bbox": {
+        "h": 1105,
+        "w": 689,
+        "x": 1916,
+        "y": 782
+      },
+      "id": 4,
+      "point_indices": [
+        79
+      ]
+    },
+    {
+      "area": 137,
+      "bbox": {
+        "h": 45,
+        "w": 54,
+        "x": 973,
+        "y": 2597
+      },
+      "id": 372,
+      "point_indices": [
+        3
+      ]
+    },
+    {
+      "area": 193,
+      "bbox": {
+        "h": 21,
+        "w": 98,
+        "x": 143,
+        "y": 2813
+      },
+      "id": 426,
+      "point_indices": [
+        8
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 3106,
+        "y": 3179
+      },
+      "id": 490,
+      "point_indices": [
+        7
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 438,
+        "y": 3305
+      },
+      "id": 517,
+      "point_indices": [
+        2
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 3106,
+        "y": 3413
+      },
+      "id": 534,
+      "point_indices": [
+        6
+      ]
+    },
+    {
+      "area": 235,
+      "bbox": {
+        "h": 20,
+        "w": 142,
+        "x": 40,
+        "y": 3575
+      },
+      "id": 546,
+      "point_indices": [
+        13
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 3106,
+        "y": 3647
+      },
+      "id": 556,
+      "point_indices": [
+        5
+      ]
+    },
+    {
+      "area": 235,
+      "bbox": {
+        "h": 20,
+        "w": 142,
+        "x": 40,
+        "y": 3655
+      },
+      "id": 557,
+      "point_indices": [
+        12
+      ]
+    },
+    {
+      "area": 234,
+      "bbox": {
+        "h": 20,
+        "w": 141,
+        "x": 40,
+        "y": 3734
+      },
+      "id": 566,
+      "point_indices": [
+        11
+      ]
+    },
+    {
+      "area": 235,
+      "bbox": {
+        "h": 20,
+        "w": 142,
+        "x": 40,
+        "y": 3813
+      },
+      "id": 573,
+      "point_indices": [
+        10
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 3106,
+        "y": 3881
+      },
+      "id": 583,
+      "point_indices": [
+        4
+      ]
+    },
+    {
+      "area": 235,
+      "bbox": {
+        "h": 20,
+        "w": 142,
+        "x": 40,
+        "y": 3892
+      },
+      "id": 584,
+      "point_indices": [
+        9
+      ]
+    }
+  ],
+  "counts": {
+    "components_referenced": 14,
+    "components_total": 589,
+    "nets": 14,
+    "points_unmapped": 0,
+    "signal_points": 275
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4004-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "f86192a8aedd69336c65a94bb4211faeb32831f78fa8a054dcc18afb92c5746c",
+      "signals_txt": "765e8f5958afcd5d1cf40181127b04d969102350ab499808dd7d19f8b12f3c89"
+    },
+    "signals_txt": "docs/emulators/i4004-signals.txt"
+  },
+  "nets": [
+    {
+      "names": [
+        "((~SC)(JIN+FIN))CLK1(M11+X21~INH)",
+        "(~INH)&X32&CLK2",
+        "(~INH)(X11+X31)CLK1",
+        "(~POC)&CLK2&SC(A32+X12)",
+        "(~POC)CLK2(X12+X32)~INH",
+        "A12",
+        "A22",
+        "A32",
+        "ACB-IB",
+        "ACC-ADA",
+        "ACC-ADAC",
+        "ACC.0",
+        "ACC.1",
+        "ACC.2",
+        "ACC.3",
+        "ACC_0",
+        "ADC-CY",
+        "ADD",
+        "ADD-ACC",
+        "ADD-IB",
+        "ADDR-PTR.0",
+        "ADDR-PTR.1",
+        "ADDR-RFSH.0",
+        "ADDR-RFSH.1",
+        "ADD_0",
+        "ADD_GROUP(4)",
+        "ADM",
+        "ADSL",
+        "ADSR",
+        "BBL",
+        "CLB",
+        "CLC",
+        "CLK1",
+        "CLK2",
+        "CLK2&SC(A12+M12)",
+        "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+        "CMA",
+        "CMC",
+        "CY",
+        "CY-ADA",
+        "CY-ADAC",
+        "CY-IB",
+        "CY_1",
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "DAA",
+        "DAC",
+        "DC",
+        "DCL",
+        "DCL.0",
+        "DCL.1",
+        "DCL.2",
+        "FIM+SRC",
+        "FIN+FIM",
+        "FIN+FIM+SRC+JIN",
+        "IAC",
+        "INC+ISZ+ADD+SUB+XCH+LD",
+        "INC+ISZ+XCH",
+        "INC/ISZ",
+        "INC_GROUP(5)",
+        "INH",
+        "IO",
+        "IOR",
+        "IOW",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JIN+FIN",
+        "JMS",
+        "JUN+JMS",
+        "JUN2+JMS2",
+        "KBP",
+        "L",
+        "LD",
+        "LDM/BBL",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPA-IB",
+        "OPA.0",
+        "OPA.1",
+        "OPA.2",
+        "OPA.3",
+        "OPE",
+        "OPR.0",
+        "OPR.1",
+        "OPR.2",
+        "OPR.3",
+        "PC0.0",
+        "PC0.1",
+        "PC0.10",
+        "PC0.11",
+        "PC0.2",
+        "PC0.3",
+        "PC0.4",
+        "PC0.5",
+        "PC0.6",
+        "PC0.7",
+        "PC0.8",
+        "PC0.9",
+        "PC1.0",
+        "PC1.1",
+        "PC1.10",
+        "PC1.11",
+        "PC1.2",
+        "PC1.3",
+        "PC1.4",
+        "PC1.5",
+        "PC1.6",
+        "PC1.7",
+        "PC1.8",
+        "PC1.9",
+        "PC2.0",
+        "PC2.1",
+        "PC2.10",
+        "PC2.11",
+        "PC2.2",
+        "PC2.3",
+        "PC2.4",
+        "PC2.5",
+        "PC2.6",
+        "PC2.7",
+        "PC2.8",
+        "PC2.9",
+        "PC3.0",
+        "PC3.1",
+        "PC3.10",
+        "PC3.11",
+        "PC3.2",
+        "PC3.3",
+        "PC3.4",
+        "PC3.5",
+        "PC3.6",
+        "PC3.7",
+        "PC3.8",
+        "PC3.9",
+        "POC",
+        "R0.0",
+        "R0.1",
+        "R0.2",
+        "R0.3",
+        "R1.0",
+        "R1.1",
+        "R1.2",
+        "R1.3",
+        "R10.0",
+        "R10.1",
+        "R10.2",
+        "R10.3",
+        "R11.0",
+        "R11.1",
+        "R11.2",
+        "R11.3",
+        "R12.0",
+        "R12.1",
+        "R12.2",
+        "R12.3",
+        "R13.0",
+        "R13.1",
+        "R13.2",
+        "R13.3",
+        "R14.0",
+        "R14.1",
+        "R14.2",
+        "R14.3",
+        "R15.0",
+        "R15.1",
+        "R15.2",
+        "R15.3",
+        "R2.0",
+        "R2.1",
+        "R2.2",
+        "R2.3",
+        "R3.0",
+        "R3.1",
+        "R3.2",
+        "R3.3",
+        "R4.0",
+        "R4.1",
+        "R4.2",
+        "R4.3",
+        "R5.0",
+        "R5.1",
+        "R5.2",
+        "R5.3",
+        "R6.0",
+        "R6.1",
+        "R6.2",
+        "R6.3",
+        "R7.0",
+        "R7.1",
+        "R7.2",
+        "R7.3",
+        "R8.0",
+        "R8.1",
+        "R8.2",
+        "R8.3",
+        "R9.0",
+        "R9.1",
+        "R9.2",
+        "R9.3",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "RAL",
+        "RAR",
+        "READ_ACC(3)",
+        "REG-RFSH.0",
+        "REG-RFSH.1",
+        "REG-RFSH.2",
+        "RRAB0",
+        "RRAB1",
+        "SBM",
+        "SC",
+        "SC&A12&CLK2",
+        "SC&A22",
+        "SC&M12&CLK2",
+        "SC&M22&CLK2",
+        "SC(A22+M22)CLK2",
+        "STC",
+        "SUB",
+        "SUB_GROUP(6)",
+        "TCC",
+        "TCS",
+        "TMP.0",
+        "TMP.1",
+        "TMP.2",
+        "TMP.3",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "WRAB0",
+        "WRAB1",
+        "WRITE_ACC(1)",
+        "WRITE_CARRY(2)",
+        "X12",
+        "X22",
+        "X32",
+        "XCH",
+        "~(X21&~CLK2)",
+        "~(X31&~CLK2)",
+        "~CN",
+        "~COM",
+        "~I/O",
+        "~INH",
+        "~OPA.0",
+        "~OPA.1",
+        "~OPA.2",
+        "~OPA.3",
+        "~OPE",
+        "~OPR.0",
+        "~OPR.1",
+        "~OPR.2",
+        "~OPR.3",
+        "~SRC",
+        "~TMP.0",
+        "~TMP.1",
+        "~TMP.2",
+        "~TMP.3"
+      ],
+      "point_indices": [
+        0,
+        1,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274
+      ],
+      "schematic_component": 1
+    },
+    {
+      "names": [
+        "~(FIN&X12)"
+      ],
+      "point_indices": [
+        79
+      ],
+      "schematic_component": 4
+    },
+    {
+      "names": [
+        "TEST_PAD"
+      ],
+      "point_indices": [
+        3
+      ],
+      "schematic_component": 372
+    },
+    {
+      "names": [
+        "SYNC"
+      ],
+      "point_indices": [
+        8
+      ],
+      "schematic_component": 426
+    },
+    {
+      "names": [
+        "D3_PAD"
+      ],
+      "point_indices": [
+        7
+      ],
+      "schematic_component": 490
+    },
+    {
+      "names": [
+        "POC_PAD"
+      ],
+      "point_indices": [
+        2
+      ],
+      "schematic_component": 517
+    },
+    {
+      "names": [
+        "D2_PAD"
+      ],
+      "point_indices": [
+        6
+      ],
+      "schematic_component": 534
+    },
+    {
+      "names": [
+        "CMRAM3"
+      ],
+      "point_indices": [
+        13
+      ],
+      "schematic_component": 546
+    },
+    {
+      "names": [
+        "D1_PAD"
+      ],
+      "point_indices": [
+        5
+      ],
+      "schematic_component": 556
+    },
+    {
+      "names": [
+        "CMRAM2"
+      ],
+      "point_indices": [
+        12
+      ],
+      "schematic_component": 557
+    },
+    {
+      "names": [
+        "CMRAM1"
+      ],
+      "point_indices": [
+        11
+      ],
+      "schematic_component": 566
+    },
+    {
+      "names": [
+        "CMRAM0"
+      ],
+      "point_indices": [
+        10
+      ],
+      "schematic_component": 573
+    },
+    {
+      "names": [
+        "D0_PAD"
+      ],
+      "point_indices": [
+        4
+      ],
+      "schematic_component": 583
+    },
+    {
+      "names": [
+        "CMROM"
+      ],
+      "point_indices": [
+        9
+      ],
+      "schematic_component": 584
+    }
+  ],
+  "params": {
+    "polarity": "auto",
+    "sample": 9,
+    "threshold": 200
+  },
+  "points": [
+    {
+      "idx": 0,
+      "name": "CLK1",
+      "schematic_component": 1,
+      "x": 80,
+      "y": 2318
+    },
+    {
+      "idx": 1,
+      "name": "CLK2",
+      "schematic_component": 1,
+      "x": 80,
+      "y": 2398
+    },
+    {
+      "idx": 2,
+      "name": "POC_PAD",
+      "schematic_component": 517,
+      "x": 436,
+      "y": 3310
+    },
+    {
+      "idx": 3,
+      "name": "TEST_PAD",
+      "schematic_component": 372,
+      "x": 975,
+      "y": 2602
+    },
+    {
+      "idx": 4,
+      "name": "D0_PAD",
+      "schematic_component": 583,
+      "x": 3104,
+      "y": 3886
+    },
+    {
+      "idx": 5,
+      "name": "D1_PAD",
+      "schematic_component": 556,
+      "x": 3104,
+      "y": 3652
+    },
+    {
+      "idx": 6,
+      "name": "D2_PAD",
+      "schematic_component": 534,
+      "x": 3104,
+      "y": 3418
+    },
+    {
+      "idx": 7,
+      "name": "D3_PAD",
+      "schematic_component": 490,
+      "x": 3104,
+      "y": 3184
+    },
+    {
+      "idx": 8,
+      "name": "SYNC",
+      "schematic_component": 426,
+      "x": 145,
+      "y": 2815
+    },
+    {
+      "idx": 9,
+      "name": "CMROM",
+      "schematic_component": 584,
+      "x": 42,
+      "y": 3911
+    },
+    {
+      "idx": 10,
+      "name": "CMRAM0",
+      "schematic_component": 573,
+      "x": 42,
+      "y": 3832
+    },
+    {
+      "idx": 11,
+      "name": "CMRAM1",
+      "schematic_component": 566,
+      "x": 42,
+      "y": 3753
+    },
+    {
+      "idx": 12,
+      "name": "CMRAM2",
+      "schematic_component": 557,
+      "x": 42,
+      "y": 3674
+    },
+    {
+      "idx": 13,
+      "name": "CMRAM3",
+      "schematic_component": 546,
+      "x": 42,
+      "y": 3594
+    },
+    {
+      "idx": 14,
+      "name": "D0",
+      "schematic_component": 1,
+      "x": 2792,
+      "y": 3879
+    },
+    {
+      "idx": 15,
+      "name": "D1",
+      "schematic_component": 1,
+      "x": 2792,
+      "y": 3645
+    },
+    {
+      "idx": 16,
+      "name": "D2",
+      "schematic_component": 1,
+      "x": 2792,
+      "y": 3411
+    },
+    {
+      "idx": 17,
+      "name": "D3",
+      "schematic_component": 1,
+      "x": 2792,
+      "y": 3177
+    },
+    {
+      "idx": 18,
+      "name": "POC",
+      "schematic_component": 1,
+      "x": 471,
+      "y": 3442
+    },
+    {
+      "idx": 19,
+      "name": "A12",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 3416
+    },
+    {
+      "idx": 20,
+      "name": "A22",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 3344
+    },
+    {
+      "idx": 21,
+      "name": "A32",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 3271
+    },
+    {
+      "idx": 22,
+      "name": "M12",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 3198
+    },
+    {
+      "idx": 23,
+      "name": "M22",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 3126
+    },
+    {
+      "idx": 24,
+      "name": "X12",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 3053
+    },
+    {
+      "idx": 25,
+      "name": "X22",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 2981
+    },
+    {
+      "idx": 26,
+      "name": "X32",
+      "schematic_component": 1,
+      "x": 309,
+      "y": 2888
+    },
+    {
+      "idx": 27,
+      "name": "OPA-IB",
+      "schematic_component": 1,
+      "x": 2865,
+      "y": 2640
+    },
+    {
+      "idx": 28,
+      "name": "ADD_0",
+      "schematic_component": 1,
+      "x": 1475,
+      "y": 2547
+    },
+    {
+      "idx": 29,
+      "name": "ACC_0",
+      "schematic_component": 1,
+      "x": 1588,
+      "y": 2547
+    },
+    {
+      "idx": 30,
+      "name": "CY_1",
+      "schematic_component": 1,
+      "x": 1602,
+      "y": 2547
+    },
+    {
+      "idx": 31,
+      "name": "~SRC",
+      "schematic_component": 1,
+      "x": 1694,
+      "y": 2547
+    },
+    {
+      "idx": 32,
+      "name": "~I/O",
+      "schematic_component": 1,
+      "x": 1722,
+      "y": 2547
+    },
+    {
+      "idx": 33,
+      "name": "~OPE",
+      "schematic_component": 1,
+      "x": 1757,
+      "y": 2547
+    },
+    {
+      "idx": 34,
+      "name": "LD",
+      "schematic_component": 1,
+      "x": 2616,
+      "y": 2660
+    },
+    {
+      "idx": 35,
+      "name": "DCL",
+      "schematic_component": 1,
+      "x": 1841,
+      "y": 2660
+    },
+    {
+      "idx": 36,
+      "name": "O-IB",
+      "schematic_component": 1,
+      "x": 1877,
+      "y": 2660
+    },
+    {
+      "idx": 37,
+      "name": "KBP",
+      "schematic_component": 1,
+      "x": 1912,
+      "y": 2660
+    },
+    {
+      "idx": 38,
+      "name": "TCS",
+      "schematic_component": 1,
+      "x": 1947,
+      "y": 2660
+    },
+    {
+      "idx": 39,
+      "name": "DAA",
+      "schematic_component": 1,
+      "x": 1982,
+      "y": 2660
+    },
+    {
+      "idx": 40,
+      "name": "INC/ISZ",
+      "schematic_component": 1,
+      "x": 2017,
+      "y": 2660
+    },
+    {
+      "idx": 41,
+      "name": "XCH",
+      "schematic_component": 1,
+      "x": 2052,
+      "y": 2660
+    },
+    {
+      "idx": 42,
+      "name": "IOW",
+      "schematic_component": 1,
+      "x": 2123,
+      "y": 2660
+    },
+    {
+      "idx": 43,
+      "name": "IOR",
+      "schematic_component": 1,
+      "x": 2581,
+      "y": 2660
+    },
+    {
+      "idx": 44,
+      "name": "RAR",
+      "schematic_component": 1,
+      "x": 2158,
+      "y": 2660
+    },
+    {
+      "idx": 45,
+      "name": "RAL",
+      "schematic_component": 1,
+      "x": 2193,
+      "y": 2660
+    },
+    {
+      "idx": 46,
+      "name": "CMA",
+      "schematic_component": 1,
+      "x": 2228,
+      "y": 2660
+    },
+    {
+      "idx": 47,
+      "name": "TCC",
+      "schematic_component": 1,
+      "x": 2264,
+      "y": 2660
+    },
+    {
+      "idx": 48,
+      "name": "STC",
+      "schematic_component": 1,
+      "x": 2299,
+      "y": 2660
+    },
+    {
+      "idx": 49,
+      "name": "CMC",
+      "schematic_component": 1,
+      "x": 2334,
+      "y": 2660
+    },
+    {
+      "idx": 50,
+      "name": "DAC",
+      "schematic_component": 1,
+      "x": 2369,
+      "y": 2660
+    },
+    {
+      "idx": 51,
+      "name": "IAC",
+      "schematic_component": 1,
+      "x": 2404,
+      "y": 2660
+    },
+    {
+      "idx": 52,
+      "name": "CLC",
+      "schematic_component": 1,
+      "x": 2440,
+      "y": 2660
+    },
+    {
+      "idx": 53,
+      "name": "CLB",
+      "schematic_component": 1,
+      "x": 2475,
+      "y": 2660
+    },
+    {
+      "idx": 54,
+      "name": "SBM",
+      "schematic_component": 1,
+      "x": 2510,
+      "y": 2660
+    },
+    {
+      "idx": 55,
+      "name": "ADM",
+      "schematic_component": 1,
+      "x": 2546,
+      "y": 2660
+    },
+    {
+      "idx": 56,
+      "name": "ADD",
+      "schematic_component": 1,
+      "x": 2686,
+      "y": 2660
+    },
+    {
+      "idx": 57,
+      "name": "SUB",
+      "schematic_component": 1,
+      "x": 2651,
+      "y": 2660
+    },
+    {
+      "idx": 58,
+      "name": "WRITE_ACC(1)",
+      "schematic_component": 1,
+      "x": 2597,
+      "y": 2660
+    },
+    {
+      "idx": 59,
+      "name": "WRITE_CARRY(2)",
+      "schematic_component": 1,
+      "x": 2560,
+      "y": 2660
+    },
+    {
+      "idx": 60,
+      "name": "READ_ACC(3)",
+      "schematic_component": 1,
+      "x": 2454,
+      "y": 2660
+    },
+    {
+      "idx": 61,
+      "name": "ADD_GROUP(4)",
+      "schematic_component": 1,
+      "x": 2418,
+      "y": 2660
+    },
+    {
+      "idx": 62,
+      "name": "INC_GROUP(5)",
+      "schematic_component": 1,
+      "x": 2665,
+      "y": 2660
+    },
+    {
+      "idx": 63,
+      "name": "SUB_GROUP(6)",
+      "schematic_component": 1,
+      "x": 2383,
+      "y": 2660
+    },
+    {
+      "idx": 64,
+      "name": "WADB2",
+      "schematic_component": 1,
+      "x": 258,
+      "y": 1465
+    },
+    {
+      "idx": 65,
+      "name": "WADB1",
+      "schematic_component": 1,
+      "x": 363,
+      "y": 1465
+    },
+    {
+      "idx": 66,
+      "name": "WADB0",
+      "schematic_component": 1,
+      "x": 497,
+      "y": 1465
+    },
+    {
+      "idx": 67,
+      "name": "RADB2",
+      "schematic_component": 1,
+      "x": 715,
+      "y": 1838
+    },
+    {
+      "idx": 68,
+      "name": "RADB1",
+      "schematic_component": 1,
+      "x": 821,
+      "y": 1838
+    },
+    {
+      "idx": 69,
+      "name": "RADB0",
+      "schematic_component": 1,
+      "x": 926,
+      "y": 1838
+    },
+    {
+      "idx": 70,
+      "name": "(~POC)CLK2(X12+X32)~INH",
+      "schematic_component": 1,
+      "x": 701,
+      "y": 1087
+    },
+    {
+      "idx": 71,
+      "name": "((~SC)(JIN+FIN))CLK1(M11+X21~INH)",
+      "schematic_component": 1,
+      "x": 740,
+      "y": 1087
+    },
+    {
+      "idx": 72,
+      "name": "(~INH)(X11+X31)CLK1",
+      "schematic_component": 1,
+      "x": 1255,
+      "y": 1115
+    },
+    {
+      "idx": 73,
+      "name": "WRAB1",
+      "schematic_component": 1,
+      "x": 1824,
+      "y": 1075
+    },
+    {
+      "idx": 74,
+      "name": "RRAB1",
+      "schematic_component": 1,
+      "x": 1837,
+      "y": 1075
+    },
+    {
+      "idx": 75,
+      "name": "WRAB0",
+      "schematic_component": 1,
+      "x": 1851,
+      "y": 1075
+    },
+    {
+      "idx": 76,
+      "name": "RRAB0",
+      "schematic_component": 1,
+      "x": 1864,
+      "y": 1075
+    },
+    {
+      "idx": 77,
+      "name": "CLK2&SC(A12+M12)",
+      "schematic_component": 1,
+      "x": 1877,
+      "y": 1075
+    },
+    {
+      "idx": 78,
+      "name": "(~POC)&CLK2&SC(A32+X12)",
+      "schematic_component": 1,
+      "x": 1890,
+      "y": 1075
+    },
+    {
+      "idx": 79,
+      "name": "~(FIN&X12)",
+      "schematic_component": 4,
+      "x": 1950,
+      "y": 1080
+    },
+    {
+      "idx": 80,
+      "name": "SC&A22",
+      "schematic_component": 1,
+      "x": 2066,
+      "y": 1079
+    },
+    {
+      "idx": 81,
+      "name": "SC&M22&CLK2",
+      "schematic_component": 1,
+      "x": 2919,
+      "y": 1852
+    },
+    {
+      "idx": 82,
+      "name": "SC&M12&CLK2",
+      "schematic_component": 1,
+      "x": 2806,
+      "y": 1711
+    },
+    {
+      "idx": 83,
+      "name": "L",
+      "schematic_component": 1,
+      "x": 3001,
+      "y": 1979
+    },
+    {
+      "idx": 84,
+      "name": "SC(A22+M22)CLK2",
+      "schematic_component": 1,
+      "x": 2840,
+      "y": 1084
+    },
+    {
+      "idx": 85,
+      "name": "SC&A12&CLK2",
+      "schematic_component": 1,
+      "x": 2134,
+      "y": 1275
+    },
+    {
+      "idx": 86,
+      "name": "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+      "schematic_component": 1,
+      "x": 1398,
+      "y": 1697
+    },
+    {
+      "idx": 87,
+      "name": "(~INH)&X32&CLK2",
+      "schematic_component": 1,
+      "x": 1642,
+      "y": 1720
+    },
+    {
+      "idx": 88,
+      "name": "M12+M22+CLK1~(M11+M12)",
+      "schematic_component": 1,
+      "x": 74,
+      "y": 1979
+    },
+    {
+      "idx": 89,
+      "name": "SC",
+      "schematic_component": 1,
+      "x": 539,
+      "y": 2267
+    },
+    {
+      "idx": 90,
+      "name": "DC",
+      "schematic_component": 1,
+      "x": 2045,
+      "y": 1824
+    },
+    {
+      "idx": 91,
+      "name": "~CN",
+      "schematic_component": 1,
+      "x": 779,
+      "y": 2359
+    },
+    {
+      "idx": 92,
+      "name": "INH",
+      "schematic_component": 1,
+      "x": 1840,
+      "y": 1711
+    },
+    {
+      "idx": 93,
+      "name": "~INH",
+      "schematic_component": 1,
+      "x": 1814,
+      "y": 1697
+    },
+    {
+      "idx": 94,
+      "name": "IO",
+      "schematic_component": 1,
+      "x": 1701,
+      "y": 2056
+    },
+    {
+      "idx": 95,
+      "name": "OPE",
+      "schematic_component": 1,
+      "x": 1736,
+      "y": 2056
+    },
+    {
+      "idx": 96,
+      "name": "FIN+FIM",
+      "schematic_component": 1,
+      "x": 1377,
+      "y": 2056
+    },
+    {
+      "idx": 97,
+      "name": "ISZ",
+      "schematic_component": 1,
+      "x": 1412,
+      "y": 2056
+    },
+    {
+      "idx": 98,
+      "name": "JCN",
+      "schematic_component": 1,
+      "x": 1447,
+      "y": 2056
+    },
+    {
+      "idx": 99,
+      "name": "BBL",
+      "schematic_component": 1,
+      "x": 1482,
+      "y": 2056
+    },
+    {
+      "idx": 100,
+      "name": "JMS",
+      "schematic_component": 1,
+      "x": 1518,
+      "y": 2056
+    },
+    {
+      "idx": 101,
+      "name": "FIM+SRC",
+      "schematic_component": 1,
+      "x": 1665,
+      "y": 2056
+    },
+    {
+      "idx": 102,
+      "name": "JCN+ISZ",
+      "schematic_component": 1,
+      "x": 1877,
+      "y": 2056
+    },
+    {
+      "idx": 103,
+      "name": "JUN+JMS",
+      "schematic_component": 1,
+      "x": 1912,
+      "y": 2056
+    },
+    {
+      "idx": 104,
+      "name": "JIN+FIN",
+      "schematic_component": 1,
+      "x": 1947,
+      "y": 2056
+    },
+    {
+      "idx": 105,
+      "name": "FIN+FIM+SRC+JIN",
+      "schematic_component": 1,
+      "x": 2264,
+      "y": 2056
+    },
+    {
+      "idx": 106,
+      "name": "INC+ISZ+XCH",
+      "schematic_component": 1,
+      "x": 2334,
+      "y": 2056
+    },
+    {
+      "idx": 107,
+      "name": "INC+ISZ+ADD+SUB+XCH+LD",
+      "schematic_component": 1,
+      "x": 2546,
+      "y": 2056
+    },
+    {
+      "idx": 108,
+      "name": "LDM/BBL",
+      "schematic_component": 1,
+      "x": 2722,
+      "y": 2056
+    },
+    {
+      "idx": 109,
+      "name": "JUN2+JMS2",
+      "schematic_component": 1,
+      "x": 2757,
+      "y": 2056
+    },
+    {
+      "idx": 110,
+      "name": "~(X21&~CLK2)",
+      "schematic_component": 1,
+      "x": 563,
+      "y": 3020
+    },
+    {
+      "idx": 111,
+      "name": "~(X31&~CLK2)",
+      "schematic_component": 1,
+      "x": 708,
+      "y": 3020
+    },
+    {
+      "idx": 112,
+      "name": "~COM",
+      "schematic_component": 1,
+      "x": 794,
+      "y": 3252
+    },
+    {
+      "idx": 113,
+      "name": "ADD-IB",
+      "schematic_component": 1,
+      "x": 1137,
+      "y": 3243
+    },
+    {
+      "idx": 114,
+      "name": "CY-IB",
+      "schematic_component": 1,
+      "x": 1189,
+      "y": 3223
+    },
+    {
+      "idx": 115,
+      "name": "ACB-IB",
+      "schematic_component": 1,
+      "x": 1256,
+      "y": 3263
+    },
+    {
+      "idx": 116,
+      "name": "ADC-CY",
+      "schematic_component": 1,
+      "x": 1428,
+      "y": 3231
+    },
+    {
+      "idx": 117,
+      "name": "ADD-ACC",
+      "schematic_component": 1,
+      "x": 1481,
+      "y": 3231
+    },
+    {
+      "idx": 118,
+      "name": "ADSR",
+      "schematic_component": 1,
+      "x": 1533,
+      "y": 3231
+    },
+    {
+      "idx": 119,
+      "name": "ADSL",
+      "schematic_component": 1,
+      "x": 1586,
+      "y": 3231
+    },
+    {
+      "idx": 120,
+      "name": "ACC-ADAC",
+      "schematic_component": 1,
+      "x": 1639,
+      "y": 3231
+    },
+    {
+      "idx": 121,
+      "name": "ACC-ADA",
+      "schematic_component": 1,
+      "x": 1691,
+      "y": 3231
+    },
+    {
+      "idx": 122,
+      "name": "CY-ADA",
+      "schematic_component": 1,
+      "x": 1744,
+      "y": 3231
+    },
+    {
+      "idx": 123,
+      "name": "CY-ADAC",
+      "schematic_component": 1,
+      "x": 1797,
+      "y": 3231
+    },
+    {
+      "idx": 124,
+      "name": "ACC.0",
+      "schematic_component": 1,
+      "x": 1460,
+      "y": 3522
+    },
+    {
+      "idx": 125,
+      "name": "ACC.1",
+      "schematic_component": 1,
+      "x": 1460,
+      "y": 3641
+    },
+    {
+      "idx": 126,
+      "name": "ACC.2",
+      "schematic_component": 1,
+      "x": 1460,
+      "y": 3759
+    },
+    {
+      "idx": 127,
+      "name": "ACC.3",
+      "schematic_component": 1,
+      "x": 1460,
+      "y": 3878
+    },
+    {
+      "idx": 128,
+      "name": "CY",
+      "schematic_component": 1,
+      "x": 1460,
+      "y": 3403
+    },
+    {
+      "idx": 129,
+      "name": "ADDR-PTR.1",
+      "schematic_component": 1,
+      "x": 1423,
+      "y": 1044
+    },
+    {
+      "idx": 130,
+      "name": "ADDR-PTR.0",
+      "schematic_component": 1,
+      "x": 1633,
+      "y": 1045
+    },
+    {
+      "idx": 131,
+      "name": "ADDR-RFSH.0",
+      "schematic_component": 1,
+      "x": 1633,
+      "y": 788
+    },
+    {
+      "idx": 132,
+      "name": "ADDR-RFSH.1",
+      "schematic_component": 1,
+      "x": 1422,
+      "y": 787
+    },
+    {
+      "idx": 133,
+      "name": "REG-RFSH.0",
+      "schematic_component": 1,
+      "x": 2233,
+      "y": 1116
+    },
+    {
+      "idx": 134,
+      "name": "REG-RFSH.1",
+      "schematic_component": 1,
+      "x": 2445,
+      "y": 1116
+    },
+    {
+      "idx": 135,
+      "name": "REG-RFSH.2",
+      "schematic_component": 1,
+      "x": 2656,
+      "y": 1116
+    },
+    {
+      "idx": 136,
+      "name": "R0.0",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 189
+    },
+    {
+      "idx": 137,
+      "name": "R0.1",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 261
+    },
+    {
+      "idx": 138,
+      "name": "R0.2",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 477
+    },
+    {
+      "idx": 139,
+      "name": "R0.3",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 549
+    },
+    {
+      "idx": 140,
+      "name": "R1.0",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 117
+    },
+    {
+      "idx": 141,
+      "name": "R1.1",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 333
+    },
+    {
+      "idx": 142,
+      "name": "R1.2",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 405
+    },
+    {
+      "idx": 143,
+      "name": "R1.3",
+      "schematic_component": 1,
+      "x": 1963,
+      "y": 621
+    },
+    {
+      "idx": 144,
+      "name": "R2.0",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 189
+    },
+    {
+      "idx": 145,
+      "name": "R2.1",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 261
+    },
+    {
+      "idx": 146,
+      "name": "R2.2",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 477
+    },
+    {
+      "idx": 147,
+      "name": "R2.3",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 549
+    },
+    {
+      "idx": 148,
+      "name": "R3.0",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 117
+    },
+    {
+      "idx": 149,
+      "name": "R3.1",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 333
+    },
+    {
+      "idx": 150,
+      "name": "R3.2",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 405
+    },
+    {
+      "idx": 151,
+      "name": "R3.3",
+      "schematic_component": 1,
+      "x": 2069,
+      "y": 621
+    },
+    {
+      "idx": 152,
+      "name": "R4.0",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 189
+    },
+    {
+      "idx": 153,
+      "name": "R4.1",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 261
+    },
+    {
+      "idx": 154,
+      "name": "R4.2",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 477
+    },
+    {
+      "idx": 155,
+      "name": "R4.3",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 549
+    },
+    {
+      "idx": 156,
+      "name": "R5.0",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 117
+    },
+    {
+      "idx": 157,
+      "name": "R5.1",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 333
+    },
+    {
+      "idx": 158,
+      "name": "R5.2",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 405
+    },
+    {
+      "idx": 159,
+      "name": "R5.3",
+      "schematic_component": 1,
+      "x": 2175,
+      "y": 621
+    },
+    {
+      "idx": 160,
+      "name": "R6.0",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 189
+    },
+    {
+      "idx": 161,
+      "name": "R6.1",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 261
+    },
+    {
+      "idx": 162,
+      "name": "R6.2",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 477
+    },
+    {
+      "idx": 163,
+      "name": "R6.3",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 549
+    },
+    {
+      "idx": 164,
+      "name": "R7.0",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 117
+    },
+    {
+      "idx": 165,
+      "name": "R7.1",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 333
+    },
+    {
+      "idx": 166,
+      "name": "R7.2",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 405
+    },
+    {
+      "idx": 167,
+      "name": "R7.3",
+      "schematic_component": 1,
+      "x": 2281,
+      "y": 621
+    },
+    {
+      "idx": 168,
+      "name": "R8.0",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 189
+    },
+    {
+      "idx": 169,
+      "name": "R8.1",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 261
+    },
+    {
+      "idx": 170,
+      "name": "R8.2",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 477
+    },
+    {
+      "idx": 171,
+      "name": "R8.3",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 549
+    },
+    {
+      "idx": 172,
+      "name": "R9.0",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 117
+    },
+    {
+      "idx": 173,
+      "name": "R9.1",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 333
+    },
+    {
+      "idx": 174,
+      "name": "R9.2",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 405
+    },
+    {
+      "idx": 175,
+      "name": "R9.3",
+      "schematic_component": 1,
+      "x": 2387,
+      "y": 621
+    },
+    {
+      "idx": 176,
+      "name": "R10.0",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 189
+    },
+    {
+      "idx": 177,
+      "name": "R10.1",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 261
+    },
+    {
+      "idx": 178,
+      "name": "R10.2",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 477
+    },
+    {
+      "idx": 179,
+      "name": "R10.3",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 549
+    },
+    {
+      "idx": 180,
+      "name": "R11.0",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 117
+    },
+    {
+      "idx": 181,
+      "name": "R11.1",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 333
+    },
+    {
+      "idx": 182,
+      "name": "R11.2",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 405
+    },
+    {
+      "idx": 183,
+      "name": "R11.3",
+      "schematic_component": 1,
+      "x": 2493,
+      "y": 621
+    },
+    {
+      "idx": 184,
+      "name": "R12.0",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 189
+    },
+    {
+      "idx": 185,
+      "name": "R12.1",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 261
+    },
+    {
+      "idx": 186,
+      "name": "R12.2",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 477
+    },
+    {
+      "idx": 187,
+      "name": "R12.3",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 549
+    },
+    {
+      "idx": 188,
+      "name": "R13.0",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 117
+    },
+    {
+      "idx": 189,
+      "name": "R13.1",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 333
+    },
+    {
+      "idx": 190,
+      "name": "R13.2",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 405
+    },
+    {
+      "idx": 191,
+      "name": "R13.3",
+      "schematic_component": 1,
+      "x": 2599,
+      "y": 621
+    },
+    {
+      "idx": 192,
+      "name": "R14.0",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 189
+    },
+    {
+      "idx": 193,
+      "name": "R14.1",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 261
+    },
+    {
+      "idx": 194,
+      "name": "R14.2",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 477
+    },
+    {
+      "idx": 195,
+      "name": "R14.3",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 549
+    },
+    {
+      "idx": 196,
+      "name": "R15.0",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 117
+    },
+    {
+      "idx": 197,
+      "name": "R15.1",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 333
+    },
+    {
+      "idx": 198,
+      "name": "R15.2",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 405
+    },
+    {
+      "idx": 199,
+      "name": "R15.3",
+      "schematic_component": 1,
+      "x": 2705,
+      "y": 621
+    },
+    {
+      "idx": 200,
+      "name": "PC0.0",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 767
+    },
+    {
+      "idx": 201,
+      "name": "PC0.1",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 695
+    },
+    {
+      "idx": 202,
+      "name": "PC0.2",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 335
+    },
+    {
+      "idx": 203,
+      "name": "PC0.3",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 263
+    },
+    {
+      "idx": 204,
+      "name": "PC0.4",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 839
+    },
+    {
+      "idx": 205,
+      "name": "PC0.5",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 623
+    },
+    {
+      "idx": 206,
+      "name": "PC0.6",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 407
+    },
+    {
+      "idx": 207,
+      "name": "PC0.7",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 191
+    },
+    {
+      "idx": 208,
+      "name": "PC0.8",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 911
+    },
+    {
+      "idx": 209,
+      "name": "PC0.9",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 551
+    },
+    {
+      "idx": 210,
+      "name": "PC0.10",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 479
+    },
+    {
+      "idx": 211,
+      "name": "PC0.11",
+      "schematic_component": 1,
+      "x": 826,
+      "y": 119
+    },
+    {
+      "idx": 212,
+      "name": "PC1.0",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 767
+    },
+    {
+      "idx": 213,
+      "name": "PC1.1",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 695
+    },
+    {
+      "idx": 214,
+      "name": "PC1.2",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 335
+    },
+    {
+      "idx": 215,
+      "name": "PC1.3",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 263
+    },
+    {
+      "idx": 216,
+      "name": "PC1.4",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 839
+    },
+    {
+      "idx": 217,
+      "name": "PC1.5",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 623
+    },
+    {
+      "idx": 218,
+      "name": "PC1.6",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 407
+    },
+    {
+      "idx": 219,
+      "name": "PC1.7",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 191
+    },
+    {
+      "idx": 220,
+      "name": "PC1.8",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 911
+    },
+    {
+      "idx": 221,
+      "name": "PC1.9",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 551
+    },
+    {
+      "idx": 222,
+      "name": "PC1.10",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 479
+    },
+    {
+      "idx": 223,
+      "name": "PC1.11",
+      "schematic_component": 1,
+      "x": 932,
+      "y": 119
+    },
+    {
+      "idx": 224,
+      "name": "PC2.0",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 767
+    },
+    {
+      "idx": 225,
+      "name": "PC2.1",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 695
+    },
+    {
+      "idx": 226,
+      "name": "PC2.2",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 335
+    },
+    {
+      "idx": 227,
+      "name": "PC2.3",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 263
+    },
+    {
+      "idx": 228,
+      "name": "PC2.4",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 839
+    },
+    {
+      "idx": 229,
+      "name": "PC2.5",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 623
+    },
+    {
+      "idx": 230,
+      "name": "PC2.6",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 407
+    },
+    {
+      "idx": 231,
+      "name": "PC2.7",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 191
+    },
+    {
+      "idx": 232,
+      "name": "PC2.8",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 911
+    },
+    {
+      "idx": 233,
+      "name": "PC2.9",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 551
+    },
+    {
+      "idx": 234,
+      "name": "PC2.10",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 479
+    },
+    {
+      "idx": 235,
+      "name": "PC2.11",
+      "schematic_component": 1,
+      "x": 1038,
+      "y": 119
+    },
+    {
+      "idx": 236,
+      "name": "PC3.0",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 767
+    },
+    {
+      "idx": 237,
+      "name": "PC3.1",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 695
+    },
+    {
+      "idx": 238,
+      "name": "PC3.3",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 263
+    },
+    {
+      "idx": 239,
+      "name": "PC3.2",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 335
+    },
+    {
+      "idx": 240,
+      "name": "PC3.4",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 839
+    },
+    {
+      "idx": 241,
+      "name": "PC3.5",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 623
+    },
+    {
+      "idx": 242,
+      "name": "PC3.6",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 407
+    },
+    {
+      "idx": 243,
+      "name": "PC3.8",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 911
+    },
+    {
+      "idx": 244,
+      "name": "PC3.7",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 191
+    },
+    {
+      "idx": 245,
+      "name": "PC3.9",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 551
+    },
+    {
+      "idx": 246,
+      "name": "PC3.10",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 479
+    },
+    {
+      "idx": 247,
+      "name": "PC3.11",
+      "schematic_component": 1,
+      "x": 1144,
+      "y": 119
+    },
+    {
+      "idx": 248,
+      "name": "DCL.0",
+      "schematic_component": 1,
+      "x": 398,
+      "y": 3792
+    },
+    {
+      "idx": 249,
+      "name": "DCL.1",
+      "schematic_component": 1,
+      "x": 398,
+      "y": 3687
+    },
+    {
+      "idx": 250,
+      "name": "DCL.2",
+      "schematic_component": 1,
+      "x": 399,
+      "y": 3581
+    },
+    {
+      "idx": 251,
+      "name": "OPR.3",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2082
+    },
+    {
+      "idx": 252,
+      "name": "~OPR.3",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2047
+    },
+    {
+      "idx": 253,
+      "name": "OPR.2",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2136
+    },
+    {
+      "idx": 254,
+      "name": "~OPR.2",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2101
+    },
+    {
+      "idx": 255,
+      "name": "OPR.1",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2191
+    },
+    {
+      "idx": 256,
+      "name": "~OPR.1",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2156
+    },
+    {
+      "idx": 257,
+      "name": "OPR.0",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2246
+    },
+    {
+      "idx": 258,
+      "name": "~OPR.0",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2211
+    },
+    {
+      "idx": 259,
+      "name": "OPA.3",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2324
+    },
+    {
+      "idx": 260,
+      "name": "~OPA.3",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2289
+    },
+    {
+      "idx": 261,
+      "name": "OPA.2",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2380
+    },
+    {
+      "idx": 262,
+      "name": "~OPA.2",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2345
+    },
+    {
+      "idx": 263,
+      "name": "OPA.1",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2436
+    },
+    {
+      "idx": 264,
+      "name": "~OPA.1",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2401
+    },
+    {
+      "idx": 265,
+      "name": "OPA.0",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2492
+    },
+    {
+      "idx": 266,
+      "name": "~OPA.0",
+      "schematic_component": 1,
+      "x": 2848,
+      "y": 2457
+    },
+    {
+      "idx": 267,
+      "name": "~TMP.0",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3496
+    },
+    {
+      "idx": 268,
+      "name": "TMP.0",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3529
+    },
+    {
+      "idx": 269,
+      "name": "~TMP.1",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3615
+    },
+    {
+      "idx": 270,
+      "name": "TMP.1",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3648
+    },
+    {
+      "idx": 271,
+      "name": "~TMP.2",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3733
+    },
+    {
+      "idx": 272,
+      "name": "TMP.2",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3766
+    },
+    {
+      "idx": 273,
+      "name": "~TMP.3",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3852
+    },
+    {
+      "idx": 274,
+      "name": "TMP.3",
+      "schematic_component": 1,
+      "x": 2256,
+      "y": 3885
+    }
+  ],
+  "schema": {
+    "description": "Schematic bitmap connected-components and signals.txt point\u2192component assignment.",
+    "version": 0
+  },
+  "unmapped_point_indices": []
+}

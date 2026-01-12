@@ -1,0 +1,600 @@
+{
+  "chip": "4004",
+  "counts": {
+    "targets": 12
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4004-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "f86192a8aedd69336c65a94bb4211faeb32831f78fa8a054dcc18afb92c5746c",
+      "signals_txt": "765e8f5958afcd5d1cf40181127b04d969102350ab499808dd7d19f8b12f3c89"
+    },
+    "signals_txt": "docs/emulators/i4004-signals.txt"
+  },
+  "params": {
+    "dot_radius": 2,
+    "dot_thresh": 0.55,
+    "max_states": 250000,
+    "name_regex": "^(CLK1|CLK2|SYNC|D[0-3]_PAD|CMROM|CMRAM[0-3])$",
+    "polarity": "auto",
+    "seed_radius": 24,
+    "threshold": 200
+  },
+  "schema": {
+    "description": "Skeleton-based schematic connectivity traces for selected signals.",
+    "version": 0
+  },
+  "targets": [
+    {
+      "bbox": {
+        "x0": 27,
+        "x1": 2179,
+        "y0": 8,
+        "y1": 4009
+      },
+      "counts": {
+        "crossings_est": 5065,
+        "junctions_est": 0,
+        "pixels": 148000,
+        "states": 250000
+      },
+      "hits": [
+        "A12",
+        "A22",
+        "A32",
+        "ACB-IB",
+        "ACC_0",
+        "ADD-IB",
+        "ADD_0",
+        "BBL",
+        "CLK1",
+        "CLK2",
+        "CY-IB",
+        "CY_1",
+        "DAA",
+        "DCL",
+        "FIM+SRC",
+        "FIN+FIM",
+        "IO",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JMS",
+        "JUN+JMS",
+        "KBP",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPE",
+        "POC",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "TCS",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "X12",
+        "X22",
+        "X32",
+        "~(X21&~CLK2)",
+        "~CN",
+        "~COM",
+        "~I/O",
+        "~OPE",
+        "~SRC"
+      ],
+      "name": "CLK1",
+      "point": {
+        "x": 80,
+        "y": 2318
+      },
+      "seed": {
+        "x": 80,
+        "y": 2317
+      }
+    },
+    {
+      "bbox": {
+        "x0": 27,
+        "x1": 2179,
+        "y0": 8,
+        "y1": 4009
+      },
+      "counts": {
+        "crossings_est": 5074,
+        "junctions_est": 0,
+        "pixels": 147890,
+        "states": 250000
+      },
+      "hits": [
+        "A12",
+        "A22",
+        "A32",
+        "ACB-IB",
+        "ACC_0",
+        "ADD-IB",
+        "ADD_0",
+        "BBL",
+        "CLK2",
+        "CY-IB",
+        "CY_1",
+        "DAA",
+        "DCL",
+        "FIM+SRC",
+        "FIN+FIM",
+        "IO",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JMS",
+        "JUN+JMS",
+        "KBP",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPE",
+        "POC",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "TCS",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "X12",
+        "X22",
+        "X32",
+        "~(X21&~CLK2)",
+        "~CN",
+        "~COM",
+        "~I/O",
+        "~OPE",
+        "~SRC"
+      ],
+      "name": "CLK2",
+      "point": {
+        "x": 80,
+        "y": 2398
+      },
+      "seed": {
+        "x": 80,
+        "y": 2397
+      }
+    },
+    {
+      "bbox": {
+        "x0": 27,
+        "x1": 3136,
+        "y0": 8,
+        "y1": 3924
+      },
+      "counts": {
+        "crossings_est": 5401,
+        "junctions_est": 0,
+        "pixels": 152162,
+        "states": 250000
+      },
+      "hits": [
+        "(~INH)(X11+X31)CLK1",
+        "A12",
+        "A22",
+        "A32",
+        "ADDR-PTR.0",
+        "ADDR-RFSH.0",
+        "BBL",
+        "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+        "D0_PAD",
+        "DAA",
+        "DCL",
+        "FIM+SRC",
+        "FIN+FIM",
+        "FIN+FIM+SRC+JIN",
+        "INC/ISZ",
+        "INH",
+        "IO",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JIN+FIN",
+        "JMS",
+        "JUN+JMS",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPE",
+        "POC",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "RRAB1",
+        "TCS",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "WRAB0",
+        "WRAB1",
+        "X12",
+        "X22",
+        "X32",
+        "~CN",
+        "~INH"
+      ],
+      "name": "D0_PAD",
+      "point": {
+        "x": 3104,
+        "y": 3886
+      },
+      "seed": {
+        "x": 3103,
+        "y": 3885
+      }
+    },
+    {
+      "bbox": {
+        "x0": 27,
+        "x1": 3136,
+        "y0": 8,
+        "y1": 3877
+      },
+      "counts": {
+        "crossings_est": 5399,
+        "junctions_est": 0,
+        "pixels": 151928,
+        "states": 250000
+      },
+      "hits": [
+        "(~INH)(X11+X31)CLK1",
+        "A12",
+        "A22",
+        "A32",
+        "ADDR-PTR.0",
+        "ADDR-RFSH.0",
+        "BBL",
+        "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+        "D1_PAD",
+        "DAA",
+        "DCL",
+        "FIM+SRC",
+        "FIN+FIM",
+        "FIN+FIM+SRC+JIN",
+        "INC/ISZ",
+        "INH",
+        "IO",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JIN+FIN",
+        "JMS",
+        "JUN+JMS",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPE",
+        "POC",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "RRAB1",
+        "TCS",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "WRAB0",
+        "WRAB1",
+        "X12",
+        "X22",
+        "X32",
+        "~CN",
+        "~INH"
+      ],
+      "name": "D1_PAD",
+      "point": {
+        "x": 3104,
+        "y": 3652
+      },
+      "seed": {
+        "x": 3103,
+        "y": 3651
+      }
+    },
+    {
+      "bbox": {
+        "x0": 27,
+        "x1": 3136,
+        "y0": 8,
+        "y1": 3877
+      },
+      "counts": {
+        "crossings_est": 5412,
+        "junctions_est": 0,
+        "pixels": 151828,
+        "states": 250000
+      },
+      "hits": [
+        "(~INH)(X11+X31)CLK1",
+        "A12",
+        "A22",
+        "A32",
+        "ADDR-PTR.0",
+        "ADDR-RFSH.0",
+        "BBL",
+        "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+        "D2_PAD",
+        "DAA",
+        "DCL",
+        "FIM+SRC",
+        "FIN+FIM",
+        "FIN+FIM+SRC+JIN",
+        "INC/ISZ",
+        "INH",
+        "IO",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JIN+FIN",
+        "JMS",
+        "JUN+JMS",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPE",
+        "POC",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "RRAB1",
+        "TCS",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "WRAB0",
+        "WRAB1",
+        "X12",
+        "X22",
+        "X32",
+        "~CN",
+        "~INH"
+      ],
+      "name": "D2_PAD",
+      "point": {
+        "x": 3104,
+        "y": 3418
+      },
+      "seed": {
+        "x": 3103,
+        "y": 3417
+      }
+    },
+    {
+      "bbox": {
+        "x0": 27,
+        "x1": 3136,
+        "y0": 8,
+        "y1": 3877
+      },
+      "counts": {
+        "crossings_est": 5422,
+        "junctions_est": 0,
+        "pixels": 151807,
+        "states": 250000
+      },
+      "hits": [
+        "(~INH)(X11+X31)CLK1",
+        "A12",
+        "A22",
+        "A32",
+        "ADDR-PTR.0",
+        "ADDR-RFSH.0",
+        "BBL",
+        "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+        "D3_PAD",
+        "DAA",
+        "DCL",
+        "FIM+SRC",
+        "FIN+FIM",
+        "FIN+FIM+SRC+JIN",
+        "INC/ISZ",
+        "INH",
+        "IO",
+        "ISZ",
+        "JCN",
+        "JCN+ISZ",
+        "JIN+FIN",
+        "JMS",
+        "JUN+JMS",
+        "M12",
+        "M12+M22+CLK1~(M11+M12)",
+        "M22",
+        "O-IB",
+        "OPE",
+        "POC",
+        "RADB0",
+        "RADB1",
+        "RADB2",
+        "RRAB1",
+        "TCS",
+        "WADB0",
+        "WADB1",
+        "WADB2",
+        "WRAB0",
+        "WRAB1",
+        "X12",
+        "X22",
+        "X32",
+        "~CN",
+        "~INH"
+      ],
+      "name": "D3_PAD",
+      "point": {
+        "x": 3104,
+        "y": 3184
+      },
+      "seed": {
+        "x": 3103,
+        "y": 3183
+      }
+    },
+    {
+      "bbox": {
+        "x0": 144,
+        "x1": 239,
+        "y0": 2814,
+        "y1": 2833
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 176,
+        "states": 306
+      },
+      "hits": [
+        "SYNC"
+      ],
+      "name": "SYNC",
+      "point": {
+        "x": 145,
+        "y": 2815
+      },
+      "seed": {
+        "x": 145,
+        "y": 2814
+      }
+    },
+    {
+      "bbox": {
+        "x0": 41,
+        "x1": 180,
+        "y0": 3892,
+        "y1": 3910
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 218,
+        "states": 391
+      },
+      "hits": [
+        "CMROM"
+      ],
+      "name": "CMROM",
+      "point": {
+        "x": 42,
+        "y": 3911
+      },
+      "seed": {
+        "x": 42,
+        "y": 3910
+      }
+    },
+    {
+      "bbox": {
+        "x0": 41,
+        "x1": 180,
+        "y0": 3813,
+        "y1": 3831
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 218,
+        "states": 391
+      },
+      "hits": [
+        "CMRAM0"
+      ],
+      "name": "CMRAM0",
+      "point": {
+        "x": 42,
+        "y": 3832
+      },
+      "seed": {
+        "x": 42,
+        "y": 3831
+      }
+    },
+    {
+      "bbox": {
+        "x0": 41,
+        "x1": 179,
+        "y0": 3734,
+        "y1": 3752
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 217,
+        "states": 389
+      },
+      "hits": [
+        "CMRAM1"
+      ],
+      "name": "CMRAM1",
+      "point": {
+        "x": 42,
+        "y": 3753
+      },
+      "seed": {
+        "x": 42,
+        "y": 3752
+      }
+    },
+    {
+      "bbox": {
+        "x0": 41,
+        "x1": 180,
+        "y0": 3655,
+        "y1": 3673
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 218,
+        "states": 391
+      },
+      "hits": [
+        "CMRAM2"
+      ],
+      "name": "CMRAM2",
+      "point": {
+        "x": 42,
+        "y": 3674
+      },
+      "seed": {
+        "x": 42,
+        "y": 3673
+      }
+    },
+    {
+      "bbox": {
+        "x0": 41,
+        "x1": 180,
+        "y0": 3575,
+        "y1": 3593
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 218,
+        "states": 391
+      },
+      "hits": [
+        "CMRAM3"
+      ],
+      "name": "CMRAM3",
+      "point": {
+        "x": 42,
+        "y": 3594
+      },
+      "seed": {
+        "x": 42,
+        "y": 3593
+      }
+    }
+  ]
+}

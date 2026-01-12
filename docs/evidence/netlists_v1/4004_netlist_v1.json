@@ -1,0 +1,707 @@
+{
+  "chip": "4004",
+  "counts": {
+    "signals": 14
+  },
+  "devices": {
+    "loads": [],
+    "transistors": []
+  },
+  "inputs": {
+    "anchors_v0": "docs/evidence/schematic_layout_anchors_v0.json",
+    "layout_netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+    "schematic_connectivity_v0": "docs/evidence/schematic_connectivity_v0/4004/4004_schematic_connectivity_v0.json",
+    "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4004_schematic_net_names_v0.json",
+    "sha256": {
+      "anchors_v0": "4b45b77acb0013822e5bf27887382c5e4387e8029d4cfacecbe106b5f25b9fa1",
+      "layout_netlist_v0": "ad6b3f547161c8827660a757a42eb9a1937418655f08da4439620b0aab2fa65f",
+      "schematic_connectivity_v0": "2d61c5cccc8854476c2b4dcbb0c18acc9fd0774db5d048ab4584533e4857d16b",
+      "schematic_net_names_v0": "18c63424c36719b871811c90b881b89aca6a077fb1fb20f47c52b987a236df29"
+    }
+  },
+  "schema": {
+    "description": "Draft schematic\u2194layout bridge (anchors + schematic connectivity traces).",
+    "version": 1
+  },
+  "signals": [
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pin label `01` on metal mask (human crop box_016_node_49.png); alias mapping: CLK1<->01."
+      },
+      "layout_node": 49,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CLK1",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 27,
+          "x1": 2179,
+          "y0": 8,
+          "y1": 4009
+        },
+        "counts": {
+          "crossings_est": 5065,
+          "junctions_est": 0,
+          "pixels": 148000,
+          "states": 250000
+        },
+        "hits": [
+          "A12",
+          "A22",
+          "A32",
+          "ACB-IB",
+          "ACC_0",
+          "ADD-IB",
+          "ADD_0",
+          "BBL",
+          "CLK1",
+          "CLK2",
+          "CY-IB",
+          "CY_1",
+          "DAA",
+          "DCL",
+          "FIM+SRC",
+          "FIN+FIM",
+          "IO",
+          "ISZ",
+          "JCN",
+          "JCN+ISZ",
+          "JMS",
+          "JUN+JMS",
+          "KBP",
+          "M12",
+          "M12+M22+CLK1~(M11+M12)",
+          "M22",
+          "O-IB",
+          "OPE",
+          "POC",
+          "RADB0",
+          "RADB1",
+          "RADB2",
+          "TCS",
+          "WADB0",
+          "WADB1",
+          "WADB2",
+          "X12",
+          "X22",
+          "X32",
+          "~(X21&~CLK2)",
+          "~CN",
+          "~COM",
+          "~I/O",
+          "~OPE",
+          "~SRC"
+        ],
+        "seed": {
+          "x": 80,
+          "y": 2317
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pin label `02` on metal mask (human crop box_001_node_17.png); alias mapping: CLK2<->02."
+      },
+      "layout_node": 17,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CLK2",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 27,
+          "x1": 2179,
+          "y0": 8,
+          "y1": 4009
+        },
+        "counts": {
+          "crossings_est": 5074,
+          "junctions_est": 0,
+          "pixels": 147890,
+          "states": 250000
+        },
+        "hits": [
+          "A12",
+          "A22",
+          "A32",
+          "ACB-IB",
+          "ACC_0",
+          "ADD-IB",
+          "ADD_0",
+          "BBL",
+          "CLK2",
+          "CY-IB",
+          "CY_1",
+          "DAA",
+          "DCL",
+          "FIM+SRC",
+          "FIN+FIM",
+          "IO",
+          "ISZ",
+          "JCN",
+          "JCN+ISZ",
+          "JMS",
+          "JUN+JMS",
+          "KBP",
+          "M12",
+          "M12+M22+CLK1~(M11+M12)",
+          "M22",
+          "O-IB",
+          "OPE",
+          "POC",
+          "RADB0",
+          "RADB1",
+          "RADB2",
+          "TCS",
+          "WADB0",
+          "WADB1",
+          "WADB2",
+          "X12",
+          "X22",
+          "X32",
+          "~(X21&~CLK2)",
+          "~CN",
+          "~COM",
+          "~I/O",
+          "~OPE",
+          "~SRC"
+        ],
+        "seed": {
+          "x": 80,
+          "y": 2397
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `R0` on metal mask; treated as `CMRAM0` (RAM select bank 0). (human crop box_101_node_596.png)"
+      },
+      "layout_node": 596,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CMRAM0",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 41,
+          "x1": 180,
+          "y0": 3813,
+          "y1": 3831
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 218,
+          "states": 391
+        },
+        "hits": [
+          "CMRAM0"
+        ],
+        "seed": {
+          "x": 42,
+          "y": 3831
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `R1` on metal mask; treated as `CMRAM1` (RAM select bank 1). (human crop box_100_node_595.png)"
+      },
+      "layout_node": 595,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CMRAM1",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 41,
+          "x1": 179,
+          "y0": 3734,
+          "y1": 3752
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 217,
+          "states": 389
+        },
+        "hits": [
+          "CMRAM1"
+        ],
+        "seed": {
+          "x": 42,
+          "y": 3752
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `R2` on metal mask; treated as `CMRAM2` (RAM select bank 2). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png)"
+      },
+      "layout_node": 518,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CMRAM2",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 41,
+          "x1": 180,
+          "y0": 3655,
+          "y1": 3673
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 218,
+          "states": 391
+        },
+        "hits": [
+          "CMRAM2"
+        ],
+        "seed": {
+          "x": 42,
+          "y": 3673
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `R3` on metal mask; treated as `CMRAM3` (RAM select bank 3). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png)"
+      },
+      "layout_node": 441,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CMRAM3",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 41,
+          "x1": 180,
+          "y0": 3575,
+          "y1": 3593
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 218,
+          "states": 391
+        },
+        "hits": [
+          "CMRAM3"
+        ],
+        "seed": {
+          "x": 42,
+          "y": 3593
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `RM` on metal mask; treated as `CMROM` (ROM chip-select). (See crop: docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png)"
+      },
+      "layout_node": 71,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CMROM",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 41,
+          "x1": 180,
+          "y0": 3892,
+          "y1": 3910
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 218,
+          "states": 391
+        },
+        "hits": [
+          "CMROM"
+        ],
+        "seed": {
+          "x": 42,
+          "y": 3910
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `D0` on metal mask; pad metal bbox aligns with node 592. (See debug overlay: layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png)"
+      },
+      "layout_node": 592,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D0_PAD",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 27,
+          "x1": 3136,
+          "y0": 8,
+          "y1": 3924
+        },
+        "counts": {
+          "crossings_est": 5401,
+          "junctions_est": 0,
+          "pixels": 152162,
+          "states": 250000
+        },
+        "hits": [
+          "(~INH)(X11+X31)CLK1",
+          "A12",
+          "A22",
+          "A32",
+          "ADDR-PTR.0",
+          "ADDR-RFSH.0",
+          "BBL",
+          "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+          "D0_PAD",
+          "DAA",
+          "DCL",
+          "FIM+SRC",
+          "FIN+FIM",
+          "FIN+FIM+SRC+JIN",
+          "INC/ISZ",
+          "INH",
+          "IO",
+          "ISZ",
+          "JCN",
+          "JCN+ISZ",
+          "JIN+FIN",
+          "JMS",
+          "JUN+JMS",
+          "M12",
+          "M12+M22+CLK1~(M11+M12)",
+          "M22",
+          "O-IB",
+          "OPE",
+          "POC",
+          "RADB0",
+          "RADB1",
+          "RADB2",
+          "RRAB1",
+          "TCS",
+          "WADB0",
+          "WADB1",
+          "WADB2",
+          "WRAB0",
+          "WRAB1",
+          "X12",
+          "X22",
+          "X32",
+          "~CN",
+          "~INH"
+        ],
+        "seed": {
+          "x": 3103,
+          "y": 3885
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `D1` on metal mask (human crop box_103_node_598.png)."
+      },
+      "layout_node": 598,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1_PAD",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 27,
+          "x1": 3136,
+          "y0": 8,
+          "y1": 3877
+        },
+        "counts": {
+          "crossings_est": 5399,
+          "junctions_est": 0,
+          "pixels": 151928,
+          "states": 250000
+        },
+        "hits": [
+          "(~INH)(X11+X31)CLK1",
+          "A12",
+          "A22",
+          "A32",
+          "ADDR-PTR.0",
+          "ADDR-RFSH.0",
+          "BBL",
+          "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+          "D1_PAD",
+          "DAA",
+          "DCL",
+          "FIM+SRC",
+          "FIN+FIM",
+          "FIN+FIM+SRC+JIN",
+          "INC/ISZ",
+          "INH",
+          "IO",
+          "ISZ",
+          "JCN",
+          "JCN+ISZ",
+          "JIN+FIN",
+          "JMS",
+          "JUN+JMS",
+          "M12",
+          "M12+M22+CLK1~(M11+M12)",
+          "M22",
+          "O-IB",
+          "OPE",
+          "POC",
+          "RADB0",
+          "RADB1",
+          "RADB2",
+          "RRAB1",
+          "TCS",
+          "WADB0",
+          "WADB1",
+          "WADB2",
+          "WRAB0",
+          "WRAB1",
+          "X12",
+          "X22",
+          "X32",
+          "~CN",
+          "~INH"
+        ],
+        "seed": {
+          "x": 3103,
+          "y": 3651
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `D2` on metal mask (human crop box_102_node_597.png)."
+      },
+      "layout_node": 597,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D2_PAD",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 27,
+          "x1": 3136,
+          "y0": 8,
+          "y1": 3877
+        },
+        "counts": {
+          "crossings_est": 5412,
+          "junctions_est": 0,
+          "pixels": 151828,
+          "states": 250000
+        },
+        "hits": [
+          "(~INH)(X11+X31)CLK1",
+          "A12",
+          "A22",
+          "A32",
+          "ADDR-PTR.0",
+          "ADDR-RFSH.0",
+          "BBL",
+          "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+          "D2_PAD",
+          "DAA",
+          "DCL",
+          "FIM+SRC",
+          "FIN+FIM",
+          "FIN+FIM+SRC+JIN",
+          "INC/ISZ",
+          "INH",
+          "IO",
+          "ISZ",
+          "JCN",
+          "JCN+ISZ",
+          "JIN+FIN",
+          "JMS",
+          "JUN+JMS",
+          "M12",
+          "M12+M22+CLK1~(M11+M12)",
+          "M22",
+          "O-IB",
+          "OPE",
+          "POC",
+          "RADB0",
+          "RADB1",
+          "RADB2",
+          "RRAB1",
+          "TCS",
+          "WADB0",
+          "WADB1",
+          "WADB2",
+          "WRAB0",
+          "WRAB1",
+          "X12",
+          "X22",
+          "X32",
+          "~CN",
+          "~INH"
+        ],
+        "seed": {
+          "x": 3103,
+          "y": 3417
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png)."
+      },
+      "layout_node": 432,
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3_PAD",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 27,
+          "x1": 3136,
+          "y0": 8,
+          "y1": 3877
+        },
+        "counts": {
+          "crossings_est": 5422,
+          "junctions_est": 0,
+          "pixels": 151807,
+          "states": 250000
+        },
+        "hits": [
+          "(~INH)(X11+X31)CLK1",
+          "A12",
+          "A22",
+          "A32",
+          "ADDR-PTR.0",
+          "ADDR-RFSH.0",
+          "BBL",
+          "CLK2(JMS&DC&M22+BBL(M22+X12+X22))",
+          "D3_PAD",
+          "DAA",
+          "DCL",
+          "FIM+SRC",
+          "FIN+FIM",
+          "FIN+FIM+SRC+JIN",
+          "INC/ISZ",
+          "INH",
+          "IO",
+          "ISZ",
+          "JCN",
+          "JCN+ISZ",
+          "JIN+FIN",
+          "JMS",
+          "JUN+JMS",
+          "M12",
+          "M12+M22+CLK1~(M11+M12)",
+          "M22",
+          "O-IB",
+          "OPE",
+          "POC",
+          "RADB0",
+          "RADB1",
+          "RADB2",
+          "RRAB1",
+          "TCS",
+          "WADB0",
+          "WADB1",
+          "WADB2",
+          "WRAB0",
+          "WRAB1",
+          "X12",
+          "X22",
+          "X32",
+          "~CN",
+          "~INH"
+        ],
+        "seed": {
+          "x": 3103,
+          "y": 3183
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Power-on clear pad (signals.txt entry)."
+      },
+      "layout_node": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "POC_PAD"
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "SYNC output pin (signals.txt entry)."
+      },
+      "layout_node": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "SYNC",
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 144,
+          "x1": 239,
+          "y0": 2814,
+          "y1": 2833
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 176,
+          "states": 306
+        },
+        "hits": [
+          "SYNC"
+        ],
+        "seed": {
+          "x": 145,
+          "y": 2814
+        }
+      }
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "TEST pad; analyzer readme notes schematic vs mask revision mismatch here."
+      },
+      "layout_node": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "TEST_PAD"
+    }
+  ]
+}
