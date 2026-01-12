@@ -15,6 +15,14 @@ retrieved with clear provenance and licensing.
 - **4040 max clock spec as an explicit primary quote**
   - Current: derived from clock period; need an explicit figure from a primary Intel spec.
 
+- **Process + device characteristics required for “electron-accurate” modeling**
+  - Goal: parameterize any future switch-/analog-level solver with *first-party* constraints.
+  - Targets (first-party preferred):
+    - supply rails and recommended operating regions for MCS-4/MCS-40 parts (already partially captured),
+    - pMOS logic family notes (enhancement + depletion load conventions, threshold/drive behavior),
+    - any Intel MOS design notes or process summaries tied to MCS-4 era parts.
+  - Acceptance: archived under `docs/` with OCR sidecars, and cross-referenced from `docs/ACCURACY_PROGRAM.md`.
+
 ## Medium priority
 
 - **MCS-40 support chip silicon/layer artifacts** (4101/4201/4289/4308)
@@ -22,12 +30,21 @@ retrieved with clear provenance and licensing.
 - **Full-size composite photomicrographs for 4001–4004**
   - Current repo contains thumbnails; full-size would improve OCR and layer alignment.
 
+- **Primary timing diagrams for subcircuit validation**
+  - Goal: validate extracted netlists/switch models against canonical waveforms (CLK1/CLK2/SYNC, CM-ROM/CM-RAM, RD/WR).
+  - Acceptance: OCR excerpts (or vector diagrams) stored under `docs/evidence/ocr/` with precise page references.
+
 ## Lower priority / opportunistic
 
 - **Second-source documentation** (National/NEC clones)
   - Useful for cross-checking specs and possibly locating alternate die photos.
 - **Board-level schematics with higher resolution scans**
   - Can improve wiring-level evidence and OCR extraction quality.
+
+- **Layout-to-device extraction references**
+  - Goal: document, with primary or well-scoped secondary sources, how to interpret contacts/vias/poly/diffusion
+    for this family’s masks (e.g., diffusion split-by-poly).
+  - Acceptance: references linked from `docs/NETLIST_WORKFLOW.md`.
 
 ## Process (when adding a source)
 

@@ -11,14 +11,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from ocr_preprocess_v0 import (
-    OcrResult,
-    crop_label_text_roi,
-    extract_dense_component,
-    head_crop,
-    ocr_best_token,
-    preprocess_label_for_ocr,
-)
+from ocr_backend_v0 import resolve_backend
+from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,7 +36,13 @@ class Try:
     scale: int
 
 
-def best_ocr_for_label(gray: np.ndarray) -> Try:
+def best_ocr_for_label(
+    gray: np.ndarray,
+    *,
+    backend_name: str,
+    onnx_model: Path | None,
+    prefer_cuda: bool,
+) -> Try:
     """
     Benchmark policy: use the same “tiny label” pipeline we want to standardize for edge-label OCR:
     - isolate dense component (label bubble)
@@ -59,21 +59,33 @@ def best_ocr_for_label(gray: np.ndarray) -> Try:
         text_roi = roi
 
     whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    best: Try | None = None
-    for inv in (False, True):
-        for scale in (3, 5):
-            # For tiny labels on solid masks, adaptive threshold can outperform Otsu (esp. for 'RM').
-            pre = preprocess_label_for_ocr(text_roi, scale=scale, invert=inv, use_clahe=True, threshold="adaptive", border=10)
-            r: OcrResult = ocr_best_token(pre, whitelist=whitelist, psms=(7, 11, 8, 10), oem=1, min_len=1, max_len=3)
-            cand = Try(token=r.token, conf=r.conf, psm=r.psm, inv=inv, scale=scale)
-            if best is None or (cand.conf, len(cand.token)) > (best.conf, len(best.token)):
-                best = cand
-    return best or Try(token="", conf=-1.0, psm=0, inv=False, scale=1)
+    backend = resolve_backend(backend=backend_name, onnx_model=onnx_model, prefer_cuda=prefer_cuda)
+    # Backends are allowed to ignore PSMs; we keep the interface stable.
+    r = backend.best_token(text_roi, whitelist=whitelist, psms=(7, 11, 8, 10), oem=1, min_len=1, max_len=3)
+    return Try(token=r.token, conf=r.conf, psm=r.psm, inv=bool(r.invert), scale=int(r.scale))
 
 
 def main() -> int:
     p = argparse.ArgumentParser(description="Run a small OCR benchmark set (v0).")
     p.add_argument("--bench", type=Path, required=True, help="Benchmark JSON (under docs/evidence/ocr_benchmarks_v0)")
+    p.add_argument(
+        "--backend",
+        default="auto",
+        choices=["auto", "tesseract", "onnx"],
+        help="OCR backend (auto prefers ONNX/CUDA when configured, else Tesseract).",
+    )
+    p.add_argument(
+        "--onnx-model",
+        type=Path,
+        default=None,
+        help="Path to ONNX model for --backend onnx/auto (or set OCR_ONNX_MODEL).",
+    )
+    p.add_argument(
+        "--prefer-cuda",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Prefer CUDAExecutionProvider for ONNX backends when available.",
+    )
     args = p.parse_args()
 
     bench_path = args.bench
@@ -95,7 +107,12 @@ def main() -> int:
         gray = np.asarray(Image.open(img_path).convert("L"))
 
         t0 = time.perf_counter()
-        got = best_ocr_for_label(gray)
+        got = best_ocr_for_label(
+            gray,
+            backend_name=str(args.backend),
+            onnx_model=args.onnx_model,
+            prefer_cuda=bool(args.prefer_cuda),
+        )
         dt = time.perf_counter() - t0
 
         passed = got.token == expected

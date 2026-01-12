@@ -261,6 +261,7 @@ def preprocess_label_for_ocr(
     threshold: str,
     border: int,
     use_cuda: bool = False,
+    morph: str | None = None,
 ) -> np.ndarray:
     g = gray.copy()
     if invert:
@@ -275,5 +276,13 @@ def preprocess_label_for_ocr(
         g = adaptive(g)
     else:
         raise ValueError(f"unknown threshold: {threshold}")
+    if morph:
+        k = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+        if morph == "close":
+            g = cv2.morphologyEx(g, cv2.MORPH_CLOSE, k, iterations=1)
+        elif morph == "open":
+            g = cv2.morphologyEx(g, cv2.MORPH_OPEN, k, iterations=1)
+        else:
+            raise ValueError(f"unknown morph: {morph}")
     g = add_border(g, border)
     return g

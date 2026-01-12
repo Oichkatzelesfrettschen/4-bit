@@ -9,6 +9,26 @@ This repo does OCR over tiny schematic/layout labels (often white text on a blac
 Use the stable benchmark fixture before/after changes:
 - `python3 scripts/ocr_benchmark_v0.py --bench docs/evidence/ocr_benchmarks_v0/layout_edge_labels_4004_v0.json`
 
+## Optional GPU experiments (ONNX/CUDA)
+
+The repo’s default is **Tesseract (CPU)** for reproducibility. For speed/accuracy experiments on large datasets, prefer:
+- `onnxruntime` with `CUDAExecutionProvider` (available in this environment)
+- a small **CTC-based text recognizer** (word-level) exported to ONNX
+
+Backend fallback order (implemented in `scripts/ocr_backend_v0.py`):
+- ONNX (CUDA) → ONNX (CPU) → Tesseract (CPU)
+
+To enable ONNX without committing model weights into git:
+- Set `OCR_ONNX_MODEL=/abs/path/to/model.onnx`
+- Optional sidecar config: `model.onnx.json` containing `alphabet` and `blank_id`
+
+Run the stable micro-benchmark with ONNX enabled:
+- `OCR_ONNX_MODEL=/abs/path/to/model.onnx python3 scripts/ocr_benchmark_v0.py --bench docs/evidence/ocr_benchmarks_v0/layout_edge_labels_4004_v0.json --backend auto`
+
+Run a larger manifest set (derived from crops):
+- `python3 scripts/ocr_crops_manifest_v0.py --crops-dir docs/evidence/layout_edge_labels_v0/4004/crops --out /tmp/edge_crops.json --dedupe`
+- `python3 scripts/ocr_manifest_run_v0.py --manifest /tmp/edge_crops.json --backend onnx --onnx-model /abs/path/to/model.onnx`
+
 ## Preprocessing policy (v0)
 
 Canonical helpers live in `scripts/ocr_preprocess_v0.py`:
@@ -32,4 +52,3 @@ Some tools (including Codex image attachment) can’t display PNM variants (`.pb
 Tesseract’s own recommendations are worth following, especially for tiny text:
 - https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html
 - https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html
-

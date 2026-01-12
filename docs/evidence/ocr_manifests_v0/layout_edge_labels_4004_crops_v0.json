@@ -1,0 +1,54 @@
+{
+  "counts": {
+    "entries": 8
+  },
+  "entries": [
+    {
+      "expected": "D2",
+      "id": "000_D2_node514_conf72.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png"
+    },
+    {
+      "expected": "L",
+      "id": "000_L_node0_conf68.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png"
+    },
+    {
+      "expected": "R1",
+      "id": "000_R1_node595_conf89.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png"
+    },
+    {
+      "expected": "R2",
+      "id": "000_R2_node518_conf95.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png"
+    },
+    {
+      "expected": "R3",
+      "id": "001_R3_node441_conf95.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png"
+    },
+    {
+      "expected": "T",
+      "id": "000_T_node0_conf68.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node0_conf68.0.png"
+    },
+    {
+      "expected": "T",
+      "id": "000_T_node49_conf77.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node49_conf77.0.png"
+    },
+    {
+      "expected": "T",
+      "id": "001_T_node415_conf95.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_T_node415_conf95.0.png"
+    }
+  ],
+  "inputs": {
+    "crops_dir": "docs/evidence/layout_edge_labels_v0/4004/crops"
+  },
+  "schema": {
+    "description": "Labeled OCR crops manifest (derived from filenames).",
+    "version": 0
+  }
+}

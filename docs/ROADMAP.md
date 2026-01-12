@@ -4,6 +4,7 @@ Guiding rules:
 - Warnings are errors for builds, tests, and linting.
 - Sync with `mcs4-emu/STATUS.md` after each milestone.
 - Update docs and install requirements with each major change (`requirements.md`, `mcs4-emu/INSTALLATION.md`).
+- Keep fidelity goals explicit: see `docs/ACCURACY_PROGRAM.md` and `docs/CLAIMS_TO_TESTS.md`.
 
 ## Reality Check (Current State)
 
@@ -73,7 +74,8 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Align `docs/AUDIT.md`, `ARCHITECTURE.md`, and `docs/CHIP_ARTIFACTS.md` with the evidence inventory; highlight gaps remaining for 4040/4289/4308.
 - Keep `docs/ROADMAP.md` and `mcs4-emu/STATUS.md` synchronized after each milestone; log toolchain and documentation pivots explicitly.
 - Keep OCR pipelines bounded and deterministic (timeouts, caching) and preserve canonical evidence outputs under `docs/evidence/`.
-- Maintain OCR micro-benchmarks for tiny label crops (`docs/evidence/ocr_benchmarks_v0/`) and keep edge-label OCR fast by default (`scripts/detect_layout_edge_labels_v0.py`; `--deep` only for debugging, `--cuda-preproc` optional).
+- Maintain OCR micro-benchmarks for tiny label crops (`docs/evidence/ocr_benchmarks_v0/`) and a larger labeled-crops manifest (`docs/evidence/ocr_manifests_v0/`) so changes can be evaluated for both accuracy and throughput.
+- Keep edge-label OCR fast by default (`scripts/detect_layout_edge_labels_v0.py`; `--deep` only for debugging, `--cuda-preproc` optional, `--backend auto` for ONNX experiments).
 - Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
   - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
   - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.

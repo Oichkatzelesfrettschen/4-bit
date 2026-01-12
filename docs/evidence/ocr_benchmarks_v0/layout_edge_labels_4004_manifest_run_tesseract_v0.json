@@ -1,0 +1,121 @@
+{
+  "backend": "tesseract",
+  "counts": {
+    "passed": 4,
+    "total": 8
+  },
+  "inputs": {
+    "manifest": "docs/evidence/ocr_manifests_v0/layout_edge_labels_4004_crops_v0.json"
+  },
+  "results": [
+    {
+      "expected": "D2",
+      "got": "D2",
+      "id": "000_D2_node514_conf72.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png",
+      "params": {
+        "invert": true,
+        "psm": 11,
+        "scale": 3
+      },
+      "passed": true,
+      "time_s": 1.956393255997682
+    },
+    {
+      "expected": "L",
+      "got": "PR",
+      "id": "000_L_node0_conf68.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png",
+      "params": {
+        "invert": false,
+        "psm": 11,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 1.9845286259951536
+    },
+    {
+      "expected": "R1",
+      "got": "R1",
+      "id": "000_R1_node595_conf89.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png",
+      "params": {
+        "invert": true,
+        "psm": 11,
+        "scale": 3
+      },
+      "passed": true,
+      "time_s": 2.0189656899892725
+    },
+    {
+      "expected": "R2",
+      "got": "R2",
+      "id": "000_R2_node518_conf95.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png",
+      "params": {
+        "invert": true,
+        "psm": 11,
+        "scale": 3
+      },
+      "passed": true,
+      "time_s": 1.9803229290118907
+    },
+    {
+      "expected": "R3",
+      "got": "R3",
+      "id": "001_R3_node441_conf95.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png",
+      "params": {
+        "invert": true,
+        "psm": 11,
+        "scale": 3
+      },
+      "passed": true,
+      "time_s": 1.9546721789811272
+    },
+    {
+      "expected": "T",
+      "got": "PR",
+      "id": "000_T_node0_conf68.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node0_conf68.0.png",
+      "params": {
+        "invert": false,
+        "psm": 11,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 2.028766989009455
+    },
+    {
+      "expected": "T",
+      "got": "DF",
+      "id": "000_T_node49_conf77.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node49_conf77.0.png",
+      "params": {
+        "invert": false,
+        "psm": 8,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 1.8598074149922468
+    },
+    {
+      "expected": "T",
+      "got": "TT",
+      "id": "001_T_node415_conf95.0",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_T_node415_conf95.0.png",
+      "params": {
+        "invert": false,
+        "psm": 7,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 1.8154143400024623
+    }
+  ],
+  "schema": {
+    "description": "OCR run over labeled manifest (v0).",
+    "version": 0
+  },
+  "time_s": 15.615698423993308
+}

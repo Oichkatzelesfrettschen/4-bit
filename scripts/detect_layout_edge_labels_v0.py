@@ -14,6 +14,7 @@ import numpy as np
 import pytesseract
 from PIL import Image, ImageDraw, ImageFont
 
+from ocr_backend_v0 import resolve_backend
 from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop, preprocess_label_for_ocr
 
 
@@ -77,7 +78,7 @@ def ocr_token(img: np.ndarray, *, psm: int) -> tuple[str, float]:
     We use a strict whitelist since labels are short and OCR is fragile.
     """
     whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    cfg = f"--psm {int(psm)} -l eng -c tessedit_char_whitelist={whitelist}"
+    cfg = f"--psm {int(psm)} --oem 1 -l eng -c tessedit_char_whitelist={whitelist}"
     key = _ocr_cache_key(img, cfg, kind="data")
     data = _OCR_DATA_CACHE.get(key)
     if data is None:
@@ -143,7 +144,7 @@ def ocr_token_sweep(img: np.ndarray, *, psms: tuple[int, ...]) -> list[dict]:
     tries: list[dict] = []
     votes: dict[str, int] = {}
     for psm in psms:
-        cfg = f"--psm {int(psm)} -l eng -c tessedit_char_whitelist={whitelist}"
+        cfg = f"--psm {int(psm)} --oem 1 -l eng -c tessedit_char_whitelist={whitelist}"
         # String is better than TSV for multi-token labels like RM, R2, etc.
         key = _ocr_cache_key(img, cfg, kind="string")
         raw = _OCR_STRING_CACHE.get(key)
@@ -309,9 +310,29 @@ def main() -> int:
         action="store_true",
         help="Use OpenCV CUDA for resize during preprocessing (if available).",
     )
+    p.add_argument(
+        "--backend",
+        default="tesseract",
+        choices=["tesseract", "onnx", "auto"],
+        help="OCR backend (auto prefers ONNX/CUDA when configured, else Tesseract).",
+    )
+    p.add_argument(
+        "--onnx-model",
+        type=Path,
+        default=None,
+        help="Path to ONNX model for --backend onnx/auto (or set OCR_ONNX_MODEL).",
+    )
+    p.add_argument(
+        "--prefer-cuda",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Prefer CUDAExecutionProvider for ONNX backends.",
+    )
     args = p.parse_args()
 
     spec = specs()[args.chip]
+    backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
+    use_tesseract_path = str(getattr(backend, "name", "tesseract")) == "tesseract"
 
     net = json.loads(spec.netlist_v0.read_text(encoding="utf-8"))
     nodes = [n for n in net.get("node_stats", []) if isinstance(n, dict) and isinstance(n.get("metal_bbox"), dict)]
@@ -487,75 +508,112 @@ def main() -> int:
         # - deep: exhaustive rotations + more psms (slow, for forensics)
         deep = bool(args.deep)
         use_cuda_preproc = bool(args.cuda_preproc)
-        psms_data = (7, 11) if not deep else (3, 4, 6, 7, 8, 10, 11, 13)
-        psms_sweep = (7, 11) if not deep else (7, 8, 10, 11, 13)
-        rotations = (0,) if not deep else (0, 90, 180, 270)
         tries = []
-        inv_order = (True, False) if not deep else (False, True)
-        for inv in inv_order:
-            # Adaptive threshold tends to help on white-on-black labels.
-            base = preprocess_label_for_ocr(
+        if not use_tesseract_path:
+            r = backend.best_token(
                 crop_roi,
-                scale=3,
-                invert=inv,
-                use_clahe=True,
-                threshold="adaptive",
-                border=10,
-                use_cuda=use_cuda_preproc,
+                whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                psms=(7, 11, 8, 10),
+                oem=1,
+                min_len=1,
+                max_len=4,
             )
-            for rot in rotations:
-                if rot == 90:
-                    t = cv2.rotate(base, cv2.ROTATE_90_CLOCKWISE)
-                elif rot == 180:
-                    t = cv2.rotate(base, cv2.ROTATE_180)
-                elif rot == 270:
-                    t = cv2.rotate(base, cv2.ROTATE_90_COUNTERCLOCKWISE)
-                else:
-                    t = base
-                # First: TSV-based single-token best guess.
-                local_best = {"token": "", "conf": -1.0, "psm": 0}
-                for psm in psms_data:
-                    tok, conf = ocr_token(t, psm=psm)
-                    tok = normalize_token(tok)
-                    c = float(conf)
-                    tries.append({"token": tok, "conf": c, "inv": inv, "rot": rot, "psm": int(psm), "crop": "full"})
-                    if c > float(local_best["conf"]):
-                        local_best = {"token": tok, "conf": c, "psm": int(psm)}
-
-                # Second: (deep) or (fast fallback) string sweep to recover multi-char tokens like RM.
-                # In fast mode, only do this if we didn't get a plausible multi-char token.
-                needs_sweep = deep or (len(str(local_best.get("token", ""))) < 2 and float(local_best.get("conf", -1.0)) < 80.0)
-                if needs_sweep:
-                    for r in ocr_token_sweep(t, psms=psms_sweep):
+            tries.append(
+                {
+                    "token": r.token,
+                    "conf": float(r.conf),
+                    "inv": bool(r.invert),
+                    "rot": 0,
+                    "psm": int(r.psm),
+                    "scale": int(r.scale),
+                    "crop": "roi",
+                    "backend": str(getattr(backend, "name", "onnx")),
+                }
+            )
+        else:
+            psms_data = (7, 11) if not deep else (3, 4, 6, 7, 8, 10, 11, 13)
+            psms_sweep = (7, 11) if not deep else (7, 8, 10, 11, 13)
+            rotations = (0,) if not deep else (0, 90, 180, 270)
+            inv_order = (True, False) if not deep else (False, True)
+            for inv in inv_order:
+                # Adaptive threshold tends to help on white-on-black labels.
+                base = preprocess_label_for_ocr(
+                    crop_roi,
+                    scale=3,
+                    invert=inv,
+                    use_clahe=True,
+                    threshold="adaptive",
+                    border=10,
+                    use_cuda=use_cuda_preproc,
+                    morph="close",
+                )
+                for rot in rotations:
+                    if rot == 90:
+                        t = cv2.rotate(base, cv2.ROTATE_90_CLOCKWISE)
+                    elif rot == 180:
+                        t = cv2.rotate(base, cv2.ROTATE_180)
+                    elif rot == 270:
+                        t = cv2.rotate(base, cv2.ROTATE_90_COUNTERCLOCKWISE)
+                    else:
+                        t = base
+                    # First: TSV-based single-token best guess.
+                    local_best = {"token": "", "conf": -1.0, "psm": 0}
+                    for psm in psms_data:
+                        tok, conf = ocr_token(t, psm=psm)
+                        tok = normalize_token(tok)
+                        c = float(conf)
                         tries.append(
                             {
-                                "token": r["token"],
-                                "conf": float(r.get("conf", -1.0)),
+                                "token": tok,
+                                "conf": c,
                                 "inv": inv,
                                 "rot": rot,
-                                "psm": int(r.get("psm", -1)),
-                                "raw": r.get("raw"),
-                                "vote_count": r.get("vote_count"),
+                                "psm": int(psm),
                                 "crop": "full",
+                                "backend": "tesseract",
                             }
                         )
+                        if c > float(local_best["conf"]):
+                            local_best = {"token": tok, "conf": c, "psm": int(psm)}
 
-                # Third (deep only): try an additional head-crop string sweep.
-                if deep:
-                    head = head_crop(t, frac=0.42)
-                    for r in ocr_token_sweep(head, psms=(7, 8, 10, 11, 13)):
-                        tries.append(
-                            {
-                                "token": r["token"],
-                                "conf": float(r.get("conf", -1.0)),
-                                "inv": inv,
-                                "rot": rot,
-                                "psm": int(r.get("psm", -1)),
-                                "raw": r.get("raw"),
-                                "vote_count": r.get("vote_count"),
-                                "crop": "head",
-                            }
-                        )
+                    # Second: (deep) or (fast fallback) string sweep to recover multi-char tokens like RM.
+                    # In fast mode, only do this if we didn't get a plausible multi-char token.
+                    needs_sweep = deep or (
+                        len(str(local_best.get("token", ""))) < 2 and float(local_best.get("conf", -1.0)) < 80.0
+                    )
+                    if needs_sweep:
+                        for r in ocr_token_sweep(t, psms=psms_sweep):
+                            tries.append(
+                                {
+                                    "token": r["token"],
+                                    "conf": float(r.get("conf", -1.0)),
+                                    "inv": inv,
+                                    "rot": rot,
+                                    "psm": int(r.get("psm", -1)),
+                                    "raw": r.get("raw"),
+                                    "vote_count": r.get("vote_count"),
+                                    "crop": "full",
+                                    "backend": "tesseract",
+                                }
+                            )
+
+                    # Third (deep only): try an additional head-crop string sweep.
+                    if deep:
+                        head = head_crop(t, frac=0.42)
+                        for r in ocr_token_sweep(head, psms=(7, 8, 10, 11, 13)):
+                            tries.append(
+                                {
+                                    "token": r["token"],
+                                    "conf": float(r.get("conf", -1.0)),
+                                    "inv": inv,
+                                    "rot": rot,
+                                    "psm": int(r.get("psm", -1)),
+                                    "raw": r.get("raw"),
+                                    "vote_count": r.get("vote_count"),
+                                    "crop": "head",
+                                    "backend": "tesseract",
+                                }
+                            )
 
         tries = sorted(tries, key=lambda r: r["conf"], reverse=True)
         best = tries[0] if tries else {"token": "", "conf": -1.0, "inv": False, "rot": 0}
@@ -660,6 +718,7 @@ def main() -> int:
             "netlist_v0": rel_or_abs(spec.netlist_v0),
         },
         "params": {
+            "ocr_backend": str(getattr(backend, "name", "tesseract")),
             "band": int(band),
             "min_area": int(args.min_area),
             "max_area": int(args.max_area),

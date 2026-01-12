@@ -35,7 +35,24 @@
 ## Build and Test
 - `cargo build --workspace --locked`
 - `cargo test --workspace`
-- `cargo clippy --all-targets --all-features -D warnings`
+- `cargo clippy --all-targets --all-features -- -D warnings`
+
+## GPU-Accelerated OCR (Optional)
+
+Repo-default OCR is **Tesseract (CPU)** for reproducible extraction. For higher throughput experiments (page rasterization + label OCR),
+you can optionally enable a GPU-backed ONNX stack:
+
+- `python-onnxruntime-opt-cuda` (provides `onnxruntime` with `CUDAExecutionProvider`)
+- `python-opencv-cuda` (optional CUDA resize/preproc helpers used by some scripts)
+
+Backends fall back in this order:
+- ONNX (CUDA) → ONNX (CPU) → Tesseract (CPU)
+
+To plug in an ONNX model without committing weights into git:
+- Set `OCR_ONNX_MODEL=/abs/path/to/model.onnx` (optionally with sidecar JSON: `model.onnx.json` containing `alphabet` and `blank_id`)
+
+Note: some tools (including Codex image attachment) cannot display PNM variants. Convert PBM/PGM/PPM to PNG with:
+- `python3 scripts/convert_pnm_to_png.py --recursive --out-dir /tmp/pngs <dir-containing-pbm>`
 
 ## Fixture Runner (No GUI Interaction)
 The `mcs4-emu` binary supports running `.hex` fixtures from `mcs4-emu/crates/mcs4-system/fixtures`:
