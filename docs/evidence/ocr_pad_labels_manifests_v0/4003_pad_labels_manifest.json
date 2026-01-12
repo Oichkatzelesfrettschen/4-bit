@@ -1,0 +1,125 @@
+{
+  "chip": "4003",
+  "counts": {
+    "entries": 22
+  },
+  "entries": [
+    {
+      "expected": "",
+      "id": "box_000_node_8",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_000_node_8.png"
+    },
+    {
+      "expected": "",
+      "id": "box_001_node_8",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_001_node_8.png"
+    },
+    {
+      "expected": "",
+      "id": "box_002_node_8",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_002_node_8.png"
+    },
+    {
+      "expected": "",
+      "id": "box_003_node_5",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_003_node_5.png"
+    },
+    {
+      "expected": "",
+      "id": "box_004_node_16",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_004_node_16.png"
+    },
+    {
+      "expected": "",
+      "id": "box_005_node_13",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_005_node_13.png"
+    },
+    {
+      "expected": "",
+      "id": "box_006_node_10",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_006_node_10.png"
+    },
+    {
+      "expected": "",
+      "id": "box_007_node_11",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_007_node_11.png"
+    },
+    {
+      "expected": "",
+      "id": "box_008_node_12",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_008_node_12.png"
+    },
+    {
+      "expected": "",
+      "id": "box_009_node_14",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_009_node_14.png"
+    },
+    {
+      "expected": "",
+      "id": "box_010_node_19",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_010_node_19.png"
+    },
+    {
+      "expected": "",
+      "id": "box_011_node_41",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_011_node_41.png"
+    },
+    {
+      "expected": "",
+      "id": "box_012_node_44",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_012_node_44.png"
+    },
+    {
+      "expected": "",
+      "id": "box_013_node_122",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_013_node_122.png"
+    },
+    {
+      "expected": "",
+      "id": "box_014_node_122",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_014_node_122.png"
+    },
+    {
+      "expected": "",
+      "id": "box_015_node_131",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_015_node_131.png"
+    },
+    {
+      "expected": "",
+      "id": "box_016_node_132",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_016_node_132.png"
+    },
+    {
+      "expected": "",
+      "id": "box_017_node_7",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_017_node_7.png"
+    },
+    {
+      "expected": "",
+      "id": "box_018_node_7",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_018_node_7.png"
+    },
+    {
+      "expected": "",
+      "id": "box_019_node_135",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_019_node_135.png"
+    },
+    {
+      "expected": "",
+      "id": "box_020_node_137",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_020_node_137.png"
+    },
+    {
+      "expected": "",
+      "id": "box_021_node_138",
+      "image": "docs/evidence/layout_pad_labels_v0/4003/human_crops/box_021_node_138.png"
+    }
+  ],
+  "inputs": {
+    "crops_dir": "docs/evidence/layout_pad_labels_v0/4003/human_crops"
+  },
+  "schema": {
+    "description": "Unlabeled OCR manifest for pad-label human crops (v0).",
+    "version": 0
+  }
+}

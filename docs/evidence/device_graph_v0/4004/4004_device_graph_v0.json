@@ -12383,7 +12383,7 @@
   "inputs": {
     "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
     "sha256": {
-      "netlist_v0": "ad6b3f547161c8827660a757a42eb9a1937418655f08da4439620b0aab2fa65f"
+      "netlist_v0": "cb8939a0fd04a06b4617ccf1d7436f0b95aa96260909b34719b15c8101d827d9"
     }
   },
   "nodes": [

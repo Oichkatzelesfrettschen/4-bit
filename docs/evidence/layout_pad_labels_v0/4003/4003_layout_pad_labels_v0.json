@@ -1,0 +1,559 @@
+{
+  "boxes": [
+    {
+      "bbox": {
+        "x0": 929,
+        "x1": 1233,
+        "y0": 18,
+        "y1": 288
+      },
+      "ink_bbox": {
+        "area": 28999,
+        "fill": 0.39642115048118987,
+        "h": 254,
+        "w": 288,
+        "x": 937,
+        "y": 26
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1224,
+        "x1": 1389,
+        "y0": 18,
+        "y1": 288
+      },
+      "ink_bbox": {
+        "area": 26381,
+        "fill": 0.6970617766738889,
+        "h": 254,
+        "w": 149,
+        "x": 1232,
+        "y": 26
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1528,
+        "x1": 1694,
+        "y0": 19,
+        "y1": 288
+      },
+      "ink_bbox": {
+        "area": 26269,
+        "fill": 0.6922002635046113,
+        "h": 253,
+        "w": 150,
+        "x": 1536,
+        "y": 27
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2142,
+        "x1": 2306,
+        "y0": 19,
+        "y1": 244
+      },
+      "ink_bbox": {
+        "area": 23796,
+        "fill": 0.7693004008793483,
+        "h": 209,
+        "w": 148,
+        "x": 2150,
+        "y": 27
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1737,
+        "x1": 1849,
+        "y0": 66,
+        "y1": 288
+      },
+      "ink_bbox": {
+        "area": 4467,
+        "fill": 0.22587985436893204,
+        "h": 206,
+        "w": 96,
+        "x": 1745,
+        "y": 74
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "B",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 836,
+        "x1": 901,
+        "y0": 80,
+        "y1": 192
+      },
+      "ink_bbox": {
+        "area": 2251,
+        "fill": 0.47852891156462585,
+        "h": 96,
+        "w": 49,
+        "x": 844,
+        "y": 88
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "E",
+        "conf": 88.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      }
+    },
+    {
+      "bbox": {
+        "x0": 650,
+        "x1": 714,
+        "y0": 81,
+        "y1": 192
+      },
+      "ink_bbox": {
+        "area": 2267,
+        "fill": 0.49714912280701756,
+        "h": 95,
+        "w": 48,
+        "x": 658,
+        "y": 89
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "4",
+        "conf": 94.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 712,
+        "x1": 775,
+        "y0": 81,
+        "y1": 192
+      },
+      "ink_bbox": {
+        "area": 2695,
+        "fill": 0.6035834266517357,
+        "h": 95,
+        "w": 47,
+        "x": 720,
+        "y": 89
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 774,
+        "x1": 838,
+        "y0": 81,
+        "y1": 192
+      },
+      "ink_bbox": {
+        "area": 2656,
+        "fill": 0.5824561403508772,
+        "h": 95,
+        "w": 48,
+        "x": 782,
+        "y": 89
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1955,
+        "x1": 2005,
+        "y0": 81,
+        "y1": 163
+      },
+      "ink_bbox": {
+        "area": 1130,
+        "fill": 0.5035650623885918,
+        "h": 66,
+        "w": 34,
+        "x": 1963,
+        "y": 89
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 20,
+        "x1": 288,
+        "y0": 287,
+        "y1": 484
+      },
+      "ink_bbox": {
+        "area": 26501,
+        "fill": 0.5810093834955713,
+        "h": 181,
+        "w": 252,
+        "x": 28,
+        "y": 295
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2060,
+        "x1": 2186,
+        "y0": 426,
+        "y1": 537
+      },
+      "ink_bbox": {
+        "area": 2446,
+        "fill": 0.234066985645933,
+        "h": 95,
+        "w": 110,
+        "x": 2068,
+        "y": 434
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2142,
+        "x1": 2306,
+        "y0": 527,
+        "y1": 770
+      },
+      "ink_bbox": {
+        "area": 25175,
+        "fill": 0.7493451601381117,
+        "h": 227,
+        "w": 148,
+        "x": 2150,
+        "y": 535
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "N",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1977,
+        "x1": 2306,
+        "y0": 903,
+        "y1": 1277
+      },
+      "ink_bbox": {
+        "area": 28754,
+        "fill": 0.256608420939904,
+        "h": 358,
+        "w": 313,
+        "x": 1985,
+        "y": 911
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2062,
+        "x1": 2306,
+        "y0": 1055,
+        "y1": 1421
+      },
+      "ink_bbox": {
+        "area": 27668,
+        "fill": 0.34671679197994987,
+        "h": 350,
+        "w": 228,
+        "x": 2070,
+        "y": 1063
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "N",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 928,
+        "x1": 1345,
+        "y0": 1168,
+        "y1": 1420
+      },
+      "ink_bbox": {
+        "area": 28474,
+        "fill": 0.30087915803711063,
+        "h": 236,
+        "w": 401,
+        "x": 936,
+        "y": 1176
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1224,
+        "x1": 1636,
+        "y0": 1168,
+        "y1": 1420
+      },
+      "ink_bbox": {
+        "area": 31017,
+        "fill": 0.33188880328710835,
+        "h": 236,
+        "w": 396,
+        "x": 1232,
+        "y": 1176
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1728,
+        "x1": 1804,
+        "y0": 1168,
+        "y1": 1325
+      },
+      "ink_bbox": {
+        "area": 4413,
+        "fill": 0.5216312056737589,
+        "h": 141,
+        "w": 60,
+        "x": 1736,
+        "y": 1176
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "B",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1887,
+        "x1": 2005,
+        "y0": 1168,
+        "y1": 1242
+      },
+      "ink_bbox": {
+        "area": 1461,
+        "fill": 0.24695740365111563,
+        "h": 58,
+        "w": 102,
+        "x": 1895,
+        "y": 1176
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 722,
+        "x1": 901,
+        "y0": 1254,
+        "y1": 1428
+      },
+      "ink_bbox": {
+        "area": 8510,
+        "fill": 0.3304341073231343,
+        "h": 158,
+        "w": 163,
+        "x": 730,
+        "y": 1262
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "FN",
+        "conf": 64.0,
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 631,
+        "x1": 722,
+        "y0": 1282,
+        "y1": 1389
+      },
+      "ink_bbox": {
+        "area": 3173,
+        "fill": 0.46490842490842493,
+        "h": 91,
+        "w": 75,
+        "x": 639,
+        "y": 1290
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "C",
+        "conf": 42.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1844,
+        "x1": 2113,
+        "y0": 1290,
+        "y1": 1456
+      },
+      "ink_bbox": {
+        "area": 33232,
+        "fill": 0.8313403712413069,
+        "h": 158,
+        "w": 253,
+        "x": 1852,
+        "y": 1298
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "0",
+        "conf": 29.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      }
+    }
+  ],
+  "chip": "4003",
+  "counts": {
+    "candidates": 22
+  },
+  "inputs": {
+    "metal_bmp": "docs/emulators/i4003-metal.bmp",
+    "sha256": {
+      "metal_bmp": "2877d3efe53f3bd59f34e3f7c0d469a43b870c602323e7831ab5095b789ad731"
+    }
+  },
+  "outputs": {
+    "crops_dir": "docs/evidence/layout_pad_labels_v0/4003/crops",
+    "overlay": "docs/evidence/layout_pad_labels_v0/4003/4003_pad_label_boxes_v0.png"
+  },
+  "params": {
+    "backend": "tesseract",
+    "edge_band": 280,
+    "max_area": 40000,
+    "max_size": 420,
+    "min_area": 700,
+    "pad": 8,
+    "threshold": 128
+  },
+  "schema": {
+    "description": "Detected pad-label-like ink boxes near the layout edge, OCR\u2019d.",
+    "version": 0
+  }
+}

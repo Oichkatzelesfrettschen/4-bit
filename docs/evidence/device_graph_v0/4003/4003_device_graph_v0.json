@@ -1,0 +1,4124 @@
+{
+  "chip": "4003",
+  "counts": {
+    "nodes": 490,
+    "transistors": 38
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 157,
+        "b_node": 489,
+        "bbox": {
+          "h": 1456,
+          "w": 2328,
+          "x": 0,
+          "y": 0
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 144,
+        "b_node": 151,
+        "bbox": {
+          "h": 105,
+          "w": 41,
+          "x": 1977,
+          "y": 72
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 152,
+        "b_node": 185,
+        "bbox": {
+          "h": 56,
+          "w": 39,
+          "x": 1925,
+          "y": 333
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 267,
+        "b_node": 275,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 552,
+          "y": 562
+        },
+        "gate_node": 64,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 269,
+        "b_node": 276,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 842,
+          "y": 562
+        },
+        "gate_node": 65,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 271,
+        "b_node": 277,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 1131,
+          "y": 562
+        },
+        "gate_node": 66,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 273,
+        "b_node": 278,
+        "bbox": {
+          "h": 67,
+          "w": 57,
+          "x": 1421,
+          "y": 561
+        },
+        "gate_node": 67,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 239,
+        "b_node": 279,
+        "bbox": {
+          "h": 61,
+          "w": 38,
+          "x": 389,
+          "y": 568
+        },
+        "gate_node": 58,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 235,
+        "b_node": 280,
+        "bbox": {
+          "h": 61,
+          "w": 38,
+          "x": 678,
+          "y": 568
+        },
+        "gate_node": 54,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 236,
+        "b_node": 281,
+        "bbox": {
+          "h": 61,
+          "w": 37,
+          "x": 969,
+          "y": 568
+        },
+        "gate_node": 55,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 237,
+        "b_node": 282,
+        "bbox": {
+          "h": 61,
+          "w": 37,
+          "x": 1258,
+          "y": 568
+        },
+        "gate_node": 56,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 238,
+        "b_node": 283,
+        "bbox": {
+          "h": 60,
+          "w": 37,
+          "x": 1548,
+          "y": 568
+        },
+        "gate_node": 57,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 263,
+        "b_node": 288,
+        "bbox": {
+          "h": 65,
+          "w": 25,
+          "x": 454,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 276,
+        "b_node": 290,
+        "bbox": {
+          "h": 65,
+          "w": 24,
+          "x": 744,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 265,
+        "b_node": 277,
+        "bbox": {
+          "h": 64,
+          "w": 24,
+          "x": 1034,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 261,
+        "b_node": 278,
+        "bbox": {
+          "h": 64,
+          "w": 24,
+          "x": 1323,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 262,
+        "b_node": 284,
+        "bbox": {
+          "h": 64,
+          "w": 24,
+          "x": 1612,
+          "y": 582
+        },
+        "gate_node": 42,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 279,
+        "b_node": 297,
+        "bbox": {
+          "h": 117,
+          "w": 52,
+          "x": 337,
+          "y": 600
+        },
+        "gate_node": 74,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 284,
+        "b_node": 303,
+        "bbox": {
+          "h": 84,
+          "w": 50,
+          "x": 1711,
+          "y": 599
+        },
+        "gate_node": 68,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 286,
+        "b_node": 310,
+        "bbox": {
+          "h": 20,
+          "w": 26,
+          "x": 1764,
+          "y": 663
+        },
+        "gate_node": 72,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 327,
+        "b_node": 331,
+        "bbox": {
+          "h": 55,
+          "w": 84,
+          "x": 1794,
+          "y": 793
+        },
+        "gate_node": 79,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 360,
+        "b_node": 370,
+        "bbox": {
+          "h": 82,
+          "w": 67,
+          "x": 1901,
+          "y": 824
+        },
+        "gate_node": 78,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 354,
+        "b_node": 373,
+        "bbox": {
+          "h": 65,
+          "w": 26,
+          "x": 1034,
+          "y": 842
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 355,
+        "b_node": 374,
+        "bbox": {
+          "h": 65,
+          "w": 26,
+          "x": 1323,
+          "y": 842
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 356,
+        "b_node": 375,
+        "bbox": {
+          "h": 65,
+          "w": 27,
+          "x": 1612,
+          "y": 842
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 352,
+        "b_node": 359,
+        "bbox": {
+          "h": 64,
+          "w": 27,
+          "x": 454,
+          "y": 843
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 353,
+        "b_node": 361,
+        "bbox": {
+          "h": 64,
+          "w": 27,
+          "x": 744,
+          "y": 843
+        },
+        "gate_node": 94,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 363,
+        "b_node": 379,
+        "bbox": {
+          "h": 66,
+          "w": 57,
+          "x": 906,
+          "y": 860
+        },
+        "gate_node": 88,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 364,
+        "b_node": 385,
+        "bbox": {
+          "h": 62,
+          "w": 34,
+          "x": 1088,
+          "y": 860
+        },
+        "gate_node": 101,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 365,
+        "b_node": 381,
+        "bbox": {
+          "h": 66,
+          "w": 58,
+          "x": 1194,
+          "y": 860
+        },
+        "gate_node": 90,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 366,
+        "b_node": 386,
+        "bbox": {
+          "h": 62,
+          "w": 35,
+          "x": 1377,
+          "y": 860
+        },
+        "gate_node": 102,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 367,
+        "b_node": 383,
+        "bbox": {
+          "h": 66,
+          "w": 57,
+          "x": 1485,
+          "y": 860
+        },
+        "gate_node": 92,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 358,
+        "b_node": 387,
+        "bbox": {
+          "h": 62,
+          "w": 35,
+          "x": 1666,
+          "y": 860
+        },
+        "gate_node": 103,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 368,
+        "b_node": 390,
+        "bbox": {
+          "h": 61,
+          "w": 34,
+          "x": 509,
+          "y": 861
+        },
+        "gate_node": 99,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 361,
+        "b_node": 377,
+        "bbox": {
+          "h": 65,
+          "w": 57,
+          "x": 615,
+          "y": 861
+        },
+        "gate_node": 86,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 362,
+        "b_node": 384,
+        "bbox": {
+          "h": 61,
+          "w": 35,
+          "x": 798,
+          "y": 861
+        },
+        "gate_node": 100,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 370,
+        "b_node": 389,
+        "bbox": {
+          "h": 54,
+          "w": 62,
+          "x": 1882,
+          "y": 892
+        },
+        "gate_node": 7,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 389,
+        "b_node": 415,
+        "bbox": {
+          "h": 79,
+          "w": 85,
+          "x": 1828,
+          "y": 950
+        },
+        "gate_node": 110,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4003_netlist_v0.json",
+    "sha256": {
+      "netlist_v0": "36b8b66a87243549637873d74a3a348426a2c332bc314d92238e778e200b0b17"
+    }
+  },
+  "nodes": [
+    {
+      "degree": 0,
+      "metal_area": 37091,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 901,
+        "y0": 26,
+        "y1": 345
+      },
+      "node": 0
+    },
+    {
+      "degree": 0,
+      "metal_area": 34661,
+      "metal_bbox": {
+        "x0": 466,
+        "x1": 1190,
+        "y0": 26,
+        "y1": 345
+      },
+      "node": 1
+    },
+    {
+      "degree": 0,
+      "metal_area": 236902,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 2155,
+        "y0": 26,
+        "y1": 1317
+      },
+      "node": 2
+    },
+    {
+      "degree": 0,
+      "metal_area": 29817,
+      "metal_bbox": {
+        "x0": 1232,
+        "x1": 1480,
+        "y0": 26,
+        "y1": 345
+      },
+      "node": 3
+    },
+    {
+      "degree": 0,
+      "metal_area": 29863,
+      "metal_bbox": {
+        "x0": 1536,
+        "x1": 1768,
+        "y0": 27,
+        "y1": 345
+      },
+      "node": 4
+    },
+    {
+      "degree": 0,
+      "metal_area": 23796,
+      "metal_bbox": {
+        "x0": 2150,
+        "x1": 2298,
+        "y0": 27,
+        "y1": 236
+      },
+      "node": 5
+    },
+    {
+      "degree": 0,
+      "metal_area": 431,
+      "metal_bbox": {
+        "x0": 364,
+        "x1": 387,
+        "y0": 64,
+        "y1": 89
+      },
+      "node": 6
+    },
+    {
+      "degree": 0,
+      "metal_area": 152987,
+      "metal_bbox": {
+        "x0": 336,
+        "x1": 2082,
+        "y0": 65,
+        "y1": 1412
+      },
+      "node": 7
+    },
+    {
+      "degree": 0,
+      "metal_area": 28241,
+      "metal_bbox": {
+        "x0": 311,
+        "x1": 1841,
+        "y0": 74,
+        "y1": 855
+      },
+      "node": 8
+    },
+    {
+      "degree": 0,
+      "metal_area": 420,
+      "metal_bbox": {
+        "x0": 339,
+        "x1": 363,
+        "y0": 89,
+        "y1": 112
+      },
+      "node": 9
+    },
+    {
+      "degree": 0,
+      "metal_area": 2267,
+      "metal_bbox": {
+        "x0": 658,
+        "x1": 706,
+        "y0": 89,
+        "y1": 184
+      },
+      "node": 10
+    },
+    {
+      "degree": 0,
+      "metal_area": 2695,
+      "metal_bbox": {
+        "x0": 720,
+        "x1": 767,
+        "y0": 89,
+        "y1": 184
+      },
+      "node": 11
+    },
+    {
+      "degree": 0,
+      "metal_area": 2656,
+      "metal_bbox": {
+        "x0": 782,
+        "x1": 830,
+        "y0": 89,
+        "y1": 184
+      },
+      "node": 12
+    },
+    {
+      "degree": 0,
+      "metal_area": 2251,
+      "metal_bbox": {
+        "x0": 844,
+        "x1": 893,
+        "y0": 88,
+        "y1": 184
+      },
+      "node": 13
+    },
+    {
+      "degree": 0,
+      "metal_area": 1130,
+      "metal_bbox": {
+        "x0": 1963,
+        "x1": 1997,
+        "y0": 89,
+        "y1": 155
+      },
+      "node": 14
+    },
+    {
+      "degree": 0,
+      "metal_area": 2182,
+      "metal_bbox": {
+        "x0": 1881,
+        "x1": 1919,
+        "y0": 102,
+        "y1": 234
+      },
+      "node": 15
+    },
+    {
+      "degree": 0,
+      "metal_area": 7263,
+      "metal_bbox": {
+        "x0": 1752,
+        "x1": 1951,
+        "y0": 102,
+        "y1": 438
+      },
+      "node": 16
+    },
+    {
+      "degree": 0,
+      "metal_area": 4396,
+      "metal_bbox": {
+        "x0": 1835,
+        "x1": 1978,
+        "y0": 185,
+        "y1": 388
+      },
+      "node": 17
+    },
+    {
+      "degree": 0,
+      "metal_area": 3728,
+      "metal_bbox": {
+        "x0": 1992,
+        "x1": 2058,
+        "y0": 207,
+        "y1": 385
+      },
+      "node": 18
+    },
+    {
+      "degree": 0,
+      "metal_area": 31892,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 611,
+        "y0": 295,
+        "y1": 476
+      },
+      "node": 19
+    },
+    {
+      "degree": 0,
+      "metal_area": 6656,
+      "metal_bbox": {
+        "x0": 1897,
+        "x1": 2051,
+        "y0": 307,
+        "y1": 691
+      },
+      "node": 20
+    },
+    {
+      "degree": 0,
+      "metal_area": 463,
+      "metal_bbox": {
+        "x0": 1933,
+        "x1": 1951,
+        "y0": 310,
+        "y1": 336
+      },
+      "node": 21
+    },
+    {
+      "degree": 0,
+      "metal_area": 386,
+      "metal_bbox": {
+        "x0": 1953,
+        "x1": 1976,
+        "y0": 350,
+        "y1": 367
+      },
+      "node": 22
+    },
+    {
+      "degree": 0,
+      "metal_area": 1674,
+      "metal_bbox": {
+        "x0": 358,
+        "x1": 445,
+        "y0": 359,
+        "y1": 402
+      },
+      "node": 23
+    },
+    {
+      "degree": 0,
+      "metal_area": 1631,
+      "metal_bbox": {
+        "x0": 937,
+        "x1": 1023,
+        "y0": 359,
+        "y1": 402
+      },
+      "node": 24
+    },
+    {
+      "degree": 0,
+      "metal_area": 1642,
+      "metal_bbox": {
+        "x0": 1516,
+        "x1": 1601,
+        "y0": 359,
+        "y1": 402
+      },
+      "node": 25
+    },
+    {
+      "degree": 0,
+      "metal_area": 1695,
+      "metal_bbox": {
+        "x0": 646,
+        "x1": 735,
+        "y0": 360,
+        "y1": 402
+      },
+      "node": 26
+    },
+    {
+      "degree": 0,
+      "metal_area": 1669,
+      "metal_bbox": {
+        "x0": 1225,
+        "x1": 1312,
+        "y0": 360,
+        "y1": 402
+      },
+      "node": 27
+    },
+    {
+      "degree": 0,
+      "metal_area": 984,
+      "metal_bbox": {
+        "x0": 529,
+        "x1": 583,
+        "y0": 413,
+        "y1": 438
+      },
+      "node": 28
+    },
+    {
+      "degree": 0,
+      "metal_area": 421,
+      "metal_bbox": {
+        "x0": 669,
+        "x1": 686,
+        "y0": 413,
+        "y1": 438
+      },
+      "node": 29
+    },
+    {
+      "degree": 0,
+      "metal_area": 23250,
+      "metal_bbox": {
+        "x0": 249,
+        "x1": 1582,
+        "y0": 413,
+        "y1": 855
+      },
+      "node": 30
+    },
+    {
+      "degree": 0,
+      "metal_area": 994,
+      "metal_bbox": {
+        "x0": 819,
+        "x1": 873,
+        "y0": 413,
+        "y1": 438
+      },
+      "node": 31
+    },
+    {
+      "degree": 0,
+      "metal_area": 371,
+      "metal_bbox": {
+        "x0": 960,
+        "x1": 975,
+        "y0": 413,
+        "y1": 438
+      },
+      "node": 32
+    },
+    {
+      "degree": 0,
+      "metal_area": 991,
+      "metal_bbox": {
+        "x0": 1107,
+        "x1": 1162,
+        "y0": 413,
+        "y1": 438
+      },
+      "node": 33
+    },
+    {
+      "degree": 0,
+      "metal_area": 421,
+      "metal_bbox": {
+        "x0": 1247,
+        "x1": 1264,
+        "y0": 413,
+        "y1": 438
+      },
+      "node": 34
+    },
+    {
+      "degree": 0,
+      "metal_area": 404,
+      "metal_bbox": {
+        "x0": 380,
+        "x1": 397,
+        "y0": 414,
+        "y1": 438
+      },
+      "node": 35
+    },
+    {
+      "degree": 0,
+      "metal_area": 933,
+      "metal_bbox": {
+        "x0": 1398,
+        "x1": 1451,
+        "y0": 414,
+        "y1": 438
+      },
+      "node": 36
+    },
+    {
+      "degree": 0,
+      "metal_area": 407,
+      "metal_bbox": {
+        "x0": 1537,
+        "x1": 1554,
+        "y0": 414,
+        "y1": 438
+      },
+      "node": 37
+    },
+    {
+      "degree": 0,
+      "metal_area": 925,
+      "metal_bbox": {
+        "x0": 1687,
+        "x1": 1740,
+        "y0": 414,
+        "y1": 438
+      },
+      "node": 38
+    },
+    {
+      "degree": 0,
+      "metal_area": 1272,
+      "metal_bbox": {
+        "x0": 1958,
+        "x1": 2016,
+        "y0": 420,
+        "y1": 476
+      },
+      "node": 39
+    },
+    {
+      "degree": 0,
+      "metal_area": 42285,
+      "metal_bbox": {
+        "x0": 426,
+        "x1": 1907,
+        "y0": 427,
+        "y1": 810
+      },
+      "node": 40
+    },
+    {
+      "degree": 0,
+      "metal_area": 2446,
+      "metal_bbox": {
+        "x0": 2068,
+        "x1": 2178,
+        "y0": 434,
+        "y1": 529
+      },
+      "node": 41
+    },
+    {
+      "degree": 0,
+      "metal_area": 22286,
+      "metal_bbox": {
+        "x0": 280,
+        "x1": 1768,
+        "y0": 477,
+        "y1": 855
+      },
+      "node": 42
+    },
+    {
+      "degree": 0,
+      "metal_area": 2599,
+      "metal_bbox": {
+        "x0": 1985,
+        "x1": 2023,
+        "y0": 497,
+        "y1": 644
+      },
+      "node": 43
+    },
+    {
+      "degree": 0,
+      "metal_area": 25175,
+      "metal_bbox": {
+        "x0": 2150,
+        "x1": 2298,
+        "y0": 535,
+        "y1": 762
+      },
+      "node": 44
+    },
+    {
+      "degree": 0,
+      "metal_area": 411,
+      "metal_bbox": {
+        "x0": 576,
+        "x1": 599,
+        "y0": 548,
+        "y1": 566
+      },
+      "node": 45
+    },
+    {
+      "degree": 0,
+      "metal_area": 2713,
+      "metal_bbox": {
+        "x0": 616,
+        "x1": 786,
+        "y0": 548,
+        "y1": 672
+      },
+      "node": 46
+    },
+    {
+      "degree": 0,
+      "metal_area": 396,
+      "metal_bbox": {
+        "x0": 867,
+        "x1": 889,
+        "y0": 548,
+        "y1": 566
+      },
+      "node": 47
+    },
+    {
+      "degree": 0,
+      "metal_area": 2707,
+      "metal_bbox": {
+        "x0": 907,
+        "x1": 1075,
+        "y0": 548,
+        "y1": 672
+      },
+      "node": 48
+    },
+    {
+      "degree": 0,
+      "metal_area": 414,
+      "metal_bbox": {
+        "x0": 1155,
+        "x1": 1178,
+        "y0": 548,
+        "y1": 566
+      },
+      "node": 49
+    },
+    {
+      "degree": 0,
+      "metal_area": 2700,
+      "metal_bbox": {
+        "x0": 1194,
+        "x1": 1364,
+        "y0": 548,
+        "y1": 672
+      },
+      "node": 50
+    },
+    {
+      "degree": 0,
+      "metal_area": 428,
+      "metal_bbox": {
+        "x0": 1444,
+        "x1": 1468,
+        "y0": 548,
+        "y1": 566
+      },
+      "node": 51
+    },
+    {
+      "degree": 0,
+      "metal_area": 2835,
+      "metal_bbox": {
+        "x0": 1484,
+        "x1": 1653,
+        "y0": 548,
+        "y1": 672
+      },
+      "node": 52
+    },
+    {
+      "degree": 0,
+      "metal_area": 1230,
+      "metal_bbox": {
+        "x0": 1787,
+        "x1": 1855,
+        "y0": 548,
+        "y1": 587
+      },
+      "node": 53
+    },
+    {
+      "degree": 0,
+      "metal_area": 405,
+      "metal_bbox": {
+        "x0": 699,
+        "x1": 723,
+        "y0": 553,
+        "y1": 570
+      },
+      "node": 54
+    },
+    {
+      "degree": 0,
+      "metal_area": 419,
+      "metal_bbox": {
+        "x0": 988,
+        "x1": 1013,
+        "y0": 553,
+        "y1": 570
+      },
+      "node": 55
+    },
+    {
+      "degree": 0,
+      "metal_area": 390,
+      "metal_bbox": {
+        "x0": 1278,
+        "x1": 1301,
+        "y0": 553,
+        "y1": 570
+      },
+      "node": 56
+    },
+    {
+      "degree": 0,
+      "metal_area": 406,
+      "metal_bbox": {
+        "x0": 1567,
+        "x1": 1590,
+        "y0": 553,
+        "y1": 571
+      },
+      "node": 57
+    },
+    {
+      "degree": 0,
+      "metal_area": 368,
+      "metal_bbox": {
+        "x0": 410,
+        "x1": 433,
+        "y0": 554,
+        "y1": 570
+      },
+      "node": 58
+    },
+    {
+      "degree": 0,
+      "metal_area": 4920,
+      "metal_bbox": {
+        "x0": 334,
+        "x1": 496,
+        "y0": 555,
+        "y1": 767
+      },
+      "node": 59
+    },
+    {
+      "degree": 0,
+      "metal_area": 2797,
+      "metal_bbox": {
+        "x0": 1484,
+        "x1": 1653,
+        "y0": 555,
+        "y1": 597
+      },
+      "node": 60
+    },
+    {
+      "degree": 0,
+      "metal_area": 2749,
+      "metal_bbox": {
+        "x0": 616,
+        "x1": 787,
+        "y0": 556,
+        "y1": 596
+      },
+      "node": 61
+    },
+    {
+      "degree": 0,
+      "metal_area": 2728,
+      "metal_bbox": {
+        "x0": 907,
+        "x1": 1075,
+        "y0": 556,
+        "y1": 596
+      },
+      "node": 62
+    },
+    {
+      "degree": 0,
+      "metal_area": 2771,
+      "metal_bbox": {
+        "x0": 1194,
+        "x1": 1364,
+        "y0": 556,
+        "y1": 597
+      },
+      "node": 63
+    },
+    {
+      "degree": 0,
+      "metal_area": 391,
+      "metal_bbox": {
+        "x0": 576,
+        "x1": 599,
+        "y0": 579,
+        "y1": 596
+      },
+      "node": 64
+    },
+    {
+      "degree": 0,
+      "metal_area": 374,
+      "metal_bbox": {
+        "x0": 867,
+        "x1": 889,
+        "y0": 579,
+        "y1": 596
+      },
+      "node": 65
+    },
+    {
+      "degree": 0,
+      "metal_area": 411,
+      "metal_bbox": {
+        "x0": 1155,
+        "x1": 1178,
+        "y0": 579,
+        "y1": 597
+      },
+      "node": 66
+    },
+    {
+      "degree": 0,
+      "metal_area": 378,
+      "metal_bbox": {
+        "x0": 1444,
+        "x1": 1468,
+        "y0": 580,
+        "y1": 596
+      },
+      "node": 67
+    },
+    {
+      "degree": 0,
+      "metal_area": 405,
+      "metal_bbox": {
+        "x0": 1728,
+        "x1": 1752,
+        "y0": 648,
+        "y1": 665
+      },
+      "node": 68
+    },
+    {
+      "degree": 0,
+      "metal_area": 1502,
+      "metal_bbox": {
+        "x0": 386,
+        "x1": 496,
+        "y0": 655,
+        "y1": 672
+      },
+      "node": 69
+    },
+    {
+      "degree": 0,
+      "metal_area": 6582,
+      "metal_bbox": {
+        "x0": 1977,
+        "x1": 2202,
+        "y0": 338,
+        "y1": 691
+      },
+      "node": 70
+    },
+    {
+      "degree": 0,
+      "metal_area": 389,
+      "metal_bbox": {
+        "x0": 1728,
+        "x1": 1751,
+        "y0": 679,
+        "y1": 696
+      },
+      "node": 71
+    },
+    {
+      "degree": 0,
+      "metal_area": 2061,
+      "metal_bbox": {
+        "x0": 1768,
+        "x1": 1881,
+        "y0": 679,
+        "y1": 701
+      },
+      "node": 72
+    },
+    {
+      "degree": 0,
+      "metal_area": 30476,
+      "metal_bbox": {
+        "x0": 484,
+        "x1": 1790,
+        "y0": 707,
+        "y1": 781
+      },
+      "node": 73
+    },
+    {
+      "degree": 0,
+      "metal_area": 934,
+      "metal_bbox": {
+        "x0": 362,
+        "x1": 386,
+        "y0": 712,
+        "y1": 767
+      },
+      "node": 74
+    },
+    {
+      "degree": 0,
+      "metal_area": 1439,
+      "metal_bbox": {
+        "x0": 1818,
+        "x1": 1886,
+        "y0": 765,
+        "y1": 826
+      },
+      "node": 75
+    },
+    {
+      "degree": 0,
+      "metal_area": 1268,
+      "metal_bbox": {
+        "x0": 334,
+        "x1": 387,
+        "y0": 783,
+        "y1": 838
+      },
+      "node": 76
+    },
+    {
+      "degree": 0,
+      "metal_area": 404,
+      "metal_bbox": {
+        "x0": 369,
+        "x1": 386,
+        "y0": 783,
+        "y1": 807
+      },
+      "node": 77
+    },
+    {
+      "degree": 0,
+      "metal_area": 1656,
+      "metal_bbox": {
+        "x0": 1920,
+        "x1": 2008,
+        "y0": 800,
+        "y1": 850
+      },
+      "node": 78
+    },
+    {
+      "degree": 0,
+      "metal_area": 757,
+      "metal_bbox": {
+        "x0": 1828,
+        "x1": 1853,
+        "y0": 811,
+        "y1": 855
+      },
+      "node": 79
+    },
+    {
+      "degree": 0,
+      "metal_area": 2780,
+      "metal_bbox": {
+        "x0": 435,
+        "x1": 604,
+        "y0": 816,
+        "y1": 937
+      },
+      "node": 80
+    },
+    {
+      "degree": 0,
+      "metal_area": 2618,
+      "metal_bbox": {
+        "x0": 725,
+        "x1": 894,
+        "y0": 816,
+        "y1": 937
+      },
+      "node": 81
+    },
+    {
+      "degree": 0,
+      "metal_area": 2750,
+      "metal_bbox": {
+        "x0": 1014,
+        "x1": 1183,
+        "y0": 816,
+        "y1": 937
+      },
+      "node": 82
+    },
+    {
+      "degree": 0,
+      "metal_area": 2747,
+      "metal_bbox": {
+        "x0": 1303,
+        "x1": 1473,
+        "y0": 816,
+        "y1": 937
+      },
+      "node": 83
+    },
+    {
+      "degree": 0,
+      "metal_area": 2188,
+      "metal_bbox": {
+        "x0": 1592,
+        "x1": 1747,
+        "y0": 816,
+        "y1": 837
+      },
+      "node": 84
+    },
+    {
+      "degree": 0,
+      "metal_area": 2761,
+      "metal_bbox": {
+        "x0": 435,
+        "x1": 604,
+        "y0": 892,
+        "y1": 933
+      },
+      "node": 85
+    },
+    {
+      "degree": 0,
+      "metal_area": 364,
+      "metal_bbox": {
+        "x0": 621,
+        "x1": 644,
+        "y0": 892,
+        "y1": 908
+      },
+      "node": 86
+    },
+    {
+      "degree": 0,
+      "metal_area": 2731,
+      "metal_bbox": {
+        "x0": 725,
+        "x1": 894,
+        "y0": 892,
+        "y1": 933
+      },
+      "node": 87
+    },
+    {
+      "degree": 0,
+      "metal_area": 368,
+      "metal_bbox": {
+        "x0": 911,
+        "x1": 934,
+        "y0": 892,
+        "y1": 908
+      },
+      "node": 88
+    },
+    {
+      "degree": 0,
+      "metal_area": 2749,
+      "metal_bbox": {
+        "x0": 1014,
+        "x1": 1183,
+        "y0": 892,
+        "y1": 933
+      },
+      "node": 89
+    },
+    {
+      "degree": 0,
+      "metal_area": 403,
+      "metal_bbox": {
+        "x0": 1199,
+        "x1": 1223,
+        "y0": 892,
+        "y1": 909
+      },
+      "node": 90
+    },
+    {
+      "degree": 0,
+      "metal_area": 2807,
+      "metal_bbox": {
+        "x0": 1304,
+        "x1": 1473,
+        "y0": 892,
+        "y1": 933
+      },
+      "node": 91
+    },
+    {
+      "degree": 0,
+      "metal_area": 403,
+      "metal_bbox": {
+        "x0": 1489,
+        "x1": 1513,
+        "y0": 892,
+        "y1": 909
+      },
+      "node": 92
+    },
+    {
+      "degree": 0,
+      "metal_area": 23292,
+      "metal_bbox": {
+        "x0": 250,
+        "x1": 1805,
+        "y0": 894,
+        "y1": 1075
+      },
+      "node": 93
+    },
+    {
+      "degree": 0,
+      "metal_area": 17878,
+      "metal_bbox": {
+        "x0": 280,
+        "x1": 1648,
+        "y0": 894,
+        "y1": 987
+      },
+      "node": 94
+    },
+    {
+      "degree": 0,
+      "metal_area": 19040,
+      "metal_bbox": {
+        "x0": 312,
+        "x1": 1692,
+        "y0": 894,
+        "y1": 964
+      },
+      "node": 95
+    },
+    {
+      "degree": 0,
+      "metal_area": 4194,
+      "metal_bbox": {
+        "x0": 1592,
+        "x1": 1827,
+        "y0": 894,
+        "y1": 973
+      },
+      "node": 96
+    },
+    {
+      "degree": 0,
+      "metal_area": 2830,
+      "metal_bbox": {
+        "x0": 1773,
+        "x1": 1951,
+        "y0": 901,
+        "y1": 945
+      },
+      "node": 97
+    },
+    {
+      "degree": 0,
+      "metal_area": 28891,
+      "metal_bbox": {
+        "x0": 1985,
+        "x1": 2298,
+        "y0": 911,
+        "y1": 1269
+      },
+      "node": 98
+    },
+    {
+      "degree": 0,
+      "metal_area": 366,
+      "metal_bbox": {
+        "x0": 499,
+        "x1": 522,
+        "y0": 918,
+        "y1": 934
+      },
+      "node": 99
+    },
+    {
+      "degree": 0,
+      "metal_area": 405,
+      "metal_bbox": {
+        "x0": 788,
+        "x1": 812,
+        "y0": 918,
+        "y1": 935
+      },
+      "node": 100
+    },
+    {
+      "degree": 0,
+      "metal_area": 423,
+      "metal_bbox": {
+        "x0": 1077,
+        "x1": 1102,
+        "y0": 918,
+        "y1": 935
+      },
+      "node": 101
+    },
+    {
+      "degree": 0,
+      "metal_area": 389,
+      "metal_bbox": {
+        "x0": 1367,
+        "x1": 1390,
+        "y0": 918,
+        "y1": 935
+      },
+      "node": 102
+    },
+    {
+      "degree": 0,
+      "metal_area": 400,
+      "metal_bbox": {
+        "x0": 1655,
+        "x1": 1679,
+        "y0": 918,
+        "y1": 935
+      },
+      "node": 103
+    },
+    {
+      "degree": 0,
+      "metal_area": 387,
+      "metal_bbox": {
+        "x0": 621,
+        "x1": 644,
+        "y0": 920,
+        "y1": 937
+      },
+      "node": 104
+    },
+    {
+      "degree": 0,
+      "metal_area": 389,
+      "metal_bbox": {
+        "x0": 911,
+        "x1": 934,
+        "y0": 920,
+        "y1": 937
+      },
+      "node": 105
+    },
+    {
+      "degree": 0,
+      "metal_area": 405,
+      "metal_bbox": {
+        "x0": 1199,
+        "x1": 1223,
+        "y0": 920,
+        "y1": 937
+      },
+      "node": 106
+    },
+    {
+      "degree": 0,
+      "metal_area": 427,
+      "metal_bbox": {
+        "x0": 1489,
+        "x1": 1513,
+        "y0": 920,
+        "y1": 938
+      },
+      "node": 107
+    },
+    {
+      "degree": 0,
+      "metal_area": 1958,
+      "metal_bbox": {
+        "x0": 1868,
+        "x1": 1984,
+        "y0": 925,
+        "y1": 973
+      },
+      "node": 108
+    },
+    {
+      "degree": 0,
+      "metal_area": 29725,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 480,
+        "y0": 994,
+        "y1": 1194
+      },
+      "node": 109
+    },
+    {
+      "degree": 0,
+      "metal_area": 380,
+      "metal_bbox": {
+        "x0": 1813,
+        "x1": 1829,
+        "y0": 1013,
+        "y1": 1037
+      },
+      "node": 110
+    },
+    {
+      "degree": 0,
+      "metal_area": 2248,
+      "metal_bbox": {
+        "x0": 1876,
+        "x1": 1997,
+        "y0": 1034,
+        "y1": 1079
+      },
+      "node": 111
+    },
+    {
+      "degree": 0,
+      "metal_area": 1004,
+      "metal_bbox": {
+        "x0": 348,
+        "x1": 403,
+        "y0": 1050,
+        "y1": 1075
+      },
+      "node": 112
+    },
+    {
+      "degree": 0,
+      "metal_area": 383,
+      "metal_bbox": {
+        "x0": 535,
+        "x1": 551,
+        "y0": 1050,
+        "y1": 1074
+      },
+      "node": 113
+    },
+    {
+      "degree": 0,
+      "metal_area": 925,
+      "metal_bbox": {
+        "x0": 640,
+        "x1": 694,
+        "y0": 1051,
+        "y1": 1074
+      },
+      "node": 114
+    },
+    {
+      "degree": 0,
+      "metal_area": 396,
+      "metal_bbox": {
+        "x0": 825,
+        "x1": 841,
+        "y0": 1050,
+        "y1": 1075
+      },
+      "node": 115
+    },
+    {
+      "degree": 0,
+      "metal_area": 923,
+      "metal_bbox": {
+        "x0": 927,
+        "x1": 982,
+        "y0": 1051,
+        "y1": 1074
+      },
+      "node": 116
+    },
+    {
+      "degree": 0,
+      "metal_area": 398,
+      "metal_bbox": {
+        "x0": 1114,
+        "x1": 1130,
+        "y0": 1050,
+        "y1": 1075
+      },
+      "node": 117
+    },
+    {
+      "degree": 0,
+      "metal_area": 924,
+      "metal_bbox": {
+        "x0": 1214,
+        "x1": 1269,
+        "y0": 1051,
+        "y1": 1075
+      },
+      "node": 118
+    },
+    {
+      "degree": 0,
+      "metal_area": 391,
+      "metal_bbox": {
+        "x0": 1403,
+        "x1": 1420,
+        "y0": 1051,
+        "y1": 1074
+      },
+      "node": 119
+    },
+    {
+      "degree": 0,
+      "metal_area": 932,
+      "metal_bbox": {
+        "x0": 1506,
+        "x1": 1560,
+        "y0": 1051,
+        "y1": 1075
+      },
+      "node": 120
+    },
+    {
+      "degree": 0,
+      "metal_area": 404,
+      "metal_bbox": {
+        "x0": 1692,
+        "x1": 1709,
+        "y0": 1051,
+        "y1": 1075
+      },
+      "node": 121
+    },
+    {
+      "degree": 0,
+      "metal_area": 27668,
+      "metal_bbox": {
+        "x0": 2070,
+        "x1": 2298,
+        "y0": 1063,
+        "y1": 1413
+      },
+      "node": 122
+    },
+    {
+      "degree": 0,
+      "metal_area": 1431,
+      "metal_bbox": {
+        "x0": 1848,
+        "x1": 1924,
+        "y0": 1082,
+        "y1": 1113
+      },
+      "node": 123
+    },
+    {
+      "degree": 0,
+      "metal_area": 1689,
+      "metal_bbox": {
+        "x0": 487,
+        "x1": 573,
+        "y0": 1086,
+        "y1": 1129
+      },
+      "node": 124
+    },
+    {
+      "degree": 0,
+      "metal_area": 1732,
+      "metal_bbox": {
+        "x0": 779,
+        "x1": 866,
+        "y0": 1086,
+        "y1": 1129
+      },
+      "node": 125
+    },
+    {
+      "degree": 0,
+      "metal_area": 1687,
+      "metal_bbox": {
+        "x0": 1066,
+        "x1": 1152,
+        "y0": 1086,
+        "y1": 1129
+      },
+      "node": 126
+    },
+    {
+      "degree": 0,
+      "metal_area": 1789,
+      "metal_bbox": {
+        "x0": 1352,
+        "x1": 1443,
+        "y0": 1086,
+        "y1": 1129
+      },
+      "node": 127
+    },
+    {
+      "degree": 0,
+      "metal_area": 1770,
+      "metal_bbox": {
+        "x0": 1644,
+        "x1": 1731,
+        "y0": 1086,
+        "y1": 1130
+      },
+      "node": 128
+    },
+    {
+      "degree": 0,
+      "metal_area": 35013,
+      "metal_bbox": {
+        "x0": 28,
+        "x1": 773,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 129
+    },
+    {
+      "degree": 0,
+      "metal_area": 32427,
+      "metal_bbox": {
+        "x0": 416,
+        "x1": 1059,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 130
+    },
+    {
+      "degree": 0,
+      "metal_area": 29201,
+      "metal_bbox": {
+        "x0": 936,
+        "x1": 1345,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 131
+    },
+    {
+      "degree": 0,
+      "metal_area": 31730,
+      "metal_bbox": {
+        "x0": 1232,
+        "x1": 1637,
+        "y0": 1143,
+        "y1": 1412
+      },
+      "node": 132
+    },
+    {
+      "degree": 0,
+      "metal_area": 1313,
+      "metal_bbox": {
+        "x0": 1803,
+        "x1": 1826,
+        "y0": 1176,
+        "y1": 1270
+      },
+      "node": 133
+    },
+    {
+      "degree": 0,
+      "metal_area": 221,
+      "metal_bbox": {
+        "x0": 609,
+        "x1": 624,
+        "y0": 1260,
+        "y1": 1275
+      },
+      "node": 134
+    },
+    {
+      "degree": 0,
+      "metal_area": 8510,
+      "metal_bbox": {
+        "x0": 730,
+        "x1": 893,
+        "y0": 1262,
+        "y1": 1420
+      },
+      "node": 135
+    },
+    {
+      "degree": 0,
+      "metal_area": 1331,
+      "metal_bbox": {
+        "x0": 609,
+        "x1": 624,
+        "y0": 1290,
+        "y1": 1379
+      },
+      "node": 136
+    },
+    {
+      "degree": 0,
+      "metal_area": 3173,
+      "metal_bbox": {
+        "x0": 639,
+        "x1": 714,
+        "y0": 1290,
+        "y1": 1381
+      },
+      "node": 137
+    },
+    {
+      "degree": 0,
+      "metal_area": 33232,
+      "metal_bbox": {
+        "x0": 1852,
+        "x1": 2105,
+        "y0": 1298,
+        "y1": 1456
+      },
+      "node": 138
+    },
+    {
+      "degree": 0,
+      "metal_area": 365,
+      "metal_bbox": {
+        "x0": 639,
+        "x1": 669,
+        "y0": 1396,
+        "y1": 1426
+      },
+      "node": 139
+    },
+    {
+      "degree": 0,
+      "metal_area": 663,
+      "metal_bbox": {
+        "x0": 684,
+        "x1": 721,
+        "y0": 1396,
+        "y1": 1426
+      },
+      "node": 140
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 141
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 142
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 143
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 144
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 145
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 146
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 147
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 148
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 149
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 150
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 151
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 152
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 153
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 154
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 155
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 156
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 157
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 158
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 159
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 160
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 161
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 162
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 163
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 164
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 165
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 166
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 167
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 168
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 169
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 170
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 171
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 172
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 173
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 174
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 175
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 176
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 177
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 178
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 179
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 180
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 181
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 182
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 183
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 184
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 185
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 186
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 187
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 188
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 189
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 190
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 191
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 192
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 193
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 194
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 195
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 196
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 197
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 198
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 199
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 200
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 201
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 202
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 203
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 204
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 205
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 206
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 207
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 208
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 209
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 210
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 211
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 212
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 213
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 214
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 215
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 216
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 217
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 218
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 219
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 220
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 221
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 222
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 223
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 224
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 225
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 226
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 227
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 228
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 229
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 230
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 231
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 232
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 233
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 234
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 235
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 236
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 237
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 238
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 239
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 240
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 241
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 242
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 243
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 244
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 245
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 246
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 247
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 248
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 249
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 250
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 251
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 252
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 253
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 254
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 255
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 256
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 257
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 258
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 259
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 260
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 261
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 262
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 263
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 264
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 265
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 266
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 267
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 268
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 269
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 270
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 271
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 272
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 273
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 274
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 275
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 276
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 277
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 278
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 279
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 280
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 281
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 282
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 283
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 284
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 285
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 286
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 287
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 288
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 289
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 290
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 291
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 292
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 293
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 294
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 295
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 296
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 297
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 298
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 299
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 300
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 301
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 302
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 303
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 304
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 305
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 306
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 307
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 308
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 309
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 310
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 311
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 312
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 313
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 314
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 315
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 316
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 317
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 318
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 319
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 320
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 321
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 322
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 323
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 324
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 325
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 326
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 327
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 328
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 329
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 330
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 331
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 332
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 333
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 334
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 335
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 336
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 337
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 338
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 339
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 340
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 341
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 342
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 343
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 344
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 345
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 346
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 347
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 348
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 349
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 350
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 351
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 352
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 353
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 354
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 355
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 356
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 357
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 358
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 359
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 360
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 361
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 362
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 363
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 364
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 365
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 366
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 367
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 368
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 369
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 370
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 371
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 372
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 373
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 374
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 375
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 376
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 377
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 378
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 379
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 380
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 381
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 382
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 383
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 384
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 385
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 386
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 387
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 388
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 389
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 390
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 391
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 392
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 393
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 394
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 395
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 396
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 397
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 398
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 399
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 400
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 401
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 402
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 403
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 404
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 405
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 406
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 407
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 408
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 409
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 410
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 411
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 412
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 413
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 414
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 415
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 416
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 417
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 418
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 419
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 420
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 421
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 422
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 423
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 424
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 425
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 426
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 427
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 428
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 429
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 430
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 431
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 432
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 433
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 434
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 435
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 436
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 437
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 438
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 439
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 440
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 441
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 442
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 443
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 444
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 445
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 446
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 447
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 448
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 449
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 450
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 451
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 452
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 453
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 454
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 455
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 456
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 457
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 458
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 459
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 460
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 461
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 462
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 463
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 464
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 465
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 466
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 467
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 468
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 469
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 470
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 471
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 472
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 473
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 474
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 475
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 476
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 477
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 478
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 479
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 480
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 481
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 482
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 483
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 484
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 485
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 486
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 487
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 488
+    },
+    {
+      "degree": 0,
+      "metal_area": 0,
+      "metal_bbox": null,
+      "node": 489
+    }
+  ],
+  "schema": {
+    "description": "Normalized device graph derived from netlist_v0 devices + node stats.",
+    "version": 0
+  }
+}

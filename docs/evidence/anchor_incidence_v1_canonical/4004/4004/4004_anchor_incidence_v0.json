@@ -1,0 +1,256 @@
+{
+  "anchors": [
+    {
+      "incidence": {
+        "gate": 65,
+        "terminal": 64,
+        "total": 129
+      },
+      "layout_node": 415,
+      "name": "CLK1",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 43032,
+        "gate_degree": 65,
+        "metal_area": 232361,
+        "metal_bbox": {
+          "x0": 26,
+          "x1": 1891,
+          "y0": 248,
+          "y1": 2568
+        },
+        "poly_area": 139896,
+        "poly_bbox": {
+          "x0": 138,
+          "x1": 1878,
+          "y0": 262,
+          "y1": 2584
+        },
+        "terminal_degree": 64
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 14,
+        "total": 14
+      },
+      "layout_node": 70,
+      "name": "CLK2",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 183,
+        "gate_degree": 0,
+        "metal_area": 3614,
+        "metal_bbox": {
+          "x0": 983,
+          "x1": 1554,
+          "y0": 356,
+          "y1": 366
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 14
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3431,
+      "name": "CMRAM0",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 1162,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3428,
+      "name": "CMRAM1",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 155,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 2,
+        "total": 2
+      },
+      "layout_node": 2997,
+      "name": "CMRAM2",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 2427,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 2
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 2,
+        "total": 2
+      },
+      "layout_node": 405,
+      "name": "CMRAM3",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 967,
+        "gate_degree": 0,
+        "metal_area": 3671,
+        "metal_bbox": {
+          "x0": 153,
+          "x1": 235,
+          "y0": 1539,
+          "y1": 2030
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 2
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 1633,
+      "name": "CMROM",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 20,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3442,
+      "name": "D0_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 23,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 598,
+      "name": "D1_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 360,
+        "gate_degree": 0,
+        "metal_area": 987,
+        "metal_bbox": {
+          "x0": 1063,
+          "x1": 1135,
+          "y0": 2605,
+          "y1": 2643
+        },
+        "poly_area": 6102,
+        "poly_bbox": {
+          "x0": 919,
+          "x1": 1067,
+          "y0": 2570,
+          "y1": 2650
+        },
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3426,
+      "name": "D2_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 701,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 2815,
+      "name": "D3_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 6651,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    }
+  ],
+  "chip": "4004",
+  "counts": {
+    "anchors": 11,
+    "anchors_with_zero_transistors": 0
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+    "netlist_v1": "docs/evidence/netlists_v1/4004_netlist_v1.json"
+  },
+  "schema": {
+    "description": "Anchor incidence audit vs netlist_v1 transistor devices.",
+    "version": 0
+  }
+}

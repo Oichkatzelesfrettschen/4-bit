@@ -2,70 +2,70 @@
   "inputs": {
     "netlist": "docs/evidence/netlists_v1/4004_netlist_v1.json",
     "sha256": {
-      "netlist": "a03ff49940c24d3d69450ba02203405a7a9adbf5536bcdc008d49d3dae14e76a"
+      "netlist": "cee71628d4cdc2cc18932171a51840fedd7c3d23c6bea81044c93c2e8031e4a0"
     }
   },
   "outputs": [
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 680,
+        "transistors": 437
       },
       "name": "CLK1",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CLK1_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 169,
+        "transistors": 149
       },
       "name": "CLK2",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CLK2_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 382,
+        "transistors": 233
       },
       "name": "CMRAM0",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM0_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 3,
+        "transistors": 1
       },
       "name": "CMRAM1",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM1_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 42,
+        "transistors": 30
       },
       "name": "CMRAM2",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM2_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 60,
+        "transistors": 39
       },
       "name": "CMRAM3",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM3_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 462,
+        "transistors": 289
       },
       "name": "CMROM",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CMROM_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 382,
+        "transistors": 233
       },
       "name": "D0_PAD",
       "output": "docs/evidence/subcircuits_v0/4004/4004_D0_PAD_subcircuit_v0.json"
@@ -80,16 +80,16 @@
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 91,
+        "transistors": 57
       },
       "name": "D2_PAD",
       "output": "docs/evidence/subcircuits_v0/4004/4004_D2_PAD_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 1,
-        "transistors": 0
+        "nodes": 3,
+        "transistors": 2
       },
       "name": "D3_PAD",
       "output": "docs/evidence/subcircuits_v0/4004/4004_D3_PAD_subcircuit_v0.json"

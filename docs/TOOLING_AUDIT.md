@@ -35,6 +35,7 @@ Principles
 
 **Images**
 - `imagemagick` (`magick`, `identify`)
+- `python-pillow` (PIL; used by multiple repo scripts for deterministic crop rendering + overlays)
 - `scantailor-advanced` (scan cleanup), `unpaper` (despeckle/deskew helpers)
 - `gimp`, `inkscape`
 - `exiftool` (provenance/metadata inspection)
@@ -88,7 +89,7 @@ Minimal required:
 - `yay -S --needed yq ocrmypdf tesseract tesseract-data-eng tesseract-data-osd poppler qpdf cargo-deny cargo-audit cargo-llvm-cov`
 
 Recommended evidence extras:
-- `yay -S --needed python-pdfplumber python-pytesseract python-pymupdf pdfcpu pdftk imagemagick exiftool scantailor-advanced unpaper`
+- `yay -S --needed python-pdfplumber python-pytesseract python-pymupdf python-pillow pdfcpu pdftk imagemagick exiftool scantailor-advanced unpaper`
 
 Optional GPU stack (NVIDIA):
 - `yay -S --needed cuda cudnn python-opencv-cuda python-onnxruntime-opt-cuda python-pytorch-opt-cuda`

@@ -1,0 +1,75 @@
+{
+  "chip": "4001",
+  "counts": {
+    "entries": 12
+  },
+  "entries": [
+    {
+      "expected": "",
+      "id": "box_000_node_0",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_000_node_0.png"
+    },
+    {
+      "expected": "",
+      "id": "box_001_node_1",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_001_node_1.png"
+    },
+    {
+      "expected": "",
+      "id": "box_002_node_27",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_002_node_27.png"
+    },
+    {
+      "expected": "",
+      "id": "box_003_node_111",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_003_node_111.png"
+    },
+    {
+      "expected": "",
+      "id": "box_004_node_2519",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_004_node_2519.png"
+    },
+    {
+      "expected": "",
+      "id": "box_005_node_2523",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_005_node_2523.png"
+    },
+    {
+      "expected": "",
+      "id": "box_006_node_2524",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_006_node_2524.png"
+    },
+    {
+      "expected": "",
+      "id": "box_007_node_2525",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_007_node_2525.png"
+    },
+    {
+      "expected": "",
+      "id": "box_008_node_2526",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_008_node_2526.png"
+    },
+    {
+      "expected": "",
+      "id": "box_009_node_2538",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_009_node_2538.png"
+    },
+    {
+      "expected": "",
+      "id": "box_010_node_2539",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_010_node_2539.png"
+    },
+    {
+      "expected": "",
+      "id": "box_011_node_2540",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_011_node_2540.png"
+    }
+  ],
+  "inputs": {
+    "crops_dir": "docs/evidence/layout_pad_labels_v0/4001/human_crops"
+  },
+  "schema": {
+    "description": "Unlabeled OCR manifest for pad-label human crops (v0).",
+    "version": 0
+  }
+}

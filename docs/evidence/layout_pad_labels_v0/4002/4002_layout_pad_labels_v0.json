@@ -1,0 +1,775 @@
+{
+  "boxes": [
+    {
+      "bbox": {
+        "x0": 1451,
+        "x1": 1675,
+        "y0": 47,
+        "y1": 170
+      },
+      "ink_bbox": {
+        "area": 13035,
+        "fill": 0.5856847591660675,
+        "h": 107,
+        "w": 208,
+        "x": 1459,
+        "y": 55
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1811,
+        "x1": 2135,
+        "y0": 48,
+        "y1": 248
+      },
+      "ink_bbox": {
+        "area": 13665,
+        "fill": 0.24112436476566912,
+        "h": 184,
+        "w": 308,
+        "x": 1819,
+        "y": 56
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1954,
+        "x1": 2047,
+        "y0": 56,
+        "y1": 120
+      },
+      "ink_bbox": {
+        "area": 1249,
+        "fill": 0.3379329004329004,
+        "h": 48,
+        "w": 77,
+        "x": 1962,
+        "y": 64
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1696,
+        "x1": 1782,
+        "y0": 90,
+        "y1": 178
+      },
+      "ink_bbox": {
+        "area": 1343,
+        "fill": 0.26646825396825397,
+        "h": 72,
+        "w": 70,
+        "x": 1704,
+        "y": 98
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 302,
+        "x1": 445,
+        "y0": 125,
+        "y1": 200
+      },
+      "ink_bbox": {
+        "area": 1673,
+        "fill": 0.22327505671960496,
+        "h": 59,
+        "w": 127,
+        "x": 310,
+        "y": 133
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1111,
+        "x1": 1254,
+        "y0": 125,
+        "y1": 200
+      },
+      "ink_bbox": {
+        "area": 1695,
+        "fill": 0.22621113038836246,
+        "h": 59,
+        "w": 127,
+        "x": 1119,
+        "y": 133
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2006,
+        "x1": 2094,
+        "y0": 269,
+        "y1": 354
+      },
+      "ink_bbox": {
+        "area": 1338,
+        "fill": 0.2693236714975845,
+        "h": 69,
+        "w": 72,
+        "x": 2014,
+        "y": 277
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2006,
+        "x1": 2094,
+        "y0": 383,
+        "y1": 469
+      },
+      "ink_bbox": {
+        "area": 1348,
+        "fill": 0.26746031746031745,
+        "h": 70,
+        "w": 72,
+        "x": 2014,
+        "y": 391
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 113,
+        "x1": 189,
+        "y0": 448,
+        "y1": 590
+      },
+      "ink_bbox": {
+        "area": 1765,
+        "fill": 0.23346560846560846,
+        "h": 126,
+        "w": 60,
+        "x": 121,
+        "y": 456
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "B",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2018,
+        "x1": 2143,
+        "y0": 489,
+        "y1": 711
+      },
+      "ink_bbox": {
+        "area": 12570,
+        "fill": 0.5598111695020932,
+        "h": 206,
+        "w": 109,
+        "x": 2026,
+        "y": 497
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "B",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2006,
+        "x1": 2094,
+        "y0": 741,
+        "y1": 827
+      },
+      "ink_bbox": {
+        "area": 1377,
+        "fill": 0.2732142857142857,
+        "h": 70,
+        "w": 72,
+        "x": 2014,
+        "y": 749
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2018,
+        "x1": 2143,
+        "y0": 847,
+        "y1": 1069
+      },
+      "ink_bbox": {
+        "area": 12520,
+        "fill": 0.5575843947626258,
+        "h": 206,
+        "w": 109,
+        "x": 2026,
+        "y": 855
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "B",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 114,
+        "x1": 190,
+        "y0": 1087,
+        "y1": 1228
+      },
+      "ink_bbox": {
+        "area": 1853,
+        "fill": 0.24706666666666666,
+        "h": 125,
+        "w": 60,
+        "x": 122,
+        "y": 1095
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "B",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1919,
+        "x1": 1969,
+        "y0": 1397,
+        "y1": 1476
+      },
+      "ink_bbox": {
+        "area": 829,
+        "fill": 0.3870214752567694,
+        "h": 63,
+        "w": 34,
+        "x": 1927,
+        "y": 1405
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1941,
+        "x1": 1987,
+        "y0": 1438,
+        "y1": 1535
+      },
+      "ink_bbox": {
+        "area": 995,
+        "fill": 0.4094650205761317,
+        "h": 81,
+        "w": 30,
+        "x": 1949,
+        "y": 1446
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1919,
+        "x1": 2005,
+        "y0": 1536,
+        "y1": 1578
+      },
+      "ink_bbox": {
+        "area": 850,
+        "fill": 0.46703296703296704,
+        "h": 26,
+        "w": 70,
+        "x": 1927,
+        "y": 1544
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2022,
+        "x1": 2084,
+        "y0": 1705,
+        "y1": 1766
+      },
+      "ink_bbox": {
+        "area": 729,
+        "fill": 0.3521739130434783,
+        "h": 45,
+        "w": 46,
+        "x": 2030,
+        "y": 1713
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 0,
+        "x1": 132,
+        "y0": 1795,
+        "y1": 1934
+      },
+      "ink_bbox": {
+        "area": 10480,
+        "fill": 0.7041591077067796,
+        "h": 123,
+        "w": 121,
+        "x": 3,
+        "y": 1803
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 35,
+        "x1": 149,
+        "y0": 1999,
+        "y1": 2157
+      },
+      "ink_bbox": {
+        "area": 10288,
+        "fill": 0.739292900258695,
+        "h": 142,
+        "w": 98,
+        "x": 43,
+        "y": 2007
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 201,
+        "x1": 288,
+        "y0": 2211,
+        "y1": 2277
+      },
+      "ink_bbox": {
+        "area": 1609,
+        "fill": 0.4532394366197183,
+        "h": 50,
+        "w": 71,
+        "x": 209,
+        "y": 2219
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 215,
+        "x1": 321,
+        "y0": 2333,
+        "y1": 2411
+      },
+      "ink_bbox": {
+        "area": 1329,
+        "fill": 0.23817204301075268,
+        "h": 62,
+        "w": 90,
+        "x": 223,
+        "y": 2341
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1422,
+        "x1": 1503,
+        "y0": 2408,
+        "y1": 2452
+      },
+      "ink_bbox": {
+        "area": 772,
+        "fill": 0.42417582417582417,
+        "h": 28,
+        "w": 65,
+        "x": 1430,
+        "y": 2416
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 362,
+        "x1": 526,
+        "y0": 2412,
+        "y1": 2525
+      },
+      "ink_bbox": {
+        "area": 10325,
+        "fill": 0.7192114795207579,
+        "h": 97,
+        "w": 148,
+        "x": 370,
+        "y": 2420
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 959,
+        "x1": 1116,
+        "y0": 2412,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 10175,
+        "fill": 0.7363583731364887,
+        "h": 98,
+        "w": 141,
+        "x": 967,
+        "y": 2420
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1225,
+        "x1": 1381,
+        "y0": 2413,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 10183,
+        "fill": 0.7498527245949926,
+        "h": 97,
+        "w": 140,
+        "x": 1233,
+        "y": 2421
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1602,
+        "x1": 1764,
+        "y0": 2413,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 10297,
+        "fill": 0.7270865696935461,
+        "h": 97,
+        "w": 146,
+        "x": 1610,
+        "y": 2421
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 590,
+        "x1": 691,
+        "y0": 2433,
+        "y1": 2513
+      },
+      "ink_bbox": {
+        "area": 1757,
+        "fill": 0.3229779411764706,
+        "h": 64,
+        "w": 85,
+        "x": 598,
+        "y": 2441
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "FM",
+        "conf": 70.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1864,
+        "x1": 1916,
+        "y0": 2456,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 982,
+        "fill": 0.5051440329218106,
+        "h": 54,
+        "w": 36,
+        "x": 1872,
+        "y": 2464
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "F",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1910,
+        "x1": 1958,
+        "y0": 2456,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 1116,
+        "fill": 0.6458333333333334,
+        "h": 54,
+        "w": 32,
+        "x": 1918,
+        "y": 2464
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1956,
+        "x1": 2003,
+        "y0": 2456,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 1067,
+        "fill": 0.6373954599761051,
+        "h": 54,
+        "w": 31,
+        "x": 1964,
+        "y": 2464
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "J",
+        "conf": 59.0,
+        "invert": false,
+        "psm": 13,
+        "scale": 3
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2002,
+        "x1": 2049,
+        "y0": 2456,
+        "y1": 2526
+      },
+      "ink_bbox": {
+        "area": 1000,
+        "fill": 0.5973715651135006,
+        "h": 54,
+        "w": 31,
+        "x": 2010,
+        "y": 2464
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "A",
+        "conf": 24.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      }
+    }
+  ],
+  "chip": "4002",
+  "counts": {
+    "candidates": 31
+  },
+  "inputs": {
+    "metal_bmp": "docs/emulators/i4002-metal.bmp",
+    "sha256": {
+      "metal_bmp": "99bfcd11840b64f21e7b66b3262f1dcc0919d2705ca49d4674eb9f01d6b59185"
+    }
+  },
+  "outputs": {
+    "crops_dir": "docs/evidence/layout_pad_labels_v0/4002/crops",
+    "overlay": "docs/evidence/layout_pad_labels_v0/4002/4002_pad_label_boxes_v0.png"
+  },
+  "params": {
+    "backend": "tesseract",
+    "edge_band": 280,
+    "max_area": 40000,
+    "max_size": 420,
+    "min_area": 700,
+    "pad": 8,
+    "threshold": 128
+  },
+  "schema": {
+    "description": "Detected pad-label-like ink boxes near the layout edge, OCR\u2019d.",
+    "version": 0
+  }
+}

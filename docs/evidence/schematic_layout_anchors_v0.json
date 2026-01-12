@@ -1,5 +1,8 @@
 {
   "anchors": {
+    "4001": {},
+    "4002": {},
+    "4003": {},
     "4004": {
       "CLK1": {
         "layout_node": 49,
@@ -75,7 +78,16 @@
     "Start by mapping obvious external pads from signals.txt (e.g. *_PAD, CLK1/CLK2, SYNC, CMROM/CMRAM*).",
     "Use `docs/evidence/schematic_layout_match_v0/<chip>_schematic_layout_match_v0.md` to see both: (1) degree/area candidates and (2) periphery pad-like candidates.",
     "Use the rendered overlays/crops under `docs/evidence/layout_pad_candidates_v0/<chip>/` to visually inspect candidate nodes on the metal mask.",
-    "Then fill `layout_node` for each anchor and re-run `python3 scripts/match_schematic_layout_v0.py --chip <chip>`."
+    "Then fill `layout_node` for each anchor and re-run `python3 scripts/match_schematic_layout_v0.py --chip <chip>`.",
+    {
+      "chips": [
+        "4001",
+        "4002",
+        "4003"
+      ],
+      "kind": "chip_placeholder",
+      "note": "Placeholder anchor blocks; populate with real layout_node mappings as pad/edge labels are identified."
+    }
   ],
   "schema": {
     "description": "Manual anchors for matching schematic net names (signals.txt) to layout node IDs (netlist_v0).",

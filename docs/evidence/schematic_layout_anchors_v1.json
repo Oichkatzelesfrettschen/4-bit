@@ -1,0 +1,459 @@
+{
+  "anchors": {
+    "4001": {},
+    "4002": {},
+    "4003": {},
+    "4004": {
+      "CLK1": {
+        "layout_node": 415,
+        "layout_node_src": 49,
+        "layout_node_uid": "84ab4d4f4e225640b7eae5100eedcb518e37689c",
+        "note": "Printed pin label `01` on metal mask (human crop box_016_node_49.png); alias mapping: CLK1<->01.",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 1370.3854384807216,
+          "cost": 8.0997776997777,
+          "dst_area_penalty": 8.0997776997777,
+          "dst_area_ratio": 101.24722124722125,
+          "dst_bbox_area": 4326800.0,
+          "dst_node": 415,
+          "dst_node_uid": "84ab4d4f4e225640b7eae5100eedcb518e37689c",
+          "incident": {
+            "gate": 65,
+            "terminal": 64,
+            "total": 129
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": true,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 1717,
+            "x1": 1948,
+            "y0": 260,
+            "y1": 445
+          },
+          "src_node": 49,
+          "src_node_uid": "cf11e9ff9491743fd2c4ae2e9551ff2731ebd4ac"
+        }
+      },
+      "CLK2": {
+        "layout_node": 70,
+        "layout_node_src": 17,
+        "layout_node_uid": "6f16226bece08e655ed9cf4226b90b58b6c39ef9",
+        "note": "Printed pin label `02` on metal mask (human crop box_001_node_17.png); alias mapping: CLK2<->02.",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 414.5132687864165,
+          "cost": 0.006109974185091556,
+          "dst_area_penalty": 0.006109974185091556,
+          "dst_area_ratio": 0.07637467731364445,
+          "dst_bbox_area": 5710.0,
+          "dst_node": 70,
+          "dst_node_uid": "6f16226bece08e655ed9cf4226b90b58b6c39ef9",
+          "incident": {
+            "gate": 0,
+            "terminal": 14,
+            "total": 14
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": true,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 1549,
+            "x1": 1762,
+            "y0": 37,
+            "y1": 388
+          },
+          "src_node": 17,
+          "src_node_uid": "169c208a7a98e5d590073225c09ad35d0ee802e9"
+        }
+      },
+      "CMRAM0": {
+        "layout_node": 3431,
+        "layout_node_src": 596,
+        "layout_node_uid": "4d2be12ae4694a192a9b0588a916df9b8b0d9dd2",
+        "note": "Printed pad label `R0` on metal mask; treated as `CMRAM0` (RAM select bank 0). (human crop box_101_node_596.png)",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 70.78311945654839,
+          "cost": 0.014016172506738546,
+          "dst_area_penalty": 0.014016172506738546,
+          "dst_area_ratio": 0.1752021563342318,
+          "dst_bbox_area": 3640.0,
+          "dst_node": 3431,
+          "dst_node_uid": "4d2be12ae4694a192a9b0588a916df9b8b0d9dd2",
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 399,
+            "x1": 611,
+            "y0": 2572,
+            "y1": 2670
+          },
+          "src_node": 596,
+          "src_node_uid": "0e350ed22bd79d958aa29c881828ef532f555946"
+        }
+      },
+      "CMRAM1": {
+        "layout_node": 3428,
+        "layout_node_src": 595,
+        "layout_node_uid": "7a4eac1e1869d452f86497dd8d08288d7df6f381",
+        "note": "Printed pad label `R1` on metal mask; treated as `CMRAM1` (RAM select bank 1). (human crop box_100_node_595.png)",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 101.12492274409904,
+          "cost": 0.0006438631790744467,
+          "dst_area_penalty": 0.0006438631790744467,
+          "dst_area_ratio": 0.008048289738430584,
+          "dst_bbox_area": 168.0,
+          "dst_node": 3428,
+          "dst_node_uid": "7a4eac1e1869d452f86497dd8d08288d7df6f381",
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 145,
+            "x1": 358,
+            "y0": 2571,
+            "y1": 2669
+          },
+          "src_node": 595,
+          "src_node_uid": "a8195d303fee259e3a46c4ba863593304c3613c1"
+        }
+      },
+      "CMRAM2": {
+        "layout_node": 2997,
+        "layout_node_src": 518,
+        "layout_node_uid": "ce1484a90bf326a260391380ac7ff28b64af7204",
+        "note": "Printed pad label `R2` on metal mask; treated as `CMRAM2` (RAM select bank 2). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png)",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 258.3626327470751,
+          "cost": 38.213204145820804,
+          "dst_area_penalty": 0.13433861650125908,
+          "dst_area_ratio": 1.6792327062657384,
+          "dst_bbox_area": 22673.0,
+          "dst_node": 2997,
+          "dst_node_uid": "ce1484a90bf326a260391380ac7ff28b64af7204",
+          "incident": {
+            "gate": 0,
+            "terminal": 2,
+            "total": 2
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 38.07886552931954,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 26,
+            "x1": 112,
+            "y0": 2086,
+            "y1": 2243
+          },
+          "src_node": 518,
+          "src_node_uid": "3e6fbb7fee6cacd8fa98202ac3eaad186af7dd06"
+        }
+      },
+      "CMRAM3": {
+        "layout_node": 405,
+        "layout_node_src": 441,
+        "layout_node_uid": "3060945a4206a39dc474d04fa878bdeb9ec5e81a",
+        "note": "Printed pad label `R3` on metal mask; treated as `CMRAM3` (RAM select bank 3). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png)",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 143.510452580988,
+          "cost": 41.26752159468438,
+          "dst_area_penalty": 0.2675215946843854,
+          "dst_area_ratio": 3.3440199335548173,
+          "dst_bbox_area": 40262.0,
+          "dst_node": 405,
+          "dst_node_uid": "3060945a4206a39dc474d04fa878bdeb9ec5e81a",
+          "incident": {
+            "gate": 0,
+            "terminal": 2,
+            "total": 2
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 41.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 26,
+            "x1": 112,
+            "y0": 1785,
+            "y1": 1925
+          },
+          "src_node": 441,
+          "src_node_uid": "ada57c457c08d2bc6019116ff606af8bd4f8e971"
+        }
+      },
+      "CMROM": {
+        "layout_node": 1633,
+        "layout_node_src": 71,
+        "layout_node_uid": "eb4563db81f65cf2797f61266ae025370d093d38",
+        "note": "Printed pad label `RM` on metal mask; treated as `CMROM` (ROM chip-select). (See crop: docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png)",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 77.27386362800814,
+          "cost": 2.7570995312930797e-05,
+          "dst_area_penalty": 2.7570995312930797e-05,
+          "dst_area_ratio": 0.00034463744141163496,
+          "dst_bbox_area": 20.0,
+          "dst_node": 1633,
+          "dst_node_uid": "eb4563db81f65cf2797f61266ae025370d093d38",
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "src_node_bbox",
+          "src_bbox": {
+            "x0": 27,
+            "x1": 151,
+            "y0": 367,
+            "y1": 835
+          },
+          "src_node": 71,
+          "src_node_uid": "675dd97b63dddeded3de0acc64885097a8ae96f7"
+        }
+      },
+      "D0_PAD": {
+        "layout_node": 3442,
+        "layout_node_src": 592,
+        "layout_node_uid": "e8ffc80df294da2ab9a331e62251b96ee57d23be",
+        "note": "Printed pad label `D0` on metal mask; pad metal bbox aligns with node 592. (See debug overlay: layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png)",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 196.68375631963104,
+          "cost": 5.0793650793650794e-05,
+          "dst_area_penalty": 5.0793650793650794e-05,
+          "dst_area_ratio": 0.0006349206349206349,
+          "dst_bbox_area": 30.0,
+          "dst_node": 3442,
+          "dst_node_uid": "e8ffc80df294da2ab9a331e62251b96ee57d23be",
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "src_node_bbox",
+          "src_bbox": {
+            "x0": 743,
+            "x1": 1193,
+            "y0": 2559,
+            "y1": 2664
+          },
+          "src_node": 592,
+          "src_node_uid": "180bca6f362965ac95e117c9a78e4b6caef7638e"
+        }
+      },
+      "D1_PAD": {
+        "layout_node": 598,
+        "layout_node_uid": "42e9b3073b8a8a712cf3486696a1906f620449de",
+        "note": "Printed pad label `D1` on metal mask (human crop box_103_node_598.png).",
+        "remap_v1": {
+          "dst_node": 598,
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "ok": true,
+          "reason": "already_incident",
+          "src_node": 598
+        }
+      },
+      "D2_PAD": {
+        "layout_node": 3426,
+        "layout_node_src": 597,
+        "layout_node_uid": "ea3b85cb1da740e9c3f6681e4ff51899cd8f7113",
+        "note": "Printed pad label `D2` on metal mask (human crop box_102_node_597.png).",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 46.82413907377262,
+          "cost": 23.04410396716826,
+          "dst_area_penalty": 0.044103967168262655,
+          "dst_area_ratio": 0.5512995896032832,
+          "dst_bbox_area": 806.0,
+          "dst_node": 3426,
+          "dst_node_uid": "ea3b85cb1da740e9c3f6681e4ff51899cd8f7113",
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 23.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 1828,
+            "x1": 1862,
+            "y0": 2581,
+            "y1": 2624
+          },
+          "src_node": 597,
+          "src_node_uid": "e365868f771bc36a9ebcb57271f9e4e663578c25"
+        }
+      },
+      "D3_PAD": {
+        "layout_node": 2815,
+        "layout_node_src": 432,
+        "layout_node_uid": "5b0e56a4a60f7ce757b323889895aa3fdd1ca7fe",
+        "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png).",
+        "remap_v1": {
+          "allow_large_dst_regex": "^(CLK1)$",
+          "area_ratio_weight": 0.08,
+          "center_distance": 67.5074070010099,
+          "cost": 0.0374879413467104,
+          "dst_area_penalty": 0.0374879413467104,
+          "dst_area_ratio": 0.46859926683388,
+          "dst_bbox_area": 19430.0,
+          "dst_node": 2815,
+          "dst_node_uid": "5b0e56a4a60f7ce757b323889895aa3fdd1ca7fe",
+          "incident": {
+            "gate": 0,
+            "terminal": 1,
+            "total": 1
+          },
+          "max_dist": 650.0,
+          "max_dst_bbox_area": 1500000.0,
+          "min_incident": 1,
+          "ok": true,
+          "prefer_gate": false,
+          "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$",
+          "reason": "nearest_incident",
+          "rect_distance": 0.0,
+          "seed_source": "anchor_bboxes",
+          "src_bbox": {
+            "x0": 1806,
+            "x1": 1948,
+            "y0": 1738,
+            "y1": 2030
+          },
+          "src_node": 432,
+          "src_node_uid": "38f586ba5f1999723f7c26f36e0524dade52f0bf"
+        }
+      },
+      "POC_PAD": {
+        "layout_node": null,
+        "note": "Power-on clear pad (signals.txt entry)."
+      },
+      "SYNC": {
+        "layout_node": null,
+        "note": "SYNC output pin (signals.txt entry)."
+      },
+      "TEST_PAD": {
+        "layout_node": null,
+        "note": "TEST pad; analyzer readme notes schematic vs mask revision mismatch here."
+      }
+    }
+  },
+  "notes": [
+    "Schematic and layout are different coordinate spaces; matching requires anchors + iterative refinement.",
+    "Start by mapping obvious external pads from signals.txt (e.g. *_PAD, CLK1/CLK2, SYNC, CMROM/CMRAM*).",
+    "Use `docs/evidence/schematic_layout_match_v0/<chip>_schematic_layout_match_v0.md` to see both: (1) degree/area candidates and (2) periphery pad-like candidates.",
+    "Use the rendered overlays/crops under `docs/evidence/layout_pad_candidates_v0/<chip>/` to visually inspect candidate nodes on the metal mask.",
+    "Then fill `layout_node` for each anchor and re-run `python3 scripts/match_schematic_layout_v0.py --chip <chip>`.",
+    {
+      "allow_large_dst_regex": "^(CLK1)$",
+      "area_ratio_weight": 0.08,
+      "chip": "4004",
+      "kind": "anchors_v1",
+      "max_dist": 650.0,
+      "max_dst_bbox_area": 1500000.0,
+      "method": "remap_anchors_to_incident_nodes_v1",
+      "min_incident": 1,
+      "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+      "prefer_gate_regex": "^(CLK1|CLK2|SYNC)$"
+    },
+    {
+      "chips": [
+        "4001",
+        "4002",
+        "4003"
+      ],
+      "kind": "chip_placeholder",
+      "note": "Placeholder anchor blocks; populate with real layout_node mappings as pad/edge labels are identified."
+    }
+  ],
+  "schema": {
+    "description": "Manual anchors for matching schematic net names (signals.txt) to layout node IDs (netlist_v0).",
+    "version": 0
+  }
+}

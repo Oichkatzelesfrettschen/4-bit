@@ -1,8 +1,8 @@
 {
   "outputs": [
     {
-      "chip": "4004",
-      "output": "docs/evidence/netlists_v1/4004_netlist_v1.json"
+      "chip": "4003",
+      "output": "docs/evidence/netlists_v1/4003_netlist_v1.json"
     }
   ],
   "params": {

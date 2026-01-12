@@ -69,8 +69,11 @@ Subcircuit extraction (v0)
 - `scripts/subcircuit_metrics_v0.py` summarizes subcircuit sizes into `metrics.json` + `metrics.md`.
 
 Current limitation:
-- Anchor incidence is currently poor: most “anchor” nodes do not touch extracted device endpoints (see `docs/evidence/anchor_incidence_v0_strict/`).
-  Treat this as a blocker to switch-level validation until anchors can be remapped onto device-connected nodes and/or schematic↔layout reconciliation is implemented.
+- 4004 anchor incidence is now nonzero for the currently mapped anchors (see `docs/evidence/anchor_incidence_v1_canonical/4004/`),
+  which unblocks subcircuit extraction for those signals.
+- Some 4004 signals still lack layout anchors (`SYNC`, `POC_PAD`, `TEST_PAD`), and some remapped anchors land on terminal-only incidence;
+  treat any remap as provisional until validated.
+- Full schematic↔layout reconciliation is still unimplemented.
 
 Layout pad anchoring helpers (v0)
 - `netlist_v0` now includes per-node bounding boxes and degree/area statistics (`node_stats`) to support pin/pad anchoring.
@@ -78,7 +81,12 @@ Layout pad anchoring helpers (v0)
   - Ranked “pad-like” periphery nodes: `docs/evidence/layout_pad_candidates_v0/` (plus overlays + crops).
   - Detected pad label boxes + geometry-based node suggestions: `docs/evidence/layout_pad_labels_v0/`.
 - Current limitation: OCR of pad-box glyphs is unreliable; the workflow is to use the rendered crops to read labels and then
-  update `docs/evidence/schematic_layout_anchors_v0.json`.
+  update `docs/evidence/schematic_layout_anchors_v0.json` (or successors).
+
+Anchors v1 (4004)
+- `docs/evidence/schematic_layout_anchors_v1.json` remaps the original anchor nodes to nearby transistor-incident nodes so
+  subcircuit extraction and switch-level validation can proceed.
+- Overlay crops for verifying remaps live in `docs/evidence/anchors_v1_overlays/4004/`.
 
 How to run
 - Generate (or regenerate) all netlists: `python3 scripts/extract_netlist_v0.py --all`

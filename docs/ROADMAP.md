@@ -79,10 +79,10 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Maintain a minimal schematic↔layout bridge artifact (`docs/evidence/netlists_v1/`) so anchor signals can be traced end-to-end through extraction outputs.
 - Keep schematic connectivity tracing explicitly heuristic until component-aware parsing exists (`docs/evidence/schematic_connectivity_v0/`).
 - Extract bounded transistor subcircuits around anchor nodes (`docs/evidence/subcircuits_v0/`) and track how many anchors currently reach device candidates; treat “0-transistor anchors” as a first-class extraction lacuna.
-- Anchor-node reality check (current extraction lacuna):
-  - `docs/evidence/anchor_incidence_v0_strict/` shows **10/11** current 4004 anchors have **0 incident transistors** (only `D1_PAD` hits a device endpoint).
-  - `docs/evidence/anchor_sweeps_v0/` sweeps `--dilate`, `--stitch-policy`, `--close`, and `--no-diffusion-split`; none improve anchor incidence so far.
-  - Conclusion: the “anchor” nodes we currently reference are likely *not* the electrically relevant layout nets (or our mask→net connectivity is missing a higher-level reconciliation step). Treat this as a blocker to switch-level validation until anchors can be remapped onto device-connected nodes.
+- Anchor-node reality check (resolved for 4004 anchors that have layout nodes):
+  - Historical baseline: `docs/evidence/anchor_incidence_v0_strict/4004/` showed **10/11** 4004 anchors had **0 incident transistors**.
+  - Remapped anchors: `docs/evidence/schematic_layout_anchors_v1.json` + `docs/evidence/anchor_incidence_v1_canonical/4004/` now show **0/11** anchors with zero incident transistors.
+  - Remaining lacunae: `SYNC`, `POC_PAD`, `TEST_PAD` still need layout-node anchors; and some remapped anchors land on terminal-only incidence (validate vs schematic semantics).
 - Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
   - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
   - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.

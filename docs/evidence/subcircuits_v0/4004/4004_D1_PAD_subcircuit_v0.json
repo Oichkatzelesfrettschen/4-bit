@@ -37,7 +37,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4004_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "a03ff49940c24d3d69450ba02203405a7a9adbf5536bcdc008d49d3dae14e76a"
+      "netlist_v1": "cee71628d4cdc2cc18932171a51840fedd7c3d23c6bea81044c93c2e8031e4a0"
     }
   },
   "nodes": [

@@ -1,16 +1,17 @@
 {
   "outputs": [
     {
-      "chip": "4004",
-      "output": "docs/evidence/layout_pad_labels_v0/4004/4004_layout_pad_labels_v0.json"
+      "chip": "4003",
+      "output": "docs/evidence/layout_pad_labels_v0/4003/4003_layout_pad_labels_v0.json"
     }
   ],
   "params": {
-    "edge_band": 520,
-    "max_area": 120000,
-    "max_size": 700,
-    "min_area": 200,
-    "pad": 6,
+    "backend": "tesseract",
+    "edge_band": 280,
+    "max_area": 40000,
+    "max_size": 420,
+    "min_area": 700,
+    "pad": 8,
     "threshold": 128
   },
   "tool": "scripts/detect_layout_pad_labels_v0.py"

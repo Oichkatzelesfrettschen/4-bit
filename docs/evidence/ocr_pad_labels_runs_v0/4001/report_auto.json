@@ -1,0 +1,176 @@
+{
+  "backend": "tesseract",
+  "backend_detail": {
+    "providers": null
+  },
+  "counts": {
+    "passed": 2,
+    "total": 12
+  },
+  "inputs": {
+    "manifest": "docs/evidence/ocr_pad_labels_manifests_v0/4001_pad_labels_manifest.json"
+  },
+  "results": [
+    {
+      "expected": "",
+      "got": "",
+      "id": "box_000_node_0",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_000_node_0.png",
+      "params": {
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      },
+      "passed": true,
+      "time_s": 6.1272057780006435
+    },
+    {
+      "expected": "",
+      "got": "9",
+      "id": "box_001_node_1",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_001_node_1.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 6.511711679020664
+    },
+    {
+      "expected": "",
+      "got": "4",
+      "id": "box_002_node_27",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_002_node_27.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 5.969829090987332
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_003_node_111",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_003_node_111.png",
+      "params": {
+        "invert": true,
+        "psm": 7,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.200705642986577
+    },
+    {
+      "expected": "",
+      "got": "7",
+      "id": "box_004_node_2519",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_004_node_2519.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 6.040244256000733
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_005_node_2523",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_005_node_2523.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 8.260286282020388
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_006_node_2524",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_006_node_2524.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 0.3607294299872592
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_007_node_2525",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_007_node_2525.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 0.3524742719891947
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_008_node_2526",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_008_node_2526.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 0.3560779539984651
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_009_node_2538",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_009_node_2538.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 6.19519181700889
+    },
+    {
+      "expected": "",
+      "got": "2",
+      "id": "box_010_node_2539",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_010_node_2539.png",
+      "params": {
+        "invert": false,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.261694156011799
+    },
+    {
+      "expected": "",
+      "got": "",
+      "id": "box_011_node_2540",
+      "image": "docs/evidence/layout_pad_labels_v0/4001/human_crops/box_011_node_2540.png",
+      "params": {
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      },
+      "passed": true,
+      "time_s": 7.883038214000408
+    }
+  ],
+  "schema": {
+    "description": "OCR run over labeled manifest (v0).",
+    "version": 0
+  },
+  "time_s": 60.542303920025006
+}

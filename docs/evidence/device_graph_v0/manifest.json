@@ -1,8 +1,8 @@
 {
   "outputs": [
     {
-      "chip": "4004",
-      "output": "docs/evidence/device_graph_v0/4004/4004_device_graph_v0.json"
+      "chip": "4003",
+      "output": "docs/evidence/device_graph_v0/4003/4003_device_graph_v0.json"
     }
   ],
   "params": {},

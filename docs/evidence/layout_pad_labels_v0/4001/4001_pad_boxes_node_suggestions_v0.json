@@ -1,0 +1,293 @@
+{
+  "chip": "4001",
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4001_netlist_v0.json",
+    "pad_boxes": "docs/evidence/layout_pad_labels_v0/4001/4001_layout_pad_labels_v0.json"
+  },
+  "params": {
+    "area_penalty": 0.003,
+    "max_boxes": 80
+  },
+  "schema": {
+    "description": "Geometry-based suggested netlist_v0 nodes for each detected pad box.",
+    "version": 0
+  },
+  "suggestions": [
+    {
+      "box_index": 0,
+      "ink_bbox": {
+        "area": 10675,
+        "fill": 0.6814989785495403,
+        "h": 89,
+        "w": 176,
+        "x": 194,
+        "y": 60
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 10675,
+        "metal_bbox": {
+          "x0": 194,
+          "x1": 370,
+          "y0": 60,
+          "y1": 149
+        },
+        "node": 0,
+        "score": 0.027827260531573247
+      }
+    },
+    {
+      "box_index": 1,
+      "ink_bbox": {
+        "area": 10814,
+        "fill": 0.5329456409245479,
+        "h": 103,
+        "w": 197,
+        "x": 636,
+        "y": 60
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 10814,
+        "metal_bbox": {
+          "x0": 636,
+          "x1": 833,
+          "y0": 60,
+          "y1": 163
+        },
+        "node": 1,
+        "score": 0.02786606801516148
+      }
+    },
+    {
+      "box_index": 2,
+      "ink_bbox": {
+        "area": 703,
+        "fill": 0.31064958020327,
+        "h": 31,
+        "w": 73,
+        "x": 132,
+        "y": 349
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 703,
+        "metal_bbox": {
+          "x0": 132,
+          "x1": 205,
+          "y0": 349,
+          "y1": 380
+        },
+        "node": 27,
+        "score": 0.019670335068474126
+      }
+    },
+    {
+      "box_index": 3,
+      "ink_bbox": {
+        "area": 11202,
+        "fill": 0.6232335595860687,
+        "h": 209,
+        "w": 86,
+        "x": 105,
+        "y": 386
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 11202,
+        "metal_bbox": {
+          "x0": 105,
+          "x1": 191,
+          "y0": 386,
+          "y1": 595
+        },
+        "node": 111,
+        "score": 0.027971810635676168
+      }
+    },
+    {
+      "box_index": 4,
+      "ink_bbox": {
+        "area": 9568,
+        "fill": 0.7252880533656761,
+        "h": 136,
+        "w": 97,
+        "x": 62,
+        "y": 1467
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 9568,
+        "metal_bbox": {
+          "x0": 62,
+          "x1": 159,
+          "y0": 1467,
+          "y1": 1603
+        },
+        "node": 2519,
+        "score": 0.02749885195733779
+      }
+    },
+    {
+      "box_index": 5,
+      "ink_bbox": {
+        "area": 16503,
+        "fill": 0.3623847167325428,
+        "h": 220,
+        "w": 207,
+        "x": 1084,
+        "y": 1488
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 14871,
+        "metal_bbox": {
+          "x0": 1113,
+          "x1": 1723,
+          "y0": 1547,
+          "y1": 1708
+        },
+        "node": 2523,
+        "score": 0.02882170658820384
+      }
+    },
+    {
+      "box_index": 6,
+      "ink_bbox": {
+        "area": 876,
+        "fill": 0.513782991202346,
+        "h": 55,
+        "w": 31,
+        "x": 221,
+        "y": 1578
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 876,
+        "metal_bbox": {
+          "x0": 221,
+          "x1": 252,
+          "y0": 1578,
+          "y1": 1633
+        },
+        "node": 2524,
+        "score": 0.02032952097711655
+      }
+    },
+    {
+      "box_index": 7,
+      "ink_bbox": {
+        "area": 964,
+        "fill": 0.625974025974026,
+        "h": 55,
+        "w": 28,
+        "x": 260,
+        "y": 1578
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 964,
+        "metal_bbox": {
+          "x0": 260,
+          "x1": 288,
+          "y0": 1578,
+          "y1": 1633
+        },
+        "node": 2525,
+        "score": 0.02061638430401696
+      }
+    },
+    {
+      "box_index": 8,
+      "ink_bbox": {
+        "area": 921,
+        "fill": 0.6202020202020202,
+        "h": 55,
+        "w": 27,
+        "x": 301,
+        "y": 1578
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 921,
+        "metal_bbox": {
+          "x0": 301,
+          "x1": 328,
+          "y0": 1578,
+          "y1": 1633
+        },
+        "node": 2526,
+        "score": 0.020479635670669783
+      }
+    },
+    {
+      "box_index": 9,
+      "ink_bbox": {
+        "area": 10894,
+        "fill": 0.699454253611557,
+        "h": 89,
+        "w": 175,
+        "x": 407,
+        "y": 1620
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 10894,
+        "metal_bbox": {
+          "x0": 407,
+          "x1": 582,
+          "y0": 1620,
+          "y1": 1709
+        },
+        "node": 2538,
+        "score": 0.02788817774213616
+      }
+    },
+    {
+      "box_index": 10,
+      "ink_bbox": {
+        "area": 11441,
+        "fill": 0.6701616682286785,
+        "h": 88,
+        "w": 194,
+        "x": 741,
+        "y": 1620
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 11441,
+        "metal_bbox": {
+          "x0": 741,
+          "x1": 935,
+          "y0": 1620,
+          "y1": 1708
+        },
+        "node": 2539,
+        "score": 0.028035138224485424
+      }
+    },
+    {
+      "box_index": 11,
+      "ink_bbox": {
+        "area": 17479,
+        "fill": 0.651860968150966,
+        "h": 109,
+        "w": 246,
+        "x": 2179,
+        "y": 1659
+      },
+      "suggested": {
+        "dist": 0.0,
+        "metal_area": 17479,
+        "metal_bbox": {
+          "x0": 2179,
+          "x1": 2425,
+          "y0": 1659,
+          "y1": 1768
+        },
+        "node": 2540,
+        "score": 0.029306437947628577
+      }
+    }
+  ]
+}

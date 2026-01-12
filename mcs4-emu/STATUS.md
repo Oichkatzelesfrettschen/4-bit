@@ -4,6 +4,9 @@
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Session Log
+- 2026-01-12T00:30:00Z: Added a minimal fixture CLI runner and netlist_v1 parser hooks:
+  - `mcs4-system` now includes `fixture_runner` (`cargo run -p mcs4-system --bin fixture_runner -- <fixture.hex> [cycles]`).
+  - `mcs4-core` adds `layout_netlist` to parse `docs/evidence/netlists_v1/*_netlist_v1.json` for future switch-level work.
 - 2026-01-12T00:00:00Z: Added layout pad anchoring helpers:
   - `netlist_v0` now includes node bounding boxes/areas (`node_stats`) to enable geometry-based matching.
   - Added pad-like node ranking + overlays (`docs/evidence/layout_pad_candidates_v0/`).

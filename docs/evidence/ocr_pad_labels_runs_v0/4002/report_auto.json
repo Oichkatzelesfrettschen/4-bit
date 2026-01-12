@@ -1,0 +1,423 @@
+{
+  "backend": "tesseract",
+  "backend_detail": {
+    "providers": null
+  },
+  "counts": {
+    "passed": 3,
+    "total": 31
+  },
+  "inputs": {
+    "manifest": "docs/evidence/ocr_pad_labels_manifests_v0/4002_pad_labels_manifest.json"
+  },
+  "results": [
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_000_node_2",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_000_node_2.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.455956789985066
+    },
+    {
+      "expected": "",
+      "got": "",
+      "id": "box_001_node_3",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_001_node_3.png",
+      "params": {
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      },
+      "passed": true,
+      "time_s": 7.464084284991259
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_002_node_6",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_002_node_6.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.138909227011027
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_003_node_7",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_003_node_7.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 5.8054024660086725
+    },
+    {
+      "expected": "",
+      "got": "U",
+      "id": "box_004_node_15",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_004_node_15.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.774946694000391
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_005_node_16",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_005_node_16.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.798192262998782
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_006_node_38",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_006_node_38.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 5.9900647749891505
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_007_node_72",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_007_node_72.png",
+      "params": {
+        "invert": false,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.302409171010368
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_008_node_100",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_008_node_100.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.773163470003055
+    },
+    {
+      "expected": "",
+      "got": "3",
+      "id": "box_009_node_128",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_009_node_128.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.28782943598344
+    },
+    {
+      "expected": "",
+      "got": "",
+      "id": "box_010_node_237",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_010_node_237.png",
+      "params": {
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      },
+      "passed": true,
+      "time_s": 6.118607856013114
+    },
+    {
+      "expected": "",
+      "got": "2",
+      "id": "box_011_node_292",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_011_node_292.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.337426263984526
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_012_node_398",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_012_node_398.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.732582348980941
+    },
+    {
+      "expected": "",
+      "got": "3",
+      "id": "box_013_node_559",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_013_node_559.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.771958541998174
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_014_node_583",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_014_node_583.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 5.91638697401504
+    },
+    {
+      "expected": "",
+      "got": "2",
+      "id": "box_015_node_606",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_015_node_606.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.796839485003147
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_016_node_654",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_016_node_654.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 6.041173399018589
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_017_node_672",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_017_node_672.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.725554558972362
+    },
+    {
+      "expected": "",
+      "got": "1",
+      "id": "box_018_node_738",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_018_node_738.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 6.090283091994934
+    },
+    {
+      "expected": "",
+      "got": "",
+      "id": "box_019_node_655",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_019_node_655.png",
+      "params": {
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      },
+      "passed": true,
+      "time_s": 5.9531976969738025
+    },
+    {
+      "expected": "",
+      "got": "S",
+      "id": "box_020_node_806",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_020_node_806.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.904754638002487
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_021_node_815",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_021_node_815.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.334085770999081
+    },
+    {
+      "expected": "",
+      "got": "5",
+      "id": "box_022_node_816",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_022_node_816.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.108413602982182
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_023_node_817",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_023_node_817.png",
+      "params": {
+        "invert": false,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.1619639600103255
+    },
+    {
+      "expected": "",
+      "got": "N",
+      "id": "box_024_node_818",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_024_node_818.png",
+      "params": {
+        "invert": false,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.098739052016754
+    },
+    {
+      "expected": "",
+      "got": "J",
+      "id": "box_025_node_819",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_025_node_819.png",
+      "params": {
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 6.0581077889946755
+    },
+    {
+      "expected": "",
+      "got": "3",
+      "id": "box_026_node_821",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_026_node_821.png",
+      "params": {
+        "invert": false,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 5.943409903004067
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_027_node_824",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_027_node_824.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 0.3500958639779128
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_028_node_825",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_028_node_825.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 3
+      },
+      "passed": false,
+      "time_s": 0.7132593409914989
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_029_node_826",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_029_node_826.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 0.3656371850229334
+    },
+    {
+      "expected": "",
+      "got": "0",
+      "id": "box_030_node_827",
+      "image": "docs/evidence/layout_pad_labels_v0/4002/human_crops/box_030_node_827.png",
+      "params": {
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      },
+      "passed": false,
+      "time_s": 0.36020467698108405
+    }
+  ],
+  "schema": {
+    "description": "OCR run over labeled manifest (v0).",
+    "version": 0
+  },
+  "time_s": 167.7467052800057
+}

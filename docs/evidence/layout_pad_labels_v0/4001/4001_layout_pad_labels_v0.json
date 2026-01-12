@@ -1,0 +1,319 @@
+{
+  "boxes": [
+    {
+      "bbox": {
+        "x0": 186,
+        "x1": 378,
+        "y0": 52,
+        "y1": 157
+      },
+      "ink_bbox": {
+        "area": 10675,
+        "fill": 0.6814989785495403,
+        "h": 89,
+        "w": 176,
+        "x": 194,
+        "y": 60
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 628,
+        "x1": 841,
+        "y0": 52,
+        "y1": 171
+      },
+      "ink_bbox": {
+        "area": 10814,
+        "fill": 0.5329456409245479,
+        "h": 103,
+        "w": 197,
+        "x": 636,
+        "y": 60
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 124,
+        "x1": 213,
+        "y0": 341,
+        "y1": 388
+      },
+      "ink_bbox": {
+        "area": 703,
+        "fill": 0.31064958020327,
+        "h": 31,
+        "w": 73,
+        "x": 132,
+        "y": 349
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 97,
+        "x1": 199,
+        "y0": 378,
+        "y1": 603
+      },
+      "ink_bbox": {
+        "area": 11202,
+        "fill": 0.6232335595860687,
+        "h": 209,
+        "w": 86,
+        "x": 105,
+        "y": 386
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 54,
+        "x1": 167,
+        "y0": 1459,
+        "y1": 1611
+      },
+      "ink_bbox": {
+        "area": 9568,
+        "fill": 0.7252880533656761,
+        "h": 136,
+        "w": 97,
+        "x": 62,
+        "y": 1467
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "NB",
+        "conf": 0.0,
+        "invert": true,
+        "psm": 10,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1076,
+        "x1": 1299,
+        "y0": 1480,
+        "y1": 1716
+      },
+      "ink_bbox": {
+        "area": 16503,
+        "fill": 0.3623847167325428,
+        "h": 220,
+        "w": 207,
+        "x": 1084,
+        "y": 1488
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 213,
+        "x1": 260,
+        "y0": 1570,
+        "y1": 1641
+      },
+      "ink_bbox": {
+        "area": 876,
+        "fill": 0.513782991202346,
+        "h": 55,
+        "w": 31,
+        "x": 221,
+        "y": 1578
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "F",
+        "conf": 82.0,
+        "invert": true,
+        "psm": 13,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 252,
+        "x1": 296,
+        "y0": 1570,
+        "y1": 1641
+      },
+      "ink_bbox": {
+        "area": 964,
+        "fill": 0.625974025974026,
+        "h": 55,
+        "w": 28,
+        "x": 260,
+        "y": 1578
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "1",
+        "conf": 22.0,
+        "invert": false,
+        "psm": 13,
+        "scale": 5
+      }
+    },
+    {
+      "bbox": {
+        "x0": 293,
+        "x1": 336,
+        "y0": 1570,
+        "y1": 1641
+      },
+      "ink_bbox": {
+        "area": 921,
+        "fill": 0.6202020202020202,
+        "h": 55,
+        "w": 27,
+        "x": 301,
+        "y": 1578
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "J",
+        "conf": 40.0,
+        "invert": false,
+        "psm": 13,
+        "scale": 3
+      }
+    },
+    {
+      "bbox": {
+        "x0": 399,
+        "x1": 590,
+        "y0": 1612,
+        "y1": 1717
+      },
+      "ink_bbox": {
+        "area": 10894,
+        "fill": 0.699454253611557,
+        "h": 89,
+        "w": 175,
+        "x": 407,
+        "y": 1620
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 733,
+        "x1": 943,
+        "y0": 1612,
+        "y1": 1716
+      },
+      "ink_bbox": {
+        "area": 11441,
+        "fill": 0.6701616682286785,
+        "h": 88,
+        "w": 194,
+        "x": 741,
+        "y": 1620
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 1
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2171,
+        "x1": 2433,
+        "y0": 1651,
+        "y1": 1768
+      },
+      "ink_bbox": {
+        "area": 17479,
+        "fill": 0.651860968150966,
+        "h": 109,
+        "w": 246,
+        "x": 2179,
+        "y": 1659
+      },
+      "ocr": {
+        "backend": "tesseract",
+        "best": "J",
+        "conf": 47.0,
+        "invert": true,
+        "psm": 7,
+        "scale": 5
+      }
+    }
+  ],
+  "chip": "4001",
+  "counts": {
+    "candidates": 12
+  },
+  "inputs": {
+    "metal_bmp": "docs/emulators/i4001-metal.bmp",
+    "sha256": {
+      "metal_bmp": "970c977441a7d437b7eb165284d1f27bbaa0daba157dd013caebf7d3cc35e381"
+    }
+  },
+  "outputs": {
+    "crops_dir": "docs/evidence/layout_pad_labels_v0/4001/crops",
+    "overlay": "docs/evidence/layout_pad_labels_v0/4001/4001_pad_label_boxes_v0.png"
+  },
+  "params": {
+    "backend": "tesseract",
+    "edge_band": 280,
+    "max_area": 40000,
+    "max_size": 420,
+    "min_area": 700,
+    "pad": 8,
+    "threshold": 128
+  },
+  "schema": {
+    "description": "Detected pad-label-like ink boxes near the layout edge, OCR\u2019d.",
+    "version": 0
+  }
+}
