@@ -231,14 +231,25 @@ def ocr_best_token(
     oem: int = 1,
     min_len: int = 1,
     max_len: int = 4,
+    timeout_s: float = 2.0,
 ) -> OcrResult:
     """
     OCR a binarized image and return the single best token (by confidence).
     """
     best = OcrResult(token="", conf=-1.0, psm=0, invert=False, scale=1)
     for psm in psms:
-        cfg = f"--psm {int(psm)} --oem {int(oem)} -l eng -c tessedit_char_whitelist={whitelist}"
-        data = pytesseract.image_to_data(gray_bin, config=cfg, output_type=pytesseract.Output.DICT)
+        cfg = (
+            f"--psm {int(psm)} --oem {int(oem)} -l eng "
+            f"-c tessedit_char_whitelist={whitelist} "
+            # Encourage consistent handling for tiny glyph crops.
+            "-c user_defined_dpi=300"
+        )
+        data = pytesseract.image_to_data(
+            gray_bin,
+            config=cfg,
+            output_type=pytesseract.Output.DICT,
+            timeout=float(timeout_s),
+        )
         for txt, conf in zip(data.get("text", []), data.get("conf", [])):
             tok = normalize_token(txt or "")
             if not token_is_plausible(tok, min_len=min_len, max_len=max_len):

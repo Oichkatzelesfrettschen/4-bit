@@ -9,8 +9,10 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-import pytesseract
 from PIL import Image, ImageDraw, ImageOps
+
+from ocr_backend_v0 import resolve_backend
+from ocr_presets_v0 import preset_layout_edge_label
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -44,13 +46,6 @@ def rel_or_abs(path: Path) -> str:
     return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
 
 
-def ocr_label(img: Image.Image, psm: int) -> dict[str, object]:
-    whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~+-/|()&._"
-    cfg = f"--psm {psm} -l eng -c tessedit_char_whitelist={whitelist}"
-    raw = pytesseract.image_to_string(img, config=cfg)
-    txt = " ".join(raw.strip().split())
-    return {"raw": raw, "text": txt, "psm": psm}
-
 def fill_holes(mask: np.ndarray) -> np.ndarray:
     """
     Fill holes in a binary mask (True=foreground). Returns a boolean array.
@@ -78,6 +73,24 @@ def main() -> int:
     p.add_argument("--min-fill", type=float, default=0.22, help="Min fill ratio for candidate box")
     p.add_argument("--pad", type=int, default=8, help="Crop padding for OCR")
     p.add_argument("--scale", type=int, default=4, help="Upscale factor for OCR crops")
+    p.add_argument(
+        "--backend",
+        default="tesseract",
+        choices=["tesseract", "onnx", "auto"],
+        help="OCR backend (auto prefers ONNX/CUDA when configured, else Tesseract).",
+    )
+    p.add_argument(
+        "--onnx-model",
+        type=Path,
+        default=None,
+        help="Path to ONNX model for --backend onnx/auto (or set OCR_ONNX_MODEL).",
+    )
+    p.add_argument(
+        "--prefer-cuda",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Prefer CUDAExecutionProvider for ONNX backends when available.",
+    )
     p.add_argument("--render", action="store_true", default=True, help="Render overlay + crops")
     args = p.parse_args()
 
@@ -90,6 +103,8 @@ def main() -> int:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
+
     manifest: dict[str, object] = {
         "tool": "scripts/detect_layout_pad_labels_v0.py",
         "params": {
@@ -99,6 +114,7 @@ def main() -> int:
             "max_area": int(args.max_area),
             "max_size": int(args.max_size),
             "pad": int(args.pad),
+            "backend": str(getattr(backend, "name", "tesseract")),
         },
         "outputs": [],
     }
@@ -180,21 +196,35 @@ def main() -> int:
             if scale > 1:
                 crop2 = crop2.resize((crop2.size[0] * scale, crop2.size[1] * scale), resample=Image.Resampling.NEAREST)
 
-            # Try a couple PSMs.
-            o1 = ocr_label(crop2, psm=7)  # single text line
-            o2 = ocr_label(crop2, psm=8)  # single word
-            o3 = ocr_label(crop2, psm=10)  # single char
-            best = max([o1, o2, o3], key=lambda o: len(str(o.get("text", ""))))
+            # OCR: pad labels are short (1–3 chars) and usually high-contrast.
+            gray = np.asarray(crop2.convert("L"))
+            preset = preset_layout_edge_label(expected=None)
+            r = backend.best_token(
+                gray,
+                whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                psms=preset.psms,
+                oem=preset.oem,
+                min_len=1,
+                max_len=3,
+            )
+            best_text = str(r.token or "")
 
             out_row = {
                 "bbox": {"x0": int(x0), "y0": int(y0), "x1": int(x1), "y1": int(y1)},
                 "ink_bbox": bb,
-                "ocr": {"psm7": o1["text"], "psm8": o2["text"], "psm10": o3["text"], "best": best["text"]},
+                "ocr": {
+                    "best": best_text,
+                    "conf": float(r.conf),
+                    "psm": int(r.psm),
+                    "invert": bool(r.invert),
+                    "scale": int(r.scale),
+                    "backend": str(getattr(backend, "name", "tesseract")),
+                },
             }
             out_boxes.append(out_row)
 
             if args.render:
-                crop2.save(crops_dir / f"box_{idx:03d}_{best['text'] or 'NA'}.png")
+                crop2.save(crops_dir / f"box_{idx:03d}_{best_text or 'NA'}.png")
 
         # Render overlay on the metal mask for quick inspection.
         overlay_path = None

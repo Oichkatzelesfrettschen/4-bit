@@ -18,7 +18,14 @@ except Exception:  # pragma: no cover
 
 import pytesseract
 
-from ocr_preprocess_v0 import OcrResult, normalize_token, ocr_best_token, preprocess_label_for_ocr
+from ocr_preprocess_v0 import (
+    OcrResult,
+    crop_label_text_roi,
+    extract_dense_component,
+    normalize_token,
+    ocr_best_token,
+    preprocess_label_for_ocr,
+ )
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -67,20 +74,24 @@ class TesseractBackend:
     ) -> OcrResult:
         # Standardized “tiny label” policy for our edge-label crops:
         # - try both polarities (some crops are white-on-black masks, others are not)
+        # - isolate the dense callout + its glyph ROI to reduce wiring noise
         # - upscale aggressively (Tesseract benefits from large glyphs)
         # - adaptive threshold tends to outperform Otsu on these solid masks
         best = OcrResult(token="", conf=-1.0, psm=0, invert=False, scale=1)
-        for invert in (False, True):
-            for scale in (3, 5):
-                pre = preprocess_label_for_ocr(
-                    gray,
-                    scale=scale,
-                    invert=invert,
-                    use_clahe=True,
-                    threshold="adaptive",
-                    border=10,
-                    morph="close",
-                )
+        dense = extract_dense_component(gray)
+        roi = crop_label_text_roi(dense)
+
+        def run_one(*, invert: bool, scale: int, threshold: str, morph: str | None) -> OcrResult | None:
+            pre = preprocess_label_for_ocr(
+                roi,
+                scale=scale,
+                invert=invert,
+                use_clahe=True,
+                threshold=threshold,
+                border=10,
+                morph=morph,
+            )
+            try:
                 cand = ocr_best_token(
                     pre,
                     whitelist=whitelist,
@@ -88,16 +99,44 @@ class TesseractBackend:
                     oem=oem,
                     min_len=min_len,
                     max_len=max_len,
+                    timeout_s=2.0,
                 )
-                cand = OcrResult(
-                    token=cand.token,
-                    conf=cand.conf,
-                    psm=cand.psm,
-                    invert=invert,
-                    scale=scale,
-                )
+            except Exception:
+                return None
+            return OcrResult(
+                token=cand.token,
+                conf=cand.conf,
+                psm=cand.psm,
+                invert=invert,
+                scale=scale,
+            )
+
+        # Two-stage policy: keep the common fast path small, then escalate only if needed.
+        # Typical label crops are white-on-black with strong contrast, so `invert=True` and
+        # adaptive threshold + close tends to win quickly.
+        for invert in (True, False):
+            for scale in (5, 3):
+                cand = run_one(invert=invert, scale=scale, threshold="adaptive", morph="close")
+                if cand is None:
+                    continue
                 if (cand.conf, len(cand.token)) > (best.conf, len(best.token)):
                     best = cand
+                # Early exit: high confidence and plausible length is good enough.
+                if best.conf >= 85.0 and min_len <= len(best.token) <= max_len:
+                    return best
+
+        # Escalation: alternative thresholding/morphology for edge cases (e.g. tiny 1-glyph labels).
+        for invert in (True, False):
+            for scale in (5, 3):
+                for threshold, morph in (("adaptive", None), ("otsu", "close"), ("otsu", None)):
+                    cand = run_one(invert=invert, scale=scale, threshold=threshold, morph=morph)
+                    if cand is None:
+                        continue
+                    if (cand.conf, len(cand.token)) > (best.conf, len(best.token)):
+                        best = cand
+                    if best.conf >= 90.0 and min_len <= len(best.token) <= max_len:
+                        return best
+
         return best
 
 
@@ -246,8 +285,8 @@ def resolve_backend(
 ) -> Backend:
     """
     Proper fallback order for throughput:
-    1) ONNX CTC model on CUDA (if model + provider available)
-    2) ONNX CTC model on CPU (if model available)
+    1) ONNX CTC model on TensorRT/CUDA (if model + provider available)
+    2) ONNX CTC model on CPU/DNNL (if model available)
     3) Tesseract (CPU)
     """
     b = (backend or "auto").strip().lower()
@@ -272,13 +311,23 @@ def resolve_backend(
                 onnx_model = Path(env)
         if onnx_model is not None and ort is not None and onnx_model.exists():
             avail = tuple(ort.get_available_providers())
-            if prefer_cuda and "CUDAExecutionProvider" in avail:
-                cand = try_backend(("CUDAExecutionProvider", "CPUExecutionProvider"))
+            # Prefer acceleration EPs when present, but always include CPU as a safety net
+            # to avoid hard failures on misconfigured CUDA/TensorRT installs.
+            if prefer_cuda:
+                for providers in (
+                    ("TensorrtExecutionProvider", "CUDAExecutionProvider", "CPUExecutionProvider"),
+                    ("CUDAExecutionProvider", "CPUExecutionProvider"),
+                ):
+                    if all(p in avail for p in providers if p != "CPUExecutionProvider"):
+                        cand = try_backend(providers)
+                        if cand is not None:
+                            return cand
+            for providers in (("DnnlExecutionProvider",), ("CPUExecutionProvider",)):
+                if providers[0] not in avail:
+                    continue
+                cand = try_backend(providers)
                 if cand is not None:
                     return cand
-            cand = try_backend(("CPUExecutionProvider",))
-            if cand is not None:
-                return cand
         if b == "onnx":
             raise SystemExit(
                 "requested --backend onnx but no usable ONNX model/providers found "

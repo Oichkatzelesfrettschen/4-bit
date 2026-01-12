@@ -5,6 +5,7 @@ import argparse
 import json
 import re
 from pathlib import Path
+from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,6 +18,43 @@ def normalize_label(s: str) -> str:
     s = (s or "").strip().upper()
     s = re.sub(r"[^A-Z0-9]", "", s)
     return s
+
+
+def edit_distance(a: str, b: str) -> int:
+    """
+    Levenshtein distance for short tokens.
+    """
+    if a == b:
+        return 0
+    if not a:
+        return len(b)
+    if not b:
+        return len(a)
+    # DP over lengths <= 4, so this is tiny and deterministic.
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, start=1):
+        cur = [i]
+        for j, cb in enumerate(b, start=1):
+            cost = 0 if ca == cb else 1
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost))
+        prev = cur
+    return prev[-1]
+
+
+def best_suggestions(token: str, candidates: Iterable[str], *, k: int = 5) -> list[dict[str, object]]:
+    scored: list[tuple[int, int, str]] = []
+    t = normalize_label(token)
+    for cand in candidates:
+        c = normalize_label(cand)
+        if not c:
+            continue
+        d = edit_distance(t, c)
+        scored.append((d, len(c), c))
+    scored.sort(key=lambda x: (x[0], x[1], x[2]))
+    out = []
+    for d, _ln, c in scored[:k]:
+        out.append({"token": c, "distance": int(d)})
+    return out
 
 
 def tokens_from_signals_file(path: Path) -> set[str]:
@@ -62,6 +100,7 @@ def main() -> int:
         default=ROOT / "docs" / "evidence" / "layout_edge_labels_v0" / "4004" / "4004_layout_edge_labels_v0.json",
         help="Edge labels JSON to verify",
     )
+    p.add_argument("--out", type=Path, default=None, help="Write JSON report here (default: stdout)")
     args = p.parse_args()
 
     chip = str(args.chip).strip()
@@ -82,14 +121,25 @@ def main() -> int:
     missing_in_signals = sorted([t for t in edge_toks if t not in sig_toks])
     present = sorted([t for t in edge_toks if t in sig_toks])
 
-    print(json.dumps({"chip": chip, "edge_labels": rel_or_abs(edge_labels), "present_in_signals": present}, indent=2))
-    if missing_in_signals:
-        print("\nNot in signals.txt (may still be valid layout-only labels):")
-        for t in missing_in_signals:
-            print(f"- {t}")
+    report = {
+        "chip": chip,
+        "edge_labels": rel_or_abs(edge_labels),
+        "signals_txt": rel_or_abs(signals),
+        "counts": {"edge_tokens": len(edge_toks), "present_in_signals": len(present), "missing_in_signals": len(missing_in_signals)},
+        "present_in_signals": present,
+        "missing_in_signals": [
+            {"token": t, "suggestions": best_suggestions(t, sig_toks, k=5)} for t in missing_in_signals
+        ],
+    }
+
+    text = json.dumps(report, indent=2, sort_keys=True) + "\n"
+    if args.out is None:
+        print(text, end="")
+    else:
+        args.out.parent.mkdir(parents=True, exist_ok=True)
+        args.out.write_text(text, encoding="utf-8")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

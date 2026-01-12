@@ -56,6 +56,13 @@ If you want higher throughput for large-scale page rasterization + OCR experimen
 - `python-onnxruntime-opt-cuda`: provides `onnxruntime` with `CUDAExecutionProvider` (useful for ONNX OCR models).
 - `python-pytorch-opt-cuda`: enables CUDA for Torch-based OCR pipelines.
 
+Provider preference order (when available)
+- ONNX Runtime: TensorRT → CUDA → DNNL → CPU
+- OCR backend fallback (`scripts/ocr_backend_v0.py`): ONNX(TensorRT/CUDA) → ONNX(DNNL/CPU) → Tesseract(CPU)
+
+Packaging note
+- Prefer the distro’s CUDA-enabled `onnxruntime` package (`python-onnxruntime-opt-cuda`) over `pip install onnxruntime-gpu` when Python versions/wheels lag behind (the CUDA provider often disappears on newer Python minors).
+
 **OCR frameworks (not required by the repo)**
 - EasyOCR, PaddleOCR, or custom ONNX models (typically faster than Tesseract on modern GPUs, but heavier dependencies).
 
@@ -66,12 +73,14 @@ For label OCR changes, use the stable micro-benchmark set:
 
 Implementation note:
 - `scripts/ocr_preprocess_v0.py` sets `pytesseract.pytesseract.tesseract_cmd` to `/usr/bin/tesseract` when present to avoid PATH-related flakiness.
-- `scripts/ocr_backend_v0.py` implements backend fallback: ONNX(CUDA) → ONNX(CPU) → Tesseract(CPU) (set `OCR_ONNX_MODEL` to enable ONNX).
+- `scripts/ocr_backend_v0.py` implements backend fallback: ONNX(TensorRT/CUDA) → ONNX(DNNL/CPU) → Tesseract(CPU) (set `OCR_ONNX_MODEL` to enable ONNX).
+- `scripts/ocr_capabilities_v0.py` records what the current environment can accelerate (OpenCV CUDA, ONNX providers, Torch CUDA, etc.).
 
 ## Tooling Audit Runs
 
 Capture the current environment inventory to a versioned artifact:
 - `bash scripts/tooling_audit.sh | tee docs/evidence/tooling_audit_runs/tooling_audit_$(date +%Y%m%d)_v0.txt`
+- `python3 scripts/ocr_capabilities_v0.py --out docs/evidence/tooling_audit_runs/ocr_capabilities_$(date +%Y%m%d)_v0.json`
 
 ## Arch/CachyOS Install (Reference)
 

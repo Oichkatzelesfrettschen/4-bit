@@ -9,10 +9,11 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
 
 from ocr_backend_v0 import resolve_backend
 from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop
+from imgio_v0 import load_gray
+from ocr_presets_v0 import preset_layout_edge_label
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,6 +43,9 @@ def best_ocr_for_label(
     backend_name: str,
     onnx_model: Path | None,
     prefer_cuda: bool,
+    adaptive_whitelist: bool,
+    fallback_whitelist: str,
+    expected: str | None,
 ) -> Try:
     """
     Benchmark policy: use the same “tiny label” pipeline we want to standardize for edge-label OCR:
@@ -58,10 +62,20 @@ def best_ocr_for_label(
     if text_roi.shape[0] < 18 or text_roi.shape[1] < 18:
         text_roi = roi
 
-    whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    whitelist = fallback_whitelist
+    if adaptive_whitelist and expected:
+        whitelist = "".join(sorted(set(str(expected).strip().upper() + "0123456789")))
     backend = resolve_backend(backend=backend_name, onnx_model=onnx_model, prefer_cuda=prefer_cuda)
     # Backends are allowed to ignore PSMs; we keep the interface stable.
-    r = backend.best_token(text_roi, whitelist=whitelist, psms=(7, 11, 8, 10), oem=1, min_len=1, max_len=3)
+    preset = preset_layout_edge_label(expected=expected)
+    r = backend.best_token(
+        text_roi,
+        whitelist=whitelist,
+        psms=preset.psms,
+        oem=preset.oem,
+        min_len=preset.min_len,
+        max_len=preset.max_len,
+    )
     return Try(token=r.token, conf=r.conf, psm=r.psm, inv=bool(r.invert), scale=int(r.scale))
 
 
@@ -86,6 +100,17 @@ def main() -> int:
         default=True,
         help="Prefer CUDAExecutionProvider for ONNX backends when available.",
     )
+    p.add_argument(
+        "--adaptive-whitelist",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Derive per-item whitelist from expected token.",
+    )
+    p.add_argument(
+        "--whitelist",
+        default="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        help="Fallback whitelist when expected token is missing/empty.",
+    )
     args = p.parse_args()
 
     bench_path = args.bench
@@ -100,11 +125,12 @@ def main() -> int:
     started = time.perf_counter()
     results = []
     ok = 0
+    fallback_whitelist = str(args.whitelist).strip().upper() or "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     for it in items:
         img_path = Path(it["image"])
         img_path = (ROOT / img_path).resolve() if not img_path.is_absolute() else img_path
         expected = normalize_token(it["expected"])
-        gray = np.asarray(Image.open(img_path).convert("L"))
+        gray = load_gray(img_path)
 
         t0 = time.perf_counter()
         got = best_ocr_for_label(
@@ -112,6 +138,9 @@ def main() -> int:
             backend_name=str(args.backend),
             onnx_model=args.onnx_model,
             prefer_cuda=bool(args.prefer_cuda),
+            adaptive_whitelist=bool(args.adaptive_whitelist),
+            fallback_whitelist=fallback_whitelist,
+            expected=expected,
         )
         dt = time.perf_counter() - t0
 

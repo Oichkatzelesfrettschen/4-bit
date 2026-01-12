@@ -13,9 +13,13 @@ Goal: make it easy to measure “did OCR get better (accuracy) and faster (runti
 
 - Small stable benchmark:
   - `python3 scripts/ocr_benchmark_v0.py --bench docs/evidence/ocr_benchmarks_v0/layout_edge_labels_4004_v0.json`
+  - For label fixtures with known expected tokens, keep OCR tight:
+    - `--adaptive-whitelist` (default) derives a per-item whitelist from the expected token.
 
 - Manifest run (larger, derived from `docs/evidence/layout_edge_labels_v0/.../crops`):
   - `python3 scripts/ocr_manifest_run_v0.py --manifest docs/evidence/ocr_manifests_v0/layout_edge_labels_4004_crops_v0.json --backend tesseract`
+  - Override whitelist policy:
+    - `--no-adaptive-whitelist --whitelist ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`
 
 ## Optional ONNX
 

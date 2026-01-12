@@ -7,9 +7,10 @@ import time
 from pathlib import Path
 
 import numpy as np
-from PIL import Image
 
 from ocr_backend_v0 import resolve_backend
+from imgio_v0 import load_gray
+from ocr_presets_v0 import preset_layout_edge_label
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -26,6 +27,17 @@ def main() -> int:
         default="auto",
         choices=["auto", "tesseract", "onnx"],
         help="OCR backend (auto prefers ONNX/CUDA when configured, else Tesseract).",
+    )
+    p.add_argument(
+        "--adaptive-whitelist",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Derive per-item whitelist from expected token (keeps OCR tight for known labels).",
+    )
+    p.add_argument(
+        "--whitelist",
+        default="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        help="Fallback whitelist when expected token is missing/empty.",
     )
     p.add_argument(
         "--onnx-model",
@@ -50,7 +62,7 @@ def main() -> int:
 
     backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
 
-    whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    fallback_whitelist = str(args.whitelist).strip().upper() or "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     results: list[dict] = []
     t0 = time.perf_counter()
     for e in entries:
@@ -62,9 +74,21 @@ def main() -> int:
         expected = str(e.get("expected", "")).strip().upper()
         if not img_path.exists():
             continue
-        gray = np.asarray(Image.open(img_path).convert("L"))
+        gray = load_gray(img_path)
         t_img0 = time.perf_counter()
-        r = backend.best_token(gray, whitelist=whitelist, psms=(7, 11, 8, 10), oem=1, min_len=1, max_len=4)
+        whitelist = fallback_whitelist
+        if bool(args.adaptive_whitelist) and expected:
+            # Keep digits available even if a particular expected token is letters-only.
+            whitelist = "".join(sorted(set(expected + "0123456789")))
+        preset = preset_layout_edge_label(expected=expected)
+        r = backend.best_token(
+            gray,
+            whitelist=whitelist,
+            psms=preset.psms,
+            oem=preset.oem,
+            min_len=preset.min_len,
+            max_len=preset.max_len,
+        )
         dt = time.perf_counter() - t_img0
         got = str(r.token or "")
         results.append(
@@ -85,6 +109,7 @@ def main() -> int:
         "schema": {"version": 0, "description": "OCR run over labeled manifest (v0)."},
         "inputs": {"manifest": rel_or_abs(manifest_path)},
         "backend": str(getattr(backend, "name", "unknown")),
+        "backend_detail": {"providers": getattr(backend, "providers", None)},
         "counts": {"passed": int(passed), "total": int(total)},
         "time_s": float(time.perf_counter() - t0),
         "results": results,
@@ -101,4 +126,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -16,7 +16,7 @@ The repo’s default is **Tesseract (CPU)** for reproducibility. For speed/accur
 - a small **CTC-based text recognizer** (word-level) exported to ONNX
 
 Backend fallback order (implemented in `scripts/ocr_backend_v0.py`):
-- ONNX (CUDA) → ONNX (CPU) → Tesseract (CPU)
+- ONNX (TensorRT/CUDA when available) → ONNX (DNNL/CPU) → Tesseract (CPU)
 
 To enable ONNX without committing model weights into git:
 - Set `OCR_ONNX_MODEL=/abs/path/to/model.onnx`
@@ -46,6 +46,11 @@ The `scripts/detect_layout_edge_labels_v0.py` fast path uses:
 
 Some tools (including Codex image attachment) can’t display PNM variants (`.pbm/.pgm/.ppm/.pnm`). Convert them to PNG first:
 - `python3 scripts/convert_pnm_to_png.py --recursive --out-dir /tmp/<dir> /tmp/<dir>`
+
+## Capability probe (GPU/ONNX/OpenCV)
+
+Capture what this machine can accelerate (helpful when comparing `yay` vs `pip` installs):
+- `python3 scripts/ocr_capabilities_v0.py --out docs/evidence/tooling_audit_runs/ocr_capabilities_$(date +%Y%m%d)_v0.json`
 
 ## Primary-source guidance (Tesseract)
 
