@@ -1,0 +1,36 @@
+{
+  "chip": "4004",
+  "counts": {
+    "nodes": 1,
+    "transistors": 0
+  },
+  "devices": {
+    "transistors": []
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4004_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "b54389d81759104f5a305f865043cec78ce0d56c9cedd1f63355f56b0a812e34"
+    }
+  },
+  "nodes": [
+    {
+      "node": 432
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "D3_PAD",
+    "nodes": [
+      432
+    ]
+  }
+}

@@ -62,6 +62,15 @@ Device graph (v0)
 - `scripts/extract_device_graph_v0.py` normalizes `netlist_v0` device candidates into a stable graph artifact:
   - Output: `docs/evidence/device_graph_v0/`
 
+Subcircuit extraction (v0)
+- `scripts/extract_subcircuit_v0.py` extracts bounded transistor subcircuits around seed nodes (typically anchor signals).
+  - Output: `docs/evidence/subcircuits_v0/<chip>/`
+- `scripts/subcircuit_metrics_v0.py` summarizes subcircuit sizes into `metrics.json` + `metrics.md`.
+
+Current limitation:
+- Many pad anchor nodes are metal-only and do not currently touch extracted transistor candidates. This indicates an
+  extraction/stitching lacuna to resolve before switch-level validation becomes meaningful.
+
 Layout pad anchoring helpers (v0)
 - `netlist_v0` now includes per-node bounding boxes and degree/area statistics (`node_stats`) to support pin/pad anchoring.
 - Pad tooling outputs:
@@ -78,6 +87,8 @@ How to run
 - Trace schematic connectivity for anchor signals (example, 4004): `python3 scripts/extract_schematic_connectivity_v0.py --chip 4004 --name-regex '^(CLK1|CLK2|SYNC|D[0-3]_PAD|CMROM|CMRAM[0-3])$' --render`
 - Emit netlist v1 (example, 4004): `python3 scripts/build_netlist_v1_v0.py --chip 4004`
 - Extract device graph (example, 4004): `python3 scripts/extract_device_graph_v0.py --chip 4004`
+- Extract anchor subcircuits (example, 4004): `python3 scripts/extract_subcircuit_v0.py --netlist docs/evidence/netlists_v1/4004_netlist_v1.json --all-signals --radius 3`
+- Summarize subcircuits: `python3 scripts/subcircuit_metrics_v0.py --manifest docs/evidence/subcircuits_v0/4004/manifest.json --out-json docs/evidence/subcircuits_v0/4004/metrics.json --out-md docs/evidence/subcircuits_v0/4004/metrics.md`
 
 What v0 does (and does not do)
 - Uses layout masks only (metal/vias/poly/diffusion, plus contacts for 4004).

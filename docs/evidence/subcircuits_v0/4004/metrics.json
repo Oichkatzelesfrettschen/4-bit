@@ -1,0 +1,82 @@
+{
+  "counts": {
+    "nonzero_transistors": 1,
+    "subcircuits": 11,
+    "zero_transistors": 10
+  },
+  "inputs": {
+    "manifest": "docs/evidence/subcircuits_v0/4004/manifest.json"
+  },
+  "rows": [
+    {
+      "name": "D1_PAD",
+      "nodes": 4,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D1_PAD_subcircuit_v0.json",
+      "transistors": 2
+    },
+    {
+      "name": "CLK1",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CLK1_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "CLK2",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CLK2_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "CMRAM0",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM0_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "CMRAM1",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM1_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "CMRAM2",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM2_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "CMRAM3",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM3_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "CMROM",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMROM_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "D0_PAD",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D0_PAD_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "D2_PAD",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D2_PAD_subcircuit_v0.json",
+      "transistors": 0
+    },
+    {
+      "name": "D3_PAD",
+      "nodes": 1,
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D3_PAD_subcircuit_v0.json",
+      "transistors": 0
+    }
+  ],
+  "schema": {
+    "description": "Subcircuit extraction metrics.",
+    "version": 0
+  }
+}

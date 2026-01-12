@@ -1,0 +1,104 @@
+{
+  "inputs": {
+    "netlist": "docs/evidence/netlists_v1/4004_netlist_v1.json",
+    "sha256": {
+      "netlist": "b54389d81759104f5a305f865043cec78ce0d56c9cedd1f63355f56b0a812e34"
+    }
+  },
+  "outputs": [
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CLK1",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CLK1_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CLK2",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CLK2_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CMRAM0",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM0_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CMRAM1",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM1_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CMRAM2",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM2_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CMRAM3",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMRAM3_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "CMROM",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_CMROM_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "D0_PAD",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D0_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 4,
+        "transistors": 2
+      },
+      "name": "D1_PAD",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D1_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "D2_PAD",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D2_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 1,
+        "transistors": 0
+      },
+      "name": "D3_PAD",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_D3_PAD_subcircuit_v0.json"
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "tool": "scripts/extract_subcircuit_v0.py"
+}

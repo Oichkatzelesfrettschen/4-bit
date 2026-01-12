@@ -78,6 +78,7 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Keep edge-label OCR fast by default (`scripts/detect_layout_edge_labels_v0.py`; `--deep` only for debugging, `--cuda-preproc` optional, `--backend auto` for ONNX experiments).
 - Maintain a minimal schematic↔layout bridge artifact (`docs/evidence/netlists_v1/`) so anchor signals can be traced end-to-end through extraction outputs.
 - Keep schematic connectivity tracing explicitly heuristic until component-aware parsing exists (`docs/evidence/schematic_connectivity_v0/`).
+- Extract bounded transistor subcircuits around anchor nodes (`docs/evidence/subcircuits_v0/`) and track how many anchors currently reach device candidates; treat “0-transistor anchors” as a first-class extraction lacuna.
 - Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
   - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
   - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.
