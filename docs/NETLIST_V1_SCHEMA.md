@@ -78,3 +78,14 @@ The mapping can be partial:
   - a stable schematic component id,
   - and at least one deterministic evidence artifact (crop/overlay) that can be regenerated.
 
+## Device candidates (v1 build v0)
+
+`netlist_v1` can embed layout-derived device candidates so downstream tooling can carve out “anchor subcircuits”.
+
+Current implementation (`scripts/build_netlist_v1_v0.py`):
+- Imports `devices.transistors` from `netlist_v0`.
+- Filters catastrophic bbox outliers (currently a small number of full-image bboxes) into `devices.filtered_transistors`.
+
+This is still *candidate* quality:
+- terminals are topology-derived from masks and may be wrong in edge cases,
+- device types (enhancement/depletion, pull-ups) are not fully classified yet.

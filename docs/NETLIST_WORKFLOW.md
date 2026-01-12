@@ -51,11 +51,12 @@ Schematic connectivity tracing (v0)
   and it is not a substitute for component-aware schematic recognition.
 
 Netlist v1 (draft bridge)
-- `scripts/emit_netlist_v1_draft.py` emits a minimal “bridge” netlist combining:
+- `scripts/build_netlist_v1_v0.py` emits a minimal “bridge” netlist combining:
   - layout nodes from `schematic_layout_anchors_v0.json`
-  - schematic connectivity traces from `schematic_connectivity_v0`
-  - and references to `netlist_v0` + `schematic_net_names_v0`
-- Output: `docs/evidence/netlists_v1/`
+  - schematic component ids from `schematic_wirenets_v0`
+  - schematic connectivity traces from `schematic_connectivity_v0` (anchors only)
+  - and device candidates from `netlist_v0`
+- Output: `docs/evidence/netlists_v1/` (plus `manifest.json`)
 
 Device graph (v0)
 - `scripts/extract_device_graph_v0.py` normalizes `netlist_v0` device candidates into a stable graph artifact:
@@ -75,7 +76,7 @@ How to run
 - Generate schematic net-name artifacts: `python3 scripts/extract_schematic_nets_v0.py --all`
 - Generate match scaffolds: `python3 scripts/match_schematic_layout_v0.py --all`
 - Trace schematic connectivity for anchor signals (example, 4004): `python3 scripts/extract_schematic_connectivity_v0.py --chip 4004 --name-regex '^(CLK1|CLK2|SYNC|D[0-3]_PAD|CMROM|CMRAM[0-3])$' --render`
-- Emit netlist v1 draft (example, 4004): `python3 scripts/emit_netlist_v1_draft.py --chip 4004`
+- Emit netlist v1 (example, 4004): `python3 scripts/build_netlist_v1_v0.py --chip 4004`
 - Extract device graph (example, 4004): `python3 scripts/extract_device_graph_v0.py --chip 4004`
 
 What v0 does (and does not do)

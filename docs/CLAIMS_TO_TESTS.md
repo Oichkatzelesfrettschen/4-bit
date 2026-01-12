@@ -20,7 +20,7 @@ It exists to prevent “documentation drift” as we move toward higher fidelity
 | --- | --- | --- |
 | `netlist_v0` deterministically stitches layout masks | `docs/NETLIST_WORKFLOW.md` + `docs/evidence/netlists_v0/manifest.json` | `mcs4-core` test loads committed `4004_netlist_v0.json` |
 | `poly ∩ diffusion` output is “candidates”, not netlist | `docs/evidence/DIAGRAM_EXTRACTION.md` | `scripts/validate_analyzer_claims.py` + metrics artifacts |
-| `netlist_v1` is a traceable bridge (anchors + schematic traces) | `docs/NETLIST_V1_SCHEMA.md` + `docs/evidence/netlists_v1/4004_netlist_v1.json` | Local regen scripts (`scripts/emit_netlist_v1_draft.py`, `scripts/extract_schematic_connectivity_v0.py`) |
+| `netlist_v1` is a traceable bridge (anchors + schematic traces) | `docs/NETLIST_V1_SCHEMA.md` + `docs/evidence/netlists_v1/4004_netlist_v1.json` | Local regen scripts (`scripts/build_netlist_v1_v0.py`, `scripts/extract_schematic_connectivity_v0.py`) |
 
 ## OCR Claims
 

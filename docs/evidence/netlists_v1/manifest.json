@@ -1,0 +1,13 @@
+{
+  "outputs": [
+    {
+      "chip": "4004",
+      "output": "docs/evidence/netlists_v1/4004_netlist_v1.json"
+    }
+  ],
+  "params": {
+    "max_transistor_bbox_area": 500000,
+    "max_transistor_bbox_dim": 1200
+  },
+  "tool": "scripts/build_netlist_v1_v0.py"
+}
