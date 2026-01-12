@@ -47,6 +47,18 @@ def main() -> int:
     p.add_argument("--chip", required=True, choices=["4001", "4002", "4003", "4004"])
     p.add_argument("--out-dir", type=Path, default=ROOT / "docs" / "evidence" / "netlists_v1")
     p.add_argument(
+        "--anchors",
+        type=Path,
+        default=None,
+        help="Override anchors JSON path (defaults to docs/evidence/schematic_layout_anchors_v0.json).",
+    )
+    p.add_argument(
+        "--layout-netlist-v0",
+        type=Path,
+        default=None,
+        help="Override layout netlist_v0 JSON path (defaults to docs/evidence/netlists_v0/<chip>_netlist_v0.json).",
+    )
+    p.add_argument(
         "--max-transistor-bbox-area",
         type=int,
         default=500_000,
@@ -61,13 +73,23 @@ def main() -> int:
     args = p.parse_args()
 
     chip = str(args.chip)
-    anchors_path = ROOT / "docs" / "evidence" / "schematic_layout_anchors_v0.json"
+    anchors_path = (
+        (ROOT / args.anchors).resolve()
+        if args.anchors is not None and not args.anchors.is_absolute()
+        else (args.anchors if args.anchors is not None else ROOT / "docs" / "evidence" / "schematic_layout_anchors_v0.json")
+    )
+    assert anchors_path is not None
     schem_names_path = ROOT / "docs" / "evidence" / "schematic_net_names_v0" / f"{chip.lower()}_schematic_net_names_v0.json"
     schem_wirenets_path = (
         ROOT / "docs" / "evidence" / "schematic_wirenets_v0" / chip / f"{chip.lower()}_schematic_wirenets_v0.json"
     )
     schem_conn_path = ROOT / "docs" / "evidence" / "schematic_connectivity_v0" / chip / f"{chip.lower()}_schematic_connectivity_v0.json"
-    layout_path = ROOT / "docs" / "evidence" / "netlists_v0" / f"{chip.lower()}_netlist_v0.json"
+    layout_path = (
+        (ROOT / args.layout_netlist_v0).resolve()
+        if args.layout_netlist_v0 is not None and not args.layout_netlist_v0.is_absolute()
+        else (args.layout_netlist_v0 if args.layout_netlist_v0 is not None else ROOT / "docs" / "evidence" / "netlists_v0" / f"{chip.lower()}_netlist_v0.json")
+    )
+    assert layout_path is not None
 
     anchors = load_json(anchors_path)
     a = _get(anchors, "anchors", chip)
@@ -77,8 +99,27 @@ def main() -> int:
     layout = load_json(layout_path)
     devices = _get(layout, "devices")
     trans = _get(layout, "devices", "transistors")
+    node_stats = _get(layout, "node_stats")
     if not isinstance(devices, dict) or not isinstance(trans, list):
         raise SystemExit(f"{layout_path}: missing devices.transistors")
+
+    node_meta: dict[int, dict[str, object]] = {}
+    if isinstance(node_stats, list):
+        for ns in node_stats:
+            if not isinstance(ns, dict) or not isinstance(ns.get("node"), int):
+                continue
+            n = int(ns["node"])
+            node_meta[n] = {
+                "node_uid": ns.get("node_uid"),
+                "metal_bbox": ns.get("metal_bbox"),
+                "poly_bbox": ns.get("poly_bbox"),
+                "diffusion_bbox": ns.get("diffusion_bbox"),
+                "metal_area": ns.get("metal_area"),
+                "poly_area": ns.get("poly_area"),
+                "diffusion_area": ns.get("diffusion_area"),
+                "gate_degree": ns.get("gate_degree"),
+                "terminal_degree": ns.get("terminal_degree"),
+            }
 
     conn_by_name: dict[str, dict] = {}
     if schem_conn_path.exists():
@@ -109,9 +150,11 @@ def main() -> int:
         layout_node = row.get("layout_node")
         note = row.get("note")
         match_conf = 1.0 if layout_node is not None else 0.0
+        layout_node_uid = node_meta.get(int(layout_node), {}).get("node_uid") if isinstance(layout_node, int) else None
         out: dict[str, object] = {
             "name": name,
             "layout_node": layout_node,
+            "layout_node_uid": layout_node_uid,
             "schematic_component": comp_by_name.get(name),
             "match": {"kind": "manual_anchor_v0", "confidence": match_conf},
             "evidence": {"note": note, "anchor": True},
@@ -187,7 +230,7 @@ def main() -> int:
             "nodes_referenced": int(len(node_ids)),
         },
         "signals": signals,
-        "nodes": [{"node": n} for n in sorted(node_ids)],
+        "nodes": [{"node": n, **(node_meta.get(n) or {})} for n in sorted(node_ids)],
         "devices": {
             "transistors": kept,
             "filtered_transistors": filtered,
@@ -208,4 +251,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

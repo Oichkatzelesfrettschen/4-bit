@@ -79,6 +79,10 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Maintain a minimal schematic↔layout bridge artifact (`docs/evidence/netlists_v1/`) so anchor signals can be traced end-to-end through extraction outputs.
 - Keep schematic connectivity tracing explicitly heuristic until component-aware parsing exists (`docs/evidence/schematic_connectivity_v0/`).
 - Extract bounded transistor subcircuits around anchor nodes (`docs/evidence/subcircuits_v0/`) and track how many anchors currently reach device candidates; treat “0-transistor anchors” as a first-class extraction lacuna.
+- Anchor-node reality check (current extraction lacuna):
+  - `docs/evidence/anchor_incidence_v0_strict/` shows **10/11** current 4004 anchors have **0 incident transistors** (only `D1_PAD` hits a device endpoint).
+  - `docs/evidence/anchor_sweeps_v0/` sweeps `--dilate`, `--stitch-policy`, `--close`, and `--no-diffusion-split`; none improve anchor incidence so far.
+  - Conclusion: the “anchor” nodes we currently reference are likely *not* the electrically relevant layout nets (or our mask→net connectivity is missing a higher-level reconciliation step). Treat this as a blocker to switch-level validation until anchors can be remapped onto device-connected nodes.
 - Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
   - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
   - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.
@@ -118,6 +122,7 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Replace placeholder netlist output in `mcs4-fpga/src/verilog.rs` with gate-level export.
 - Prerequisite: build a deterministic multi-layer connectivity graph from `docs/emulators/i400x-*.bmp` (metal/poly/diffusion + vias/contacts),
   then emit a machine-readable netlist and use it to validate control-line timing and selected subcircuits against emulator traces.
+  - `netlist_v0` now emits `node_uid` (content-derived) to support stable remapping across parameter sweeps; anchors also include `layout_node_uid` for the current canonical netlist.
 
 ## Cross-cutting
 - Documentation audit + source validation (claims and specs).

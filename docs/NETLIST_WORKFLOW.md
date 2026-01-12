@@ -31,6 +31,7 @@ Repo-local (v0) extraction
   - `*_netlist_v0.json`: per-chip stitched connectivity (layout masks only).
   - `manifest.json`: tool parameters + output list.
   - `metrics.json` / `metrics.md`: summary from `scripts/netlist_v0_metrics.py`.
+ - Each `node_stats[]` entry includes `node_uid` (content-derived) to make cross-run remapping feasible when node numbering changes.
 
 Schematic-space (v0) naming + matching scaffold
 - `signals.txt` coordinates are defined on the schematic bitmap (not the layout masks).
@@ -68,8 +69,8 @@ Subcircuit extraction (v0)
 - `scripts/subcircuit_metrics_v0.py` summarizes subcircuit sizes into `metrics.json` + `metrics.md`.
 
 Current limitation:
-- Many pad anchor nodes are metal-only and do not currently touch extracted transistor candidates. This indicates an
-  extraction/stitching lacuna to resolve before switch-level validation becomes meaningful.
+- Anchor incidence is currently poor: most “anchor” nodes do not touch extracted device endpoints (see `docs/evidence/anchor_incidence_v0_strict/`).
+  Treat this as a blocker to switch-level validation until anchors can be remapped onto device-connected nodes and/or schematic↔layout reconciliation is implemented.
 
 Layout pad anchoring helpers (v0)
 - `netlist_v0` now includes per-node bounding boxes and degree/area statistics (`node_stats`) to support pin/pad anchoring.
@@ -92,10 +93,11 @@ How to run
 
 What v0 does (and does not do)
 - Uses layout masks only (metal/vias/poly/diffusion, plus contacts for 4004).
-- Splits diffusion by removing poly overlap (matching the analyzer's "diffusion split by poly" note) to reduce accidental shorting through transistor gate crossings.
-- Stitches nets using:
+- Default policy splits diffusion by removing poly overlap (reduce accidental shorting through transistor gate crossings); `--no-diffusion-split` is available for experiments.
+- Stitches nets (default “strict” policy) using:
   - `vias & metal & poly` → connect metal ↔ poly.
   - `contacts & metal & diffusion_split` (4004 only) → connect metal ↔ diffusion.
+- Experimental stitching knobs exist for investigation (`--stitch-policy strict|relaxed`, `--dilate`, `--close`), but current sweeps have not yet improved anchor incidence (see `docs/evidence/anchor_sweeps_v0/`).
 - Attaches "transistor candidates" from `docs/evidence/transistors/*_poly_diffusion_transistors.json` by mapping bbox regions to poly (gate) and diffusion (terminals) component labels.
 - Does not attempt to solve transistor states or build a full switch-level simulation netlist yet.
 - The `i400x-signals.txt` reference points are defined on the schematic bitmap (different coordinate space); layout `netlist_v0` includes them only as schematic cross-reference data (`signals.space = schematic`).

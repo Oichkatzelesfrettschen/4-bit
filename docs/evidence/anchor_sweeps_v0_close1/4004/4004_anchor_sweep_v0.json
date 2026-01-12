@@ -1,0 +1,181 @@
+{
+  "chip": "4004",
+  "rows": [
+    {
+      "anchors_incident": 1,
+      "anchors_mapped": 11,
+      "anchors_total": 11,
+      "avg_iou": 1.0,
+      "dilate": 0,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0_close1/4004/strict_dilate0/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 49,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 17,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 581,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 580,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 503,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 428,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 71,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 577,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": 583,
+          "incidence": 1,
+          "iou": 1.0,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 582,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": 419,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 1,
+      "anchors_mapped": 11,
+      "anchors_total": 11,
+      "avg_iou": 1.0,
+      "dilate": 0,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0_close1/4004/relaxed_dilate0/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 47,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 16,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 555,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 554,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 479,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 407,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 68,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 551,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": 557,
+          "incidence": 1,
+          "iou": 1.0,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 556,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": 398,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    }
+  ]
+}

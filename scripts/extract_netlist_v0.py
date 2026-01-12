@@ -196,9 +196,30 @@ def main() -> int:
         help="Mask polarity: 'dark' means features are dark pixels (< threshold), 'light' means features are light pixels (> threshold).",
     )
     p.add_argument("--dilate", type=int, default=0, help="Dilation iterations for via/contact masks before stitching")
-    p.add_argument("--diffusion-split", action="store_true", default=True, help="Split diffusion by removing poly overlap")
+    p.add_argument(
+        "--close",
+        type=int,
+        default=0,
+        help="Morphological closing iterations for layer masks before connected-components (can heal 1px gaps).",
+    )
+    p.add_argument(
+        "--diffusion-split",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Split diffusion by removing poly overlap (default true; disable to keep diffusion continuous under poly).",
+    )
     p.add_argument("--pad", type=int, default=3, help="Padding (px) around transistor candidate bboxes when sampling terminals")
     p.add_argument("--stitch-max-labels", type=int, default=4, help="Max distinct labels per layer to stitch per via/contact blob")
+    p.add_argument(
+        "--stitch-policy",
+        choices=["strict", "relaxed"],
+        default="strict",
+        help=(
+            "How to stitch layers through via/contact masks. "
+            "'strict' requires via/contact pixels to overlap both layers (historical v0). "
+            "'relaxed' uses the via/contact component region to sample each layer separately (more robust to mask misalignment)."
+        ),
+    )
     args = p.parse_args()
 
     selected = set(args.chip or [])
@@ -216,9 +237,11 @@ def main() -> int:
             "threshold": args.threshold,
             "polarity": args.polarity,
             "dilate": args.dilate,
+            "close": args.close,
             "diffusion_split": bool(args.diffusion_split),
             "pad": args.pad,
             "stitch_max_labels": int(args.stitch_max_labels),
+            "stitch_policy": str(args.stitch_policy),
         },
         "outputs": [],
     }
@@ -233,6 +256,19 @@ def main() -> int:
         contacts = (
             load_mask(spec.contacts_bmp, threshold=args.threshold, polarity=args.polarity) if spec.contacts_bmp else None
         )
+
+        close_iters = int(args.close)
+        if close_iters > 0:
+            ck = np.ones((3, 3), dtype=np.uint8)
+
+            def close_mask(mask: np.ndarray) -> np.ndarray:
+                u8 = np.where(mask, 255, 0).astype(np.uint8)
+                u8 = cv2.morphologyEx(u8, cv2.MORPH_CLOSE, ck, iterations=close_iters)
+                return u8 > 0
+
+            metal = close_mask(metal)
+            poly = close_mask(poly)
+            diffusion = close_mask(diffusion)
 
         shape = metal.shape
         for name, arr in [
@@ -277,14 +313,21 @@ def main() -> int:
         if int(args.dilate) > 0:
             vias_u8 = cv2.dilate(vias_u8, k, iterations=int(args.dilate))
         vias_mask = vias_u8 > 0
-        vias_stitch_mask = vias_mask & metal & poly
-        v_n, v_lab, v_stats, _v_cent = connected_components(vias_stitch_mask)
+        stitch_policy = str(args.stitch_policy)
+        vias_cc_input = vias_mask & metal & poly if stitch_policy == "strict" else vias_mask
+        v_n, v_lab, v_stats, _v_cent = connected_components(vias_cc_input)
         for v_id in range(1, int(v_n)):
             x, y, w, h, _area = (int(v) for v in v_stats[v_id].tolist())
             if w <= 0 or h <= 0:
                 continue
             v_roi = v_lab[y : y + h, x : x + w] == v_id
+            if stitch_policy == "relaxed":
+                # Expand the via region slightly to tolerate mask misalignment between via + layer bitmaps.
+                v_u8 = (v_roi.astype(np.uint8)) * 255
+                v_u8 = cv2.dilate(v_u8, k, iterations=1)
+                v_roi = v_u8 > 0
             max_k = int(args.stitch_max_labels)
+            # In relaxed mode, sample labels under the via component region for each layer independently.
             m_ids = _top_k_labels(m_lab[y : y + h, x : x + w][v_roi], max_k + 1)
             p_ids = _top_k_labels(p_lab[y : y + h, x : x + w][v_roi], max_k + 1)
             if not m_ids or not p_ids:
@@ -304,13 +347,17 @@ def main() -> int:
             if int(args.dilate) > 0:
                 c_u8 = cv2.dilate(c_u8, k, iterations=int(args.dilate))
             c_mask = c_u8 > 0
-            contacts_stitch_mask = c_mask & metal & diffusion_split
-            c_n, c_lab, c_stats, _c_cent = connected_components(contacts_stitch_mask)
+            contacts_cc_input = c_mask & metal & diffusion_split if stitch_policy == "strict" else c_mask
+            c_n, c_lab, c_stats, _c_cent = connected_components(contacts_cc_input)
             for c_id in range(1, int(c_n)):
                 x, y, w, h, _area = (int(v) for v in c_stats[c_id].tolist())
                 if w <= 0 or h <= 0:
                     continue
                 c_roi = c_lab[y : y + h, x : x + w] == c_id
+                if stitch_policy == "relaxed":
+                    c_u8_roi = (c_roi.astype(np.uint8)) * 255
+                    c_u8_roi = cv2.dilate(c_u8_roi, k, iterations=1)
+                    c_roi = c_u8_roi > 0
                 max_k = int(args.stitch_max_labels)
                 m_ids = _top_k_labels(m_lab[y : y + h, x : x + w][c_roi], max_k + 1)
                 d_ids = _top_k_labels(d_lab[y : y + h, x : x + w][c_roi], max_k + 1)
@@ -455,9 +502,36 @@ def main() -> int:
         out_json = out_dir / f"{chip.lower()}_netlist_v0.json"
         schematic_img = Image.open(spec.schematic_bmp)
         schematic_w, schematic_h = schematic_img.size
+
+        def node_uid_for(i: int) -> str:
+            """
+            Stable-ish content-derived identifier for a node.
+
+            Node integer IDs are deterministic for a *given* extraction parameter set, but
+            comparing across parameter sweeps (e.g. dilation/threshold changes) can reshuffle
+            node numbering. A geometry-derived UID makes it easier to remap nodes between
+            runs without depending on the DSU enumeration order.
+            """
+            fp = {
+                "metal_bbox": node_metal_bbox[i],
+                "poly_bbox": node_poly_bbox[i],
+                "diff_bbox": node_diff_bbox[i],
+                "metal_area": int(node_metal_area[i]),
+                "poly_area": int(node_poly_area[i]),
+                "diff_area": int(node_diff_area[i]),
+                "metal_cc": int(node_metal_cc[i]),
+                "poly_cc": int(node_poly_cc[i]),
+                "diff_cc": int(node_diff_cc[i]),
+                "gate_degree": int(node_gate_degree[i]),
+                "terminal_degree": int(node_terminal_degree[i]),
+            }
+            raw = json.dumps(fp, sort_keys=True, separators=(",", ":")).encode("utf-8")
+            return hashlib.sha1(raw).hexdigest()
+
         node_stats = [
             {
                 "node": i,
+                "node_uid": node_uid_for(i),
                 "metal_area": int(node_metal_area[i]),
                 "poly_area": int(node_poly_area[i]),
                 "diffusion_area": int(node_diff_area[i]),

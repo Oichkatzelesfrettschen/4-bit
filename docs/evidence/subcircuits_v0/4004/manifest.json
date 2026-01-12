@@ -2,7 +2,7 @@
   "inputs": {
     "netlist": "docs/evidence/netlists_v1/4004_netlist_v1.json",
     "sha256": {
-      "netlist": "b54389d81759104f5a305f865043cec78ce0d56c9cedd1f63355f56b0a812e34"
+      "netlist": "a03ff49940c24d3d69450ba02203405a7a9adbf5536bcdc008d49d3dae14e76a"
     }
   },
   "outputs": [

@@ -1,0 +1,181 @@
+{
+  "chip": "4004",
+  "rows": [
+    {
+      "anchors_incident": 1,
+      "anchors_mapped": 10,
+      "anchors_total": 11,
+      "avg_iou": 1.0,
+      "dilate": 0,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0_nosplit/4004/strict_dilate0/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 48,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 16,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 482,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 481,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 423,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 366,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 120,
+          "incidence": 1,
+          "iou": 1.0,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 478,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.0579047619047619,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 483,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": 360,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 1,
+      "anchors_mapped": 10,
+      "anchors_total": 11,
+      "avg_iou": 1.0,
+      "dilate": 0,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0_nosplit/4004/relaxed_dilate0/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 48,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 17,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 454,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 453,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 401,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 346,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 115,
+          "incidence": 1,
+          "iou": 1.0,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 450,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.0579047619047619,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 455,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": 340,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    }
+  ]
+}

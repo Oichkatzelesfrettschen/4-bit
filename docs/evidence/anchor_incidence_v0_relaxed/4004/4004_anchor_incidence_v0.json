@@ -1,0 +1,291 @@
+{
+  "anchors": [
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 48,
+      "name": "CLK1",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 11397,
+        "metal_bbox": {
+          "x0": 1723,
+          "x1": 1942,
+          "y0": 266,
+          "y1": 439
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 17,
+      "name": "CLK2",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 5132,
+        "metal_bbox": {
+          "x0": 1273,
+          "x1": 1673,
+          "y0": 193,
+          "y1": 624
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 569,
+      "name": "CMRAM0",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 10255,
+        "metal_bbox": {
+          "x0": 405,
+          "x1": 605,
+          "y0": 2578,
+          "y1": 2664
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 568,
+      "name": "CMRAM1",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 10405,
+        "metal_bbox": {
+          "x0": 151,
+          "x1": 352,
+          "y0": 2577,
+          "y1": 2663
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 493,
+      "name": "CMRAM2",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 13428,
+        "metal_bbox": {
+          "x0": 26,
+          "x1": 290,
+          "y0": 2086,
+          "y1": 2525
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 419,
+      "name": "CMRAM3",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 14734,
+        "metal_bbox": {
+          "x0": 26,
+          "x1": 199,
+          "y0": 1785,
+          "y1": 2511
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 69,
+      "name": "CMROM",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 365,
+        "gate_degree": 0,
+        "metal_area": 11938,
+        "metal_bbox": {
+          "x0": 27,
+          "x1": 151,
+          "y0": 367,
+          "y1": 835
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 565,
+      "name": "D0_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 14111,
+        "metal_bbox": {
+          "x0": 743,
+          "x1": 1193,
+          "y0": 2559,
+          "y1": 2664
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 571,
+      "name": "D1_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 360,
+        "gate_degree": 0,
+        "metal_area": 987,
+        "metal_bbox": {
+          "x0": 1063,
+          "x1": 1135,
+          "y0": 2605,
+          "y1": 2643
+        },
+        "poly_area": 6102,
+        "poly_bbox": {
+          "x0": 919,
+          "x1": 1067,
+          "y0": 2570,
+          "y1": 2650
+        },
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 570,
+      "name": "D2_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 357,
+        "metal_bbox": {
+          "x0": 1834,
+          "x1": 1856,
+          "y0": 2587,
+          "y1": 2618
+        },
+        "poly_area": 1111,
+        "poly_bbox": {
+          "x0": 1784,
+          "x1": 1843,
+          "y0": 2586,
+          "y1": 2637
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "total": 0
+      },
+      "layout_node": 410,
+      "name": "D3_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 12791,
+        "metal_bbox": {
+          "x0": 1812,
+          "x1": 1942,
+          "y0": 1744,
+          "y1": 2024
+        },
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    }
+  ],
+  "chip": "4004",
+  "counts": {
+    "anchors": 11,
+    "anchors_with_zero_transistors": 10
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0_relaxed/4004_netlist_v0.json",
+    "netlist_v1": "docs/evidence/netlists_v1_relaxed/4004_netlist_v1.json"
+  },
+  "schema": {
+    "description": "Anchor incidence audit vs netlist_v1 transistor devices.",
+    "version": 0
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "chip": "4004",
+  "inputs": {
+    "edge_labels": "docs/evidence/layout_edge_labels_v0/4004/4004_layout_edge_labels_v0.json",
+    "metal_bmp": "docs/emulators/i4004-metal.bmp",
+    "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json"
+  },
+  "params": {
+    "max_steps": 900,
+    "skip_margin": 6,
+    "threshold": 128
+  },
+  "results": [
+    {
+      "hit": {
+        "node": 518,
+        "node_bbox": {
+          "x0": 26,
+          "x1": 290,
+          "y0": 2086,
+          "y1": 2525
+        },
+        "node_incidence": 0,
+        "node_uid": "3e6fbb7fee6cacd8fa98202ac3eaad186af7dd06",
+        "steps": 30,
+        "x": 147,
+        "y": 2164
+      },
+      "label_bbox": {
+        "h": 157,
+        "w": 86,
+        "x": 26,
+        "y": 2086
+      },
+      "ray": {
+        "dx": 1,
+        "dy": 0,
+        "x": 112,
+        "y": 2164
+      },
+      "token": "R2"
+    },
+    {
+      "hit": {
+        "node": 393,
+        "node_bbox": {
+          "x0": 138,
+          "x1": 154,
+          "y0": 1523,
+          "y1": 2001
+        },
+        "node_incidence": 0,
+        "node_uid": "2aeb8e0603404ff6748432228c305ce04a3ce627",
+        "steps": 30,
+        "x": 147,
+        "y": 1855
+      },
+      "label_bbox": {
+        "h": 140,
+        "w": 86,
+        "x": 26,
+        "y": 1785
+      },
+      "ray": {
+        "dx": 1,
+        "dy": 0,
+        "x": 112,
+        "y": 1855
+      },
+      "token": "R3"
+    }
+  ],
+  "schema": {
+    "description": "Ray-cast anchor proposals from edge labels into metal mask.",
+    "version": 0
+  }
+}

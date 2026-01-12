@@ -1,7 +1,74 @@
 {
-  "schema": {
-    "version": 0,
-    "description": "Manual anchors for matching schematic net names (signals.txt) to layout node IDs (netlist_v0)."
+  "anchors": {
+    "4004": {
+      "CLK1": {
+        "layout_node": 49,
+        "layout_node_uid": "cf11e9ff9491743fd2c4ae2e9551ff2731ebd4ac",
+        "note": "Printed pin label `01` on metal mask (human crop box_016_node_49.png); alias mapping: CLK1<->01."
+      },
+      "CLK2": {
+        "layout_node": 17,
+        "layout_node_uid": "169c208a7a98e5d590073225c09ad35d0ee802e9",
+        "note": "Printed pin label `02` on metal mask (human crop box_001_node_17.png); alias mapping: CLK2<->02."
+      },
+      "CMRAM0": {
+        "layout_node": 596,
+        "layout_node_uid": "0e350ed22bd79d958aa29c881828ef532f555946",
+        "note": "Printed pad label `R0` on metal mask; treated as `CMRAM0` (RAM select bank 0). (human crop box_101_node_596.png)"
+      },
+      "CMRAM1": {
+        "layout_node": 595,
+        "layout_node_uid": "a8195d303fee259e3a46c4ba863593304c3613c1",
+        "note": "Printed pad label `R1` on metal mask; treated as `CMRAM1` (RAM select bank 1). (human crop box_100_node_595.png)"
+      },
+      "CMRAM2": {
+        "layout_node": 518,
+        "layout_node_uid": "3e6fbb7fee6cacd8fa98202ac3eaad186af7dd06",
+        "note": "Printed pad label `R2` on metal mask; treated as `CMRAM2` (RAM select bank 2). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png)"
+      },
+      "CMRAM3": {
+        "layout_node": 441,
+        "layout_node_uid": "ada57c457c08d2bc6019116ff606af8bd4f8e971",
+        "note": "Printed pad label `R3` on metal mask; treated as `CMRAM3` (RAM select bank 3). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png)"
+      },
+      "CMROM": {
+        "layout_node": 71,
+        "layout_node_uid": "675dd97b63dddeded3de0acc64885097a8ae96f7",
+        "note": "Printed pad label `RM` on metal mask; treated as `CMROM` (ROM chip-select). (See crop: docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png)"
+      },
+      "D0_PAD": {
+        "layout_node": 592,
+        "layout_node_uid": "180bca6f362965ac95e117c9a78e4b6caef7638e",
+        "note": "Printed pad label `D0` on metal mask; pad metal bbox aligns with node 592. (See debug overlay: layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png)"
+      },
+      "D1_PAD": {
+        "layout_node": 598,
+        "layout_node_uid": "42e9b3073b8a8a712cf3486696a1906f620449de",
+        "note": "Printed pad label `D1` on metal mask (human crop box_103_node_598.png)."
+      },
+      "D2_PAD": {
+        "layout_node": 597,
+        "layout_node_uid": "e365868f771bc36a9ebcb57271f9e4e663578c25",
+        "note": "Printed pad label `D2` on metal mask (human crop box_102_node_597.png)."
+      },
+      "D3_PAD": {
+        "layout_node": 432,
+        "layout_node_uid": "38f586ba5f1999723f7c26f36e0524dade52f0bf",
+        "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png)."
+      },
+      "POC_PAD": {
+        "layout_node": null,
+        "note": "Power-on clear pad (signals.txt entry)."
+      },
+      "SYNC": {
+        "layout_node": null,
+        "note": "SYNC output pin (signals.txt entry)."
+      },
+      "TEST_PAD": {
+        "layout_node": null,
+        "note": "TEST pad; analyzer readme notes schematic vs mask revision mismatch here."
+      }
+    }
   },
   "notes": [
     "Schematic and layout are different coordinate spaces; matching requires anchors + iterative refinement.",
@@ -10,22 +77,8 @@
     "Use the rendered overlays/crops under `docs/evidence/layout_pad_candidates_v0/<chip>/` to visually inspect candidate nodes on the metal mask.",
     "Then fill `layout_node` for each anchor and re-run `python3 scripts/match_schematic_layout_v0.py --chip <chip>`."
   ],
-  "anchors": {
-    "4004": {
-      "CLK1": { "layout_node": 49, "note": "Printed pin label `01` on metal mask (human crop box_016_node_49.png); alias mapping: CLK1<->01." },
-      "CLK2": { "layout_node": 17, "note": "Printed pin label `02` on metal mask (human crop box_001_node_17.png); alias mapping: CLK2<->02." },
-      "SYNC": { "layout_node": null, "note": "SYNC output pin (signals.txt entry)." },
-      "POC_PAD": { "layout_node": null, "note": "Power-on clear pad (signals.txt entry)." },
-      "TEST_PAD": { "layout_node": null, "note": "TEST pad; analyzer readme notes schematic vs mask revision mismatch here." },
-      "D0_PAD": { "layout_node": 592, "note": "Printed pad label `D0` on metal mask; pad metal bbox aligns with node 592. (See debug overlay: layout_pad_labels_v0/4004/human_crops/debug_bottom_strip_node_bboxes.png)" },
-      "D1_PAD": { "layout_node": 598, "note": "Printed pad label `D1` on metal mask (human crop box_103_node_598.png)." },
-      "D2_PAD": { "layout_node": 597, "note": "Printed pad label `D2` on metal mask (human crop box_102_node_597.png)." },
-      "D3_PAD": { "layout_node": 432, "note": "Printed pad label `D3` on metal mask (human crop box_067_node_432.png)." },
-      "CMROM": { "layout_node": 71, "note": "Printed pad label `RM` on metal mask; treated as `CMROM` (ROM chip-select). (See crop: docs/evidence/layout_edge_labels_v0/4004/rm_node71_crop.png)" },
-      "CMRAM0": { "layout_node": 596, "note": "Printed pad label `R0` on metal mask; treated as `CMRAM0` (RAM select bank 0). (human crop box_101_node_596.png)" },
-      "CMRAM1": { "layout_node": 595, "note": "Printed pad label `R1` on metal mask; treated as `CMRAM1` (RAM select bank 1). (human crop box_100_node_595.png)" },
-      "CMRAM2": { "layout_node": 518, "note": "Printed pad label `R2` on metal mask; treated as `CMRAM2` (RAM select bank 2). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png)" },
-      "CMRAM3": { "layout_node": 441, "note": "Printed pad label `R3` on metal mask; treated as `CMRAM3` (RAM select bank 3). (OCR crop: docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png)" }
-    }
+  "schema": {
+    "description": "Manual anchors for matching schematic net names (signals.txt) to layout node IDs (netlist_v0).",
+    "version": 0
   }
 }

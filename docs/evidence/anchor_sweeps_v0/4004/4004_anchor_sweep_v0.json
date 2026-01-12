@@ -1,0 +1,885 @@
+{
+  "chip": "4004",
+  "rows": [
+    {
+      "anchors_incident": 1,
+      "anchors_mapped": 11,
+      "anchors_total": 11,
+      "avg_iou": 1.0,
+      "dilate": 0,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/strict_dilate0/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 49,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 17,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 596,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 595,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 518,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 441,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 71,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 592,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": 598,
+          "incidence": 1,
+          "iou": 1.0,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 597,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": 432,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 9,
+      "anchors_total": 11,
+      "avg_iou": 0.9260806983331012,
+      "dilate": 1,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/strict_dilate1/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 43,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 15,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 365,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 364,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 317,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 254,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 46,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 362,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.0579047619047619,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 366,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.03881977870850784,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 8,
+      "anchors_total": 11,
+      "avg_iou": 0.8465569832564447,
+      "dilate": 2,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/strict_dilate2/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 39,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 15,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 231,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 230,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 159,
+          "incidence": 0,
+          "iou": 0.4377295810536468,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 159,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 42,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00940173525191079,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544405241253501,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 232,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.007242818268138683,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 7,
+      "anchors_total": 11,
+      "avg_iou": 0.8246365522930796,
+      "dilate": 3,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/strict_dilate3/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 39,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 16,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 191,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 190,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 135,
+          "incidence": 0,
+          "iou": 0.4377295810536468,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 135,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 42,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00940173525191079,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544405241253501,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00013570335326567532,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.007242818268138683,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 7,
+      "anchors_total": 11,
+      "avg_iou": 0.8246365522930796,
+      "dilate": 5,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/strict_dilate5/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 36,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 16,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 133,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 132,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 96,
+          "incidence": 0,
+          "iou": 0.4377295810536468,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 96,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 39,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.009398152273537349,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544197769743877,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00013565163704872956,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.007240058047762106,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "strict"
+    },
+    {
+      "anchors_incident": 1,
+      "anchors_mapped": 11,
+      "anchors_total": 11,
+      "avg_iou": 1.0,
+      "dilate": 0,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/relaxed_dilate0/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 48,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 17,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": 569,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": 568,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": 493,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": 419,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 69,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": 565,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": 571,
+          "incidence": 1,
+          "iou": 1.0,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 570,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": 410,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 4,
+      "anchors_total": 11,
+      "avg_iou": 0.8336815712494776,
+      "dilate": 1,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/relaxed_dilate1/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 41,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 15,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003422430610219378,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003439542763270475,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.12705741268175685,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.13315494393476046,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 44,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00940173525191079,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544405241253501,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 281,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.03881977870850784,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 4,
+      "anchors_total": 11,
+      "avg_iou": 0.8336815712494776,
+      "dilate": 2,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/relaxed_dilate2/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 38,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 15,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003421126330261215,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003438231961912521,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.023052026579764753,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.02662762924724555,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 41,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.009398152273537349,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544197769743877,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": 148,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.007240058047762106,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 3,
+      "anchors_total": 11,
+      "avg_iou": 0.7782420949993035,
+      "dilate": 3,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/relaxed_dilate3/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 35,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 15,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003421126330261215,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003438231961912521,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.023052026579764753,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.02662762924724555,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 38,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.009398152273537349,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544197769743877,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00013565163704872956,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.007240058047762106,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    },
+    {
+      "anchors_incident": 0,
+      "anchors_mapped": 3,
+      "anchors_total": 11,
+      "avg_iou": 0.7782420949993035,
+      "dilate": 5,
+      "netlist_v0": "docs/evidence/anchor_sweeps_v0/4004/relaxed_dilate5/4004_netlist_v0.json",
+      "per_anchor": [
+        {
+          "dst_node": 28,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK1",
+          "src_node": 49
+        },
+        {
+          "dst_node": 15,
+          "incidence": 0,
+          "iou": 1.0,
+          "name": "CLK2",
+          "src_node": 17
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003421126330261215,
+          "name": "CMRAM0",
+          "src_node": 596
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.003438231961912521,
+          "name": "CMRAM1",
+          "src_node": 595
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.023052026579764753,
+          "name": "CMRAM2",
+          "src_node": 518
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.02662762924724555,
+          "name": "CMRAM3",
+          "src_node": 441
+        },
+        {
+          "dst_node": 31,
+          "incidence": 0,
+          "iou": 0.3347262849979106,
+          "name": "CMROM",
+          "src_node": 71
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.009398152273537349,
+          "name": "D0_PAD",
+          "src_node": 592
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.000544197769743877,
+          "name": "D1_PAD",
+          "src_node": 598
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.00013565163704872956,
+          "name": "D2_PAD",
+          "src_node": 597
+        },
+        {
+          "dst_node": null,
+          "incidence": 0,
+          "iou": 0.007240058047762106,
+          "name": "D3_PAD",
+          "src_node": 432
+        }
+      ],
+      "policy": "relaxed"
+    }
+  ]
+}
