@@ -46,6 +46,7 @@ def best_ocr_for_label(
     adaptive_whitelist: bool,
     fallback_whitelist: str,
     expected: str | None,
+    psms_override: list[int] | None,
 ) -> Try:
     """
     Benchmark policy: use the same “tiny label” pipeline we want to standardize for edge-label OCR:
@@ -68,10 +69,11 @@ def best_ocr_for_label(
     backend = resolve_backend(backend=backend_name, onnx_model=onnx_model, prefer_cuda=prefer_cuda)
     # Backends are allowed to ignore PSMs; we keep the interface stable.
     preset = preset_layout_edge_label(expected=expected)
+    psms = tuple(psms_override) if psms_override else preset.psms
     r = backend.best_token(
         text_roi,
         whitelist=whitelist,
-        psms=preset.psms,
+        psms=psms,
         oem=preset.oem,
         min_len=preset.min_len,
         max_len=preset.max_len,
@@ -85,8 +87,8 @@ def main() -> int:
     p.add_argument(
         "--backend",
         default="auto",
-        choices=["auto", "tesseract", "onnx"],
-        help="OCR backend (auto prefers ONNX/CUDA when configured, else Tesseract).",
+        choices=["auto", "tesseract", "tesseract_cli", "tesseract_cli_fast", "onnx", "template"],
+        help="OCR backend (auto prefers ONNX/CUDA when configured, else Tesseract stack).",
     )
     p.add_argument(
         "--onnx-model",
@@ -107,6 +109,24 @@ def main() -> int:
         help="Derive per-item whitelist from expected token.",
     )
     p.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help="Limit benchmark items (0 = all).",
+    )
+    p.add_argument(
+        "--fast",
+        action="store_true",
+        help="Run a single-PSM quick pass (equivalent to --psm 7) for speed.",
+    )
+    p.add_argument(
+        "--psm",
+        type=int,
+        action="append",
+        default=[],
+        help="Override PSM list (repeatable).",
+    )
+    p.add_argument(
         "--whitelist",
         default="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
         help="Fallback whitelist when expected token is missing/empty.",
@@ -121,6 +141,14 @@ def main() -> int:
     items = bench.get("items", [])
     if not items:
         raise SystemExit("benchmark has no items")
+    if int(args.limit) > 0:
+        items = list(items)[: int(args.limit)]
+
+    psms_override: list[int] | None = None
+    if args.psm:
+        psms_override = [int(x) for x in args.psm]
+    elif bool(args.fast):
+        psms_override = [7]
 
     started = time.perf_counter()
     results = []
@@ -141,6 +169,7 @@ def main() -> int:
             adaptive_whitelist=bool(args.adaptive_whitelist),
             fallback_whitelist=fallback_whitelist,
             expected=expected,
+            psms_override=psms_override,
         )
         dt = time.perf_counter() - t0
 

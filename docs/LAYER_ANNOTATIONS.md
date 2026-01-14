@@ -9,7 +9,7 @@ Reproduction
   - Outputs are written under `docs/{4001,4002,4003,4004}/annotated/`.
 
 ## 4004 schematic bus labels
-- Source: docs/emulators/i4004-schematic.bmp
+- Source: docs/emulators/i4004-schematic.bmp (source; `docs/emulators/i4004-schematic.png` is the preview copy)
 - Signal map: docs/emulators/i4004-signals.txt
 - Output: docs/4004/annotated/i4004-schematic-bus-labels.png
 
@@ -22,7 +22,7 @@ Notes
 - This overlay is schematic-level, not layout-level.
 
 ## 4004 transistor overlay (poly + diffusion)
-- Sources: docs/emulators/i4004-poly.bmp, docs/emulators/i4004-diffusion.bmp
+- Sources: docs/emulators/i4004-poly.bmp, docs/emulators/i4004-diffusion.bmp (source; `*.png` previews exist)
 - Output: docs/4004/annotated/i4004-poly-diffusion-transistors.png
 
 Method
@@ -35,7 +35,7 @@ Notes
 - Does not include metal/via connectivity, so it is not a full connectivity diagram.
 
 ## 4001/4002/4003 schematic bus labels
-- Sources: docs/emulators/i4001-schematic.bmp, docs/emulators/i4002-schematic.bmp, docs/emulators/i4003-schematic.bmp
+- Sources: docs/emulators/i4001-schematic.bmp, docs/emulators/i4002-schematic.bmp, docs/emulators/i4003-schematic.bmp (source; `*.png` previews exist)
 - Signal maps: docs/emulators/i4001-signals.txt, docs/emulators/i4002-signals.txt, docs/emulators/i4003-signals.txt
 - Outputs:
   - docs/4001/annotated/i4001-schematic-bus-labels.png
@@ -50,8 +50,8 @@ Notes
 - Label selection favors bus pins and latch outputs to avoid clutter.
 
 ## 4001/4002/4003 transistor overlays (poly + diffusion)
-- Sources: docs/emulators/i4001-poly.bmp, docs/emulators/i4002-poly.bmp, docs/emulators/i4003-poly.bmp
-- Sources: docs/emulators/i4001-diffusion.bmp, docs/emulators/i4002-diffusion.bmp, docs/emulators/i4003-diffusion.bmp
+- Sources: docs/emulators/i4001-poly.bmp, docs/emulators/i4002-poly.bmp, docs/emulators/i4003-poly.bmp (source; `*.png` previews exist)
+- Sources: docs/emulators/i4001-diffusion.bmp, docs/emulators/i4002-diffusion.bmp, docs/emulators/i4003-diffusion.bmp (source; `*.png` previews exist)
 - Outputs:
   - docs/4001/annotated/i4001-poly-diffusion-transistors.png
   - docs/4002/annotated/i4002-poly-diffusion-transistors.png

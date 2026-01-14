@@ -1,0 +1,56 @@
+{
+  "chip": "4003",
+  "counts": {
+    "nodes": 3,
+    "transistors": 1
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 364,
+        "b_node": 385,
+        "bbox": {
+          "h": 62,
+          "w": 34,
+          "x": 1088,
+          "y": 860
+        },
+        "gate_node": 101,
+        "id": 27,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4003_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "80e248d70576ee581330b5ac6cbbb988da8d1d7d1d0563e44164206f550cfd30"
+    }
+  },
+  "nodes": [
+    {
+      "node": 101
+    },
+    {
+      "node": 364
+    },
+    {
+      "node": 385
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "Q8",
+    "nodes": [
+      385
+    ]
+  }
+}

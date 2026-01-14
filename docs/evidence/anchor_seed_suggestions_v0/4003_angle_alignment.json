@@ -1,0 +1,251 @@
+{
+  "alignment": {
+    "cost_l1": 6.930991960208583,
+    "matches": [
+      {
+        "diff_minus_offset": 2.115314699187851,
+        "node": 15,
+        "node_angle": -0.6608552695669155,
+        "node_bbox": {
+          "x0": 1881,
+          "x1": 1919,
+          "y0": 102,
+          "y1": 234
+        },
+        "node_bbox_area": 5016,
+        "node_edge_distance": 102,
+        "raw_diff": 2.2241226094607853,
+        "signal": "CLOCK",
+        "signal_angle": -2.884977879027701
+      },
+      {
+        "diff_minus_offset": 0.9962034899554756,
+        "node": 14,
+        "node_angle": -0.6483791188826825,
+        "node_bbox": {
+          "x0": 1963,
+          "x1": 1997,
+          "y0": 89,
+          "y1": 155
+        },
+        "node_bbox_area": 2244,
+        "node_edge_distance": 89,
+        "raw_diff": 1.1050114002284102,
+        "signal": "Q0",
+        "signal_angle": -1.7533905191110926
+      },
+      {
+        "diff_minus_offset": 0.5338744104196199,
+        "node": 16,
+        "node_angle": -0.5999721067081687,
+        "node_bbox": {
+          "x0": 1752,
+          "x1": 1951,
+          "y0": 102,
+          "y1": 438
+        },
+        "node_bbox_area": 66864,
+        "node_edge_distance": 102,
+        "raw_diff": 0.6426823206925545,
+        "signal": "Q1",
+        "signal_angle": -1.2426544274007232
+      },
+      {
+        "diff_minus_offset": 0.22710824954264042,
+        "node": 5,
+        "node_angle": -0.52142690096574,
+        "node_bbox": {
+          "x0": 2150,
+          "x1": 2298,
+          "y0": 27,
+          "y1": 236
+        },
+        "node_bbox_area": 30932,
+        "node_edge_distance": 27,
+        "raw_diff": 0.335916159815575,
+        "signal": "Q2",
+        "signal_angle": -0.857343060781315
+      },
+      {
+        "diff_minus_offset": 0.2748479402752456,
+        "node": 70,
+        "node_angle": -0.2397657414976481,
+        "node_bbox": {
+          "x0": 1977,
+          "x1": 2202,
+          "y0": 338,
+          "y1": 691
+        },
+        "node_bbox_area": 79425,
+        "node_edge_distance": 126,
+        "raw_diff": 0.3836558505481802,
+        "signal": "Q3",
+        "signal_angle": -0.6234215920458283
+      },
+      {
+        "diff_minus_offset": 0.28531290667352427,
+        "node": 44,
+        "node_angle": -0.08696202502331991,
+        "node_bbox": {
+          "x0": 2150,
+          "x1": 2298,
+          "y0": 535,
+          "y1": 762
+        },
+        "node_bbox_area": 33596,
+        "node_edge_distance": 30,
+        "raw_diff": 0.39412081694645884,
+        "signal": "Q4",
+        "signal_angle": -0.48108284196977874
+      },
+      {
+        "diff_minus_offset": -0.0384872022078544,
+        "node": 98,
+        "node_angle": 0.34260306502467874,
+        "node_bbox": {
+          "x0": 1985,
+          "x1": 2298,
+          "y0": 911,
+          "y1": 1269
+        },
+        "node_bbox_area": 112054,
+        "node_edge_distance": 30,
+        "raw_diff": 0.07032070806508017,
+        "signal": "Q9",
+        "signal_angle": 0.27228235695959857
+      },
+      {
+        "diff_minus_offset": -0.022995646994227348,
+        "node": 122,
+        "node_angle": 0.4530139019071514,
+        "node_bbox": {
+          "x0": 2070,
+          "x1": 2298,
+          "y0": 1063,
+          "y1": 1413
+        },
+        "node_bbox_area": 79800,
+        "node_edge_distance": 30,
+        "raw_diff": 0.08581226327870722,
+        "signal": "Q8",
+        "signal_angle": 0.3672016386284442
+      },
+      {
+        "diff_minus_offset": 0.0,
+        "node": 138,
+        "node_angle": 0.6623576743056662,
+        "node_bbox": {
+          "x0": 1852,
+          "x1": 2105,
+          "y0": 1298,
+          "y1": 1456
+        },
+        "node_bbox_area": 39974,
+        "node_edge_distance": 0,
+        "raw_diff": 0.10880791027293457,
+        "signal": "Q7",
+        "signal_angle": 0.5535497640327316
+      },
+      {
+        "diff_minus_offset": -0.010490976773671279,
+        "node": 132,
+        "node_angle": 1.1023142444878045,
+        "node_bbox": {
+          "x0": 1232,
+          "x1": 1637,
+          "y0": 1143,
+          "y1": 1412
+        },
+        "node_bbox_area": 108945,
+        "node_edge_distance": 44,
+        "raw_diff": 0.09831693349926329,
+        "signal": "Q6",
+        "signal_angle": 1.0039973109885412
+      },
+      {
+        "diff_minus_offset": -0.3992858629854893,
+        "node": 131,
+        "node_angle": 1.6127102552685362,
+        "node_bbox": {
+          "x0": 936,
+          "x1": 1345,
+          "y0": 1143,
+          "y1": 1412
+        },
+        "node_bbox_area": 110021,
+        "node_edge_distance": 44,
+        "raw_diff": -0.2904779527125547,
+        "signal": "Q5",
+        "signal_angle": 1.903188207981091
+      },
+      {
+        "diff_minus_offset": -0.5625875747123158,
+        "node": 135,
+        "node_angle": 2.1007340306603814,
+        "node_bbox": {
+          "x0": 730,
+          "x1": 893,
+          "y0": 1262,
+          "y1": 1420
+        },
+        "node_bbox_area": 25754,
+        "node_edge_distance": 36,
+        "raw_diff": -0.4537796644393812,
+        "signal": "OUT",
+        "signal_angle": 2.5545136950997627
+      },
+      {
+        "diff_minus_offset": -0.668086830140625,
+        "node": 140,
+        "node_angle": 2.17295697437807,
+        "node_bbox": {
+          "x0": 684,
+          "x1": 721,
+          "y0": 1396,
+          "y1": 1426
+        },
+        "node_bbox_area": 1110,
+        "node_edge_distance": 30,
+        "raw_diff": -0.5592789198676904,
+        "signal": "EN",
+        "signal_angle": 2.7322358942457603
+      },
+      {
+        "diff_minus_offset": -0.7963961703400436,
+        "node": 139,
+        "node_angle": 2.220477532804236,
+        "node_bbox": {
+          "x0": 639,
+          "x1": 669,
+          "y0": 1396,
+          "y1": 1426
+        },
+        "node_bbox_area": 900,
+        "node_edge_distance": 30,
+        "raw_diff": -0.687588260067109,
+        "signal": "DATA",
+        "signal_angle": 2.908065792871345
+      }
+    ],
+    "offset": 0.10880791027293457,
+    "ok": true,
+    "start": 9
+  },
+  "chip": "4003",
+  "counts": {
+    "candidate_nodes": 27,
+    "signals": 14
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4003_netlist_v0.json",
+    "signals_txt": "docs/emulators/i4003-signals.txt"
+  },
+  "params": {
+    "edge_max": 140,
+    "max_area": 180000
+  },
+  "schema": {
+    "description": "Angle-alignment suggestion mapping between schematic pins and layout node bboxes.",
+    "version": 0
+  }
+}

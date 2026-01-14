@@ -1,0 +1,165 @@
+{
+  "params": {
+    "backend": "tesseract_cli_fast",
+    "glob": "docs/evidence/layout_edge_labels_v0/4004/crops/*.png",
+    "limit": 12,
+    "onnx_model": null,
+    "prefer_cuda": false
+  },
+  "results": {
+    "accuracy": 0.8333333333333334,
+    "correct": 10,
+    "total": 12
+  },
+  "rows": [
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 74.052383,
+      "expected": "02",
+      "got": "02",
+      "invert": true,
+      "ms": 116.19152897037566,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf60.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 74.052383,
+      "expected": "02",
+      "got": "02",
+      "invert": true,
+      "ms": 113.56190301012248,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf87.7.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 96.298691,
+      "expected": "D2",
+      "got": "D2",
+      "invert": true,
+      "ms": 112.6289310050197,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 92.009132,
+      "expected": "G",
+      "got": "G",
+      "invert": true,
+      "ms": 115.32730696490034,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_G_node3_conf89.7.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 89.801445,
+      "expected": "L",
+      "got": "T",
+      "invert": true,
+      "ms": 113.71261300519109,
+      "ok": false,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 90.595665,
+      "expected": "R1",
+      "got": "R1",
+      "invert": true,
+      "ms": 113.92298300052062,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 90.842361,
+      "expected": "R2",
+      "got": "R2",
+      "invert": true,
+      "ms": 115.3845660155639,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf90.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 90.842361,
+      "expected": "R2",
+      "got": "R2",
+      "invert": true,
+      "ms": 114.20015397015959,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 89.801445,
+      "expected": "T",
+      "got": "T",
+      "invert": true,
+      "ms": 107.91646898724139,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node0_conf68.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 48.54543670847849,
+      "expected": "T",
+      "got": "N",
+      "invert": true,
+      "ms": 119.1426960285753,
+      "ok": false,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node49_conf77.0.png",
+      "psm": -1,
+      "scale": 6
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 78.655708,
+      "expected": "C",
+      "got": "C",
+      "invert": true,
+      "ms": 114.3717149971053,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_C_node1_conf89.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "tesseract-cli-fast-stack",
+      "conf": 92.009132,
+      "expected": "G",
+      "got": "G",
+      "invert": true,
+      "ms": 110.14564399374649,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_G_node3_conf89.7.png",
+      "psm": 8,
+      "scale": 5
+    }
+  ],
+  "schema": {
+    "description": "OCR backend micro-benchmark on pre-labeled edge crops.",
+    "version": 0
+  },
+  "tool": "scripts/ocr_backend_bench_v0.py"
+}

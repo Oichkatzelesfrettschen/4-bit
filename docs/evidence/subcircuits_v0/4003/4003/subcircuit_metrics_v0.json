@@ -1,0 +1,100 @@
+{
+  "counts": {
+    "nonzero_transistors": 14,
+    "subcircuits": 14,
+    "zero_transistors": 0
+  },
+  "inputs": {
+    "manifest": "docs/evidence/subcircuits_v0/4003/4003/manifest.json"
+  },
+  "rows": [
+    {
+      "name": "DATA",
+      "nodes": 13,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_DATA_subcircuit_v0.json",
+      "transistors": 6
+    },
+    {
+      "name": "EN",
+      "nodes": 13,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_EN_subcircuit_v0.json",
+      "transistors": 6
+    },
+    {
+      "name": "OUT",
+      "nodes": 13,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_OUT_subcircuit_v0.json",
+      "transistors": 6
+    },
+    {
+      "name": "Q5",
+      "nodes": 13,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q5_subcircuit_v0.json",
+      "transistors": 6
+    },
+    {
+      "name": "Q6",
+      "nodes": 13,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q6_subcircuit_v0.json",
+      "transistors": 6
+    },
+    {
+      "name": "CLOCK",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_CLOCK_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q0",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q0_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q1",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q1_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q2",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q2_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q3",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q3_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q4",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q4_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q7",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q7_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q8",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q8_subcircuit_v0.json",
+      "transistors": 5
+    },
+    {
+      "name": "Q9",
+      "nodes": 11,
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q9_subcircuit_v0.json",
+      "transistors": 5
+    }
+  ],
+  "schema": {
+    "description": "Subcircuit extraction metrics.",
+    "version": 0
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "chip": "4001",
+  "counts": {
+    "nodes": 5,
+    "transistors": 3
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 3682,
+        "b_node": 3683,
+        "bbox": {
+          "h": 13,
+          "w": 125,
+          "x": 285,
+          "y": 636
+        },
+        "gate_node": 34,
+        "id": 973,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3683,
+        "b_node": 3684,
+        "bbox": {
+          "h": 13,
+          "w": 126,
+          "x": 414,
+          "y": 636
+        },
+        "gate_node": 34,
+        "id": 974,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3684,
+        "b_node": 3685,
+        "bbox": {
+          "h": 13,
+          "w": 125,
+          "x": 544,
+          "y": 636
+        },
+        "gate_node": 34,
+        "id": 975,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4001_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "34d2bf0e4e9ec2e8a3bb5527481eb3e4a5ad0651126ecef0c0eaaf0b4c8eb934"
+    }
+  },
+  "nodes": [
+    {
+      "node": 34
+    },
+    {
+      "node": 3682
+    },
+    {
+      "node": 3683
+    },
+    {
+      "node": 3684
+    },
+    {
+      "node": 3685
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "IO1",
+    "nodes": [
+      34
+    ]
+  }
+}

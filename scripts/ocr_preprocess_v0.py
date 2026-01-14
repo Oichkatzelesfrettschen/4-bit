@@ -273,6 +273,8 @@ def preprocess_label_for_ocr(
     border: int,
     use_cuda: bool = False,
     morph: str | None = None,
+    morph_kernel: int = 2,
+    morph_iter: int = 1,
 ) -> np.ndarray:
     g = gray.copy()
     if invert:
@@ -288,12 +290,57 @@ def preprocess_label_for_ocr(
     else:
         raise ValueError(f"unknown threshold: {threshold}")
     if morph:
-        k = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+        ksz = max(1, int(morph_kernel))
+        k = cv2.getStructuringElement(cv2.MORPH_RECT, (ksz, ksz))
+        it = max(1, int(morph_iter))
         if morph == "close":
-            g = cv2.morphologyEx(g, cv2.MORPH_CLOSE, k, iterations=1)
+            g = cv2.morphologyEx(g, cv2.MORPH_CLOSE, k, iterations=it)
         elif morph == "open":
-            g = cv2.morphologyEx(g, cv2.MORPH_OPEN, k, iterations=1)
+            g = cv2.morphologyEx(g, cv2.MORPH_OPEN, k, iterations=it)
+        elif morph == "dilate":
+            g = cv2.dilate(g, k, iterations=it)
+        elif morph == "erode":
+            g = cv2.erode(g, k, iterations=it)
         else:
             raise ValueError(f"unknown morph: {morph}")
     g = add_border(g, border)
     return g
+
+
+_PRESETS_V0: dict[str, dict[str, object]] = {
+    # Default for small periphery tokens (S/T/R3/…): maximize glyph legibility and suppress wiring noise.
+    "edge_label": {"use_clahe": True, "threshold": "adaptive", "border": 10, "morph": "close"},
+    # Slightly lighter for dense crops where morphology can over-fill thin strokes.
+    "edge_label_light": {"use_clahe": True, "threshold": "adaptive", "border": 10, "morph": None},
+    # Tiny digits (pin numbers like 01/02, 14/15) benefit from less aggressive morphology and Otsu.
+    "digits_tiny": {"use_clahe": True, "threshold": "otsu", "border": 14, "morph": "close", "morph_kernel": 3},
+    # Single-glyph tokens (T/C/S/V/G/L) can be helped by a small dilation when strokes are very thin.
+    "glyph_single": {"use_clahe": True, "threshold": "adaptive", "border": 16, "morph": "dilate", "morph_kernel": 3},
+    # Outline-style text (e.g. logos, chip IDs) often needs a stronger close to fill the contour.
+    "outline_fill": {"use_clahe": True, "threshold": "otsu", "border": 12, "morph": "close", "morph_kernel": 4, "morph_iter": 2},
+}
+
+
+def preprocess_label_preset_v0(
+    gray: np.ndarray,
+    *,
+    preset: str,
+    scale: int,
+    invert: bool,
+    use_cuda: bool = False,
+) -> np.ndarray:
+    cfg = _PRESETS_V0.get(str(preset).strip())
+    if cfg is None:
+        raise ValueError(f"unknown preset: {preset}")
+    return preprocess_label_for_ocr(
+        gray,
+        scale=int(scale),
+        invert=bool(invert),
+        use_clahe=bool(cfg["use_clahe"]),
+        threshold=str(cfg["threshold"]),
+        border=int(cfg["border"]),
+        morph=cfg.get("morph"),
+        morph_kernel=int(cfg.get("morph_kernel", 2)),
+        morph_iter=int(cfg.get("morph_iter", 1)),
+        use_cuda=bool(use_cuda),
+    )

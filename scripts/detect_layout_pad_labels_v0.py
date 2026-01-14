@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -21,16 +22,19 @@ ROOT = Path(__file__).resolve().parents[1]
 @dataclass(frozen=True)
 class ChipSpec:
     chip: str
-    metal_bmp: Path
+    metal_image: Path
 
 
 def specs() -> dict[str, ChipSpec]:
     emu = ROOT / "docs" / "emulators"
+    def prefer_png(path: Path) -> Path:
+        png = path.with_suffix(".png")
+        return png if png.exists() else path
     return {
-        "4001": ChipSpec("4001", emu / "i4001-metal.bmp"),
-        "4002": ChipSpec("4002", emu / "i4002-metal.bmp"),
-        "4003": ChipSpec("4003", emu / "i4003-metal.bmp"),
-        "4004": ChipSpec("4004", emu / "i4004-metal.bmp"),
+        "4001": ChipSpec("4001", prefer_png(emu / "i4001-metal.bmp")),
+        "4002": ChipSpec("4002", prefer_png(emu / "i4002-metal.bmp")),
+        "4003": ChipSpec("4003", prefer_png(emu / "i4003-metal.bmp")),
+        "4004": ChipSpec("4004", prefer_png(emu / "i4004-metal.bmp")),
     }
 
 
@@ -92,6 +96,18 @@ def main() -> int:
         help="Prefer CUDAExecutionProvider for ONNX backends when available.",
     )
     p.add_argument("--render", action="store_true", default=True, help="Render overlay + crops")
+    p.add_argument(
+        "--save-raw-crops",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Save raw (unprocessed) crops alongside OCR-mask crops when --render is enabled.",
+    )
+    p.add_argument(
+        "--limit-ocr",
+        type=int,
+        default=0,
+        help="If >0, only run OCR for the first N detected boxes (fast preview); still renders all boxes.",
+    )
     args = p.parse_args()
 
     selected = set(args.chip or [])
@@ -103,6 +119,12 @@ def main() -> int:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Default to repo-provided templates for the PMOS-era glyph style when available.
+    # Override by setting OCR_TEMPLATE_DIR explicitly.
+    if not os.environ.get("OCR_TEMPLATE_DIR", "").strip():
+        default_tdir = (ROOT / "docs/evidence/ocr_models/templates_v0").resolve()
+        if default_tdir.exists():
+            os.environ["OCR_TEMPLATE_DIR"] = str(default_tdir)
     backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
 
     manifest: dict[str, object] = {
@@ -121,7 +143,7 @@ def main() -> int:
 
     for chip in sorted(selected):
         spec = specs()[chip]
-        img = Image.open(spec.metal_bmp).convert("L")
+        img = Image.open(spec.metal_image).convert("L")
         arr = np.asarray(img)
         h, w = arr.shape
 
@@ -164,10 +186,16 @@ def main() -> int:
         pad = int(args.pad)
         out_boxes: list[dict[str, object]] = []
         crops_dir = out_dir / chip / "crops"
+        crops_raw_dir = out_dir / chip / "crops_raw"
+        crops_mask_dir = out_dir / chip / "crops_mask"
         (out_dir / chip).mkdir(parents=True, exist_ok=True)
         if args.render:
             crops_dir.mkdir(parents=True, exist_ok=True)
+            crops_mask_dir.mkdir(parents=True, exist_ok=True)
+            if bool(args.save_raw_crops):
+                crops_raw_dir.mkdir(parents=True, exist_ok=True)
 
+        ocr_limit = int(args.limit_ocr or 0)
         for idx, b in enumerate(sorted(boxes, key=lambda r: (r["bbox"]["y"], r["bbox"]["x"]))):
             bb = b["bbox"]
             x0 = max(0, int(bb["x"]) - pad)
@@ -198,33 +226,54 @@ def main() -> int:
 
             # OCR: pad labels are short (1–3 chars) and usually high-contrast.
             gray = np.asarray(crop2.convert("L"))
-            preset = preset_layout_edge_label(expected=None)
-            r = backend.best_token(
-                gray,
-                whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-                psms=preset.psms,
-                oem=preset.oem,
-                min_len=1,
-                max_len=3,
-            )
-            best_text = str(r.token or "")
+            do_ocr = ocr_limit <= 0 or idx < ocr_limit
+            if do_ocr:
+                preset = preset_layout_edge_label(expected=None)
+                r = backend.best_token(
+                    gray,
+                    whitelist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                    psms=preset.psms,
+                    oem=preset.oem,
+                    min_len=1,
+                    max_len=3,
+                )
+                best_text = str(r.token or "")
+                conf = float(r.conf)
+                psm = int(r.psm)
+                inv = bool(r.invert)
+                ocr_scale = int(r.scale)
+            else:
+                best_text = ""
+                conf = -1.0
+                psm = 0
+                inv = False
+                ocr_scale = int(scale)
 
             out_row = {
                 "bbox": {"x0": int(x0), "y0": int(y0), "x1": int(x1), "y1": int(y1)},
                 "ink_bbox": bb,
                 "ocr": {
                     "best": best_text,
-                    "conf": float(r.conf),
-                    "psm": int(r.psm),
-                    "invert": bool(r.invert),
-                    "scale": int(r.scale),
+                    "conf": conf,
+                    "psm": psm,
+                    "invert": inv,
+                    "scale": ocr_scale,
                     "backend": str(getattr(backend, "name", "tesseract")),
                 },
             }
+            if args.render:
+                out_row["crops"] = {
+                    "mask": rel_or_abs(crops_mask_dir / f"box_{idx:03d}_{best_text or 'NA'}.png"),
+                    "raw": rel_or_abs(crops_raw_dir / f"box_{idx:03d}.png") if bool(args.save_raw_crops) else None,
+                }
             out_boxes.append(out_row)
 
             if args.render:
+                # Keep legacy path stable for existing reports.
                 crop2.save(crops_dir / f"box_{idx:03d}_{best_text or 'NA'}.png")
+                crop2.save(crops_mask_dir / f"box_{idx:03d}_{best_text or 'NA'}.png")
+                if bool(args.save_raw_crops):
+                    crop.save(crops_raw_dir / f"box_{idx:03d}.png", format="PNG", optimize=False, compress_level=9)
 
         # Render overlay on the metal mask for quick inspection.
         overlay_path = None
@@ -244,13 +293,18 @@ def main() -> int:
         payload = {
             "chip": chip,
             "schema": {"version": 0, "description": "Detected pad-label-like ink boxes near the layout edge, OCR’d."},
-            "inputs": {"metal_bmp": rel_or_abs(spec.metal_bmp), "sha256": {"metal_bmp": sha256(spec.metal_bmp)}},
+            "inputs": {
+                "metal_image": rel_or_abs(spec.metal_image),
+                "sha256": {"metal_image": sha256(spec.metal_image)},
+            },
             "params": manifest["params"],
             "counts": {"candidates": int(len(out_boxes))},
             "boxes": out_boxes,
             "outputs": {
                 "overlay": rel_or_abs(overlay_path) if overlay_path else None,
                 "crops_dir": rel_or_abs(crops_dir) if args.render else None,
+                "crops_mask_dir": rel_or_abs(crops_mask_dir) if args.render else None,
+                "crops_raw_dir": rel_or_abs(crops_raw_dir) if args.render and bool(args.save_raw_crops) else None,
             },
         }
         out_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")

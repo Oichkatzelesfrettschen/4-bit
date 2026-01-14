@@ -36,6 +36,7 @@ Principles
 **Images**
 - `imagemagick` (`magick`, `identify`)
 - `python-pillow` (PIL; used by multiple repo scripts for deterministic crop rendering + overlays)
+- PNG preview helper: `python3 scripts/ensure_image_previews_v0.py --root docs/` (converts `.bmp`/`.pbm` into viewable `.png` alongside sources)
 - `scantailor-advanced` (scan cleanup), `unpaper` (despeckle/deskew helpers)
 - `gimp`, `inkscape`
 - `exiftool` (provenance/metadata inspection)
@@ -45,6 +46,7 @@ Principles
 
 **Layout/netlist tooling (optional)**
 - `klayout`, `xschem`, `ngspice`, `netlistsvg`
+ - Repo overlays: `python3 scripts/render_power_rail_candidates_v0.py --all` (renders candidate rail nodes on the metal mask for manual confirmation)
 
 ## GPU-Accelerated OCR (Optional)
 
@@ -59,7 +61,7 @@ If you want higher throughput for large-scale page rasterization + OCR experimen
 
 Provider preference order (when available)
 - ONNX Runtime: TensorRT → CUDA → DNNL → CPU
-- OCR backend fallback (`scripts/ocr_backend_v0.py`): ONNX(TensorRT/CUDA) → ONNX(DNNL/CPU) → Tesseract(CPU)
+- OCR backend fallback (`scripts/ocr_backend_v0.py`): ONNX(TensorRT/CUDA) → ONNX(DNNL/CPU) → Tesseract CLI fast → TemplateDir → Tesseract sweep → HuMoments fallback
 
 Packaging note
 - Prefer the distro’s CUDA-enabled `onnxruntime` package (`python-onnxruntime-opt-cuda`) over `pip install onnxruntime-gpu` when Python versions/wheels lag behind (the CUDA provider often disappears on newer Python minors).
@@ -70,12 +72,21 @@ Packaging note
 ## Repo-local OCR Benchmarking
 
 For label OCR changes, use the stable micro-benchmark set:
-- `python3 scripts/ocr_benchmark_v0.py --bench docs/evidence/ocr_benchmarks_v0/layout_edge_labels_4004_v0.json`
+- `OCR_TEMPLATE_DIR=docs/evidence/ocr_models/templates_v0 python3 scripts/ocr_benchmark_v0.py --bench docs/evidence/ocr_benchmarks_v0/pad_label_tokens_v0.json --backend tesseract_cli_fast --fast`
+  - Optional: add `--limit N` to cap runtime during quick iteration.
+
+Recent quick run (tesseract-cli-fast, single PSM, 4004-heavy sample):
+- `docs/evidence/ocr_benchmarks_v0/pad_label_tokens_v0_tesscli_fast_run.json` (passed 24 / total 56)
 
 Implementation note:
 - `scripts/ocr_preprocess_v0.py` sets `pytesseract.pytesseract.tesseract_cmd` to `/usr/bin/tesseract` when present to avoid PATH-related flakiness.
 - `scripts/ocr_backend_v0.py` implements backend fallback: ONNX(TensorRT/CUDA) → ONNX(DNNL/CPU) → Tesseract(CPU) (set `OCR_ONNX_MODEL` to enable ONNX).
 - `scripts/ocr_capabilities_v0.py` records what the current environment can accelerate (OpenCV CUDA, ONNX providers, Torch CUDA, etc.).
+
+Recommended backend order (repo default)
+- For **label/token OCR** (small glyphs; highest precision): Tesseract CLI fast → TemplateDir → Tesseract sweep (rot/psm) → HuMoments (last resort). ONNX can be tried for “hard” leftovers if you have a suitable model.
+- For **throughput-first OCR** (many crops/pages; GPU available): ONNX (TensorRT/CUDA) → ONNX (DNNL/CPU) → Tesseract CLI fast → Tesseract sweep.
+- Record the active capabilities before big runs: `python -W error scripts/ocr_toolchain_smoke_v0.py --json > docs/evidence/ocr_benchmarks_v0/toolchain_smoke_v0.json`
 
 ## Tooling Audit Runs
 

@@ -1,0 +1,104 @@
+{
+  "inputs": {
+    "netlist": "docs/evidence/netlists_v1/4003_netlist_v1.json",
+    "sha256": {
+      "netlist": "80e248d70576ee581330b5ac6cbbb988da8d1d7d1d0563e44164206f550cfd30"
+    }
+  },
+  "outputs": [
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "Q0",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q0_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "Q1",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q1_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "Q2",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q2_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "Q3",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q3_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "Q4",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q4_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "Q5",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q5_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "Q6",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q6_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "Q7",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q7_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "Q8",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q8_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "Q9",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_Q9_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 23,
+        "transistors": 9
+      },
+      "name": "custom",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_custom_subcircuit_v0.json"
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "tool": "scripts/extract_subcircuit_v0.py"
+}

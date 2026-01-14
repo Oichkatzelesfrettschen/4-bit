@@ -6,7 +6,7 @@
   },
   "params": {
     "area_penalty": 0.003,
-    "max_boxes": 80
+    "max_boxes": 120
   },
   "schema": {
     "description": "Geometry-based suggested netlist_v0 nodes for each detected pad box.",

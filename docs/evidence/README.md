@@ -20,7 +20,7 @@ Audit claim backlog
   - `python3 scripts/audit_claims_backlog.py`
 
 Schematic OCR (circuit-level labels)
-- Inputs: `docs/emulators/i400{1,2,3,4}-schematic.bmp` (plus `i400{1,2,3,4}-signals.txt`).
+- Inputs: `docs/emulators/i400{1,2,3,4}-schematic.bmp` (source; `*.png` previews exist) (plus `i400{1,2,3,4}-signals.txt`).
 - Command: `./scripts/ocr_schematics.py --all --scale 4 --psm 11`
 - Outputs (tracked artifacts):
   - `docs/evidence/ocr_schematics/*_schematic.txt` (plain OCR text)
@@ -29,7 +29,7 @@ Schematic OCR (circuit-level labels)
   - `docs/evidence/ocr_schematics/manifest.json`
 
 Coordinate-based label OCR verification (signals.txt)
-- Inputs: `docs/emulators/i400x-schematic.bmp` + `docs/emulators/i400{1,2,3,4}-signals.txt`
+- Inputs: `docs/emulators/i400x-schematic.bmp` (source; `i400x-schematic.png` previews exist) + `docs/emulators/i400{1,2,3,4}-signals.txt`
 - Command (calibration example): `./scripts/ocr_signal_labels.py --chip 4004 --name-regex '^(CLK1|CLK2)$'`
 - Outputs:
   - `docs/evidence/ocr_signal_labels/<chip>/*_signal_ocr_report.json` (detailed per-point results)
@@ -42,7 +42,7 @@ Coordinate-based label OCR verification (signals.txt)
   - Report reasons distinguish "no nearby text blobs" vs "OCR empty" vs "likely not printed here" (`no_text_components`, `ocr_no_tokens`, `ocr_low_conf`, `not_printed_near_point`).
 
 Transistor candidate extraction (poly/diffusion intersections)
-- Inputs: `docs/emulators/i400{1,2,3,4}-{poly,diffusion}.bmp`
+- Inputs: `docs/emulators/i400{1,2,3,4}-{poly,diffusion}.bmp` (source; `*.png` previews exist)
 - Command: `./scripts/extract_transistors.py --all`
 - Output (best-effort “transistor candidates”, not a complete netlist):
   - `docs/evidence/transistors/*_poly_diffusion_transistors.json` (components w/ bbox + centroid)

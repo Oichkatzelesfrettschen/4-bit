@@ -1,0 +1,165 @@
+{
+  "params": {
+    "backend": "auto",
+    "glob": "docs/evidence/layout_edge_labels_v0/4004/crops/*.png",
+    "limit": 12,
+    "onnx_model": null,
+    "prefer_cuda": false
+  },
+  "results": {
+    "accuracy": 0.8333333333333334,
+    "correct": 10,
+    "total": 12
+  },
+  "rows": [
+    {
+      "backend": "auto",
+      "conf": 93.410355,
+      "expected": "02",
+      "got": "02",
+      "invert": true,
+      "ms": 2175.349531986285,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf60.0.png",
+      "psm": 8,
+      "scale": 3
+    },
+    {
+      "backend": "auto",
+      "conf": 93.410355,
+      "expected": "02",
+      "got": "02",
+      "invert": true,
+      "ms": 2139.6036169608124,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf87.7.png",
+      "psm": 8,
+      "scale": 3
+    },
+    {
+      "backend": "auto",
+      "conf": 96.298691,
+      "expected": "D2",
+      "got": "D2",
+      "invert": true,
+      "ms": 109.94619398843497,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 92.009132,
+      "expected": "G",
+      "got": "G",
+      "invert": true,
+      "ms": 114.67459495179355,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_G_node3_conf89.7.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 89.801445,
+      "expected": "L",
+      "got": "T",
+      "invert": true,
+      "ms": 113.50111203501001,
+      "ok": false,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 90.595665,
+      "expected": "R1",
+      "got": "R1",
+      "invert": true,
+      "ms": 113.58798202127218,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 90.842361,
+      "expected": "R2",
+      "got": "R2",
+      "invert": true,
+      "ms": 112.87591099971905,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf90.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 90.842361,
+      "expected": "R2",
+      "got": "R2",
+      "invert": true,
+      "ms": 115.79467804403976,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 89.801445,
+      "expected": "T",
+      "got": "T",
+      "invert": true,
+      "ms": 111.90896795596927,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node0_conf68.0.png",
+      "psm": 8,
+      "scale": 5
+    },
+    {
+      "backend": "auto",
+      "conf": 87.0,
+      "expected": "T",
+      "got": "L",
+      "invert": false,
+      "ms": 47891.49733301019,
+      "ok": false,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node49_conf77.0.png",
+      "psm": 11,
+      "scale": 3
+    },
+    {
+      "backend": "auto",
+      "conf": 91.407837,
+      "expected": "C",
+      "got": "C",
+      "invert": true,
+      "ms": 775.1558359595947,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_C_node1_conf89.0.png",
+      "psm": 6,
+      "scale": 7
+    },
+    {
+      "backend": "auto",
+      "conf": 92.009132,
+      "expected": "G",
+      "got": "G",
+      "invert": true,
+      "ms": 115.49924802966416,
+      "ok": true,
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_G_node3_conf89.7.png",
+      "psm": 8,
+      "scale": 5
+    }
+  ],
+  "schema": {
+    "description": "OCR backend micro-benchmark on pre-labeled edge crops.",
+    "version": 0
+  },
+  "tool": "scripts/ocr_backend_bench_v0.py"
+}

@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "nvidia_smi_in_path": {
+      "detail": "/usr/bin/nvidia-smi",
+      "ok": true
+    },
+    "nvidia_smi_list": {
+      "detail": "GPU 0: NVIDIA GeForce RTX 4070 Ti (UUID: GPU-9cdd53e3-7a94-8392-e7ce-ee6079352f3e)",
+      "ok": true
+    },
+    "onnxruntime_providers": {
+      "detail": "[\"CUDAExecutionProvider\", \"DnnlExecutionProvider\", \"CPUExecutionProvider\"]",
+      "ok": true
+    },
+    "py_import_PIL": {
+      "ok": true
+    },
+    "py_import_cv2": {
+      "ok": true
+    },
+    "py_import_numpy": {
+      "ok": true
+    },
+    "py_import_onnxruntime": {
+      "ok": true
+    },
+    "py_import_pytesseract": {
+      "ok": true
+    },
+    "tesseract_in_path": {
+      "detail": "/usr/bin/tesseract",
+      "ok": true
+    },
+    "tesseract_version": {
+      "detail": "tesseract 5.5.2",
+      "ok": true
+    }
+  },
+  "python": "3.14.2 (main, Jan 10 2026, 19:46:42) [GCC 15.2.1 20260103]"
+}

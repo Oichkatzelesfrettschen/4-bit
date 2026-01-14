@@ -1,0 +1,243 @@
+{
+  "chip": "4001",
+  "counts": {
+    "detections": 2
+  },
+  "detections": [
+    {
+      "bbox": {
+        "area": 9568,
+        "fill": 0.7252880533656761,
+        "h": 136,
+        "w": 97,
+        "x": 62,
+        "y": 1467
+      },
+      "best_ocr": {
+        "backend": "tesseract",
+        "conf": 0.0,
+        "crop": "full",
+        "inv": true,
+        "psm": 7,
+        "rot": 0,
+        "token": "C"
+      },
+      "candidate_kind": "strict",
+      "normalized_token": "C",
+      "ocr_roi": {
+        "x0": 38,
+        "x1": 183,
+        "y0": 1443,
+        "y1": 1627
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 9568,
+        "metal_bbox": {
+          "x0": 62,
+          "x1": 159,
+          "y0": 1467,
+          "y1": 1603
+        },
+        "node": 2519,
+        "score": 0.02749885195733779,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 158,
+        "y": 1573
+      },
+      "token": "C",
+      "tries": [
+        {
+          "backend": "tesseract",
+          "conf": 0.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "rot": 0,
+          "token": "C"
+        },
+        {
+          "backend": "tesseract",
+          "conf": 0.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": "C"
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "raw": "C\n",
+          "rot": 0,
+          "token": "C",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "raw": "C\n",
+          "rot": 0,
+          "token": "C",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "area": 17489,
+        "fill": 0.6522339076601775,
+        "h": 109,
+        "w": 246,
+        "x": 2179,
+        "y": 1659
+      },
+      "best_ocr": {
+        "backend": "tesseract",
+        "conf": 0.0,
+        "crop": "full",
+        "inv": true,
+        "psm": 7,
+        "rot": 0,
+        "token": "S"
+      },
+      "candidate_kind": "strict",
+      "normalized_token": "S",
+      "ocr_roi": {
+        "x0": 2155,
+        "x1": 2449,
+        "y0": 1635,
+        "y1": 1768
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 17479,
+        "metal_bbox": {
+          "x0": 2179,
+          "x1": 2425,
+          "y0": 1659,
+          "y1": 1768
+        },
+        "node": 2540,
+        "score": 0.029306437947628577,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 2424,
+        "y": 1690
+      },
+      "token": "S",
+      "tries": [
+        {
+          "backend": "tesseract",
+          "conf": 0.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "rot": 0,
+          "token": "S"
+        },
+        {
+          "backend": "tesseract",
+          "conf": 0.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": "1"
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "raw": "S\n",
+          "rot": 0,
+          "token": "S",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "raw": "1\n",
+          "rot": 0,
+          "token": "1",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "metal_image": "docs/emulators/i4001-metal.png",
+    "netlist_v0": "docs/evidence/netlists_v0/4001_netlist_v0.json",
+    "sha256": {
+      "metal_image": "cc44f49e3cfdd87a651e41acf0aec862e8b2ef403561923f9870b13f93ce22b2"
+    }
+  },
+  "params": {
+    "band": 320,
+    "edges": [
+      "bottom",
+      "left",
+      "right",
+      "top"
+    ],
+    "max_area": 120000,
+    "min_area": 800,
+    "min_fill": 0.22,
+    "ocr_backend": "tesseract-stack",
+    "pad": 24
+  },
+  "schema": {
+    "description": "Detected periphery label blocks on metal mask with OCR + node suggestion.",
+    "version": 0
+  }
+}

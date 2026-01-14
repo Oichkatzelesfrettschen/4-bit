@@ -1,0 +1,934 @@
+{
+  "chip": "4002",
+  "counts": {
+    "pads": 16
+  },
+  "inputs": {
+    "image": "docs/emulators/i4002-metal.png",
+    "netlist_v0": "docs/evidence/netlists_v0/4002_netlist_v0.json"
+  },
+  "outputs": {
+    "overlay_png": "docs/evidence/layout_pads_v0/4002/4002_layout_pads_v0.png"
+  },
+  "pads": [
+    {
+      "angle": -2.565517913758797,
+      "bbox": {
+        "area": 14210,
+        "h": 145,
+        "w": 98,
+        "x0": 43,
+        "x1": 141,
+        "y0": 670,
+        "y1": 815
+      },
+      "cc_label": 13,
+      "edge_distance": 43,
+      "fill": 0.7654468684025334,
+      "idx_angle_ccw": 0,
+      "idx_ccw": 15,
+      "idx_perimeter_ccw": 15,
+      "nearest_edge": "left",
+      "suggested_nodes": [
+        {
+          "metal_area": 17706,
+          "metal_bbox": {
+            "x0": 42,
+            "x1": 141,
+            "y0": 293,
+            "y1": 923
+          },
+          "node": 41,
+          "node_uid": "4f29be44935a33aab5e9d2814c4d594664b507cd",
+          "rect_distance": 0.0,
+          "score": 4.4169168580154246
+        },
+        {
+          "metal_area": 26666,
+          "metal_bbox": {
+            "x0": 68,
+            "x1": 1196,
+            "y0": 153,
+            "y1": 1603
+          },
+          "node": 18,
+          "node_uid": "399a8d7ef27cb5743f23f64009aa1c8d26f7e1da",
+          "rect_distance": 0.0,
+          "score": 44.468182508437756
+        },
+        {
+          "metal_area": 206625,
+          "metal_bbox": {
+            "x0": 84,
+            "x1": 2135,
+            "y0": 204,
+            "y1": 2251
+          },
+          "node": 31,
+          "node_uid": "76c9185d968a6e9ea94737f7ad447774b1b7db8a",
+          "rect_distance": 0.0,
+          "score": 107.17381728839261
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 125.51120503906829
+        }
+      ]
+    },
+    {
+      "angle": -1.8668597241447404,
+      "bbox": {
+        "area": 15168,
+        "h": 96,
+        "w": 158,
+        "x0": 589,
+        "x1": 747,
+        "y0": 55,
+        "y1": 151
+      },
+      "cc_label": 1,
+      "edge_distance": 55,
+      "fill": 0.7149261603375527,
+      "idx_angle_ccw": 1,
+      "idx_ccw": 0,
+      "idx_perimeter_ccw": 0,
+      "nearest_edge": "top",
+      "suggested_nodes": [
+        {
+          "metal_area": 15184,
+          "metal_bbox": {
+            "x0": 203,
+            "x1": 747,
+            "y0": 55,
+            "y1": 151
+          },
+          "node": 0,
+          "node_uid": "e401aef8393babdd00f66a08d4627b02b68eb000",
+          "rect_distance": 0.0,
+          "score": 5.376267844865234
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 128.00283705222014
+        }
+      ]
+    },
+    {
+      "angle": -1.647846101380553,
+      "bbox": {
+        "area": 13632,
+        "h": 96,
+        "w": 142,
+        "x0": 885,
+        "x1": 1027,
+        "y0": 55,
+        "y1": 151
+      },
+      "cc_label": 2,
+      "edge_distance": 55,
+      "fill": 0.7792693661971831,
+      "idx_angle_ccw": 2,
+      "idx_ccw": 1,
+      "idx_perimeter_ccw": 1,
+      "nearest_edge": "top",
+      "suggested_nodes": [
+        {
+          "metal_area": 16700,
+          "metal_bbox": {
+            "x0": 774,
+            "x1": 1411,
+            "y0": 55,
+            "y1": 151
+          },
+          "node": 1,
+          "node_uid": "0cdc70d16eb3f42468da517abb08808bbd21bcae",
+          "rect_distance": 0.0,
+          "score": 4.431681776720202
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 126.72771103375614
+        }
+      ]
+    },
+    {
+      "angle": -1.2176644228596805,
+      "bbox": {
+        "area": 12519,
+        "h": 107,
+        "w": 117,
+        "x0": 1459,
+        "x1": 1576,
+        "y0": 55,
+        "y1": 162
+      },
+      "cc_label": 3,
+      "edge_distance": 55,
+      "fill": 0.872833293394041,
+      "idx_angle_ccw": 3,
+      "idx_ccw": 2,
+      "idx_perimeter_ccw": 2,
+      "nearest_edge": "top",
+      "suggested_nodes": [
+        {
+          "metal_area": 13035,
+          "metal_bbox": {
+            "x0": 1459,
+            "x1": 1667,
+            "y0": 55,
+            "y1": 162
+          },
+          "node": 2,
+          "node_uid": "de349a1cb8b5953ced83662d572558e74be23a13",
+          "rect_distance": 0.0,
+          "score": 1.789866662580062
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 128.03112437551556
+        }
+      ]
+    },
+    {
+      "angle": -0.9931004438943964,
+      "bbox": {
+        "area": 11136,
+        "h": 96,
+        "w": 116,
+        "x0": 1819,
+        "x1": 1935,
+        "y0": 56,
+        "y1": 152
+      },
+      "cc_label": 4,
+      "edge_distance": 56,
+      "fill": 0.8773347701149425,
+      "idx_angle_ccw": 4,
+      "idx_ccw": 3,
+      "idx_perimeter_ccw": 3,
+      "nearest_edge": "top",
+      "suggested_nodes": [
+        {
+          "metal_area": 13665,
+          "metal_bbox": {
+            "x0": 1819,
+            "x1": 2127,
+            "y0": 56,
+            "y1": 240
+          },
+          "node": 3,
+          "node_uid": "49a1c3f1e631518e2342d3945060e9bedb67a78a",
+          "rect_distance": 0.0,
+          "score": 3.720838225465193
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 131.4020486107979
+        }
+      ]
+    },
+    {
+      "angle": -0.6111758701025815,
+      "bbox": {
+        "area": 11845,
+        "h": 115,
+        "w": 103,
+        "x0": 2032,
+        "x1": 2135,
+        "y0": 588,
+        "y1": 703
+      },
+      "cc_label": 12,
+      "edge_distance": 41,
+      "fill": 0.8803714647530604,
+      "idx_angle_ccw": 5,
+      "idx_ccw": 4,
+      "idx_perimeter_ccw": 4,
+      "nearest_edge": "right",
+      "suggested_nodes": [
+        {
+          "metal_area": 12570,
+          "metal_bbox": {
+            "x0": 2026,
+            "x1": 2135,
+            "y0": 497,
+            "y1": 703
+          },
+          "node": 128,
+          "node_uid": "46702413c9fa0b4667903ddc76ed9c16d8191d08",
+          "rect_distance": 0.0,
+          "score": 1.7961871828138176
+        },
+        {
+          "metal_area": 206625,
+          "metal_bbox": {
+            "x0": 84,
+            "x1": 2135,
+            "y0": 204,
+            "y1": 2251
+          },
+          "node": 31,
+          "node_uid": "76c9185d968a6e9ea94737f7ad447774b1b7db8a",
+          "rect_distance": 0.0,
+          "score": 107.32297847405596
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 126.66817096393584
+        }
+      ]
+    },
+    {
+      "angle": -0.3401141206073683,
+      "bbox": {
+        "area": 11934,
+        "h": 117,
+        "w": 102,
+        "x0": 2033,
+        "x1": 2135,
+        "y0": 944,
+        "y1": 1061
+      },
+      "cc_label": 17,
+      "edge_distance": 41,
+      "fill": 0.8717948717948718,
+      "idx_angle_ccw": 6,
+      "idx_ccw": 5,
+      "idx_perimeter_ccw": 5,
+      "nearest_edge": "right",
+      "suggested_nodes": [
+        {
+          "metal_area": 12520,
+          "metal_bbox": {
+            "x0": 2026,
+            "x1": 2135,
+            "y0": 855,
+            "y1": 1061
+          },
+          "node": 292,
+          "node_uid": "188e43e4bbecf5c460b22f49d1dcf999dd4f4bfc",
+          "rect_distance": 0.0,
+          "score": 1.776959870766499
+        },
+        {
+          "metal_area": 206625,
+          "metal_bbox": {
+            "x0": 84,
+            "x1": 2135,
+            "y0": 204,
+            "y1": 2251
+          },
+          "node": 31,
+          "node_uid": "76c9185d968a6e9ea94737f7ad447774b1b7db8a",
+          "rect_distance": 0.0,
+          "score": 104.63300067126704
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 123.70316114098455
+        }
+      ]
+    },
+    {
+      "angle": 0.052010905850461975,
+      "bbox": {
+        "area": 10602,
+        "h": 114,
+        "w": 93,
+        "x0": 2042,
+        "x1": 2135,
+        "y0": 1364,
+        "y1": 1478
+      },
+      "cc_label": 21,
+      "edge_distance": 41,
+      "fill": 0.8875683833239012,
+      "idx_angle_ccw": 7,
+      "idx_ccw": 6,
+      "idx_perimeter_ccw": 6,
+      "nearest_edge": "right",
+      "suggested_nodes": [
+        {
+          "metal_area": 18434,
+          "metal_bbox": {
+            "x0": 1972,
+            "x1": 2135,
+            "y0": 1364,
+            "y1": 2429
+          },
+          "node": 536,
+          "node_uid": "685129a501f143a320491e5e3dc08dcc5b06fe31",
+          "rect_distance": 0.0,
+          "score": 13.531581526226917
+        },
+        {
+          "metal_area": 30728,
+          "metal_bbox": {
+            "x0": 161,
+            "x1": 2103,
+            "y0": 1324,
+            "y1": 2359
+          },
+          "node": 530,
+          "node_uid": "b1c3f57aacffd2b7f195817b2d54b1c1073f0594",
+          "rect_distance": 0.0,
+          "score": 61.726728334551275
+        },
+        {
+          "metal_area": 206625,
+          "metal_bbox": {
+            "x0": 84,
+            "x1": 2135,
+            "y0": 204,
+            "y1": 2251
+          },
+          "node": 31,
+          "node_uid": "76c9185d968a6e9ea94737f7ad447774b1b7db8a",
+          "rect_distance": 0.0,
+          "score": 104.5890384041345
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 123.16589757687208
+        }
+      ]
+    },
+    {
+      "angle": 1.0421439527280474,
+      "bbox": {
+        "area": 11349,
+        "h": 97,
+        "w": 117,
+        "x0": 1639,
+        "x1": 1756,
+        "y0": 2421,
+        "y1": 2518
+      },
+      "cc_label": 39,
+      "edge_distance": 34,
+      "fill": 0.8762005463036391,
+      "idx_angle_ccw": 8,
+      "idx_ccw": 7,
+      "idx_perimeter_ccw": 7,
+      "nearest_edge": "bottom",
+      "suggested_nodes": [
+        {
+          "metal_area": 10297,
+          "metal_bbox": {
+            "x0": 1610,
+            "x1": 1756,
+            "y0": 2421,
+            "y1": 2518
+          },
+          "node": 819,
+          "node_uid": "5c8853219f07b992d0d769dfac420f99e14566e1",
+          "rect_distance": 0.0,
+          "score": 0.9883555255150918
+        },
+        {
+          "metal_area": 12350,
+          "metal_bbox": {
+            "x0": 840,
+            "x1": 1812,
+            "y0": 2382,
+            "y1": 2501
+          },
+          "node": 808,
+          "node_uid": "24c821b576649a5d74c93608f0d0d6ee78372088",
+          "rect_distance": 0.0,
+          "score": 10.27075544622183
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 129.50813368992013
+        }
+      ]
+    },
+    {
+      "angle": 1.3586771643164783,
+      "bbox": {
+        "area": 11252,
+        "h": 97,
+        "w": 116,
+        "x0": 1233,
+        "x1": 1349,
+        "y0": 2421,
+        "y1": 2518
+      },
+      "cc_label": 38,
+      "edge_distance": 34,
+      "fill": 0.879576964095272,
+      "idx_angle_ccw": 9,
+      "idx_ccw": 8,
+      "idx_perimeter_ccw": 8,
+      "nearest_edge": "bottom",
+      "suggested_nodes": [
+        {
+          "metal_area": 10183,
+          "metal_bbox": {
+            "x0": 1233,
+            "x1": 1373,
+            "y0": 2421,
+            "y1": 2518
+          },
+          "node": 818,
+          "node_uid": "f63bef66a289d6eb810627bc12fdd9e57fd43a75",
+          "rect_distance": 0.0,
+          "score": 0.9248931749214915
+        },
+        {
+          "metal_area": 12350,
+          "metal_bbox": {
+            "x0": 840,
+            "x1": 1812,
+            "y0": 2382,
+            "y1": 2501
+          },
+          "node": 808,
+          "node_uid": "24c821b576649a5d74c93608f0d0d6ee78372088",
+          "rect_distance": 0.0,
+          "score": 3.716119091337262
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 126.86558287717034
+        }
+      ]
+    },
+    {
+      "angle": 1.5736027600665154,
+      "bbox": {
+        "area": 11155,
+        "h": 97,
+        "w": 115,
+        "x0": 993,
+        "x1": 1108,
+        "y0": 2421,
+        "y1": 2518
+      },
+      "cc_label": 37,
+      "edge_distance": 34,
+      "fill": 0.882653518601524,
+      "idx_angle_ccw": 10,
+      "idx_ccw": 9,
+      "idx_perimeter_ccw": 9,
+      "nearest_edge": "bottom",
+      "suggested_nodes": [
+        {
+          "metal_area": 10175,
+          "metal_bbox": {
+            "x0": 967,
+            "x1": 1108,
+            "y0": 2420,
+            "y1": 2518
+          },
+          "node": 817,
+          "node_uid": "dc9e8b29a0b2f437dece355d2ea4da5765316271",
+          "rect_distance": 0.0,
+          "score": 0.9505998983081672
+        },
+        {
+          "metal_area": 12350,
+          "metal_bbox": {
+            "x0": 840,
+            "x1": 1812,
+            "y0": 2382,
+            "y1": 2501
+          },
+          "node": 808,
+          "node_uid": "24c821b576649a5d74c93608f0d0d6ee78372088",
+          "rect_distance": 0.0,
+          "score": 8.358065939010253
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 126.5109888568093
+        }
+      ]
+    },
+    {
+      "angle": 1.846967492874406,
+      "bbox": {
+        "area": 11270,
+        "h": 115,
+        "w": 98,
+        "x0": 695,
+        "x1": 793,
+        "y0": 2402,
+        "y1": 2517
+      },
+      "cc_label": 32,
+      "edge_distance": 35,
+      "fill": 0.8834072759538598,
+      "idx_angle_ccw": 11,
+      "idx_ccw": 10,
+      "idx_perimeter_ccw": 10,
+      "nearest_edge": "bottom",
+      "suggested_nodes": [
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 127.26369569442113
+        }
+      ]
+    },
+    {
+      "angle": 2.0647698432547568,
+      "bbox": {
+        "area": 11155,
+        "h": 97,
+        "w": 115,
+        "x0": 403,
+        "x1": 518,
+        "y0": 2420,
+        "y1": 2517
+      },
+      "cc_label": 36,
+      "edge_distance": 35,
+      "fill": 0.8874943971313313,
+      "idx_angle_ccw": 12,
+      "idx_ccw": 11,
+      "idx_perimeter_ccw": 11,
+      "nearest_edge": "bottom",
+      "suggested_nodes": [
+        {
+          "metal_area": 10325,
+          "metal_bbox": {
+            "x0": 370,
+            "x1": 518,
+            "y0": 2420,
+            "y1": 2517
+          },
+          "node": 816,
+          "node_uid": "08c23da336c7e148e8e14c8c597350be0ced441f",
+          "rect_distance": 0.0,
+          "score": 1.0328263700382623
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 129.56467229068392
+        }
+      ]
+    },
+    {
+      "angle": 2.514134834370796,
+      "bbox": {
+        "area": 11270,
+        "h": 115,
+        "w": 98,
+        "x0": 43,
+        "x1": 141,
+        "y0": 2007,
+        "y1": 2122
+      },
+      "cc_label": 27,
+      "edge_distance": 43,
+      "fill": 0.8834960070984915,
+      "idx_angle_ccw": 13,
+      "idx_ccw": 12,
+      "idx_perimeter_ccw": 12,
+      "nearest_edge": "left",
+      "suggested_nodes": [
+        {
+          "metal_area": 10288,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 141,
+            "y0": 2007,
+            "y1": 2149
+          },
+          "node": 738,
+          "node_uid": "a33e658dfc8e61cb2483a51e37dd630ea7834d7a",
+          "rect_distance": 0.0,
+          "score": 0.9626745627238422
+        },
+        {
+          "metal_area": 13407,
+          "metal_bbox": {
+            "x0": 65,
+            "x1": 727,
+            "y0": 1927,
+            "y1": 2464
+          },
+          "node": 726,
+          "node_uid": "1df46af7e71ce29ff25501ab93adff59e608f000",
+          "rect_distance": 0.0,
+          "score": 14.285446715719296
+        },
+        {
+          "metal_area": 206625,
+          "metal_bbox": {
+            "x0": 84,
+            "x1": 2135,
+            "y0": 204,
+            "y1": 2251
+          },
+          "node": 31,
+          "node_uid": "76c9185d968a6e9ea94737f7ad447774b1b7db8a",
+          "rect_distance": 0.0,
+          "score": 110.980772074608
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 128.05550112995064
+        }
+      ]
+    },
+    {
+      "angle": 2.676065679479925,
+      "bbox": {
+        "area": 14883,
+        "h": 123,
+        "w": 121,
+        "x0": 3,
+        "x1": 124,
+        "y0": 1803,
+        "y1": 1926
+      },
+      "cc_label": 26,
+      "edge_distance": 3,
+      "fill": 0.7041591077067796,
+      "idx_angle_ccw": 14,
+      "idx_ccw": 13,
+      "idx_perimeter_ccw": 13,
+      "nearest_edge": "left",
+      "suggested_nodes": [
+        {
+          "metal_area": 10480,
+          "metal_bbox": {
+            "x0": 3,
+            "x1": 124,
+            "y0": 1803,
+            "y1": 1926
+          },
+          "node": 672,
+          "node_uid": "c58b1760606ff2691f53b97095ac359dbbff4f21",
+          "rect_distance": 0.0,
+          "score": 0.7149319661349497
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 126.30132310606635
+        }
+      ]
+    },
+    {
+      "angle": 3.1297638854993375,
+      "bbox": {
+        "area": 13818,
+        "h": 141,
+        "w": 98,
+        "x0": 43,
+        "x1": 141,
+        "y0": 1308,
+        "y1": 1449
+      },
+      "cc_label": 20,
+      "edge_distance": 43,
+      "fill": 0.7729049066435084,
+      "idx_angle_ccw": 15,
+      "idx_ccw": 14,
+      "idx_perimeter_ccw": 14,
+      "nearest_edge": "left",
+      "suggested_nodes": [
+        {
+          "metal_area": 17768,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 141,
+            "y0": 931,
+            "y1": 1564
+          },
+          "node": 320,
+          "node_uid": "c028c5e04a32b3a3b4aef859ca49d9e8bd17b757",
+          "rect_distance": 0.0,
+          "score": 4.339943678656392
+        },
+        {
+          "metal_area": 26666,
+          "metal_bbox": {
+            "x0": 68,
+            "x1": 1196,
+            "y0": 153,
+            "y1": 1603
+          },
+          "node": 18,
+          "node_uid": "399a8d7ef27cb5743f23f64009aa1c8d26f7e1da",
+          "rect_distance": 0.0,
+          "score": 48.0588592395736
+        },
+        {
+          "metal_area": 206625,
+          "metal_bbox": {
+            "x0": 84,
+            "x1": 2135,
+            "y0": 204,
+            "y1": 2251
+          },
+          "node": 31,
+          "node_uid": "76c9185d968a6e9ea94737f7ad447774b1b7db8a",
+          "rect_distance": 0.0,
+          "score": 105.20311641544228
+        },
+        {
+          "metal_area": 439869,
+          "metal_bbox": {
+            "x0": 43,
+            "x1": 2123,
+            "y0": 60,
+            "y1": 2517
+          },
+          "node": 4,
+          "node_uid": "d9e47da6f6ace53f60148853fc236caf6aa38907",
+          "rect_distance": 0.0,
+          "score": 122.7836146350813
+        }
+      ]
+    }
+  ],
+  "params": {
+    "edge_max": 160,
+    "max_bbox_area": 120000,
+    "min_bbox_area": 9000,
+    "min_dim": 18,
+    "min_fill": 0.6
+  },
+  "schema": {
+    "description": "Periphery pad-like component detections with node suggestions (metal mask).",
+    "version": 0
+  }
+}

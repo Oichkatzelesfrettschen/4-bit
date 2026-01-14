@@ -1,0 +1,696 @@
+{
+  "candidates": [
+    {
+      "bbox": {
+        "x0": 2185,
+        "x1": 2419,
+        "y0": 1664,
+        "y1": 1768
+      },
+      "bbox_area": 24336,
+      "edge_distance": 0,
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "terminal_ratio": 1.0,
+        "total": 1
+      },
+      "node": 5743
+    },
+    {
+      "bbox": {
+        "x0": 2179,
+        "x1": 2425,
+        "y0": 1659,
+        "y1": 1768
+      },
+      "bbox_area": 26814,
+      "edge_distance": 0,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2540
+    },
+    {
+      "bbox": {
+        "x0": 105,
+        "x1": 2653,
+        "y0": 89,
+        "y1": 1528
+      },
+      "bbox_area": 3666572,
+      "edge_distance": 59,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2
+    },
+    {
+      "bbox": {
+        "x0": 659,
+        "x1": 2653,
+        "y0": 280,
+        "y1": 945
+      },
+      "bbox_area": 1326010,
+      "edge_distance": 59,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 14
+    },
+    {
+      "bbox": {
+        "x0": 407,
+        "x1": 582,
+        "y0": 1620,
+        "y1": 1709
+      },
+      "bbox_area": 15575,
+      "edge_distance": 59,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2538
+    },
+    {
+      "bbox": {
+        "x0": 201,
+        "x1": 2484,
+        "y0": 332,
+        "y1": 1708
+      },
+      "bbox_area": 3141408,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 35,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 35
+      },
+      "node": 20
+    },
+    {
+      "bbox": {
+        "x0": 530,
+        "x1": 2652,
+        "y0": 265,
+        "y1": 618
+      },
+      "bbox_area": 749066,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 13
+    },
+    {
+      "bbox": {
+        "x0": 1113,
+        "x1": 2097,
+        "y0": 1534,
+        "y1": 1708
+      },
+      "bbox_area": 171216,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2522
+    },
+    {
+      "bbox": {
+        "x0": 1113,
+        "x1": 1723,
+        "y0": 1547,
+        "y1": 1708
+      },
+      "bbox_area": 98210,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2523
+    },
+    {
+      "bbox": {
+        "x0": 636,
+        "x1": 833,
+        "y0": 60,
+        "y1": 163
+      },
+      "bbox_area": 20291,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 1
+    },
+    {
+      "bbox": {
+        "x0": 741,
+        "x1": 935,
+        "y0": 1620,
+        "y1": 1708
+      },
+      "bbox_area": 17072,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2539
+    },
+    {
+      "bbox": {
+        "x0": 194,
+        "x1": 370,
+        "y0": 60,
+        "y1": 149
+      },
+      "bbox_area": 15664,
+      "edge_distance": 60,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 0
+    },
+    {
+      "bbox": {
+        "x0": 1112,
+        "x1": 2651,
+        "y0": 1135,
+        "y1": 1567
+      },
+      "bbox_area": 664848,
+      "edge_distance": 61,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 1536
+    },
+    {
+      "bbox": {
+        "x0": 62,
+        "x1": 159,
+        "y0": 1467,
+        "y1": 1603
+      },
+      "bbox_area": 13192,
+      "edge_distance": 62,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2519
+    },
+    {
+      "bbox": {
+        "x0": 1113,
+        "x1": 2640,
+        "y0": 1436,
+        "y1": 1606
+      },
+      "bbox_area": 259590,
+      "edge_distance": 72,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2514
+    },
+    {
+      "bbox": {
+        "x0": 271,
+        "x1": 1812,
+        "y0": 89,
+        "y1": 325
+      },
+      "bbox_area": 363676,
+      "edge_distance": 89,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 3
+    },
+    {
+      "bbox": {
+        "x0": 400,
+        "x1": 2541,
+        "y0": 90,
+        "y1": 325
+      },
+      "bbox_area": 503135,
+      "edge_distance": 90,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 4
+    },
+    {
+      "bbox": {
+        "x0": 738,
+        "x1": 851,
+        "y0": 1507,
+        "y1": 1667
+      },
+      "bbox_area": 18080,
+      "edge_distance": 101,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 5738
+    },
+    {
+      "bbox": {
+        "x0": 104,
+        "x1": 168,
+        "y0": 327,
+        "y1": 362
+      },
+      "bbox_area": 2240,
+      "edge_distance": 104,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2576
+    },
+    {
+      "bbox": {
+        "x0": 105,
+        "x1": 191,
+        "y0": 386,
+        "y1": 595
+      },
+      "bbox_area": 17974,
+      "edge_distance": 105,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 111
+    },
+    {
+      "bbox": {
+        "x0": 111,
+        "x1": 209,
+        "y0": 583,
+        "y1": 748
+      },
+      "bbox_area": 16170,
+      "edge_distance": 111,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 3462
+    },
+    {
+      "bbox": {
+        "x0": 113,
+        "x1": 180,
+        "y0": 1331,
+        "y1": 1479
+      },
+      "bbox_area": 9916,
+      "edge_distance": 113,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 5377
+    },
+    {
+      "bbox": {
+        "x0": 116,
+        "x1": 125,
+        "y0": 1308,
+        "y1": 1353
+      },
+      "bbox_area": 405,
+      "edge_distance": 116,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2158
+    },
+    {
+      "bbox": {
+        "x0": 406,
+        "x1": 562,
+        "y0": 1507,
+        "y1": 1650
+      },
+      "bbox_area": 22308,
+      "edge_distance": 118,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 5737
+    },
+    {
+      "bbox": {
+        "x0": 146,
+        "x1": 1077,
+        "y0": 1137,
+        "y1": 1649
+      },
+      "bbox_area": 476672,
+      "edge_distance": 119,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 1537
+    },
+    {
+      "bbox": {
+        "x0": 1067,
+        "x1": 1123,
+        "y0": 1628,
+        "y1": 1648
+      },
+      "bbox_area": 1120,
+      "edge_distance": 120,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 5742
+    },
+    {
+      "bbox": {
+        "x0": 122,
+        "x1": 254,
+        "y0": 345,
+        "y1": 400
+      },
+      "bbox_area": 7260,
+      "edge_distance": 122,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2583
+    },
+    {
+      "bbox": {
+        "x0": 1441,
+        "x1": 1481,
+        "y0": 1608,
+        "y1": 1646
+      },
+      "bbox_area": 1520,
+      "edge_distance": 122,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2534
+    },
+    {
+      "bbox": {
+        "x0": 1374,
+        "x1": 1410,
+        "y0": 1607,
+        "y1": 1642
+      },
+      "bbox_area": 1260,
+      "edge_distance": 126,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2528
+    },
+    {
+      "bbox": {
+        "x0": 129,
+        "x1": 364,
+        "y0": 1072,
+        "y1": 1084
+      },
+      "bbox_area": 2820,
+      "edge_distance": 129,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 4441
+    },
+    {
+      "bbox": {
+        "x0": 1509,
+        "x1": 1521,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "bbox_area": 384,
+      "edge_distance": 129,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2531
+    },
+    {
+      "bbox": {
+        "x0": 1495,
+        "x1": 1506,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "bbox_area": 352,
+      "edge_distance": 129,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2530
+    },
+    {
+      "bbox": {
+        "x0": 1486,
+        "x1": 1492,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "bbox_area": 192,
+      "edge_distance": 129,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2529
+    },
+    {
+      "bbox": {
+        "x0": 1524,
+        "x1": 1530,
+        "y0": 1607,
+        "y1": 1639
+      },
+      "bbox_area": 192,
+      "edge_distance": 129,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2532
+    },
+    {
+      "bbox": {
+        "x0": 130,
+        "x1": 140,
+        "y0": 642,
+        "y1": 1085
+      },
+      "bbox_area": 4430,
+      "edge_distance": 130,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 1072
+    },
+    {
+      "bbox": {
+        "x0": 1424,
+        "x1": 1439,
+        "y0": 1615,
+        "y1": 1638
+      },
+      "bbox_area": 345,
+      "edge_distance": 130,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2537
+    },
+    {
+      "bbox": {
+        "x0": 1419,
+        "x1": 1422,
+        "y0": 1615,
+        "y1": 1638
+      },
+      "bbox_area": 69,
+      "edge_distance": 130,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2536
+    },
+    {
+      "bbox": {
+        "x0": 132,
+        "x1": 205,
+        "y0": 349,
+        "y1": 380
+      },
+      "bbox_area": 2263,
+      "edge_distance": 132,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 27
+    },
+    {
+      "bbox": {
+        "x0": 133,
+        "x1": 550,
+        "y0": 1107,
+        "y1": 1572
+      },
+      "bbox_area": 193905,
+      "edge_distance": 133,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 1461
+    },
+    {
+      "bbox": {
+        "x0": 1381,
+        "x1": 1401,
+        "y0": 1614,
+        "y1": 1635
+      },
+      "bbox_area": 420,
+      "edge_distance": 133,
+      "incidence": {
+        "gate": 0,
+        "terminal": 0,
+        "terminal_ratio": 0.0,
+        "total": 0
+      },
+      "node": 2535
+    }
+  ],
+  "chip": "4001",
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4001_netlist_v0.json"
+  },
+  "params": {
+    "top": 40
+  },
+  "schema": {
+    "description": "Heuristic-ranked candidate layout nodes for power rails (VSS/VDD/VCC).",
+    "version": 0
+  },
+  "tool": "scripts/suggest_power_rail_nodes_v0.py"
+}

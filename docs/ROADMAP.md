@@ -22,7 +22,7 @@ Guiding rules:
 ### Not implemented yet (key blockers)
 - No full analyzer-grade netlist extraction + reconciliation:
   - `netlist_v0` layout stitching exists (`docs/evidence/netlists_v0/`), but it does not yet extract a schematic netlist nor match schematic↔layout nets.
-- Schematic connectivity extraction is still missing (component recognition on `i400x-schematic.bmp`), but we now have:
+- Schematic connectivity extraction is still missing (component recognition on `i400x-schematic.bmp`; `i400x-schematic.png` is the preview copy), but we now have:
   - Schematic net-name artifacts (`docs/evidence/schematic_net_names_v0/`) joined with OCR evidence.
   - A schematic↔layout matching scaffold (`docs/evidence/schematic_layout_match_v0/`) driven by manual anchors + layout node stats.
 - Pad anchoring is now partially tractable:
@@ -82,7 +82,7 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Anchor-node reality check (resolved for 4004 anchors that have layout nodes):
   - Historical baseline: `docs/evidence/anchor_incidence_v0_strict/4004/` showed **10/11** 4004 anchors had **0 incident transistors**.
   - Remapped anchors: `docs/evidence/schematic_layout_anchors_v1.json` + `docs/evidence/anchor_incidence_v1_canonical/4004/` now show **0/11** anchors with zero incident transistors.
-  - Remaining lacunae: `SYNC`, `POC_PAD`, `TEST_PAD` still need layout-node anchors; and some remapped anchors land on terminal-only incidence (validate vs schematic semantics).
+  - Remaining lacunae: validate pad↔pin naming around external reset (`POC_PAD` vs primary-source `RESET`) and audit any anchors that land on terminal-only incidence for control lines.
 - Prioritize a small set of “anchor” subcircuits to validate end-to-end across evidence → netlist → simulation:
   - Clock + SYNC generation (`CLK1`, `CLK2`, `SYNC`) and their pad drivers.
   - Program/data bus pads (`D0..D3`) including input protectors and bus buffers.
@@ -120,7 +120,7 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Populate inverter/NAND transistor models and simulation parameters.
 - Resolve `transistor.rs` TODOs in `mcs4-core` and ARCHITECTURE stubs.
 - Replace placeholder netlist output in `mcs4-fpga/src/verilog.rs` with gate-level export.
-- Prerequisite: build a deterministic multi-layer connectivity graph from `docs/emulators/i400x-*.bmp` (metal/poly/diffusion + vias/contacts),
+- Prerequisite: build a deterministic multi-layer connectivity graph from `docs/emulators/i400x-*.bmp` (source; `*.png` previews exist) (metal/poly/diffusion + vias/contacts),
   then emit a machine-readable netlist and use it to validate control-line timing and selected subcircuits against emulator traces.
   - `netlist_v0` now emits `node_uid` (content-derived) to support stable remapping across parameter sweeps; anchors also include `layout_node_uid` for the current canonical netlist.
 

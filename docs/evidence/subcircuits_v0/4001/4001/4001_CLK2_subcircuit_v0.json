@@ -1,0 +1,139 @@
+{
+  "chip": "4001",
+  "counts": {
+    "nodes": 9,
+    "transistors": 6
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 2593,
+        "b_node": 2883,
+        "bbox": {
+          "h": 14,
+          "w": 19,
+          "x": 2036,
+          "y": 425
+        },
+        "gate_node": 1236,
+        "id": 257,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2883,
+        "b_node": 3178,
+        "bbox": {
+          "h": 13,
+          "w": 18,
+          "x": 2037,
+          "y": 499
+        },
+        "gate_node": 1236,
+        "id": 525,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3178,
+        "b_node": 3467,
+        "bbox": {
+          "h": 14,
+          "w": 19,
+          "x": 2036,
+          "y": 572
+        },
+        "gate_node": 1236,
+        "id": 781,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 4571,
+        "b_node": 4866,
+        "bbox": {
+          "h": 14,
+          "w": 19,
+          "x": 2036,
+          "y": 1185
+        },
+        "gate_node": 1236,
+        "id": 1282,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 4866,
+        "b_node": 5162,
+        "bbox": {
+          "h": 13,
+          "w": 18,
+          "x": 2037,
+          "y": 1259
+        },
+        "gate_node": 1236,
+        "id": 1537,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 5162,
+        "b_node": 5457,
+        "bbox": {
+          "h": 14,
+          "w": 19,
+          "x": 2036,
+          "y": 1332
+        },
+        "gate_node": 1236,
+        "id": 1793,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4001_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "34d2bf0e4e9ec2e8a3bb5527481eb3e4a5ad0651126ecef0c0eaaf0b4c8eb934"
+    }
+  },
+  "nodes": [
+    {
+      "node": 1236
+    },
+    {
+      "node": 2593
+    },
+    {
+      "node": 2883
+    },
+    {
+      "node": 3178
+    },
+    {
+      "node": 3467
+    },
+    {
+      "node": 4571
+    },
+    {
+      "node": 4866
+    },
+    {
+      "node": 5162
+    },
+    {
+      "node": 5457
+    }
+  ],
+  "params": {
+    "max_nodes": 200000,
+    "max_transistors": 50000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "CLK2",
+    "nodes": [
+      5457
+    ]
+  }
+}

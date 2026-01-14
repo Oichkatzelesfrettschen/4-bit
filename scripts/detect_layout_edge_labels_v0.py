@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -72,7 +73,7 @@ def dist_point_to_bbox(px: float, py: float, bb: dict[str, int]) -> float:
     return math.hypot(dx, dy)
 
 
-def ocr_token(img: np.ndarray, *, psm: int) -> tuple[str, float]:
+def ocr_token(img: np.ndarray, *, psm: int, timeout_s: float) -> tuple[str, float]:
     """
     Return (best_token, best_conf). Token may be empty.
     We use a strict whitelist since labels are short and OCR is fragile.
@@ -82,7 +83,12 @@ def ocr_token(img: np.ndarray, *, psm: int) -> tuple[str, float]:
     key = _ocr_cache_key(img, cfg, kind="data")
     data = _OCR_DATA_CACHE.get(key)
     if data is None:
-        data = pytesseract.image_to_data(img, config=cfg, output_type=pytesseract.Output.DICT)
+        data = pytesseract.image_to_data(
+            img,
+            config=cfg,
+            output_type=pytesseract.Output.DICT,
+            timeout=float(timeout_s),
+        )
         _OCR_DATA_CACHE[key] = data
     best = ("", -1.0)
     for txt, conf in zip(data.get("text", []), data.get("conf", [])):
@@ -139,7 +145,7 @@ def token_candidates(raw: str) -> list[str]:
     return uniq
 
 
-def ocr_token_sweep(img: np.ndarray, *, psms: tuple[int, ...]) -> list[dict]:
+def ocr_token_sweep(img: np.ndarray, *, psms: tuple[int, ...], timeout_s: float) -> list[dict]:
     whitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     tries: list[dict] = []
     votes: dict[str, int] = {}
@@ -149,7 +155,7 @@ def ocr_token_sweep(img: np.ndarray, *, psms: tuple[int, ...]) -> list[dict]:
         key = _ocr_cache_key(img, cfg, kind="string")
         raw = _OCR_STRING_CACHE.get(key)
         if raw is None:
-            raw = pytesseract.image_to_string(img, config=cfg)
+            raw = pytesseract.image_to_string(img, config=cfg, timeout=float(timeout_s))
             _OCR_STRING_CACHE[key] = raw
         for t in token_candidates(raw):
             votes[t] = votes.get(t, 0) + 1
@@ -216,13 +222,18 @@ def extract_label_roi(gray: np.ndarray) -> np.ndarray:
     k = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
     opened = cv2.morphologyEx(inv, cv2.MORPH_OPEN, k, iterations=1)
 
-    contours, _ = cv2.findContours(opened, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # Using connected components here is substantially faster and more deterministic than
+    # findContours on dense edge masks.
+    num, _, stats, _ = cv2.connectedComponentsWithStats(opened, connectivity=8)
     best = None
-    for cnt in contours:
-        x, y, w, h = cv2.boundingRect(cnt)
+    for i in range(1, int(num)):
+        x = int(stats[i, cv2.CC_STAT_LEFT])
+        y = int(stats[i, cv2.CC_STAT_TOP])
+        w = int(stats[i, cv2.CC_STAT_WIDTH])
+        h = int(stats[i, cv2.CC_STAT_HEIGHT])
+        area = float(stats[i, cv2.CC_STAT_AREA])
         if w < 18 or h < 18:
             continue
-        area = float(cv2.contourArea(cnt))
         fill = area / float(max(1, w * h))
         if fill < 0.18:
             continue
@@ -256,15 +267,21 @@ def extract_label_roi_for_ocr(gray: np.ndarray) -> np.ndarray:
 @dataclass(frozen=True)
 class ChipSpec:
     chip: str
-    metal_bmp: Path
+    metal_image: Path
     netlist_v0: Path
 
 
 def specs() -> dict[str, ChipSpec]:
     emu = ROOT / "docs" / "emulators"
     ev = ROOT / "docs" / "evidence" / "netlists_v0"
+    def prefer_png(path: Path) -> Path:
+        png = path.with_suffix(".png")
+        return png if png.exists() else path
     return {
-        "4004": ChipSpec("4004", emu / "i4004-metal.bmp", ev / "4004_netlist_v0.json"),
+        "4001": ChipSpec("4001", prefer_png(emu / "i4001-metal.bmp"), ev / "4001_netlist_v0.json"),
+        "4002": ChipSpec("4002", prefer_png(emu / "i4002-metal.bmp"), ev / "4002_netlist_v0.json"),
+        "4003": ChipSpec("4003", prefer_png(emu / "i4003-metal.bmp"), ev / "4003_netlist_v0.json"),
+        "4004": ChipSpec("4004", prefer_png(emu / "i4004-metal.bmp"), ev / "4004_netlist_v0.json"),
     }
 
 
@@ -294,6 +311,12 @@ def main() -> int:
         help="Comma-separated edges to search: top,bottom,left,right",
     )
     p.add_argument("--pad", type=int, default=24, help="Padding around each detected component bbox for OCR.")
+    p.add_argument(
+        "--tesseract-timeout",
+        type=float,
+        default=2.0,
+        help="Seconds per tesseract call (prevents hangs on difficult crops).",
+    )
     p.add_argument("--area-penalty", type=float, default=0.003, help="Penalty for large net metal area in node suggestion.")
     p.add_argument(
         "--write-crops",
@@ -331,17 +354,28 @@ def main() -> int:
     args = p.parse_args()
 
     spec = specs()[args.chip]
+    # Default to repo-provided templates for the PMOS-era glyph style when available.
+    # This improves accuracy on short periphery tokens (e.g. R0/R1/RM/D0/01) and is
+    # cheap compared to full tesseract sweeps. Override by setting OCR_TEMPLATE_DIR.
+    if not os.environ.get("OCR_TEMPLATE_DIR", "").strip():
+        default_tdir = (Path(__file__).resolve().parents[1] / "docs/evidence/ocr_models/templates_v0").resolve()
+        if default_tdir.exists():
+            os.environ["OCR_TEMPLATE_DIR"] = str(default_tdir)
     backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
-    use_tesseract_path = str(getattr(backend, "name", "tesseract")) == "tesseract"
+    # The fast-path OCR loop in this script is tuned for these tiny, high-contrast labels.
+    # Use it for any tesseract-based backend (CLI or pytesseract) to avoid the expensive
+    # multi-parameter sweeps in ocr_backend_v0.
+    use_tesseract_path = str(getattr(backend, "name", "tesseract")).startswith("tesseract")
+    tesseract_timeout_s = float(getattr(args, "tesseract_timeout", 2.0))
 
     net = json.loads(spec.netlist_v0.read_text(encoding="utf-8"))
     nodes = [n for n in net.get("node_stats", []) if isinstance(n, dict) and isinstance(n.get("metal_bbox"), dict)]
     if not nodes:
         raise SystemExit("netlist_v0 missing node_stats metal_bbox; re-run extract_netlist_v0.py")
 
-    img = cv2.imread(str(spec.metal_bmp), cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread(str(spec.metal_image), cv2.IMREAD_GRAYSCALE)
     if img is None:
-        raise SystemExit(f"failed to read {spec.metal_bmp}")
+        raise SystemExit(f"failed to read {spec.metal_image}")
     h, w = img.shape
     band = int(args.band)
     edges = {e.strip().lower() for e in str(args.edges).split(",") if e.strip()}
@@ -370,10 +404,8 @@ def main() -> int:
     blocks = cv2.morphologyEx(blocks, cv2.MORPH_CLOSE, k_small, iterations=3)
 
     # External contours:
-    # - strict contours: used to infer “label bboxes” cleanly (high fill)
-    # - ocr contours: include sparse/long-arrow candidates (RM) so OCR can decide
-    contours_strict, _ = cv2.findContours(blocks, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    contours_ocr, _ = cv2.findContours(edge, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # - strict components: used to infer “label bboxes” cleanly (high fill)
+    # - ocr components: include sparse/long-arrow candidates (RM) so OCR can decide
 
     allowed = {
         # canonical external labels we expect to see
@@ -406,11 +438,15 @@ def main() -> int:
     # Raw edge-band contours include lots of wiring fragments that OCR can hallucinate as 'T'.
     strict_only_tokens = {"T", "C", "S", "G", "V", "L", "01", "02", "4004"}
 
-    def candidate_bboxes_from_contours(contours, *, min_area: int, max_area: int, min_fill: float) -> list[dict]:
+    def candidate_bboxes_from_cc(mask: np.ndarray, *, min_area: int, max_area: int, min_fill: float) -> list[dict]:
         out: list[dict] = []
-        for cnt in contours:
-            x, y, ww, hh = cv2.boundingRect(cnt)
-            area = int(cv2.contourArea(cnt))
+        num, _, stats, _ = cv2.connectedComponentsWithStats(mask, connectivity=8)
+        for i in range(1, int(num)):
+            x = int(stats[i, cv2.CC_STAT_LEFT])
+            y = int(stats[i, cv2.CC_STAT_TOP])
+            ww = int(stats[i, cv2.CC_STAT_WIDTH])
+            hh = int(stats[i, cv2.CC_STAT_HEIGHT])
+            area = int(stats[i, cv2.CC_STAT_AREA])
             if area < int(min_area) or area > int(max_area):
                 continue
             if ww < 16 or hh < 16:
@@ -418,17 +454,17 @@ def main() -> int:
             fill = float(area) / float(max(1, ww * hh))
             if fill < float(min_fill):
                 continue
-            out.append({"x": int(x), "y": int(y), "w": int(ww), "h": int(hh), "area": int(area), "fill": float(fill)})
+            out.append({"x": x, "y": y, "w": ww, "h": hh, "area": area, "fill": float(fill)})
         return out
 
-    strict_bbs = candidate_bboxes_from_contours(
-        contours_strict,
+    strict_bbs = candidate_bboxes_from_cc(
+        blocks,
         min_area=int(args.min_area),
         max_area=int(args.max_area),
         min_fill=float(args.min_fill),
     )
-    ocr_bbs = candidate_bboxes_from_contours(
-        contours_ocr,
+    ocr_bbs = candidate_bboxes_from_cc(
+        edge,
         min_area=int(args.min_area_ocr),
         max_area=int(args.max_area),
         min_fill=float(args.min_fill_ocr),
@@ -559,7 +595,7 @@ def main() -> int:
                     # First: TSV-based single-token best guess.
                     local_best = {"token": "", "conf": -1.0, "psm": 0}
                     for psm in psms_data:
-                        tok, conf = ocr_token(t, psm=psm)
+                        tok, conf = ocr_token(t, psm=psm, timeout_s=tesseract_timeout_s)
                         tok = normalize_token(tok)
                         c = float(conf)
                         tries.append(
@@ -582,7 +618,7 @@ def main() -> int:
                         len(str(local_best.get("token", ""))) < 2 and float(local_best.get("conf", -1.0)) < 80.0
                     )
                     if needs_sweep:
-                        for r in ocr_token_sweep(t, psms=psms_sweep):
+                        for r in ocr_token_sweep(t, psms=psms_sweep, timeout_s=tesseract_timeout_s):
                             tries.append(
                                 {
                                     "token": r["token"],
@@ -600,7 +636,7 @@ def main() -> int:
                     # Third (deep only): try an additional head-crop string sweep.
                     if deep:
                         head = head_crop(t, frac=0.42)
-                        for r in ocr_token_sweep(head, psms=(7, 8, 10, 11, 13)):
+                        for r in ocr_token_sweep(head, psms=(7, 8, 10, 11, 13), timeout_s=tesseract_timeout_s):
                             tries.append(
                                 {
                                     "token": r["token"],
@@ -713,8 +749,8 @@ def main() -> int:
         "chip": spec.chip,
         "schema": {"version": 0, "description": "Detected periphery label blocks on metal mask with OCR + node suggestion."},
         "inputs": {
-            "metal_bmp": rel_or_abs(spec.metal_bmp),
-            "sha256": {"metal_bmp": sha256(spec.metal_bmp)},
+            "metal_image": rel_or_abs(spec.metal_image),
+            "sha256": {"metal_image": sha256(spec.metal_image)},
             "netlist_v0": rel_or_abs(spec.netlist_v0),
         },
         "params": {
@@ -754,7 +790,7 @@ def main() -> int:
             Image.fromarray(roi).save(out, format="PNG", optimize=False, compress_level=9)
 
     # Render overlay
-    pil = Image.open(spec.metal_bmp).convert("RGB")
+    pil = Image.open(spec.metal_image).convert("RGB")
     d = ImageDraw.Draw(pil)
     font = try_font(16)
     for r in payload["detections"]:

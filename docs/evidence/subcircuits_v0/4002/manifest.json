@@ -1,0 +1,64 @@
+{
+  "inputs": {
+    "netlist": "docs/evidence/netlists_v1/4002_netlist_v1.json",
+    "sha256": {
+      "netlist": "47669d7fbfe641c814196a7efe59f0f36f57fd41611da61d42fffd9921076930"
+    }
+  },
+  "outputs": [
+    {
+      "counts": {
+        "nodes": 6,
+        "transistors": 3
+      },
+      "name": "D0_PAD",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_D0_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "OUT0",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT0_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 64,
+        "transistors": 32
+      },
+      "name": "OUT1",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT1_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 6,
+        "transistors": 3
+      },
+      "name": "OUT2",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT2_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 6,
+        "transistors": 3
+      },
+      "name": "OUT3",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT3_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 85,
+        "transistors": 42
+      },
+      "name": "custom",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_custom_subcircuit_v0.json"
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "tool": "scripts/extract_subcircuit_v0.py"
+}

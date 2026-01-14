@@ -154,16 +154,21 @@ def main() -> int:
         for name, node in sorted(sig_map.items(), key=lambda kv: kv[0]):
             selected.append((name, [int(node)]))
     else:
-        seed_nodes: list[int] = []
+        combined: list[int] = []
         for s in args.signal:
             if s not in sig_map:
                 raise SystemExit(f"unknown signal (no layout_node): {s}")
-            seed_nodes.append(int(sig_map[s]))
+            node = int(sig_map[s])
+            selected.append((str(s), [node]))
+            combined.append(node)
         for n in args.node:
-            seed_nodes.append(int(n))
-        if not seed_nodes:
+            node = int(n)
+            selected.append((f"node_{node}", [node]))
+            combined.append(node)
+        if not combined:
             raise SystemExit("select --all-signals or provide --signal/--node seeds")
-        selected.append(("custom", seed_nodes))
+        if len(combined) > 1:
+            selected.append(("custom", combined))
 
     out_dir = Path(args.out_dir) / chip
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -207,4 +212,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

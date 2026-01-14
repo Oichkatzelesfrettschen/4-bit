@@ -1,0 +1,75 @@
+{
+  "chip": "4002",
+  "counts": {
+    "nodes": 5,
+    "transistors": 2
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 2273,
+        "b_node": 2295,
+        "bbox": {
+          "h": 14,
+          "w": 38,
+          "x": 1881,
+          "y": 1211
+        },
+        "gate_node": 453,
+        "id": 452,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2259,
+        "b_node": 2295,
+        "bbox": {
+          "h": 27,
+          "w": 101,
+          "x": 1861,
+          "y": 1216
+        },
+        "gate_node": 73,
+        "id": 453,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4002_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "4514739b245184cee9561ded34c95ac44483d595d977e30a9729903b3d836898"
+    }
+  },
+  "nodes": [
+    {
+      "node": 73
+    },
+    {
+      "node": 453
+    },
+    {
+      "node": 2259
+    },
+    {
+      "node": 2273
+    },
+    {
+      "node": 2295
+    }
+  ],
+  "params": {
+    "max_nodes": 200000,
+    "max_transistors": 50000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "D2_PAD",
+    "nodes": [
+      73
+    ]
+  }
+}

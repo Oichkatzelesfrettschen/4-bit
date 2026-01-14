@@ -1,0 +1,29 @@
+{
+  "outputs": [
+    {
+      "chip": "4003",
+      "counts": {
+        "candidates_rendered": 60,
+        "candidates_total": 60
+      },
+      "inputs": {
+        "candidates_json": "docs/evidence/power_rail_candidates_v0/4003/4003_power_rail_candidates_v0.json",
+        "metal_bmp": "docs/emulators/i4003-metal.bmp"
+      },
+      "outputs": {
+        "crops_dir": "docs/evidence/power_rail_candidates_v0/4003/crops",
+        "overlay_png": "docs/evidence/power_rail_candidates_v0/4003/4003_power_rail_candidates_v0_overlay.png"
+      }
+    }
+  ],
+  "params": {
+    "crop_pad": 12,
+    "downscale": 2,
+    "top": 60
+  },
+  "schema": {
+    "description": "Rendered overlays/crops for power-rail candidate nodes.",
+    "version": 0
+  },
+  "tool": "scripts/render_power_rail_candidates_v0.py"
+}

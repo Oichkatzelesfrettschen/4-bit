@@ -1,0 +1,55 @@
+{
+  "anchors": [
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 1955,
+      "name": "CM",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 26,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 2
+      }
+    },
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 1607,
+      "name": "SYNC",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 174,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    }
+  ],
+  "chip": "4001",
+  "counts": {
+    "anchors": 2,
+    "anchors_with_zero_transistors": 0
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+    "netlist_v1": "docs/evidence/netlists_v1/4001_netlist_v1.json"
+  },
+  "schema": {
+    "description": "Anchor incidence audit vs netlist_v1 transistor devices.",
+    "version": 0
+  }
+}

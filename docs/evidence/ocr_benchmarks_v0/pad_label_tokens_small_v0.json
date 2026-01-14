@@ -1,0 +1,137 @@
+{
+  "items": [
+    {
+      "expected": "02",
+      "id": "4004/02/000_02_node4_conf87.7.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf87.7.png"
+    },
+    {
+      "expected": "02",
+      "id": "4004/02/000_02_node4_conf87.7.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf87.7.png"
+    },
+    {
+      "expected": "C",
+      "id": "4004/C/001_C_node1_conf89.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_C_node1_conf89.0.png"
+    },
+    {
+      "expected": "C",
+      "id": "4004/C/001_C_node1_conf89.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_C_node1_conf89.0.png"
+    },
+    {
+      "expected": "D2",
+      "id": "4004/D2/000_D2_node514_conf72.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png"
+    },
+    {
+      "expected": "D2",
+      "id": "4004/D2/000_D2_node514_conf72.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png"
+    },
+    {
+      "expected": "G",
+      "id": "4004/G/000_G_node3_conf89.7.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_G_node3_conf89.7.png"
+    },
+    {
+      "expected": "G",
+      "id": "4004/G/001_G_node3_conf89.7.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_G_node3_conf89.7.png"
+    },
+    {
+      "expected": "L",
+      "id": "4004/L/000_L_node0_conf68.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png"
+    },
+    {
+      "expected": "L",
+      "id": "4004/L/000_L_node0_conf68.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png"
+    },
+    {
+      "expected": "R1",
+      "id": "4004/R1/000_R1_node595_conf89.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png"
+    },
+    {
+      "expected": "R1",
+      "id": "4004/R1/001_R1_node595_conf89.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R1_node595_conf89.0.png"
+    },
+    {
+      "expected": "R2",
+      "id": "4004/R2/000_R2_node518_conf95.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png"
+    },
+    {
+      "expected": "R2",
+      "id": "4004/R2/000_R2_node518_conf95.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png"
+    },
+    {
+      "expected": "R3",
+      "id": "4004/R3/001_R3_node441_conf95.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png"
+    },
+    {
+      "expected": "R3",
+      "id": "4004/R3/001_R3_node441_conf95.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png"
+    },
+    {
+      "expected": "RM",
+      "id": "4004/RM/005_RM_node71_conf96.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/005_RM_node71_conf96.0.png"
+    },
+    {
+      "expected": "RM",
+      "id": "4004/RM/005_RM_node71_conf96.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/005_RM_node71_conf96.0.png"
+    },
+    {
+      "expected": "S",
+      "id": "4004/S/003_S_node2_conf91.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/003_S_node2_conf91.0.png"
+    },
+    {
+      "expected": "S",
+      "id": "4004/S/006_S_node2_conf91.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/006_S_node2_conf91.0.png"
+    },
+    {
+      "expected": "T",
+      "id": "4004/T/001_T_node415_conf95.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_T_node415_conf95.0.png"
+    },
+    {
+      "expected": "T",
+      "id": "4004/T/001_T_node415_conf95.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/001_T_node415_conf95.0.png"
+    },
+    {
+      "expected": "V",
+      "id": "4004/V/002_V_node415_conf80.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/002_V_node415_conf80.0.png"
+    },
+    {
+      "expected": "V",
+      "id": "4004/V/002_V_node415_conf80.0.png",
+      "image": "docs/evidence/layout_edge_labels_v0/4004/crops/002_V_node415_conf80.0.png"
+    }
+  ],
+  "params": {
+    "glob": [
+      "docs/evidence/layout_edge_labels_v0/*/crops/*.png",
+      "docs/evidence/layout_edge_labels_v0/*/crops/*.png"
+    ],
+    "limit": 80,
+    "per_token": 2
+  },
+  "schema": {
+    "description": "Pad/edge label OCR micro-benchmark built from pre-labeled crop filenames.",
+    "version": 0
+  },
+  "tool": "scripts/build_ocr_pad_label_bench_v0.py"
+}

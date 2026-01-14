@@ -1,0 +1,100 @@
+{
+  "rows": [
+    {
+      "accuracy": 0.8333333333333334,
+      "backend": "auto",
+      "correct": 10,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_auto_templates_limit12_v0.json",
+      "total": 12
+    },
+    {
+      "accuracy": 0.0,
+      "backend": "template",
+      "correct": 0,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_template_dir_v0.json",
+      "total": 34
+    },
+    {
+      "accuracy": 0.058823529411764705,
+      "backend": "template",
+      "correct": 2,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_template_dir_v1.json",
+      "total": 34
+    },
+    {
+      "accuracy": 0.058823529411764705,
+      "backend": "template",
+      "correct": 2,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_template_dir_v2.json",
+      "total": 34
+    },
+    {
+      "accuracy": 0.8333333333333334,
+      "backend": "tesseract_cli_fast",
+      "correct": 10,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_tesseract_cli_fast_limit12_v0.json",
+      "total": 12
+    },
+    {
+      "accuracy": 0.8529411764705882,
+      "backend": "tesseract_cli_fast",
+      "correct": 29,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_tesseract_cli_fast_v0.json",
+      "total": 34
+    },
+    {
+      "accuracy": 0.8529411764705882,
+      "backend": "tesseract_cli_fast",
+      "correct": 29,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_tesseract_cli_fast_v1.json",
+      "total": 34
+    },
+    {
+      "accuracy": 0.6590909090909091,
+      "backend": "tesseract_cli_fast",
+      "correct": 29,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_all_edge_tesseract_cli_fast_limit80_v1.json",
+      "total": 44
+    },
+    {
+      "accuracy": 0.0,
+      "backend": "scripts/summarize_ocr_backend_benchmarks_v0.py",
+      "correct": 0,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_summary_v0.json",
+      "total": 0
+    },
+    {
+      "accuracy": 0.0,
+      "backend": "template",
+      "correct": 0,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_template_dir_v0.json",
+      "total": 44
+    },
+    {
+      "accuracy": 0.6818181818181818,
+      "backend": "tesseract_cli_fast",
+      "correct": 30,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_tesseract_cli_fast_edge_label_v0.json",
+      "total": 44
+    },
+    {
+      "accuracy": 0.6136363636363636,
+      "backend": "tesseract_cli_fast",
+      "correct": 27,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_tesseract_cli_fast_outline_fill_v0.json",
+      "total": 44
+    },
+    {
+      "accuracy": 0.65,
+      "backend": "tesseract_cli_fast",
+      "correct": 26,
+      "path": "docs/evidence/ocr_benchmarks_v0/backend_bench_tesseract_cli_fast_v0.json",
+      "total": 40
+    }
+  ],
+  "schema": {
+    "description": "Summary of OCR backend benchmarks (v0).",
+    "version": 0
+  },
+  "tool": "scripts/summarize_ocr_backend_benchmarks_v0.py"
+}

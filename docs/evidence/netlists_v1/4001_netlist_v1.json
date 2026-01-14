@@ -2,7 +2,7 @@
   "chip": "4001",
   "counts": {
     "nodes_referenced": 2159,
-    "signals": 0,
+    "signals": 91,
     "transistors_filtered": 1,
     "transistors_kept": 1999,
     "transistors_total": 2000
@@ -24019,7 +24019,7 @@
     "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4001_schematic_net_names_v0.json",
     "schematic_wirenets_v0": null,
     "sha256": {
-      "anchors_v0": "b524acd80a5a559f16d2c125e48beb87ffdfb9b0643922aa8da09ef931cf46f8",
+      "anchors_v0": "43960b74bc4bc12d3a85999c1872cac51b647c8359f6806e2e0ad55950469ad8",
       "layout_netlist_v0": "4404ee88a3cf69e21648329e9a6ef85bdb1ac1d28e097ac8a18f714eab5fbc82",
       "schematic_connectivity_v0": null,
       "schematic_net_names_v0": "b10002a34e33e246f40295bf0a4f69508d8a5694df7cd8d2f646d70eb8b88568",
@@ -61079,5 +61079,1280 @@
     "description": "Netlist v1 (v0 build): anchors + schematic wiring + device candidates.",
     "version": 1
   },
-  "signals": []
+  "signals": [
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "(RESET)",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "A11/2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "A12",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "A12/2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "A22",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "A22/2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "A32",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CHIPNUM",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CHIPSEL",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 5457,
+      "layout_node_uid": "a4ef3488ccce1cc0a4d5009192a9005c06bc518f",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CL",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 242,
+      "layout_node_uid": "bf6ed288b366d4c8167acfb0d6239d87289eb817",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CLK1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 3183,
+      "layout_node_uid": "8258f0b2f35c1720508998cb4d8b71d2753c999a",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CLK2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Seeded from edge label token `C` detected on metal mask by `docs/evidence/layout_edge_labels_v0/4001/4001_layout_edge_labels_v0.json` (suggested_layout_node.node=2519). Provisional: validate against MCS-40 User's Manual 4001 pin configuration."
+      },
+      "layout_node": 5454,
+      "layout_node_uid": "6ced94e68c1bdd0fc2a5173edd35dad23e3851c8",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "CM",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Heuristic seed from 4001 bond-pad detection: bottom-edge pad cluster (see `docs/evidence/layout_pads_v0/4001/4001_layout_pads_v0.json`, pad_idx=13 left-to-right group). Treat as physical pad anchor; terminal/gate incidence may be 0."
+      },
+      "layout_node": 34,
+      "layout_node_uid": "d3de8fb3a5e56a65472b7163a92d8bef7c3b7f2e",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D0_PAD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1&D0&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1&D0&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1&~D0&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1&~D0&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Heuristic seed from 4001 bond-pad detection: bottom-edge pad cluster (see `docs/evidence/layout_pads_v0/4001/4001_layout_pads_v0.json`, pad_idx=12). Treat as physical pad anchor; terminal/gate incidence may be 0."
+      },
+      "layout_node": 2599,
+      "layout_node_uid": "ebe05f468a04157019932480a4b00badafa796a5",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D1_PAD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D2+~D1+D0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Heuristic seed from 4001 bond-pad detection: bottom-edge pad cluster (see `docs/evidence/layout_pads_v0/4001/4001_layout_pads_v0.json`, pad_idx=11). Treat as physical pad anchor; terminal/gate incidence may be 0."
+      },
+      "layout_node": 2618,
+      "layout_node_uid": "a95d96915846351508e55314ceae8d8703988a03",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D2_PAD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3&D2&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3&D2&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3&~D2&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3&~D2&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Heuristic seed from 4001 bond-pad detection: bottom-edge pad cluster (see `docs/evidence/layout_pads_v0/4001/4001_layout_pads_v0.json`, pad_idx=10). Treat as physical pad anchor; terminal/gate incidence may be 0."
+      },
+      "layout_node": 2647,
+      "layout_node_uid": "3345ad2f9d4601b6fc30007a59a8ee654f037f82",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "D3_PAD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "DO0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "DO1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "DO2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "DO3",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 2159,
+      "layout_node_uid": "32b329a3d21fea5a65f01bfb9aa760835f47a2e7",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "IO0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 1955,
+      "layout_node_uid": "7d483cd1575c5c47fb651c4e8803d2972d592d1c",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "IO1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 5604,
+      "layout_node_uid": "23f42c80fb9b3ec25deeddb763bc51b6f2c8b5c2",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "IO2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 3253,
+      "layout_node_uid": "d20e679622966e27d6f0bcdc49f5b49b72db6ca2",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "IO3",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "IOREAD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "IOWRITE",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "M11",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "M12",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "M21",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "M22",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "M22&SRCFF&CM&D3&~D2&D1&~D0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "M22&SRCFF&CM&~D3&~D2&D1&~D0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "MBUSREAD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "MEMD0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "MEMD1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "MEMD2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "MEMD3",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": 4563,
+      "layout_node_uid": "60f3396db2ec911e575653c00de143f062607361",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "RESET",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "SRCFF",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Seeded from edge label token `S` detected on metal mask by `docs/evidence/layout_edge_labels_v0/4001/4001_layout_edge_labels_v0.json` (suggested_layout_node.node=2540). Provisional: validate against MCS-40 User's Manual 4001 pin configuration."
+      },
+      "layout_node": 1607,
+      "layout_node_uid": "11961fa6bfcf941a2c53bd40090a2808f9054fef",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "SYNC",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "SYNC+A11S+A11/2+A21/2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4001-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1."
+      },
+      "layout_node": 5657,
+      "layout_node_uid": "a8bd64370086527a84b15e9ad9fa6b330666f616",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "VDD",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4001-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1."
+      },
+      "layout_node": 2570,
+      "layout_node_uid": "cf123e63c32a02504f0f9b2694c83125c3d918e6",
+      "match": {
+        "confidence": 1.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "VSS",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "X12",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "X22",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~(CM&X22&CLK2)",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~(M22&SRCFF&CM)",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~(SYNC+A11S)",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~(SYNC+A11S+A11/2+A21/2)",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~A11",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~A11/2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~A21",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~A21/2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~A31",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~CHIPNUM",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~CLK1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~CLK2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D0",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D1",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D1&D0&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D1&D0&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D1&~D0&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D1&~D0&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D2",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D3",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D3&D2&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D3&D2&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D3&~D2&([A12/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~D3&~D2&([A22/2][CLK2])",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~EXTBUSDRIVE",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~IOWRITE",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~M11",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~M21",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~RESET",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~X11",
+      "schematic_component": null
+    },
+    {
+      "evidence": {
+        "anchor": true,
+        "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
+      },
+      "layout_node": null,
+      "layout_node_uid": null,
+      "match": {
+        "confidence": 0.0,
+        "kind": "manual_anchor_v0"
+      },
+      "name": "~X21",
+      "schematic_component": null
+    }
+  ]
 }

@@ -21,7 +21,11 @@ def main() -> int:
         default=ROOT / "docs" / "evidence" / "netlists_v1" / "4004_netlist_v1.json",
     )
     p.add_argument("--min-total", type=int, default=1)
-    p.add_argument("--allow-zero-regex", default=r"^(SYNC|POC_PAD|TEST_PAD)$", help="Allowlisted anchor names")
+    p.add_argument(
+        "--allow-zero-regex",
+        default=r"^(SYNC|POC_PAD|TEST_PAD|.*_PAD)$",
+        help="Allowlisted anchor names (pads may be non-incident until via connectivity is modeled)",
+    )
     args = p.parse_args()
 
     net_path = args.netlist_v1
@@ -70,4 +74,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

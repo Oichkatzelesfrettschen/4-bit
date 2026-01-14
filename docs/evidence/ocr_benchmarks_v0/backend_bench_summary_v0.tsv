@@ -1,0 +1,14 @@
+path	backend	accuracy	correct	total
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_auto_templates_limit12_v0.json	auto	0.833333	10	12
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_template_dir_v0.json	template	0.000000	0	34
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_template_dir_v1.json	template	0.058824	2	34
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_template_dir_v2.json	template	0.058824	2	34
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_tesseract_cli_fast_limit12_v0.json	tesseract_cli_fast	0.833333	10	12
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_tesseract_cli_fast_v0.json	tesseract_cli_fast	0.852941	29	34
+docs/evidence/ocr_benchmarks_v0/backend_bench_4004_edge_tesseract_cli_fast_v1.json	tesseract_cli_fast	0.852941	29	34
+docs/evidence/ocr_benchmarks_v0/backend_bench_all_edge_tesseract_cli_fast_limit80_v1.json	tesseract_cli_fast	0.659091	29	44
+docs/evidence/ocr_benchmarks_v0/backend_bench_summary_v0.json	scripts/summarize_ocr_backend_benchmarks_v0.py	0.000000	0	0
+docs/evidence/ocr_benchmarks_v0/backend_bench_template_dir_v0.json	template	0.000000	0	44
+docs/evidence/ocr_benchmarks_v0/backend_bench_tesseract_cli_fast_edge_label_v0.json	tesseract_cli_fast	0.681818	30	44
+docs/evidence/ocr_benchmarks_v0/backend_bench_tesseract_cli_fast_outline_fill_v0.json	tesseract_cli_fast	0.613636	27	44
+docs/evidence/ocr_benchmarks_v0/backend_bench_tesseract_cli_fast_v0.json	tesseract_cli_fast	0.650000	26	40

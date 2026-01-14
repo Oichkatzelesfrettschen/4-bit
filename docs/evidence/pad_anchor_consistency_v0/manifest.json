@@ -1,0 +1,55 @@
+{
+  "inputs": {
+    "anchors": "docs/evidence/schematic_layout_anchors_v1.json"
+  },
+  "outputs": [
+    {
+      "chip": "4001",
+      "counts": {
+        "anchors_mapped_to_pad": 16,
+        "anchors_with_layout_node_src": 16,
+        "pad_collisions": 2
+      },
+      "outputs": {
+        "report_md": "docs/evidence/pad_anchor_consistency_v0/4001/4001_pad_anchor_consistency_v0.md"
+      }
+    },
+    {
+      "chip": "4002",
+      "counts": {
+        "anchors_mapped_to_pad": 16,
+        "anchors_with_layout_node_src": 16,
+        "pad_collisions": 1
+      },
+      "outputs": {
+        "report_md": "docs/evidence/pad_anchor_consistency_v0/4002/4002_pad_anchor_consistency_v0.md"
+      }
+    },
+    {
+      "chip": "4003",
+      "counts": {
+        "anchors_mapped_to_pad": 16,
+        "anchors_with_layout_node_src": 16,
+        "pad_collisions": 2
+      },
+      "outputs": {
+        "report_md": "docs/evidence/pad_anchor_consistency_v0/4003/4003_pad_anchor_consistency_v0.md"
+      }
+    },
+    {
+      "chip": "4004",
+      "counts": {
+        "anchors_mapped_to_pad": 19,
+        "anchors_with_layout_node_src": 19,
+        "pad_collisions": 5
+      },
+      "outputs": {
+        "report_md": "docs/evidence/pad_anchor_consistency_v0/4004/4004_pad_anchor_consistency_v0.md"
+      }
+    }
+  ],
+  "schema": {
+    "version": 0
+  },
+  "tool": "scripts/report_pad_anchor_consistency_v0.py"
+}

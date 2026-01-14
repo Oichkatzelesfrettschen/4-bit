@@ -10,16 +10,16 @@ eventually drive a switch‑level (and later, higher‑fidelity) emulator.
 
 | Chip | netlist_v0 nodes | netlist_v0 transistors | netlist_v1 transistors | netlist_v1 anchors |
 |---:|---:|---:|---:|---:|
-| 4001 | 5744 | 2000 | 1999 | 0 |
-| 4002 | 3280 | 640 | 639 | 0 |
-| 4003 | 490 | 38 | 37 | 0 |
-| 4004 | 3448 | 1031 | 1030 | 14 |
+| 4001 | 5744 | 2000 | 1999 | 14 |
+| 4002 | 3280 | 640 | 639 | 14 |
+| 4003 | 490 | 38 | 37 | 14 |
+| 4004 | 3448 | 1031 | 1030 | 19 |
 
 Notes:
 - `netlist_v1` may have fewer transistors than `netlist_v0` due to bbox sanity filters (see `scripts/build_netlist_v1_v0.py`).
 
 ### 4004
-- Layout masks + schematic sources: `docs/emulators/i4004-*.bmp`, `docs/emulators/i4004-signals.txt`.
+- Layout masks + schematic sources: `docs/emulators/i4004-*.bmp` (source) + `docs/emulators/i4004-*.png` (preview), plus `docs/emulators/i4004-signals.txt`.
 - Layout extraction:
   - `docs/evidence/netlists_v0/4004_netlist_v0.json`
   - `docs/evidence/netlists_v1/4004_netlist_v1.json` (uses `docs/evidence/schematic_layout_anchors_v1.json`)
@@ -33,18 +33,18 @@ Notes:
   - `docs/evidence/subcircuits_v0/4004/metrics.md`
 
 Open lacunae:
-- `SYNC`, `POC_PAD`, `TEST_PAD` still lack layout anchors (they are present in `signals.txt` but not yet mapped to layout nodes).
+- `SYNC`, `POC_PAD`, `TEST_PAD` are now anchored to layout nodes (via edge-label detection). `RESET` is also anchored (treated as an alias of the external `POC`/`POC_PAD` pad in the emulator schematics).
 - Several anchors land on **terminal-only** incidence (gate incidence is 0). This may be correct for data pads but is suspicious for clock/control lines; requires refinement.
 
 ### 4001 / 4002 / 4003
 - Layout masks + schematic sources exist:
-  - `docs/emulators/i400{1,2,3}-*.bmp`
+  - `docs/emulators/i400{1,2,3}-*.bmp` (source) + `docs/emulators/i400{1,2,3}-*.png` (preview)
   - `docs/emulators/i400{1,2,3}-signals.txt`
 - Layout extraction exists (`netlist_v0`):
   - `docs/evidence/netlists_v0/4001_netlist_v0.json`
   - `docs/evidence/netlists_v0/4002_netlist_v0.json`
   - `docs/evidence/netlists_v0/4003_netlist_v0.json`
-- netlist_v1 exists (currently no anchors, signals list is empty):
+- netlist_v1 exists (with a minimal anchored signal set derived from pinouts + geometry + incidence):
   - `docs/evidence/netlists_v1/4001_netlist_v1.json`
   - `docs/evidence/netlists_v1/4002_netlist_v1.json`
   - `docs/evidence/netlists_v1/4003_netlist_v1.json`
@@ -56,6 +56,11 @@ Open lacunae:
   - `docs/evidence/layout_pad_labels_v0/4003/`
 
 Open lacunae:
-- No per-chip anchors exist yet in `docs/evidence/schematic_layout_anchors_v1.json` for 4001/4002/4003.
-- `netlist_v1`, device graphs, and subcircuits are not yet emitted for 4001/4002/4003.
-- Need to run pad-label detection (`scripts/detect_layout_pad_labels_v0.py`) and tie results to anchors.
+- 4001/4002/4003 anchors are present but still **low-confidence** in places (notably power rails for 4001–4003 and pad→pin assumptions that need stronger corroboration).
+- Need to continue filling `docs/evidence/layout_pad_labels_v0/400{1,2,3}/manual_readings_v0.md` and `pad_pin_template_v0.md` to improve pad↔pin mapping provenance.
+- Expand the anchored signal set beyond the pinout-minimum and validate subcircuit topology against primary sources.
+
+Recent improvements:
+- 4001/4002/4003 pad↔pin seeding is now driven by `docs/evidence/layout_pad_labels_v0/<chip>/pad_pin_template_v0.md` (primary pinouts + pad geometry), applied via `scripts/apply_pad_pin_template_v0.py`.
+- Anchor remapping now enforces **unique incident dst nodes per pad** when seeded from the template (see `scripts/remap_anchors_to_incident_nodes_v1.py`), preventing the previous “many pads collapse to one incident trunk” failure mode.
+- CI now includes an anchor uniqueness check for required signals: `python -W error scripts/check_anchor_uniqueness_v0.py --chip 4001 --chip 4002 --chip 4003` (also run by `scripts/ci_schematic_pipeline_v0.sh`).

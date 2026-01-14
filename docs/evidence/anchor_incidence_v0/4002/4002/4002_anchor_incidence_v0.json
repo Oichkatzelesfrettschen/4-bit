@@ -1,0 +1,343 @@
+{
+  "anchors": [
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 901,
+      "name": "CLK1",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 1039,
+        "poly_bbox": {
+          "x0": 1759,
+          "x1": 1805,
+          "y0": 1200,
+          "y1": 1290
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 2,
+        "total": 2
+      },
+      "layout_node": 896,
+      "name": "CLK2",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 1,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 1173,
+        "poly_bbox": {
+          "x0": 1218,
+          "x1": 1258,
+          "y0": 1172,
+          "y1": 1223
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3115,
+      "name": "CM",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 321,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 2
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 2855,
+      "name": "CS",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 99,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 73,
+      "name": "D0_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 3575,
+        "metal_bbox": {
+          "x0": 1020,
+          "x1": 1554,
+          "y0": 369,
+          "y1": 385
+        },
+        "poly_area": 526,
+        "poly_bbox": {
+          "x0": 1062,
+          "x1": 1121,
+          "y0": 366,
+          "y1": 380
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 73,
+      "name": "D1_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 3575,
+        "metal_bbox": {
+          "x0": 1020,
+          "x1": 1554,
+          "y0": 369,
+          "y1": 385
+        },
+        "poly_area": 526,
+        "poly_bbox": {
+          "x0": 1062,
+          "x1": 1121,
+          "y0": 366,
+          "y1": 380
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 73,
+      "name": "D2_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 3575,
+        "metal_bbox": {
+          "x0": 1020,
+          "x1": 1554,
+          "y0": 369,
+          "y1": 385
+        },
+        "poly_area": 526,
+        "poly_bbox": {
+          "x0": 1062,
+          "x1": 1121,
+          "y0": 366,
+          "y1": 380
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 73,
+      "name": "D3_PAD",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 3575,
+        "metal_bbox": {
+          "x0": 1020,
+          "x1": 1554,
+          "y0": 369,
+          "y1": 385
+        },
+        "poly_area": 526,
+        "poly_bbox": {
+          "x0": 1062,
+          "x1": 1121,
+          "y0": 366,
+          "y1": 380
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3261,
+      "name": "OUT0",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 145,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3225,
+      "name": "OUT1",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 178,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3225,
+      "name": "OUT2",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 178,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 1,
+        "terminal": 0,
+        "total": 1
+      },
+      "layout_node": 799,
+      "name": "OUT3",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 2,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 2364,
+        "poly_bbox": {
+          "x0": 1584,
+          "x1": 1666,
+          "y0": 836,
+          "y1": 874
+        },
+        "terminal_degree": 0
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 1,
+        "total": 1
+      },
+      "layout_node": 3251,
+      "name": "RESET",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 145,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 0,
+        "poly_bbox": null,
+        "terminal_degree": 1
+      }
+    },
+    {
+      "incidence": {
+        "gate": 0,
+        "terminal": 102,
+        "total": 102
+      },
+      "layout_node": 926,
+      "name": "SYNC",
+      "node_stats": {
+        "diff_bbox": null,
+        "diffusion_area": 0,
+        "gate_degree": 0,
+        "metal_area": 0,
+        "metal_bbox": null,
+        "poly_area": 560,
+        "poly_bbox": {
+          "x0": 575,
+          "x1": 605,
+          "y0": 1458,
+          "y1": 1514
+        },
+        "terminal_degree": 0
+      }
+    }
+  ],
+  "chip": "4002",
+  "counts": {
+    "anchors": 14,
+    "anchors_with_zero_transistors": 0
+  },
+  "inputs": {
+    "netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
+    "netlist_v1": "docs/evidence/netlists_v1/4002_netlist_v1.json"
+  },
+  "schema": {
+    "description": "Anchor incidence audit vs netlist_v1 transistor devices.",
+    "version": 0
+  }
+}

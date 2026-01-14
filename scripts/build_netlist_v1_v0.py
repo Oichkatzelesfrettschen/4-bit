@@ -238,12 +238,28 @@ def main() -> int:
     }
     out_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
+    # Merge/update manifest instead of overwriting it with a single entry.
+    manifest_path = out_dir / "manifest.json"
+    existing: dict[str, object] | None = None
+    if manifest_path.exists():
+        try:
+            existing = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except Exception:
+            existing = None
+
+    outputs_by_chip: dict[str, str] = {}
+    if isinstance(existing, dict):
+        for entry in existing.get("outputs") or []:
+            if isinstance(entry, dict) and isinstance(entry.get("chip"), str) and isinstance(entry.get("output"), str):
+                outputs_by_chip[str(entry["chip"])] = str(entry["output"])
+
+    outputs_by_chip[str(chip)] = rel_or_abs(out_json)
     manifest = {
         "tool": "scripts/build_netlist_v1_v0.py",
         "params": payload["params"],
-        "outputs": [{"chip": chip, "output": rel_or_abs(out_json)}],
+        "outputs": [{"chip": c, "output": outputs_by_chip[c]} for c in sorted(outputs_by_chip.keys())],
     }
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     print(json.dumps({"out_json": str(out_json)}, indent=2))
     return 0

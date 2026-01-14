@@ -1,0 +1,132 @@
+{
+  "inputs": {
+    "anchors": "docs/evidence/schematic_layout_anchors_v1.json"
+  },
+  "outputs": [
+    {
+      "chip": "4001",
+      "counts": {
+        "missing_entries": 0,
+        "missing_layout_node": 0,
+        "missing_schematic_bbox": 0,
+        "required": 14
+      },
+      "inputs": {
+        "signals_txt": "docs/emulators/i4001-signals.txt"
+      },
+      "missing_entries": [],
+      "missing_layout_node": [],
+      "missing_schematic_bbox": [],
+      "required": [
+        "CLK1",
+        "CLK2",
+        "RESET",
+        "CL",
+        "D0_PAD",
+        "D1_PAD",
+        "D2_PAD",
+        "D3_PAD",
+        "SYNC",
+        "CM",
+        "IO0",
+        "IO1",
+        "IO2",
+        "IO3"
+      ]
+    },
+    {
+      "chip": "4002",
+      "counts": {
+        "missing_entries": 0,
+        "missing_layout_node": 0,
+        "missing_schematic_bbox": 0,
+        "required": 14
+      },
+      "inputs": {
+        "signals_txt": "docs/emulators/i4002-signals.txt"
+      },
+      "missing_entries": [],
+      "missing_layout_node": [],
+      "missing_schematic_bbox": [],
+      "required": [
+        "CLK1",
+        "CLK2",
+        "RESET",
+        "CS",
+        "D0_PAD",
+        "D1_PAD",
+        "D2_PAD",
+        "D3_PAD",
+        "SYNC",
+        "CM",
+        "OUT0",
+        "OUT1",
+        "OUT2",
+        "OUT3"
+      ]
+    },
+    {
+      "chip": "4003",
+      "counts": {
+        "missing_entries": 0,
+        "missing_layout_node": 0,
+        "missing_schematic_bbox": 0,
+        "required": 14
+      },
+      "inputs": {
+        "signals_txt": "docs/emulators/i4003-signals.txt"
+      },
+      "missing_entries": [],
+      "missing_layout_node": [],
+      "missing_schematic_bbox": [],
+      "required": [
+        "CLOCK",
+        "DATA",
+        "EN",
+        "OUT",
+        "Q0",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q6",
+        "Q7",
+        "Q8",
+        "Q9"
+      ]
+    },
+    {
+      "chip": "4004",
+      "counts": {
+        "missing_entries": 0,
+        "missing_layout_node": 0,
+        "missing_schematic_bbox": 0,
+        "required": 14
+      },
+      "inputs": {
+        "signals_txt": "docs/emulators/i4004-signals.txt"
+      },
+      "missing_entries": [],
+      "missing_layout_node": [],
+      "missing_schematic_bbox": [],
+      "required": [
+        "CLK1",
+        "CLK2",
+        "POC_PAD",
+        "TEST_PAD",
+        "D0_PAD",
+        "D1_PAD",
+        "D2_PAD",
+        "D3_PAD",
+        "SYNC",
+        "CMROM",
+        "CMRAM0",
+        "CMRAM1",
+        "CMRAM2",
+        "CMRAM3"
+      ]
+    }
+  ],
+  "tool": "scripts/audit_schematic_layout_anchors_v1.py"
+}

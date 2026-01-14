@@ -1,0 +1,238 @@
+{
+  "counts": {
+    "rows": 44
+  },
+  "params": {
+    "glob": [
+      "docs/evidence/layout_edge_labels_v0/*/crops/*.png"
+    ],
+    "limit": 200
+  },
+  "rows": [
+    {
+      "class": "glyph",
+      "expected": "C",
+      "path": "docs/evidence/layout_edge_labels_v0/4001/crops/000_C_node2519_conf0.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "S",
+      "path": "docs/evidence/layout_edge_labels_v0/4001/crops/001_S_node2540_conf0.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "V",
+      "path": "docs/evidence/layout_edge_labels_v0/4001/crops/002_V_node111_conf0.0.png"
+    },
+    {
+      "class": "unknown",
+      "expected": "",
+      "path": "docs/evidence/layout_edge_labels_v0/4001/crops/debug_pad60_0_C.png"
+    },
+    {
+      "class": "unknown",
+      "expected": "",
+      "path": "docs/evidence/layout_edge_labels_v0/4001/crops/debug_pad60_1_S.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "S",
+      "path": "docs/evidence/layout_edge_labels_v0/4002/crops/000_S_node134_conf0.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4002/crops/001_T_node12_conf0.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4002/crops/002_T_node707_conf52.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4003/crops/000_T_node9_conf55.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4003/crops/001_T_node94_conf68.0.png"
+    },
+    {
+      "class": "digits",
+      "expected": "02",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf60.0.png"
+    },
+    {
+      "class": "digits",
+      "expected": "02",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_02_node4_conf87.7.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "D2",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_D2_node514_conf72.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "G",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_G_node3_conf89.7.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "L",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_L_node0_conf68.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R1",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R1_node595_conf89.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R2",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf90.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R2",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_R2_node518_conf95.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node0_conf68.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/000_T_node49_conf77.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "C",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_C_node1_conf89.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "G",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_G_node3_conf89.7.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R1",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R1_node595_conf89.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R2",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R2_node518_conf90.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R3",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf91.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R3",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_R3_node441_conf95.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "RM",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_RM_node71_conf94.1.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_T_node415_conf95.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/001_T_node49_conf62.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "G",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/002_G_node3_conf87.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R2",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/002_R2_node518_conf90.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R3",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/002_R3_node441_conf91.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "RM",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/002_RM_node71_conf93.6.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/002_T_node0_conf68.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "V",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/002_V_node415_conf80.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R2",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/003_R2_node518_conf79.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R3",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/003_R3_node441_conf91.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "S",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/003_S_node2_conf91.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/003_T_node0_conf68.0.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "R3",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/004_R3_node441_conf89.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/004_T_node0_conf92.3.png"
+    },
+    {
+      "class": "alnum",
+      "expected": "RM",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/005_RM_node71_conf96.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "S",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/006_S_node2_conf91.0.png"
+    },
+    {
+      "class": "glyph",
+      "expected": "T",
+      "path": "docs/evidence/layout_edge_labels_v0/4004/crops/007_T_node0_conf92.0.png"
+    }
+  ],
+  "schema": {
+    "description": "OCR crop manifest built from existing labeled evidence images.",
+    "version": 0
+  },
+  "tool": "scripts/build_ocr_crop_manifest_v0.py"
+}

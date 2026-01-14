@@ -1,90 +1,15 @@
 idx	x	y	expected	expected_kind	expected_norm	ocr_norm	score	ok	reason	best_conf	best_dist_px	region_tokens_total	region_tokens_confident	region_max_similarity	region_ocr_calls
-0	2570	119	~A11/2	label	~A11/2		0.000	0	ocr_low_conf			4	0	0.250	6
-1	2617	119	A12/2	label	A12/2		0.000	0	ocr_low_conf			9	0	0.286	6
-2	2664	119	~A21/2	label	~A21/2		0.000	0	ocr_low_conf			3	0	0.222	6
-3	2711	119	A22/2	label	A22/2		0.000	0	ocr_low_conf			3	0	0.333	6
-4	2479	150	A11/2	label	A11/2		0.000	0	ocr_low_conf			14	0	0.333	6
-5	30	190	D0_PAD	label	D0_PAD	D0	1.000	1	matched	0.0	0.0	0	0		0
-6	611	292	DO0	label	DO0	0	0.500	0	mismatch	77.3		77	10	0.500	6
-7	2715	322	~CLK1	label	~CLK1		0.000	0	ocr_low_conf			14	0	0.333	6
-8	30	327	IO0	label	IO0	I	0.500	0	mismatch	62.3		37	3	0.500	6
-9	2527	354	SYNC+A11S+A11/2+A21/2	expression	SYNC+A11S+A11/2+A21/2		0.000	0	skipped_expression			0	0		0
-10	30	371	D1_PAD	label	D1_PAD	D1	1.000	1	matched	0.0	0.0	0	0		0
-11	2464	398	~(SYNC+A11S+A11/2+A21/2)	expression	~(SYNC+A11S+A11/2+A21/2)		0.000	0	skipped_expression			0	0		0
-12	2582	398	~(SYNC+A11S)	expression	~(SYNC+A11S)		0.000	0	skipped_expression			0	0		0
-13	611	473	DO1	label	DO1	1	0.500	0	mismatch	62.8		48	4	0.500	6
-14	2783	503	D2	label	D2		0.000	0	no_similar_token			15	1	0.200	6
-15	30	508	IO1	label	IO1		0.000	0	no_similar_token			22	1	0.500	6
-16	2482	533	D3&D2&([A22/2][CLK2])	expression	D3&D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-17	2806	547	~D2	label	~D2		0.000	0	no_similar_token			15	1	0.500	6
-18	30	552	D2_PAD	label	D2_PAD	D2	1.000	1	matched	0.0	0.0	0	0		0
-19	2482	557	D3&D2&([A12/2][CLK2])	expression	D3&D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-20	2482	581	D3&~D2&([A22/2][CLK2])	expression	D3&~D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-21	2783	592	D3	label	D3		0.000	0	ocr_low_conf			7	0	0.000	6
-22	2482	605	D3&~D2&([A12/2][CLK2])	expression	D3&~D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-23	2482	629	~D3&D2&([A12/2][CLK2])	expression	~D3&D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-24	2806	636	~D3	label	~D3		0.000	0	no_similar_token			15	1	0.400	6
-25	2482	653	~D3&D2&([A22/2][CLK2])	expression	~D3&D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-26	611	654	DO2	label	DO2		0.000	0	ocr_low_conf			16	0	0.500	6
-27	2482	677	~D3&~D2&([A22/2][CLK2])	expression	~D3&~D2&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-28	30	689	IO2	label	IO2		0.000	0	no_similar_token			15	2	0.400	6
-29	973	693	MEMD0	label	MEMD0	M	0.333	0	not_printed_near_point	64.6		76	33	0.333	6
-30	1325	693	MEMD1	label	MEMD1	1	0.333	0	not_printed_near_point	90.9		71	24	0.333	6
-31	1677	693	MEMD2	label	MEMD2		0.000	0	no_similar_token			71	22	0.286	6
-32	2029	693	MEMD3	label	MEMD3		0.000	0	no_similar_token			53	21	0.333	6
-33	2482	701	~D3&~D2&([A12/2][CLK2])	expression	~D3&~D2&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-34	2482	725	~D1&~D0&([A12/2][CLK2])	expression	~D1&~D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-35	30	733	D3_PAD	label	D3_PAD	D3	1.000	1	matched	0.0	0.0	0	0		0
-36	2783	747	D0	label	D0		0.000	0	no_similar_token			9	1	0.667	6
-37	2482	749	~D1&~D0&([A22/2][CLK2])	expression	~D1&~D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-38	2482	773	~D1&D0&([A22/2][CLK2])	expression	~D1&D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-39	2806	791	~D0	label	~D0	G-LTJ-0--I	0.154	0	not_printed_near_point	62.6		12	2	0.154	6
-40	2482	797	~D1&D0&([A12/2][CLK2])	expression	~D1&D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-41	111	813	~IOWRITE	label	~IOWRITE		0.000	0	no_similar_token			14	1	0.222	6
-42	2482	821	D1&~D0&([A12/2][CLK2])	expression	D1&~D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-43	611	835	DO3	label	DO3		0.000	0	not_printed_near_point			25	3	0.000	6
-44	2783	836	D1	label	D1	1_1_1	0.286	0	not_printed_near_point	65.4		11	1	0.286	6
-45	2482	845	D1&~D0&([A22/2][CLK2])	expression	D1&~D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-46	2482	869	D1&D0&([A22/2][CLK2])	expression	D1&D0&(A22/2CLK2)		0.000	0	skipped_expression			0	0		0
-47	30	870	IO3	label	IO3		0.000	0	no_similar_token			25	1	0.286	6
-48	2806	880	~D1	label	~D1		0.000	0	ocr_low_conf			9	0	0.000	6
-49	2482	893	D1&D0&([A12/2][CLK2])	expression	D1&D0&(A12/2CLK2)		0.000	0	skipped_expression			0	0		0
-50	30	907	CL	label	CL		0.000	0	no_similar_token			18	1	0.667	6
-51	381	969	IOWRITE	label	IOWRITE	T	0.250	0	not_printed_near_point	70.6		14	1	0.267	6
-52	94	973	~RESET	label	~RESET		0.000	0	no_similar_token			18	1	0.286	6
-53	121	973	(RESET)	expression	(RESET)		0.000	0	skipped_expression			0	0		0
-54	316	974	~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)	expression	~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)		0.000	0	skipped_expression			0	0		0
-55	30	989	RESET	label	RESET		0.000	0	ocr_low_conf			9	0	0.571	6
-56	187	1011	~EXTBUSDRIVE	label	~EXTBUSDRIVE		0.000	0	no_similar_token			14	2	0.154	6
-57	359	1026	MBUSREAD	label	MBUSREAD		0.000	0	ocr_low_conf			12	0	0.222	6
-58	476	1026	M22&SRCFF&CM&~D3&~D2&D1&~D0	expression	M22&SRCFF&CM&~D3&~D2&D1&~D0		0.000	0	skipped_expression			0	0		0
-59	550	1026	IOREAD	label	IOREAD	I-	0.250	0	not_printed_near_point	60.6		44	6	0.286	6
-60	661	1026	M22&SRCFF&CM&D3&~D2&D1&~D0	expression	M22&SRCFF&CM&D3&~D2&D1&~D0		0.000	0	skipped_expression			0	0		0
-61	122	1046	~CLK2	label	~CLK2		0.000	0	no_similar_token			18	1	0.250	6
-62	2550	1051	~CHIPNUM	label	~CHIPNUM	DUND&F	0.143	0	not_printed_near_point	70.7		15	2	0.222	6
-63	30	1073	CM	label	CM		0.000	0	not_printed_near_point			14	1	0.000	6
-64	30	1155	CLK1	label	CLK1		0.000	0	no_similar_token			19	2	0.571	6
-65	436	1161	~(M22&SRCFF&CM)	expression	~(M22&SRCFF&CM)		0.000	0	skipped_expression			0	0		0
-66	579	1161	~(CM&X22&CLK2)	expression	~(CM&X22&CLK2)		0.000	0	skipped_expression			0	0		0
-67	473	1196	SRCFF	label	SRCFF		0.000	0	no_similar_token			15	2	0.333	6
-68	217	1205	CHIPSEL	label	CHIPSEL		0.000	0	ocr_low_conf			11	0	0.444	6
-69	366	1205	M11	label	M11		0.000	0	no_similar_token			13	1	0.500	6
-70	399	1205	M21	label	M21		0.000	0	no_similar_token			12	1	0.400	6
-71	30	1233	CLK2	label	CLK2		0.000	0	no_similar_token			18	3	0.400	6
-72	2656	1250	D2+~D1+D0	expression	D2+~D1+D0		0.000	0	skipped_expression			0	0		0
-73	30	1316	SYNC	label	SYNC	N	0.400	0	mismatch	86.7		17	2	0.400	6
-74	117	1316	~A11	label	~A11		0.000	0	no_similar_token			17	2	0.333	6
-75	155	1316	A12	label	A12		0.000	0	no_similar_token			17	2	0.333	6
-76	193	1316	~A21	label	~A21		0.000	0	no_similar_token			17	2	0.333	6
-77	231	1316	A22	label	A22		0.000	0	no_similar_token			17	2	0.667	6
-78	269	1316	~A31	label	~A31		0.000	0	no_similar_token			17	2	0.400	6
-79	307	1316	A32	label	A32		0.000	0	no_similar_token			17	2	0.500	6
-80	345	1316	~M11	label	~M11		0.000	0	no_similar_token			18	2	0.333	6
-81	383	1316	M12	label	M12		0.000	0	ocr_low_conf			12	0	0.500	6
-82	421	1316	~M21	label	~M21		0.000	0	no_similar_token			11	1	0.400	6
-83	459	1316	M22	label	M22		0.000	0	no_similar_token			21	4	0.500	6
-84	497	1316	~X11	label	~X11	1	0.400	0	mismatch	84.9		26	3	0.400	6
-85	535	1316	X12	label	X12	1	0.500	0	mismatch	92.2		49	7	0.500	6
-86	573	1316	~X21	label	~X21	1	0.400	0	mismatch	92.2		37	5	0.400	6
-87	611	1316	X22	label	X22		0.000	0	no_similar_token			47	5	0.200	6
-88	682	1316	CHIPNUM	label	CHIPNUM	I	0.250	0	not_printed_near_point	65.1		71	6	0.250	6
+0	30	190	D0_PAD	label	D0_PAD	D0	1.000	1	matched	0.0	0.0	0	0		0
+1	30	327	IO0	label	IO0	I	0.500	0	mismatch	0.0	28.0	0	0		0
+2	30	371	D1_PAD	label	D1_PAD	D1	1.000	1	matched	0.0	0.0	0	0		0
+3	30	508	IO1	label	IO1	10I1	0.571	0	mismatch	0.0	11.3	0	0		0
+4	30	552	D2_PAD	label	D2_PAD	D2	1.000	1	matched	0.0	0.0	0	0		0
+5	30	689	IO2	label	IO2	I7JI2E	0.444	0	mismatch	0.0	17.7	0	0		0
+6	30	733	D3_PAD	label	D3_PAD	D3	1.000	1	matched	0.0	0.0	0	0		0
+7	30	870	IO3	label	IO3	3-	0.400	0	mismatch	0.0	22.5	0	0		0
+8	30	907	CL	label	CL	CL	1.000	1	matched	92.4	0.0	0	0		0
+9	30	989	RESET	label	RESET	RESET	1.000	1	matched	90.3	0.0	0	0		0
+10	30	1073	CM	label	CM	CM	1.000	1	matched	84.0	0.0	0	0		0
+11	30	1155	CLK1	label	CLK1	CLK1	1.000	1	matched	83.2	0.0	0	0		0
+12	30	1233	CLK2	label	CLK2	CLK2	1.000	1	matched	0.0	6.7	0	0		0
+13	30	1316	SYNC	label	SYNC	SYNC	1.000	1	matched	21.3	0.0	0	0		0

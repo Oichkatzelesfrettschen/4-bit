@@ -2,7 +2,7 @@
   "inputs": {
     "netlist": "docs/evidence/netlists_v1/4004_netlist_v1.json",
     "sha256": {
-      "netlist": "cee71628d4cdc2cc18932171a51840fedd7c3d23c6bea81044c93c2e8031e4a0"
+      "netlist": "7c9acfa928013b9a38d4444c19a7c68d0ed49c36ee7703c13bc4f26a644e929e"
     }
   },
   "outputs": [
@@ -16,8 +16,8 @@
     },
     {
       "counts": {
-        "nodes": 169,
-        "transistors": 149
+        "nodes": 309,
+        "transistors": 243
       },
       "name": "CLK2",
       "output": "docs/evidence/subcircuits_v0/4004/4004_CLK2_subcircuit_v0.json"
@@ -93,6 +93,70 @@
       },
       "name": "D3_PAD",
       "output": "docs/evidence/subcircuits_v0/4004/4004_D3_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 147,
+        "transistors": 111
+      },
+      "name": "POC",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_POC_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 147,
+        "transistors": 111
+      },
+      "name": "POC_PAD",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_POC_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 147,
+        "transistors": 111
+      },
+      "name": "RESET",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_RESET_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 309,
+        "transistors": 243
+      },
+      "name": "SYNC",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_SYNC_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "TEST",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_TEST_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "TEST_PAD",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_TEST_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 680,
+        "transistors": 437
+      },
+      "name": "VCC",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_VCC_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 655,
+        "transistors": 417
+      },
+      "name": "VSS",
+      "output": "docs/evidence/subcircuits_v0/4004/4004_VSS_subcircuit_v0.json"
     }
   ],
   "params": {

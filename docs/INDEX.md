@@ -107,6 +107,8 @@ Metrics & Anti-Patterns
 - docs/evidence/audit_claims_backlog.md
 - docs/evidence/PRIMARY_SOURCES_BACKLOG.md
 - docs/evidence/OCR_SIGNAL_LABELS.md
+- docs/evidence/ANCHOR_COVERAGE_V0.md
+- docs/evidence/POWER_RAIL_EVIDENCE.md
 - docs/evidence/photomicrograph_permissions.md
 - docs/evidence/PROVENANCE_CHECKLIST.md
 - docs/evidence/ocr_manifest.yaml

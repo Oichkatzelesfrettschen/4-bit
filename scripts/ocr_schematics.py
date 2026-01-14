@@ -21,6 +21,7 @@ class ChipSpec:
 
 
 ROOT = Path(__file__).resolve().parents[1]
+TESSERACT_TIMEOUT_S = 8.0
 
 
 def specs() -> dict[str, ChipSpec]:
@@ -67,12 +68,17 @@ def preprocess(img: Image.Image, *, scale: int, invert: bool) -> Image.Image:
 
 
 def ocr_text(img: Image.Image, *, psm: int) -> str:
-    return pytesseract.image_to_string(img, config=f"--psm {psm}")
+    return pytesseract.image_to_string(img, config=f"--psm {psm}", timeout=TESSERACT_TIMEOUT_S)
 
 
 def ocr_tsv(img: Image.Image, *, psm: int) -> str:
     # TSV output includes bboxes and confidence; it is easier to post-process than plain text.
-    return pytesseract.image_to_data(img, config=f"--psm {psm}", output_type=pytesseract.Output.STRING)
+    return pytesseract.image_to_data(
+        img,
+        config=f"--psm {psm}",
+        output_type=pytesseract.Output.STRING,
+        timeout=TESSERACT_TIMEOUT_S,
+    )
 
 
 def main() -> int:
@@ -83,7 +89,11 @@ def main() -> int:
     parser.add_argument("--scale", type=int, default=2, help="Upscale factor before OCR")
     parser.add_argument("--psm", type=int, default=6, help="Tesseract page segmentation mode")
     parser.add_argument("--invert", action="store_true", help="Invert colors after thresholding")
+    parser.add_argument("--timeout-s", type=float, default=8.0, help="Tesseract timeout per page (seconds)")
     args = parser.parse_args()
+
+    global TESSERACT_TIMEOUT_S
+    TESSERACT_TIMEOUT_S = float(args.timeout_s)
 
     selected = set(args.chip or [])
     if args.all:
@@ -96,7 +106,7 @@ def main() -> int:
     manifest: dict[str, object] = {
         "tool": "scripts/ocr_schematics.py",
         "tesseract_version": str(pytesseract.get_tesseract_version()),
-        "params": {"scale": args.scale, "psm": args.psm, "invert": bool(args.invert)},
+        "params": {"scale": args.scale, "psm": args.psm, "invert": bool(args.invert), "timeout_s": float(args.timeout_s)},
         "outputs": [],
     }
 
@@ -123,7 +133,7 @@ def main() -> int:
                 "signals_txt": rel_or_abs(spec.signals_txt),
                 "schematic_sha256": sha256(spec.schematic_bmp),
             },
-            "params": {"scale": args.scale, "psm": args.psm, "invert": bool(args.invert)},
+            "params": {"scale": args.scale, "psm": args.psm, "invert": bool(args.invert), "timeout_s": float(args.timeout_s)},
             "outputs": {
                 "text": rel_or_abs(out_txt),
                 "tsv": rel_or_abs(out_tsv),

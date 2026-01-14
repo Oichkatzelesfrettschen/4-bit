@@ -7,6 +7,10 @@
         "y0": 18,
         "y1": 288
       },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_000_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_000.png"
+      },
       "ink_bbox": {
         "area": 28999,
         "fill": 0.39642115048118987,
@@ -30,6 +34,10 @@
         "x1": 1389,
         "y0": 18,
         "y1": 288
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_001_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_001.png"
       },
       "ink_bbox": {
         "area": 26381,
@@ -55,6 +63,10 @@
         "y0": 19,
         "y1": 288
       },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_002_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_002.png"
+      },
       "ink_bbox": {
         "area": 26269,
         "fill": 0.6922002635046113,
@@ -78,6 +90,10 @@
         "x1": 2306,
         "y0": 19,
         "y1": 244
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_003_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_003.png"
       },
       "ink_bbox": {
         "area": 23796,
@@ -103,6 +119,10 @@
         "y0": 66,
         "y1": 288
       },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_004_B.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_004.png"
+      },
       "ink_bbox": {
         "area": 4467,
         "fill": 0.22587985436893204,
@@ -127,6 +147,10 @@
         "y0": 80,
         "y1": 192
       },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_005_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_005.png"
+      },
       "ink_bbox": {
         "area": 2251,
         "fill": 0.47852891156462585,
@@ -137,11 +161,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "E",
-        "conf": 88.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 3
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -150,6 +174,10 @@
         "x1": 714,
         "y0": 81,
         "y1": 192
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_006_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_006.png"
       },
       "ink_bbox": {
         "area": 2267,
@@ -161,11 +189,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "4",
-        "conf": 94.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -174,6 +202,10 @@
         "x1": 775,
         "y0": 81,
         "y1": 192
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_007_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_007.png"
       },
       "ink_bbox": {
         "area": 2695,
@@ -189,7 +221,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -198,6 +230,10 @@
         "x1": 838,
         "y0": 81,
         "y1": 192
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_008_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_008.png"
       },
       "ink_bbox": {
         "area": 2656,
@@ -213,7 +249,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -222,6 +258,10 @@
         "x1": 2005,
         "y0": 81,
         "y1": 163
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_009_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_009.png"
       },
       "ink_bbox": {
         "area": 1130,
@@ -237,7 +277,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -246,6 +286,10 @@
         "x1": 288,
         "y0": 287,
         "y1": 484
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_010_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_010.png"
       },
       "ink_bbox": {
         "area": 26501,
@@ -261,7 +305,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -270,6 +314,10 @@
         "x1": 2186,
         "y0": 426,
         "y1": 537
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_011_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_011.png"
       },
       "ink_bbox": {
         "area": 2446,
@@ -285,7 +333,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -294,6 +342,10 @@
         "x1": 2306,
         "y0": 527,
         "y1": 770
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_012_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_012.png"
       },
       "ink_bbox": {
         "area": 25175,
@@ -305,11 +357,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "N",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -318,6 +370,10 @@
         "x1": 2306,
         "y0": 903,
         "y1": 1277
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_013_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_013.png"
       },
       "ink_bbox": {
         "area": 28754,
@@ -333,7 +389,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -342,6 +398,10 @@
         "x1": 2306,
         "y0": 1055,
         "y1": 1421
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_014_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_014.png"
       },
       "ink_bbox": {
         "area": 27668,
@@ -353,11 +413,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "N",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -366,6 +426,10 @@
         "x1": 1345,
         "y0": 1168,
         "y1": 1420
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_015_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_015.png"
       },
       "ink_bbox": {
         "area": 28474,
@@ -381,7 +445,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -390,6 +454,10 @@
         "x1": 1636,
         "y0": 1168,
         "y1": 1420
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_016_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_016.png"
       },
       "ink_bbox": {
         "area": 31017,
@@ -405,7 +473,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -414,6 +482,10 @@
         "x1": 1804,
         "y0": 1168,
         "y1": 1325
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_017_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_017.png"
       },
       "ink_bbox": {
         "area": 4413,
@@ -425,11 +497,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "B",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -438,6 +510,10 @@
         "x1": 2005,
         "y0": 1168,
         "y1": 1242
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_018_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_018.png"
       },
       "ink_bbox": {
         "area": 1461,
@@ -453,7 +529,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -462,6 +538,10 @@
         "x1": 901,
         "y0": 1254,
         "y1": 1428
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_019_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_019.png"
       },
       "ink_bbox": {
         "area": 8510,
@@ -473,11 +553,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "FN",
-        "conf": 64.0,
-        "invert": true,
-        "psm": 13,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -486,6 +566,10 @@
         "x1": 722,
         "y0": 1282,
         "y1": 1389
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_020_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_020.png"
       },
       "ink_bbox": {
         "area": 3173,
@@ -497,11 +581,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "C",
-        "conf": 42.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -510,6 +594,10 @@
         "x1": 2113,
         "y0": 1290,
         "y1": 1456
+      },
+      "crops": {
+        "mask": "docs/evidence/layout_pad_labels_v0/4003/crops_mask/box_021_NA.png",
+        "raw": "docs/evidence/layout_pad_labels_v0/4003/crops_raw/box_021.png"
       },
       "ink_bbox": {
         "area": 33232,
@@ -521,11 +609,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "0",
-        "conf": 29.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 3
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     }
   ],
@@ -541,6 +629,8 @@
   },
   "outputs": {
     "crops_dir": "docs/evidence/layout_pad_labels_v0/4003/crops",
+    "crops_mask_dir": "docs/evidence/layout_pad_labels_v0/4003/crops_mask",
+    "crops_raw_dir": "docs/evidence/layout_pad_labels_v0/4003/crops_raw",
     "overlay": "docs/evidence/layout_pad_labels_v0/4003/4003_pad_label_boxes_v0.png"
   },
   "params": {

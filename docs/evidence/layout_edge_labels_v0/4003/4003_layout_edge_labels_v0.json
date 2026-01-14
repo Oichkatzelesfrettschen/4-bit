@@ -1,0 +1,442 @@
+{
+  "chip": "4003",
+  "counts": {
+    "detections": 4
+  },
+  "detections": [
+    {
+      "bbox": {
+        "area": 2446,
+        "fill": 0.234066985645933,
+        "h": 95,
+        "w": 110,
+        "x": 2068,
+        "y": 434
+      },
+      "best_ocr": {
+        "backend": "tesseract",
+        "conf": 52.0,
+        "crop": "full",
+        "inv": true,
+        "psm": 7,
+        "rot": 0,
+        "token": "C"
+      },
+      "candidate_kind": "strict",
+      "normalized_token": "C",
+      "ocr_roi": {
+        "x0": 2044,
+        "x1": 2202,
+        "y0": 410,
+        "y1": 553
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 2446,
+        "metal_bbox": {
+          "x0": 2068,
+          "x1": 2178,
+          "y0": 434,
+          "y1": 529
+        },
+        "node": 41,
+        "score": 0.023407854190328016,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 2177,
+        "y": 481
+      },
+      "token": "C",
+      "tries": [
+        {
+          "backend": "tesseract",
+          "conf": 52.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "rot": 0,
+          "token": "C"
+        },
+        {
+          "backend": "tesseract",
+          "conf": 0.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "rot": 0,
+          "token": "S"
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "raw": "C\n",
+          "rot": 0,
+          "token": "C",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "raw": "S\n",
+          "rot": 0,
+          "token": "S",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "area": 29255,
+        "fill": 0.4012371077463243,
+        "h": 294,
+        "w": 248,
+        "x": 1232,
+        "y": 26
+      },
+      "best_ocr": {
+        "backend": "tesseract",
+        "conf": 0.0,
+        "crop": "full",
+        "inv": true,
+        "psm": 7,
+        "rot": 0,
+        "token": "L"
+      },
+      "candidate_kind": "strict",
+      "normalized_token": "T",
+      "ocr_roi": {
+        "x0": 1208,
+        "x1": 1504,
+        "y0": 2,
+        "y1": 344
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 29817,
+        "metal_bbox": {
+          "x0": 1232,
+          "x1": 1480,
+          "y0": 26,
+          "y1": 345
+        },
+        "node": 3,
+        "score": 0.030908602550965034,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 1479,
+        "y": 303
+      },
+      "token": "T",
+      "tries": [
+        {
+          "backend": "tesseract",
+          "conf": 0.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "rot": 0,
+          "token": "L"
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "raw": "L\n",
+          "rot": 0,
+          "token": "L",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "area": 1536,
+        "fill": 0.4129032258064516,
+        "h": 93,
+        "w": 40,
+        "x": 280,
+        "y": 894
+      },
+      "best_ocr": {
+        "backend": "tesseract",
+        "conf": 68.0,
+        "crop": "full",
+        "inv": false,
+        "psm": 7,
+        "rot": 0,
+        "token": "L"
+      },
+      "candidate_kind": "strict",
+      "normalized_token": "T",
+      "ocr_roi": {
+        "x0": 256,
+        "x1": 344,
+        "y0": 870,
+        "y1": 1011
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 17878,
+        "metal_bbox": {
+          "x0": 280,
+          "x1": 1648,
+          "y0": 894,
+          "y1": 987
+        },
+        "node": 94,
+        "score": 0.02937414635625546,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 319,
+        "y": 980
+      },
+      "token": "T",
+      "tries": [
+        {
+          "backend": "tesseract",
+          "conf": 68.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "rot": 0,
+          "token": "L"
+        },
+        {
+          "backend": "tesseract",
+          "conf": 26.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "rot": 0,
+          "token": "1"
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "raw": "I\n",
+          "rot": 0,
+          "token": "1",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "raw": "L\n",
+          "rot": 0,
+          "token": "L",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        }
+      ]
+    },
+    {
+      "bbox": {
+        "area": 2393,
+        "fill": 0.23576354679802955,
+        "h": 145,
+        "w": 70,
+        "x": 250,
+        "y": 894
+      },
+      "best_ocr": {
+        "backend": "tesseract",
+        "conf": 68.0,
+        "crop": "full",
+        "inv": false,
+        "psm": 7,
+        "rot": 0,
+        "token": "L"
+      },
+      "candidate_kind": "strict",
+      "normalized_token": "T",
+      "ocr_roi": {
+        "x0": 226,
+        "x1": 344,
+        "y0": 870,
+        "y1": 1063
+      },
+      "suggested_layout_node": {
+        "dist": 0.0,
+        "metal_area": 29725,
+        "metal_bbox": {
+          "x0": 28,
+          "x1": 480,
+          "y0": 994,
+          "y1": 1194
+        },
+        "node": 109,
+        "score": 0.030899332088126518,
+        "tip_inside_bbox": true
+      },
+      "tip": {
+        "x": 319,
+        "y": 1006
+      },
+      "token": "T",
+      "tries": [
+        {
+          "backend": "tesseract",
+          "conf": 68.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "rot": 0,
+          "token": "L"
+        },
+        {
+          "backend": "tesseract",
+          "conf": 26.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "rot": 0,
+          "token": "1"
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 7,
+          "raw": "I\n",
+          "rot": 0,
+          "token": "1",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 7,
+          "raw": "L\n",
+          "rot": 0,
+          "token": "L",
+          "vote_count": null
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": true,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        },
+        {
+          "backend": "tesseract",
+          "conf": -1.0,
+          "crop": "full",
+          "inv": false,
+          "psm": 11,
+          "rot": 0,
+          "token": ""
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "metal_image": "docs/emulators/i4003-metal.png",
+    "netlist_v0": "docs/evidence/netlists_v0/4003_netlist_v0.json",
+    "sha256": {
+      "metal_image": "de5306d4d118a6d91bb978828a7f5a94c499e2444ad6fcac2fc5c2d3e74ffe24"
+    }
+  },
+  "params": {
+    "band": 320,
+    "edges": [
+      "bottom",
+      "left",
+      "right",
+      "top"
+    ],
+    "max_area": 120000,
+    "min_area": 800,
+    "min_fill": 0.22,
+    "ocr_backend": "tesseract-stack",
+    "pad": 24
+  },
+  "schema": {
+    "description": "Detected periphery label blocks on metal mask with OCR + node suggestion.",
+    "version": 0
+  }
+}

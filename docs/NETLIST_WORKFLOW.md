@@ -6,7 +6,7 @@ Purpose
 
 Inputs (per chip)
 - Layer bitmaps: metal, vias, poly, diffusion (plus contacts for 4004).
-- Schematic bitmap: i400x-schematic.bmp.
+- Schematic bitmap: `i400x-schematic.bmp` (source; `i400x-schematic.png` is the preview copy).
 - Signal map: `docs/emulators/i400{1,2,3,4}-signals.txt`.
 
 Workflow summary (from docs/emulators/readme.txt)
@@ -66,13 +66,13 @@ Device graph (v0)
 Subcircuit extraction (v0)
 - `scripts/extract_subcircuit_v0.py` extracts bounded transistor subcircuits around seed nodes (typically anchor signals).
   - Output: `docs/evidence/subcircuits_v0/<chip>/`
+  - When passing multiple `--signal` values, the tool emits one JSON per signal (and a combined `custom` subcircuit when applicable).
 - `scripts/subcircuit_metrics_v0.py` summarizes subcircuit sizes into `metrics.json` + `metrics.md`.
 
 Current limitation:
-- 4004 anchor incidence is now nonzero for the currently mapped anchors (see `docs/evidence/anchor_incidence_v1_canonical/4004/`),
-  which unblocks subcircuit extraction for those signals.
-- Some 4004 signals still lack layout anchors (`SYNC`, `POC_PAD`, `TEST_PAD`), and some remapped anchors land on terminal-only incidence;
-  treat any remap as provisional until validated.
+- Anchor incidence checks pass for the current `netlist_v1` outputs (see `bash scripts/ci_schematic_pipeline_v0.sh`).
+- Some anchors (notably power/reset rails) remain low-confidence and must be corroborated by additional primary-source evidence and/or
+  improved pad↔pin alignment.
 - Full schematic↔layout reconciliation is still unimplemented.
 
 Layout pad anchoring helpers (v0)
@@ -83,13 +83,18 @@ Layout pad anchoring helpers (v0)
 - Current limitation: OCR of pad-box glyphs is unreliable; the workflow is to use the rendered crops to read labels and then
   update `docs/evidence/schematic_layout_anchors_v0.json` (or successors).
 
-Anchors v1 (4004)
-- `docs/evidence/schematic_layout_anchors_v1.json` remaps the original anchor nodes to nearby transistor-incident nodes so
+Anchors v1 (4001–4004)
+- `docs/evidence/schematic_layout_anchors_v1.json` stores per-signal layout anchors (seed + remapped incident nodes).
+- Seeds are typically maintained via per-chip pad→pin templates:
+  - `docs/evidence/layout_pad_labels_v0/<chip>/pad_pin_template_v0.md`
+  - Applied with `scripts/apply_pad_pin_template_v0.py`
+- `scripts/remap_anchors_to_incident_nodes_v1.py` then remaps seeds onto nearby **transistor-incident** nodes so
   subcircuit extraction and switch-level validation can proceed.
-- Overlay crops for verifying remaps live in `docs/evidence/anchors_v1_overlays/4004/`.
+  - When anchors were seeded via `pad_pin_template_v0`, remapping enforces a unique destination incident node per pad
+    (aliases sharing the same pad are allowed).
 
 How to run
-- Generate (or regenerate) all netlists: `python3 scripts/extract_netlist_v0.py --all`
+- Generate (or regenerate) all netlists: `python3 -W error scripts/extract_netlist_v0.py --all`
 - Summarize counts: `python3 scripts/netlist_v0_metrics.py --out-json docs/evidence/netlists_v0/metrics.json --out-md docs/evidence/netlists_v0/metrics.md`
 - Generate schematic net-name artifacts: `python3 scripts/extract_schematic_nets_v0.py --all`
 - Generate match scaffolds: `python3 scripts/match_schematic_layout_v0.py --all`
@@ -98,6 +103,7 @@ How to run
 - Extract device graph (example, 4004): `python3 scripts/extract_device_graph_v0.py --chip 4004`
 - Extract anchor subcircuits (example, 4004): `python3 scripts/extract_subcircuit_v0.py --netlist docs/evidence/netlists_v1/4004_netlist_v1.json --all-signals --radius 3`
 - Summarize subcircuits: `python3 scripts/subcircuit_metrics_v0.py --manifest docs/evidence/subcircuits_v0/4004/manifest.json --out-json docs/evidence/subcircuits_v0/4004/metrics.json --out-md docs/evidence/subcircuits_v0/4004/metrics.md`
+- Run repo-local consistency checks (warnings as errors): `bash scripts/ci_schematic_pipeline_v0.sh`
 
 What v0 does (and does not do)
 - Uses layout masks only (metal/vias/poly/diffusion, plus contacts for 4004).

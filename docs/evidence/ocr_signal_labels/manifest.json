@@ -1,79 +1,40 @@
 {
   "outputs": [
     {
-      "chip": "4001",
-      "counts": {
-        "labels_total": 63,
-        "mismatch": 59,
-        "ok": 4,
-        "skipped": 26,
-        "total": 89
-      },
-      "crops_dir": "docs/evidence/ocr_signal_labels/4001/crops",
-      "report_json": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.json",
-      "report_tsv": "docs/evidence/ocr_signal_labels/4001/4001_signal_ocr_report.tsv"
-    },
-    {
-      "chip": "4002",
-      "counts": {
-        "labels_total": 406,
-        "mismatch": 401,
-        "ok": 5,
-        "skipped": 10,
-        "total": 416
-      },
-      "crops_dir": "docs/evidence/ocr_signal_labels/4002/crops",
-      "report_json": "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.json",
-      "report_tsv": "docs/evidence/ocr_signal_labels/4002/4002_signal_ocr_report.tsv"
-    },
-    {
       "chip": "4003",
       "counts": {
-        "labels_total": 14,
-        "mismatch": 14,
-        "ok": 0,
+        "labels_total": 1,
+        "mismatch": 0,
+        "ok": 1,
         "skipped": 0,
-        "total": 14
+        "total": 1
       },
       "crops_dir": "docs/evidence/ocr_signal_labels/4003/crops",
       "report_json": "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.json",
       "report_tsv": "docs/evidence/ocr_signal_labels/4003/4003_signal_ocr_report.tsv"
-    },
-    {
-      "chip": "4004",
-      "counts": {
-        "labels_total": 248,
-        "mismatch": 241,
-        "ok": 7,
-        "skipped": 27,
-        "total": 275
-      },
-      "crops_dir": "docs/evidence/ocr_signal_labels/4004/crops",
-      "report_json": "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.json",
-      "report_tsv": "docs/evidence/ocr_signal_labels/4004/4004_signal_ocr_report.tsv"
     }
   ],
   "params": {
     "aliases": "/home/eirikr/Github/4-bit/scripts/ocr_signal_aliases.json",
-    "candidates": 6,
+    "candidates": 4,
     "crop_h": 90,
     "crop_w": 240,
-    "fallback": false,
+    "fallback": true,
     "invert": false,
     "labels_only": true,
     "limit": 0,
     "max_dist": 220.0,
-    "min_conf": 60.0,
-    "min_score": 0.85,
-    "mode": "region",
-    "name_regex": "",
+    "min_conf": 0.0,
+    "min_score": 0.25,
+    "mode": "crop",
+    "name_regex": "^(CLOCK)$",
     "pad": 10,
-    "psm": 7,
+    "psm": 11,
     "region_h": 240,
     "region_w": 640,
-    "scale": 4,
-    "use_distance": false,
-    "whitelist": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_~()+&/-"
+    "scale": 14,
+    "use_distance": true,
+    "whitelist": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   },
   "tesseract_version": "5.5.2",
   "tool": "scripts/ocr_signal_labels.py"

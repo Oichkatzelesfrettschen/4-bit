@@ -1,0 +1,151 @@
+{
+  "chip": "4003",
+  "counts": {
+    "nodes": 13,
+    "transistors": 6
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 354,
+        "b_node": 373,
+        "bbox": {
+          "h": 65,
+          "w": 26,
+          "x": 1034,
+          "y": 842
+        },
+        "gate_node": 94,
+        "id": 21,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 355,
+        "b_node": 374,
+        "bbox": {
+          "h": 65,
+          "w": 26,
+          "x": 1323,
+          "y": 842
+        },
+        "gate_node": 94,
+        "id": 22,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 356,
+        "b_node": 375,
+        "bbox": {
+          "h": 65,
+          "w": 27,
+          "x": 1612,
+          "y": 842
+        },
+        "gate_node": 94,
+        "id": 23,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 352,
+        "b_node": 359,
+        "bbox": {
+          "h": 64,
+          "w": 27,
+          "x": 454,
+          "y": 843
+        },
+        "gate_node": 94,
+        "id": 24,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 353,
+        "b_node": 361,
+        "bbox": {
+          "h": 64,
+          "w": 27,
+          "x": 744,
+          "y": 843
+        },
+        "gate_node": 94,
+        "id": 25,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 361,
+        "b_node": 377,
+        "bbox": {
+          "h": 65,
+          "w": 57,
+          "x": 615,
+          "y": 861
+        },
+        "gate_node": 86,
+        "id": 33,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4003_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "cbd85277e70f14f6d4ef1265321d38fa2409249931e5af62294b587bf1f18c34"
+    }
+  },
+  "nodes": [
+    {
+      "node": 86
+    },
+    {
+      "node": 94
+    },
+    {
+      "node": 352
+    },
+    {
+      "node": 353
+    },
+    {
+      "node": 354
+    },
+    {
+      "node": 355
+    },
+    {
+      "node": 356
+    },
+    {
+      "node": 359
+    },
+    {
+      "node": 361
+    },
+    {
+      "node": 373
+    },
+    {
+      "node": 374
+    },
+    {
+      "node": 375
+    },
+    {
+      "node": 377
+    }
+  ],
+  "params": {
+    "max_nodes": 200000,
+    "max_transistors": 50000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "OUT",
+    "nodes": [
+      94
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "inputs": {
+    "netlist": "docs/evidence/netlists_v1/4003_netlist_v1.json",
+    "sha256": {
+      "netlist": "8b4c3a49ec66b4174645cc1ec1834321e0030e9c0f2a446d6e542d71ec65f834"
+    }
+  },
+  "outputs": [
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 2
+      },
+      "name": "CLOCK",
+      "output": "docs/evidence/subcircuits_v0/4003/4003_CLOCK_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "DATA",
+      "output": "docs/evidence/subcircuits_v0/4003/4003_DATA_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 2
+      },
+      "name": "EN",
+      "output": "docs/evidence/subcircuits_v0/4003/4003_EN_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 13,
+        "transistors": 6
+      },
+      "name": "OUT",
+      "output": "docs/evidence/subcircuits_v0/4003/4003_OUT_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 21,
+        "transistors": 9
+      },
+      "name": "custom",
+      "output": "docs/evidence/subcircuits_v0/4003/4003_custom_subcircuit_v0.json"
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "tool": "scripts/extract_subcircuit_v0.py"
+}

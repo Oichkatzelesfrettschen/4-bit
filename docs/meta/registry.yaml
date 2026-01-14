@@ -1,6 +1,6 @@
 metadata:
   version: "1.0"
-  last_updated: "2026-01-11T00:36:40Z"
+  last_updated: "2026-01-13T00:00:00Z"
 
 docs:
   - file: README.md
@@ -60,6 +60,10 @@ docs:
   - file: docs/evidence/PRIMARY_SOURCES_BACKLOG.md
     role: evidence
   - file: docs/evidence/OCR_SIGNAL_LABELS.md
+    role: evidence
+  - file: docs/evidence/ANCHOR_COVERAGE_V0.md
+    role: evidence
+  - file: docs/evidence/POWER_RAIL_EVIDENCE.md
     role: evidence
   - file: docs/evidence/photomicrograph_permissions.md
     role: evidence

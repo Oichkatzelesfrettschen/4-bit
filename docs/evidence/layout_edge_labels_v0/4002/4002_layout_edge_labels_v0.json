@@ -1,0 +1,32 @@
+{
+  "chip": "4002",
+  "counts": {
+    "detections": 0
+  },
+  "detections": [],
+  "inputs": {
+    "metal_image": "docs/emulators/i4002-metal.png",
+    "netlist_v0": "docs/evidence/netlists_v0/4002_netlist_v0.json",
+    "sha256": {
+      "metal_image": "f9cad5e02301d13245976b07a063e1f8bfd9a7b03c5a3367f75037c4cbd5cc11"
+    }
+  },
+  "params": {
+    "band": 320,
+    "edges": [
+      "bottom",
+      "left",
+      "right",
+      "top"
+    ],
+    "max_area": 120000,
+    "min_area": 800,
+    "min_fill": 0.22,
+    "ocr_backend": "tesseract-stack",
+    "pad": 24
+  },
+  "schema": {
+    "description": "Detected periphery label blocks on metal mask with OCR + node suggestion.",
+    "version": 0
+  }
+}

@@ -1,0 +1,1048 @@
+{
+  "chip": "4004",
+  "counts": {
+    "nodes": 91,
+    "transistors": 57
+  },
+  "devices": {
+    "transistors": [
+      {
+        "a_node": 1749,
+        "b_node": 3,
+        "bbox": {
+          "h": 42,
+          "w": 41,
+          "x": 1245,
+          "y": 629
+        },
+        "gate_node": 740,
+        "id": 325,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 1749,
+        "b_node": 3,
+        "bbox": {
+          "h": 42,
+          "w": 53,
+          "x": 1267,
+          "y": 629
+        },
+        "gate_node": 143,
+        "id": 326,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 1804,
+        "bbox": {
+          "h": 26,
+          "w": 153,
+          "x": 1207,
+          "y": 666
+        },
+        "gate_node": 763,
+        "id": 340,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 1900,
+        "bbox": {
+          "h": 24,
+          "w": 38,
+          "x": 1502,
+          "y": 753
+        },
+        "gate_node": 779,
+        "id": 389,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2071,
+        "b_node": 3,
+        "bbox": {
+          "h": 365,
+          "w": 402,
+          "x": 877,
+          "y": 884
+        },
+        "gate_node": 179,
+        "id": 434,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 415,
+        "bbox": {
+          "h": 31,
+          "w": 20,
+          "x": 617,
+          "y": 907
+        },
+        "gate_node": 805,
+        "id": 443,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2072,
+        "bbox": {
+          "h": 16,
+          "w": 33,
+          "x": 196,
+          "y": 948
+        },
+        "gate_node": 246,
+        "id": 456,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2055,
+        "b_node": 3,
+        "bbox": {
+          "h": 23,
+          "w": 43,
+          "x": 932,
+          "y": 961
+        },
+        "gate_node": 835,
+        "id": 463,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2094,
+        "bbox": {
+          "h": 95,
+          "w": 37,
+          "x": 956,
+          "y": 982
+        },
+        "gate_node": 415,
+        "id": 471,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2130,
+        "bbox": {
+          "h": 18,
+          "w": 34,
+          "x": 1725,
+          "y": 1035
+        },
+        "gate_node": 874,
+        "id": 491,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2106,
+        "b_node": 3,
+        "bbox": {
+          "h": 25,
+          "w": 24,
+          "x": 1222,
+          "y": 1058
+        },
+        "gate_node": 255,
+        "id": 500,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 247,
+        "bbox": {
+          "h": 63,
+          "w": 27,
+          "x": 937,
+          "y": 1075
+        },
+        "gate_node": 248,
+        "id": 509,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 278,
+        "bbox": {
+          "h": 241,
+          "w": 574,
+          "x": 852,
+          "y": 1107
+        },
+        "gate_node": 330,
+        "id": 519,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3,
+        "bbox": {
+          "h": 51,
+          "w": 22,
+          "x": 1729,
+          "y": 1155
+        },
+        "gate_node": 415,
+        "id": 530,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2809,
+        "b_node": 3,
+        "bbox": {
+          "h": 72,
+          "w": 25,
+          "x": 490,
+          "y": 1742
+        },
+        "gate_node": 994,
+        "id": 751,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2848,
+        "bbox": {
+          "h": 25,
+          "w": 39,
+          "x": 513,
+          "y": 1772
+        },
+        "gate_node": 434,
+        "id": 762,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2847,
+        "bbox": {
+          "h": 81,
+          "w": 104,
+          "x": 1340,
+          "y": 1777
+        },
+        "gate_node": 442,
+        "id": 764,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2867,
+        "bbox": {
+          "h": 15,
+          "w": 11,
+          "x": 511,
+          "y": 1799
+        },
+        "gate_node": 443,
+        "id": 776,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2889,
+        "b_node": 3,
+        "bbox": {
+          "h": 32,
+          "w": 23,
+          "x": 1597,
+          "y": 1848
+        },
+        "gate_node": 165,
+        "id": 795,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 2921,
+        "bbox": {
+          "h": 15,
+          "w": 30,
+          "x": 560,
+          "y": 1885
+        },
+        "gate_node": 1025,
+        "id": 807,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 2983,
+        "b_node": 3,
+        "bbox": {
+          "h": 25,
+          "w": 17,
+          "x": 1199,
+          "y": 1996
+        },
+        "gate_node": 1052,
+        "id": 834,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3007,
+        "b_node": 3,
+        "bbox": {
+          "h": 62,
+          "w": 25,
+          "x": 525,
+          "y": 2003
+        },
+        "gate_node": 1056,
+        "id": 837,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3027,
+        "b_node": 3,
+        "bbox": {
+          "h": 210,
+          "w": 271,
+          "x": 567,
+          "y": 2021
+        },
+        "gate_node": 1061,
+        "id": 850,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3035,
+        "bbox": {
+          "h": 30,
+          "w": 31,
+          "x": 1201,
+          "y": 2024
+        },
+        "gate_node": 415,
+        "id": 851,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3005,
+        "b_node": 3,
+        "bbox": {
+          "h": 14,
+          "w": 45,
+          "x": 966,
+          "y": 2037
+        },
+        "gate_node": 455,
+        "id": 859,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3072,
+        "bbox": {
+          "h": 81,
+          "w": 77,
+          "x": 1784,
+          "y": 2064
+        },
+        "gate_node": 3,
+        "id": 866,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3067,
+        "bbox": {
+          "h": 13,
+          "w": 14,
+          "x": 1862,
+          "y": 2070
+        },
+        "gate_node": 1079,
+        "id": 867,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3072,
+        "b_node": 3104,
+        "bbox": {
+          "h": 79,
+          "w": 141,
+          "x": 1669,
+          "y": 2081
+        },
+        "gate_node": 3,
+        "id": 871,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3237,
+        "bbox": {
+          "h": 125,
+          "w": 292,
+          "x": 546,
+          "y": 2146
+        },
+        "gate_node": 546,
+        "id": 898,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3114,
+        "b_node": 3,
+        "bbox": {
+          "h": 15,
+          "w": 46,
+          "x": 965,
+          "y": 2145
+        },
+        "gate_node": 455,
+        "id": 899,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 537,
+        "b_node": 3,
+        "bbox": {
+          "h": 26,
+          "w": 60,
+          "x": 416,
+          "y": 2155
+        },
+        "gate_node": 1106,
+        "id": 905,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3,
+        "bbox": {
+          "h": 34,
+          "w": 69,
+          "x": 740,
+          "y": 2163
+        },
+        "gate_node": 1118,
+        "id": 909,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3152,
+        "b_node": 3,
+        "bbox": {
+          "h": 30,
+          "w": 17,
+          "x": 1199,
+          "y": 2192
+        },
+        "gate_node": 1114,
+        "id": 918,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3184,
+        "bbox": {
+          "h": 15,
+          "w": 44,
+          "x": 966,
+          "y": 2221
+        },
+        "gate_node": 455,
+        "id": 933,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3220,
+        "bbox": {
+          "h": 31,
+          "w": 27,
+          "x": 1200,
+          "y": 2223
+        },
+        "gate_node": 415,
+        "id": 934,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 415,
+        "b_node": 3,
+        "bbox": {
+          "h": 30,
+          "w": 111,
+          "x": 1655,
+          "y": 2228
+        },
+        "gate_node": 1130,
+        "id": 940,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3232,
+        "bbox": {
+          "h": 14,
+          "w": 11,
+          "x": 1642,
+          "y": 2241
+        },
+        "gate_node": 1138,
+        "id": 945,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 415,
+        "b_node": 3,
+        "bbox": {
+          "h": 40,
+          "w": 125,
+          "x": 1641,
+          "y": 2263
+        },
+        "gate_node": 1153,
+        "id": 950,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3285,
+        "bbox": {
+          "h": 16,
+          "w": 20,
+          "x": 1671,
+          "y": 2297
+        },
+        "gate_node": 482,
+        "id": 958,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3295,
+        "bbox": {
+          "h": 15,
+          "w": 45,
+          "x": 965,
+          "y": 2330
+        },
+        "gate_node": 455,
+        "id": 982,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3348,
+        "b_node": 3,
+        "bbox": {
+          "h": 20,
+          "w": 14,
+          "x": 1448,
+          "y": 2381
+        },
+        "gate_node": 1178,
+        "id": 994,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3369,
+        "bbox": {
+          "h": 108,
+          "w": 19,
+          "x": 965,
+          "y": 2405
+        },
+        "gate_node": 1197,
+        "id": 996,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3369,
+        "b_node": 3,
+        "bbox": {
+          "h": 61,
+          "w": 35,
+          "x": 987,
+          "y": 2405
+        },
+        "gate_node": 1182,
+        "id": 997,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 415,
+        "bbox": {
+          "h": 96,
+          "w": 30,
+          "x": 1005,
+          "y": 2417
+        },
+        "gate_node": 1182,
+        "id": 998,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3360,
+        "b_node": 162,
+        "bbox": {
+          "h": 17,
+          "w": 21,
+          "x": 1497,
+          "y": 2425
+        },
+        "gate_node": 482,
+        "id": 999,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3353,
+        "b_node": 3,
+        "bbox": {
+          "h": 20,
+          "w": 17,
+          "x": 950,
+          "y": 2432
+        },
+        "gate_node": 482,
+        "id": 1003,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3376,
+        "b_node": 162,
+        "bbox": {
+          "h": 32,
+          "w": 35,
+          "x": 1457,
+          "y": 2434
+        },
+        "gate_node": 1188,
+        "id": 1006,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 162,
+        "b_node": 415,
+        "bbox": {
+          "h": 72,
+          "w": 30,
+          "x": 1475,
+          "y": 2442
+        },
+        "gate_node": 1191,
+        "id": 1008,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 415,
+        "b_node": 3418,
+        "bbox": {
+          "h": 111,
+          "w": 42,
+          "x": 1109,
+          "y": 2444
+        },
+        "gate_node": 3,
+        "id": 1009,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3386,
+        "b_node": 3420,
+        "bbox": {
+          "h": 110,
+          "w": 42,
+          "x": 1576,
+          "y": 2445
+        },
+        "gate_node": 3,
+        "id": 1011,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3394,
+        "bbox": {
+          "h": 41,
+          "w": 37,
+          "x": 245,
+          "y": 2465
+        },
+        "gate_node": 1186,
+        "id": 1013,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3418,
+        "bbox": {
+          "h": 73,
+          "w": 80,
+          "x": 1096,
+          "y": 2533
+        },
+        "gate_node": 1205,
+        "id": 1019,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3420,
+        "bbox": {
+          "h": 72,
+          "w": 79,
+          "x": 1563,
+          "y": 2534
+        },
+        "gate_node": 3,
+        "id": 1020,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3431,
+        "bbox": {
+          "h": 42,
+          "w": 38,
+          "x": 397,
+          "y": 2575
+        },
+        "gate_node": 1201,
+        "id": 1025,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3423,
+        "b_node": 3426,
+        "bbox": {
+          "h": 19,
+          "w": 17,
+          "x": 1782,
+          "y": 2580
+        },
+        "gate_node": 482,
+        "id": 1026,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3442,
+        "bbox": {
+          "h": 14,
+          "w": 14,
+          "x": 1156,
+          "y": 2606
+        },
+        "gate_node": 1210,
+        "id": 1028,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3,
+        "b_node": 3,
+        "bbox": {
+          "h": 14,
+          "w": 15,
+          "x": 1622,
+          "y": 2607
+        },
+        "gate_node": 1213,
+        "id": 1029,
+        "kind": "pmos_candidate"
+      }
+    ]
+  },
+  "inputs": {
+    "netlist_v1": "docs/evidence/netlists_v1/4004_netlist_v1.json",
+    "sha256": {
+      "netlist_v1": "3582cba9e7b4e1066148756dc4bde03f7cd4ee5e9d51751b1f8e4b228cec70f6"
+    }
+  },
+  "nodes": [
+    {
+      "node": 3
+    },
+    {
+      "node": 143
+    },
+    {
+      "node": 162
+    },
+    {
+      "node": 165
+    },
+    {
+      "node": 179
+    },
+    {
+      "node": 246
+    },
+    {
+      "node": 247
+    },
+    {
+      "node": 248
+    },
+    {
+      "node": 255
+    },
+    {
+      "node": 278
+    },
+    {
+      "node": 330
+    },
+    {
+      "node": 415
+    },
+    {
+      "node": 434
+    },
+    {
+      "node": 442
+    },
+    {
+      "node": 443
+    },
+    {
+      "node": 455
+    },
+    {
+      "node": 482
+    },
+    {
+      "node": 537
+    },
+    {
+      "node": 546
+    },
+    {
+      "node": 740
+    },
+    {
+      "node": 763
+    },
+    {
+      "node": 779
+    },
+    {
+      "node": 805
+    },
+    {
+      "node": 835
+    },
+    {
+      "node": 874
+    },
+    {
+      "node": 994
+    },
+    {
+      "node": 1025
+    },
+    {
+      "node": 1052
+    },
+    {
+      "node": 1056
+    },
+    {
+      "node": 1061
+    },
+    {
+      "node": 1079
+    },
+    {
+      "node": 1106
+    },
+    {
+      "node": 1114
+    },
+    {
+      "node": 1118
+    },
+    {
+      "node": 1130
+    },
+    {
+      "node": 1138
+    },
+    {
+      "node": 1153
+    },
+    {
+      "node": 1178
+    },
+    {
+      "node": 1182
+    },
+    {
+      "node": 1186
+    },
+    {
+      "node": 1188
+    },
+    {
+      "node": 1191
+    },
+    {
+      "node": 1197
+    },
+    {
+      "node": 1201
+    },
+    {
+      "node": 1205
+    },
+    {
+      "node": 1210
+    },
+    {
+      "node": 1213
+    },
+    {
+      "node": 1749
+    },
+    {
+      "node": 1804
+    },
+    {
+      "node": 1900
+    },
+    {
+      "node": 2055
+    },
+    {
+      "node": 2071
+    },
+    {
+      "node": 2072
+    },
+    {
+      "node": 2094
+    },
+    {
+      "node": 2106
+    },
+    {
+      "node": 2130
+    },
+    {
+      "node": 2809
+    },
+    {
+      "node": 2847
+    },
+    {
+      "node": 2848
+    },
+    {
+      "node": 2867
+    },
+    {
+      "node": 2889
+    },
+    {
+      "node": 2921
+    },
+    {
+      "node": 2983
+    },
+    {
+      "node": 3005
+    },
+    {
+      "node": 3007
+    },
+    {
+      "node": 3027
+    },
+    {
+      "node": 3035
+    },
+    {
+      "node": 3067
+    },
+    {
+      "node": 3072
+    },
+    {
+      "node": 3104
+    },
+    {
+      "node": 3114
+    },
+    {
+      "node": 3152
+    },
+    {
+      "node": 3184
+    },
+    {
+      "node": 3220
+    },
+    {
+      "node": 3232
+    },
+    {
+      "node": 3237
+    },
+    {
+      "node": 3285
+    },
+    {
+      "node": 3295
+    },
+    {
+      "node": 3348
+    },
+    {
+      "node": 3353
+    },
+    {
+      "node": 3360
+    },
+    {
+      "node": 3369
+    },
+    {
+      "node": 3376
+    },
+    {
+      "node": 3386
+    },
+    {
+      "node": 3394
+    },
+    {
+      "node": 3418
+    },
+    {
+      "node": 3420
+    },
+    {
+      "node": 3423
+    },
+    {
+      "node": 3426
+    },
+    {
+      "node": 3431
+    },
+    {
+      "node": 3442
+    }
+  ],
+  "params": {
+    "max_nodes": 200000,
+    "max_transistors": 50000,
+    "radius": 3
+  },
+  "schema": {
+    "description": "Extracted transistor subcircuit around seed nodes.",
+    "version": 0
+  },
+  "seed": {
+    "kind": "D2_PAD",
+    "nodes": [
+      3426
+    ]
+  }
+}

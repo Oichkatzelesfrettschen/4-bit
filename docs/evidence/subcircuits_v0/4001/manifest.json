@@ -1,0 +1,104 @@
+{
+  "inputs": {
+    "netlist": "docs/evidence/netlists_v1/4001_netlist_v1.json",
+    "sha256": {
+      "netlist": "8df440fdc47b1ba8fc27071f51fa8d8e920a2a24291916dd0cad87562172fb52"
+    }
+  },
+  "outputs": [
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 3
+      },
+      "name": "D0_PAD",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_D0_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 65,
+        "transistors": 63
+      },
+      "name": "D1_PAD",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_D1_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 65,
+        "transistors": 63
+      },
+      "name": "D2_PAD",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_D2_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 65,
+        "transistors": 63
+      },
+      "name": "D3_PAD",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_D3_PAD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 55,
+        "transistors": 36
+      },
+      "name": "CLK1",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_CLK1_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 59,
+        "transistors": 38
+      },
+      "name": "CLK2",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_CLK2_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "SYNC",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_SYNC_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 59,
+        "transistors": 38
+      },
+      "name": "RESET",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_RESET_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 9,
+        "transistors": 6
+      },
+      "name": "CL",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_CL_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 9,
+        "transistors": 6
+      },
+      "name": "CM",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_CM_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 150,
+        "transistors": 117
+      },
+      "name": "custom",
+      "output": "docs/evidence/subcircuits_v0/4001/4001_custom_subcircuit_v0.json"
+    }
+  ],
+  "params": {
+    "max_nodes": 12000,
+    "max_transistors": 4000,
+    "radius": 3
+  },
+  "tool": "scripts/extract_subcircuit_v0.py"
+}

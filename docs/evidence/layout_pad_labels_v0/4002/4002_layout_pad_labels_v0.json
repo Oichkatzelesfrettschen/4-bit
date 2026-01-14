@@ -45,7 +45,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -69,7 +69,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -93,7 +93,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -117,7 +117,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -141,7 +141,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -165,7 +165,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -189,7 +189,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -209,11 +209,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "B",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -233,11 +233,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "B",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -261,7 +261,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -281,11 +281,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "B",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -305,11 +305,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "B",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -333,7 +333,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -357,7 +357,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -381,7 +381,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -405,7 +405,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -429,7 +429,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -453,7 +453,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -477,7 +477,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -501,7 +501,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -525,7 +525,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -549,7 +549,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -573,7 +573,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -597,7 +597,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -621,7 +621,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -641,11 +641,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "FM",
-        "conf": 70.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -665,11 +665,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "F",
-        "conf": 0.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 5
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -693,7 +693,7 @@
         "conf": -1.0,
         "invert": false,
         "psm": 0,
-        "scale": 1
+        "scale": 4
       }
     },
     {
@@ -713,11 +713,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "J",
-        "conf": 59.0,
+        "best": "",
+        "conf": -1.0,
         "invert": false,
-        "psm": 13,
-        "scale": 3
+        "psm": 0,
+        "scale": 4
       }
     },
     {
@@ -737,11 +737,11 @@
       },
       "ocr": {
         "backend": "tesseract",
-        "best": "A",
-        "conf": 24.0,
-        "invert": true,
-        "psm": 10,
-        "scale": 3
+        "best": "",
+        "conf": -1.0,
+        "invert": false,
+        "psm": 0,
+        "scale": 4
       }
     }
   ],

@@ -41,6 +41,54 @@ Quick local benchmark (4004 subset; 40 points; `CLK*`, `SYNC`, `D0..D3`):
 Recommended fast calibration invocation:
 - `./scripts/ocr_signal_labels.py --chip 4004 --name-regex '^(CLK1|CLK2|SYNC|D0|D1|D2|D3)$' --limit 40 --save-mismatches 0`
 
+## OCR backend order (recommended)
+
+For this repo’s “short token / tiny label” use-case (pin labels like `01`, single letters like `C`, and short net names),
+the most reliable and cost-effective order is:
+
+1. **ONNX Runtime + CUDA (CTC OCR model)** when available and validated.
+   - Best throughput once a model is adopted and preprocessing is stable.
+2. **ONNX Runtime CPU** as a compatibility fallback.
+3. **Tesseract CLI fast-path** (`tesseract_cli_fast`): one preprocessing preset + one PSM.
+   - Used for batch pipelines and micro-benchmarks where speed matters.
+4. **Tesseract CLI full sweep** (`tesseract`): multi-variant preprocessing + multiple PSMs.
+   - Use when accuracy matters more than runtime.
+5. **OpenCV Hu moments** (`template`): single-glyph fallback when OCR returns no tokens.
+
+Separately, apply acceleration where it is currently most practical:
+
+- **GPU-accelerated preprocessing** (OpenCV CUDA / similar) for denoise, threshold, morphology, rotation, and cropping.
+  This can materially reduce total wall time even if OCR remains CPU.
+- **SIMD-first OCR**: prefer the system `tesseract` binary (typically built with AVX/AVX2 on modern distros) over
+  pure-Python OCR stacks. For our tiny, high-contrast glyphs, the limiting factor is usually preprocessing/ROI, not
+  the recognizer model.
+
+## Whitelists / charsets
+
+Different label classes require different allowed-character sets; using a strict whitelist measurably reduces false positives.
+
+- **Edge tokens** (mask periphery): `A–Z` + `0–9` only.
+  - Typical: `S`, `T`, `RM`, `R0..R3`, `D0..D3`, `01`, `02`.
+- **Schematic net labels**: `A–Z` + `0–9` plus a small operator set.
+  - Used by `scripts/ocr_signal_labels.py` for internal nets: `~()+&/._-[]`.
+- **Numeric-only** (die markings / chip IDs): `0–9` only.
+
+Implementation notes:
+
+- `scripts/ocr_preprocess_v0.py::ocr_best_token()` enforces `tessedit_char_whitelist=` and filters results by length.
+- `scripts/ocr_backend_v0.py::OnnxCtcBackend.best_token()` additionally filters decoded strings against the caller’s whitelist.
+- `scripts/ocr_backend_v0.py` selects preprocessing presets heuristically (`digits_tiny` vs `glyph_single` vs `edge_label`) based on whitelist + expected length.
+- You can override the preset selection for experiments with `OCR_PRESET=outline_fill` (or any key in `scripts/ocr_preprocess_v0.py::_PRESETS_V0`).
+
+## Preprocess presets (v0)
+
+Current recommended mapping:
+
+- **Digits (`01`, `02`, `14`, `15`)** → `digits_tiny`
+- **Single glyphs (`T`, `C`, `S`, `V`, `G`, `L`)** → `glyph_single`
+- **Short alnum (`RM`, `R0..R3`, `D0..D3`)** → `edge_label`
+- **Outline/engraved text (logos / chip IDs)** → `outline_fill` (use selectively; it reduced edge-label accuracy in our quick bench)
+
 ## Overlays
 
 To visually audit point placement and mismatches on top of the schematic:
@@ -80,8 +128,8 @@ Provide these exceptions in `scripts/ocr_signal_aliases.json`, keyed by chip:
 - Many labels in `i4004-schematic.bmp` are vertical/rotated; OCR quality depends heavily on preprocessing.
 - Expect mismatches; the value is the deterministic mismatch set + annotated crops for inspection.
 - GPU note: CUDA is available on this workstation, but the current OCR workflow uses `tesseract`.
-  CUDA-backed OCR via `onnxruntime-gpu` is not currently viable on Python 3.13 (the wheel reports
-  CPU-only providers), while the system `onnxruntime` build *does* expose `CUDAExecutionProvider`.
+  The repo supports an optional ONNX CTC backend via `onnxruntime`; set `OCR_ONNX_MODEL=/path/to/model.onnx`
+  and prefer GPU execution providers with `--prefer-cuda` where applicable.
 - Tooling snapshot (local workstation):
   - `tesseract 5.5.x` + `leptonica 1.87.x` installed system-wide.
   - `opencv-cuda` / `python-opencv-cuda` and `python-onnxruntime-opt-cuda` are installed system-wide.

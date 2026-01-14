@@ -10,6 +10,8 @@ The canonical crops live in `docs/evidence/layout_pad_labels_v0/4004/human_crops
 | Printed label | Layout node | Crop |
 |---|---:|---|
 | `T` | 0 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_000_node_0.png` |
+| `C` | 1 | `docs/evidence/layout_edge_labels_v0/4004/crops/001_C_node1_conf89.0.png` (used as `POC_PAD`) |
+| `S` | 2 | `docs/evidence/layout_edge_labels_v0/4004/crops/003_S_node2_conf91.0.png` (used as `SYNC`) |
 | `02` | 17 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_001_node_17.png` |
 | `01` | 49 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_016_node_49.png` |
 | `D3` | 432 | `docs/evidence/layout_pad_labels_v0/4004/human_crops/box_067_node_432.png` |
@@ -24,6 +26,4 @@ The canonical crops live in `docs/evidence/layout_pad_labels_v0/4004/human_crops
 
 ## Open items (next)
 
-- Confirm `RM` token via robust OCR (currently best-effort; crop is visually unambiguous).
-- Determine whether printed `T` corresponds to `TEST_PAD` or a different package/pad marking.
-- Identify `SYNC` and `POC_PAD` labels (likely single-letter `S` and `C` on top edge).
+- Determine whether printed `T` corresponds to `TEST_PAD` or a different package/pad marking (currently assumed `TEST_PAD`).
