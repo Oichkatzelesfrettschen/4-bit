@@ -89,6 +89,22 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
   - Memory control outputs (`~CM-ROM`, `~CM-RAM`, `~SYNC`, `~WR`, `~RD`) and their gating logic.
   - Reset / test-related logic (noting the analyzer readme’s TEST-pin revision mismatch).
 
+### Roadmap snapshot (discovered / active / next)
+1. **What we have discovered & completed:**
+   - Bounding boxes and anchors for C/T/S pads now synchronized across 4002/4003, and their overlays committed (`docs/evidence/anchor_remap_overlays_v1/`).
+   - Manual pad-reading infrastructure (`docs/evidence/layout_pad_labels_v0/*/manual_readings_v0.md`) now captures OCR/angle data, and `pad_pin_template_v0.md` drafts exist for each chip.
+   - OCR tooling plans with CUDA/ONNX/pytesseract fallbacks documented and ready for incremental training, including micro-benchmarks under `docs/evidence/ocr_benchmarks_v0/`.
+   - Anchor status dashboards (`docs/evidence/LACUNAE_STATUS.md`, `docs/evidence/ANCHOR_COVERAGE_V0.md`) refreshed to record zero-incidence gaps now resolved for 4004 anchors.
+2. **What must be done immediately:**
+   - Map the remaining SYNC / POC_PAD / TEST_PAD anchors from the bounding-box sync outputs and commit them into `docs/evidence/schematic_layout_anchors_v1.json` so the remap/incidence pipeline can consume them.
+   - Finish documenting pad readings for 4001/4002/4003, flagging low-confidence rails/pads, and finalize the pad-pin templates (rationalized naming + offsets).
+   - Run remap → incidence → subcircuit extraction for 4001/4002/4003, validate netlists against schematic layouts, and record any mismatches in `docs/evidence/anchor_incidence_v0/` plus `subcircuits_v0/` outputs.
+   - Update the living docs (`docs/ROADMAP.md`, `docs/CHIP_EXTRACTION_STATUS.md`, `docs/evidence/LACUNAE_STATUS.md`) after each batch of anchor/pad work so the roadmap reflects actual dependencies and next focus areas.
+3. **What must be built next:**
+   - Deploy the enhanced OCR toolchain (CUDA + ONNX + pytesseract fallback) and train it on the collected pad label crops so future anchor detection is ensemble-backed and self-validating.
+   - Translate the remapped anchors/subcircuits into a transistor-aware netlist that can feed the transistor/switch solver in `mcs4-core/src/transistor.rs` and the future FPGA exporter.
+   - Expand the plan's 50-step cycle with tooling milestones (self-training OCR, anchor propagation automation, fixture validation) and keep the status snapshots (Roadmap, CHIP_EXTRACTION_STATUS, LACUNAE_STATUS) up to date.
+
 ## Phase 1 - CPU correctness and instruction coverage
 - Complete 4040 CPU: register banks, 7-level stack, interrupts, and new opcodes.
 - Harden 4004/4040 decode paths with golden vectors and fuzz regression tests.
