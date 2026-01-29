@@ -1,87 +1,35 @@
 {
   "chip": "4003",
   "counts": {
-    "nodes": 13,
-    "transistors": 6
+    "nodes": 5,
+    "transistors": 2
   },
   "devices": {
     "transistors": [
       {
-        "a_node": 354,
-        "b_node": 373,
+        "a_node": 239,
+        "b_node": 279,
         "bbox": {
-          "h": 65,
-          "w": 26,
-          "x": 1034,
-          "y": 842
+          "h": 61,
+          "w": 38,
+          "x": 389,
+          "y": 568
         },
-        "gate_node": 94,
-        "id": 21,
+        "gate_node": 58,
+        "id": 6,
         "kind": "pmos_candidate"
       },
       {
-        "a_node": 355,
-        "b_node": 374,
+        "a_node": 279,
+        "b_node": 297,
         "bbox": {
-          "h": 65,
-          "w": 26,
-          "x": 1323,
-          "y": 842
+          "h": 117,
+          "w": 52,
+          "x": 337,
+          "y": 600
         },
-        "gate_node": 94,
-        "id": 22,
-        "kind": "pmos_candidate"
-      },
-      {
-        "a_node": 356,
-        "b_node": 375,
-        "bbox": {
-          "h": 65,
-          "w": 27,
-          "x": 1612,
-          "y": 842
-        },
-        "gate_node": 94,
-        "id": 23,
-        "kind": "pmos_candidate"
-      },
-      {
-        "a_node": 352,
-        "b_node": 359,
-        "bbox": {
-          "h": 64,
-          "w": 27,
-          "x": 454,
-          "y": 843
-        },
-        "gate_node": 94,
-        "id": 24,
-        "kind": "pmos_candidate"
-      },
-      {
-        "a_node": 353,
-        "b_node": 361,
-        "bbox": {
-          "h": 64,
-          "w": 27,
-          "x": 744,
-          "y": 843
-        },
-        "gate_node": 94,
-        "id": 25,
-        "kind": "pmos_candidate"
-      },
-      {
-        "a_node": 361,
-        "b_node": 377,
-        "bbox": {
-          "h": 65,
-          "w": 57,
-          "x": 615,
-          "y": 861
-        },
-        "gate_node": 86,
-        "id": 33,
+        "gate_node": 74,
+        "id": 16,
         "kind": "pmos_candidate"
       }
     ]
@@ -89,53 +37,29 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4003_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "cbd85277e70f14f6d4ef1265321d38fa2409249931e5af62294b587bf1f18c34"
+      "netlist_v1": "6c68316c89ea485dacfb96ec994e65176512fdd3108d36efaed1c8e9f3143f01"
     }
   },
   "nodes": [
     {
-      "node": 86
+      "node": 58
     },
     {
-      "node": 94
+      "node": 74
     },
     {
-      "node": 352
+      "node": 239
     },
     {
-      "node": 353
+      "node": 279
     },
     {
-      "node": 354
-    },
-    {
-      "node": 355
-    },
-    {
-      "node": 356
-    },
-    {
-      "node": 359
-    },
-    {
-      "node": 361
-    },
-    {
-      "node": 373
-    },
-    {
-      "node": 374
-    },
-    {
-      "node": 375
-    },
-    {
-      "node": 377
+      "node": 297
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "schema": {
@@ -145,7 +69,7 @@
   "seed": {
     "kind": "EN",
     "nodes": [
-      94
+      279
     ]
   }
 }

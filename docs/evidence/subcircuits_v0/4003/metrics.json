@@ -1,0 +1,46 @@
+{
+  "counts": {
+    "nonzero_transistors": 5,
+    "subcircuits": 5,
+    "zero_transistors": 0
+  },
+  "inputs": {
+    "manifest": "docs/evidence/subcircuits_v0/4003/manifest.json"
+  },
+  "rows": [
+    {
+      "name": "custom",
+      "nodes": 21,
+      "output": "docs/evidence/subcircuits_v0/4003/4003_custom_subcircuit_v0.json",
+      "transistors": 9
+    },
+    {
+      "name": "OUT",
+      "nodes": 13,
+      "output": "docs/evidence/subcircuits_v0/4003/4003_OUT_subcircuit_v0.json",
+      "transistors": 6
+    },
+    {
+      "name": "CLOCK",
+      "nodes": 5,
+      "output": "docs/evidence/subcircuits_v0/4003/4003_CLOCK_subcircuit_v0.json",
+      "transistors": 2
+    },
+    {
+      "name": "EN",
+      "nodes": 5,
+      "output": "docs/evidence/subcircuits_v0/4003/4003_EN_subcircuit_v0.json",
+      "transistors": 2
+    },
+    {
+      "name": "DATA",
+      "nodes": 3,
+      "output": "docs/evidence/subcircuits_v0/4003/4003_DATA_subcircuit_v0.json",
+      "transistors": 1
+    }
+  ],
+  "schema": {
+    "description": "Subcircuit extraction metrics.",
+    "version": 0
+  }
+}

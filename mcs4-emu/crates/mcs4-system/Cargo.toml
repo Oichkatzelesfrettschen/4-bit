@@ -11,6 +11,9 @@ authors.workspace = true
 [lints]
 workspace = true
 
+[features]
+simd_cluster = []
+
 [dependencies]
 mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }

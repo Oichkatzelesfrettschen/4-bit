@@ -46,27 +46,29 @@
 
 ## 4003
 
-| Signal | Anchor present | layout_node | layout_node_src |
-|---|---:|---:|---:|
-| `CP` (`CP→CLOCK`) | yes | 239 | 0 |
-| `DATAIN` (`DATAIN→DATA`) | yes | 235 | 1 |
-| `O0` | no |  |  |
-| `O1` | no |  |  |
-| `O2` | no |  |  |
-| `O3` | no |  |  |
-| `O4` | no |  |  |
-| `O5` | no |  |  |
-| `O6` | no |  |  |
-| `O7` | no |  |  |
-| `O8` | no |  |  |
-| `O9` | no |  |  |
-| `E` (`E→EN`) | yes | 279 | 19 |
-| `VSS` | yes | 152 | 5 |
-| `VDD` | yes | 359 | 129 |
-| `CLOCK` | yes | 239 | 0 |
-| `DATA` | yes | 235 | 1 |
-| `EN` | yes | 279 | 19 |
-| `OUT` | yes | 352 | 109 |
+| Signal | Anchor present | layout_node | layout_node_src | Notes |
+|---|---:|---:|---:|---|
+| `CP` (`CP→CLOCK`) | yes | 239 | 0 | |
+| `DATAIN` (`DATAIN→DATA`) | yes | 235 | 1 | |
+| `O0` (`O0→Q0`) | yes | 237 | - | Parallel output (Q0 in JSON) |
+| `O1` (`O1→Q1`) | yes | 151 | - | Parallel output (Q1 in JSON) |
+| `O2` (`O2→Q2`) | yes | 78 | - | Parallel output (Q2 in JSON) |
+| `O3` (`O3→Q3`) | yes | 370 | - | Parallel output (Q3 in JSON) |
+| `O4` (`O4→Q4`) | yes | 389 | - | Parallel output (Q4 in JSON) |
+| `O5` (`O5→Q5`) | yes | 110 | - | Parallel output (Q5 in JSON) |
+| `O6` (`O6→Q6`) | yes | 7 | - | Parallel output (Q6 in JSON) |
+| `O7` (`O7→Q7`) | yes | 386 | - | Parallel output (Q7 in JSON) |
+| `O8` (`O8→Q8`) | yes | 385 | - | Parallel output (Q8 in JSON) |
+| `O9` (`O9→Q9`) | yes | 390 | - | Parallel output (Q9 in JSON) |
+| `E` (`E→EN`) | yes | 279 | 19 | |
+| `VSS` | yes | 152 | 5 | |
+| `VDD` | yes | 359 | 129 | |
+| `CLOCK` | yes | 239 | 0 | |
+| `DATA` | yes | 235 | 1 | |
+| `EN` | yes | 279 | 19 | |
+| `OUT` | yes | 352 | 109 | Serial output |
+
+**Note (2026-01-14):** The JSON uses Q0-Q9 naming for parallel outputs; datasheet pinouts use O0-O9. These are equivalent signals.
 
 ## 4004
 

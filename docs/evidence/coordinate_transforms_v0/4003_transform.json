@@ -1,0 +1,28 @@
+{
+  "chip": "4003",
+  "schema_version": 0,
+  "transform_type": "homography",
+  "matrix": [
+    [
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "validation": {
+    "rmse_pixels": 0.0,
+    "num_points": 0,
+    "max_residual": 0.0
+  },
+  "notes": "PLACEHOLDER: Identity transform - replace with actual homography"
+}

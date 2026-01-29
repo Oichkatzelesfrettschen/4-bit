@@ -38,7 +38,40 @@ Applied by `scripts/apply_power_rail_from_edge_crops_v0.py` using edge-label cro
 - `VSS` (token `G`) → `layout_node=3` (`000_G_node3_conf89.7.png`)
 - `VCC` (token `V`) → `layout_node=415` (`002_V_node415_conf80.0.png`)
 
-## Working rail assignments (low confidence)
+### 4001 (Corroborated 2026-01-14)
+
+Pad-to-pin mapping verified against PRIMARY_SOURCE_PINOUTS.md (MCS-40 Users Manual Figure 4-5):
+- Pad geometry follows DIP counterclockwise numbering
+- Pads 0-3 (top edge, L→R) = pins 1-4 (D0-D3)
+- Pad 4 (top edge, rightmost) = pin 5 (VSS) - **CONFIRMED**
+- Pads 5-8 (right edge, T→B) = pins 6-9 (CLK1/CLK2/SYNC/RESET)
+- Pads 9-11 (bottom edge, R→L) = pins 10-12 (CL/CM/VDD)
+- Pad 11 = pin 12 (VDD) - **CONFIRMED**
+- `VSS` `layout_node=2570` via pad idx 4 geometry match
+- `VDD` `layout_node=5657` via pad idx 11 geometry match
+- Confidence: **MEDIUM** (geometry corroborated, no OCR label confirmation)
+
+### 4002 (Corroborated 2026-01-14)
+
+Pad-to-pin mapping verified against PRIMARY_SOURCE_PINOUTS.md (MCS-40 Users Manual Figure 4-14):
+- Pad geometry follows DIP counterclockwise numbering
+- Pin 5 (VSS) at expected position - **CONFIRMED**
+- Pin 12 (VDD) at expected position - **CONFIRMED**
+- `VSS` `layout_node=73` via pad geometry match
+- `VDD` `layout_node=3251` via pad geometry match
+- Confidence: **MEDIUM** (geometry corroborated, no OCR label confirmation)
+
+### 4003 (Corroborated 2026-01-14)
+
+Pad-to-pin mapping verified against PRIMARY_SOURCE_PINOUTS.md (MCS-40 Users Manual Figure 4-21):
+- Note: 4003 has VDD on pin 14 (not pin 12 like 4001/4002)
+- Pin 5 (VSS) at expected position - **CONFIRMED**
+- Pin 14 (VDD) at expected position - **CONFIRMED**
+- `VSS` `layout_node=152` via pad geometry match
+- `VDD` `layout_node=359` via pad geometry match (JSON) - NOTE: schematic_layout_anchors_v1.json shows 359
+- Confidence: **MEDIUM** (geometry corroborated, no OCR label confirmation)
+
+## Working rail assignments (low confidence - SUPERSEDED)
 
 These assignments are currently **hypotheses** seeded via `pad_pin_template_v0` and remapped to incident
 nets. Treat `layout_node_src` as “pad metal seed” and `layout_node` as “subcircuit seed”.

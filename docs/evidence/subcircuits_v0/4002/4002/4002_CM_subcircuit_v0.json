@@ -1,22 +1,35 @@
 {
   "chip": "4002",
   "counts": {
-    "nodes": 3,
-    "transistors": 1
+    "nodes": 5,
+    "transistors": 2
   },
   "devices": {
     "transistors": [
       {
-        "a_node": 3115,
-        "b_node": 3161,
+        "a_node": 3238,
+        "b_node": 3250,
         "bbox": {
-          "h": 32,
-          "w": 41,
-          "x": 241,
-          "y": 2143
+          "h": 83,
+          "w": 39,
+          "x": 496,
+          "y": 2246
         },
-        "gate_node": 784,
-        "id": 628,
+        "gate_node": 799,
+        "id": 636,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 3250,
+        "b_node": 3251,
+        "bbox": {
+          "h": 53,
+          "w": 14,
+          "x": 482,
+          "y": 2315
+        },
+        "gate_node": 805,
+        "id": 637,
         "kind": "pmos_candidate"
       }
     ]
@@ -24,23 +37,29 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4002_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "4514739b245184cee9561ded34c95ac44483d595d977e30a9729903b3d836898"
+      "netlist_v1": "242cf80ccc14fa98191427b54cd07917c9089f248e53abb6f036f93dc89c0975"
     }
   },
   "nodes": [
     {
-      "node": 784
+      "node": 799
     },
     {
-      "node": 3115
+      "node": 805
     },
     {
-      "node": 3161
+      "node": 3238
+    },
+    {
+      "node": 3250
+    },
+    {
+      "node": 3251
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "schema": {
@@ -50,7 +69,7 @@
   "seed": {
     "kind": "CM",
     "nodes": [
-      3115
+      799
     ]
   }
 }

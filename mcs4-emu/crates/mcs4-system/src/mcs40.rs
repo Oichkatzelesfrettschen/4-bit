@@ -543,7 +543,7 @@ mod tests {
 
         // After servicing, PC returns to the interrupted instruction address.
         assert_eq!(sys.pc(), 1);
-        assert!(!sys.cpu.intr.enabled);
-        assert!(!sys.cpu.intr.pending);
+        assert!(!sys.cpu.intr.enabled());
+        assert!(!sys.cpu.intr.pending());
     }
 }

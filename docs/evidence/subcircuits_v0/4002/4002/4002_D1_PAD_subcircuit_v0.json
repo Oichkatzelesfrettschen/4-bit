@@ -1,35 +1,48 @@
 {
   "chip": "4002",
   "counts": {
-    "nodes": 5,
-    "transistors": 2
+    "nodes": 6,
+    "transistors": 3
   },
   "devices": {
     "transistors": [
       {
-        "a_node": 2273,
-        "b_node": 2295,
+        "a_node": 868,
+        "b_node": 872,
         "bbox": {
-          "h": 14,
-          "w": 38,
-          "x": 1881,
-          "y": 1211
+          "h": 32,
+          "w": 44,
+          "x": 807,
+          "y": 150
         },
-        "gate_node": 453,
-        "id": 452,
+        "gate_node": 20,
+        "id": 1,
         "kind": "pmos_candidate"
       },
       {
-        "a_node": 2259,
-        "b_node": 2295,
+        "a_node": 900,
+        "b_node": 905,
         "bbox": {
-          "h": 27,
-          "w": 101,
-          "x": 1861,
-          "y": 1216
+          "h": 67,
+          "w": 68,
+          "x": 862,
+          "y": 149
         },
-        "gate_node": 73,
-        "id": 453,
+        "gate_node": 20,
+        "id": 2,
+        "kind": "pmos_candidate"
+      },
+      {
+        "a_node": 872,
+        "b_node": 905,
+        "bbox": {
+          "h": 62,
+          "w": 57,
+          "x": 852,
+          "y": 169
+        },
+        "gate_node": 22,
+        "id": 5,
         "kind": "pmos_candidate"
       }
     ]
@@ -37,29 +50,32 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4002_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "4514739b245184cee9561ded34c95ac44483d595d977e30a9729903b3d836898"
+      "netlist_v1": "242cf80ccc14fa98191427b54cd07917c9089f248e53abb6f036f93dc89c0975"
     }
   },
   "nodes": [
     {
-      "node": 73
+      "node": 20
     },
     {
-      "node": 453
+      "node": 22
     },
     {
-      "node": 2259
+      "node": 868
     },
     {
-      "node": 2273
+      "node": 872
     },
     {
-      "node": 2295
+      "node": 900
+    },
+    {
+      "node": 905
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "schema": {
@@ -69,7 +85,7 @@
   "seed": {
     "kind": "D1_PAD",
     "nodes": [
-      73
+      872
     ]
   }
 }

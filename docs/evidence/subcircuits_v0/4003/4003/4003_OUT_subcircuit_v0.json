@@ -89,7 +89,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4003_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "cbd85277e70f14f6d4ef1265321d38fa2409249931e5af62294b587bf1f18c34"
+      "netlist_v1": "6c68316c89ea485dacfb96ec994e65176512fdd3108d36efaed1c8e9f3143f01"
     }
   },
   "nodes": [
@@ -134,8 +134,8 @@
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "schema": {
@@ -145,7 +145,7 @@
   "seed": {
     "kind": "OUT",
     "nodes": [
-      94
+      352
     ]
   }
 }

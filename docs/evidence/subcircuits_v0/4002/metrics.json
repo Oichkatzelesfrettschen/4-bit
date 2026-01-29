@@ -1,7 +1,7 @@
 {
   "counts": {
-    "nonzero_transistors": 14,
-    "subcircuits": 14,
+    "nonzero_transistors": 6,
+    "subcircuits": 6,
     "zero_transistors": 0
   },
   "inputs": {
@@ -9,34 +9,10 @@
   },
   "rows": [
     {
-      "name": "SYNC",
-      "nodes": 441,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_SYNC_subcircuit_v0.json",
-      "transistors": 391
-    },
-    {
-      "name": "CLK1",
-      "nodes": 64,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_CLK1_subcircuit_v0.json",
-      "transistors": 32
-    },
-    {
-      "name": "CLK2",
-      "nodes": 64,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_CLK2_subcircuit_v0.json",
-      "transistors": 32
-    },
-    {
-      "name": "CS",
-      "nodes": 64,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_CS_subcircuit_v0.json",
-      "transistors": 32
-    },
-    {
-      "name": "OUT0",
-      "nodes": 64,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT0_subcircuit_v0.json",
-      "transistors": 32
+      "name": "custom",
+      "nodes": 85,
+      "output": "docs/evidence/subcircuits_v0/4002/4002_custom_subcircuit_v0.json",
+      "transistors": 42
     },
     {
       "name": "OUT1",
@@ -45,51 +21,27 @@
       "transistors": 32
     },
     {
-      "name": "OUT2",
-      "nodes": 64,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT2_subcircuit_v0.json",
-      "transistors": 32
-    },
-    {
       "name": "D0_PAD",
-      "nodes": 5,
+      "nodes": 6,
       "output": "docs/evidence/subcircuits_v0/4002/4002_D0_PAD_subcircuit_v0.json",
-      "transistors": 2
+      "transistors": 3
     },
     {
-      "name": "D1_PAD",
-      "nodes": 5,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_D1_PAD_subcircuit_v0.json",
-      "transistors": 2
-    },
-    {
-      "name": "D2_PAD",
-      "nodes": 5,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_D2_PAD_subcircuit_v0.json",
-      "transistors": 2
-    },
-    {
-      "name": "D3_PAD",
-      "nodes": 5,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_D3_PAD_subcircuit_v0.json",
-      "transistors": 2
+      "name": "OUT2",
+      "nodes": 6,
+      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT2_subcircuit_v0.json",
+      "transistors": 3
     },
     {
       "name": "OUT3",
-      "nodes": 5,
+      "nodes": 6,
       "output": "docs/evidence/subcircuits_v0/4002/4002_OUT3_subcircuit_v0.json",
-      "transistors": 2
+      "transistors": 3
     },
     {
-      "name": "RESET",
-      "nodes": 5,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_RESET_subcircuit_v0.json",
-      "transistors": 2
-    },
-    {
-      "name": "CM",
+      "name": "OUT0",
       "nodes": 3,
-      "output": "docs/evidence/subcircuits_v0/4002/4002_CM_subcircuit_v0.json",
+      "output": "docs/evidence/subcircuits_v0/4002/4002_OUT0_subcircuit_v0.json",
       "transistors": 1
     }
   ],

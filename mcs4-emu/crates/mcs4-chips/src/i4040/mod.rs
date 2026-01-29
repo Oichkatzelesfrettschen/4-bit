@@ -36,6 +36,26 @@ pub struct I4040 {
     pub decoder: i4004::InstructionDecoder,
     /// Halted state
     halted: bool,
+    /// RAM bank selection (0 or 1)
+    ram_bank: u8,
+    /// Current cycle state
+    cycle: CycleState,
+    /// Fetched instruction byte (OPR:OPA)
+    instruction_byte: u8,
+    /// Second byte of two-byte instruction
+    operand: u8,
+    /// Currently selected RAM address (from SRC)
+    ram_address: u8,
+    /// Currently selected RAM chip
+    ram_chip: u8,
+    /// Test pin input
+    test_pin: bool,
+    /// Pending I/O data
+    io_data: u8,
+    /// Decoded I/O operation for current instruction
+    decoded_io_op: Option<IoOp>,
+    /// True if PC was explicitly modified by instruction
+    pc_modified: bool,
 }
 
 impl I4040 {
@@ -47,6 +67,16 @@ impl I4040 {
             intr: InterruptController::new(),
             decoder: i4004::InstructionDecoder::new(),
             halted: false,
+            ram_bank: 0,
+            cycle: CycleState::new(),
+            instruction_byte: 0,
+            operand: 0,
+            ram_address: 0,
+            ram_chip: 0,
+            test_pin: false,
+            io_data: 0,
+            decoded_io_op: None,
+            pc_modified: false,
         }
     }
 
@@ -73,19 +103,23 @@ impl I4040 {
 
     // Compatibility methods from 4004
     pub fn set_test_pin(&mut self, state: bool) {
-        let _ = state;
+        self.test_pin = state;
+    }
+
+    pub fn test_pin(&self) -> bool {
+        self.test_pin
     }
 
     pub fn ram_address(&self) -> u8 {
-        0
+        self.ram_address
     }
 
     pub fn ram_chip(&self) -> u8 {
-        0
+        self.ram_chip
     }
 
     pub fn ram_bank(&self) -> u8 {
-        0
+        self.ram_bank
     }
 
     pub fn x3_cpu_drives_first(&self) -> bool {
@@ -93,15 +127,269 @@ impl I4040 {
     }
 
     pub fn x2_ram_bank_select(&self) -> bool {
-        false
+        self.ram_bank != 0
     }
 
     pub fn x3_ram_bank_select(&self) -> bool {
-        false
+        self.ram_bank != 0
     }
 
     pub fn x3_peripheral_io_op(&self) -> Option<IoOp> {
-        None
+        match self.decoded_io_op {
+            Some(op @ (IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_))) => Some(op),
+            _ => None,
+        }
+    }
+
+    // Bus phase methods
+
+    fn phase_a1(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        ctrl.clear_io_op();
+        ctrl.deselect_ram(0);
+        // Output address bits 0-3 and assert SYNC
+        let addr = self.registers.pc();
+        bus.write((addr & 0x0F) as u8);
+        ctrl.assert_sync(0);
+    }
+
+    fn phase_a2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // Output address bits 4-7, deassert SYNC
+        let addr = self.registers.pc();
+        bus.write(((addr >> 4) & 0x0F) as u8);
+        ctrl.deassert_sync(0);
+    }
+
+    fn phase_a3(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // Output address bits 8-11, select ROM bank
+        let addr = self.registers.pc();
+        bus.write(((addr >> 8) & 0x0F) as u8);
+        ctrl.select_rom((addr >> 8) as u8 & 0x0F, 0);
+    }
+
+    fn phase_m1(&mut self, bus: &mut DataBus) {
+        // Read instruction OPA (bits 0-3)
+        let opa = bus.read();
+        self.instruction_byte = (self.instruction_byte & 0xF0) | (opa & 0x0F);
+    }
+
+    fn phase_m2(&mut self, bus: &mut DataBus) {
+        // Read instruction OPR (bits 4-7)
+        let opr = bus.read();
+        self.instruction_byte = (self.instruction_byte & 0x0F) | ((opr & 0x0F) << 4);
+    }
+
+    fn phase_x1(&mut self, _bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // Decode the instruction
+        if self.cycle.second_cycle {
+            self.decoder.decode_second(self.instruction_byte);
+        } else {
+            self.decoder.decode_first(self.instruction_byte);
+        }
+        self.pc_modified = false;
+
+        // Decode I/O operations for phase-accurate control lines
+        self.decoded_io_op = match self.decoder.get_instruction() {
+            Some(i4004::Instruction::Src { .. }) => Some(IoOp::Src),
+            Some(i4004::Instruction::Wrm) => Some(IoOp::RamMainWrite),
+            Some(i4004::Instruction::Rdm | i4004::Instruction::Adm | i4004::Instruction::Sbm) => Some(IoOp::RamMainRead),
+            Some(i4004::Instruction::Wmp) => Some(IoOp::RamPortWrite),
+            Some(i4004::Instruction::Wrr) => Some(IoOp::RomPortWrite),
+            Some(i4004::Instruction::Rdr) => Some(IoOp::RomPortRead),
+            Some(i4004::Instruction::Wr0) => Some(IoOp::RamStatusWrite(0)),
+            Some(i4004::Instruction::Wr1) => Some(IoOp::RamStatusWrite(1)),
+            Some(i4004::Instruction::Wr2) => Some(IoOp::RamStatusWrite(2)),
+            Some(i4004::Instruction::Wr3) => Some(IoOp::RamStatusWrite(3)),
+            Some(i4004::Instruction::Rd0) => Some(IoOp::RamStatusRead(0)),
+            Some(i4004::Instruction::Rd1) => Some(IoOp::RamStatusRead(1)),
+            Some(i4004::Instruction::Rd2) => Some(IoOp::RamStatusRead(2)),
+            Some(i4004::Instruction::Rd3) => Some(IoOp::RamStatusRead(3)),
+            _ => None,
+        };
+        ctrl.clear_io_op();
+    }
+
+    fn phase_x2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // Assert write-oriented I/O op only during X2
+        ctrl.clear_io_op();
+        if let Some(op) = self.decoded_io_op {
+            if matches!(
+                op,
+                IoOp::Src | IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_)
+            ) {
+                ctrl.set_io_op(op);
+            }
+        }
+
+        // Execute non-read instructions
+        if let Some(instr) = self.decoder.get_instruction() {
+            let is_read = matches!(
+                instr,
+                i4004::Instruction::Rdm
+                    | i4004::Instruction::Rdr
+                    | i4004::Instruction::Rd0
+                    | i4004::Instruction::Rd1
+                    | i4004::Instruction::Rd2
+                    | i4004::Instruction::Rd3
+                    | i4004::Instruction::Adm
+                    | i4004::Instruction::Sbm
+            );
+            if !is_read {
+                self.execute_4004(instr, bus);
+            }
+        }
+
+        // SRC bus behavior
+        if ctrl.io_op == Some(IoOp::Src) {
+            bus.write(self.ram_chip & 0x0F);
+        }
+    }
+
+    fn phase_x3(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // Assert read-oriented I/O op only during X3
+        ctrl.clear_io_op();
+        if let Some(op) = self.decoded_io_op {
+            if matches!(
+                op,
+                IoOp::Src | IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_)
+            ) {
+                ctrl.set_io_op(op);
+            }
+        }
+
+        // SRC bus behavior
+        if ctrl.io_op == Some(IoOp::Src) {
+            bus.write(self.ram_address & 0x0F);
+        }
+
+        // Execute read-oriented instructions after peripherals drive the bus
+        if let Some(instr) = self.decoder.get_instruction() {
+            let is_read = matches!(
+                instr,
+                i4004::Instruction::Rdm
+                    | i4004::Instruction::Rdr
+                    | i4004::Instruction::Rd0
+                    | i4004::Instruction::Rd1
+                    | i4004::Instruction::Rd2
+                    | i4004::Instruction::Rd3
+                    | i4004::Instruction::Adm
+                    | i4004::Instruction::Sbm
+            );
+            if is_read {
+                self.execute_4004(instr, bus);
+            }
+        }
+
+        // Advance PC if not modified by instruction
+        if !self.pc_modified {
+            let next_pc = (self.registers.pc() + 1) & 0x0FFF;
+            self.registers.set_pc(next_pc);
+        }
+    }
+
+    /// Execute a 4040-specific instruction
+    pub fn execute(&mut self, instruction: I4040Instruction) {
+        match instruction {
+            I4040Instruction::Hlt => self.execute_hlt(),
+            I4040Instruction::Bbs => self.execute_bbs(),
+            I4040Instruction::Lcr => self.execute_lcr(),
+            I4040Instruction::Or4 => self.execute_or4(),
+            I4040Instruction::Or5 => self.execute_or5(),
+            I4040Instruction::An6 => self.execute_an6(),
+            I4040Instruction::An7 => self.execute_an7(),
+            I4040Instruction::Db0 => self.execute_db0(),
+            I4040Instruction::Db1 => self.execute_db1(),
+            I4040Instruction::Sb0 => self.execute_sb0(),
+            I4040Instruction::Sb1 => self.execute_sb1(),
+            I4040Instruction::Ein => self.execute_ein(),
+            I4040Instruction::Din => self.execute_din(),
+            I4040Instruction::Rpm => self.execute_rpm(),
+        }
+    }
+
+    // Instruction implementations
+
+    /// HLT (0x01) - Halt execution (low-power mode)
+    fn execute_hlt(&mut self) {
+        self.halted = true;
+    }
+
+    /// BBS (0x02) - Branch Back from interrupt
+    fn execute_bbs(&mut self) {
+        // Restore PC from stack
+        let saved_pc = self.registers.ret_from_interrupt();
+        self.registers.set_pc(saved_pc.into());
+        // Re-enable interrupts
+        self.intr.enable();
+    }
+
+    /// LCR (0x03) - Load Command RAM (ROM -> RAM)
+    fn execute_lcr(&mut self) {
+        // TODO: Implement ROM to RAM copy
+        // ram[char] = rom[pc]; advance ROM address
+    }
+
+    /// OR4 (0x04) - OR accumulator with R4
+    fn execute_or4(&mut self) {
+        let r4 = self.registers.get_r(4);
+        let acc = self.alu.accumulator();
+        self.alu.set_accumulator(acc | r4);
+    }
+
+    /// OR5 (0x05) - OR accumulator with R5
+    fn execute_or5(&mut self) {
+        let r5 = self.registers.get_r(5);
+        let acc = self.alu.accumulator();
+        self.alu.set_accumulator(acc | r5);
+    }
+
+    /// AN6 (0x06) - AND accumulator with R6
+    fn execute_an6(&mut self) {
+        let r6 = self.registers.get_r(6);
+        let acc = self.alu.accumulator();
+        self.alu.set_accumulator(acc & r6);
+    }
+
+    /// AN7 (0x07) - AND accumulator with R7
+    fn execute_an7(&mut self) {
+        let r7 = self.registers.get_r(7);
+        let acc = self.alu.accumulator();
+        self.alu.set_accumulator(acc & r7);
+    }
+
+    /// DB0 (0x08) - Designate Bank 0
+    fn execute_db0(&mut self) {
+        self.registers.set_bank(0);
+    }
+
+    /// DB1 (0x09) - Designate Bank 1
+    fn execute_db1(&mut self) {
+        self.registers.set_bank(1);
+    }
+
+    /// SB0 (0x0A) - Select RAM Bank 0
+    fn execute_sb0(&mut self) {
+        self.ram_bank = 0;
+    }
+
+    /// SB1 (0x0B) - Select RAM Bank 1
+    fn execute_sb1(&mut self) {
+        self.ram_bank = 1;
+    }
+
+    /// EIN (0x0C) - Enable Interrupts
+    fn execute_ein(&mut self) {
+        self.intr.enable();
+    }
+
+    /// DIN (0x0D) - Disable Interrupts
+    fn execute_din(&mut self) {
+        self.intr.disable();
+    }
+
+    /// RPM (0x0E) - Read Program Memory
+    fn execute_rpm(&mut self) {
+        // TODO: Implement ROM read into accumulator
+        // acc = rom[pc]; advance ROM address
     }
 }
 
@@ -123,6 +411,16 @@ impl crate::Chip for I4040 {
         self.intr = InterruptController::new();
         self.decoder = i4004::InstructionDecoder::new();
         self.halted = false;
+        self.ram_bank = 0;
+        self.cycle = CycleState::new();
+        self.instruction_byte = 0;
+        self.operand = 0;
+        self.ram_address = 0;
+        self.ram_chip = 0;
+        self.test_pin = false;
+        self.io_data = 0;
+        self.decoded_io_op = None;
+        self.pc_modified = false;
     }
 
     fn tick(&mut self, phase: BusCycle) {

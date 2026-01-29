@@ -1,0 +1,365 @@
+{
+  "schema_version": 0,
+  "chip": "4004",
+  "description": "Hierarchical subcircuit clustering",
+  "hierarchy": {
+    "level_0": {
+      "description": "Individual subcircuits (as extracted)",
+      "clusters": [
+        {
+          "id": "4004_CLK1_L0",
+          "name": "CLK1",
+          "transistor_count": 437,
+          "node_count": 680,
+          "subcircuits": [
+            "4004_CLK1_subcircuit_v0.json"
+          ],
+          "functional_category": "CLOCK_GENERATION"
+        },
+        {
+          "id": "4004_CLK2_L0",
+          "name": "CLK2",
+          "transistor_count": 243,
+          "node_count": 309,
+          "subcircuits": [
+            "4004_CLK2_subcircuit_v0.json"
+          ],
+          "functional_category": "CLOCK_GENERATION"
+        },
+        {
+          "id": "4004_CMRAM0_L0",
+          "name": "CMRAM0",
+          "transistor_count": 233,
+          "node_count": 382,
+          "subcircuits": [
+            "4004_CMRAM0_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_CMRAM1_L0",
+          "name": "CMRAM1",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_CMRAM1_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_CMRAM2_L0",
+          "name": "CMRAM2",
+          "transistor_count": 30,
+          "node_count": 42,
+          "subcircuits": [
+            "4004_CMRAM2_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_CMRAM3_L0",
+          "name": "CMRAM3",
+          "transistor_count": 39,
+          "node_count": 60,
+          "subcircuits": [
+            "4004_CMRAM3_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_CMROM_L0",
+          "name": "CMROM",
+          "transistor_count": 289,
+          "node_count": 462,
+          "subcircuits": [
+            "4004_CMROM_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_D0_PAD_L0",
+          "name": "D0_PAD",
+          "transistor_count": 233,
+          "node_count": 382,
+          "subcircuits": [
+            "4004_D0_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4004_D1_PAD_L0",
+          "name": "D1_PAD",
+          "transistor_count": 2,
+          "node_count": 4,
+          "subcircuits": [
+            "4004_D1_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4004_D2_PAD_L0",
+          "name": "D2_PAD",
+          "transistor_count": 57,
+          "node_count": 91,
+          "subcircuits": [
+            "4004_D2_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4004_D3_PAD_L0",
+          "name": "D3_PAD",
+          "transistor_count": 2,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_D3_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4004_POC_L0",
+          "name": "POC",
+          "transistor_count": 111,
+          "node_count": 147,
+          "subcircuits": [
+            "4004_POC_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4004_POC_PAD_L0",
+          "name": "POC_PAD",
+          "transistor_count": 111,
+          "node_count": 147,
+          "subcircuits": [
+            "4004_POC_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4004_RESET_L0",
+          "name": "RESET",
+          "transistor_count": 111,
+          "node_count": 147,
+          "subcircuits": [
+            "4004_RESET_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_SYNC_L0",
+          "name": "SYNC",
+          "transistor_count": 243,
+          "node_count": 309,
+          "subcircuits": [
+            "4004_SYNC_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_TEST_L0",
+          "name": "TEST",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_TEST_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4004_TEST_PAD_L0",
+          "name": "TEST_PAD",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_TEST_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4004_VCC_L0",
+          "name": "VCC",
+          "transistor_count": 437,
+          "node_count": 680,
+          "subcircuits": [
+            "4004_VCC_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4004_VSS_L0",
+          "name": "VSS",
+          "transistor_count": 417,
+          "node_count": 655,
+          "subcircuits": [
+            "4004_VSS_subcircuit_v0.json"
+          ],
+          "functional_category": "POWER_RAILS"
+        }
+      ]
+    },
+    "level_1": {
+      "description": "Electrical connectivity clusters (threshold=0.5)",
+      "clusters": [
+        {
+          "id": "4004_L1_0",
+          "name": "CLK1_CMRAM0_CMRAM2_and_8_more",
+          "transistor_count": 2658,
+          "node_count": 923,
+          "subcircuits": [
+            "4004_CLK1_subcircuit_v0.json",
+            "4004_CMRAM0_subcircuit_v0.json",
+            "4004_CMRAM2_subcircuit_v0.json",
+            "4004_VCC_subcircuit_v0.json",
+            "4004_CMRAM3_subcircuit_v0.json",
+            "4004_CMROM_subcircuit_v0.json",
+            "4004_D0_PAD_subcircuit_v0.json",
+            "4004_VSS_subcircuit_v0.json",
+            "4004_CLK2_subcircuit_v0.json",
+            "4004_SYNC_subcircuit_v0.json",
+            "4004_D2_PAD_subcircuit_v0.json"
+          ],
+          "merge_reason": "electrical_overlap_0.23",
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_L1_1",
+          "name": "CMRAM1",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_CMRAM1_subcircuit_v0.json"
+          ],
+          "merge_reason": null,
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4004_L1_2",
+          "name": "D1_PAD",
+          "transistor_count": 2,
+          "node_count": 4,
+          "subcircuits": [
+            "4004_D1_PAD_subcircuit_v0.json"
+          ],
+          "merge_reason": null,
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4004_L1_3",
+          "name": "D3_PAD",
+          "transistor_count": 2,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_D3_PAD_subcircuit_v0.json"
+          ],
+          "merge_reason": null,
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4004_L1_4",
+          "name": "POC_POC_PAD_RESET",
+          "transistor_count": 333,
+          "node_count": 147,
+          "subcircuits": [
+            "4004_POC_subcircuit_v0.json",
+            "4004_POC_PAD_subcircuit_v0.json",
+            "4004_RESET_subcircuit_v0.json"
+          ],
+          "merge_reason": "electrical_overlap_0.33",
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4004_L1_5",
+          "name": "TEST_TEST_PAD",
+          "transistor_count": 2,
+          "node_count": 3,
+          "subcircuits": [
+            "4004_TEST_subcircuit_v0.json",
+            "4004_TEST_PAD_subcircuit_v0.json"
+          ],
+          "merge_reason": "electrical_overlap_0.50",
+          "functional_category": "CUSTOM"
+        }
+      ]
+    },
+    "level_2": {
+      "description": "Functional blocks",
+      "clusters": [
+        {
+          "id": "4004_CONTROL_SIGNALS_L2",
+          "name": "CONTROL_SIGNALS",
+          "transistor_count": 2659,
+          "node_count": 926,
+          "subcircuits": [
+            "4004_CLK1_subcircuit_v0.json",
+            "4004_CMRAM0_subcircuit_v0.json",
+            "4004_CMRAM2_subcircuit_v0.json",
+            "4004_VCC_subcircuit_v0.json",
+            "4004_CMRAM3_subcircuit_v0.json",
+            "4004_CMROM_subcircuit_v0.json",
+            "4004_D0_PAD_subcircuit_v0.json",
+            "4004_VSS_subcircuit_v0.json",
+            "4004_CLK2_subcircuit_v0.json",
+            "4004_SYNC_subcircuit_v0.json",
+            "4004_D2_PAD_subcircuit_v0.json",
+            "4004_CMRAM1_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS",
+          "level_1_clusters": [
+            "4004_L1_0",
+            "4004_L1_1"
+          ]
+        },
+        {
+          "id": "4004_INPUT_BUFFERS_L2",
+          "name": "INPUT_BUFFERS",
+          "transistor_count": 4,
+          "node_count": 7,
+          "subcircuits": [
+            "4004_D1_PAD_subcircuit_v0.json",
+            "4004_D3_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS",
+          "level_1_clusters": [
+            "4004_L1_2",
+            "4004_L1_3"
+          ]
+        },
+        {
+          "id": "4004_CUSTOM_L2",
+          "name": "CUSTOM",
+          "transistor_count": 335,
+          "node_count": 150,
+          "subcircuits": [
+            "4004_POC_subcircuit_v0.json",
+            "4004_POC_PAD_subcircuit_v0.json",
+            "4004_RESET_subcircuit_v0.json",
+            "4004_TEST_subcircuit_v0.json",
+            "4004_TEST_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM",
+          "level_1_clusters": [
+            "4004_L1_4",
+            "4004_L1_5"
+          ]
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "total_subcircuits": 19,
+    "level_1_clusters": 6,
+    "level_2_clusters": 3,
+    "coverage_check": {
+      "all_subcircuits_assigned": true,
+      "no_overlaps": true,
+      "level_0_count": 19,
+      "level_1_count": 6,
+      "level_2_count": 3,
+      "warnings": []
+    }
+  },
+  "params": {
+    "electrical_threshold": 0.5
+  }
+}

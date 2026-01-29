@@ -1,0 +1,192 @@
+{
+  "schema_version": 0,
+  "chip": "4001",
+  "description": "Hierarchical subcircuit clustering",
+  "hierarchy": {
+    "level_0": {
+      "description": "Individual subcircuits (as extracted)",
+      "clusters": [
+        {
+          "id": "4001_D0_PAD_L0",
+          "name": "D0_PAD",
+          "transistor_count": 3,
+          "node_count": 5,
+          "subcircuits": [
+            "4001_D0_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4001_D1_PAD_L0",
+          "name": "D1_PAD",
+          "transistor_count": 63,
+          "node_count": 65,
+          "subcircuits": [
+            "4001_D1_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4001_D2_PAD_L0",
+          "name": "D2_PAD",
+          "transistor_count": 63,
+          "node_count": 65,
+          "subcircuits": [
+            "4001_D2_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4001_D3_PAD_L0",
+          "name": "D3_PAD",
+          "transistor_count": 63,
+          "node_count": 65,
+          "subcircuits": [
+            "4001_D3_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4001_CLK1_L0",
+          "name": "CLK1",
+          "transistor_count": 36,
+          "node_count": 55,
+          "subcircuits": [
+            "4001_CLK1_subcircuit_v0.json"
+          ],
+          "functional_category": "CLOCK_GENERATION"
+        },
+        {
+          "id": "4001_CLK2_L0",
+          "name": "CLK2",
+          "transistor_count": 38,
+          "node_count": 59,
+          "subcircuits": [
+            "4001_CLK2_subcircuit_v0.json"
+          ],
+          "functional_category": "CLOCK_GENERATION"
+        },
+        {
+          "id": "4001_SYNC_L0",
+          "name": "SYNC",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4001_SYNC_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4001_RESET_L0",
+          "name": "RESET",
+          "transistor_count": 38,
+          "node_count": 59,
+          "subcircuits": [
+            "4001_RESET_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4001_CL_L0",
+          "name": "CL",
+          "transistor_count": 6,
+          "node_count": 9,
+          "subcircuits": [
+            "4001_CL_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4001_CM_L0",
+          "name": "CM",
+          "transistor_count": 6,
+          "node_count": 9,
+          "subcircuits": [
+            "4001_CM_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4001_custom_L0",
+          "name": "custom",
+          "transistor_count": 117,
+          "node_count": 150,
+          "subcircuits": [
+            "4001_custom_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        }
+      ]
+    },
+    "level_1": {
+      "description": "Electrical connectivity clusters (threshold=0.5)",
+      "clusters": [
+        {
+          "id": "4001_L1_0",
+          "name": "D0_PAD_custom_D1_PAD_and_8_more",
+          "transistor_count": 434,
+          "node_count": 150,
+          "subcircuits": [
+            "4001_D0_PAD_subcircuit_v0.json",
+            "4001_custom_subcircuit_v0.json",
+            "4001_D1_PAD_subcircuit_v0.json",
+            "4001_D2_PAD_subcircuit_v0.json",
+            "4001_D3_PAD_subcircuit_v0.json",
+            "4001_CLK1_subcircuit_v0.json",
+            "4001_CLK2_subcircuit_v0.json",
+            "4001_RESET_subcircuit_v0.json",
+            "4001_SYNC_subcircuit_v0.json",
+            "4001_CL_subcircuit_v0.json",
+            "4001_CM_subcircuit_v0.json"
+          ],
+          "merge_reason": "electrical_overlap_0.28",
+          "functional_category": "INPUT_BUFFERS"
+        }
+      ]
+    },
+    "level_2": {
+      "description": "Functional blocks",
+      "clusters": [
+        {
+          "id": "4001_INPUT_BUFFERS_L2",
+          "name": "INPUT_BUFFERS",
+          "transistor_count": 434,
+          "node_count": 150,
+          "subcircuits": [
+            "4001_D0_PAD_subcircuit_v0.json",
+            "4001_custom_subcircuit_v0.json",
+            "4001_D1_PAD_subcircuit_v0.json",
+            "4001_D2_PAD_subcircuit_v0.json",
+            "4001_D3_PAD_subcircuit_v0.json",
+            "4001_CLK1_subcircuit_v0.json",
+            "4001_CLK2_subcircuit_v0.json",
+            "4001_RESET_subcircuit_v0.json",
+            "4001_SYNC_subcircuit_v0.json",
+            "4001_CL_subcircuit_v0.json",
+            "4001_CM_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS",
+          "level_1_clusters": [
+            "4001_L1_0"
+          ]
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "total_subcircuits": 11,
+    "level_1_clusters": 1,
+    "level_2_clusters": 1,
+    "coverage_check": {
+      "all_subcircuits_assigned": true,
+      "no_overlaps": true,
+      "level_0_count": 11,
+      "level_1_count": 1,
+      "level_2_count": 1,
+      "warnings": []
+    }
+  },
+  "params": {
+    "electrical_threshold": 0.5
+  }
+}

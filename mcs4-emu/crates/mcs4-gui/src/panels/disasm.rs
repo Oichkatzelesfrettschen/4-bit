@@ -1,7 +1,7 @@
 //! Disassembly panel
 
 use eframe::egui::{self, Color32};
-use mcs4_chips::disasm::{DisasmLine, Disassembler};
+use mcs4_chips::disasm::{CpuType, DisasmLine, Disassembler};
 
 pub struct DisasmPanel {
     lines: Vec<DisasmLine>,
@@ -20,11 +20,12 @@ impl DisasmPanel {
         // Only update if PC changed significantly or rom changed (simplified)
         // For now, simple full refresh on demand
         self.pc = pc;
-        let disasm = Disassembler::new();
+        let disasm = Disassembler::new(CpuType::I4004);
         // Disassemble a window around PC
         // Finding the start of an instruction is hard in variable length ISA without scanning from 0
         // We scan from 0 for now (fast enough for small 4KB ROM)
-        self.lines = disasm.disassemble_range(rom, 0);
+        let end_addr = if rom.is_empty() { 0 } else { rom.len() as u16 - 1 };
+        self.lines = disasm.disasm_range(rom, 0, end_addr);
     }
 
     pub fn show(&mut self, ui: &mut egui::Ui) {
@@ -43,7 +44,7 @@ impl DisasmPanel {
                 egui::Frame::none().fill(bg_color).show(ui, |ui| {
                     ui.horizontal(|ui| {
                         ui.label(egui::RichText::new(format!("{:03X}:", line.address)).color(Color32::GRAY));
-                        ui.label(egui::RichText::new(line.mnemonic).color(Color32::YELLOW).strong());
+                        ui.label(egui::RichText::new(&line.mnemonic).color(Color32::YELLOW).strong());
                         ui.label(egui::RichText::new(&line.operands).color(Color32::WHITE));
                         if let Some(comment) = &line.comment {
                             ui.label(egui::RichText::new(format!("; {}", comment)).color(Color32::GREEN));

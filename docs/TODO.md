@@ -11,9 +11,9 @@ ARCHITECTURE.md:71:        transistor.rs           # Transistor-level stubs (TOD
 claude.md:18:## Requirements + TODO Tracking
 claude.md:20:- TODO scan generator: `scripts/todo_scan.sh` → `docs/TODO.md`.
 docs/INDEX.md:95:- docs/TODO.md
-docs/ROADMAP.md:123:- Keep `docs/ROADMAP.md` aligned with `mcs4-emu/STATUS.md` and TODO scans (`scripts/todo_scan.sh` → `docs/TODO.md`).
-docs/TODO.md:1:# TODO / FIXME / XXX
 docs/meta/registry.yaml:34:  - file: docs/TODO.md
+docs/ROADMAP.md:152:- Keep `docs/ROADMAP.md` aligned with `mcs4-emu/STATUS.md` and TODO scans (`scripts/todo_scan.sh` → `docs/TODO.md`).
+docs/TODO.md:1:# TODO / FIXME / XXX
 gemini.md:30: - `scripts/todo_scan.sh` (writes `docs/TODO.md`)
 mcs4-emu/crates/mcs4-chips/src/i4308.rs:51:        // TODO: Full bus protocol for 4308
 mcs4-emu/crates/mcs4-core/src/transistor.rs:281:        // TODO: Implement nodal analysis or event-driven simulation

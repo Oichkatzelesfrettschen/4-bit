@@ -1,0 +1,361 @@
+{
+  "schema": {
+    "version": 0,
+    "description": "Comprehensive OCR regression benchmark for 4004 signal labels (pad labels and edge labels).",
+    "chip": "4004",
+    "total_samples": 70,
+    "source": "docs/evidence/ocr_signal_labels/"
+  },
+  "items": [
+    {
+      "id": "4004_D2_PAD_0000_D2_PAD",
+      "expected": "D2_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0000_D2_PAD.png"
+    },
+    {
+      "id": "4004_R10_0000_R10",
+      "expected": "R10",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0000_R10.png"
+    },
+    {
+      "id": "4004_TEST_PAD_0000_TEST_PAD",
+      "expected": "TEST_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0000_TEST_PAD.png"
+    },
+    {
+      "id": "4004_POC_PAD_0001_POC_PAD",
+      "expected": "POC_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0001_POC_PAD.png"
+    },
+    {
+      "id": "4004_SYNC_0002_SYNC",
+      "expected": "SYNC",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0002_SYNC.png"
+    },
+    {
+      "id": "4004_D1_0003_D1",
+      "expected": "D1",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0003_D1.png"
+    },
+    {
+      "id": "4004_D3_0003_D3",
+      "expected": "D3",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0003_D3.png"
+    },
+    {
+      "id": "4004_D0_0004_D0",
+      "expected": "D0",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0004_D0.png"
+    },
+    {
+      "id": "4004_D2_0004_D2",
+      "expected": "D2",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0004_D2.png"
+    },
+    {
+      "id": "4004_D1_0005_D1",
+      "expected": "D1",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0005_D1.png"
+    },
+    {
+      "id": "4004_R110_0005_R110",
+      "expected": "R110",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0005_R110.png"
+    },
+    {
+      "id": "4004_D0_0006_D0",
+      "expected": "D0",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0006_D0.png"
+    },
+    {
+      "id": "4004_PC011_0008_PC011",
+      "expected": "PC011",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0008_PC011.png"
+    },
+    {
+      "id": "4004_PC211_0010_PC211",
+      "expected": "PC211",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0010_PC211.png"
+    },
+    {
+      "id": "4004_PC311_0011_PC311",
+      "expected": "PC311",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0011_PC311.png"
+    },
+    {
+      "id": "4004_R00_0012_R00",
+      "expected": "R00",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0012_R00.png"
+    },
+    {
+      "id": "4004_R100_0017_R100",
+      "expected": "R100",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0017_R100.png"
+    },
+    {
+      "id": "4004_PC07_0020_PC07",
+      "expected": "PC07",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0020_PC07.png"
+    },
+    {
+      "id": "4004_PC17_0021_PC17",
+      "expected": "PC17",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0021_PC17.png"
+    },
+    {
+      "id": "4004_PC27_0022_PC27",
+      "expected": "PC27",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0022_PC27.png"
+    },
+    {
+      "id": "4004_PC37_0023_PC37",
+      "expected": "PC37",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0023_PC37.png"
+    },
+    {
+      "id": "4004_R01_0024_R01",
+      "expected": "R01",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0024_R01.png"
+    },
+    {
+      "id": "4004_R101_0029_R101",
+      "expected": "R101",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0029_R101.png"
+    },
+    {
+      "id": "4004_PC03_0032_PC03",
+      "expected": "PC03",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0032_PC03.png"
+    },
+    {
+      "id": "4004_PC23_0034_PC23",
+      "expected": "PC23",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0034_PC23.png"
+    },
+    {
+      "id": "4004_R11_0036_R11",
+      "expected": "R11",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0036_R11.png"
+    },
+    {
+      "id": "4004_PC02_0044_PC02",
+      "expected": "PC02",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0044_PC02.png"
+    },
+    {
+      "id": "4004_PC12_0045_PC12",
+      "expected": "PC12",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0045_PC12.png"
+    },
+    {
+      "id": "4004_PC22_0046_PC22",
+      "expected": "PC22",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0046_PC22.png"
+    },
+    {
+      "id": "4004_PC16_0057_PC16",
+      "expected": "PC16",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0057_PC16.png"
+    },
+    {
+      "id": "4004_PC26_0058_PC26",
+      "expected": "PC26",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0058_PC26.png"
+    },
+    {
+      "id": "4004_R102_0065_R102",
+      "expected": "R102",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0065_R102.png"
+    },
+    {
+      "id": "4004_PC110_0069_PC110",
+      "expected": "PC110",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0069_PC110.png"
+    },
+    {
+      "id": "4004_PC210_0070_PC210",
+      "expected": "PC210",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0070_PC210.png"
+    },
+    {
+      "id": "4004_R103_0077_R103",
+      "expected": "R103",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0077_R103.png"
+    },
+    {
+      "id": "4004_PC09_0080_PC09",
+      "expected": "PC09",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0080_PC09.png"
+    },
+    {
+      "id": "4004_PC19_0081_PC19",
+      "expected": "PC19",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0081_PC19.png"
+    },
+    {
+      "id": "4004_PC29_0082_PC29",
+      "expected": "PC29",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0082_PC29.png"
+    },
+    {
+      "id": "4004_PC05_0092_PC05",
+      "expected": "PC05",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0092_PC05.png"
+    },
+    {
+      "id": "4004_PC25_0094_PC25",
+      "expected": "PC25",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0094_PC25.png"
+    },
+    {
+      "id": "4004_PC11_0097_PC11",
+      "expected": "PC11",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0097_PC11.png"
+    },
+    {
+      "id": "4004_PC21_0098_PC21",
+      "expected": "PC21",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0098_PC21.png"
+    },
+    {
+      "id": "4004_PC31_0099_PC31",
+      "expected": "PC31",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0099_PC31.png"
+    },
+    {
+      "id": "4004_PC00_0100_PC00",
+      "expected": "PC00",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0100_PC00.png"
+    },
+    {
+      "id": "4004_PC10_0101_PC10",
+      "expected": "PC10",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0101_PC10.png"
+    },
+    {
+      "id": "4004_PC20_0102_PC20",
+      "expected": "PC20",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0102_PC20.png"
+    },
+    {
+      "id": "4004_PC04_0106_PC04",
+      "expected": "PC04",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0106_PC04.png"
+    },
+    {
+      "id": "4004_PC14_0107_PC14",
+      "expected": "PC14",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0107_PC14.png"
+    },
+    {
+      "id": "4004_PC24_0108_PC24",
+      "expected": "PC24",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0108_PC24.png"
+    },
+    {
+      "id": "4004_PC34_0109_PC34",
+      "expected": "PC34",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0109_PC34.png"
+    },
+    {
+      "id": "4004_PC28_0112_PC28",
+      "expected": "PC28",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0112_PC28.png"
+    },
+    {
+      "id": "4004_IO_0154_IO",
+      "expected": "IO",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0154_IO.png"
+    },
+    {
+      "id": "4004_OPE_0155_OPE",
+      "expected": "OPE",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0155_OPE.png"
+    },
+    {
+      "id": "4004_OPA1_0180_OPA1",
+      "expected": "OPA1",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0180_OPA1.png"
+    },
+    {
+      "id": "4004_INC_ISZ_0196_INC_ISZ",
+      "expected": "INC_ISZ",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0196_INC_ISZ.png"
+    },
+    {
+      "id": "4004_IOW_0198_IOW",
+      "expected": "IOW",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0198_IOW.png"
+    },
+    {
+      "id": "4004_CMA_0201_CMA",
+      "expected": "CMA",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0201_CMA.png"
+    },
+    {
+      "id": "4004_DAC_0205_DAC",
+      "expected": "DAC",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0205_DAC.png"
+    },
+    {
+      "id": "4004_M22_0227_M22",
+      "expected": "M22",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0227_M22.png"
+    },
+    {
+      "id": "4004_M12_0230_M12",
+      "expected": "M12",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0230_M12.png"
+    },
+    {
+      "id": "4004_CY-IB_0231_CY-IB",
+      "expected": "CY-IB",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0231_CY-IB.png"
+    },
+    {
+      "id": "4004_ADC-CY_0232_ADC-CY",
+      "expected": "ADC-CY",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0232_ADC-CY.png"
+    },
+    {
+      "id": "4004_ADSR_0234_ADSR",
+      "expected": "ADSR",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0234_ADSR.png"
+    },
+    {
+      "id": "4004_ACC-ADAC_0236_ACC-ADAC",
+      "expected": "ACC-ADAC",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0236_ACC-ADAC.png"
+    },
+    {
+      "id": "4004_ACC-ADA_0237_ACC-ADA",
+      "expected": "ACC-ADA",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0237_ACC-ADA.png"
+    },
+    {
+      "id": "4004_ADD-IB_0240_ADD-IB",
+      "expected": "ADD-IB",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0240_ADD-IB.png"
+    },
+    {
+      "id": "4004_ACB-IB_0242_ACB-IB",
+      "expected": "ACB-IB",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0242_ACB-IB.png"
+    },
+    {
+      "id": "4004_POC_PAD_0244_POC_PAD",
+      "expected": "POC_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0244_POC_PAD.png"
+    },
+    {
+      "id": "4004_DCL1_0262_DCL1",
+      "expected": "DCL1",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0262_DCL1.png"
+    },
+    {
+      "id": "4004_DCL0_0267_DCL0",
+      "expected": "DCL0",
+      "image": "docs/evidence/ocr_signal_labels/4004/crops/0267_DCL0.png"
+    }
+  ]
+}

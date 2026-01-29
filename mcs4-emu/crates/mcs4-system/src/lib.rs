@@ -5,6 +5,11 @@ pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
 
+// SIMD cluster execution (Phase 4, nightly-only, stub implementation)
+// Requires: #![feature(portable_simd)]
+#[cfg(feature = "simd_cluster")]
+pub mod simd_cluster;
+
 pub use cluster::Cluster;
 pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 pub use mcs4::Mcs4System;

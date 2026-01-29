@@ -1,0 +1,120 @@
+{
+  "schema_version": 0,
+  "chip": "4003",
+  "description": "Hierarchical subcircuit clustering",
+  "hierarchy": {
+    "level_0": {
+      "description": "Individual subcircuits (as extracted)",
+      "clusters": [
+        {
+          "id": "4003_CLOCK_L0",
+          "name": "CLOCK",
+          "transistor_count": 2,
+          "node_count": 5,
+          "subcircuits": [
+            "4003_CLOCK_subcircuit_v0.json"
+          ],
+          "functional_category": "CLOCK_GENERATION"
+        },
+        {
+          "id": "4003_DATA_L0",
+          "name": "DATA",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4003_DATA_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4003_EN_L0",
+          "name": "EN",
+          "transistor_count": 2,
+          "node_count": 5,
+          "subcircuits": [
+            "4003_EN_subcircuit_v0.json"
+          ],
+          "functional_category": "CONTROL_SIGNALS"
+        },
+        {
+          "id": "4003_OUT_L0",
+          "name": "OUT",
+          "transistor_count": 6,
+          "node_count": 13,
+          "subcircuits": [
+            "4003_OUT_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        },
+        {
+          "id": "4003_custom_L0",
+          "name": "custom",
+          "transistor_count": 9,
+          "node_count": 21,
+          "subcircuits": [
+            "4003_custom_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        }
+      ]
+    },
+    "level_1": {
+      "description": "Electrical connectivity clusters (threshold=0.5)",
+      "clusters": [
+        {
+          "id": "4003_L1_0",
+          "name": "CLOCK_EN_DATA_and_2_more",
+          "transistor_count": 20,
+          "node_count": 21,
+          "subcircuits": [
+            "4003_CLOCK_subcircuit_v0.json",
+            "4003_EN_subcircuit_v0.json",
+            "4003_DATA_subcircuit_v0.json",
+            "4003_custom_subcircuit_v0.json",
+            "4003_OUT_subcircuit_v0.json"
+          ],
+          "merge_reason": "electrical_overlap_0.45",
+          "functional_category": "CUSTOM"
+        }
+      ]
+    },
+    "level_2": {
+      "description": "Functional blocks",
+      "clusters": [
+        {
+          "id": "4003_CUSTOM_L2",
+          "name": "CUSTOM",
+          "transistor_count": 20,
+          "node_count": 21,
+          "subcircuits": [
+            "4003_CLOCK_subcircuit_v0.json",
+            "4003_EN_subcircuit_v0.json",
+            "4003_DATA_subcircuit_v0.json",
+            "4003_custom_subcircuit_v0.json",
+            "4003_OUT_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM",
+          "level_1_clusters": [
+            "4003_L1_0"
+          ]
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "total_subcircuits": 5,
+    "level_1_clusters": 1,
+    "level_2_clusters": 1,
+    "coverage_check": {
+      "all_subcircuits_assigned": true,
+      "no_overlaps": true,
+      "level_0_count": 5,
+      "level_1_count": 1,
+      "level_2_count": 1,
+      "warnings": []
+    }
+  },
+  "params": {
+    "electrical_threshold": 0.5
+  }
+}

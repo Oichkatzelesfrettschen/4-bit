@@ -1,24 +1,11 @@
 {
   "chip": "4001",
   "counts": {
-    "nodes": 59,
-    "transistors": 38
+    "nodes": 55,
+    "transistors": 36
   },
   "devices": {
     "transistors": [
-      {
-        "a_node": 2578,
-        "b_node": 2584,
-        "bbox": {
-          "h": 42,
-          "w": 26,
-          "x": 2317,
-          "y": 321
-        },
-        "gate_node": 33,
-        "id": 0,
-        "kind": "pmos_candidate"
-      },
       {
         "a_node": 2570,
         "b_node": 2578,
@@ -486,26 +473,13 @@
         "gate_node": 20,
         "id": 1997,
         "kind": "pmos_candidate"
-      },
-      {
-        "a_node": 5678,
-        "b_node": 5679,
-        "bbox": {
-          "h": 63,
-          "w": 48,
-          "x": 703,
-          "y": 1414
-        },
-        "gate_node": 1955,
-        "id": 1998,
-        "kind": "pmos_candidate"
       }
     ]
   },
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4001_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "34d2bf0e4e9ec2e8a3bb5527481eb3e4a5ad0651126ecef0c0eaaf0b4c8eb934"
+      "netlist_v1": "239ed775d20e7bdd0db39936958121a420aa66326b59f83d96b92e25e32acec0"
     }
   },
   "nodes": [
@@ -513,22 +487,13 @@
       "node": 20
     },
     {
-      "node": 33
-    },
-    {
       "node": 242
-    },
-    {
-      "node": 1955
     },
     {
       "node": 2570
     },
     {
       "node": 2578
-    },
-    {
-      "node": 2584
     },
     {
       "node": 2586
@@ -666,9 +631,6 @@
       "node": 5678
     },
     {
-      "node": 5679
-    },
-    {
       "node": 5685
     },
     {
@@ -688,8 +650,8 @@
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "schema": {
@@ -699,7 +661,7 @@
   "seed": {
     "kind": "CLK1",
     "nodes": [
-      20
+      242
     ]
   }
 }

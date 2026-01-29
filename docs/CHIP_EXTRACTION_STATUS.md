@@ -56,11 +56,13 @@ Open lacunae:
   - `docs/evidence/layout_pad_labels_v0/4003/`
 
 Open lacunae:
-- 4001/4002/4003 anchors are present but still **low-confidence** in places (notably power rails for 4001–4003 and pad→pin assumptions that need stronger corroboration).
-- Need to continue filling `docs/evidence/layout_pad_labels_v0/400{1,2,3}/manual_readings_v0.md` and `pad_pin_template_v0.md` to improve pad↔pin mapping provenance.
+- 4001/4002/4003 anchors are present with **medium confidence** for power rails (geometry-corroborated against PRIMARY_SOURCE_PINOUTS.md).
 - Expand the anchored signal set beyond the pinout-minimum and validate subcircuit topology against primary sources.
+- 4003 uses Q0-Q9 naming for parallel outputs (primary source uses O0-O9) - naming alignment documented in ANCHOR_COVERAGE_V0.md.
 
 Recent improvements:
+- **2026-01-14**: Power rail anchors (VSS/VDD) for 4001/4002/4003 upgraded from low-confidence to **medium-confidence** via pad geometry corroboration against primary pinouts. See `docs/evidence/POWER_RAIL_EVIDENCE.md`.
+- **2026-01-14**: CI schematic pipeline passes all checks (anchor audit, pad consistency, incidence, uniqueness).
 - 4001/4002/4003 pad↔pin seeding is now driven by `docs/evidence/layout_pad_labels_v0/<chip>/pad_pin_template_v0.md` (primary pinouts + pad geometry), applied via `scripts/apply_pad_pin_template_v0.py`.
 - Anchor remapping now enforces **unique incident dst nodes per pad** when seeded from the template (see `scripts/remap_anchors_to_incident_nodes_v1.py`), preventing the previous “many pads collapse to one incident trunk” failure mode.
 - CI now includes an anchor uniqueness check for required signals: `python -W error scripts/check_anchor_uniqueness_v0.py --chip 4001 --chip 4002 --chip 4003` (also run by `scripts/ci_schematic_pipeline_v0.sh`).

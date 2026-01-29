@@ -1,0 +1,14 @@
+{
+  "schema_version": 0,
+  "chip": "4004",
+  "description": "Gate-level netlist extracted from transistor netlist",
+  "gates": [],
+  "statistics": {
+    "total_gates": 0,
+    "inverters": 0,
+    "nand_gates": 0,
+    "nor_gates": 0,
+    "transmission_gates": 0,
+    "pass_transistors": 0
+  }
+}

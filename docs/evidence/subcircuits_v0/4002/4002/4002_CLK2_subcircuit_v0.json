@@ -427,7 +427,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4002_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "4514739b245184cee9561ded34c95ac44483d595d977e30a9729903b3d836898"
+      "netlist_v1": "242cf80ccc14fa98191427b54cd07917c9089f248e53abb6f036f93dc89c0975"
     }
   },
   "nodes": [
@@ -625,8 +625,8 @@
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "schema": {
@@ -636,7 +636,7 @@
   "seed": {
     "kind": "CLK2",
     "nodes": [
-      3016
+      2619
     ]
   }
 }

@@ -2,10 +2,42 @@
   "inputs": {
     "netlist": "docs/evidence/netlists_v1/4003_netlist_v1.json",
     "sha256": {
-      "netlist": "80e248d70576ee581330b5ac6cbbb988da8d1d7d1d0563e44164206f550cfd30"
+      "netlist": "6c68316c89ea485dacfb96ec994e65176512fdd3108d36efaed1c8e9f3143f01"
     }
   },
   "outputs": [
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 2
+      },
+      "name": "CLOCK",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_CLOCK_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 3,
+        "transistors": 1
+      },
+      "name": "DATA",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_DATA_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 2
+      },
+      "name": "EN",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_EN_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 13,
+        "transistors": 6
+      },
+      "name": "OUT",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_OUT_subcircuit_v0.json"
+    },
     {
       "counts": {
         "nodes": 3,
@@ -88,11 +120,19 @@
     },
     {
       "counts": {
-        "nodes": 23,
-        "transistors": 9
+        "nodes": 13,
+        "transistors": 6
       },
-      "name": "custom",
-      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_custom_subcircuit_v0.json"
+      "name": "VDD",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_VDD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 11,
+        "transistors": 5
+      },
+      "name": "VSS",
+      "output": "docs/evidence/subcircuits_v0/4003/4003/4003_VSS_subcircuit_v0.json"
     }
   ],
   "params": {

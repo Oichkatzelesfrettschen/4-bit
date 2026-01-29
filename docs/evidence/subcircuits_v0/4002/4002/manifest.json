@@ -2,14 +2,14 @@
   "inputs": {
     "netlist": "docs/evidence/netlists_v1/4002_netlist_v1.json",
     "sha256": {
-      "netlist": "4514739b245184cee9561ded34c95ac44483d595d977e30a9729903b3d836898"
+      "netlist": "242cf80ccc14fa98191427b54cd07917c9089f248e53abb6f036f93dc89c0975"
     }
   },
   "outputs": [
     {
       "counts": {
-        "nodes": 64,
-        "transistors": 32
+        "nodes": 5,
+        "transistors": 2
       },
       "name": "CLK1",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_CLK1_subcircuit_v0.json"
@@ -24,56 +24,56 @@
     },
     {
       "counts": {
-        "nodes": 3,
-        "transistors": 1
+        "nodes": 5,
+        "transistors": 2
       },
       "name": "CM",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_CM_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 64,
-        "transistors": 32
+        "nodes": 7,
+        "transistors": 3
       },
       "name": "CS",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_CS_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 5,
-        "transistors": 2
+        "nodes": 6,
+        "transistors": 3
       },
       "name": "D0_PAD",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_D0_PAD_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 5,
-        "transistors": 2
+        "nodes": 6,
+        "transistors": 3
       },
       "name": "D1_PAD",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_D1_PAD_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 5,
-        "transistors": 2
+        "nodes": 418,
+        "transistors": 377
       },
       "name": "D2_PAD",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_D2_PAD_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 5,
-        "transistors": 2
+        "nodes": 64,
+        "transistors": 32
       },
       "name": "D3_PAD",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_D3_PAD_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 64,
-        "transistors": 32
+        "nodes": 3,
+        "transistors": 1
       },
       "name": "OUT0",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_OUT0_subcircuit_v0.json"
@@ -88,24 +88,24 @@
     },
     {
       "counts": {
-        "nodes": 64,
-        "transistors": 32
+        "nodes": 6,
+        "transistors": 3
       },
       "name": "OUT2",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_OUT2_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 5,
-        "transistors": 2
+        "nodes": 6,
+        "transistors": 3
       },
       "name": "OUT3",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_OUT3_subcircuit_v0.json"
     },
     {
       "counts": {
-        "nodes": 5,
-        "transistors": 2
+        "nodes": 64,
+        "transistors": 32
       },
       "name": "RESET",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_RESET_subcircuit_v0.json"
@@ -117,11 +117,27 @@
       },
       "name": "SYNC",
       "output": "docs/evidence/subcircuits_v0/4002/4002/4002_SYNC_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 2
+      },
+      "name": "VDD",
+      "output": "docs/evidence/subcircuits_v0/4002/4002/4002_VDD_subcircuit_v0.json"
+    },
+    {
+      "counts": {
+        "nodes": 5,
+        "transistors": 2
+      },
+      "name": "VSS",
+      "output": "docs/evidence/subcircuits_v0/4002/4002/4002_VSS_subcircuit_v0.json"
     }
   ],
   "params": {
-    "max_nodes": 200000,
-    "max_transistors": 50000,
+    "max_nodes": 12000,
+    "max_transistors": 4000,
     "radius": 3
   },
   "tool": "scripts/extract_subcircuit_v0.py"

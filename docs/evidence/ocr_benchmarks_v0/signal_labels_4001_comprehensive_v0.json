@@ -1,0 +1,191 @@
+{
+  "schema": {
+    "version": 0,
+    "description": "Comprehensive OCR regression benchmark for 4001 signal labels (pad labels and edge labels).",
+    "chip": "4001",
+    "total_samples": 36,
+    "source": "docs/evidence/ocr_signal_labels/"
+  },
+  "items": [
+    {
+      "id": "4001_D0_PAD_0000_D0_PAD",
+      "expected": "D0_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0000_D0_PAD.png"
+    },
+    {
+      "id": "4001_~A11_2_0000_~A11_2",
+      "expected": "~A11_2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0000_~A11_2.png"
+    },
+    {
+      "id": "4001_A12_2_0001_A12_2",
+      "expected": "A12_2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0001_A12_2.png"
+    },
+    {
+      "id": "4001_D1_PAD_0001_D1_PAD",
+      "expected": "D1_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0001_D1_PAD.png"
+    },
+    {
+      "id": "4001_IO0_0001_IO0",
+      "expected": "IO0",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0001_IO0.png"
+    },
+    {
+      "id": "4001_D2_PAD_0002_D2_PAD",
+      "expected": "D2_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0002_D2_PAD.png"
+    },
+    {
+      "id": "4001_~A21_2_0002_~A21_2",
+      "expected": "~A21_2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0002_~A21_2.png"
+    },
+    {
+      "id": "4001_A22_2_0003_A22_2",
+      "expected": "A22_2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0003_A22_2.png"
+    },
+    {
+      "id": "4001_D3_PAD_0003_D3_PAD",
+      "expected": "D3_PAD",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0003_D3_PAD.png"
+    },
+    {
+      "id": "4001_IO1_0003_IO1",
+      "expected": "IO1",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0003_IO1.png"
+    },
+    {
+      "id": "4001_A11_2_0004_A11_2",
+      "expected": "A11_2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0004_A11_2.png"
+    },
+    {
+      "id": "4001_CLK1_0004_CLK1",
+      "expected": "CLK1",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0004_CLK1.png"
+    },
+    {
+      "id": "4001_CLK2_0005_CLK2",
+      "expected": "CLK2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0005_CLK2.png"
+    },
+    {
+      "id": "4001_IO2_0005_IO2",
+      "expected": "IO2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0005_IO2.png"
+    },
+    {
+      "id": "4001_DO0_0006_DO0",
+      "expected": "DO0",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0006_DO0.png"
+    },
+    {
+      "id": "4001_IO3_0007_IO3",
+      "expected": "IO3",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0007_IO3.png"
+    },
+    {
+      "id": "4001_~CLK1_0007_~CLK1",
+      "expected": "~CLK1",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0007_~CLK1.png"
+    },
+    {
+      "id": "4001_CL_0008_CL",
+      "expected": "CL",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0008_CL.png"
+    },
+    {
+      "id": "4001_IO0_0008_IO0",
+      "expected": "IO0",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0008_IO0.png"
+    },
+    {
+      "id": "4001_RESET_0009_RESET",
+      "expected": "RESET",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0009_RESET.png"
+    },
+    {
+      "id": "4001_CM_0010_CM",
+      "expected": "CM",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0010_CM.png"
+    },
+    {
+      "id": "4001_CLK1_0011_CLK1",
+      "expected": "CLK1",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0011_CLK1.png"
+    },
+    {
+      "id": "4001_CLK2_0012_CLK2",
+      "expected": "CLK2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0012_CLK2.png"
+    },
+    {
+      "id": "4001_DO1_0013_DO1",
+      "expected": "DO1",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0013_DO1.png"
+    },
+    {
+      "id": "4001_SYNC_0013_SYNC",
+      "expected": "SYNC",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0013_SYNC.png"
+    },
+    {
+      "id": "4001_D3_0021_D3",
+      "expected": "D3",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0021_D3.png"
+    },
+    {
+      "id": "4001_DO2_0026_DO2",
+      "expected": "DO2",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0026_DO2.png"
+    },
+    {
+      "id": "4001_~D1_0048_~D1",
+      "expected": "~D1",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0048_~D1.png"
+    },
+    {
+      "id": "4001_RESET_0055_RESET",
+      "expected": "RESET",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0055_RESET.png"
+    },
+    {
+      "id": "4001_MBUSREAD_0057_MBUSREAD",
+      "expected": "MBUSREAD",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0057_MBUSREAD.png"
+    },
+    {
+      "id": "4001_CHIPSEL_0068_CHIPSEL",
+      "expected": "CHIPSEL",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0068_CHIPSEL.png"
+    },
+    {
+      "id": "4001_SYNC_0073_SYNC",
+      "expected": "SYNC",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0073_SYNC.png"
+    },
+    {
+      "id": "4001_M12_0081_M12",
+      "expected": "M12",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0081_M12.png"
+    },
+    {
+      "id": "4001_~X11_0084_~X11",
+      "expected": "~X11",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0084_~X11.png"
+    },
+    {
+      "id": "4001_X12_0085_X12",
+      "expected": "X12",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0085_X12.png"
+    },
+    {
+      "id": "4001_~X21_0086_~X21",
+      "expected": "~X21",
+      "image": "docs/evidence/ocr_signal_labels/4001/crops/0086_~X21.png"
+    }
+  ]
+}

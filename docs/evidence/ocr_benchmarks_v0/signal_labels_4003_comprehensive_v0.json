@@ -1,0 +1,46 @@
+{
+  "schema": {
+    "version": 0,
+    "description": "Comprehensive OCR regression benchmark for 4003 signal labels (pad labels and edge labels).",
+    "chip": "4003",
+    "total_samples": 7,
+    "source": "docs/evidence/ocr_signal_labels/"
+  },
+  "items": [
+    {
+      "id": "4003_CLOCK_0001_CLOCK",
+      "expected": "CLOCK",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0001_CLOCK.png"
+    },
+    {
+      "id": "4003_Q2_0002_Q2",
+      "expected": "Q2",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0002_Q2.png"
+    },
+    {
+      "id": "4003_CLOCK_0005_CLOCK",
+      "expected": "CLOCK",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0005_CLOCK.png"
+    },
+    {
+      "id": "4003_DATA_0006_DATA",
+      "expected": "DATA",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0006_DATA.png"
+    },
+    {
+      "id": "4003_Q6_0008_Q6",
+      "expected": "Q6",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0008_Q6.png"
+    },
+    {
+      "id": "4003_Q8_0010_Q8",
+      "expected": "Q8",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0010_Q8.png"
+    },
+    {
+      "id": "4003_OUT_0013_OUT",
+      "expected": "OUT",
+      "image": "docs/evidence/ocr_signal_labels/4003/crops/0013_OUT.png"
+    }
+  ]
+}

@@ -12,7 +12,7 @@
 //! - 4-bit accumulator with carry flag
 
 mod alu;
-mod instruction_decode;
+pub mod instruction_decode;
 mod registers;
 mod timing_io;
 

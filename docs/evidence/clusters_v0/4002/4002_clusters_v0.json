@@ -1,0 +1,132 @@
+{
+  "schema_version": 0,
+  "chip": "4002",
+  "description": "Hierarchical subcircuit clustering",
+  "hierarchy": {
+    "level_0": {
+      "description": "Individual subcircuits (as extracted)",
+      "clusters": [
+        {
+          "id": "4002_D0_PAD_L0",
+          "name": "D0_PAD",
+          "transistor_count": 3,
+          "node_count": 6,
+          "subcircuits": [
+            "4002_D0_PAD_subcircuit_v0.json"
+          ],
+          "functional_category": "INPUT_BUFFERS"
+        },
+        {
+          "id": "4002_OUT0_L0",
+          "name": "OUT0",
+          "transistor_count": 1,
+          "node_count": 3,
+          "subcircuits": [
+            "4002_OUT0_subcircuit_v0.json"
+          ],
+          "functional_category": "OUTPUT_DRIVERS"
+        },
+        {
+          "id": "4002_OUT1_L0",
+          "name": "OUT1",
+          "transistor_count": 32,
+          "node_count": 64,
+          "subcircuits": [
+            "4002_OUT1_subcircuit_v0.json"
+          ],
+          "functional_category": "OUTPUT_DRIVERS"
+        },
+        {
+          "id": "4002_OUT2_L0",
+          "name": "OUT2",
+          "transistor_count": 3,
+          "node_count": 6,
+          "subcircuits": [
+            "4002_OUT2_subcircuit_v0.json"
+          ],
+          "functional_category": "OUTPUT_DRIVERS"
+        },
+        {
+          "id": "4002_OUT3_L0",
+          "name": "OUT3",
+          "transistor_count": 3,
+          "node_count": 6,
+          "subcircuits": [
+            "4002_OUT3_subcircuit_v0.json"
+          ],
+          "functional_category": "OUTPUT_DRIVERS"
+        },
+        {
+          "id": "4002_custom_L0",
+          "name": "custom",
+          "transistor_count": 42,
+          "node_count": 85,
+          "subcircuits": [
+            "4002_custom_subcircuit_v0.json"
+          ],
+          "functional_category": "CUSTOM"
+        }
+      ]
+    },
+    "level_1": {
+      "description": "Electrical connectivity clusters (threshold=0.5)",
+      "clusters": [
+        {
+          "id": "4002_L1_0",
+          "name": "D0_PAD_custom_OUT0_and_3_more",
+          "transistor_count": 84,
+          "node_count": 85,
+          "subcircuits": [
+            "4002_D0_PAD_subcircuit_v0.json",
+            "4002_custom_subcircuit_v0.json",
+            "4002_OUT0_subcircuit_v0.json",
+            "4002_OUT1_subcircuit_v0.json",
+            "4002_OUT2_subcircuit_v0.json",
+            "4002_OUT3_subcircuit_v0.json"
+          ],
+          "merge_reason": "electrical_overlap_0.50",
+          "functional_category": "OUTPUT_DRIVERS"
+        }
+      ]
+    },
+    "level_2": {
+      "description": "Functional blocks",
+      "clusters": [
+        {
+          "id": "4002_OUTPUT_DRIVERS_L2",
+          "name": "OUTPUT_DRIVERS",
+          "transistor_count": 84,
+          "node_count": 85,
+          "subcircuits": [
+            "4002_D0_PAD_subcircuit_v0.json",
+            "4002_custom_subcircuit_v0.json",
+            "4002_OUT0_subcircuit_v0.json",
+            "4002_OUT1_subcircuit_v0.json",
+            "4002_OUT2_subcircuit_v0.json",
+            "4002_OUT3_subcircuit_v0.json"
+          ],
+          "functional_category": "OUTPUT_DRIVERS",
+          "level_1_clusters": [
+            "4002_L1_0"
+          ]
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "total_subcircuits": 6,
+    "level_1_clusters": 1,
+    "level_2_clusters": 1,
+    "coverage_check": {
+      "all_subcircuits_assigned": true,
+      "no_overlaps": true,
+      "level_0_count": 6,
+      "level_1_count": 1,
+      "level_2_count": 1,
+      "warnings": []
+    }
+  },
+  "params": {
+    "electrical_threshold": 0.5
+  }
+}
