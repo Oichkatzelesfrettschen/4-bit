@@ -15,7 +15,7 @@ import numpy as np
 import pytesseract
 from PIL import Image, ImageDraw, ImageFont
 
-from ocr_backend_v0 import resolve_backend
+from ocr_cached_backend_v0 import resolve_cached_backend
 from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop, preprocess_label_for_ocr
 
 
@@ -361,7 +361,7 @@ def main() -> int:
         default_tdir = (Path(__file__).resolve().parents[1] / "docs/evidence/ocr_models/templates_v0").resolve()
         if default_tdir.exists():
             os.environ["OCR_TEMPLATE_DIR"] = str(default_tdir)
-    backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
+    backend = resolve_cached_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
     # The fast-path OCR loop in this script is tuned for these tiny, high-contrast labels.
     # Use it for any tesseract-based backend (CLI or pytesseract) to avoid the expensive
     # multi-parameter sweeps in ocr_backend_v0.

@@ -8,7 +8,7 @@ from pathlib import Path
 
 import numpy as np
 
-from ocr_backend_v0 import resolve_backend
+from ocr_cached_backend_v0 import resolve_cached_backend
 from imgio_v0 import load_gray
 from ocr_presets_v0 import preset_layout_edge_label
 
@@ -60,7 +60,7 @@ def main() -> int:
     if not isinstance(entries, list):
         raise SystemExit("manifest missing entries[]")
 
-    backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
+    backend = resolve_cached_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
 
     fallback_whitelist = str(args.whitelist).strip().upper() or "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     results: list[dict] = []

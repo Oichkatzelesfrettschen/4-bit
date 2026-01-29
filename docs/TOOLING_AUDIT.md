@@ -129,3 +129,76 @@ Mitigations
 
 Notes
 - On some distros, `cargo-llvm-cov` behaves as a Cargo subcommand; use `cargo llvm-cov --version` (not `cargo-llvm-cov --version`) for version checks.
+
+---
+
+## OCR Version Pinning (CI-Enforced)
+
+**Last Audit**: 2026-01-29
+**Commit**: a0d6ed1cf472922830e56aa8b7969790f59a0309
+
+### Locked Versions
+
+Critical OCR dependencies with CI-enforced version checks:
+
+| Component | Version | Source | Notes |
+|-----------|---------|--------|-------|
+| Tesseract | 5.5.2 | System (pacman) | Core OCR engine |
+| OpenCV | 4.13.0 | Python (pip) | Image preprocessing |
+| ONNX Runtime | 1.23.2 | Python (pip) | Neural network inference |
+| Python | 3.14.2 | System | Interpreter |
+| numpy | 2.4.1 | Python (pip) | Array operations |
+| pytesseract | 0.3.13 | Python (pip) | Tesseract bindings |
+
+### Verification Commands
+
+```bash
+# Verify your environment matches CI expectations
+tesseract --version | head -1  # Expected: tesseract 5.5.2
+python3 -c "import cv2; print(f'OpenCV {cv2.__version__}')"  # Expected: 4.13.0
+python3 -c "import onnxruntime as ort; print(f'ONNX Runtime {ort.__version__}')"  # Expected: 1.23.2
+```
+
+### CI Gate
+
+The script `scripts/check_ocr_versions.sh` validates installed versions match this audit.
+
+**Policy**: CI will **fail** if versions differ (prevents OCR accuracy drift).
+
+**Rationale**: OCR output is sensitive to version changes. Tesseract 5.4 vs 5.5 can produce different results. Version locking ensures:
+- Reproducible extraction outputs
+- Consistent OCR accuracy metrics
+- Reliable regression testing
+
+### Version Update Protocol
+
+When updating OCR dependencies:
+
+1. Run full OCR regression suite: `python3 scripts/ocr_benchmark_v0.py --all`
+2. Record accuracy deltas (before/after)
+3. Update this section with new versions and audit date
+4. Re-run extraction pipeline, verify outputs or document differences
+5. Update `scripts/check_ocr_versions.sh` with new expected versions
+6. Commit with message: `chore: Update OCR toolchain to [versions] - accuracy delta [±X%]`
+
+### Historical Version Audits
+
+| Date | Tesseract | OpenCV | ONNX | Python | Commit | Notes |
+|------|-----------|--------|------|--------|--------|-------|
+| 2026-01-29 | 5.5.2 | 4.13.0 | 1.23.2 | 3.14.2 | a0d6ed1 | Initial version pinning after OCR cache integration |
+
+### Known Issues
+
+**Tesseract 5.5.x**:
+- Improved thin stroke handling (better for PMOS-era fonts)
+- New LSTM model may differ from 5.4.x results
+- No known regressions on chip label OCR
+
+**OpenCV 4.13.0**:
+- CUDA support requires opencv-contrib-python build
+- CLAHE algorithm stable (identical to 4.10+)
+
+**ONNX Runtime 1.23.2**:
+- CUDA provider requires CUDA 12.x
+- CPU-only mode fully functional
+- No breaking API changes from 1.19+

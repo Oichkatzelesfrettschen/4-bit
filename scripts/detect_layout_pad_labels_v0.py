@@ -12,7 +12,7 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageOps
 
-from ocr_backend_v0 import resolve_backend
+from ocr_cached_backend_v0 import resolve_cached_backend
 from ocr_presets_v0 import preset_layout_edge_label
 
 
@@ -125,7 +125,7 @@ def main() -> int:
         default_tdir = (ROOT / "docs/evidence/ocr_models/templates_v0").resolve()
         if default_tdir.exists():
             os.environ["OCR_TEMPLATE_DIR"] = str(default_tdir)
-    backend = resolve_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
+    backend = resolve_cached_backend(backend=str(args.backend), onnx_model=args.onnx_model, prefer_cuda=bool(args.prefer_cuda))
 
     manifest: dict[str, object] = {
         "tool": "scripts/detect_layout_pad_labels_v0.py",

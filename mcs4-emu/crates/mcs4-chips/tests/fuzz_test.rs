@@ -32,7 +32,7 @@ proptest! {
             cpu.tick(BusCycle::X2, &mut bus, &mut ctrl);
             cpu.tick(BusCycle::X3, &mut bus, &mut ctrl);
 
-            if cpu.halted {
+            if cpu.halted() {
                 break;
             }
         }
