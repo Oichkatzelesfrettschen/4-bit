@@ -96,6 +96,14 @@ impl I4040 {
         self.halted
     }
 
+    pub fn cycle_state(&self) -> &CycleState {
+        &self.cycle
+    }
+
+    pub fn instruction_byte(&self) -> u8 {
+        self.instruction_byte
+    }
+
     pub fn tick(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         match phase {
             BusCycle::A1 => self.phase_a1(bus, ctrl),
