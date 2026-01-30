@@ -17,15 +17,17 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 - Unit tests: 115 passing
 - Remaining: 4040 full execution
 
-### Phase 2: IN PROGRESS (65%)
+### Phase 2: IN PROGRESS (73%)
 - 4040 CPU execution integration: COMPLETE
   - All 8 phase methods (A1-A3, M1-M2, X1-X3): DONE
   - 4004 compatibility layer (46 instructions): DONE
   - 14 new 4040 instructions (HLT, BBS, OR4/5, AN6/7, DB0/1, SB0/1, EIN/DIN): DONE
   - Execute dispatcher: DONE
   - Tick cycle integration: DONE
-- Status: 6/15 tests passing (40%)
-- Remaining: Fix 9 test failures in SRC/WRM/RDM/stack operations
+  - Multi-byte instruction PC advancement: FIXED (JUN/JMS)
+  - RAM bank selection logic: FIXED (x2/x3_ram_bank_select)
+- Status: 11/15 tests passing (73%)
+- Remaining: RAM data persistence (WRM/RDM), interrupt vector logic
 
 ### Phase 3-5: PLANNED (0%)
 - Support chips (4101 RAM, 4201 Clock, 4289 Interface): NOT STARTED
@@ -48,17 +50,12 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 - Register file compatible (24 registers for 4040, 16 for 4004)
 - Stack compatible (7-level for 4040, 3-level for 4004)
 
-## FAILING TESTS (9)
+## FAILING TESTS (4)
 
-1. test_cm_ram_only_asserted_during_transfer_phases - control signal timing
-2. test_end_to_end_src_wrm_rdm_roundtrip - SRC/RAM address/data sequencing
-3. test_fixture_ram_status_wr1_rd1_hex_executes - RAM status operation
-4. test_fixture_src_wrm_rdm_hex_executes - same as #2
-5. test_interrupt_ein_vectors_to_003_and_bbs_returns - interrupt not implemented
-6. test_io_op_is_phase_accurate - I/O operation timing
-7. test_jcn_test_pin_taken_jumps - condition evaluation
-8. test_two_byte_jms_and_bbl_return_address - stack push/pop
-9. test_two_byte_jun_jumps_to_target - PC modification
+1. test_end_to_end_src_wrm_rdm_roundtrip - RAM data persistence
+2. test_fixture_src_wrm_rdm_hex_executes - RAM data persistence
+3. test_fixture_ram_status_wr1_rd1_hex_executes - RAM status read/write
+4. test_interrupt_ein_vectors_to_003_and_bbs_returns - interrupt vector not implemented
 
 ## BUILD COMMANDS
 
