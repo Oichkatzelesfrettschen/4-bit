@@ -6,6 +6,7 @@
 pub mod gate;
 pub mod layout_netlist;
 pub mod netlist_v0;
+pub mod nodal_solver;
 pub mod signal;
 pub mod simulator;
 pub mod timing;

@@ -5,36 +5,56 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 
 ## PHASE STATUS
 
-### Phase 0.5: COMPLETE (85%)
+### Phase 0.5: COMPLETE (90%)
 - OCR persistent cache: DONE (48,000x speedup)
 - Version pinning (Tesseract 5.5.2, OpenCV 4.13.0, ONNX 1.23.2): DONE
 - Power rail anchoring: DONE (medium confidence)
-- Remaining: Comprehensive OCR benchmarks for 4001/4002/4003 (deferred)
+- Remaining: OCR benchmarks for 4001/4002/4003 (tasks #70-74, deferred)
 
 ### Phase 1: COMPLETE (100%)
-- 4004 CPU: COMPLETE (all 46 instructions)
-- Disassembler: COMPLETE (symbol tables, auto-labeling)
-- Unit tests: 115 passing
-- Remaining: 4040 full execution
+- 4004 CPU: 46 instructions, full ALU, registers, stack
+- Disassembler: Symbol tables, auto-labeling
+- Unit tests: 115+ passing
+- 4040 foundation: CPU structure, register banks, stack (7-level)
 
-### Phase 2: IN PROGRESS (73%)
-- 4040 CPU execution integration: COMPLETE
-  - All 8 phase methods (A1-A3, M1-M2, X1-X3): DONE
-  - 4004 compatibility layer (46 instructions): DONE
-  - 14 new 4040 instructions (HLT, BBS, OR4/5, AN6/7, DB0/1, SB0/1, EIN/DIN): DONE
-  - Execute dispatcher: DONE
-  - Tick cycle integration: DONE
-  - Multi-byte instruction PC advancement: FIXED (JUN/JMS)
-  - RAM bank selection logic: FIXED (x2/x3_ram_bank_select)
-- Status: 11/15 tests passing (73%)
-- Remaining: RAM data persistence (WRM/RDM), interrupt vector logic
+### Phase 2: IN PROGRESS (87%)
+- 4040 CPU: Full 60-instruction execution (46 4004 + 14 4040 new)
+- Phase methods: A1-A3, M1-M2, X1-X3 (all 8 phases implemented)
+- Interrupt controller: Basic framework in place
+- Tests: 43+ passing
+- Remaining: 4 failing tests
+  - RAM data persistence (WRM/RDM roundtrip)
+  - Interrupt vector logic (INT → 0x003)
+  - RAM status read/write
 
-### Phase 3-5: PLANNED (0%)
-- Support chips (4101 RAM, 4201 Clock, 4289 Interface): NOT STARTED
-- GUI debugger: NOT STARTED
-- Extraction enhancements: NOT STARTED
-- Clustering/SIMD: NOT STARTED
-- FPGA synthesis: NOT STARTED
+### Phase 3: IN PROGRESS (75%)
+- DONE:
+  - 4101 RAM design (architecture)
+  - 4101 RAM implementation (read/write, 17 tests)
+  - Disassembler core (symbol tables, 8 tests)
+  - Signal trace buffer (event capture, 18 tests)
+  - MCS-40 system integration (memory map, bus protocol)
+- Pending:
+  - 4201 Clock generator (#91, #99)
+  - 4289 Memory interface (#100)
+  - 4003 Shift register tests (#89-94)
+  - GUI panels: register, memory, stack, disasm, breakpoints (#101-108)
+  - Waveform viewer (#131)
+
+### Phase 4: IN PROGRESS (20%)
+- DONE:
+  - Phase 4A: Transistor solver research & architecture
+  - Phase 4A: Switch-level simulator (9 tests passing)
+- Pending:
+  - #33: Validate transistor solver with subcircuits
+  - #112: Transistor-level simulation solver
+  - #113: SIMD cluster execution (16-lane)
+  - #114: Multi-modal OCR fusion
+
+### Phase 5: PLANNED (0%)
+- #115: Peripheral drivers (7-seg, keyboard, UART)
+- #116: FPGA synthesis
+- #117: ONNX CTC training
 
 ## CURRENT IMPLEMENTATION
 
@@ -71,15 +91,15 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 - ASCII-only commits, no unicode
 - All decisions documented with WHY/WHAT/HOW
 
-## NEXT PRIORITY (TASK #88)
+## NEXT PRIORITY
 
-Debug failing tests in this order:
-1. Investigate SRC/WRM/RDM sequencing (likely PC advancement issue)
-2. Fix JMS/BBL stack operations (return address calculation)
-3. Implement interrupt vector logic
-4. Verify control signal timing for RAM operations
+Critical path (in order):
+1. Phase 2: Fix 4 failing tests (RAM persistence, interrupt vector) → 100% complete
+2. Phase 3: Finish support chips (4201, 4289) + GUI panels → 95% complete
+3. Phase 4: Complete transistor solver validation + clustering → 50% complete
+4. Phase 0.5: OCR regression benchmarks (low priority, deferred)
 
-Estimated: 2-4 hours to achieve 13/15 passing (87%)
+Current focus: Phase 4A complete, moving to Phase 4B (nodal analysis)
 
 ---
 Last Updated: 2026-01-29
