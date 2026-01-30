@@ -379,7 +379,7 @@ mod tests {
     }
 
     #[test]
-    fn test_differential_execution() {
+    fn test_differential_execution_nop_loop() {
         let mut cluster = SimdCluster::new();
 
         // Load identical ROM to all lanes
@@ -395,6 +395,121 @@ mod tests {
         let pcs = cluster.get_pcs();
         for i in 1..16 {
             assert_eq!(pcs[0], pcs[i], "PC mismatch between lane 0 and {}", i);
+        }
+    }
+
+    #[test]
+    fn test_differential_execution_mixed_rom() {
+        let mut cluster = SimdCluster::new();
+
+        // Load same ROM to all lanes
+        let rom = vec![
+            0x00, 0x00, 0x00, 0x00,  // NOP x4
+            0x60, 0x61, 0x62, 0x63,  // INC R0, INC R1, INC R2, INC R3
+            0x00, 0x00, 0x00, 0x00,  // NOP x4
+        ];
+
+        for i in 0..16 {
+            cluster.load_rom(i, &rom);
+        }
+
+        // Execute the sequence
+        cluster.execute_cycles(12);
+
+        // All lanes should have identical PC (0x0C after 12 NOPs + increments)
+        let pcs = cluster.get_pcs();
+        for i in 1..16 {
+            assert_eq!(pcs[0], pcs[i], "PC mismatch after mixed instruction sequence");
+        }
+    }
+
+    #[test]
+    fn test_simd_register_operations() {
+        let mut cluster = SimdCluster::new();
+
+        // Simple program: INC R0, INC R1
+        let rom = vec![
+            0x60,  // INC R0
+            0x61,  // INC R1
+            0x00,  // NOP
+        ];
+
+        for i in 0..16 {
+            cluster.load_rom(i, &rom);
+        }
+
+        // Execute 3 instructions
+        cluster.execute_cycles(3);
+
+        // Verify PC incremented correctly
+        let pcs = cluster.get_pcs();
+        assert_eq!(pcs[0], 3);
+        for i in 1..16 {
+            assert_eq!(pcs[i], 3);
+        }
+    }
+
+    #[test]
+    fn test_simd_cluster_lane_independence() {
+        let mut cluster = SimdCluster::new();
+
+        // Load different ROMs to different lanes
+        for lane in 0..16 {
+            let mut rom = vec![0x00; 100];
+            // Set unique instruction patterns for each lane
+            rom[0] = (lane as u8) & 0xFF;
+            cluster.load_rom(lane, &rom);
+        }
+
+        // Execute 1 cycle
+        cluster.execute_cycles(1);
+
+        // Verify each lane has correct PC
+        let pcs = cluster.get_pcs();
+        for i in 0..16 {
+            assert_eq!(pcs[i], 1, "Lane {} PC should be 1 after 1 cycle", i);
+        }
+    }
+
+    #[test]
+    fn test_simd_cluster_statistics() {
+        let mut cluster = SimdCluster::new();
+
+        // Load any ROM
+        let rom = vec![0x00; 10];
+        cluster.load_rom(0, &rom);
+
+        // Execute N cycles
+        cluster.execute_cycles(5);
+
+        // Verify statistics
+        assert_eq!(cluster.cycles, 5);
+        assert_eq!(cluster.instructions, 5);
+    }
+
+    #[test]
+    fn test_simd_cluster_reset() {
+        let mut cluster = SimdCluster::new();
+
+        // Load ROM and execute
+        let rom = vec![0x60; 100];  // INC R0 loop
+        for i in 0..16 {
+            cluster.load_rom(i, &rom);
+        }
+        cluster.execute_cycles(10);
+
+        // Verify state changed
+        assert!(cluster.cycles > 0);
+
+        // Reset
+        cluster.reset();
+
+        // Verify state restored
+        assert_eq!(cluster.cycles, 0);
+        assert_eq!(cluster.instructions, 0);
+        let pcs = cluster.get_pcs();
+        for i in 0..16 {
+            assert_eq!(pcs[i], 0);
         }
     }
 }
