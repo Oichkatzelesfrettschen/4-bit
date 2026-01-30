@@ -193,6 +193,8 @@ impl I4040 {
             self.decoder.decode_second(self.instruction_byte);
         } else {
             self.decoder.decode_first(self.instruction_byte);
+            // Track whether this is a two-byte instruction for cycle state
+            self.cycle.two_cycle = self.decoder.two_byte;
         }
         self.pc_modified = false;
 
