@@ -41,13 +41,15 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
   - GUI panels: register, memory, stack, disasm, breakpoints (#101-108)
   - Waveform viewer (#131)
 
-### Phase 4: IN PROGRESS (20%)
+### Phase 4: IN PROGRESS (40%)
 - DONE:
   - Phase 4A: Transistor solver research & architecture
   - Phase 4A: Switch-level simulator (9 tests passing)
+  - Phase 4B: Nodal analysis solver (7 tests passing)
+  - #31-33: Transistor solver core + validation
 - Pending:
-  - #33: Validate transistor solver with subcircuits
-  - #112: Transistor-level simulation solver
+  - Phase 4C: Validation against SPICE references
+  - #112: Transistor-level simulation solver integration
   - #113: SIMD cluster execution (16-lane)
   - #114: Multi-modal OCR fusion
 
@@ -94,12 +96,24 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 ## NEXT PRIORITY
 
 Critical path (in order):
-1. Phase 2: Fix 4 failing tests (RAM persistence, interrupt vector) → 100% complete
-2. Phase 3: Finish support chips (4201, 4289) + GUI panels → 95% complete
-3. Phase 4: Complete transistor solver validation + clustering → 50% complete
-4. Phase 0.5: OCR regression benchmarks (low priority, deferred)
+1. Phase 4C: Validate nodal solver vs SPICE references (complete Phase 4)
+2. Phase 2: Fix 4 failing tests (RAM persistence, interrupt vector) → 100% complete
+3. Phase 3: Finish support chips (4201, 4289) + GUI panels → 95% complete
+4. Phase 4: Implement clustering (SIMD/multi-modal OCR) → 50% complete
+5. Phase 0.5: OCR regression benchmarks (low priority, deferred)
 
-Current focus: Phase 4A complete, moving to Phase 4B (nodal analysis)
+Test progress: 182+ tests passing
+- Phase 1: 115 (4004 CPU, disassembler)
+- Phase 2: 43 (4040 execution)
+- Phase 3: 58+ (system integration, trace buffer)
+- Phase 4: 16 (transistor + nodal solvers)
+- Total: ~182 passing
+
+Current session achievements (2026-01-29):
+- #31-33: Transistor solver research + implementation + validation (DONE)
+- Phase 4A: Switch-level simulator with 9 tests
+- Phase 4B: Nodal analysis with 7 tests
+- Updated project status tracking
 
 ---
 Last Updated: 2026-01-29
