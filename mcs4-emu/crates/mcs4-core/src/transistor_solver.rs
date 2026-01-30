@@ -332,6 +332,7 @@ mod tests {
         (circuit, in_node, out_node)
     }
 
+
     #[test]
     fn test_inverter_low_to_high() {
         let (circuit, in_node, out_node) = create_test_inverter();
@@ -441,5 +442,186 @@ mod tests {
         assert!(trans.is_conducting(0.0, 5.0));
         // Vgs = 5V - 5V = 0V > -1V -> should not conduct
         assert!(!trans.is_conducting(5.0, 5.0));
+    }
+
+    #[test]
+    fn test_parallel_pmos_gate() {
+        // Test parallel PMOS: both pull to VDD independently
+        // When either gate is low, output is pulled high
+        let vdd = NodeId::new(0);
+        let vss = NodeId::new(1);
+        let mut circuit = Circuit::new(vdd, vss);
+
+        let a_node = circuit.add_node("A".to_string(), VoltageLevel::Low, 5.0);
+        let b_node = circuit.add_node("B".to_string(), VoltageLevel::Low, 5.0);
+        let out_node = circuit.add_node("OUT".to_string(), VoltageLevel::Low, 10.0);
+
+        // Two PMOS in parallel to VDD
+        circuit.add_transistor(
+            TransistorType::Pmos,
+            a_node, out_node, vdd, vdd,
+            10.0, 1.0, -1.0, 20000.0, 50.0,
+        );
+        circuit.add_transistor(
+            TransistorType::Pmos,
+            b_node, out_node, vdd, vdd,
+            10.0, 1.0, -1.0, 20000.0, 50.0,
+        );
+
+        let mut sim = TransistorSimulator::new(circuit);
+
+        // Both inputs low -> both PMOS conduct -> output high
+        sim.drive_input(a_node, VoltageLevel::Low);
+        sim.drive_input(b_node, VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(out_node), VoltageLevel::High, "Both PMOS low-gate should pull output high");
+
+        // One input high -> that PMOS off, other conducts -> output still high
+        sim.drive_input(a_node, VoltageLevel::High);
+        sim.drive_input(b_node, VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(out_node), VoltageLevel::High, "One PMOS conducting should maintain high output");
+    }
+
+    #[test]
+    fn test_parallel_nmos_gate() {
+        // Test parallel NMOS: either gate high pulls to VSS
+        let vdd = NodeId::new(0);
+        let vss = NodeId::new(1);
+        let mut circuit = Circuit::new(vdd, vss);
+
+        let a_node = circuit.add_node("A".to_string(), VoltageLevel::Low, 5.0);
+        let b_node = circuit.add_node("B".to_string(), VoltageLevel::Low, 5.0);
+        let out_node = circuit.add_node("OUT".to_string(), VoltageLevel::High, 10.0);
+
+        // Two NMOS in parallel to VSS
+        circuit.add_transistor(
+            TransistorType::Nmos,
+            a_node, out_node, vss, vss,
+            5.0, 1.0, 1.0, 10000.0, 50.0,
+        );
+        circuit.add_transistor(
+            TransistorType::Nmos,
+            b_node, out_node, vss, vss,
+            5.0, 1.0, 1.0, 10000.0, 50.0,
+        );
+
+        let mut sim = TransistorSimulator::new(circuit);
+
+        // Both inputs low -> both NMOS off -> output high (no pull-down)
+        sim.drive_input(a_node, VoltageLevel::Low);
+        sim.drive_input(b_node, VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(out_node), VoltageLevel::High);
+
+        // One input high -> that NMOS conducts -> output pulled low
+        sim.drive_input(a_node, VoltageLevel::High);
+        sim.drive_input(b_node, VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(out_node), VoltageLevel::Low);
+
+        // Both inputs high -> both NMOS conduct -> output low
+        sim.drive_input(a_node, VoltageLevel::High);
+        sim.drive_input(b_node, VoltageLevel::High);
+        assert_eq!(sim.node_voltage(out_node), VoltageLevel::Low);
+    }
+
+    #[test]
+    fn test_inverter_chain_propagation() {
+        // Chain of 3 inverters: IN -> INV1 -> INV2 -> INV3 -> OUT
+        // Signal should return to original logic level
+        let vdd = NodeId::new(0);
+        let vss = NodeId::new(1);
+        let mut circuit = Circuit::new(vdd, vss);
+
+        let in_node = circuit.add_node("IN".to_string(), VoltageLevel::Low, 5.0);
+        let n1 = circuit.add_node("N1".to_string(), VoltageLevel::High, 8.0);
+        let n2 = circuit.add_node("N2".to_string(), VoltageLevel::Low, 8.0);
+        let out_node = circuit.add_node("OUT".to_string(), VoltageLevel::High, 10.0);
+
+        // INV1
+        circuit.add_transistor(TransistorType::Pmos, in_node, n1, vdd, vdd, 10.0, 1.0, -1.0, 20000.0, 50.0);
+        circuit.add_transistor(TransistorType::Nmos, in_node, n1, vss, vss, 5.0, 1.0, 1.0, 10000.0, 50.0);
+
+        // INV2
+        circuit.add_transistor(TransistorType::Pmos, n1, n2, vdd, vdd, 10.0, 1.0, -1.0, 20000.0, 50.0);
+        circuit.add_transistor(TransistorType::Nmos, n1, n2, vss, vss, 5.0, 1.0, 1.0, 10000.0, 50.0);
+
+        // INV3
+        circuit.add_transistor(TransistorType::Pmos, n2, out_node, vdd, vdd, 10.0, 1.0, -1.0, 20000.0, 50.0);
+        circuit.add_transistor(TransistorType::Nmos, n2, out_node, vss, vss, 5.0, 1.0, 1.0, 10000.0, 50.0);
+
+        let mut sim = TransistorSimulator::new(circuit);
+
+        // Apply low to input: INV1 inverts to High, INV2 inverts to Low, INV3 inverts to High
+        sim.drive_input(in_node, VoltageLevel::Low);
+        let out_from_low = sim.node_voltage(out_node);
+        assert_eq!(out_from_low, VoltageLevel::High, "Three inverters should invert Low to High");
+
+        // Apply high to input: INV1 inverts to Low, INV2 inverts to High, INV3 inverts to Low
+        sim.drive_input(in_node, VoltageLevel::High);
+        let out_from_high = sim.node_voltage(out_node);
+        assert_eq!(out_from_high, VoltageLevel::Low, "Three inverters should invert High to Low");
+    }
+
+    #[test]
+    fn test_transistor_marginal_conducting() {
+        // Test NMOS at threshold voltage (Vth = 1.0)
+        let trans = Transistor {
+            id: TransistorId::new(0),
+            ty: TransistorType::Nmos,
+            gate: NodeId::new(0),
+            drain: NodeId::new(1),
+            source: NodeId::new(2),
+            bulk: NodeId::new(3),
+            width: 5.0,
+            length: 1.0,
+            vth: 1.0,
+            ron: 10000.0,
+            delay: 50.0,
+        };
+
+        // Vgs = 1.5V - 0V = 1.5V > 1.0V -> should conduct
+        assert!(trans.is_conducting(1.5, 0.0));
+        // Vgs = 1.0V - 0V = 1.0V = Vth -> boundary condition (typically ON)
+        // but our implementation uses strict inequality, so should NOT conduct
+        assert!(!trans.is_conducting(1.0, 0.0));
+    }
+
+    #[test]
+    fn test_high_fanout_node() {
+        // Test a node driving multiple gates
+        let vdd = NodeId::new(0);
+        let vss = NodeId::new(1);
+        let mut circuit = Circuit::new(vdd, vss);
+
+        let driver = circuit.add_node("DRIVER".to_string(), VoltageLevel::Low, 5.0);
+        let load1 = circuit.add_node("LOAD1".to_string(), VoltageLevel::High, 15.0);
+        let load2 = circuit.add_node("LOAD2".to_string(), VoltageLevel::High, 15.0);
+        let load3 = circuit.add_node("LOAD3".to_string(), VoltageLevel::High, 15.0);
+
+        // Three inverters fed from same driver
+        for (_i, load_id) in [load1, load2, load3].iter().enumerate() {
+            circuit.add_transistor(
+                TransistorType::Pmos,
+                driver, *load_id, vdd, vdd,
+                10.0, 1.0, -1.0, 20000.0, 50.0,
+            );
+            circuit.add_transistor(
+                TransistorType::Nmos,
+                driver, *load_id, vss, vss,
+                5.0, 1.0, 1.0, 10000.0, 50.0,
+            );
+        }
+
+        let mut sim = TransistorSimulator::new(circuit);
+
+        // Drive high
+        sim.drive_input(driver, VoltageLevel::High);
+        assert_eq!(sim.node_voltage(load1), VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(load2), VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(load3), VoltageLevel::Low);
+
+        // Drive low
+        sim.drive_input(driver, VoltageLevel::Low);
+        assert_eq!(sim.node_voltage(load1), VoltageLevel::High);
+        assert_eq!(sim.node_voltage(load2), VoltageLevel::High);
+        assert_eq!(sim.node_voltage(load3), VoltageLevel::High);
     }
 }
