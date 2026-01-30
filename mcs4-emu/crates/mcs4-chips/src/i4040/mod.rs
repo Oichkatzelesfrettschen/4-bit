@@ -476,7 +476,27 @@ impl I4040 {
                 self.ram_bank = self.alu.accumulator() & 0x0F;
             }
 
-            Invalid { opcode: _ } => {}
+            Invalid { opcode } => {
+                // 4040-specific opcodes are not recognized by the 4004 decoder,
+                // so they come through as Invalid. Map them to I4040Instruction here.
+                match opcode {
+                    0x01 => self.execute_hlt(),
+                    0x02 => self.execute_bbs(),
+                    0x03 => self.execute_lcr(),
+                    0x04 => self.execute_or4(),
+                    0x05 => self.execute_or5(),
+                    0x06 => self.execute_an6(),
+                    0x07 => self.execute_an7(),
+                    0x08 => self.execute_db0(),
+                    0x09 => self.execute_db1(),
+                    0x0A => self.execute_sb0(),
+                    0x0B => self.execute_sb1(),
+                    0x0C => self.execute_ein(),
+                    0x0D => self.execute_din(),
+                    0x0E => self.execute_rpm(),
+                    _ => {}
+                }
+            }
         }
     }
 
@@ -530,11 +550,11 @@ impl I4040 {
 
     /// BBS (0x02) - Branch Back from interrupt
     fn execute_bbs(&mut self) {
-        // Restore PC from stack
-        let saved_pc = self.registers.ret_from_interrupt();
-        self.registers.set_pc(saved_pc.into());
-        // Re-enable interrupts
-        self.intr.enable();
+        // Restore PC from stack (ret_from_interrupt pops SP and sets PC directly)
+        let _ = self.registers.ret_from_interrupt();  // Restores PC, returns saved SRC (unused)
+        // Note: Interrupts remain disabled (disabled by acknowledge() on INT entry)
+        // The ISR must call EIN explicitly to re-enable interrupts
+        self.pc_modified = true;
     }
 
     /// LCR (0x03) - Load Command RAM (ROM -> RAM)

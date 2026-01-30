@@ -171,7 +171,17 @@ impl InstructionDecoder {
     /// Decode single-byte instructions
     fn decode_single_byte(&self) -> Instruction {
         match self.opr {
-            0x0 => Instruction::Nop,
+            0x0 => {
+                // OPR=0x0: Only NOP (0x00) is valid in 4004
+                // Other values (0x01-0x0F) are 4040 extensions or invalid
+                if self.opa == 0x0 {
+                    Instruction::Nop
+                } else {
+                    Instruction::Invalid {
+                        opcode: (self.opr << 4) | self.opa,
+                    }
+                }
+            }
 
             0x2 => {
                 // SRC (send register control) - OPA bit 0 = 1

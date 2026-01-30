@@ -604,13 +604,14 @@ mod tests {
     fn test_interrupt_ein_vectors_to_003_and_bbs_returns() {
         let mut sys = Mcs40System::new();
 
-        // 0x000: EIN
-        // 0x001: NOP (return address after interrupt)
-        // 0x003: BBS (return from interrupt)
+        // 0x000: EIN (0x0C)
+        // 0x001: NOP (0x00 - return address after interrupt)
+        // 0x003: BBS (0x02 - return from interrupt)
         sys.load_rom(&[0x0C, 0x00, 0x00, 0x02, 0x00]);
 
         sys.run_cycles(1);
         assert_eq!(sys.pc(), 1);
+        assert!(sys.cpu.intr.enabled());
 
         // Raise INT before the next instruction boundary (sampled at A1).
         sys.control
