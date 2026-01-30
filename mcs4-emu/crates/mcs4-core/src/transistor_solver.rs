@@ -256,11 +256,11 @@ impl TransistorSimulator {
 
             if !changed {
                 converged = true;
-                self.iteration_count = iteration as u32 + 1;
+                self.iteration_count = iteration + 1;
                 break;
             }
 
-            self.iteration_count = iteration as u32 + 1;
+            self.iteration_count = iteration + 1;
         }
 
         converged
