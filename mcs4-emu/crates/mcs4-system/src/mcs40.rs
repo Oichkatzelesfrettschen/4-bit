@@ -321,6 +321,46 @@ mod tests {
     }
 
     #[test]
+    fn debug_wrm_rdm_detailed() {
+        let mut sys = Mcs40System::new();
+
+        sys.load_rom(&[
+            0xDA, // LDM 0xA
+            0x20, 0x01, // FIM P0, 0x01
+            0x21, // SRC P0
+            0xE0, // WRM
+            0xD0, // LDM 0x0
+            0xE9, // RDM
+            0x00, // NOP
+        ]);
+
+        eprintln!("\n=== WRM/RDM Execution Trace ===");
+        eprintln!("ROM: LDM 0xA, FIM P0 0x01, SRC P0, WRM, LDM 0x0, RDM, NOP\n");
+
+        for phase_num in 0..(80) {
+            let phase = sys.phase();
+            let pc = sys.pc();
+            let acc = sys.cpu.alu.accumulator();
+            let ram_0_1 = sys.ram[0].read_direct(0, 1);
+
+            // Detailed output around SRC/WRM/RDM cycles (phases 18-62)
+            if phase_num >= 18 && phase_num <= 62 {
+                eprintln!("Phase {:2}: {:?} PC=0x{:03X} ACC=0x{:02X} RAM[0][1]=0x{:02X} | io_op={:?} RAM sel={} reg={} char={} src_sel={}",
+                          phase_num, phase, pc, acc, ram_0_1,
+                          sys.control.io_op,
+                          sys.ram[0].is_selected(),
+                          sys.ram[0].selected_register(),
+                          sys.ram[0].selected_char(),
+                          sys.ram[0].src_selected());
+            }
+
+            sys.step();
+        }
+
+        eprintln!("\nFinal: ACC=0x{:02X}, RAM[0][1]=0x{:02X}", sys.cpu.alu.accumulator(), sys.ram[0].read_direct(0, 1));
+    }
+
+    #[test]
     fn test_wrm_without_src_does_not_write() {
         let mut sys = Mcs40System::new();
 
@@ -518,6 +558,46 @@ mod tests {
 
         assert!(saw_wrm);
         assert!(saw_rdm);
+    }
+
+    #[test]
+    fn debug_interrupt_execution() {
+        let mut sys = Mcs40System::new();
+
+        // 0x000: EIN
+        // 0x001: NOP (return address after interrupt)
+        // 0x003: BBS (return from interrupt)
+        sys.load_rom(&[0x0C, 0x00, 0x00, 0x02, 0x00]);
+
+        eprintln!("\n=== Interrupt Execution Trace ===");
+        eprintln!("ROM: EIN, NOP, NOP, BBS, NOP\n");
+
+        // Run EIN
+        sys.run_cycles(1);
+        eprintln!("After EIN: PC=0x{:03X}, int_enabled={}", sys.pc(), sys.cpu.intr.enabled());
+
+        // Raise INT before next instruction
+        sys.control
+            .int
+            .as_mut()
+            .expect("INT present")
+            .update(0, SignalLevel::High);
+        eprintln!("Raised INT pin\n");
+
+        // Run one more cycle (should take interrupt and return from it)
+        for phase_num in 0..16 {
+            let phase = sys.phase();
+            let pc = sys.pc();
+            let int_enabled = sys.cpu.intr.enabled();
+            let int_pending = sys.cpu.intr.pending();
+
+            eprintln!("Phase {:2}: {:?} PC=0x{:03X} int_en={} int_pend={}",
+                      phase_num, phase, pc, int_enabled, int_pending);
+            sys.step();
+        }
+
+        eprintln!("\nFinal: PC=0x{:03X}, int_enabled={}, int_pending={}",
+                  sys.pc(), sys.cpu.intr.enabled(), sys.cpu.intr.pending());
     }
 
     #[test]

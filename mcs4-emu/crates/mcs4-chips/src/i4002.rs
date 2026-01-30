@@ -105,6 +105,21 @@ impl I4002 {
         self.selected
     }
 
+    /// Get currently selected register (debug only)
+    pub fn selected_register(&self) -> u8 {
+        self.selected_register
+    }
+
+    /// Get currently selected character (debug only)
+    pub fn selected_char(&self) -> u8 {
+        self.selected_char
+    }
+
+    /// Get src_selected flag (debug only)
+    pub fn src_selected(&self) -> bool {
+        self.src_selected
+    }
+
     /// Process a bus phase
     pub fn tick_bus(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &ControlSignals) {
         self.phase = phase;

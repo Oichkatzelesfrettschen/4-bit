@@ -153,6 +153,12 @@ impl Registers {
         self.src_save
     }
 
+    /// Push return address onto stack (for interrupt service)
+    pub fn push_return(&mut self, addr: u16) {
+        self.stack[self.sp as usize] = addr & 0x0FFF;
+        self.sp = (self.sp + 1) % 7;
+    }
+
     /// Get current stack depth (number of entries pushed)
     pub fn stack_depth(&self) -> u8 {
         self.sp

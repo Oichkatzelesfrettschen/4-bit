@@ -140,7 +140,9 @@ impl I4040 {
     }
 
     pub fn x3_cpu_drives_first(&self) -> bool {
-        false
+        // SRC uses the bus in X3 for the second nibble (address), so CPU must drive first.
+        // For SRC, the CPU drives the bus with the character address and the RAM latches it.
+        matches!(self.decoded_io_op, Some(IoOp::Src))
     }
 
     pub fn x2_ram_bank_select(&self) -> bool {
@@ -173,6 +175,29 @@ impl I4040 {
     fn phase_a1(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         ctrl.clear_io_op();
         ctrl.deselect_ram(0);
+
+        // Sample INT pin and check for interrupt service
+        if let Some(int_signal) = &ctrl.int {
+            // Get the latest signal value from history
+            let int_state = int_signal.history()
+                .last()
+                .map(|(_, level)| level.is_high())
+                .unwrap_or(false);
+            self.intr.set_int_pin(int_state);
+
+            // Check if interrupt should be serviced (at instruction boundary)
+            if self.intr.should_service() {
+                // Save current PC to stack and jump to interrupt handler
+                let current_pc = self.registers.pc();
+                self.registers.push_return(current_pc);
+                // Acknowledge interrupt (auto-disables)
+                self.intr.acknowledge();
+                // Vector to interrupt handler at 0x003
+                self.registers.set_pc(0x003);
+                self.pc_modified = true;
+            }
+        }
+
         // Output address bits 0-3 and assert SYNC
         let addr = self.registers.pc();
         bus.write((addr & 0x0F) as u8);
