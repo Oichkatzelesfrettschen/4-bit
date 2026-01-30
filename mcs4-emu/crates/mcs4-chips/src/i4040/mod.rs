@@ -156,6 +156,10 @@ impl I4040 {
         }
     }
 
+    pub fn decoded_io_op(&self) -> Option<IoOp> {
+        self.decoded_io_op
+    }
+
     // Bus phase methods
 
     fn phase_a1(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {

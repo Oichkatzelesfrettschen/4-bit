@@ -73,17 +73,43 @@ Commits this session:
 - 98d7797: Fix 4040 RAM bank selection logic (x2/x3_ram_bank_select)
 - Previous session: 012568b-4565a8b (initial 4040 implementation)
 
+## ROOT CAUSE ANALYSIS - TWO-BYTE INSTRUCTION HANDLING
+
+### Key Finding
+The issue is NOT with bus protocol timing, but with **two-byte instruction fetching** in the MCS-4 architecture. Specifically:
+
+1. **Two-byte instructions not being properly fetched**: FIM (0x20), JUN (0x04), JMS (0x05), etc. are not being decoded correctly
+2. **Fetch2 state never entered**: The CycleState.second_cycle flag is never set, meaning the decoder.decode_second() is never called
+3. **PC advancement wrong**: After the first byte of a two-byte instruction is fetched and decoded, the PC still advances, causing the second byte (immediate data) to be skipped
+
+### The Architectural Problem
+The MCS-4 fetches instructions as 8-bit bytes from a 12-bit ROM address space. Multi-byte instructions require TWO separate M1-M2 fetch cycles:
+- Cycle N: M1-M2 fetch first byte (opcode), decode in X1
+- Cycle N+1: M1-M2 fetch second byte (immediate data), decode in X1 (Fetch2 state)
+
+Currently:
+- After first X1 decodes FIM, cycle.two_cycle is set to true
+- But cycle.advance() called after X3 does NOT transition to Fetch2 state
+- Even if it did, the PC still advances after the first X3, making the second fetch get the WRONG byte
+
+### Solution Strategy
+Need to either:
+1. Implement proper Fetch2 state machine in CycleState (likely in mcs4-bus)
+2. OR suppress PC advancement in X3 when cycle.two_cycle=true (but this breaks other tests if done naively)
+
+The fix requires understanding how cycle.advance() manages the Fetch1→Fetch2 transition and ensuring PC doesn't advance during Fetch2.
+
 ## NEXT SESSION ROADMAP
 
-### Immediate (< 30 minutes):
-1. Re-examine bus protocol timing between WRM write and RDM read
-2. Verify src_selected flag persistence across cycle boundary
-3. Compare CPU register/ALU states in working (4004) vs broken (4040) tests
+### Immediate (detailed investigation):
+1. Examine cycle.advance() logic in mcs4-bus/src/cycle.rs to understand Fetch1/Fetch2 transitions
+2. Verify when and how second_cycle flag should be set
+3. Determine correct condition for suppressing PC advancement (may need machine state, not just two_cycle flag)
 
-### Short-term (1-2 hours):
-4. Fix RAM data persistence (SRC/WRM/RDM cycle sequencing)
-5. Achieve 13/15 tests (87% pass rate)
-6. Implement interrupt vector logic (EIN/BBS)
+### Approach 2: Check if Mcs4System address phase is respecting Fetch2 state
+1. The A1-A3 phases always drive the PC to the ROM
+2. For Fetch2, address should be PC (not PC+1)
+3. This happens automatically if PC isn't advanced after first fetch
 
 ### Medium-term (Phase 2 completion):
 7. Complete all 15/15 tests (100% pass rate)
@@ -125,5 +151,7 @@ Estimated effort to complete Phase 2: 3-5 more hours
 
 ---
 Created: 2026-01-29 20:45 UTC (continuation session)
-Status: MAJOR PROGRESS - Ready for continuation
-Next agent model: Any (context fully documented in PHASE_2_DEBUG_NOTES.md)
+Updated: 2026-01-29 debug session
+Status: ROOT CAUSE IDENTIFIED - Two-byte instruction fetching broken
+Next priority: Fix Fetch2 state machine or PC advancement logic
+Next agent model: Any with deep understanding of MCS-4 cycle architecture
