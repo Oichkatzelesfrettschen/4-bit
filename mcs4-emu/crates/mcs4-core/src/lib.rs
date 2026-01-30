@@ -11,6 +11,7 @@ pub mod simulator;
 pub mod timing;
 pub mod trace_buffer;
 pub mod transistor;
+pub mod transistor_solver;
 pub mod wire;
 
 pub use gate::{And2, Gate, GateType, Inverter, Nand2, Nand3, Nor2, Nor3, Or2};
@@ -18,6 +19,7 @@ pub use signal::{Signal, SignalId, SignalLevel};
 pub use simulator::{Event, Simulator, SimulatorConfig};
 pub use timing::{Delay, Time, MICROSECOND, NANOSECOND, PICOSECOND};
 pub use trace_buffer::{SignalSample, TraceBuffer};
+pub use transistor_solver::{Circuit, Node, NodeId, TransistorId, TransistorSimulator, TransistorType, VoltageLevel};
 pub use wire::{Fanout, Net, Wire};
 
 /// Prelude for common imports
