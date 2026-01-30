@@ -1,8 +1,8 @@
-# Phase 2 - Progress Update (2026-01-29, continuation)
+# Phase 2 - Progress Update (2026-01-29, continuation session 2)
 
 ## SESSION ACHIEVEMENTS (CURRENT SESSION)
 
-PHASE 2 EXECUTION INTEGRATION: 73% COMPLETE (improved from 60%)
+PHASE 2 EXECUTION INTEGRATION: 73% COMPLETE (11/15 tests passing)
 
 ### Key Fixes
 1. **Multi-byte Instruction PC Advancement (COMPLETED)**
@@ -23,35 +23,32 @@ Test Results: **11/15 PASSING (73%)** - improved from 9/15 (60%)
 
 ## REMAINING WORK (4 FAILURES)
 
-### Critical (2 tests): RAM Data Persistence
+### Critical (3 tests): RAM Data Persistence (WRM/RDM)
 - test_end_to_end_src_wrm_rdm_roundtrip
 - test_fixture_src_wrm_rdm_hex_executes
+- test_fixture_ram_status_wr1_rd1_hex_executes
 
-**Issue**: SRC/WRM/RDM operations not persisting data in RAM
-- WRM writes accumulator to RAM via bus
-- RDM reads garbage (0xE instead of 0xA) instead of written value
-- Diagnosis: Bus control signals now correct, but data transfer timing/persistence broken
-- Root cause: Likely bus protocol sequencing - WRM data may not be latching in RAM at correct phase
+**Issue**: WRM writes correctly, but RDM reads garbage instead of written value
+- Sequence: LDM 0xA → FIM P0,0x01 → SRC P0 → WRM → LDM 0x0 → RDM
+- Expected: accumulator = 0xA after RDM
+- Actual: accumulator = 0xE (or other garbage)
+- Confirmed: Control signal sequencing is correct (from test_io_op_is_phase_accurate)
+- Root cause: Data not persisting in RAM, possibly bus latch timing issue
 
-**Next Steps**:
-1. Add detailed logging to trace bus.write()/read() calls in WRM/RDM phases
-2. Verify RAM chip's read() and write() methods are being called
-3. Check if SRC's src_selected flag is maintained across cycle boundaries
-4. Compare 4004 (working) vs 4040 (broken) execution sequences
+**Investigation needed**:
+1. Trace bus.write()/read() timing in WRM vs RDM phases
+2. Verify I4002.wrm() and I4002.rdm() are being called with correct data
+3. Check RAM latch behavior - is src_selected maintained across WRM/RDM boundary?
+4. Investigate if RDM is reading stale bus data instead of latched RAM value
 
 ### Medium (1 test): Interrupt Handling
 - test_interrupt_ein_vectors_to_003_and_bbs_returns
 
-**Issue**: INT pin detection and vector logic not implemented
-- Requires: EIN (enable interrupt), BBS (branch back from interrupt), INT pin detection
-- Impact: 1 test
-
-### Medium (1 test): RAM Status Operations
-- test_fixture_ram_status_wr1_rd1_hex_executes
-
-**Issue**: RAM status register read/write timing
-- Likely related to primary RAM data persistence issue
-- Impact: 1 test
+**Issue**: INT pin detection and interrupt vector not implemented
+- Requires: INT pin sampled at A1, vector to 0x003, save return address to stack
+- Expected: PC=1 after interrupt service
+- Actual: PC=2
+- Status: EIN/DIN instructions implemented, but INT pin handling incomplete
 
 ## DOCUMENTED STRATEGY
 
@@ -73,48 +70,64 @@ Commits this session:
 - 98d7797: Fix 4040 RAM bank selection logic (x2/x3_ram_bank_select)
 - Previous session: 012568b-4565a8b (initial 4040 implementation)
 
-## ROOT CAUSE ANALYSIS - TWO-BYTE INSTRUCTION HANDLING
+## ROOT CAUSE ANALYSIS - TWO-BYTE INSTRUCTION HANDLING (RESOLVED)
 
-### Key Finding
-The issue is NOT with bus protocol timing, but with **two-byte instruction fetching** in the MCS-4 architecture. Specifically:
+### Initial Hypothesis (INCORRECT)
+Thought cycle.second_cycle was never being set because the CPU and System had separate CycleState objects that were getting out of sync.
 
-1. **Two-byte instructions not being properly fetched**: FIM (0x20), JUN (0x04), JMS (0x05), etc. are not being decoded correctly
-2. **Fetch2 state never entered**: The CycleState.second_cycle flag is never set, meaning the decoder.decode_second() is never called
-3. **PC advancement wrong**: After the first byte of a two-byte instruction is fetched and decoded, the PC still advances, causing the second byte (immediate data) to be skipped
+### Actual Finding (VERIFIED)
+The cycle state machine IS WORKING CORRECTLY:
+- In X1 of Fetch1: decoder.decode_first() sets two_byte=true
+- After X3 of Fetch1: cycle.advance() transitions state from Fetch1→Fetch2 and sets second_cycle=true
+- In X1 of Fetch2: cycle.second_cycle is true, so decoder.decode_second() is called
+- Instructions (JUN, JMS, JCN) decode and execute correctly
 
-### The Architectural Problem
-The MCS-4 fetches instructions as 8-bit bytes from a 12-bit ROM address space. Multi-byte instructions require TWO separate M1-M2 fetch cycles:
-- Cycle N: M1-M2 fetch first byte (opcode), decode in X1
-- Cycle N+1: M1-M2 fetch second byte (immediate data), decode in X1 (Fetch2 state)
+### Verification via Phase-by-Phase Tracing
+Added cycle_state() accessor and traced execution of JUN 0x005 (0x40 0x05):
+- Cycle 1 X1: Decode 0x40 as JUN, set two_cycle=true
+- Cycle 1 X3: After cycle.advance(), state transitions to Fetch2, second_cycle=true
+- Cycle 2 X1: second_cycle=true visible, decode_second() called with 0x05
+- Cycle 2 X3: PC correctly jumps to 0x005
 
-Currently:
-- After first X1 decodes FIM, cycle.two_cycle is set to true
-- But cycle.advance() called after X3 does NOT transition to Fetch2 state
-- Even if it did, the PC still advances after the first X3, making the second fetch get the WRONG byte
+**RESULT**: Two-byte instructions now working! All related tests pass.
 
-### Solution Strategy
-Need to either:
-1. Implement proper Fetch2 state machine in CycleState (likely in mcs4-bus)
-2. OR suppress PC advancement in X3 when cycle.two_cycle=true (but this breaks other tests if done naively)
-
-The fix requires understanding how cycle.advance() manages the Fetch1→Fetch2 transition and ensuring PC doesn't advance during Fetch2.
+### Test Results
+- test_two_byte_jun_jumps_to_target: ✓ PASS
+- test_two_byte_jms_and_bbl_return_address: ✓ PASS
+- test_jcn_test_pin_taken_jumps: ✓ PASS
+- test_jcn_test_pin_not_taken_advances: ✓ PASS
 
 ## NEXT SESSION ROADMAP
 
-### Immediate (detailed investigation):
-1. Examine cycle.advance() logic in mcs4-bus/src/cycle.rs to understand Fetch1/Fetch2 transitions
-2. Verify when and how second_cycle flag should be set
-3. Determine correct condition for suppressing PC advancement (may need machine state, not just two_cycle flag)
+### IMMEDIATE PRIORITY: RAM Data Persistence (3 tests failing)
 
-### Approach 2: Check if Mcs4System address phase is respecting Fetch2 state
-1. The A1-A3 phases always drive the PC to the ROM
-2. For Fetch2, address should be PC (not PC+1)
-3. This happens automatically if PC isn't advanced after first fetch
+**Step 1: Root Cause Isolation**
+1. Add detailed logging to WRM/RDM execution in phase_x2() and phase_x3()
+2. Log: bus value, io_op, ram chip selection state, src_selected flag
+3. Trace through full WRM sequence: when does data appear on bus? When does RAM latch it?
 
-### Medium-term (Phase 2 completion):
-7. Complete all 15/15 tests (100% pass rate)
-8. Implement LCR/RPM with ROM access API
-9. Full Phase 2 deliverables
+**Step 2: Bus Latch Investigation**
+1. Check I4002.tick_bus() in X2 for WRM: does it correctly read data from bus?
+2. Check I4002.tick_bus() in X3 for RDM: does it correctly write data to bus?
+3. Verify ram_address and selected_register are set correctly by SRC
+
+**Step 3: Address Selection Timing**
+1. Trace SRC execution: when are ram_address/selected_register set?
+2. Trace WRM: does it use the addresses set by previous SRC?
+3. Verify src_selected flag is maintained across cycles
+
+**Step 4: Fix Data Persistence**
+Once root cause found, implement fix and verify all 3 tests pass
+
+### SECONDARY PRIORITY: Interrupt Handling (1 test)
+1. Implement INT pin sampling at A1 phase
+2. Implement interrupt vector (jump to 0x003)
+3. Implement return address save/restore with BBS
+4. Target: test_interrupt_ein_vectors_to_003_and_bbs_returns passing
+
+### PHASE 2 COMPLETION:
+- Achieve 15/15 tests passing (100%)
+- Implement LCR/RPM if time permits
 
 ## PROJECT STATUS OVERALL
 
