@@ -136,11 +136,17 @@ impl I4040 {
     }
 
     pub fn x2_ram_bank_select(&self) -> bool {
-        self.ram_bank != 0
+        matches!(
+            self.decoded_io_op,
+            Some(IoOp::Src | IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RamStatusWrite(_))
+        )
     }
 
     pub fn x3_ram_bank_select(&self) -> bool {
-        self.ram_bank != 0
+        matches!(
+            self.decoded_io_op,
+            Some(IoOp::Src | IoOp::RamMainRead | IoOp::RamStatusRead(_))
+        )
     }
 
     pub fn x3_peripheral_io_op(&self) -> Option<IoOp> {
