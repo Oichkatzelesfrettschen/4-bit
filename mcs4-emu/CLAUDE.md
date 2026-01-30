@@ -5,12 +5,12 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 
 ## PHASE STATUS
 
-Summary: 55% overall completion (up from 50% baseline)
+Summary: 57% overall completion (up from 50% baseline)
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
 - Phase 2: 100% (4040 CPU complete, all tests passing)
-- Phase 3: 75% (4101 RAM done, 4201/4289 pending, GUI panels pending)
-- Phase 4: 50% (transistor/nodal/SIMD frameworks done, optimization pending)
+- Phase 3: 75% (4101 RAM done, 4201/4289 complete, GUI panels pending)
+- Phase 4: 55% (transistor/nodal/SIMD/differential frameworks done, optimization pending)
 - Phase 5: 0% (not started)
 
 ### Phase 0.5: COMPLETE (90%)
@@ -49,7 +49,7 @@ Summary: 55% overall completion (up from 50% baseline)
   - GUI panels: register, memory, stack, disasm, breakpoints (#101-108)
   - Waveform viewer (#131)
 
-### Phase 4: IN PROGRESS (50%)
+### Phase 4: IN PROGRESS (55%)
 - DONE:
   - Phase 4A: Switch-level transistor simulator (14 tests)
     - Inverter chains, marginal conduction, high fanout
@@ -67,11 +67,16 @@ Summary: 55% overall completion (up from 50% baseline)
     - Full instruction set: NOP, INC, DEC, ADD, SUB, LD, XCH
     - Vectorized instruction dispatch with SIMD masks
     - Per-lane carry flag and register operations
+  - Phase 4E: Differential testing harness
+    - 7 comprehensive tests for SIMD cluster validation
+    - PC synchronization verification across lanes
+    - Per-lane independence tracking
+    - Statistics and reset validation
 - Pending:
-  - Phase 4E: SIMD cluster optimization and benchmarking
-  - #112: Transistor-level simulation solver integration
-  - #113: SIMD cluster execution differential testing
-  - #114: Multi-modal OCR fusion
+  - Phase 4F: SIMD cluster benchmarking and optimization
+  - #112: Transistor-level simulation solver integration (research phase)
+  - #113: SIMD cluster fuzzing and ROM validation
+  - #114: Multi-modal OCR fusion (Phase 0.5 enhancement)
 
 ### Phase 5: PLANNED (0%)
 - #115: Peripheral drivers (7-seg, keyboard, UART)

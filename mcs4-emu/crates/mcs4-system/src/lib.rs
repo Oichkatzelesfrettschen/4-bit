@@ -1,3 +1,5 @@
+#![cfg_attr(feature = "simd_cluster", feature(portable_simd))]
+
 //! MCS-4 System Integration
 
 pub mod cluster;
