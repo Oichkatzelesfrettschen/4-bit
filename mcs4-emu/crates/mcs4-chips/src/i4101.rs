@@ -275,13 +275,13 @@ mod tests {
         let mut ram = I4101::new();
 
         // Write different values to different addresses
-        for addr in 0..16 {
-            ram.poke(addr, (addr % 16) as u8);
+        for addr in 0..16u8 {
+            ram.poke(addr, addr % 16);
         }
 
         // Verify reads
-        for addr in 0..16 {
-            assert_eq!(ram.peek(addr), (addr % 16) as u8);
+        for addr in 0..16u8 {
+            assert_eq!(ram.peek(addr), addr % 16);
         }
     }
 
@@ -354,13 +354,13 @@ mod tests {
         let mut ram = I4101::new();
 
         // Write to all addresses with unique values
-        for addr in 0..=255 {
-            ram.poke(addr, (addr >> 4) as u8 & 0x0F);
+        for addr in 0..=255u8 {
+            ram.poke(addr, (addr >> 4) & 0x0F);
         }
 
         // Verify no interference
-        for addr in 0..=255 {
-            let expected = (addr >> 4) as u8 & 0x0F;
+        for addr in 0..=255u8 {
+            let expected = (addr >> 4) & 0x0F;
             assert_eq!(ram.peek(addr), expected, "Address {}: mismatch", addr);
         }
     }

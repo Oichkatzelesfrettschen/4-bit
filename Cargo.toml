@@ -55,6 +55,7 @@ bumpalo = "3.19"
 rayon = "1.11"
 soa-derive = "0.14"
 nalgebra = "0.34"
+faer = "0.24"
 simba = "0.9"
 ordered-float = "4.2"
 indexmap = "2.2"
@@ -89,6 +90,7 @@ unsafe_op_in_unsafe_fn = "deny"
 unused_must_use = "deny"
 unused = { level = "deny", priority = -1 }
 unreachable_pub = "warn"
+missing_docs = "warn"
 
 [workspace.lints.clippy]
 all = "warn"
@@ -121,3 +123,11 @@ debug = false
 inherits = "release"
 debug = true
 strip = false
+
+[profile.zen3-release]
+inherits = "release"
+
+[profile.coverage]
+inherits = "dev"
+opt-level = 0
+debug = true

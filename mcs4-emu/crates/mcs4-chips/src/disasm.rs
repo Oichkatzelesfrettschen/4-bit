@@ -119,11 +119,8 @@ impl Disassembler {
         // Scan for jump instructions
         let lines = self.disasm_all(rom);
         for line in lines {
-            match self.extract_jump_target(&line) {
-                Some(target_addr) => {
-                    targets.insert(target_addr);
-                }
-                None => {}
+            if let Some(target_addr) = self.extract_jump_target(&line) {
+                targets.insert(target_addr);
             }
         }
 
@@ -308,7 +305,7 @@ mod tests {
     fn test_disasm_nop() {
         let disasm = Disassembler::new(CpuType::I4004);
         let rom = vec![0x00];
-        let line = disasm.disasm_one(&rom, 0).unwrap();
+        let line = disasm.disasm_one(&rom, 0).expect("NOP disasm");
         assert_eq!(line.mnemonic, "NOP");
         assert_eq!(line.operands, "");
         assert_eq!(line.address, 0);
@@ -319,7 +316,7 @@ mod tests {
     fn test_disasm_ldm() {
         let disasm = Disassembler::new(CpuType::I4004);
         let rom = vec![0xD5]; // LDM 5
-        let line = disasm.disasm_one(&rom, 0).unwrap();
+        let line = disasm.disasm_one(&rom, 0).expect("LDM disasm");
         assert_eq!(line.mnemonic, "LDM");
         assert_eq!(line.operands, "0x5");
     }
@@ -328,7 +325,7 @@ mod tests {
     fn test_disasm_two_byte_jim() {
         let disasm = Disassembler::new(CpuType::I4004);
         let rom = vec![0x40, 0xAB]; // JUN 0x0AB
-        let line = disasm.disasm_one(&rom, 0).unwrap();
+        let line = disasm.disasm_one(&rom, 0).expect("JUN disasm");
         assert_eq!(line.mnemonic, "JUN");
         assert_eq!(line.operands, "0x0AB");
         assert_eq!(line.bytes.len(), 2);

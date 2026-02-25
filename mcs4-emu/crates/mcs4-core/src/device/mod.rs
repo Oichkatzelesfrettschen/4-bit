@@ -12,13 +12,17 @@
 //! - **Depletion-mode pMOS**: Used as active loads. Gate tied to source,
 //!   always conducting. Positive threshold voltage.
 
+pub mod cap_model;
 pub mod depletion_load;
 pub mod parasitic;
 pub mod pmos_level1;
+pub mod pmos_level3;
 
+pub use cap_model::{MeyerCapacitances, MeyerParams};
 pub use depletion_load::DepletionLoadModel;
 pub use parasitic::TransistorParasitics;
 pub use pmos_level1::PmosLevel1;
+pub use pmos_level3::{DeviceCapacitances, PmosLevel3};
 
 /// Operating region of a MOSFET.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

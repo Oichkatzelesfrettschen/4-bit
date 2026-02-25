@@ -316,7 +316,7 @@ impl SimdI4004 {
                 let idx = indices_array[i] as usize & 0x0F;
                 if idx < 16 {
                     let regs = self.registers[idx].to_array();
-                    let mut reg_vals = regs.clone();
+                    let mut reg_vals = regs;
                     reg_vals[i] = (reg_vals[i].wrapping_add(1)) & 0x0F;
                     self.registers[idx] = U8x16::from_array(reg_vals);
                 }
@@ -335,7 +335,7 @@ impl SimdI4004 {
                 let idx = indices_array[i] as usize & 0x0F;
                 if idx < 16 {
                     let regs = self.registers[idx].to_array();
-                    let mut reg_vals = regs.clone();
+                    let mut reg_vals = regs;
                     reg_vals[i] = (reg_vals[i].wrapping_sub(1)) & 0x0F;
                     self.registers[idx] = U8x16::from_array(reg_vals);
                 }
@@ -552,9 +552,8 @@ mod tests {
 
         // Verify PC incremented correctly
         let pcs = cluster.get_pcs();
-        assert_eq!(pcs[0], 3);
-        for i in 1..16 {
-            assert_eq!(pcs[i], 3);
+        for pc in &pcs {
+            assert_eq!(*pc, 3);
         }
     }
 
@@ -566,7 +565,7 @@ mod tests {
         for lane in 0..16 {
             let mut rom = vec![0x00; 100];
             // Set unique instruction patterns for each lane
-            rom[0] = (lane as u8) & 0xFF;
+            rom[0] = lane as u8;
             cluster.load_rom(lane, &rom);
         }
 
@@ -575,8 +574,8 @@ mod tests {
 
         // Verify each lane has correct PC
         let pcs = cluster.get_pcs();
-        for i in 0..16 {
-            assert_eq!(pcs[i], 1, "Lane {} PC should be 1 after 1 cycle", i);
+        for (i, pc) in pcs.iter().enumerate() {
+            assert_eq!(*pc, 1, "Lane {} PC should be 1 after 1 cycle", i);
         }
     }
 
@@ -617,8 +616,8 @@ mod tests {
         assert_eq!(cluster.cycles, 0);
         assert_eq!(cluster.instructions, 0);
         let pcs = cluster.get_pcs();
-        for i in 0..16 {
-            assert_eq!(pcs[i], 0);
+        for pc in &pcs {
+            assert_eq!(*pc, 0);
         }
     }
 
@@ -735,8 +734,8 @@ mod tests {
 
         // Timing variance in micro-benchmarks can be high; ensure not wildly different
         // Allow up to 5x variance for very fast code (system timer resolution issues)
-        let min_time = *times.iter().min().unwrap();
-        let max_time = *times.iter().max().unwrap();
+        let min_time = *times.iter().min().expect("non-empty times");
+        let max_time = *times.iter().max().expect("non-empty times");
         assert!(
             max_time > 0 && min_time > 0,
             "Benchmark execution should measurable time"

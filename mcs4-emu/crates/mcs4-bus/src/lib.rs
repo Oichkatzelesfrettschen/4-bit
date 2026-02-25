@@ -6,6 +6,14 @@
 //! - CM-ROM (Chip Memory - ROM select)
 //! - CM-RAM (Chip Memory - RAM select)
 //! - Two-phase clock (PHI1, PHI2)
+//!
+//! # Modules
+//!
+//! - [`clock`] - Two-phase clock generator configuration
+//! - [`control`] - Control signals (chip select, sync)
+//! - [`cycle`] - Bus cycle state machine (A1-A3, M1-M2, X1-X3)
+//! - [`data_bus`] - 4-bit bidirectional data bus
+#![allow(missing_docs)]
 
 pub mod clock;
 pub mod control;

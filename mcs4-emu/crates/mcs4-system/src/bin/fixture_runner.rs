@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 use std::path::PathBuf;
 
 use mcs4_system::Mcs4System;

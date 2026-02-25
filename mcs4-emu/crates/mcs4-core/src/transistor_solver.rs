@@ -155,6 +155,7 @@ impl Circuit {
         id
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn add_transistor(
         &mut self,
         ty: TransistorType,
@@ -597,7 +598,7 @@ mod tests {
         let load3 = circuit.add_node("LOAD3".to_string(), VoltageLevel::High, 15.0);
 
         // Three inverters fed from same driver
-        for (_i, load_id) in [load1, load2, load3].iter().enumerate() {
+        for load_id in &[load1, load2, load3] {
             circuit.add_transistor(
                 TransistorType::Pmos,
                 driver, *load_id, vdd, vdd,

@@ -1,6 +1,10 @@
 #![cfg_attr(feature = "simd_cluster", feature(portable_simd))]
+#![allow(missing_docs)]
 
 //! MCS-4 System Integration
+//!
+//! This crate wires together the bus, chip, and core crates into complete
+//! MCS-4 and MCS-40 systems with memory maps, I/O, and test fixtures.
 
 pub mod cluster;
 pub mod fixture;

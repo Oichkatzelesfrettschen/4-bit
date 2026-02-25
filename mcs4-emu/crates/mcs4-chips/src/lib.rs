@@ -1,4 +1,5 @@
 #![feature(portable_simd)]
+#![allow(missing_docs)]
 //! MCS-4/MCS-40 Chip Implementations
 //!
 //! This crate provides gate-level implementations of the Intel 4-bit

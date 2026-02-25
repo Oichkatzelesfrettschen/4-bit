@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 use mcs4_bus::prelude::*;
 use mcs4_chips::i4040::I4040;
 use proptest::prelude::*;

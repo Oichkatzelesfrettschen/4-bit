@@ -15,7 +15,7 @@ jobs:
       - name: Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly-2026-01-06
+          toolchain: nightly-2026-01-07
           components: rustfmt, clippy, miri, llvm-tools-preview
 
       - name: Install system dependencies
@@ -44,3 +44,64 @@ jobs:
             --baseline docs/evidence/benchmarks_baseline_v0.json \
             --fail-on-regression
         continue-on-error: true
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-01-07
+          components: llvm-tools-preview
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libxcb-render0-dev \
+            libxcb-shape0-dev \
+            libxcb-xfixes0-dev \
+            libxkbcommon-dev \
+            libssl-dev
+
+      - name: Generate coverage
+        run: cargo llvm-cov --workspace --all-features --lcov --output-path coverage/lcov.info
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/lcov.info
+          retention-days: 30
+
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-01-07
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libxcb-render0-dev \
+            libxcb-shape0-dev \
+            libxcb-xfixes0-dev \
+            libxkbcommon-dev \
+            libssl-dev
+
+      - name: Run benchmarks
+        run: cargo bench --workspace --locked
+        env:
+          RUSTFLAGS: "-C target-cpu=x86-64-v3"

@@ -1,0 +1,227 @@
+% Bibliography for MCS-4 / Intel 10um pMOS silicon-gate process parameters.
+%
+% BibTeX key convention: <first_author_surname><year><keyword>
+% See CITATION_GUIDE.md for full conventions.
+%
+% Each entry includes a 'note' field describing relevance to this project
+% and a custom 'local_file' field pointing to OCR'd text if available.
+
+% ============================================================
+% PRIMARY SOURCES
+% ============================================================
+
+@misc{intel4004ds,
+  author       = {{Intel Corporation}},
+  title        = {{C4004} Single Chip 4-Bit P-Channel Microprocessor},
+  year         = {1971},
+  howpublished = {Component Data Sheet},
+  note         = {Primary source for 4004 electrical specifications:
+                  supply voltage, clock timing, I/O levels, pin
+                  capacitance, output resistance, power dissipation.
+                  OCR'd from chipdb.org scan.},
+  local_file   = {docs/evidence/ocr/4004-datasheet.txt},
+}
+
+@misc{intelmcs4ds1971,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-4} Micro Computer Set Data Sheet},
+  year         = {1971},
+  month        = nov,
+  howpublished = {Component Data Sheet},
+  note         = {Original November 1971 MCS-4 family data sheet
+                  covering 4001/4002/4003/4004. Primary source for
+                  system-level timing and electrical specifications.},
+  local_file   = {docs/evidence/ocr/mcs4_data_sheet_nov71.txt},
+}
+
+@article{faggin1970sgt,
+  author  = {Faggin, Federico and Klein, Thomas},
+  title   = {Silicon Gate Technology},
+  journal = {Solid-State Electronics},
+  volume  = {13},
+  pages   = {1125--1144},
+  year    = {1970},
+  doi     = {10.1016/0038-1101(70)90058-3},
+  note    = {Primary source for Intel pMOS silicon-gate process.
+             Describes self-aligned gate fabrication, polysilicon
+             gate electrode, and process details. Contains definitive
+             tox and sheet resistance values (behind paywall).},
+}
+
+@misc{intel4040ds,
+  author       = {{Intel Corporation}},
+  title        = {{C4040} Single Chip 4-Bit P-Channel Microprocessor},
+  year         = {1974},
+  howpublished = {Component Data Sheet},
+  note         = {4040 variant specifications. Shares same process
+                  technology as 4004 but with extended instruction set
+                  and 7-level stack.},
+  local_file   = {docs/evidence/ocr/4040-datasheet.txt},
+}
+
+@manual{intelmcs4manual,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-4} Users Manual},
+  year         = {1973},
+  note         = {Comprehensive technical manual for the MCS-4 family.
+                  413 KB OCR'd text. Contains detailed timing diagrams,
+                  instruction set, system design guidelines, and
+                  electrical characteristics.},
+  local_file   = {docs/evidence/ocr/mcs4_users_manual.txt},
+}
+
+@manual{intelmcs40manual,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-40} Users Manual},
+  year         = {1974},
+  note         = {Technical manual for the MCS-40 family (4040-based).
+                  300 KB OCR'd text. Includes updated specifications
+                  and extended instruction documentation.},
+  local_file   = {docs/evidence/ocr/mcs40_users_manual.txt},
+}
+
+@misc{intelmcs40advance,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-40} Advance Information Specifications},
+  year         = {1974},
+  howpublished = {Advance specification sheet},
+  note         = {Advance specifications for MCS-40 family components.
+                  89 KB OCR'd text.},
+  local_file   = {docs/evidence/ocr/mcs40_advance_specs.txt},
+}
+
+@misc{intel1975mcs4cat,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-4} Catalog Entry},
+  year         = {1975},
+  howpublished = {Intel 1975 Product Catalog, page 302},
+  note         = {Brief catalog entry for MCS-4 family. 0.9 KB OCR'd text.},
+  local_file   = {docs/evidence/ocr/1975_catalog_mcs4_302.txt},
+}
+
+@misc{intel1975mcs40cat232,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-40} Catalog Section (pages 232-252)},
+  year         = {1975},
+  howpublished = {Intel 1975 Product Catalog},
+  note         = {Extended catalog section for MCS-40 family. 63 KB OCR'd text.
+                  Contains detailed electrical specifications and timing.},
+  local_file   = {docs/evidence/ocr/1975_catalog_mcs40_232-252.txt},
+}
+
+@misc{intel1975mcs40cat276,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-40} Catalog Section (pages 276-282)},
+  year         = {1975},
+  howpublished = {Intel 1975 Product Catalog},
+  note         = {Catalog section for MCS-40 peripheral components.
+                  14 KB OCR'd text.},
+  local_file   = {docs/evidence/ocr/1975_catalog_mcs40_276-282.txt},
+}
+
+% ============================================================
+% SECONDARY SOURCES
+% ============================================================
+
+@article{faggin2015memoirs,
+  author  = {Faggin, Federico},
+  title   = {The {MOS} Silicon Gate Technology and the First Microprocessors},
+  journal = {La Rivista del Nuovo Cimento},
+  volume  = {38},
+  number  = {12},
+  pages   = {575--620},
+  year    = {2015},
+  doi     = {10.1393/ncr/i2015-10120-0},
+  note    = {Faggin's retrospective on silicon-gate technology and the
+             4004 development. Key secondary source for threshold voltage
+             reduction (Al-gate to Si-gate), substrate orientation,
+             and process rationale.},
+}
+
+@inproceedings{osburn2002tox,
+  author    = {Osburn, C. M. and Huff, H. R.},
+  title     = {{MOSFET} Device Scaling: A (Biased) History of Gate Stacks},
+  booktitle = {Electrochemical Society Meeting Abstracts},
+  volume    = {201},
+  pages     = {0366},
+  year      = {2002},
+  note      = {Secondary source for historical gate oxide thickness
+               evolution. States early 1970s tox was 50-100 nm.},
+}
+
+@book{hu2010devices,
+  author    = {Hu, Chenming},
+  title     = {Modern Semiconductor Devices for Integrated Circuits},
+  publisher = {Pearson},
+  year      = {2010},
+  chapter   = {7},
+  note      = {Textbook reference for MOSFET physics. States 300 nm
+               tox for 10 um technology (likely conservative upper
+               bound for metal-gate processes). Used for derived
+               parameter calculations.},
+}
+
+@misc{chm1968sgt,
+  author       = {{Computer History Museum}},
+  title        = {Silicon Gate Technology Developed for {IC}s},
+  year         = {1968},
+  url          = {https://www.computerhistory.org/siliconengine/silicon-gate-technology-developed-for-ics/},
+  note         = {CHM timeline entry confirming self-aligned silicon-gate
+                  development at Fairchild by Faggin in 1968.},
+}
+
+@misc{uvicrec4004,
+  author       = {{uvicrec (blogspot)}},
+  title        = {Reverse-Engineering Analysis of the {Intel} 4004},
+  year         = {2012},
+  url          = {https://uvicrec.blogspot.com/},
+  note         = {Secondary source confirming depletion-mode load
+                  transistors in the 4004 and enhancement/depletion
+                  logic architecture. Does not provide measured Vth.},
+}
+
+@misc{mcnerney4004com,
+  author       = {McNerney, Tim and others},
+  title        = {4004.com: {MCS-4} Masks, Schematics, and Simulator},
+  year         = {2006},
+  url          = {http://www.4004.com/},
+  note         = {Comprehensive 4004 reverse-engineering project. Provides
+                  layout-extracted transistor count (1807 layout, 1741
+                  schematic) and mask-level schematics. Key reference
+                  for netlist validation.},
+}
+
+@misc{pyntel4004docs,
+  author       = {{Pyntel4004 project}},
+  title        = {Pyntel4004 Documentation},
+  year         = {2023},
+  url          = {https://pyntel4004.readthedocs.io/},
+  note         = {Python 4004 emulator documentation. Secondary source
+                  for instruction timing and architecture.},
+}
+
+@misc{hackaday2018faggin,
+  author       = {{Hackaday}},
+  title        = {Federico Faggin: The Real Silicon Man},
+  year         = {2018},
+  url          = {https://hackaday.com/2018/06/25/federico-faggin-the-real-silicon-man/},
+  note         = {Biographical article on Faggin. Provides context for
+                  silicon-gate technology development timeline.},
+}
+
+@misc{wp_intel4004,
+  author       = {{Wikipedia contributors}},
+  title        = {{Intel} 4004},
+  url          = {https://en.wikipedia.org/wiki/Intel_4004},
+  note         = {Accessed 2026-02-24. Secondary source for die area,
+                  transistor count, feature size. Cross-checked against
+                  primary datasheets.},
+}
+
+@misc{wikichip_mcs4,
+  author       = {{WikiChip}},
+  title        = {{Intel MCS-4/4004}},
+  url          = {https://en.wikichip.org/wiki/intel/mcs-4/4004},
+  note         = {Accessed 2026-02-24. Secondary source for feature size,
+                  die dimensions, and process details.},
+}

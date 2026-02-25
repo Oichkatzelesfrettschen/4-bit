@@ -519,7 +519,7 @@ mod tests {
 
         // Create 3x3 grid: node IDs 0-8
         for i in 0..9 {
-            let voltage = if i == 0 { 5.0 } else if i == 8 { 0.0 } else { 0.0 };
+            let voltage = if i == 0 { 5.0 } else { 0.0 };
             let is_fixed = i == 0 || i == 8;
             solver.add_node(i as u32, format!("N{}", i), voltage, 2.0, is_fixed);
         }

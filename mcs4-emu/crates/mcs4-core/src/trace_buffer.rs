@@ -15,7 +15,7 @@ pub struct SignalSample {
     /// Bus phase in current cycle (0-7 for A1-A3, M1-M2, X1-X3)
     pub phase: u8,
 
-    /// Signal name (e.g., "ACC", "PC", "DATA[3:0]")
+    /// Signal name (e.g., "ACC", "PC", "DATA\[3:0\]")
     pub name: String,
 
     /// Signal value (can be 4-bit, 8-bit, 12-bit, 16-bit depending on signal)
@@ -88,7 +88,7 @@ impl TraceBuffer {
         width: u8,
         event: Option<String>,
     ) {
-        if !self.enabled || self.sample_count % self.sample_rate != 0 {
+        if !self.enabled || !self.sample_count.is_multiple_of(self.sample_rate) {
             self.sample_count += 1;
             return;
         }
@@ -397,7 +397,7 @@ mod tests {
         buf.set_sample_rate(2); // Every other sample
 
         for i in 0..10 {
-            buf.record(format!("SIG"), i as u16, 4);
+            buf.record("SIG".to_string(), i as u16, 4);
         }
 
         // Should have captured samples 0, 2, 4, 6, 8 (approximately)
@@ -411,7 +411,7 @@ mod tests {
         buf.record("PC".to_string(), 0x100, 12);
         buf.record("ACC".to_string(), 0x6, 4);
 
-        let latest = buf.latest("ACC").unwrap();
+        let latest = buf.latest("ACC").expect("ACC sample should exist");
         assert_eq!(latest.value, 0x6);
     }
 
@@ -453,7 +453,7 @@ mod tests {
     fn test_samples_in_range() {
         let mut buf = TraceBuffer::new();
         for cycle in 0..10 {
-            buf.record(format!("SIG"), cycle as u16, 4);
+            buf.record("SIG".to_string(), cycle as u16, 4);
             buf.next_cycle();
         }
 
@@ -465,7 +465,7 @@ mod tests {
     fn test_utilization() {
         let mut buf = TraceBuffer::with_capacity(100);
         for i in 0..50 {
-            buf.record(format!("SIG"), i as u16, 4);
+            buf.record("SIG".to_string(), i as u16, 4);
         }
 
         let util = buf.utilization();
@@ -478,7 +478,7 @@ mod tests {
         assert!(!buf.is_full());
 
         for i in 0..10 {
-            buf.record(format!("SIG"), i as u16, 4);
+            buf.record("SIG".to_string(), i as u16, 4);
         }
 
         assert!(buf.is_full());

@@ -2,6 +2,7 @@
 //!
 //! This crate provides tools to export the gate-level design
 //! to Verilog for FPGA synthesis.
+#![allow(missing_docs)]
 
 pub mod verilog;
 

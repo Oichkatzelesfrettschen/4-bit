@@ -1,0 +1,16 @@
+[book]
+title = "MCS-4/MCS-40 Emulator"
+authors = ["Oichkatzelesfrettschen"]
+language = "en"
+src = "guide"
+
+[build]
+build-dir = "target/book"
+create-missing = false
+
+[output.html]
+default-theme = "navy"
+git-repository-url = "https://github.com/Oichkatzelesfrettschen/4-bit"
+
+[output.html.search]
+enable = true

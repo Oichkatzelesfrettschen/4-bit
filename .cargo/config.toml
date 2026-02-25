@@ -1,16 +1,28 @@
 [build]
 rustflags = [
-  "-C", "instrument-coverage",
-  "-C", "link-dead-code",
   "-C", "force-frame-pointers=yes",
-  "-C", "debuginfo=2",
-  "-C", "target-cpu=native",
-  "-D", "warnings"
+  "-D", "warnings",
 ]
 
 [env]
 RUSTDOCFLAGS = "-D warnings"
-LLVM_PROFILE_FILE = "coverage/%p-%m.profraw"
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = [
+  "-C", "force-frame-pointers=yes",
+  "-C", "target-cpu=x86-64-v3",
+  "-D", "warnings",
+]
+
+# Future cross-compilation targets (uncomment when needed):
+# [target.i686-unknown-linux-gnu]
+# rustflags = ["-D", "warnings"]
+#
+# [target.aarch64-unknown-linux-gnu]
+# rustflags = ["-D", "warnings"]
+#
+# [target.wasm32-unknown-unknown]
+# rustflags = ["-D", "warnings"]
 
 [alias]
 clippy-all = "clippy --all-targets --all-features -- -D warnings"
@@ -18,5 +30,6 @@ fmt-all = "fmt --all"
 miri-all = "miri test"
 audit = "audit"
 deny = "deny check"
-# Coverage with cargo-llvm-cov (requires cargo-llvm-cov installed)
 cov = "llvm-cov --workspace --all-features --lcov --output-path coverage/lcov.info"
+doc-coverage = "doc --workspace --no-deps -- -Z unstable-options --show-coverage"
+bench-v3 = "bench --profile bench"

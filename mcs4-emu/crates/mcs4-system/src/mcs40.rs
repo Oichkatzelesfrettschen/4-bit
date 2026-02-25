@@ -337,14 +337,14 @@ mod tests {
         eprintln!("\n=== WRM/RDM Execution Trace ===");
         eprintln!("ROM: LDM 0xA, FIM P0 0x01, SRC P0, WRM, LDM 0x0, RDM, NOP\n");
 
-        for phase_num in 0..(80) {
+        for phase_num in 0..80 {
             let phase = sys.phase();
             let pc = sys.pc();
             let acc = sys.cpu.alu.accumulator();
             let ram_0_1 = sys.ram[0].read_direct(0, 1);
 
             // Detailed output around SRC/WRM/RDM cycles (phases 18-62)
-            if phase_num >= 18 && phase_num <= 62 {
+            if (18..=62).contains(&phase_num) {
                 eprintln!("Phase {:2}: {:?} PC=0x{:03X} ACC=0x{:02X} RAM[0][1]=0x{:02X} | io_op={:?} RAM sel={} reg={} char={} src_sel={}",
                           phase_num, phase, pc, acc, ram_0_1,
                           sys.control.io_op,

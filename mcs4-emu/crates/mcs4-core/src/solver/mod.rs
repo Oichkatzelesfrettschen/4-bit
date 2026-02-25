@@ -12,6 +12,7 @@
 //! for each transistor, assembles the MNA system, and iterates to find
 //! the DC operating point using Newton-Raphson with convergence aids.
 
+pub mod ac;
 pub mod convergence;
 pub mod dc_op;
 pub mod event_scheduler;
@@ -20,6 +21,7 @@ pub mod sparse_matrix;
 pub mod stimulus;
 pub mod transient;
 
+pub use ac::{AcConfig, AcResult, AcSolver};
 pub use dc_op::{DcOpResult, DcSolver, SolverBackend, SPARSE_THRESHOLD};
 pub use matrix::MnaSystem;
 pub use sparse_matrix::SparseMnaSystem;

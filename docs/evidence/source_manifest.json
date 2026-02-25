@@ -1,0 +1,107 @@
+{
+  "version": "1.0",
+  "generated": "2026-02-24",
+  "description": "Provenance manifest for OCR'd primary source documents used in MCS-4 process parameter research. Each entry links a local text file to its original source, BibTeX citation key, and integrity checksum.",
+  "checksum_algorithm": "SHA-256",
+  "sources": [
+    {
+      "local_path": "docs/evidence/ocr/4004-datasheet.txt",
+      "sha256": "0e08c9a7879c07cbe8b235db0339b31f6ca80e4dd29965467710312e2f496778",
+      "bytes": 16014,
+      "original_title": "Intel C4004 Single Chip 4-Bit P-Channel Microprocessor Data Sheet",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf",
+      "bibtex_key": "intel4004ds",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Primary electrical specifications: supply voltage, clock timing, I/O levels, pin capacitance, output resistance, power dissipation."
+    },
+    {
+      "local_path": "docs/evidence/ocr/mcs4_data_sheet_nov71.txt",
+      "sha256": "5ae81daa742108b7a1470aba764a5e8390b3009bd556628512a84b4ddf5abdd7",
+      "bytes": 22772,
+      "original_title": "MCS-4 Micro Computer Set Data Sheet (November 1971)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/datashts/mcs4.pdf",
+      "bibtex_key": "intelmcs4ds1971",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Original November 1971 MCS-4 family data sheet covering 4001/4002/4003/4004. System-level timing and electrical specifications."
+    },
+    {
+      "local_path": "docs/evidence/ocr/4040-datasheet.txt",
+      "sha256": "8add846f859e0062ec9e4fd8059e9f2fc15c9c4eb3b076f81f1f8e156c1de2b2",
+      "bytes": 21228,
+      "original_title": "Intel C4040 Single Chip 4-Bit P-Channel Microprocessor Data Sheet",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4040.pdf",
+      "bibtex_key": "intel4040ds",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "4040 variant specifications. Same process technology as 4004, extended instruction set and 7-level stack."
+    },
+    {
+      "local_path": "docs/evidence/ocr/mcs4_users_manual.txt",
+      "sha256": "08884c103ef0831870a5cd18ea3bd6d6f131c67d88c0cb463390acb167aa6404",
+      "bytes": 412710,
+      "original_title": "MCS-4 Users Manual (1973)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/mcs4_users_manual.pdf",
+      "bibtex_key": "intelmcs4manual",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Comprehensive technical manual for the MCS-4 family. Contains detailed timing diagrams, instruction set, system design guidelines, and electrical characteristics."
+    },
+    {
+      "local_path": "docs/evidence/ocr/mcs40_users_manual.txt",
+      "sha256": "62370257b56e61a02d0da24a95e3dd1ed2f07634adad9ecf65a68b5de7ccdcdd",
+      "bytes": 300194,
+      "original_title": "MCS-40 Users Manual (1974)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/mcs40_users_manual.pdf",
+      "bibtex_key": "intelmcs40manual",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Technical manual for the MCS-40 family (4040-based). Includes updated specifications and extended instruction documentation."
+    },
+    {
+      "local_path": "docs/evidence/ocr/mcs40_advance_specs.txt",
+      "sha256": "987735fdd32c434b15210521232258581981306087889dd49f9f186adbbc6968",
+      "bytes": 88714,
+      "original_title": "MCS-40 Advance Information Specifications (1974)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/mcs40_advance_specs.pdf",
+      "bibtex_key": "intelmcs40advance",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Advance specifications for MCS-40 family components."
+    },
+    {
+      "local_path": "docs/evidence/ocr/1975_catalog_mcs4_302.txt",
+      "sha256": "e7384d24fb2ac6d8bef83be4b2326a8482d6ff64791e7c12a6c82c2740850734",
+      "bytes": 926,
+      "original_title": "MCS-4 Catalog Entry (Intel 1975 Product Catalog, page 302)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/1975_catalog_302.pdf",
+      "bibtex_key": "intel1975mcs4cat",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Brief catalog entry for MCS-4 family."
+    },
+    {
+      "local_path": "docs/evidence/ocr/1975_catalog_mcs40_232-252.txt",
+      "sha256": "d426379b10bcf3b50d82e58b8132de844f25d8c7c98e620dc542bdf723d9c574",
+      "bytes": 63294,
+      "original_title": "MCS-40 Catalog Section (Intel 1975 Product Catalog, pages 232-252)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/1975_catalog_232-252.pdf",
+      "bibtex_key": "intel1975mcs40cat232",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Extended catalog section for MCS-40 family. Contains detailed electrical specifications and timing."
+    },
+    {
+      "local_path": "docs/evidence/ocr/1975_catalog_mcs40_276-282.txt",
+      "sha256": "da028f7658a72770a12df3e8f0d81c41bed4777118a9dae47e52acc5c9335ac3",
+      "bytes": 14307,
+      "original_title": "MCS-40 Catalog Section (Intel 1975 Product Catalog, pages 276-282)",
+      "original_url": "https://datasheets.chipdb.org/Intel/MCS-4/1975_catalog_276-282.pdf",
+      "bibtex_key": "intel1975mcs40cat276",
+      "ocr_tool": "Tesseract 5.5.2",
+      "ocr_date": "2026-01-06",
+      "notes": "Catalog section for MCS-40 peripheral components."
+    }
+  ]
+}
