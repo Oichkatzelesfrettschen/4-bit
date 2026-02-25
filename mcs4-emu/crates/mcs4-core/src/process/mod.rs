@@ -87,17 +87,17 @@ impl Default for ProcessParams {
         Self {
             vss: 0.0,
             vdd: -15.0,
-            t_ox: 80e-9,          // 80nm = 800 angstrom
+            t_ox: 80e-9,           // 80nm = 800 angstrom
             vth_enhancement: -3.0, // -2V to -4V range, center estimate
             vth_depletion: 1.0,    // positive Vth for depletion mode
-            mu_0: 175.0,          // cm^2/V*s (surface holes)
-            theta: 0.03,          // mobility degradation
-            n_sub: 4.5e14,        // ~10 ohm-cm n-type
-            n_sd: 1e19,           // p+ source/drain
-            l_min: 10e-6,         // 10um
-            x_j: 2e-6,           // 2um junction depth (estimated)
-            lambda: 0.02,        // 1/V, moderate CLM for 10um
-            eta_dibl: 0.005,     // V/V, negligible at 10um
+            mu_0: 175.0,           // cm^2/V*s (surface holes)
+            theta: 0.03,           // mobility degradation
+            n_sub: 4.5e14,         // ~10 ohm-cm n-type
+            n_sd: 1e19,            // p+ source/drain
+            l_min: 10e-6,          // 10um
+            x_j: 2e-6,             // 2um junction depth (estimated)
+            lambda: 0.02,          // 1/V, moderate CLM for 10um
+            eta_dibl: 0.005,       // V/V, negligible at 10um
             temp: 300.0,
         }
     }
@@ -121,14 +121,7 @@ impl ProcessParams {
 
     /// Effective mobility at current operating conditions (cm^2/V*s).
     pub fn mu_eff(&self, vgs: f64) -> f64 {
-        thermal::mu_eff_at_temp(
-            self.mu_0,
-            vgs,
-            self.vth_enhancement,
-            self.t_ox,
-            self.theta,
-            self.temp,
-        )
+        thermal::mu_eff_at_temp(self.mu_0, vgs, self.vth_enhancement, self.t_ox, self.theta, self.temp)
     }
 
     /// Zero-bias junction capacitance per unit area (F/m^2).
@@ -232,8 +225,7 @@ mod tests {
         let p = ProcessParams::default();
         let c = p.cox();
         // For 80nm SiO2: ~4.3e-4 F/m^2
-        assert!(c > 1e-4 && c < 1e-3,
-            "C_ox = {:.3e} F/m^2", c);
+        assert!(c > 1e-4 && c < 1e-3, "C_ox = {:.3e} F/m^2", c);
     }
 
     #[test]
@@ -241,8 +233,7 @@ mod tests {
         let p = ProcessParams::default();
         let b = p.beta(10e-6, 10e-6);
         // Should be in micro-amps/V^2 range
-        assert!(b > 1e-7 && b < 1e-4,
-            "beta = {:.3e} A/V^2", b);
+        assert!(b > 1e-7 && b < 1e-4, "beta = {:.3e} A/V^2", b);
     }
 
     #[test]
@@ -267,8 +258,7 @@ mod tests {
         let p = ProcessParams::default();
         let g = p.gamma();
         // For N_sub=4.5e14, tox=80nm: gamma ~ 0.3-0.5 V^0.5
-        assert!(g > 0.1 && g < 1.0,
-            "gamma = {:.3} V^0.5, expected 0.1-1.0", g);
+        assert!(g > 0.1 && g < 1.0, "gamma = {:.3} V^0.5, expected 0.1-1.0", g);
     }
 
     #[test]
@@ -276,8 +266,7 @@ mod tests {
         let p = ProcessParams::default();
         let pb = p.phi_b();
         // phi_b = 2 * phi_f ~ 2 * 0.27 = 0.54 V
-        assert!(pb > 0.3 && pb < 1.0,
-            "phi_b = {:.3} V, expected 0.3-1.0", pb);
+        assert!(pb > 0.3 && pb < 1.0, "phi_b = {:.3} V, expected 0.3-1.0", pb);
     }
 
     #[test]
@@ -285,8 +274,7 @@ mod tests {
         let p = ProcessParams::default();
         let n = p.subthreshold_n();
         // Typical n ~ 1.2-1.5
-        assert!(n > 1.0 && n < 2.0,
-            "subthreshold n = {:.3}, expected 1.0-2.0", n);
+        assert!(n > 1.0 && n < 2.0, "subthreshold n = {:.3}, expected 1.0-2.0", n);
     }
 
     #[test]

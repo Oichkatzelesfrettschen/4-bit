@@ -128,39 +128,66 @@ pub fn default_4004_regions() -> Vec<SpatialRegion> {
     vec![
         SpatialRegion {
             block: ArchBlock::Decoder,
-            x_min: 200.0, y_min: 0.0, x_max: 2800.0, y_max: 800.0,
+            x_min: 200.0,
+            y_min: 0.0,
+            x_max: 2800.0,
+            y_max: 800.0,
         },
         SpatialRegion {
             block: ArchBlock::RegisterFile,
-            x_min: 200.0, y_min: 800.0, x_max: 1200.0, y_max: 2200.0,
+            x_min: 200.0,
+            y_min: 800.0,
+            x_max: 1200.0,
+            y_max: 2200.0,
         },
         SpatialRegion {
             block: ArchBlock::Alu,
-            x_min: 1200.0, y_min: 800.0, x_max: 2400.0, y_max: 2000.0,
+            x_min: 1200.0,
+            y_min: 800.0,
+            x_max: 2400.0,
+            y_max: 2000.0,
         },
         SpatialRegion {
             block: ArchBlock::Accumulator,
-            x_min: 2400.0, y_min: 800.0, x_max: 3000.0, y_max: 1600.0,
+            x_min: 2400.0,
+            y_min: 800.0,
+            x_max: 3000.0,
+            y_max: 1600.0,
         },
         SpatialRegion {
             block: ArchBlock::Stack,
-            x_min: 1200.0, y_min: 2200.0, x_max: 2800.0, y_max: 3200.0,
+            x_min: 1200.0,
+            y_min: 2200.0,
+            x_max: 2800.0,
+            y_max: 3200.0,
         },
         SpatialRegion {
             block: ArchBlock::TimingSequencer,
-            x_min: 200.0, y_min: 2200.0, x_max: 1200.0, y_max: 3200.0,
+            x_min: 200.0,
+            y_min: 2200.0,
+            x_max: 1200.0,
+            y_max: 3200.0,
         },
         SpatialRegion {
             block: ArchBlock::IoBuffer,
-            x_min: 0.0, y_min: 0.0, x_max: 200.0, y_max: 3800.0,
+            x_min: 0.0,
+            y_min: 0.0,
+            x_max: 200.0,
+            y_max: 3800.0,
         },
         SpatialRegion {
             block: ArchBlock::IoBuffer,
-            x_min: 2800.0, y_min: 0.0, x_max: 3200.0, y_max: 3800.0,
+            x_min: 2800.0,
+            y_min: 0.0,
+            x_max: 3200.0,
+            y_max: 3800.0,
         },
         SpatialRegion {
             block: ArchBlock::ClockTree,
-            x_min: 0.0, y_min: 3200.0, x_max: 3200.0, y_max: 3800.0,
+            x_min: 0.0,
+            y_min: 3200.0,
+            x_max: 3200.0,
+            y_max: 3800.0,
         },
     ]
 }
@@ -170,10 +197,7 @@ pub fn default_4004_regions() -> Vec<SpatialRegion> {
 /// Uses the provided spatial regions to classify each transistor.
 /// Transistors without spatial coordinates are marked as Unassigned.
 /// If a transistor falls in multiple regions, the first matching region wins.
-pub fn assign_blocks(
-    graph: &CircuitGraph,
-    regions: &[SpatialRegion],
-) -> Vec<BlockAnnotation> {
+pub fn assign_blocks(graph: &CircuitGraph, regions: &[SpatialRegion]) -> Vec<BlockAnnotation> {
     graph
         .transistors
         .iter()
@@ -200,10 +224,7 @@ pub fn assign_blocks(
 }
 
 /// Compute per-block statistics from annotations.
-pub fn compute_stats(
-    graph: &CircuitGraph,
-    annotations: &[BlockAnnotation],
-) -> HashMap<ArchBlock, BlockStats> {
+pub fn compute_stats(graph: &CircuitGraph, annotations: &[BlockAnnotation]) -> HashMap<ArchBlock, BlockStats> {
     let total = annotations.len();
     let mut stats: HashMap<ArchBlock, BlockStats> = HashMap::new();
 
@@ -248,10 +269,7 @@ pub fn compute_stats(
 }
 
 /// Build a complete architecture mapping for a circuit.
-pub fn map_architecture(
-    graph: &CircuitGraph,
-    regions: &[SpatialRegion],
-) -> ArchMapping {
+pub fn map_architecture(graph: &CircuitGraph, regions: &[SpatialRegion]) -> ArchMapping {
     let annotations = assign_blocks(graph, regions);
     let stats = compute_stats(graph, &annotations);
     let total_transistors = graph.transistors.len();
@@ -318,7 +336,10 @@ mod tests {
     fn spatial_region_contains_works() {
         let region = SpatialRegion {
             block: ArchBlock::Alu,
-            x_min: 100.0, y_min: 100.0, x_max: 200.0, y_max: 200.0,
+            x_min: 100.0,
+            y_min: 100.0,
+            x_max: 200.0,
+            y_max: 200.0,
         };
 
         assert!(region.contains(150.0, 150.0));
@@ -365,7 +386,8 @@ mod tests {
         let total_fraction: f64 = stats.values().map(|s| s.fraction).sum();
         assert!(
             (total_fraction - 1.0).abs() < 1e-10,
-            "Fractions should sum to 1.0, got {:.3}", total_fraction
+            "Fractions should sum to 1.0, got {:.3}",
+            total_fraction
         );
     }
 
@@ -401,9 +423,15 @@ mod tests {
     #[test]
     fn short_name_not_empty() {
         let blocks = [
-            ArchBlock::Alu, ArchBlock::RegisterFile, ArchBlock::Decoder,
-            ArchBlock::Stack, ArchBlock::ClockTree, ArchBlock::IoBuffer,
-            ArchBlock::Accumulator, ArchBlock::TimingSequencer, ArchBlock::Unassigned,
+            ArchBlock::Alu,
+            ArchBlock::RegisterFile,
+            ArchBlock::Decoder,
+            ArchBlock::Stack,
+            ArchBlock::ClockTree,
+            ArchBlock::IoBuffer,
+            ArchBlock::Accumulator,
+            ArchBlock::TimingSequencer,
+            ArchBlock::Unassigned,
         ];
 
         for block in blocks {
@@ -434,7 +462,10 @@ mod tests {
         // Custom region covering (50, 50)
         let regions = vec![SpatialRegion {
             block: ArchBlock::ClockTree,
-            x_min: 0.0, y_min: 0.0, x_max: 100.0, y_max: 100.0,
+            x_min: 0.0,
+            y_min: 0.0,
+            x_max: 100.0,
+            y_max: 100.0,
         }];
 
         let annotations = assign_blocks(&graph, &regions);

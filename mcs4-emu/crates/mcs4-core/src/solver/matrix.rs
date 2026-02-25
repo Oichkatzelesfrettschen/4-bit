@@ -58,13 +58,7 @@ impl MnaSystem {
     /// implementing I = g * (V_a - V_b).
     ///
     /// If either node is fixed (power rail), the contribution goes to RHS.
-    pub fn stamp_conductance(
-        &mut self,
-        node_a: usize,
-        node_b: usize,
-        g_val: f64,
-        fixed_voltages: &[Option<f64>],
-    ) {
+    pub fn stamp_conductance(&mut self, node_a: usize, node_b: usize, g_val: f64, fixed_voltages: &[Option<f64>]) {
         let row_a = self.node_to_row[node_a];
         let row_b = self.node_to_row[node_b];
         let v_a_fixed = fixed_voltages[node_a];
@@ -240,8 +234,11 @@ mod tests {
         mna.stamp_conductance(1, 2, g, &fixed); // N0 to GND
 
         let sol = mna.solve().expect("should solve");
-        assert!((sol[0] - 2.5).abs() < 1e-10,
-            "Divider mid = {:.6}, expected 2.5", sol[0]);
+        assert!(
+            (sol[0] - 2.5).abs() < 1e-10,
+            "Divider mid = {:.6}, expected 2.5",
+            sol[0]
+        );
     }
 
     #[test]
@@ -261,10 +258,8 @@ mod tests {
 
         let sol = mna.solve().expect("should solve");
         // Expected: N0 ~ 3.33V, N1 ~ 1.67V
-        assert!((sol[0] - 10.0 / 3.0).abs() < 1e-6,
-            "N0 = {:.6}, expected 3.333", sol[0]);
-        assert!((sol[1] - 5.0 / 3.0).abs() < 1e-6,
-            "N1 = {:.6}, expected 1.667", sol[1]);
+        assert!((sol[0] - 10.0 / 3.0).abs() < 1e-6, "N0 = {:.6}, expected 3.333", sol[0]);
+        assert!((sol[1] - 5.0 / 3.0).abs() < 1e-6, "N1 = {:.6}, expected 1.667", sol[1]);
     }
 
     #[test]
@@ -290,8 +285,7 @@ mod tests {
         mna.stamp_current(0, 0.001); // 1mA into node 0
 
         let sol = mna.solve().expect("should solve");
-        assert!((sol[0] - 1.0).abs() < 1e-10,
-            "V = {:.6}, expected 1.0", sol[0]);
+        assert!((sol[0] - 1.0).abs() < 1e-10, "V = {:.6}, expected 1.0", sol[0]);
     }
 
     #[test]
@@ -313,8 +307,7 @@ mod tests {
         let sol = mna.solve().expect("should solve");
         // V_out = (g_load * VDD + g_driver * VSS) / (g_load + g_driver)
         // = (1e-5 * -15 + 5e-5 * 0) / (1e-5 + 5e-5) = -15e-5 / 6e-5 = -2.5V
-        assert!((sol[0] - (-2.5)).abs() < 1e-6,
-            "V_out = {:.6}, expected -2.5", sol[0]);
+        assert!((sol[0] - (-2.5)).abs() < 1e-6, "V_out = {:.6}, expected -2.5", sol[0]);
     }
 
     #[test]

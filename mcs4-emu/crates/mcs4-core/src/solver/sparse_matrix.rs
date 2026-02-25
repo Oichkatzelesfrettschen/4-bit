@@ -9,11 +9,14 @@
 //! computed once and reused across Newton-Raphson iterations. Only the
 //! numeric factorization (actual values) changes each iteration.
 
-use faer::sparse::SparseColMat;
-use faer::sparse::Triplet;
-use faer::sparse::linalg::solvers::{Lu, SymbolicLu};
-use faer::linalg::solvers::SolveCore;
-use faer::{Conj, Mat};
+use faer::{
+    linalg::solvers::SolveCore,
+    sparse::{
+        linalg::solvers::{Lu, SymbolicLu},
+        SparseColMat, Triplet,
+    },
+    Conj, Mat,
+};
 
 /// Sparse MNA linear system: G*x = rhs.
 ///
@@ -72,13 +75,7 @@ impl SparseMnaSystem {
     /// Stamp a conductance between two nodes.
     ///
     /// Same semantics as [`super::matrix::MnaSystem::stamp_conductance`].
-    pub fn stamp_conductance(
-        &mut self,
-        node_a: usize,
-        node_b: usize,
-        g_val: f64,
-        fixed_voltages: &[Option<f64>],
-    ) {
+    pub fn stamp_conductance(&mut self, node_a: usize, node_b: usize, g_val: f64, fixed_voltages: &[Option<f64>]) {
         let row_a = self.node_to_row[node_a];
         let row_b = self.node_to_row[node_b];
         let v_a_fixed = fixed_voltages[node_a];
@@ -225,9 +222,7 @@ impl SparseMnaSystem {
         if self.dim == 0 {
             return false;
         }
-        let mat = match SparseColMat::<usize, f64>::try_new_from_triplets(
-            self.dim, self.dim, &self.triplets,
-        ) {
+        let mat = match SparseColMat::<usize, f64>::try_new_from_triplets(self.dim, self.dim, &self.triplets) {
             Ok(m) => m,
             Err(_) => return false,
         };
@@ -253,9 +248,7 @@ impl SparseMnaSystem {
             return Some(Vec::new());
         }
 
-        let mat = SparseColMat::<usize, f64>::try_new_from_triplets(
-            self.dim, self.dim, &self.triplets,
-        ).ok()?;
+        let mat = SparseColMat::<usize, f64>::try_new_from_triplets(self.dim, self.dim, &self.triplets).ok()?;
 
         let lu = if let Some(ref symbolic) = self.symbolic {
             // Reuse cached symbolic factorization
@@ -322,16 +315,8 @@ mod tests {
         mna.stamp_conductance(2, 3, g, &fixed);
 
         let sol = mna.solve().expect("should solve");
-        assert!(
-            (sol[0] - 10.0 / 3.0).abs() < 1e-6,
-            "N0 = {:.6}, expected 3.333",
-            sol[0]
-        );
-        assert!(
-            (sol[1] - 5.0 / 3.0).abs() < 1e-6,
-            "N1 = {:.6}, expected 1.667",
-            sol[1]
-        );
+        assert!((sol[0] - 10.0 / 3.0).abs() < 1e-6, "N0 = {:.6}, expected 3.333", sol[0]);
+        assert!((sol[1] - 5.0 / 3.0).abs() < 1e-6, "N1 = {:.6}, expected 1.667", sol[1]);
     }
 
     #[test]
@@ -356,11 +341,7 @@ mod tests {
         mna.stamp_current(0, 0.001);
 
         let sol = mna.solve().expect("should solve");
-        assert!(
-            (sol[0] - 1.0).abs() < 1e-10,
-            "V = {:.6}, expected 1.0",
-            sol[0]
-        );
+        assert!((sol[0] - 1.0).abs() < 1e-10, "V = {:.6}, expected 1.0", sol[0]);
     }
 
     #[test]
@@ -374,11 +355,7 @@ mod tests {
         mna.stamp_conductance(1, 2, 5e-5, &fixed);
 
         let sol = mna.solve().expect("should solve");
-        assert!(
-            (sol[0] - (-2.5)).abs() < 1e-6,
-            "V_out = {:.6}, expected -2.5",
-            sol[0]
-        );
+        assert!((sol[0] - (-2.5)).abs() < 1e-6, "V_out = {:.6}, expected -2.5", sol[0]);
     }
 
     #[test]
@@ -484,11 +461,7 @@ mod tests {
         mna.stamp_current(0, 1e-12); // small current
 
         let sol = mna.solve().expect("singleton solve");
-        assert!(
-            (sol[0] - 1.0).abs() < 1e-6,
-            "V = {:.6}, expected 1.0",
-            sol[0]
-        );
+        assert!((sol[0] - 1.0).abs() < 1e-6, "V = {:.6}, expected 1.0", sol[0]);
     }
 
     #[test]

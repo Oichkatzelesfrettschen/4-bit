@@ -7,13 +7,16 @@
 
 use std::path::Path;
 
-use mcs4_core::circuit::netlist_bridge::{self, BridgeConfig};
-use mcs4_core::circuit::graph::{CircuitGraph, TransistorKind};
-use mcs4_core::device::DeviceModel;
-use mcs4_core::device::pmos_level1::PmosLevel1;
-use mcs4_core::layout_netlist;
-use mcs4_core::process::ProcessParams;
-use mcs4_core::solver::{DcSolver, SolverBackend, SolverConfig};
+use mcs4_core::{
+    circuit::{
+        graph::{CircuitGraph, TransistorKind},
+        netlist_bridge::{self, BridgeConfig},
+    },
+    device::{pmos_level1::PmosLevel1, DeviceModel},
+    layout_netlist,
+    process::ProcessParams,
+    solver::{DcSolver, SolverBackend, SolverConfig},
+};
 
 fn repo_root() -> &'static Path {
     Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -31,8 +34,7 @@ fn dc_op_4003_converges() {
     let config = BridgeConfig::default();
     let mut graph = netlist_bridge::netlist_v1_to_circuit(&netlist, &config);
 
-    assert_eq!(graph.transistor_count(), 37,
-        "4003 should have 37 transistors");
+    assert_eq!(graph.transistor_count(), 37, "4003 should have 37 transistors");
 
     let solver_config = SolverConfig::robust();
     let process = ProcessParams::default();
@@ -40,10 +42,12 @@ fn dc_op_4003_converges() {
 
     let result = solver.solve(&mut graph);
 
-    assert!(result.converged,
+    assert!(
+        result.converged,
         "DC operating point should converge on 4003, \
          iterations={}, delta={:.3e}",
-        result.iterations, result.final_delta);
+        result.iterations, result.final_delta
+    );
 }
 
 /// Verify that all 4003 node voltages are within the supply rails.
@@ -70,7 +74,11 @@ fn dc_op_4003_voltages_in_range() {
         assert!(
             node.voltage >= vdd - margin && node.voltage <= vss + margin,
             "Node {:?} (id={}) voltage {:.2}V outside rails [{:.1}V, {:.1}V]",
-            node.name, node.netlist_id, node.voltage, vdd - margin, vss + margin
+            node.name,
+            node.netlist_id,
+            node.voltage,
+            vdd - margin,
+            vss + margin
         );
     }
 }
@@ -83,8 +91,8 @@ fn inverter_transistor_vs_gate_level() {
 
     // Build transistor-level inverter
     let test_cases = [
-        (0.0, true),     // Input at VSS -> output near VDD (logic high for pMOS)
-        (-15.0, false),  // Input at VDD -> output near VSS (logic low for pMOS)
+        (0.0, true),    // Input at VSS -> output near VDD (logic high for pMOS)
+        (-15.0, false), // Input at VDD -> output near VSS (logic low for pMOS)
     ];
 
     for &(v_in, expect_output_near_vdd) in &test_cases {
@@ -117,11 +125,19 @@ fn inverter_transistor_vs_gate_level() {
         let midpoint = -7.5;
 
         if expect_output_near_vdd {
-            assert!(v_out < midpoint,
-                "Vin={:.0}V: expected output near VDD(-15V), got {:.2}V", v_in, v_out);
+            assert!(
+                v_out < midpoint,
+                "Vin={:.0}V: expected output near VDD(-15V), got {:.2}V",
+                v_in,
+                v_out
+            );
         } else {
-            assert!(v_out > midpoint,
-                "Vin={:.0}V: expected output near VSS(0V), got {:.2}V", v_in, v_out);
+            assert!(
+                v_out > midpoint,
+                "Vin={:.0}V: expected output near VSS(0V), got {:.2}V",
+                v_in,
+                v_out
+            );
         }
     }
 }
@@ -138,10 +154,10 @@ fn nand2_transistor_vs_gate_level() {
     // A=0, B=VDD -> OUT = VDD (high)
     // A=VDD, B=VDD -> OUT = VSS (low)
     let test_cases: [(f64, f64, bool); 4] = [
-        (0.0, 0.0, true),       // Both OFF -> output high
-        (-15.0, 0.0, true),     // A on, B off -> output high
-        (0.0, -15.0, true),     // A off, B on -> output high
-        (-15.0, -15.0, false),  // Both ON -> output low
+        (0.0, 0.0, true),      // Both OFF -> output high
+        (-15.0, 0.0, true),    // A on, B off -> output high
+        (0.0, -15.0, true),    // A off, B on -> output high
+        (-15.0, -15.0, false), // Both ON -> output low
     ];
 
     for &(va, vb, expect_high) in &test_cases {
@@ -175,18 +191,27 @@ fn nand2_transistor_vs_gate_level() {
 
         let solver = DcSolver::new(solver_config.clone(), process.clone());
         let result = solver.solve(&mut g);
-        assert!(result.converged,
-            "NAND2 should converge at A={:.0}, B={:.0}", va, vb);
+        assert!(result.converged, "NAND2 should converge at A={:.0}, B={:.0}", va, vb);
 
         let v_out = g.nodes[4].voltage; // output index
         let midpoint = -7.5;
 
         if expect_high {
-            assert!(v_out < midpoint,
-                "NAND2 A={:.0}, B={:.0}: expected high (near VDD), got {:.2}V", va, vb, v_out);
+            assert!(
+                v_out < midpoint,
+                "NAND2 A={:.0}, B={:.0}: expected high (near VDD), got {:.2}V",
+                va,
+                vb,
+                v_out
+            );
         } else {
-            assert!(v_out > midpoint,
-                "NAND2 A={:.0}, B={:.0}: expected low (near VSS), got {:.2}V", va, vb, v_out);
+            assert!(
+                v_out > midpoint,
+                "NAND2 A={:.0}, B={:.0}: expected low (near VSS), got {:.2}V",
+                va,
+                vb,
+                v_out
+            );
         }
     }
 }
@@ -200,17 +225,22 @@ fn pmos_iv_characteristics() {
     // Cutoff: Vgs = 0 (gate at source level)
     // With subthreshold model, deeply-off device has negligible but non-zero current
     let ids_cutoff = model.ids(0.0, -15.0);
-    assert!(ids_cutoff.abs() < 1e-12,
-        "Should be negligible in deep cutoff at Vgs=0, got {:.3e}", ids_cutoff);
+    assert!(
+        ids_cutoff.abs() < 1e-12,
+        "Should be negligible in deep cutoff at Vgs=0, got {:.3e}",
+        ids_cutoff
+    );
 
     // Strong inversion: Vgs = -15V
     let ids_strong = model.ids(-15.0, -15.0);
-    assert!(ids_strong > 0.0,
-        "Should conduct strongly at Vgs=-15V");
+    assert!(ids_strong > 0.0, "Should conduct strongly at Vgs=-15V");
 
     // Current should be in microamp range for 10um/10um transistor
-    assert!(ids_strong > 1e-6 && ids_strong < 1e-2,
-        "Ids = {:.3e} A, expected uA to mA range", ids_strong);
+    assert!(
+        ids_strong > 1e-6 && ids_strong < 1e-2,
+        "Ids = {:.3e} A, expected uA to mA range",
+        ids_strong
+    );
 }
 
 /// Verify propagation delay estimate from transistor solver is
@@ -234,15 +264,24 @@ fn propagation_delay_order_of_magnitude() {
     let transistor_delay = c_load * v_swing / (2.0 * ids_sat);
 
     // Both estimates should be in the nanosecond range
-    assert!(gate_delay_estimate > 1e-12 && gate_delay_estimate < 1e-6,
-        "Gate estimate = {:.3e} s", gate_delay_estimate);
-    assert!(transistor_delay > 1e-12 && transistor_delay < 1e-6,
-        "Transistor estimate = {:.3e} s", transistor_delay);
+    assert!(
+        gate_delay_estimate > 1e-12 && gate_delay_estimate < 1e-6,
+        "Gate estimate = {:.3e} s",
+        gate_delay_estimate
+    );
+    assert!(
+        transistor_delay > 1e-12 && transistor_delay < 1e-6,
+        "Transistor estimate = {:.3e} s",
+        transistor_delay
+    );
 
     // They should agree within 2 orders of magnitude
     let ratio = transistor_delay / gate_delay_estimate;
-    assert!(ratio > 0.01 && ratio < 100.0,
-        "Delay ratio = {:.2}, estimates too far apart", ratio);
+    assert!(
+        ratio > 0.01 && ratio < 100.0,
+        "Delay ratio = {:.2}, estimates too far apart",
+        ratio
+    );
 }
 
 /// Validate the 4001 netlist can be parsed (larger chip: 256 transistors expected).
@@ -255,8 +294,11 @@ fn parse_4001_netlist() {
     let config = BridgeConfig::default();
     let graph = netlist_bridge::netlist_v1_to_circuit(&netlist, &config);
 
-    assert!(graph.transistor_count() > 0,
-        "4001 should have transistors, got {}", graph.transistor_count());
+    assert!(
+        graph.transistor_count() > 0,
+        "4001 should have transistors, got {}",
+        graph.transistor_count()
+    );
 
     // All node references valid
     for trans in &graph.transistors {
@@ -276,8 +318,11 @@ fn parse_4004_netlist() {
     let config = BridgeConfig::default();
     let graph = netlist_bridge::netlist_v1_to_circuit(&netlist, &config);
 
-    assert!(graph.transistor_count() > 100,
-        "4004 should have many transistors, got {}", graph.transistor_count());
+    assert!(
+        graph.transistor_count() > 100,
+        "4004 should have many transistors, got {}",
+        graph.transistor_count()
+    );
 }
 
 // ============================================================
@@ -288,8 +333,8 @@ fn parse_4004_netlist() {
 fn load_chip_graph(chip_name: &str) -> CircuitGraph {
     let filename = format!("{}_netlist_v1.json", chip_name);
     let path = repo_root().join("docs/evidence/netlists_v1").join(filename);
-    let netlist = layout_netlist::load_netlist_v1(&path)
-        .unwrap_or_else(|e| panic!("load {} netlist: {}", chip_name, e));
+    let netlist =
+        layout_netlist::load_netlist_v1(&path).unwrap_or_else(|e| panic!("load {} netlist: {}", chip_name, e));
     let config = BridgeConfig::default();
     netlist_bridge::netlist_v1_to_circuit(&netlist, &config)
 }
@@ -319,14 +364,19 @@ fn sparse_4003_matches_dense_4003() {
 
     // Compare voltages
     let tol = 1e-4; // 0.1 mV tolerance
-    for (i, (&vd, &vs)) in result_dense.voltages.iter()
+    for (i, (&vd, &vs)) in result_dense
+        .voltages
+        .iter()
         .zip(result_sparse.voltages.iter())
         .enumerate()
     {
         assert!(
             (vd - vs).abs() < tol,
             "4003 node {}: dense={:.6}V, sparse={:.6}V, diff={:.2e}V",
-            i, vd, vs, (vd - vs).abs()
+            i,
+            vd,
+            vs,
+            (vd - vs).abs()
         );
     }
 }
@@ -395,7 +445,11 @@ fn dc_op_4002_voltages_in_range() {
         assert!(
             node.voltage >= vdd - margin && node.voltage <= vss + margin,
             "4002 node {:?} (id={}) voltage {:.2}V outside [{:.1}, {:.1}]V",
-            node.name, node.netlist_id, node.voltage, vdd - margin, vss + margin
+            node.name,
+            node.netlist_id,
+            node.voltage,
+            vdd - margin,
+            vss + margin
         );
     }
 }
@@ -411,7 +465,8 @@ fn dc_op_4002_iteration_count() {
     assert!(result.converged);
     assert!(
         result.iterations <= 200 * 20, // max_nr_iterations * source_steps
-        "4002 took {} iterations, expected reasonable count", result.iterations
+        "4002 took {} iterations, expected reasonable count",
+        result.iterations
     );
 }
 
@@ -453,7 +508,11 @@ fn dc_op_4004_voltages_in_range() {
         assert!(
             node.voltage >= vdd - margin && node.voltage <= vss + margin,
             "4004 node {:?} (id={}) voltage {:.2}V outside [{:.1}, {:.1}]V",
-            node.name, node.netlist_id, node.voltage, vdd - margin, vss + margin
+            node.name,
+            node.netlist_id,
+            node.voltage,
+            vdd - margin,
+            vss + margin
         );
     }
 }
@@ -515,7 +574,11 @@ fn dc_op_4001_voltages_in_range() {
         assert!(
             node.voltage >= vdd - margin && node.voltage <= vss + margin,
             "4001 node {:?} (id={}) voltage {:.2}V outside [{:.1}, {:.1}]V",
-            node.name, node.netlist_id, node.voltage, vdd - margin, vss + margin
+            node.name,
+            node.netlist_id,
+            node.voltage,
+            vdd - margin,
+            vss + margin
         );
     }
 }

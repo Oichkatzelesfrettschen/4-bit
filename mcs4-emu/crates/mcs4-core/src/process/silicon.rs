@@ -112,8 +112,11 @@ mod tests {
     fn thermal_voltage_at_300k() {
         let vt_300 = vt(300.0);
         // Should be approximately 25.85 mV
-        assert!((vt_300 - 0.02585).abs() < 1e-4,
-            "V_T at 300K = {:.5} V, expected ~0.02585 V", vt_300);
+        assert!(
+            (vt_300 - 0.02585).abs() < 1e-4,
+            "V_T at 300K = {:.5} V, expected ~0.02585 V",
+            vt_300
+        );
     }
 
     #[test]
@@ -126,8 +129,12 @@ mod tests {
     fn intrinsic_carrier_at_300k() {
         let ni_val = ni(300.0);
         // Should be close to 1.5e10 cm^-3
-        assert!((ni_val - NI_300K).abs() / NI_300K < 0.01,
-            "ni(300K) = {:.3e}, expected ~{:.3e}", ni_val, NI_300K);
+        assert!(
+            (ni_val - NI_300K).abs() / NI_300K < 0.01,
+            "ni(300K) = {:.3e}, expected ~{:.3e}",
+            ni_val,
+            NI_300K
+        );
     }
 
     #[test]
@@ -144,8 +151,11 @@ mod tests {
         let n_sub = 4.5e14;
         let phi = phi_f(n_sub, 300.0);
         // phi_F should be positive for n-type, around 0.27V
-        assert!(phi > 0.2 && phi < 0.4,
-            "phi_F = {:.3} V for n-type 10 ohm-cm substrate", phi);
+        assert!(
+            phi > 0.2 && phi < 0.4,
+            "phi_F = {:.3} V for n-type 10 ohm-cm substrate",
+            phi
+        );
     }
 
     #[test]
@@ -153,8 +163,11 @@ mod tests {
         // For ~1e15 cm^-3 doping at 300K, Debye length ~ 0.1-1 um
         let ld = debye_length(1e15, 300.0);
         let ld_um = ld * 1e6;
-        assert!(ld_um > 0.01 && ld_um < 10.0,
-            "Debye length = {:.4} um, expected 0.01-10 um", ld_um);
+        assert!(
+            ld_um > 0.01 && ld_um < 10.0,
+            "Debye length = {:.4} um, expected 0.01-10 um",
+            ld_um
+        );
     }
 
     #[test]
@@ -162,8 +175,7 @@ mod tests {
         // Typical pn junction: Na=1e17, Nd=1e15
         let vbi = built_in_potential(1e17, 1e15, 300.0);
         // Should be around 0.7V for silicon
-        assert!(vbi > 0.5 && vbi < 1.0,
-            "V_bi = {:.3} V, expected 0.5-1.0 V", vbi);
+        assert!(vbi > 0.5 && vbi < 1.0, "V_bi = {:.3} V, expected 0.5-1.0 V", vbi);
     }
 
     #[test]

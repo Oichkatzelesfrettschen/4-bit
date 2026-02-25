@@ -87,14 +87,14 @@ pub fn gmin_schedule(gmin_initial: f64, step: usize, total_steps: usize) -> f64 
 /// # Returns
 /// true if all voltages have converged
 pub fn check_convergence(v_new: &[f64], v_old: &[f64], v_tol: f64) -> bool {
-    v_new.iter().zip(v_old.iter()).all(|(&vn, &vo)| {
-        (vn - vo).abs() < v_tol
-    })
+    v_new.iter().zip(v_old.iter()).all(|(&vn, &vo)| (vn - vo).abs() < v_tol)
 }
 
 /// Compute the maximum voltage change across all nodes.
 pub fn max_delta(v_new: &[f64], v_old: &[f64]) -> f64 {
-    v_new.iter().zip(v_old.iter())
+    v_new
+        .iter()
+        .zip(v_old.iter())
         .map(|(&vn, &vo)| (vn - vo).abs())
         .fold(0.0, f64::max)
 }

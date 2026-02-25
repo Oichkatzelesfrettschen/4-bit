@@ -93,7 +93,7 @@ mod tests {
     #[test]
     fn test_interrupt_service() {
         let mut int = InterruptController::new();
-        
+
         // INT asserted but not enabled - no service
         int.set_int_pin(true);
         assert!(!int.should_service());
@@ -112,17 +112,17 @@ mod tests {
     fn test_int_pin_edge() {
         let mut int = InterruptController::new();
         int.enable();
-        
+
         // INT goes high - service once
         int.set_int_pin(true);
         assert!(int.should_service());
-        
+
         // INT still high - no re-service until acknowledged
         assert!(!int.should_service());
-        
+
         // Acknowledge
         int.acknowledge();
-        
+
         // INT goes low then high - service again
         int.set_int_pin(false);
         int.set_int_pin(true);

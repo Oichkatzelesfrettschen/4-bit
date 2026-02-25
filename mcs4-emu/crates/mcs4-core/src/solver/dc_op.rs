@@ -8,17 +8,12 @@
 //! based on circuit size: circuits with fewer than [`SPARSE_THRESHOLD`] free
 //! nodes use dense LU; larger circuits use sparse COO->CSC->LU.
 
-use crate::circuit::graph::CircuitGraph;
-use crate::circuit::TransistorKind;
-use crate::device::pmos_level1::PmosLevel1;
-use crate::device::depletion_load::DepletionLoadModel;
-use crate::device::DeviceModel;
-use crate::process::ProcessParams;
-
-use super::convergence;
-use super::matrix::MnaSystem;
-use super::sparse_matrix::SparseMnaSystem;
-use super::SolverConfig;
+use super::{convergence, matrix::MnaSystem, sparse_matrix::SparseMnaSystem, SolverConfig};
+use crate::{
+    circuit::{graph::CircuitGraph, TransistorKind},
+    device::{depletion_load::DepletionLoadModel, pmos_level1::PmosLevel1, DeviceModel},
+    process::ProcessParams,
+};
 
 /// Free-node count threshold for switching from dense to sparse backend.
 /// Circuits below this use dense nalgebra LU; circuits at or above use faer.
@@ -82,18 +77,19 @@ impl MnaBackend {
     #[allow(clippy::too_many_arguments)]
     fn stamp_transistor(
         &mut self,
-        gate: usize, source: usize, drain: usize,
-        ids_op: f64, gm: f64, gds: f64,
-        vgs_op: f64, vds_op: f64,
+        gate: usize,
+        source: usize,
+        drain: usize,
+        ids_op: f64,
+        gm: f64,
+        gds: f64,
+        vgs_op: f64,
+        vds_op: f64,
         fixed_voltages: &[Option<f64>],
     ) {
         match self {
-            Self::Dense(m) => m.stamp_transistor(
-                gate, source, drain, ids_op, gm, gds, vgs_op, vds_op, fixed_voltages,
-            ),
-            Self::Sparse(m) => m.stamp_transistor(
-                gate, source, drain, ids_op, gm, gds, vgs_op, vds_op, fixed_voltages,
-            ),
+            Self::Dense(m) => m.stamp_transistor(gate, source, drain, ids_op, gm, gds, vgs_op, vds_op, fixed_voltages),
+            Self::Sparse(m) => m.stamp_transistor(gate, source, drain, ids_op, gm, gds, vgs_op, vds_op, fixed_voltages),
         }
     }
 
@@ -139,7 +135,9 @@ impl DcSolver {
         let num_nodes = graph.nodes.len();
 
         // Build list of free node indices
-        let free_indices: Vec<usize> = graph.nodes.iter()
+        let free_indices: Vec<usize> = graph
+            .nodes
+            .iter()
             .enumerate()
             .filter(|(_, n)| !n.is_fixed)
             .map(|(i, _)| i)
@@ -156,36 +154,32 @@ impl DcSolver {
         }
 
         // Build fixed voltage lookup
-        let fixed_voltages: Vec<Option<f64>> = graph.nodes.iter()
+        let fixed_voltages: Vec<Option<f64>> = graph
+            .nodes
+            .iter()
             .map(|n| if n.is_fixed { Some(n.voltage) } else { None })
             .collect();
 
         // Create device models for each transistor
-        let models: Vec<Box<dyn DeviceModel>> = graph.transistors.iter()
+        let models: Vec<Box<dyn DeviceModel>> = graph
+            .transistors
+            .iter()
             .map(|t| -> Box<dyn DeviceModel> {
                 match t.kind {
-                    TransistorKind::Enhancement => {
-                        Box::new(PmosLevel1::new(&self.process, t.w, t.l))
-                    }
-                    TransistorKind::Depletion => {
-                        Box::new(DepletionLoadModel::new(&self.process, t.w, t.l))
-                    }
+                    TransistorKind::Enhancement => Box::new(PmosLevel1::new(&self.process, t.w, t.l)),
+                    TransistorKind::Depletion => Box::new(DepletionLoadModel::new(&self.process, t.w, t.l)),
                 }
             })
             .collect();
 
         // Current voltage vector for free nodes
-        let mut v_free: Vec<f64> = free_indices.iter()
-            .map(|&i| graph.nodes[i].voltage)
-            .collect();
+        let mut v_free: Vec<f64> = free_indices.iter().map(|&i| graph.nodes[i].voltage).collect();
         let mut v_prev = v_free.clone();
 
         // Select backend based on circuit size
         let backend_choice = self.select_backend(num_free);
         let mut mna = match backend_choice {
-            SolverBackend::Sparse => {
-                MnaBackend::Sparse(SparseMnaSystem::new(num_free, num_nodes, &free_indices))
-            }
+            SolverBackend::Sparse => MnaBackend::Sparse(SparseMnaSystem::new(num_free, num_nodes, &free_indices)),
             SolverBackend::Dense | SolverBackend::Auto => {
                 MnaBackend::Dense(MnaSystem::new(num_free, num_nodes, &free_indices))
             }
@@ -207,9 +201,7 @@ impl DcSolver {
             let scale = convergence::source_step_factor(step, supply_steps);
 
             // Scale fixed voltages for source stepping
-            let scaled_fixed: Vec<Option<f64>> = fixed_voltages.iter()
-                .map(|v| v.map(|val| val * scale))
-                .collect();
+            let scaled_fixed: Vec<Option<f64>> = fixed_voltages.iter().map(|v| v.map(|val| val * scale)).collect();
 
             // Newton-Raphson loop
             for iter in 0..self.config.max_nr_iterations {
@@ -256,8 +248,11 @@ impl DcSolver {
                         trans.gate,
                         source_idx,
                         drain_idx,
-                        ids, gm, gds_eff,
-                        vgs, vds,
+                        ids,
+                        gm,
+                        gds_eff,
+                        vgs,
+                        vds,
                         &scaled_fixed,
                     );
                 }
@@ -300,15 +295,17 @@ impl DcSolver {
 
         // Write final voltages back to graph
         let node_to_row = mna.node_to_row();
-        let voltages: Vec<f64> = (0..num_nodes).map(|i| {
-            if let Some(v) = fixed_voltages[i] {
-                v
-            } else if let Some(row) = node_to_row[i] {
-                v_free[row]
-            } else {
-                0.0
-            }
-        }).collect();
+        let voltages: Vec<f64> = (0..num_nodes)
+            .map(|i| {
+                if let Some(v) = fixed_voltages[i] {
+                    v
+                } else if let Some(row) = node_to_row[i] {
+                    v_free[row]
+                } else {
+                    0.0
+                }
+            })
+            .collect();
 
         for (i, &v) in voltages.iter().enumerate() {
             graph.nodes[i].voltage = v;
@@ -369,14 +366,19 @@ mod tests {
 
         let result = solver.solve(&mut graph);
 
-        assert!(result.converged,
+        assert!(
+            result.converged,
             "Should converge, iterations={}, delta={:.3e}",
-            result.iterations, result.final_delta);
+            result.iterations, result.final_delta
+        );
 
         let v_out = graph.nodes[3].voltage; // output node index
-        // Output should be close to VDD (-15V)
-        assert!(v_out < -10.0,
-            "Output should be near VDD when input=0V, got {:.2}V", v_out);
+                                            // Output should be close to VDD (-15V)
+        assert!(
+            v_out < -10.0,
+            "Output should be near VDD when input=0V, got {:.2}V",
+            v_out
+        );
     }
 
     #[test]
@@ -389,14 +391,19 @@ mod tests {
 
         let result = solver.solve(&mut graph);
 
-        assert!(result.converged,
+        assert!(
+            result.converged,
             "Should converge, iterations={}, delta={:.3e}",
-            result.iterations, result.final_delta);
+            result.iterations, result.final_delta
+        );
 
         let v_out = graph.nodes[3].voltage;
         // Output should be near VSS (0V) but not exactly due to voltage divider
-        assert!(v_out > -5.0,
-            "Output should be near VSS when input=-15V, got {:.2}V", v_out);
+        assert!(
+            v_out > -5.0,
+            "Output should be near VSS when input=-15V, got {:.2}V",
+            v_out
+        );
     }
 
     #[test]
@@ -417,9 +424,12 @@ mod tests {
         let v_out_high = g_high.nodes[3].voltage;
 
         // Output when input is low should be more negative than when input is high
-        assert!(v_out_low < v_out_high,
+        assert!(
+            v_out_low < v_out_high,
             "Inverter should invert: V_out(in=0)={:.2}V, V_out(in=-15)={:.2}V",
-            v_out_low, v_out_high);
+            v_out_low,
+            v_out_high
+        );
     }
 
     #[test]
@@ -472,14 +482,19 @@ mod tests {
         let solver = DcSolver::new(config, process);
         let result = solver.solve(&mut g);
 
-        assert!(result.converged,
+        assert!(
+            result.converged,
             "NAND2 should converge, iter={}, delta={:.3e}",
-            result.iterations, result.final_delta);
+            result.iterations, result.final_delta
+        );
 
         let v_out = g.nodes[output.min(g.nodes.len() - 1)].voltage;
         // Both inputs high -> both drivers ON -> output should be near VSS
-        assert!(v_out > -5.0,
-            "NAND2 output with both inputs=-15V should be near VSS, got {:.2}V", v_out);
+        assert!(
+            v_out > -5.0,
+            "NAND2 output with both inputs=-15V should be near VSS, got {:.2}V",
+            v_out
+        );
     }
 
     #[test]
@@ -521,9 +536,12 @@ mod tests {
         assert!(result.converged);
 
         let v_out = g.nodes[4].voltage; // output node
-        // Both inputs low -> both drivers OFF -> output pulled to VDD
-        assert!(v_out < -10.0,
-            "NOR2 output with both inputs=0V should be near VDD, got {:.2}V", v_out);
+                                        // Both inputs low -> both drivers OFF -> output pulled to VDD
+        assert!(
+            v_out < -10.0,
+            "NOR2 output with both inputs=0V should be near VDD, got {:.2}V",
+            v_out
+        );
     }
 
     #[test]
@@ -542,8 +560,7 @@ mod tests {
             let solver = DcSolver::new(config.clone(), process.clone());
             let result = solver.solve(&mut graph);
 
-            assert!(result.converged,
-                "Should converge at Vin={:.1}V", v_in);
+            assert!(result.converged, "Should converge at Vin={:.1}V", v_in);
 
             let v_out = graph.nodes[3].voltage;
 
@@ -553,8 +570,10 @@ mod tests {
             prev_out = v_out;
         }
 
-        assert!(monotonic,
-            "Inverter DC transfer should be monotonically increasing (Vout vs Vin going more negative)");
+        assert!(
+            monotonic,
+            "Inverter DC transfer should be monotonically increasing (Vout vs Vin going more negative)"
+        );
     }
 
     #[test]
@@ -570,7 +589,10 @@ mod tests {
     #[test]
     fn backend_auto_selects_dense_for_small() {
         let process = ProcessParams::default();
-        let config = SolverConfig { backend: SolverBackend::Auto, ..SolverConfig::small_circuit() };
+        let config = SolverConfig {
+            backend: SolverBackend::Auto,
+            ..SolverConfig::small_circuit()
+        };
         let solver = DcSolver::new(config, process);
 
         // Inverter has 1 free node -- well below SPARSE_THRESHOLD
@@ -603,13 +625,18 @@ mod tests {
         assert!(result_sparse.converged);
 
         // Voltages should match within tolerance
-        for (i, (&vd, &vs)) in result_dense.voltages.iter()
+        for (i, (&vd, &vs)) in result_dense
+            .voltages
+            .iter()
             .zip(result_sparse.voltages.iter())
             .enumerate()
         {
             assert!(
                 (vd - vs).abs() < 1e-4,
-                "Node {}: dense={:.6}V, sparse={:.6}V", i, vd, vs
+                "Node {}: dense={:.6}V, sparse={:.6}V",
+                i,
+                vd,
+                vs
             );
         }
     }
@@ -651,7 +678,10 @@ mod tests {
 
         let solver_dense = DcSolver::new(SolverConfig::small_circuit(), process.clone());
         let solver_sparse = DcSolver::new(
-            SolverConfig { backend: SolverBackend::Sparse, ..SolverConfig::small_circuit() },
+            SolverConfig {
+                backend: SolverBackend::Sparse,
+                ..SolverConfig::small_circuit()
+            },
             process,
         );
 
@@ -661,13 +691,13 @@ mod tests {
         assert!(r_dense.converged);
         assert!(r_sparse.converged);
 
-        for (i, (&vd, &vs)) in r_dense.voltages.iter()
-            .zip(r_sparse.voltages.iter())
-            .enumerate()
-        {
+        for (i, (&vd, &vs)) in r_dense.voltages.iter().zip(r_sparse.voltages.iter()).enumerate() {
             assert!(
                 (vd - vs).abs() < 1e-4,
-                "Node {}: dense={:.6}V, sparse={:.6}V", i, vd, vs
+                "Node {}: dense={:.6}V, sparse={:.6}V",
+                i,
+                vd,
+                vs
             );
         }
     }

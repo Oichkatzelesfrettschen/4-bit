@@ -4,9 +4,7 @@
 //! capacitances from transistor geometry and process parameters.
 //! These capacitances are essential for accurate transient simulation.
 
-use crate::process::ProcessParams;
-use crate::process::junction;
-use crate::process::oxide;
+use crate::process::{junction, oxide, ProcessParams};
 
 /// Parasitic capacitances for a single transistor instance.
 ///
@@ -110,15 +108,13 @@ mod tests {
     #[test]
     fn overlap_caps_equal() {
         let c = default_parasitics();
-        assert!((c.cgs - c.cgd).abs() < 1e-20,
-            "Symmetric device should have Cgs = Cgd");
+        assert!((c.cgs - c.cgd).abs() < 1e-20, "Symmetric device should have Cgs = Cgd");
     }
 
     #[test]
     fn junction_caps_equal_for_symmetric_device() {
         let c = default_parasitics();
-        assert!((c.cdb - c.csb).abs() < 1e-20,
-            "Symmetric device should have Cdb = Csb");
+        assert!((c.cdb - c.csb).abs() < 1e-20, "Symmetric device should have Cdb = Csb");
     }
 
     #[test]
@@ -144,7 +140,10 @@ mod tests {
         let c = default_parasitics();
         // For 10um transistor, capacitances should be in the fF range (1e-15)
         let cg = c.total_gate_cap();
-        assert!(cg > 1e-16 && cg < 1e-12,
-            "Total gate cap = {:.3e} F, expected fF range", cg);
+        assert!(
+            cg > 1e-16 && cg < 1e-12,
+            "Total gate cap = {:.3e} F, expected fF range",
+            cg
+        );
     }
 }

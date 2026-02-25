@@ -7,8 +7,10 @@
 //! Uses the interconnect models from `process::interconnect` to compute
 //! per-segment R and C, then assembles RC trees for Elmore delay estimation.
 
-use crate::circuit::graph::{CircuitGraph, MetalLayer, WireSegment};
-use crate::process::interconnect;
+use crate::{
+    circuit::graph::{CircuitGraph, MetalLayer, WireSegment},
+    process::interconnect,
+};
 
 /// Physical layer parameters for parasitic computation.
 ///
@@ -34,13 +36,13 @@ pub struct LayerParams {
 impl Default for LayerParams {
     fn default() -> Self {
         Self {
-            poly_thickness: 0.4e-6,    // ~400nm polysilicon
-            poly_dielectric: 80e-9,     // gate oxide (also field oxide under poly routing)
-            diff_thickness: 2e-6,       // junction depth
-            diff_dielectric: 0.5e-6,    // field oxide over diffusion
-            metal_thickness: 1.0e-6,    // ~1um aluminum
-            metal_dielectric: 1.0e-6,   // field oxide + interlayer dielectric
-            min_spacing: 10.0,          // 10um minimum spacing
+            poly_thickness: 0.4e-6,   // ~400nm polysilicon
+            poly_dielectric: 80e-9,   // gate oxide (also field oxide under poly routing)
+            diff_thickness: 2e-6,     // junction depth
+            diff_dielectric: 0.5e-6,  // field oxide over diffusion
+            metal_thickness: 1.0e-6,  // ~1um aluminum
+            metal_dielectric: 1.0e-6, // field oxide + interlayer dielectric
+            min_spacing: 10.0,        // 10um minimum spacing
         }
     }
 }
@@ -118,11 +120,7 @@ pub fn extract_segment(seg: &WireSegment, params: &LayerParams) -> SegmentParasi
 /// Extract parasitics for all wire segments on a given node.
 ///
 /// Returns the total R, C, and Elmore delay for the net.
-pub fn extract_net(
-    graph: &CircuitGraph,
-    node_idx: usize,
-    params: &LayerParams,
-) -> NetParasitics {
+pub fn extract_net(graph: &CircuitGraph, node_idx: usize, params: &LayerParams) -> NetParasitics {
     let node = &graph.nodes[node_idx];
 
     let segments: Vec<SegmentParasitics> = node
@@ -184,11 +182,7 @@ pub fn apply_to_graph(graph: &mut CircuitGraph, params: &LayerParams) {
 /// the edge-to-edge distance.
 ///
 /// Returns 0 if segments are on different layers or do not run in parallel.
-pub fn coupling_capacitance(
-    seg_a: &WireSegment,
-    seg_b: &WireSegment,
-    params: &LayerParams,
-) -> f64 {
+pub fn coupling_capacitance(seg_a: &WireSegment, seg_b: &WireSegment, params: &LayerParams) -> f64 {
     // Only compute coupling for same-layer segments
     if std::mem::discriminant(&seg_a.layer) != std::mem::discriminant(&seg_b.layer) {
         return 0.0;
@@ -262,14 +256,22 @@ mod tests {
 
     fn metal_segment(x0: f64, y0: f64, x1: f64, y1: f64, width: f64) -> WireSegment {
         WireSegment {
-            x0, y0, x1, y1, width,
+            x0,
+            y0,
+            x1,
+            y1,
+            width,
             layer: MetalLayer::Metal1,
         }
     }
 
     fn poly_segment(x0: f64, y0: f64, x1: f64, y1: f64, width: f64) -> WireSegment {
         WireSegment {
-            x0, y0, x1, y1, width,
+            x0,
+            y0,
+            x1,
+            y1,
+            width,
             layer: MetalLayer::Poly,
         }
     }
@@ -281,8 +283,11 @@ mod tests {
         let p = extract_segment(&seg, &params);
 
         // 100um metal, 10um wide: R = 0.05 * 100e-6 / 10e-6 = 0.5 ohm
-        assert!(p.resistance > 0.0 && p.resistance < 5.0,
-            "Metal R = {:.3} ohm", p.resistance);
+        assert!(
+            p.resistance > 0.0 && p.resistance < 5.0,
+            "Metal R = {:.3} ohm",
+            p.resistance
+        );
     }
 
     #[test]
@@ -292,8 +297,11 @@ mod tests {
         let p = extract_segment(&seg, &params);
 
         // 100um poly, 10um wide: R = 40 * 100e-6 / 10e-6 = 400 ohm
-        assert!(p.resistance > 100.0,
-            "Poly R = {:.1} ohm, should be >> metal", p.resistance);
+        assert!(
+            p.resistance > 100.0,
+            "Poly R = {:.1} ohm, should be >> metal",
+            p.resistance
+        );
     }
 
     #[test]
@@ -344,9 +352,7 @@ mod tests {
         let short_node = graph.add_node(0);
         let long_node = graph.add_node(1);
 
-        graph.nodes[short_node].wire_segments = vec![
-            metal_segment(0.0, 0.0, 50.0, 0.0, 10.0),
-        ];
+        graph.nodes[short_node].wire_segments = vec![metal_segment(0.0, 0.0, 50.0, 0.0, 10.0)];
         graph.nodes[long_node].wire_segments = vec![
             metal_segment(0.0, 0.0, 50.0, 0.0, 10.0),
             metal_segment(50.0, 0.0, 150.0, 0.0, 10.0),
@@ -357,8 +363,10 @@ mod tests {
         let net_short = extract_net(&graph, short_node, &params);
         let net_long = extract_net(&graph, long_node, &params);
 
-        assert!(net_long.elmore_delay > net_short.elmore_delay,
-            "Longer net should have more Elmore delay");
+        assert!(
+            net_long.elmore_delay > net_short.elmore_delay,
+            "Longer net should have more Elmore delay"
+        );
     }
 
     #[test]
@@ -367,17 +375,17 @@ mod tests {
         let node = graph.add_node(0);
         graph.nodes[node].capacitance = 50e-15; // default 50 fF
 
-        graph.nodes[node].wire_segments = vec![
-            metal_segment(0.0, 0.0, 500.0, 0.0, 10.0),
-        ];
+        graph.nodes[node].wire_segments = vec![metal_segment(0.0, 0.0, 500.0, 0.0, 10.0)];
 
         let params = LayerParams::default();
         apply_to_graph(&mut graph, &params);
 
         // Should have replaced the default capacitance
         assert!(graph.nodes[node].capacitance > 0.0);
-        assert!((graph.nodes[node].capacitance - 50e-15).abs() > 1e-18,
-            "Capacitance should have changed from default");
+        assert!(
+            (graph.nodes[node].capacitance - 50e-15).abs() > 1e-18,
+            "Capacitance should have changed from default"
+        );
     }
 
     #[test]
@@ -386,9 +394,7 @@ mod tests {
         let with_wires = graph.add_node(0);
         let _without_wires = graph.add_node(1);
 
-        graph.nodes[with_wires].wire_segments = vec![
-            metal_segment(0.0, 0.0, 100.0, 0.0, 10.0),
-        ];
+        graph.nodes[with_wires].wire_segments = vec![metal_segment(0.0, 0.0, 100.0, 0.0, 10.0)];
 
         let params = LayerParams::default();
         let results = extract_all(&graph, &params);
@@ -424,7 +430,10 @@ mod tests {
         let params = LayerParams::default();
 
         let cc = coupling_capacitance(&seg_a, &seg_b, &params);
-        assert!((cc - 0.0).abs() < 1e-30, "Perpendicular wires should have zero coupling");
+        assert!(
+            (cc - 0.0).abs() < 1e-30,
+            "Perpendicular wires should have zero coupling"
+        );
     }
 
     #[test]
@@ -437,15 +446,21 @@ mod tests {
         let cc_close = coupling_capacitance(&seg_a, &seg_close, &params);
         let cc_far = coupling_capacitance(&seg_a, &seg_far, &params);
 
-        assert!(cc_close > cc_far,
+        assert!(
+            cc_close > cc_far,
             "Closer wires should have more coupling: close={:.3e}, far={:.3e}",
-            cc_close, cc_far);
+            cc_close,
+            cc_far
+        );
     }
 
     #[test]
     fn zero_width_segment_no_crash() {
         let seg = WireSegment {
-            x0: 0.0, y0: 0.0, x1: 100.0, y1: 0.0,
+            x0: 0.0,
+            y0: 0.0,
+            x1: 100.0,
+            y1: 0.0,
             width: 0.0,
             layer: MetalLayer::Metal1,
         };

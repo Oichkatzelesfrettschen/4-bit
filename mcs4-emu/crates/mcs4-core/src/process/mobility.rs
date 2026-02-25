@@ -68,8 +68,11 @@ mod tests {
     fn mu_eff_no_degradation_at_threshold() {
         // At Vgs = Vth, overdrive is zero, so mu_eff should equal mu_0
         let mu = mu_eff_pmos(175.0, -3.0, -3.0, 80e-9, 0.03);
-        assert!((mu - 175.0).abs() < 0.01,
-            "mu_eff at Vth should equal mu_0, got {:.2}", mu);
+        assert!(
+            (mu - 175.0).abs() < 0.01,
+            "mu_eff at Vth should equal mu_0, got {:.2}",
+            mu
+        );
     }
 
     #[test]
@@ -82,9 +85,12 @@ mod tests {
         let mu_high_vov = mu_eff_pmos(175.0, -10.0, vth, t_ox, theta);
 
         // Higher overdrive -> more degradation -> lower mobility
-        assert!(mu_low_vov > mu_high_vov,
+        assert!(
+            mu_low_vov > mu_high_vov,
             "mu at low Vov ({:.1}) should exceed mu at high Vov ({:.1})",
-            mu_low_vov, mu_high_vov);
+            mu_low_vov,
+            mu_high_vov
+        );
     }
 
     #[test]
@@ -101,8 +107,7 @@ mod tests {
     #[test]
     fn mu_temperature_at_reference() {
         let mu = mu_temperature(175.0, 300.0);
-        assert!((mu - 175.0).abs() < 0.01,
-            "mu at reference temp should equal mu_0");
+        assert!((mu - 175.0).abs() < 0.01, "mu at reference temp should equal mu_0");
     }
 
     #[test]
@@ -111,17 +116,18 @@ mod tests {
         let cox = 3.9 * 8.854e-12 / 80e-9; // ~4.3e-4 F/m^2
         let b = beta(175.0, cox, 10e-6, 10e-6);
         // beta = 175e-4 * 4.3e-4 * 1 = ~7.5e-6 A/V^2
-        assert!(b > 1e-7 && b < 1e-4,
-            "beta = {:.3e} A/V^2 for 10um/10um", b);
+        assert!(b > 1e-7 && b < 1e-4, "beta = {:.3e} A/V^2 for 10um/10um", b);
     }
 
     #[test]
     fn beta_scales_with_wl_ratio() {
         let cox = 3.9 * 8.854e-12 / 80e-9;
         let b_narrow = beta(175.0, cox, 10e-6, 10e-6); // W/L = 1
-        let b_wide = beta(175.0, cox, 20e-6, 10e-6);   // W/L = 2
+        let b_wide = beta(175.0, cox, 20e-6, 10e-6); // W/L = 2
 
-        assert!(((b_wide / b_narrow) - 2.0).abs() < 0.01,
-            "beta should scale linearly with W/L");
+        assert!(
+            ((b_wide / b_narrow) - 2.0).abs() < 0.01,
+            "beta should scale linearly with W/L"
+        );
     }
 }

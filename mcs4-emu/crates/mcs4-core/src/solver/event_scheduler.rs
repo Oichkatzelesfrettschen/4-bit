@@ -7,8 +7,7 @@
 //! This is similar to the event-driven pattern used in the gate-level
 //! simulator (see `simulator.rs`), extended to work with the analog solver.
 
-use std::cmp::Reverse;
-use std::collections::BinaryHeap;
+use std::{cmp::Reverse, collections::BinaryHeap};
 
 /// A scheduled simulation event.
 #[derive(Clone, Debug, PartialEq)]
@@ -33,7 +32,8 @@ impl PartialOrd for SimEvent {
 impl Ord for SimEvent {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering {
         // Compare by time, then node index for stability
-        self.time.total_cmp(&other.time)
+        self.time
+            .total_cmp(&other.time)
             .then_with(|| self.node.cmp(&other.node))
     }
 }
@@ -59,8 +59,7 @@ impl EventScheduler {
 
     /// Schedule a new event.
     pub fn schedule(&mut self, event: SimEvent) {
-        assert!(event.time >= self.current_time,
-            "Cannot schedule event in the past");
+        assert!(event.time >= self.current_time, "Cannot schedule event in the past");
         self.queue.push(Reverse(event));
     }
 
@@ -195,8 +194,12 @@ mod tests {
         let e2 = sched.next_event().expect("e2");
         let e3 = sched.next_event().expect("e3");
 
-        assert!(e1.node <= e2.node && e2.node <= e3.node,
+        assert!(
+            e1.node <= e2.node && e2.node <= e3.node,
             "Same-time events should be ordered by node: {}, {}, {}",
-            e1.node, e2.node, e3.node);
+            e1.node,
+            e2.node,
+            e3.node
+        );
     }
 }

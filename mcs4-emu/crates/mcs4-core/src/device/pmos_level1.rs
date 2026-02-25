@@ -84,13 +84,18 @@ impl PmosLevel1 {
     /// Body effect and subthreshold are disabled (zero gamma, zero eta).
     pub fn with_params(beta: f64, vth_mag: f64, lambda: f64, cg: f64, w: f64, l: f64) -> Self {
         Self {
-            beta, vth_mag, lambda, cg, w, l,
+            beta,
+            vth_mag,
+            lambda,
+            cg,
+            w,
+            l,
             gamma: 0.0,
             phi_b: 0.0,
             vt: 0.02585,
             n_sub: 1.0,
             eta_dibl: 0.0,
-            v_sat: 0.0,  // disabled
+            v_sat: 0.0, // disabled
             mu_0: 175.0,
         }
     }
@@ -147,8 +152,7 @@ impl PmosLevel1 {
         // Body effect: threshold increases with source-bulk reverse bias
         if self.gamma > 0.0 && self.phi_b > 0.0 {
             let vsb_abs = vsb.abs();
-            let delta_vth = self.gamma
-                * ((self.phi_b + vsb_abs).sqrt() - self.phi_b.sqrt());
+            let delta_vth = self.gamma * ((self.phi_b + vsb_abs).sqrt() - self.phi_b.sqrt());
             vth += delta_vth;
         }
 
@@ -210,8 +214,7 @@ impl PmosLevel1 {
 
             if vsd <= vdsat {
                 // Triode (linear) region: Vsd < Vdsat
-                self.beta * ((vov) * vsd - 0.5 * vsd * vsd)
-                    * (1.0 + self.lambda * vsd)
+                self.beta * ((vov) * vsd - 0.5 * vsd * vsd) * (1.0 + self.lambda * vsd)
             } else {
                 // Saturation: Vsd >= Vdsat
                 // Use Vdsat instead of Vov for velocity-saturated current
@@ -400,8 +403,11 @@ mod tests {
         let ids = m.ids(0.0, -15.0);
         // With subthreshold model, current is not exactly zero but negligibly small
         // exp((0 - 3) / (n * 0.026)) ~ exp(-89) ~ 0
-        assert!(ids.abs() < 1e-12,
-            "Should be negligible in deep cutoff, Ids = {:.3e}", ids);
+        assert!(
+            ids.abs() < 1e-12,
+            "Should be negligible in deep cutoff, Ids = {:.3e}",
+            ids
+        );
         assert_eq!(m.region(0.0, -15.0), MosRegion::Cutoff);
     }
 
@@ -410,8 +416,7 @@ mod tests {
         let m = make_default_transistor();
         // Vgs = -10V (gate well below source), Vds = -10V
         let ids = m.ids(-10.0, -10.0);
-        assert!(ids > 0.0,
-            "Should conduct, Ids = {:.3e}", ids);
+        assert!(ids > 0.0, "Should conduct, Ids = {:.3e}", ids);
     }
 
     #[test]
@@ -431,11 +436,14 @@ mod tests {
     #[test]
     fn ids_increases_with_gate_overdrive() {
         let m = make_default_transistor();
-        let ids_low = m.ids(-5.0, -10.0);  // Vsg = 5, Vov = 2
+        let ids_low = m.ids(-5.0, -10.0); // Vsg = 5, Vov = 2
         let ids_high = m.ids(-10.0, -10.0); // Vsg = 10, Vov = 7
-        assert!(ids_high > ids_low,
+        assert!(
+            ids_high > ids_low,
             "More overdrive should give more current: {:.3e} vs {:.3e}",
-            ids_low, ids_high);
+            ids_low,
+            ids_high
+        );
     }
 
     #[test]
@@ -443,12 +451,15 @@ mod tests {
         // In saturation: Ids ~ (Vsg - Vth)^2
         // If we double overdrive, current should quadruple (approx)
         let m = PmosLevel1::with_params(1e-5, 3.0, 0.0, 1e-14, 10e-6, 10e-6);
-        let ids_vov2 = m.ids_pmos(5.0, 15.0, 0.0);  // Vov = 2
-        let ids_vov4 = m.ids_pmos(7.0, 15.0, 0.0);  // Vov = 4
+        let ids_vov2 = m.ids_pmos(5.0, 15.0, 0.0); // Vov = 2
+        let ids_vov4 = m.ids_pmos(7.0, 15.0, 0.0); // Vov = 4
         let ratio = ids_vov4 / ids_vov2;
         // (4/2)^2 = 4
-        assert!((ratio - 4.0).abs() < 0.1,
-            "Square-law ratio = {:.2}, expected 4.0", ratio);
+        assert!(
+            (ratio - 4.0).abs() < 0.1,
+            "Square-law ratio = {:.2}, expected 4.0",
+            ratio
+        );
     }
 
     #[test]
@@ -457,8 +468,11 @@ mod tests {
         // With subthreshold model, gm is not exactly zero but negligibly small
         // At Vgs=0, Vsg=0, device is deeply below threshold (Vth~3V)
         let gm = m.gm(0.0, -15.0);
-        assert!(gm.abs() < 1e-12,
-            "gm should be negligible in deep cutoff, got {:.3e}", gm);
+        assert!(
+            gm.abs() < 1e-12,
+            "gm should be negligible in deep cutoff, got {:.3e}",
+            gm
+        );
     }
 
     #[test]
@@ -483,8 +497,7 @@ mod tests {
     fn gds_zero_when_lambda_zero() {
         let m = PmosLevel1::with_params(1e-5, 3.0, 0.0, 1e-14, 10e-6, 10e-6);
         let gds = m.gds_pmos(10.0, 15.0); // saturation, Vsb=0
-        assert!((gds - 0.0).abs() < 1e-15,
-            "gds should be zero without CLM");
+        assert!((gds - 0.0).abs() < 1e-15, "gds should be zero without CLM");
     }
 
     #[test]
@@ -497,8 +510,11 @@ mod tests {
         let ids_wide = wide.ids(-10.0, -15.0);
 
         let ratio = ids_wide / ids_narrow;
-        assert!((ratio - 2.0).abs() < 0.1,
-            "2x wider should give 2x current, ratio = {:.2}", ratio);
+        assert!(
+            (ratio - 2.0).abs() < 0.1,
+            "2x wider should give 2x current, ratio = {:.2}",
+            ratio
+        );
     }
 
     #[test]
@@ -540,16 +556,27 @@ mod tests {
         let vth_10 = m.vth_effective(10.0, 0.0);
 
         // Body effect: |Vth| increases with |Vsb|
-        assert!(vth_5 > vth_0,
-            "Vth should increase with Vsb: Vth(0)={:.3}, Vth(5)={:.3}", vth_0, vth_5);
-        assert!(vth_10 > vth_5,
-            "Vth should increase monotonically: Vth(5)={:.3}, Vth(10)={:.3}", vth_5, vth_10);
+        assert!(
+            vth_5 > vth_0,
+            "Vth should increase with Vsb: Vth(0)={:.3}, Vth(5)={:.3}",
+            vth_0,
+            vth_5
+        );
+        assert!(
+            vth_10 > vth_5,
+            "Vth should increase monotonically: Vth(5)={:.3}, Vth(10)={:.3}",
+            vth_5,
+            vth_10
+        );
 
         // Magnitude: delta_vth ~ gamma * (sqrt(phi_b + Vsb) - sqrt(phi_b))
         // For gamma~0.37, phi_b~0.54, Vsb=10: delta ~ 0.37*(sqrt(10.54)-sqrt(0.54)) ~ 0.93V
         let delta = vth_10 - vth_0;
-        assert!(delta > 0.3 && delta < 2.0,
-            "Body effect delta = {:.3}V for Vsb=10V", delta);
+        assert!(
+            delta > 0.3 && delta < 2.0,
+            "Body effect delta = {:.3}V for Vsb=10V",
+            delta
+        );
     }
 
     #[test]
@@ -558,8 +585,7 @@ mod tests {
         // gamma=0 by default in with_params
         let vth_0 = m.vth_effective(0.0, 0.0);
         let vth_10 = m.vth_effective(10.0, 0.0);
-        assert!((vth_0 - vth_10).abs() < 1e-15,
-            "No body effect when gamma=0");
+        assert!((vth_0 - vth_10).abs() < 1e-15, "No body effect when gamma=0");
     }
 
     #[test]
@@ -568,8 +594,12 @@ mod tests {
         // Same gate overdrive, but non-zero Vsb increases Vth -> less current
         let ids_0 = m.ids_pmos(10.0, 10.0, 0.0);
         let ids_5 = m.ids_pmos(10.0, 10.0, 5.0);
-        assert!(ids_0 > ids_5,
-            "Body effect should reduce Ids: {:.3e} > {:.3e}", ids_0, ids_5);
+        assert!(
+            ids_0 > ids_5,
+            "Body effect should reduce Ids: {:.3e} > {:.3e}",
+            ids_0,
+            ids_5
+        );
     }
 
     // -- Subthreshold tests (Alpha-1) --
@@ -582,9 +612,12 @@ mod tests {
         assert!(ids > 0.0, "Subthreshold current should be > 0");
         // But much smaller than above-threshold
         let ids_above = m.ids_pmos(5.0, 10.0, 0.0);
-        assert!(ids < ids_above * 0.01,
+        assert!(
+            ids < ids_above * 0.01,
             "Subthreshold current ({:.3e}) should be << above-threshold ({:.3e})",
-            ids, ids_above);
+            ids,
+            ids_above
+        );
     }
 
     #[test]
@@ -600,8 +633,11 @@ mod tests {
         if ids1 > 1e-30 {
             let ratio = ids2 / ids1;
             // Should be roughly one decade per subthreshold swing
-            assert!(ratio > 3.0 && ratio < 100.0,
-                "Subthreshold slope ratio = {:.1} for 80mV step", ratio);
+            assert!(
+                ratio > 3.0 && ratio < 100.0,
+                "Subthreshold slope ratio = {:.1} for 80mV step",
+                ratio
+            );
         }
     }
 
@@ -610,8 +646,11 @@ mod tests {
         let m = make_default_transistor();
         // At Vsd=0, drain factor = 1 - exp(0) = 0, so no current
         let ids = m.ids_pmos(2.0, 0.0, 0.0);
-        assert!(ids.abs() < 1e-20,
-            "Subthreshold current should be zero at Vsd=0, got {:.3e}", ids);
+        assert!(
+            ids.abs() < 1e-20,
+            "Subthreshold current should be zero at Vsd=0, got {:.3e}",
+            ids
+        );
     }
 
     #[test]
@@ -627,9 +666,13 @@ mod tests {
         // Should be within ~10x of each other at 10mV from threshold
         if ids_below > 1e-30 {
             let ratio = ids_above / ids_below;
-            assert!(ratio > 0.1 && ratio < 100.0,
+            assert!(
+                ratio > 0.1 && ratio < 100.0,
                 "Current should be roughly continuous at Vth: below={:.3e}, above={:.3e}, ratio={:.1}",
-                ids_below, ids_above, ratio);
+                ids_below,
+                ids_above,
+                ratio
+            );
         }
     }
 
@@ -642,9 +685,12 @@ mod tests {
         let vth_high_vsd = m.vth_effective(0.0, 15.0);
 
         // DIBL reduces threshold with increasing |Vds|
-        assert!(vth_high_vsd < vth_low_vsd,
+        assert!(
+            vth_high_vsd < vth_low_vsd,
             "DIBL should reduce Vth: Vth(Vsd=1)={:.4}, Vth(Vsd=15)={:.4}",
-            vth_low_vsd, vth_high_vsd);
+            vth_low_vsd,
+            vth_high_vsd
+        );
 
         // Small effect for 10um process (eta ~ 0.005)
         let delta = vth_low_vsd - vth_high_vsd;
@@ -666,8 +712,12 @@ mod tests {
         // Above threshold should match square law exactly (no vsat)
         let ids = m.ids_pmos(5.0, 15.0, 0.0); // Vov=2, saturation
         let expected = 0.5 * 1e-5 * 4.0 * (1.0 + 0.02 * 15.0);
-        assert!((ids - expected).abs() / expected < 1e-6,
-            "ids={:.6e}, expected={:.6e}", ids, expected);
+        assert!(
+            (ids - expected).abs() / expected < 1e-6,
+            "ids={:.6e}, expected={:.6e}",
+            ids,
+            expected
+        );
     }
 
     // -- Velocity saturation tests (Alpha-2) --
@@ -677,23 +727,32 @@ mod tests {
         let m = PmosLevel1::with_params(1e-5, 3.0, 0.02, 1e-14, 10e-6, 10e-6);
         // v_sat = 0 in with_params, so vdsat should equal vov
         let vdsat = m.vdsat_effective(5.0);
-        assert!((vdsat - 5.0).abs() < 1e-10,
-            "Vdsat should equal Vov when v_sat=0, got {:.3}", vdsat);
+        assert!(
+            (vdsat - 5.0).abs() < 1e-10,
+            "Vdsat should equal Vov when v_sat=0, got {:.3}",
+            vdsat
+        );
     }
 
     #[test]
     fn vdsat_limited_by_velocity_saturation() {
         let m = make_default_transistor(); // has v_sat = 8e6 cm/s
-        // For 10um channel, E_sat = v_sat/mu = 8e6/175 ~ 45714 V/cm
-        // Vdsat_vsat = E_sat * L = 45714 * 10e-4 = 45.7V
-        // With Vov=7V: Vdsat_eff = 7 * 45.7 / (7 + 45.7) ~ 6.07V
+                                           // For 10um channel, E_sat = v_sat/mu = 8e6/175 ~ 45714 V/cm
+                                           // Vdsat_vsat = E_sat * L = 45714 * 10e-4 = 45.7V
+                                           // With Vov=7V: Vdsat_eff = 7 * 45.7 / (7 + 45.7) ~ 6.07V
         let vdsat = m.vdsat_effective(7.0);
         // Should be slightly less than Vov=7 due to velocity saturation
-        assert!(vdsat < 7.0,
-            "Vdsat ({:.3}) should be less than Vov (7.0) with v_sat enabled", vdsat);
+        assert!(
+            vdsat < 7.0,
+            "Vdsat ({:.3}) should be less than Vov (7.0) with v_sat enabled",
+            vdsat
+        );
         // But not drastically different for 10um channel (long channel)
-        assert!(vdsat > 5.0,
-            "Vdsat ({:.3}) should still be close to Vov for 10um", vdsat);
+        assert!(
+            vdsat > 5.0,
+            "Vdsat ({:.3}) should still be close to Vov for 10um",
+            vdsat
+        );
     }
 
     #[test]
@@ -709,9 +768,12 @@ mod tests {
         let ids_without = m_no_vsat.ids_pmos(10.0, 15.0, 0.0);
 
         // With velocity saturation, current should be slightly less
-        assert!(ids_with <= ids_without,
+        assert!(
+            ids_with <= ids_without,
             "Vsat should reduce Ids: with={:.3e}, without={:.3e}",
-            ids_with, ids_without);
+            ids_with,
+            ids_without
+        );
     }
 
     #[test]
@@ -728,9 +790,12 @@ mod tests {
         let vdsat_short = m_short.vdsat_effective(7.0);
         let reduction_short = 1.0 - vdsat_short / 7.0;
 
-        assert!(reduction_short > reduction_long,
+        assert!(
+            reduction_short > reduction_long,
             "Shorter channel should show more v_sat reduction: short={:.3}, long={:.3}",
-            reduction_short, reduction_long);
+            reduction_short,
+            reduction_long
+        );
     }
 
     // -- DIBL additional tests (Alpha-2) --
@@ -743,8 +808,11 @@ mod tests {
         let ids_high_vds = m.ids_pmos(3.5, 15.0, 0.0);
 
         // DIBL lowers Vth at high Vds, so more current
-        assert!(ids_high_vds > ids_low_vds,
+        assert!(
+            ids_high_vds > ids_low_vds,
             "DIBL should increase Ids at high Vds: high={:.3e}, low={:.3e}",
-            ids_high_vds, ids_low_vds);
+            ids_high_vds,
+            ids_low_vds
+        );
     }
 }

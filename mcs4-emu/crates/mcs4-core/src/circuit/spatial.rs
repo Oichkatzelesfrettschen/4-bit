@@ -8,8 +8,10 @@
 //! die image, with X increasing rightward and Y increasing downward
 //! (matching image conventions).
 
-use super::bbox_to_geometry::BBox;
-use super::graph::{CircuitGraph, WireSegment, MetalLayer};
+use super::{
+    bbox_to_geometry::BBox,
+    graph::{CircuitGraph, MetalLayer, WireSegment},
+};
 
 /// Known die dimensions for the MCS-4 chip family.
 ///
@@ -185,10 +187,7 @@ pub fn create_wire_segment(
 /// Validate that all spatially-mapped transistors are within die bounds.
 ///
 /// Returns a list of (transistor_id, x, y) for any out-of-bounds devices.
-pub fn validate_positions(
-    graph: &CircuitGraph,
-    coord_sys: &DieCoordinateSystem,
-) -> Vec<(usize, f64, f64)> {
+pub fn validate_positions(graph: &CircuitGraph, coord_sys: &DieCoordinateSystem) -> Vec<(usize, f64, f64)> {
     let mut violations = Vec::new();
     for trans in &graph.transistors {
         if let (Some(x), Some(y)) = (trans.x_center, trans.y_center) {
@@ -301,10 +300,7 @@ mod tests {
         let cs = make_coord_sys_4004();
         let area_mm2 = cs.die_area_mm2();
         // 3.2mm x 2.3mm = 7.36 mm^2
-        assert!(
-            (area_mm2 - 7.36).abs() < 0.01,
-            "4004 die area = {:.2} mm^2", area_mm2
-        );
+        assert!((area_mm2 - 7.36).abs() < 0.01, "4004 die area = {:.2} mm^2", area_mm2);
     }
 
     #[test]
@@ -316,10 +312,7 @@ mod tests {
         graph.add_transistor(n0, n1, n2, TransistorKind::Enhancement, 10e-6, 10e-6);
         graph.add_transistor(n0, n1, n2, TransistorKind::Depletion, 10e-6, 20e-6);
 
-        let bboxes = vec![
-            BBox::new(100, 200, 40, 20),
-            BBox::new(500, 600, 30, 10),
-        ];
+        let bboxes = vec![BBox::new(100, 200, 40, 20), BBox::new(500, 600, 30, 10)];
 
         let cs = make_coord_sys_4004();
         let mapped = assign_transistor_positions(&mut graph, &bboxes, &cs);
@@ -439,11 +432,15 @@ mod tests {
         for die in &[DIE_4001, DIE_4002, DIE_4003, DIE_4004] {
             assert!(
                 die.width_um > 1000.0 && die.width_um < 5000.0,
-                "{} width {} um out of range", die.chip, die.width_um
+                "{} width {} um out of range",
+                die.chip,
+                die.width_um
             );
             assert!(
                 die.height_um > 1000.0 && die.height_um < 5000.0,
-                "{} height {} um out of range", die.chip, die.height_um
+                "{} height {} um out of range",
+                die.chip,
+                die.height_um
             );
         }
     }

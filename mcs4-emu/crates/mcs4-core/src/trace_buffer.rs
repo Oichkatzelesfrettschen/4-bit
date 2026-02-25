@@ -81,13 +81,7 @@ impl TraceBuffer {
     }
 
     /// Record a signal sample with event description
-    pub fn record_with_event(
-        &mut self,
-        name: String,
-        value: u16,
-        width: u8,
-        event: Option<String>,
-    ) {
+    pub fn record_with_event(&mut self, name: String, value: u16, width: u8, event: Option<String>) {
         if !self.enabled || !self.sample_count.is_multiple_of(self.sample_rate) {
             self.sample_count += 1;
             return;
@@ -139,11 +133,7 @@ impl TraceBuffer {
 
     /// Get samples for a specific signal
     pub fn samples_for_signal(&self, name: &str) -> Vec<SignalSample> {
-        self.samples
-            .iter()
-            .filter(|s| s.name == name)
-            .cloned()
-            .collect()
+        self.samples.iter().filter(|s| s.name == name).cloned().collect()
     }
 
     /// Get samples matching a signal pattern (supports wildcards)
@@ -164,11 +154,7 @@ impl TraceBuffer {
 
     /// Get samples with events
     pub fn samples_with_events(&self) -> Vec<SignalSample> {
-        self.samples
-            .iter()
-            .filter(|s| s.event.is_some())
-            .cloned()
-            .collect()
+        self.samples.iter().filter(|s| s.event.is_some()).cloned().collect()
     }
 
     /// Clear all samples
@@ -242,11 +228,7 @@ impl TraceBuffer {
 
     /// Get latest sample for a signal (most recent captured)
     pub fn latest(&self, name: &str) -> Option<SignalSample> {
-        self.samples
-            .iter()
-            .rev()
-            .find(|s| s.name == name)
-            .cloned()
+        self.samples.iter().rev().find(|s| s.name == name).cloned()
     }
 
     /// Get value transitions for a signal (changes over time)
@@ -271,12 +253,7 @@ impl TraceBuffer {
     pub fn events_matching(&self, event: &str) -> Vec<u64> {
         self.samples
             .iter()
-            .filter(|s| {
-                s.event
-                    .as_ref()
-                    .map(|e| e.contains(event))
-                    .unwrap_or(false)
-            })
+            .filter(|s| s.event.as_ref().map(|e| e.contains(event)).unwrap_or(false))
             .map(|s| s.cycle)
             .collect()
     }
@@ -332,12 +309,7 @@ mod tests {
     #[test]
     fn test_record_with_event() {
         let mut buf = TraceBuffer::new();
-        buf.record_with_event(
-            "INT".to_string(),
-            1,
-            1,
-            Some("INT sampled".to_string()),
-        );
+        buf.record_with_event("INT".to_string(), 1, 1, Some("INT sampled".to_string()));
 
         let samples = buf.samples();
         assert_eq!(samples.len(), 1);
@@ -431,19 +403,9 @@ mod tests {
     #[test]
     fn test_events_matching() {
         let mut buf = TraceBuffer::new();
-        buf.record_with_event(
-            "INT".to_string(),
-            1,
-            1,
-            Some("Interrupt at 0x003".to_string()),
-        );
+        buf.record_with_event("INT".to_string(), 1, 1, Some("Interrupt at 0x003".to_string()));
         buf.record("ACC".to_string(), 0x5, 4);
-        buf.record_with_event(
-            "INT".to_string(),
-            0,
-            1,
-            Some("Interrupt cleared".to_string()),
-        );
+        buf.record_with_event("INT".to_string(), 0, 1, Some("Interrupt cleared".to_string()));
 
         let events = buf.events_matching("Interrupt");
         assert_eq!(events.len(), 2);

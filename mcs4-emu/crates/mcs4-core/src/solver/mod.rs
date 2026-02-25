@@ -17,6 +17,8 @@ pub mod convergence;
 pub mod dc_op;
 pub mod event_scheduler;
 pub mod matrix;
+pub mod noise;
+pub mod sensitivity;
 pub mod sparse_matrix;
 pub mod stimulus;
 pub mod transient;
@@ -24,8 +26,10 @@ pub mod transient;
 pub use ac::{AcConfig, AcResult, AcSolver};
 pub use dc_op::{DcOpResult, DcSolver, SolverBackend, SPARSE_THRESHOLD};
 pub use matrix::MnaSystem;
+pub use noise::{NoiseConfig, NoiseResult, TransistorNoise};
+pub use sensitivity::{ParamSensitivityResult, SensitivityParam, SensitivityResult};
 pub use sparse_matrix::SparseMnaSystem;
-pub use stimulus::{PwlSource, PulseSource, Stimulus, Waveform};
+pub use stimulus::{PulseSource, PwlSource, Stimulus, Waveform};
 pub use transient::{TransientConfig, TransientResult, TransientSolver, WaveformPoint};
 
 /// Solver configuration parameters.

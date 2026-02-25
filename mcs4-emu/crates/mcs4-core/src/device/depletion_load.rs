@@ -46,7 +46,14 @@ impl DepletionLoadModel {
 
     /// Create with explicit parameters.
     pub fn with_params(beta: f64, vth_dep: f64, lambda: f64, cg: f64, w: f64, l: f64) -> Self {
-        Self { beta, vth_dep, lambda, cg, w, l }
+        Self {
+            beta,
+            vth_dep,
+            lambda,
+            cg,
+            w,
+            l,
+        }
     }
 
     /// Current through the load for given Vsd (source-drain voltage drop).
@@ -58,12 +65,10 @@ impl DepletionLoadModel {
             0.0
         } else if vsd < self.vth_dep {
             // Triode: Ids = beta * (Vth_dep * Vsd - 0.5 * Vsd^2) * (1 + lambda * Vsd)
-            self.beta * (self.vth_dep * vsd - 0.5 * vsd * vsd)
-                * (1.0 + self.lambda * vsd)
+            self.beta * (self.vth_dep * vsd - 0.5 * vsd * vsd) * (1.0 + self.lambda * vsd)
         } else {
             // Saturation: Ids = 0.5 * beta * Vth_dep^2 * (1 + lambda * Vsd)
-            0.5 * self.beta * self.vth_dep * self.vth_dep
-                * (1.0 + self.lambda * vsd)
+            0.5 * self.beta * self.vth_dep * self.vth_dep * (1.0 + self.lambda * vsd)
         }
     }
 
@@ -129,8 +134,7 @@ mod tests {
     fn always_conducting_at_positive_vsd() {
         let m = make_default_load();
         let ids = m.ids_load(5.0);
-        assert!(ids > 0.0,
-            "Depletion load should always conduct, Ids = {:.3e}", ids);
+        assert!(ids > 0.0, "Depletion load should always conduct, Ids = {:.3e}", ids);
     }
 
     #[test]
@@ -161,15 +165,16 @@ mod tests {
         let ids_15v = m.ids_load(15.0);
         // In saturation, current should be roughly constant (within CLM)
         let ratio = ids_15v / ids_5v;
-        assert!(ratio < 2.0,
-            "Current should roughly saturate, ratio = {:.2}", ratio);
+        assert!(ratio < 2.0, "Current should roughly saturate, ratio = {:.2}", ratio);
     }
 
     #[test]
     fn gm_is_zero() {
         let m = make_default_load();
-        assert!((m.gm(0.0, -10.0) - 0.0).abs() < 1e-15,
-            "Depletion load gm should be zero (gate tied to source)");
+        assert!(
+            (m.gm(0.0, -10.0) - 0.0).abs() < 1e-15,
+            "Depletion load gm should be zero (gate tied to source)"
+        );
     }
 
     #[test]
@@ -184,8 +189,11 @@ mod tests {
         let m = make_default_load();
         let gds_triode = m.gds_load(0.5);
         let gds_sat = m.gds_load(10.0);
-        assert!(gds_triode > gds_sat,
+        assert!(
+            gds_triode > gds_sat,
             "gds in triode ({:.3e}) should exceed saturation ({:.3e})",
-            gds_triode, gds_sat);
+            gds_triode,
+            gds_sat
+        );
     }
 }

@@ -57,11 +57,11 @@ pub struct Transistor {
     pub drain: NodeId,
     pub source: NodeId,
     pub bulk: NodeId,
-    pub width: f64,         // Gate width (um)
-    pub length: f64,        // Gate length (um)
-    pub vth: f64,           // Threshold voltage (V)
-    pub ron: f64,           // On-state resistance (Ohm)
-    pub delay: f64,         // Propagation delay (ns)
+    pub width: f64,  // Gate width (um)
+    pub length: f64, // Gate length (um)
+    pub vth: f64,    // Threshold voltage (V)
+    pub ron: f64,    // On-state resistance (Ohm)
+    pub delay: f64,  // Propagation delay (ns)
 }
 
 impl Transistor {
@@ -82,8 +82,8 @@ pub struct Node {
     pub name: String,
     pub voltage: VoltageLevel,
     pub voltage_prev: VoltageLevel,
-    pub capacitance: f64,              // Total node capacitance (pF)
-    pub is_power_rail: bool,           // VDD or VSS?
+    pub capacitance: f64,    // Total node capacitance (pF)
+    pub is_power_rail: bool, // VDD or VSS?
     pub connected_transistors: Vec<TransistorId>,
 }
 
@@ -226,7 +226,7 @@ impl TransistorSimulator {
         if let Some(node) = self.circuit.nodes.get_mut(&node_id) {
             node.voltage = new_voltage;
         }
-        
+
         // Iteratively evaluate until convergence
         let mut converged = false;
         self.iteration_count = 0;
@@ -269,16 +269,25 @@ impl TransistorSimulator {
 
     /// Evaluate transistor state and propagate changes
     fn _evaluate_transistor(&mut self, trans: &Transistor) {
-        let vgate = self.circuit.nodes.get(&trans.gate)
+        let vgate = self
+            .circuit
+            .nodes
+            .get(&trans.gate)
             .map(|n| n.voltage.as_volt())
             .unwrap_or(0.0);
-        let vsource = self.circuit.nodes.get(&trans.source)
+        let vsource = self
+            .circuit
+            .nodes
+            .get(&trans.source)
             .map(|n| n.voltage.as_volt())
             .unwrap_or(0.0);
 
         // If transistor conducts, propagate source voltage to drain
         if trans.is_conducting(vgate, vsource) {
-            let source_level = self.circuit.nodes.get(&trans.source)
+            let source_level = self
+                .circuit
+                .nodes
+                .get(&trans.source)
                 .map(|n| n.voltage)
                 .unwrap_or(VoltageLevel::Low);
 
@@ -290,7 +299,9 @@ impl TransistorSimulator {
 
     /// Get current voltage of a node
     pub fn node_voltage(&self, node_id: NodeId) -> VoltageLevel {
-        self.circuit.nodes.get(&node_id)
+        self.circuit
+            .nodes
+            .get(&node_id)
             .map(|n| n.voltage)
             .unwrap_or(VoltageLevel::Low)
     }
@@ -320,19 +331,32 @@ mod tests {
 
         circuit.add_transistor(
             TransistorType::Pmos,
-            in_node, out_node, vdd, vdd,
-            10.0, 1.0, -1.0, 20000.0, 50.0,
+            in_node,
+            out_node,
+            vdd,
+            vdd,
+            10.0,
+            1.0,
+            -1.0,
+            20000.0,
+            50.0,
         );
 
         circuit.add_transistor(
             TransistorType::Nmos,
-            in_node, out_node, vss, vss,
-            5.0, 1.0, 1.0, 10000.0, 50.0,
+            in_node,
+            out_node,
+            vss,
+            vss,
+            5.0,
+            1.0,
+            1.0,
+            10000.0,
+            50.0,
         );
 
         (circuit, in_node, out_node)
     }
-
 
     #[test]
     fn test_inverter_low_to_high() {
@@ -460,13 +484,27 @@ mod tests {
         // Two PMOS in parallel to VDD
         circuit.add_transistor(
             TransistorType::Pmos,
-            a_node, out_node, vdd, vdd,
-            10.0, 1.0, -1.0, 20000.0, 50.0,
+            a_node,
+            out_node,
+            vdd,
+            vdd,
+            10.0,
+            1.0,
+            -1.0,
+            20000.0,
+            50.0,
         );
         circuit.add_transistor(
             TransistorType::Pmos,
-            b_node, out_node, vdd, vdd,
-            10.0, 1.0, -1.0, 20000.0, 50.0,
+            b_node,
+            out_node,
+            vdd,
+            vdd,
+            10.0,
+            1.0,
+            -1.0,
+            20000.0,
+            50.0,
         );
 
         let mut sim = TransistorSimulator::new(circuit);
@@ -474,12 +512,20 @@ mod tests {
         // Both inputs low -> both PMOS conduct -> output high
         sim.drive_input(a_node, VoltageLevel::Low);
         sim.drive_input(b_node, VoltageLevel::Low);
-        assert_eq!(sim.node_voltage(out_node), VoltageLevel::High, "Both PMOS low-gate should pull output high");
+        assert_eq!(
+            sim.node_voltage(out_node),
+            VoltageLevel::High,
+            "Both PMOS low-gate should pull output high"
+        );
 
         // One input high -> that PMOS off, other conducts -> output still high
         sim.drive_input(a_node, VoltageLevel::High);
         sim.drive_input(b_node, VoltageLevel::Low);
-        assert_eq!(sim.node_voltage(out_node), VoltageLevel::High, "One PMOS conducting should maintain high output");
+        assert_eq!(
+            sim.node_voltage(out_node),
+            VoltageLevel::High,
+            "One PMOS conducting should maintain high output"
+        );
     }
 
     #[test]
@@ -496,13 +542,27 @@ mod tests {
         // Two NMOS in parallel to VSS
         circuit.add_transistor(
             TransistorType::Nmos,
-            a_node, out_node, vss, vss,
-            5.0, 1.0, 1.0, 10000.0, 50.0,
+            a_node,
+            out_node,
+            vss,
+            vss,
+            5.0,
+            1.0,
+            1.0,
+            10000.0,
+            50.0,
         );
         circuit.add_transistor(
             TransistorType::Nmos,
-            b_node, out_node, vss, vss,
-            5.0, 1.0, 1.0, 10000.0, 50.0,
+            b_node,
+            out_node,
+            vss,
+            vss,
+            5.0,
+            1.0,
+            1.0,
+            10000.0,
+            50.0,
         );
 
         let mut sim = TransistorSimulator::new(circuit);
@@ -537,28 +597,80 @@ mod tests {
         let out_node = circuit.add_node("OUT".to_string(), VoltageLevel::High, 10.0);
 
         // INV1
-        circuit.add_transistor(TransistorType::Pmos, in_node, n1, vdd, vdd, 10.0, 1.0, -1.0, 20000.0, 50.0);
-        circuit.add_transistor(TransistorType::Nmos, in_node, n1, vss, vss, 5.0, 1.0, 1.0, 10000.0, 50.0);
+        circuit.add_transistor(
+            TransistorType::Pmos,
+            in_node,
+            n1,
+            vdd,
+            vdd,
+            10.0,
+            1.0,
+            -1.0,
+            20000.0,
+            50.0,
+        );
+        circuit.add_transistor(
+            TransistorType::Nmos,
+            in_node,
+            n1,
+            vss,
+            vss,
+            5.0,
+            1.0,
+            1.0,
+            10000.0,
+            50.0,
+        );
 
         // INV2
         circuit.add_transistor(TransistorType::Pmos, n1, n2, vdd, vdd, 10.0, 1.0, -1.0, 20000.0, 50.0);
         circuit.add_transistor(TransistorType::Nmos, n1, n2, vss, vss, 5.0, 1.0, 1.0, 10000.0, 50.0);
 
         // INV3
-        circuit.add_transistor(TransistorType::Pmos, n2, out_node, vdd, vdd, 10.0, 1.0, -1.0, 20000.0, 50.0);
-        circuit.add_transistor(TransistorType::Nmos, n2, out_node, vss, vss, 5.0, 1.0, 1.0, 10000.0, 50.0);
+        circuit.add_transistor(
+            TransistorType::Pmos,
+            n2,
+            out_node,
+            vdd,
+            vdd,
+            10.0,
+            1.0,
+            -1.0,
+            20000.0,
+            50.0,
+        );
+        circuit.add_transistor(
+            TransistorType::Nmos,
+            n2,
+            out_node,
+            vss,
+            vss,
+            5.0,
+            1.0,
+            1.0,
+            10000.0,
+            50.0,
+        );
 
         let mut sim = TransistorSimulator::new(circuit);
 
         // Apply low to input: INV1 inverts to High, INV2 inverts to Low, INV3 inverts to High
         sim.drive_input(in_node, VoltageLevel::Low);
         let out_from_low = sim.node_voltage(out_node);
-        assert_eq!(out_from_low, VoltageLevel::High, "Three inverters should invert Low to High");
+        assert_eq!(
+            out_from_low,
+            VoltageLevel::High,
+            "Three inverters should invert Low to High"
+        );
 
         // Apply high to input: INV1 inverts to Low, INV2 inverts to High, INV3 inverts to Low
         sim.drive_input(in_node, VoltageLevel::High);
         let out_from_high = sim.node_voltage(out_node);
-        assert_eq!(out_from_high, VoltageLevel::Low, "Three inverters should invert High to Low");
+        assert_eq!(
+            out_from_high,
+            VoltageLevel::Low,
+            "Three inverters should invert High to Low"
+        );
     }
 
     #[test]
@@ -601,13 +713,27 @@ mod tests {
         for load_id in &[load1, load2, load3] {
             circuit.add_transistor(
                 TransistorType::Pmos,
-                driver, *load_id, vdd, vdd,
-                10.0, 1.0, -1.0, 20000.0, 50.0,
+                driver,
+                *load_id,
+                vdd,
+                vdd,
+                10.0,
+                1.0,
+                -1.0,
+                20000.0,
+                50.0,
             );
             circuit.add_transistor(
                 TransistorType::Nmos,
-                driver, *load_id, vss, vss,
-                5.0, 1.0, 1.0, 10000.0, 50.0,
+                driver,
+                *load_id,
+                vss,
+                vss,
+                5.0,
+                1.0,
+                1.0,
+                10000.0,
+                50.0,
             );
         }
 

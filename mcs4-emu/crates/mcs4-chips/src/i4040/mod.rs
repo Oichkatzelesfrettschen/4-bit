@@ -7,17 +7,16 @@
 //! - Single-level interrupt support
 //! - Halt mode
 
-pub mod registers;
-pub mod interrupt;
 pub mod instruction_decode;
+pub mod interrupt;
+pub mod registers;
 
-pub use registers::Registers;
+pub use instruction_decode::{decode_4040_specific, I4040Instruction, Instruction};
 pub use interrupt::InterruptController;
-pub use instruction_decode::{Instruction, I4040Instruction, decode_4040_specific};
-
 // Note: 4040 uses 4004's ALU (no extensions needed)
-
 use mcs4_bus::prelude::*;
+pub use registers::Registers;
+
 use crate::i4004;
 
 /// Intel 4040 CPU (stub implementation)
@@ -179,7 +178,8 @@ impl I4040 {
         // Sample INT pin and check for interrupt service
         if let Some(int_signal) = &ctrl.int {
             // Get the latest signal value from history
-            let int_state = int_signal.history()
+            let int_state = int_signal
+                .history()
                 .last()
                 .map(|(_, level)| level.is_high())
                 .unwrap_or(false);
@@ -245,7 +245,9 @@ impl I4040 {
         self.decoded_io_op = match self.decoder.get_instruction() {
             Some(i4004::Instruction::Src { .. }) => Some(IoOp::Src),
             Some(i4004::Instruction::Wrm) => Some(IoOp::RamMainWrite),
-            Some(i4004::Instruction::Rdm | i4004::Instruction::Adm | i4004::Instruction::Sbm) => Some(IoOp::RamMainRead),
+            Some(i4004::Instruction::Rdm | i4004::Instruction::Adm | i4004::Instruction::Sbm) => {
+                Some(IoOp::RamMainRead)
+            }
             Some(i4004::Instruction::Wmp) => Some(IoOp::RamPortWrite),
             Some(i4004::Instruction::Wrr) => Some(IoOp::RomPortWrite),
             Some(i4004::Instruction::Rdr) => Some(IoOp::RomPortRead),
@@ -518,7 +520,11 @@ impl I4040 {
             result = true;
         }
 
-        if invert { !result } else { result }
+        if invert {
+            !result
+        } else {
+            result
+        }
     }
 
     /// Execute a 4040-specific instruction
@@ -551,9 +557,9 @@ impl I4040 {
     /// BBS (0x02) - Branch Back from interrupt
     fn execute_bbs(&mut self) {
         // Restore PC from stack (ret_from_interrupt pops SP and sets PC directly)
-        let _ = self.registers.ret_from_interrupt();  // Restores PC, returns saved SRC (unused)
-        // Note: Interrupts remain disabled (disabled by acknowledge() on INT entry)
-        // The ISR must call EIN explicitly to re-enable interrupts
+        let _ = self.registers.ret_from_interrupt(); // Restores PC, returns saved SRC (unused)
+                                                     // Note: Interrupts remain disabled (disabled by acknowledge() on INT entry)
+                                                     // The ISR must call EIN explicitly to re-enable interrupts
         self.pc_modified = true;
     }
 

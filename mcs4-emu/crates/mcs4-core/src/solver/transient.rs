@@ -20,18 +20,14 @@
 //! 5. Optionally adapts dt based on local truncation error
 //! 6. Records waveform data
 
-use crate::circuit::graph::CircuitGraph;
-use crate::circuit::TransistorKind;
-use crate::device::pmos_level1::PmosLevel1;
-use crate::device::depletion_load::DepletionLoadModel;
-use crate::device::DeviceModel;
-use crate::process::ProcessParams;
-
-use super::convergence;
-use super::matrix::MnaSystem;
-use super::sparse_matrix::SparseMnaSystem;
-use super::stimulus::Stimulus;
-use super::dc_op::SPARSE_THRESHOLD;
+use super::{
+    convergence, dc_op::SPARSE_THRESHOLD, matrix::MnaSystem, sparse_matrix::SparseMnaSystem, stimulus::Stimulus,
+};
+use crate::{
+    circuit::{graph::CircuitGraph, TransistorKind},
+    device::{depletion_load::DepletionLoadModel, pmos_level1::PmosLevel1, DeviceModel},
+    process::ProcessParams,
+};
 
 /// Configuration for transient simulation.
 #[derive(Clone, Debug)]
@@ -179,7 +175,9 @@ impl TransientSolver {
     ///
     /// Returns (node_index, geq, ieq) for each node with capacitance.
     pub fn companion_models(&self, graph: &CircuitGraph) -> Vec<(usize, f64, f64)> {
-        graph.nodes.iter()
+        graph
+            .nodes
+            .iter()
             .enumerate()
             .filter(|(_, n)| !n.is_fixed && n.capacitance > 0.0)
             .map(|(i, n)| {
@@ -210,7 +208,9 @@ impl TransientSolver {
         let num_nodes = graph.nodes.len();
 
         // Build list of free node indices
-        let free_indices: Vec<usize> = graph.nodes.iter()
+        let free_indices: Vec<usize> = graph
+            .nodes
+            .iter()
             .enumerate()
             .filter(|(_, n)| !n.is_fixed)
             .map(|(i, _)| i)
@@ -230,15 +230,13 @@ impl TransientSolver {
         }
 
         // Create device models for each transistor
-        let models: Vec<Box<dyn DeviceModel>> = graph.transistors.iter()
+        let models: Vec<Box<dyn DeviceModel>> = graph
+            .transistors
+            .iter()
             .map(|t| -> Box<dyn DeviceModel> {
                 match t.kind {
-                    TransistorKind::Enhancement => {
-                        Box::new(PmosLevel1::new(process, t.w, t.l))
-                    }
-                    TransistorKind::Depletion => {
-                        Box::new(DepletionLoadModel::new(process, t.w, t.l))
-                    }
+                    TransistorKind::Enhancement => Box::new(PmosLevel1::new(process, t.w, t.l)),
+                    TransistorKind::Depletion => Box::new(DepletionLoadModel::new(process, t.w, t.l)),
                 }
             })
             .collect();
@@ -293,7 +291,9 @@ impl TransientSolver {
             }
 
             // Build fixed voltage lookup (power rails + stimulus-driven nodes)
-            let fixed_voltages: Vec<Option<f64>> = graph.nodes.iter()
+            let fixed_voltages: Vec<Option<f64>> = graph
+                .nodes
+                .iter()
                 .enumerate()
                 .map(|(i, n)| {
                     if n.is_fixed {
@@ -305,7 +305,9 @@ impl TransientSolver {
                 .collect();
 
             // Recompute free indices (stimulus nodes may now be fixed)
-            let step_free: Vec<usize> = graph.nodes.iter()
+            let step_free: Vec<usize> = graph
+                .nodes
+                .iter()
                 .enumerate()
                 .filter(|(_, n)| !n.is_fixed)
                 .map(|(i, _)| i)
@@ -327,9 +329,7 @@ impl TransientSolver {
 
             // Create MNA backend
             let use_sparse = step_num_free >= SPARSE_THRESHOLD;
-            let mut v_free: Vec<f64> = step_free.iter()
-                .map(|&i| graph.nodes[i].voltage)
-                .collect();
+            let mut v_free: Vec<f64> = step_free.iter().map(|&i| graph.nodes[i].voltage).collect();
             let mut v_prev_nr = v_free.clone();
 
             // Newton-Raphson loop for this time point
@@ -354,14 +354,27 @@ impl TransientSolver {
                     mna.add_gmin(config.gmin);
 
                     // Stamp transistors
-                    stamp_transistors(&models, graph, &v_all, &mut StampTarget::Sparse(&mut mna), &fixed_voltages);
+                    stamp_transistors(
+                        &models,
+                        graph,
+                        &v_all,
+                        &mut StampTarget::Sparse(&mut mna),
+                        &fixed_voltages,
+                    );
 
                     // Stamp capacitor companions
-                    stamp_companions(&companions, &node_to_row, &mut StampTarget::Sparse(&mut mna), &fixed_voltages);
+                    stamp_companions(
+                        &companions,
+                        &node_to_row,
+                        &mut StampTarget::Sparse(&mut mna),
+                        &fixed_voltages,
+                    );
 
                     let sol = match mna.solve() {
                         Some(s) => s,
-                        None => { break; }
+                        None => {
+                            break;
+                        }
                     };
 
                     v_prev_nr.copy_from_slice(&v_free);
@@ -375,14 +388,27 @@ impl TransientSolver {
                     mna.add_gmin(config.gmin);
 
                     // Stamp transistors
-                    stamp_transistors(&models, graph, &v_all, &mut StampTarget::Dense(&mut mna), &fixed_voltages);
+                    stamp_transistors(
+                        &models,
+                        graph,
+                        &v_all,
+                        &mut StampTarget::Dense(&mut mna),
+                        &fixed_voltages,
+                    );
 
                     // Stamp capacitor companions
-                    stamp_companions(&companions, &node_to_row, &mut StampTarget::Dense(&mut mna), &fixed_voltages);
+                    stamp_companions(
+                        &companions,
+                        &node_to_row,
+                        &mut StampTarget::Dense(&mut mna),
+                        &fixed_voltages,
+                    );
 
                     let sol = match mna.solve() {
                         Some(s) => s.as_slice().to_vec(),
-                        None => { break; }
+                        None => {
+                            break;
+                        }
                     };
 
                     v_prev_nr.copy_from_slice(&v_free);
@@ -466,12 +492,26 @@ fn stamp_transistors(
 
         match target {
             StampTarget::Dense(mna) => mna.stamp_transistor(
-                trans.gate, source_idx, drain_idx,
-                ids, gm, gds_val, vgs, vds, fixed_voltages,
+                trans.gate,
+                source_idx,
+                drain_idx,
+                ids,
+                gm,
+                gds_val,
+                vgs,
+                vds,
+                fixed_voltages,
             ),
             StampTarget::Sparse(mna) => mna.stamp_transistor(
-                trans.gate, source_idx, drain_idx,
-                ids, gm, gds_val, vgs, vds, fixed_voltages,
+                trans.gate,
+                source_idx,
+                drain_idx,
+                ids,
+                gm,
+                gds_val,
+                vgs,
+                vds,
+                fixed_voltages,
             ),
         }
     }
@@ -524,7 +564,11 @@ fn estimate_lte(graph: &CircuitGraph, ts: &TransientSolver, dt: f64) -> f64 {
         max_lte = max_lte.max(lte);
     }
     // Scale by dt to make it dimensionally consistent
-    if dt > 0.0 { max_lte } else { 0.0 }
+    if dt > 0.0 {
+        max_lte
+    } else {
+        0.0
+    }
 }
 
 #[cfg(test)]
@@ -552,7 +596,7 @@ mod tests {
     fn geq_correct() {
         let ts = TransientSolver::new(1e-9, 3); // 1ns step
         let geq = ts.capacitor_geq(1e-12); // 1pF
-        // G_eq = 1e-12 / 1e-9 = 1e-3 S (1k ohm)
+                                           // G_eq = 1e-12 / 1e-9 = 1e-3 S (1k ohm)
         assert!((geq - 1e-3).abs() < 1e-15);
     }
 
@@ -664,7 +708,8 @@ mod tests {
         assert!(
             v_out_end < v_out_start,
             "Output should charge toward VDD (negative): start={:.2}V, end={:.2}V",
-            v_out_start, v_out_end
+            v_out_start,
+            v_out_end
         );
 
         // Voltage should be monotonically decreasing (toward VDD)
@@ -672,7 +717,8 @@ mod tests {
             assert!(
                 w[1].voltages[output] <= w[0].voltages[output] + 0.1,
                 "Output should charge monotonically: {:.3}V -> {:.3}V",
-                w[0].voltages[output], w[1].voltages[output]
+                w[0].voltages[output],
+                w[1].voltages[output]
             );
         }
     }
@@ -716,7 +762,8 @@ mod tests {
             assert!(
                 w[1].time > w[0].time,
                 "Times should increase: {} -> {}",
-                w[0].time, w[1].time
+                w[0].time,
+                w[1].time
             );
         }
     }
@@ -753,14 +800,12 @@ mod tests {
         // Step input from 0V to -15V at t=5ns
         let stim = Stimulus {
             node_idx: input,
-            waveform: super::super::stimulus::Waveform::Pwl(
-                super::super::stimulus::PwlSource::new(&[
-                    (0.0, 0.0),
-                    (4.9e-9, 0.0),
-                    (5.1e-9, -15.0),
-                    (50e-9, -15.0),
-                ]),
-            ),
+            waveform: super::super::stimulus::Waveform::Pwl(super::super::stimulus::PwlSource::new(&[
+                (0.0, 0.0),
+                (4.9e-9, 0.0),
+                (5.1e-9, -15.0),
+                (50e-9, -15.0),
+            ])),
         };
 
         let process = ProcessParams::default();
@@ -784,7 +829,8 @@ mod tests {
         assert!(
             v_out_final > v_out_initial,
             "Output should move toward VSS: initial={:.2}V, final={:.2}V",
-            v_out_initial, v_out_final
+            v_out_initial,
+            v_out_final
         );
     }
 
@@ -829,14 +875,12 @@ mod tests {
         // Step input to VDD at t=5ns
         let stim = Stimulus {
             node_idx: input,
-            waveform: super::super::stimulus::Waveform::Pwl(
-                super::super::stimulus::PwlSource::new(&[
-                    (0.0, 0.0),
-                    (4.9e-9, 0.0),
-                    (5.1e-9, -15.0),
-                    (50e-9, -15.0),
-                ]),
-            ),
+            waveform: super::super::stimulus::Waveform::Pwl(super::super::stimulus::PwlSource::new(&[
+                (0.0, 0.0),
+                (4.9e-9, 0.0),
+                (5.1e-9, -15.0),
+                (50e-9, -15.0),
+            ])),
         };
 
         let process = ProcessParams::default();
@@ -853,10 +897,7 @@ mod tests {
 
         assert!(result.steps > 2, "Should take multiple steps, got {}", result.steps);
         assert!(result.t_final > 0.0, "Should advance time");
-        assert!(
-            result.waveforms.len() >= 3,
-            "Should have multiple waveform points"
-        );
+        assert!(result.waveforms.len() >= 3, "Should have multiple waveform points");
     }
 
     /// Test waveform point structure.
@@ -881,7 +922,8 @@ mod tests {
 
         for wp in &result.waveforms {
             assert_eq!(
-                wp.voltages.len(), 3,
+                wp.voltages.len(),
+                3,
                 "Each waveform point should have voltages for all nodes"
             );
         }

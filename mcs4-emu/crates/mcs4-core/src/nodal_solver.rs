@@ -10,9 +10,9 @@ use std::collections::HashMap;
 pub struct NodalNode {
     pub id: u32,
     pub name: String,
-    pub voltage: f64,           // Voltage in Volts
-    pub capacitance: f64,       // Capacitance in pF
-    pub is_fixed: bool,         // VDD/VSS/driven nodes are fixed
+    pub voltage: f64,     // Voltage in Volts
+    pub capacitance: f64, // Capacitance in pF
+    pub is_fixed: bool,   // VDD/VSS/driven nodes are fixed
 }
 
 /// Conductance matrix element
@@ -20,7 +20,7 @@ pub struct NodalNode {
 pub struct Conductance {
     pub from_node: u32,
     pub to_node: u32,
-    pub value: f64,             // Conductance in Siemens
+    pub value: f64, // Conductance in Siemens
 }
 
 /// Nodal analysis solver
@@ -28,7 +28,7 @@ pub struct Conductance {
 pub struct NodalSolver {
     nodes: HashMap<u32, NodalNode>,
     conductances: Vec<Conductance>,
-    dt: f64,                    // Time step for integration
+    dt: f64, // Time step for integration
     max_iterations: u32,
 }
 
@@ -37,20 +37,23 @@ impl NodalSolver {
         NodalSolver {
             nodes: HashMap::new(),
             conductances: Vec::new(),
-            dt: 0.001,           // 1ms default time step
+            dt: 0.001, // 1ms default time step
             max_iterations: 100,
         }
     }
 
     /// Add a node to the nodal network
     pub fn add_node(&mut self, id: u32, name: String, voltage: f64, cap: f64, is_fixed: bool) {
-        self.nodes.insert(id, NodalNode {
+        self.nodes.insert(
             id,
-            name,
-            voltage,
-            capacitance: cap,
-            is_fixed,
-        });
+            NodalNode {
+                id,
+                name,
+                voltage,
+                capacitance: cap,
+                is_fixed,
+            },
+        );
     }
 
     /// Add conductance between two nodes
@@ -146,9 +149,7 @@ impl NodalSolver {
 
     /// Get current voltage of a node
     pub fn voltage(&self, node_id: u32) -> f64 {
-        self.nodes.get(&node_id)
-            .map(|n| n.voltage)
-            .unwrap_or(0.0)
+        self.nodes.get(&node_id).map(|n| n.voltage).unwrap_or(0.0)
     }
 
     /// Set voltage of a driven node
@@ -178,13 +179,13 @@ mod tests {
         let vss_id = 1u32;
         let rc_id = 2u32;
 
-        solver.add_node(vdd_id, "VDD".to_string(), 5.0, 0.0, true);   // Fixed power rail
-        solver.add_node(vss_id, "VSS".to_string(), 0.0, 0.0, true);   // Fixed ground
-        solver.add_node(rc_id, "RC".to_string(), 0.0, 10.0, false);   // Node with capacitance
+        solver.add_node(vdd_id, "VDD".to_string(), 5.0, 0.0, true); // Fixed power rail
+        solver.add_node(vss_id, "VSS".to_string(), 0.0, 0.0, true); // Fixed ground
+        solver.add_node(rc_id, "RC".to_string(), 0.0, 10.0, false); // Node with capacitance
 
         // Conductances: VDD-RC (resistor), RC-VSS (resistor)
         // R1 = 10kΩ = 0.0001 S, R2 = 10kΩ = 0.0001 S
-        let conductance = 0.0001;  // 1/10000
+        let conductance = 0.0001; // 1/10000
         solver.add_conductance(vdd_id, rc_id, conductance);
         solver.add_conductance(rc_id, vss_id, conductance);
 
@@ -215,7 +216,7 @@ mod tests {
         solver.add_node(node2_id, "N2".to_string(), 0.0, 10.0, false);
 
         // Couple nodes through high-impedance conductance
-        let coupling_conductance = 0.00001;  // High impedance
+        let coupling_conductance = 0.00001; // High impedance
         solver.add_conductance(node1_id, node2_id, coupling_conductance);
 
         // Solve
@@ -244,7 +245,7 @@ mod tests {
         solver.add_node(mid_id, "MID".to_string(), 0.0, 5.0, false);
 
         // Equal resistors: R1 = R2 = 10kΩ
-        let g = 0.0001;  // 1/10000
+        let g = 0.0001; // 1/10000
         solver.add_conductance(vdd_id, mid_id, g);
         solver.add_conductance(mid_id, vss_id, g);
 
@@ -367,7 +368,11 @@ mod tests {
 
         // Voltage should still settle to ~2.5V (voltage divider)
         let v_mid = solver.voltage(mid_id);
-        assert!(v_mid > 2.0 && v_mid < 3.0, "High-Z divider should settle to ~2.5V, got {}", v_mid);
+        assert!(
+            v_mid > 2.0 && v_mid < 3.0,
+            "High-Z divider should settle to ~2.5V, got {}",
+            v_mid
+        );
     }
 
     #[test]
@@ -382,7 +387,11 @@ mod tests {
         assert!(converged, "Isolated capacitive node should converge trivially");
 
         // Voltage should remain unchanged (no driving force)
-        assert_eq!(solver.voltage(isolated_id), 2.5, "Isolated node voltage should be stable");
+        assert_eq!(
+            solver.voltage(isolated_id),
+            2.5,
+            "Isolated node voltage should be stable"
+        );
     }
 
     #[test]
@@ -397,10 +406,10 @@ mod tests {
         let n4_id = 4u32;
 
         solver.add_node(center_id, "CENTER".to_string(), 0.0, 5.0, false);
-        solver.add_node(n1_id, "N1".to_string(), 5.0, 0.0, true);  // 5V source
-        solver.add_node(n2_id, "N2".to_string(), 2.5, 0.0, true);  // 2.5V source
-        solver.add_node(n3_id, "N3".to_string(), 0.0, 0.0, true);  // Ground
-        solver.add_node(n4_id, "N4".to_string(), 3.0, 0.0, true);  // 3V source
+        solver.add_node(n1_id, "N1".to_string(), 5.0, 0.0, true); // 5V source
+        solver.add_node(n2_id, "N2".to_string(), 2.5, 0.0, true); // 2.5V source
+        solver.add_node(n3_id, "N3".to_string(), 0.0, 0.0, true); // Ground
+        solver.add_node(n4_id, "N4".to_string(), 3.0, 0.0, true); // 3V source
 
         // Connect all outer nodes to center through equal conductances
         let g = 0.0001;
@@ -415,8 +424,12 @@ mod tests {
         // Center should settle to average of outer voltages
         let center_v = solver.voltage(center_id);
         let expected_avg = (5.0 + 2.5 + 0.0 + 3.0) / 4.0; // 2.625V
-        assert!((center_v - expected_avg).abs() < 0.5,
-                "Center should approach average ({:.2}V), got {:.2}V", expected_avg, center_v);
+        assert!(
+            (center_v - expected_avg).abs() < 0.5,
+            "Center should approach average ({:.2}V), got {:.2}V",
+            expected_avg,
+            center_v
+        );
     }
 
     #[test]
@@ -444,7 +457,11 @@ mod tests {
 
         // Mid should be at V = VDD * R2 / (R1 + R2) = 5 * 10k / 40k = 1.25V
         let v_mid = solver.voltage(mid_id);
-        assert!((v_mid - 1.25).abs() < 0.3, "Asymmetric divider voltage should be ~1.25V, got {:.2}V", v_mid);
+        assert!(
+            (v_mid - 1.25).abs() < 0.3,
+            "Asymmetric divider voltage should be ~1.25V, got {:.2}V",
+            v_mid
+        );
     }
 
     #[test]
@@ -482,7 +499,11 @@ mod tests {
 
         // OUT should converge to intermediate value
         let v_out = solver.voltage(out_id);
-        assert!(v_out > 0.0 && v_out < 5.0, "Bridge output should be intermediate, got {:.2}V", v_out);
+        assert!(
+            v_out > 0.0 && v_out < 5.0,
+            "Bridge output should be intermediate, got {:.2}V",
+            v_out
+        );
     }
 
     #[test]
@@ -500,7 +521,7 @@ mod tests {
         solver.add_node(cap_node_id, "CAP_NODE".to_string(), 0.0, 10000.0, false);
 
         // Connect with high conductance (low resistance)
-        let g = 0.001;  // 1kΩ
+        let g = 0.001; // 1kΩ
         solver.add_conductance(vdd_id, cap_node_id, g);
         solver.add_conductance(cap_node_id, vss_id, g);
 
@@ -509,7 +530,11 @@ mod tests {
 
         // Should settle to ~2.5V (voltage divider)
         let v_cap = solver.voltage(cap_node_id);
-        assert!((v_cap - 2.5).abs() < 0.5, "High-cap node should settle to ~2.5V, got {:.2}V", v_cap);
+        assert!(
+            (v_cap - 2.5).abs() < 0.5,
+            "High-cap node should settle to ~2.5V, got {:.2}V",
+            v_cap
+        );
     }
 
     #[test]

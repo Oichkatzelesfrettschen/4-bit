@@ -54,9 +54,11 @@ pub fn identify_power_rails(netlist: &NetlistV1) -> PowerRails {
 
 /// Check if a node is referenced by any transistor in the netlist.
 pub fn node_has_connections(netlist: &NetlistV1, node_id: i32) -> bool {
-    netlist.devices.transistors.iter().any(|t| {
-        t.gate_node == node_id || t.a_node == node_id || t.b_node == node_id
-    })
+    netlist
+        .devices
+        .transistors
+        .iter()
+        .any(|t| t.gate_node == node_id || t.a_node == node_id || t.b_node == node_id)
 }
 
 #[cfg(test)]
@@ -68,15 +70,13 @@ mod tests {
         NetlistV1 {
             chip: "test".to_string(),
             devices: Devices {
-                transistors: vec![
-                    Transistor {
-                        id: Some(0),
-                        kind: Some("pmos_candidate".to_string()),
-                        gate_node: 10,
-                        a_node: 1,
-                        b_node: 2,
-                    },
-                ],
+                transistors: vec![Transistor {
+                    id: Some(0),
+                    kind: Some("pmos_candidate".to_string()),
+                    gate_node: 10,
+                    a_node: 1,
+                    b_node: 2,
+                }],
             },
             signals: vec![
                 Signal {

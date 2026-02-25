@@ -50,11 +50,7 @@ pub fn bbox_to_wl(bbox: &BBox, scale_um_per_px: f64) -> (f64, f64) {
     let h_um = f64::from(bbox.h) * scale_um_per_px;
 
     // Gate width is the longer dimension, length is the shorter
-    let (width, length) = if w_um >= h_um {
-        (h_um, w_um)
-    } else {
-        (w_um, h_um)
-    };
+    let (width, length) = if w_um >= h_um { (h_um, w_um) } else { (w_um, h_um) };
 
     // Clamp minimum to process minimum feature size
     let width_m = width.max(1.0) * 1e-6;
@@ -119,8 +115,11 @@ mod tests {
     fn calibrate_scale_4003() {
         // 4003 die: ~2.3mm wide, typical image ~2300px wide
         let scale = calibrate_scale(2.3, 2300);
-        assert!((scale - 1.0).abs() < 0.01,
-            "Scale should be ~1.0 um/px, got {:.3}", scale);
+        assert!(
+            (scale - 1.0).abs() < 0.01,
+            "Scale should be ~1.0 um/px, got {:.3}",
+            scale
+        );
     }
 
     #[test]

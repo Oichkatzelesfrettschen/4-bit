@@ -15,9 +15,13 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use std::simd::{Simd, Mask};
-use std::simd::cmp::{SimdPartialEq, SimdPartialOrd};
-use std::time::Instant;
+use std::{
+    simd::{
+        cmp::{SimdPartialEq, SimdPartialOrd},
+        Mask, Simd,
+    },
+    time::Instant,
+};
 
 // Type aliases for 16-lane SIMD
 type U8x16 = Simd<u8, 16>;
@@ -57,10 +61,8 @@ impl PerfMetrics {
     /// Compute throughput metrics after execution
     pub fn finalize(&mut self) {
         if self.exec_time_ns > 0 {
-            self.throughput_insn_per_ns =
-                (self.instructions as f64) / (self.exec_time_ns as f64);
-            self.throughput_cycles_per_ns =
-                (self.cycles as f64) / (self.exec_time_ns as f64);
+            self.throughput_insn_per_ns = (self.instructions as f64) / (self.exec_time_ns as f64);
+            self.throughput_cycles_per_ns = (self.cycles as f64) / (self.exec_time_ns as f64);
         }
     }
 
@@ -185,8 +187,7 @@ impl SimdCluster {
         let start = Instant::now();
         self.execute_cycles(n);
         let elapsed = start.elapsed();
-        let elapsed_ns = elapsed.as_secs() as u128 * 1_000_000_000
-            + elapsed.subsec_nanos() as u128;
+        let elapsed_ns = elapsed.as_secs() as u128 * 1_000_000_000 + elapsed.subsec_nanos() as u128;
         self.last_bench_time_ns = elapsed_ns;
         self.update_metrics(elapsed_ns);
         elapsed_ns
@@ -224,7 +225,7 @@ impl SimdCluster {
         let mut opcodes = [0u8; 16];
 
         for i in 0..16 {
-            let pc = (pcs[i] & 0xFFF) as usize;  // 12-bit mask
+            let pc = (pcs[i] & 0xFFF) as usize; // 12-bit mask
             opcodes[i] = self.roms[i][pc];
         }
 
@@ -492,7 +493,7 @@ mod tests {
         let mut cluster = SimdCluster::new();
 
         // Load identical ROM to all lanes
-        let rom = vec![0x00; 100];  // NOP loop
+        let rom = vec![0x00; 100]; // NOP loop
         for i in 0..16 {
             cluster.load_rom(i, &rom);
         }
@@ -513,9 +514,9 @@ mod tests {
 
         // Load same ROM to all lanes
         let rom = vec![
-            0x00, 0x00, 0x00, 0x00,  // NOP x4
-            0x60, 0x61, 0x62, 0x63,  // INC R0, INC R1, INC R2, INC R3
-            0x00, 0x00, 0x00, 0x00,  // NOP x4
+            0x00, 0x00, 0x00, 0x00, // NOP x4
+            0x60, 0x61, 0x62, 0x63, // INC R0, INC R1, INC R2, INC R3
+            0x00, 0x00, 0x00, 0x00, // NOP x4
         ];
 
         for i in 0..16 {
@@ -538,9 +539,9 @@ mod tests {
 
         // Simple program: INC R0, INC R1
         let rom = vec![
-            0x60,  // INC R0
-            0x61,  // INC R1
-            0x00,  // NOP
+            0x60, // INC R0
+            0x61, // INC R1
+            0x00, // NOP
         ];
 
         for i in 0..16 {
@@ -600,7 +601,7 @@ mod tests {
         let mut cluster = SimdCluster::new();
 
         // Load ROM and execute
-        let rom = vec![0x60; 100];  // INC R0 loop
+        let rom = vec![0x60; 100]; // INC R0 loop
         for i in 0..16 {
             cluster.load_rom(i, &rom);
         }
@@ -626,7 +627,7 @@ mod tests {
         let mut cluster = SimdCluster::new();
 
         // Load NOP-only ROM
-        let rom = vec![0x00; 1000];  // 1000 NOPs
+        let rom = vec![0x00; 1000]; // 1000 NOPs
         for i in 0..16 {
             cluster.load_rom(i, &rom);
         }
@@ -651,9 +652,9 @@ mod tests {
 
         // Load register manipulation ROM
         let rom = vec![
-            0x60, 0x61, 0x62, 0x63,  // INC R0, R1, R2, R3
-            0x70, 0x71, 0x72, 0x73,  // DEC R0, R1, R2, R3
-            0x00,  // NOP
+            0x60, 0x61, 0x62, 0x63, // INC R0, R1, R2, R3
+            0x70, 0x71, 0x72, 0x73, // DEC R0, R1, R2, R3
+            0x00, // NOP
         ];
 
         for i in 0..16 {
@@ -719,7 +720,7 @@ mod tests {
         let mut cluster = SimdCluster::new();
 
         // Create deterministic ROM
-        let rom = vec![0x60, 0x61, 0x62, 0x63, 0x00];  // INC R0-3, NOP
+        let rom = vec![0x60, 0x61, 0x62, 0x63, 0x00]; // INC R0-3, NOP
         for i in 0..16 {
             cluster.load_rom(i, &rom);
         }
@@ -740,11 +741,13 @@ mod tests {
             max_time > 0 && min_time > 0,
             "Benchmark execution should measurable time"
         );
-        if min_time > 1000 {  // Only enforce consistency for larger time scales
+        if min_time > 1000 {
+            // Only enforce consistency for larger time scales
             assert!(
                 max_time <= min_time * 5,
                 "Benchmark timing should be mostly consistent across runs (max {} vs min {})",
-                max_time, min_time
+                max_time,
+                min_time
             );
         }
     }

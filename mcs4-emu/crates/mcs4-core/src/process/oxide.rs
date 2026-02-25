@@ -52,8 +52,12 @@ mod tests {
         let c = cox(80e-9);
         // C_ox = 3.9 * 8.854e-12 / 80e-9 = ~4.32e-4 F/m^2
         let expected = 3.9 * 8.854_187_812_8e-12 / 80e-9;
-        assert!((c - expected).abs() / expected < 1e-6,
-            "C_ox(80nm) = {:.4e} F/m^2, expected {:.4e}", c, expected);
+        assert!(
+            (c - expected).abs() / expected < 1e-6,
+            "C_ox(80nm) = {:.4e} F/m^2, expected {:.4e}",
+            c,
+            expected
+        );
     }
 
     #[test]
@@ -74,8 +78,7 @@ mod tests {
         let l = 10e-6; // 10um
         let cg = cgate(c_ox, w, l);
         // Should be in the femtofarad range (1e-15 to 1e-13)
-        assert!(cg > 1e-16 && cg < 1e-12,
-            "C_gate(10um x 10um) = {:.3e} F", cg);
+        assert!(cg > 1e-16 && cg < 1e-12, "C_gate(10um x 10um) = {:.3e} F", cg);
     }
 
     #[test]
@@ -91,8 +94,11 @@ mod tests {
     fn max_voltage_80nm_oxide() {
         let v_max = max_gate_voltage(80e-9);
         // 1e9 * 80e-9 / 2 = 40V (with 2x safety margin)
-        assert!((v_max - 40.0).abs() < 0.1,
-            "Max gate voltage = {:.1} V for 80nm oxide", v_max);
+        assert!(
+            (v_max - 40.0).abs() < 0.1,
+            "Max gate voltage = {:.1} V for 80nm oxide",
+            v_max
+        );
         // MCS-4 uses -15V, well within safe range
         assert!(v_max.abs() > 15.0);
     }

@@ -9,13 +9,17 @@
 
 pub mod arch_map;
 pub mod bbox_to_geometry;
+pub mod clock_tree;
 pub mod graph;
 pub mod netlist_bridge;
 pub mod parasitic_extract;
 pub mod power_rail_id;
 pub mod spatial;
+pub mod timing_analysis;
 
 pub use arch_map::{ArchBlock, ArchMapping, BlockAnnotation, BlockStats};
+pub use clock_tree::{ClockSpec, ClockTreeResult};
 pub use graph::{AnalogNode, AnalogTransistor, CircuitGraph, MetalLayer, TransistorKind, WireSegment};
 pub use parasitic_extract::{LayerParams, NetParasitics, SegmentParasitics};
 pub use spatial::{DieCoordinateSystem, DieDimensions};
+pub use timing_analysis::{TimingConfig, TimingResult};

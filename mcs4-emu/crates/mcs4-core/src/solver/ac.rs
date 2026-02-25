@@ -13,12 +13,11 @@
 
 use std::f64::consts::PI;
 
-use crate::circuit::graph::CircuitGraph;
-use crate::circuit::TransistorKind;
-use crate::device::pmos_level1::PmosLevel1;
-use crate::device::pmos_level3::PmosLevel3;
-use crate::device::DeviceModel;
-use crate::process::ProcessParams;
+use crate::{
+    circuit::{graph::CircuitGraph, TransistorKind},
+    device::{pmos_level1::PmosLevel1, pmos_level3::PmosLevel3, DeviceModel},
+    process::ProcessParams,
+};
 
 /// Configuration for AC analysis.
 #[derive(Clone, Debug)]
@@ -242,10 +241,17 @@ impl AcSolver {
             // Ids = gm * vgs + gds * vds (small-signal)
             // = gm * (vg - vs) + gds * (vd - vs)
             stamp_conductance(
-                &mut g_matrix, n,
-                g_row, s_row, d_row,
-                gm, gds,
-                &fixed_voltages, t.gate, source_idx, drain_idx,
+                &mut g_matrix,
+                n,
+                g_row,
+                s_row,
+                d_row,
+                gm,
+                gds,
+                &fixed_voltages,
+                t.gate,
+                source_idx,
+                drain_idx,
             );
 
             // Stamp capacitances from Meyer model + junctions
@@ -390,13 +396,7 @@ fn stamp_conductance(
 }
 
 /// Stamp a capacitor with a given value between two nodes into the C matrix.
-fn stamp_capacitor(
-    c: &mut [f64],
-    n: usize,
-    row_a: Option<usize>,
-    row_b: Option<usize>,
-    cap: f64,
-) {
+fn stamp_capacitor(c: &mut [f64], n: usize, row_a: Option<usize>, row_b: Option<usize>, cap: f64) {
     // Standard 2-terminal element stamp:
     // [+C  -C] * d/dt [Va]
     // [-C  +C]        [Vb]
@@ -511,8 +511,11 @@ mod tests {
         assert!((freqs.last().copied().expect("non-empty") - 1e6).abs() / 1e6 < 0.01);
 
         // Should have about 6 decades * 10 points + 1 = 61 points
-        assert!(freqs.len() >= 50 && freqs.len() <= 80,
-            "Expected ~61 freq points, got {}", freqs.len());
+        assert!(
+            freqs.len() >= 50 && freqs.len() <= 80,
+            "Expected ~61 freq points, got {}",
+            freqs.len()
+        );
 
         // Monotonically increasing
         for w in freqs.windows(2) {
@@ -624,11 +627,7 @@ mod tests {
     fn solve_real_system_identity() {
         // Test the linear solver with a known system
         let n = 3;
-        let mut a = vec![
-            2.0, 1.0, 0.0,
-            1.0, 3.0, 1.0,
-            0.0, 1.0, 2.0,
-        ];
+        let mut a = vec![2.0, 1.0, 0.0, 1.0, 3.0, 1.0, 0.0, 1.0, 2.0];
         let mut b = vec![1.0, 2.0, 3.0];
 
         let x = solve_real_system(n, &mut a, &mut b);
@@ -636,11 +635,7 @@ mod tests {
         let x = x.expect("solution exists");
 
         // Verify: A * x = b (reconstruct original A)
-        let a_orig = vec![
-            2.0, 1.0, 0.0,
-            1.0, 3.0, 1.0,
-            0.0, 1.0, 2.0,
-        ];
+        let a_orig = vec![2.0, 1.0, 0.0, 1.0, 3.0, 1.0, 0.0, 1.0, 2.0];
         for i in 0..n {
             let mut sum = 0.0;
             for j in 0..n {
@@ -649,7 +644,10 @@ mod tests {
             let b_orig = [1.0, 2.0, 3.0];
             assert!(
                 (sum - b_orig[i]).abs() < 1e-10,
-                "Row {}: Ax={:.6}, b={:.6}", i, sum, b_orig[i]
+                "Row {}: Ax={:.6}, b={:.6}",
+                i,
+                sum,
+                b_orig[i]
             );
         }
     }
@@ -709,7 +707,8 @@ mod tests {
         assert!(
             low_freq_mag >= high_freq_mag * 0.9, // allow small tolerance
             "Low-freq mag ({:.3e}) should be >= high-freq mag ({:.3e})",
-            low_freq_mag, high_freq_mag
+            low_freq_mag,
+            high_freq_mag
         );
     }
 }

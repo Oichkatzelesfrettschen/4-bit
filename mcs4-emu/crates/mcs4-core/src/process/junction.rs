@@ -17,11 +17,7 @@ use super::silicon::{built_in_potential, EPSILON_SI, Q};
 /// * `mj` - grading coefficient (0.5 for abrupt, 0.33 for linear graded)
 pub fn cj(cj0: f64, v_r: f64, phi_bi: f64, mj: f64) -> f64 {
     // Clamp to avoid forward-bias singularity (limit to 80% of phi_bi)
-    let v_eff = if v_r < -0.8 * phi_bi {
-        -0.8 * phi_bi
-    } else {
-        v_r
-    };
+    let v_eff = if v_r < -0.8 * phi_bi { -0.8 * phi_bi } else { v_r };
     cj0 / (1.0 + v_eff / phi_bi).powf(mj)
 }
 
@@ -75,8 +71,7 @@ mod tests {
         let cj0_val = 1e-4; // F/m^2
         let phi_bi = 0.7;
         let c = cj(cj0_val, 0.0, phi_bi, 0.5);
-        assert!((c - cj0_val).abs() / cj0_val < 1e-6,
-            "C_j(0) should equal C_j0");
+        assert!((c - cj0_val).abs() / cj0_val < 1e-6, "C_j(0) should equal C_j0");
     }
 
     #[test]
@@ -109,15 +104,14 @@ mod tests {
         // p+ source: ~1e19 cm^-3, n-substrate: ~1e15 cm^-3
         let c = cj0(1e19, 1e15, 300.0);
         // Should be in the range 1e-5 to 1e-3 F/m^2
-        assert!(c > 1e-5 && c < 1e-2,
-            "C_j0 = {:.3e} F/m^2", c);
+        assert!(c > 1e-5 && c < 1e-2, "C_j0 = {:.3e} F/m^2", c);
     }
 
     #[test]
     fn junction_cap_total_scales_with_area() {
         let cj_val = 1e-4; // F/m^2
-        let area_small = 10e-6 * 5e-6;  // 10um x 5um
-        let area_large = 20e-6 * 5e-6;  // 20um x 5um
+        let area_small = 10e-6 * 5e-6; // 10um x 5um
+        let area_large = 20e-6 * 5e-6; // 20um x 5um
 
         let c_small = junction_cap_total(cj_val, area_small);
         let c_large = junction_cap_total(cj_val, area_large);

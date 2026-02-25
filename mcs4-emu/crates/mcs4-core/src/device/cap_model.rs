@@ -12,8 +12,7 @@
 //! boundaries by computing total charge Q as a function of terminal voltages,
 //! then deriving capacitances as partial derivatives C = dQ/dV.
 
-use crate::device::MosRegion;
-use crate::process::oxide;
+use crate::{device::MosRegion, process::oxide};
 
 /// Meyer model capacitances for a single operating point.
 #[derive(Clone, Copy, Debug)]
@@ -144,12 +143,7 @@ impl MeyerParams {
     /// Compute capacitances from the operating region and voltages.
     ///
     /// Convenience wrapper that takes the MosRegion enum directly.
-    pub fn capacitances_for_region(
-        &self,
-        region: MosRegion,
-        vsg: f64,
-        vsd: f64,
-    ) -> MeyerCapacitances {
+    pub fn capacitances_for_region(&self, region: MosRegion, vsg: f64, vsd: f64) -> MeyerCapacitances {
         match region {
             MosRegion::Cutoff => MeyerCapacitances {
                 cgs: self.cov_gs,
@@ -197,7 +191,8 @@ mod tests {
         let c_int = p.c_intrinsic();
         assert!(
             c_int > 1e-15 && c_int < 1e-12,
-            "C_int = {:.3e}, expected tens-of-fF range", c_int
+            "C_int = {:.3e}, expected tens-of-fF range",
+            c_int
         );
     }
 
@@ -237,10 +232,7 @@ mod tests {
             (caps.cgd - p.cov_gd).abs() < 1e-20,
             "Cgd should be just overlap in saturation"
         );
-        assert!(
-            caps.cgb.abs() < 1e-20,
-            "Cgb should be zero in saturation"
-        );
+        assert!(caps.cgb.abs() < 1e-20, "Cgb should be zero in saturation");
     }
 
     #[test]
@@ -257,7 +249,8 @@ mod tests {
         assert!(
             (caps.cgs - expected).abs() / expected < 0.01,
             "Cgs at Vsd=0 should be Cov + 0.5*Cint: got {:.3e}, expected {:.3e}",
-            caps.cgs, expected
+            caps.cgs,
+            expected
         );
 
         // By symmetry, Cgs = Cgd when Vsd=0 (overlap caps are equal)
@@ -317,7 +310,8 @@ mod tests {
         assert!(
             max_jump / p.c_intrinsic() < 0.05,
             "Total gate cap should be continuous, max jump = {:.3e}, Cint = {:.3e}",
-            max_jump, p.c_intrinsic()
+            max_jump,
+            p.c_intrinsic()
         );
     }
 
@@ -379,11 +373,14 @@ mod tests {
             assert!(
                 intrinsic_sum <= c_int * 1.001, // small tolerance
                 "Intrinsic Cgs+Cgd should not exceed Cint: {:.3e} > {:.3e} at Vsd={:.2}",
-                intrinsic_sum, c_int, vsd
+                intrinsic_sum,
+                c_int,
+                vsd
             );
             assert!(
                 intrinsic_sum > 0.0,
-                "Intrinsic capacitances should be positive at Vsd={:.2}", vsd
+                "Intrinsic capacitances should be positive at Vsd={:.2}",
+                vsd
             );
         }
     }

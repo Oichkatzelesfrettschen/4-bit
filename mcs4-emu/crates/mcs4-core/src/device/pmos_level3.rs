@@ -9,10 +9,12 @@
 //! instead of a single static Cgate, the Level 3 model computes
 //! Cgs/Cgd/Cgb as functions of the operating region and terminal voltages.
 
-use super::cap_model::{MeyerCapacitances, MeyerParams};
-use super::parasitic::TransistorParasitics;
-use super::pmos_level1::PmosLevel1;
-use super::{DeviceModel, MosRegion};
+use super::{
+    cap_model::{MeyerCapacitances, MeyerParams},
+    parasitic::TransistorParasitics,
+    pmos_level1::PmosLevel1,
+    DeviceModel, MosRegion,
+};
 use crate::process::ProcessParams;
 
 /// Overlap length for gate-source and gate-drain overlap capacitance (m).
@@ -82,13 +84,7 @@ impl PmosLevel3 {
     pub fn new(process: &ProcessParams, w: f64, l: f64) -> Self {
         let dc = PmosLevel1::new(process, w, l);
 
-        let meyer = MeyerParams::new(
-            process.t_ox,
-            w,
-            l,
-            dc.vth_mag,
-            OVERLAP_LENGTH,
-        );
+        let meyer = MeyerParams::new(process.t_ox, w, l, dc.vth_mag, OVERLAP_LENGTH);
 
         let parasitics = TransistorParasitics::from_geometry(process, w, l);
 
@@ -100,13 +96,7 @@ impl PmosLevel3 {
     /// Useful when upgrading a simulation from Level 1 to Level 3
     /// without recomputing DC parameters.
     pub fn from_level1(dc: PmosLevel1, process: &ProcessParams) -> Self {
-        let meyer = MeyerParams::new(
-            process.t_ox,
-            dc.w,
-            dc.l,
-            dc.vth_mag,
-            OVERLAP_LENGTH,
-        );
+        let meyer = MeyerParams::new(process.t_ox, dc.w, dc.l, dc.vth_mag, OVERLAP_LENGTH);
 
         let parasitics = TransistorParasitics::from_geometry(process, dc.w, dc.l);
 
@@ -193,24 +183,20 @@ mod tests {
         let ids_l1 = l1.ids(-10.0, -15.0);
         assert!(
             (ids_l3 - ids_l1).abs() < 1e-20,
-            "Level 3 Ids should match Level 1: L3={:.3e}, L1={:.3e}", ids_l3, ids_l1
+            "Level 3 Ids should match Level 1: L3={:.3e}, L1={:.3e}",
+            ids_l3,
+            ids_l1
         );
 
         // Transconductance
         let gm_l3 = l3.gm(-10.0, -15.0);
         let gm_l1 = l1.gm(-10.0, -15.0);
-        assert!(
-            (gm_l3 - gm_l1).abs() < 1e-20,
-            "Level 3 gm should match Level 1"
-        );
+        assert!((gm_l3 - gm_l1).abs() < 1e-20, "Level 3 gm should match Level 1");
 
         // Output conductance
         let gds_l3 = l3.gds(-10.0, -15.0);
         let gds_l1 = l1.gds(-10.0, -15.0);
-        assert!(
-            (gds_l3 - gds_l1).abs() < 1e-20,
-            "Level 3 gds should match Level 1"
-        );
+        assert!((gds_l3 - gds_l1).abs() < 1e-20, "Level 3 gds should match Level 1");
 
         // Region
         assert_eq!(l3.region(-10.0, -15.0), l1.region(-10.0, -15.0));
@@ -228,7 +214,9 @@ mod tests {
         let ids_l1 = l1.ids(0.0, -15.0);
         assert!(
             (ids_l3 - ids_l1).abs() < 1e-25,
-            "Cutoff current should match: L3={:.3e}, L1={:.3e}", ids_l3, ids_l1
+            "Cutoff current should match: L3={:.3e}, L1={:.3e}",
+            ids_l3,
+            ids_l1
         );
     }
 
@@ -240,10 +228,18 @@ mod tests {
         // Vsg=0, Vsd=5: deeply OFF
         let caps = l3.capacitances_at(0.0, 5.0);
 
-        assert!(caps.cgb > caps.cgs,
-            "Cgb should dominate in cutoff: Cgb={:.3e}, Cgs={:.3e}", caps.cgb, caps.cgs);
-        assert!(caps.cgb > caps.cgd,
-            "Cgb should dominate in cutoff: Cgb={:.3e}, Cgd={:.3e}", caps.cgb, caps.cgd);
+        assert!(
+            caps.cgb > caps.cgs,
+            "Cgb should dominate in cutoff: Cgb={:.3e}, Cgs={:.3e}",
+            caps.cgb,
+            caps.cgs
+        );
+        assert!(
+            caps.cgb > caps.cgd,
+            "Cgb should dominate in cutoff: Cgb={:.3e}, Cgd={:.3e}",
+            caps.cgb,
+            caps.cgd
+        );
     }
 
     #[test]
@@ -271,7 +267,8 @@ mod tests {
         assert!(
             (caps.cgs - caps.cgd).abs() / caps.cgs < 0.01,
             "Cgs and Cgd should be equal at Vsd=0: Cgs={:.3e}, Cgd={:.3e}",
-            caps.cgs, caps.cgd
+            caps.cgs,
+            caps.cgd
         );
     }
 
@@ -297,7 +294,8 @@ mod tests {
         assert!(
             caps.total_drain() > caps.cgd,
             "Total drain cap should include junction: total={:.3e}, Cgd={:.3e}",
-            caps.total_drain(), caps.cgd
+            caps.total_drain(),
+            caps.cgd
         );
     }
 
@@ -330,7 +328,8 @@ mod tests {
         assert!(
             (ids_direct - ids_from).abs() < 1e-20,
             "from_level1 should give same DC: direct={:.3e}, from={:.3e}",
-            ids_direct, ids_from
+            ids_direct,
+            ids_from
         );
     }
 
@@ -345,10 +344,7 @@ mod tests {
         // Should be approximately Cox*W*L + 2*Cov
         let c_int = l3.meyer.c_intrinsic();
         let c_total = c_int + l3.meyer.cov_gs + l3.meyer.cov_gd;
-        assert!(
-            (cg - c_total).abs() < 1e-20,
-            "cgate() should be Cint + Cov_gs + Cov_gd"
-        );
+        assert!((cg - c_total).abs() < 1e-20, "cgate() should be Cint + Cov_gs + Cov_gd");
     }
 
     // -- Geometry scaling --

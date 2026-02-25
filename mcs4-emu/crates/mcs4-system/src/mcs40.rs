@@ -357,7 +357,11 @@ mod tests {
             sys.step();
         }
 
-        eprintln!("\nFinal: ACC=0x{:02X}, RAM[0][1]=0x{:02X}", sys.cpu.alu.accumulator(), sys.ram[0].read_direct(0, 1));
+        eprintln!(
+            "\nFinal: ACC=0x{:02X}, RAM[0][1]=0x{:02X}",
+            sys.cpu.alu.accumulator(),
+            sys.ram[0].read_direct(0, 1)
+        );
     }
 
     #[test]
@@ -574,7 +578,11 @@ mod tests {
 
         // Run EIN
         sys.run_cycles(1);
-        eprintln!("After EIN: PC=0x{:03X}, int_enabled={}", sys.pc(), sys.cpu.intr.enabled());
+        eprintln!(
+            "After EIN: PC=0x{:03X}, int_enabled={}",
+            sys.pc(),
+            sys.cpu.intr.enabled()
+        );
 
         // Raise INT before next instruction
         sys.control
@@ -591,13 +599,19 @@ mod tests {
             let int_enabled = sys.cpu.intr.enabled();
             let int_pending = sys.cpu.intr.pending();
 
-            eprintln!("Phase {:2}: {:?} PC=0x{:03X} int_en={} int_pend={}",
-                      phase_num, phase, pc, int_enabled, int_pending);
+            eprintln!(
+                "Phase {:2}: {:?} PC=0x{:03X} int_en={} int_pend={}",
+                phase_num, phase, pc, int_enabled, int_pending
+            );
             sys.step();
         }
 
-        eprintln!("\nFinal: PC=0x{:03X}, int_enabled={}, int_pending={}",
-                  sys.pc(), sys.cpu.intr.enabled(), sys.cpu.intr.pending());
+        eprintln!(
+            "\nFinal: PC=0x{:03X}, int_enabled={}, int_pending={}",
+            sys.pc(),
+            sys.cpu.intr.enabled(),
+            sys.cpu.intr.pending()
+        );
     }
 
     #[test]

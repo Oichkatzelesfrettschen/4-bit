@@ -36,7 +36,8 @@ impl PwlSource {
             assert!(
                 w[1].0 > w[0].0,
                 "PWL times must be monotonically increasing: {} >= {}",
-                w[0].0, w[1].0
+                w[0].0,
+                w[1].0
             );
         }
         let points = pairs
@@ -56,10 +57,7 @@ impl PwlSource {
             return self.points[last].voltage;
         }
         // Binary search for the interval containing t
-        let idx = self
-            .points
-            .partition_point(|p| p.time <= t)
-            .saturating_sub(1);
+        let idx = self.points.partition_point(|p| p.time <= t).saturating_sub(1);
         let p0 = &self.points[idx];
         let p1 = &self.points[idx + 1];
         let frac = (t - p0.time) / (p1.time - p0.time);
@@ -344,7 +342,9 @@ mod tests {
             assert!(
                 !(phi1_active && phi2_active),
                 "Clock overlap at t={:.3e}: phi1={:.1}V, phi2={:.1}V",
-                t, v1, v2
+                t,
+                v1,
+                v2
             );
         }
     }

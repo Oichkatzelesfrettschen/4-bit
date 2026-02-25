@@ -32,6 +32,7 @@ pub mod process;
 pub mod signal;
 pub mod simulator;
 pub mod solver;
+pub mod tcad;
 pub mod timing;
 pub mod trace_buffer;
 pub mod transistor;

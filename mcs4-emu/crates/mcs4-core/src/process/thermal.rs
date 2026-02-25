@@ -4,8 +4,7 @@
 //! and intrinsic carrier concentration into a single interface for
 //! simulation sweeps across the MCS-4 operating envelope (0-70 deg C).
 
-use super::mobility;
-use super::silicon;
+use super::{mobility, silicon};
 
 /// Temperature coefficient of threshold voltage (V/K).
 ///
@@ -37,14 +36,7 @@ pub fn vth_at_temp(vth_ref: f64, temp_k: f64, temp_ref: f64) -> f64 {
 /// * `t_ox` - oxide thickness (m)
 /// * `theta` - mobility degradation coefficient
 /// * `temp_k` - temperature (K)
-pub fn mu_eff_at_temp(
-    mu_0_ref: f64,
-    vgs: f64,
-    vth: f64,
-    t_ox: f64,
-    theta: f64,
-    temp_k: f64,
-) -> f64 {
+pub fn mu_eff_at_temp(mu_0_ref: f64, vgs: f64, vth: f64, t_ox: f64, theta: f64, temp_k: f64) -> f64 {
     let mu_0_t = mobility::mu_temperature(mu_0_ref, temp_k);
     mobility::mu_eff_pmos(mu_0_t, vgs, vth, t_ox, theta)
 }
@@ -75,11 +67,17 @@ mod tests {
         let vth_300 = -3.0;
         let vth_350 = vth_at_temp(vth_300, 350.0, 300.0);
         // Should shift positive (less negative) by 50K * 2mV/K = +100mV
-        assert!(vth_350 > vth_300,
-            "Vth should become less negative: Vth(350K) = {:.3} V", vth_350);
+        assert!(
+            vth_350 > vth_300,
+            "Vth should become less negative: Vth(350K) = {:.3} V",
+            vth_350
+        );
         let shift = vth_350 - vth_300;
-        assert!((shift - 0.1).abs() < 0.001,
-            "Shift should be ~100mV, got {:.1} mV", shift * 1000.0);
+        assert!(
+            (shift - 0.1).abs() < 0.001,
+            "Shift should be ~100mV, got {:.1} mV",
+            shift * 1000.0
+        );
     }
 
     #[test]
@@ -99,9 +97,12 @@ mod tests {
         let mu_300 = mu_eff_at_temp(175.0, vgs, vth, t_ox, theta, 300.0);
         let mu_350 = mu_eff_at_temp(175.0, vgs, vth, t_ox, theta, 350.0);
 
-        assert!(mu_300 > mu_350,
+        assert!(
+            mu_300 > mu_350,
             "Mobility should decrease: mu(300K)={:.1}, mu(350K)={:.1}",
-            mu_300, mu_350);
+            mu_300,
+            mu_350
+        );
     }
 
     #[test]

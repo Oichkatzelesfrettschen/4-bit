@@ -55,8 +55,7 @@ pub fn parallel_plate_cap(epsilon: f64, d: f64) -> f64 {
 /// * `dielectric_d` - dielectric thickness to substrate (m)
 pub fn wire_capacitance(width: f64, length: f64, thickness: f64, dielectric_d: f64) -> f64 {
     let c_pp = parallel_plate_cap(EPSILON_OX, dielectric_d);
-    let c_fringe_per_m = EPSILON_OX / std::f64::consts::PI
-        * (1.0 + thickness / dielectric_d).ln();
+    let c_fringe_per_m = EPSILON_OX / std::f64::consts::PI * (1.0 + thickness / dielectric_d).ln();
     c_pp * width * length + c_fringe_per_m * 2.0 * length
 }
 
@@ -103,16 +102,17 @@ mod tests {
         // 100um long, 10um wide poly wire
         let r = wire_resistance(R_SHEET_POLY, 100.0, 10.0);
         // 40 * 10 = 400 ohm
-        assert!((r - 400.0).abs() < 0.1,
-            "R_poly = {:.1} ohm for 100um/10um", r);
+        assert!((r - 400.0).abs() < 0.1, "R_poly = {:.1} ohm for 100um/10um", r);
     }
 
     #[test]
     fn wire_resistance_metal_much_lower() {
         let r_poly = wire_resistance(R_SHEET_POLY, 100.0, 10.0);
         let r_metal = wire_resistance(R_SHEET_METAL, 100.0, 10.0);
-        assert!(r_metal < r_poly / 100.0,
-            "Metal should be >100x lower resistance than poly");
+        assert!(
+            r_metal < r_poly / 100.0,
+            "Metal should be >100x lower resistance than poly"
+        );
     }
 
     #[test]
@@ -133,8 +133,11 @@ mod tests {
     fn elmore_delay_lumped() {
         // 1k ohm, 1pF -> 1ns
         let tau = elmore_delay(1e3, 1e-12, false);
-        assert!((tau - 1e-9).abs() < 1e-12,
-            "Elmore delay = {:.3e} s, expected 1e-9 s", tau);
+        assert!(
+            (tau - 1e-9).abs() < 1e-12,
+            "Elmore delay = {:.3e} s, expected 1e-9 s",
+            tau
+        );
     }
 
     #[test]
@@ -156,7 +159,10 @@ mod tests {
         // R1=1k, C1=1pF, R2=1k, C2=1pF
         // tau = R1*(C1+C2) + R2*C2 = 1k*2p + 1k*1p = 3ns
         let tau = elmore_delay_chain(&[(1e3, 1e-12), (1e3, 1e-12)]);
-        assert!((tau - 3e-9).abs() < 1e-12,
-            "Elmore chain delay = {:.3e} s, expected 3e-9 s", tau);
+        assert!(
+            (tau - 3e-9).abs() < 1e-12,
+            "Elmore chain delay = {:.3e} s, expected 3e-9 s",
+            tau
+        );
     }
 }

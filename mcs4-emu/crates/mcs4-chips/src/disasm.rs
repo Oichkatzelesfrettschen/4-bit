@@ -1,10 +1,11 @@
 //! Disassembler for 4004 and 4040 CPUs
-//! 
+//!
 //! Provides instruction-level disassembly with symbol tables, automatic
 //! jump target labeling, and formatted listing output.
 
-use crate::i4004::instruction_decode::{Instruction, InstructionDecoder};
 use std::collections::{HashMap, HashSet};
+
+use crate::i4004::instruction_decode::{Instruction, InstructionDecoder};
 
 /// CPU type selector for disassembly
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -195,16 +196,11 @@ impl Disassembler {
             // Conditional Jump (2-byte)
             Instruction::Jcn { condition, addr_low } => {
                 let cond_str = self.format_condition(condition);
-                (
-                    "JCN".to_string(),
-                    format!("{}, 0x{:03X}", cond_str, addr_low),
-                )
+                ("JCN".to_string(), format!("{}, 0x{:03X}", cond_str, addr_low))
             }
 
             // Register Pair Operations
-            Instruction::Fim { pair, data } => {
-                ("FIM".to_string(), format!("P{}, 0x{:02X}", pair, data))
-            }
+            Instruction::Fim { pair, data } => ("FIM".to_string(), format!("P{}, 0x{:02X}", pair, data)),
             Instruction::Src { pair } => ("SRC".to_string(), format!("P{}", pair)),
             Instruction::Fin { pair } => ("FIN".to_string(), format!("P{}", pair)),
             Instruction::Jin { pair } => ("JIN".to_string(), format!("P{}", pair)),
@@ -218,9 +214,7 @@ impl Disassembler {
                 let addr = ((addr_high as u16) << 8) | (addr_low as u16);
                 ("JMS".to_string(), format!("0x{:03X}", addr))
             }
-            Instruction::Isz { reg, addr_low } => {
-                ("ISZ".to_string(), format!("R{}, 0x{:02X}", reg, addr_low))
-            }
+            Instruction::Isz { reg, addr_low } => ("ISZ".to_string(), format!("R{}, 0x{:02X}", reg, addr_low)),
 
             // Index Register Operations
             Instruction::Inc { reg } => ("INC".to_string(), format!("R{}", reg)),
@@ -267,31 +261,29 @@ impl Disassembler {
             Instruction::Kbp => ("KBP".to_string(), String::new()),
             Instruction::Dcl => ("DCL".to_string(), String::new()),
 
-            Instruction::Invalid { opcode } => {
-                ("???".to_string(), format!("0x{:02X}", opcode))
-            }
+            Instruction::Invalid { opcode } => ("???".to_string(), format!("0x{:02X}", opcode)),
         }
     }
 
     /// Format JCN condition code
     fn format_condition(&self, condition: u8) -> String {
         match condition {
-            0x0 => "JNT".to_string(),      // Jump if test pin = 0
-            0x1 => "T".to_string(),        // Jump if test pin = 1
-            0x2 => "JNZ".to_string(),      // Jump if accumulator != 0
-            0x3 => "JZ".to_string(),       // Jump if accumulator == 0
-            0x4 => "JNC".to_string(),      // Jump if carry = 0
-            0x5 => "JC".to_string(),       // Jump if carry = 1
-            0x6 => "JZC".to_string(),      // Jump if A==0 or carry = 1
-            0x7 => "JNZ".to_string(),      // Jump if A != 0 and carry = 0
-            0x8 => "T!".to_string(),       // Jump if test pin = 0 (invert)
-            0x9 => "!T".to_string(),       // Jump if test pin = 1 (invert)
-            0xA => "A!".to_string(),       // Jump if A != 0 (invert)
-            0xB => "!A".to_string(),       // Jump if A == 0 (invert)
-            0xC => "C!".to_string(),       // Jump if carry = 0 (invert)
-            0xD => "!C".to_string(),       // Jump if carry = 1 (invert)
-            0xE => "CZ!".to_string(),      // Jump if C==0 and A==0 (invert)
-            0xF => "!ZC".to_string(),      // Jump if A != 0 or carry = 1 (invert)
+            0x0 => "JNT".to_string(), // Jump if test pin = 0
+            0x1 => "T".to_string(),   // Jump if test pin = 1
+            0x2 => "JNZ".to_string(), // Jump if accumulator != 0
+            0x3 => "JZ".to_string(),  // Jump if accumulator == 0
+            0x4 => "JNC".to_string(), // Jump if carry = 0
+            0x5 => "JC".to_string(),  // Jump if carry = 1
+            0x6 => "JZC".to_string(), // Jump if A==0 or carry = 1
+            0x7 => "JNZ".to_string(), // Jump if A != 0 and carry = 0
+            0x8 => "T!".to_string(),  // Jump if test pin = 0 (invert)
+            0x9 => "!T".to_string(),  // Jump if test pin = 1 (invert)
+            0xA => "A!".to_string(),  // Jump if A != 0 (invert)
+            0xB => "!A".to_string(),  // Jump if A == 0 (invert)
+            0xC => "C!".to_string(),  // Jump if carry = 0 (invert)
+            0xD => "!C".to_string(),  // Jump if carry = 1 (invert)
+            0xE => "CZ!".to_string(), // Jump if C==0 and A==0 (invert)
+            0xF => "!ZC".to_string(), // Jump if A != 0 or carry = 1 (invert)
             _ => format!("COND{}", condition),
         }
     }
@@ -336,9 +328,9 @@ mod tests {
         let mut disasm = Disassembler::new(CpuType::I4004);
         let rom = vec![
             0x40, 0x05, // JUN 0x005
-            0x00,       // NOP
-            0x00,       // NOP
-            0x00,       // NOP
+            0x00, // NOP
+            0x00, // NOP
+            0x00, // NOP
         ];
         disasm.auto_label(&rom);
         assert!(disasm.symbols.contains_key(&0x005));

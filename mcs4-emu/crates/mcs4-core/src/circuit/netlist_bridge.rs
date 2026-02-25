@@ -5,10 +5,12 @@
 //! solver. Handles node deduplication, power rail assignment, and geometry
 //! estimation from bounding boxes.
 
+use super::{
+    bbox_to_geometry::{self, BBox},
+    graph::{CircuitGraph, TransistorKind},
+    power_rail_id,
+};
 use crate::layout_netlist::NetlistV1;
-use super::bbox_to_geometry::{self, BBox};
-use super::graph::{CircuitGraph, TransistorKind};
-use super::power_rail_id;
 
 /// Configuration for the netlist-to-circuit conversion.
 #[derive(Clone, Debug)]
@@ -120,11 +122,7 @@ pub fn netlist_v1_to_circuit(netlist: &NetlistV1, config: &BridgeConfig) -> Circ
 /// * `netlist` - parsed NetlistV1
 /// * `bboxes` - bounding boxes for each transistor (same order as netlist)
 /// * `config` - bridge configuration
-pub fn netlist_v1_to_circuit_with_bboxes(
-    netlist: &NetlistV1,
-    bboxes: &[BBox],
-    config: &BridgeConfig,
-) -> CircuitGraph {
+pub fn netlist_v1_to_circuit_with_bboxes(netlist: &NetlistV1, bboxes: &[BBox], config: &BridgeConfig) -> CircuitGraph {
     let mut graph = netlist_v1_to_circuit(netlist, config);
 
     // Update transistor geometry from bounding boxes
@@ -141,9 +139,10 @@ pub fn netlist_v1_to_circuit_with_bboxes(
 
 #[cfg(test)]
 mod tests {
+    use std::path::Path;
+
     use super::*;
     use crate::layout_netlist::{Devices, Evidence, Signal, Transistor};
-    use std::path::Path;
 
     fn make_inverter_netlist() -> NetlistV1 {
         // Minimal inverter: depletion load + enhancement driver
@@ -243,8 +242,11 @@ mod tests {
 
         for node in &graph.nodes {
             if !node.is_fixed {
-                assert!((node.voltage - (-7.5)).abs() < 1e-10,
-                    "Free node should be at midpoint (-7.5V), got {}", node.voltage);
+                assert!(
+                    (node.voltage - (-7.5)).abs() < 1e-10,
+                    "Free node should be at midpoint (-7.5V), got {}",
+                    node.voltage
+                );
             }
         }
     }
@@ -257,20 +259,26 @@ mod tests {
             .expect("repo root");
         let path = repo_root.join("docs/evidence/netlists_v1/4003_netlist_v1.json");
 
-        let net = crate::layout_netlist::load_netlist_v1(&path)
-            .expect("load 4003 netlist");
+        let net = crate::layout_netlist::load_netlist_v1(&path).expect("load 4003 netlist");
         assert_eq!(net.chip, "4003");
 
         let config = BridgeConfig::default();
         let graph = netlist_v1_to_circuit(&net, &config);
 
         // 4003 has 37 transistors
-        assert_eq!(graph.transistor_count(), 37,
-            "4003 should have 37 transistors, got {}", graph.transistor_count());
+        assert_eq!(
+            graph.transistor_count(),
+            37,
+            "4003 should have 37 transistors, got {}",
+            graph.transistor_count()
+        );
 
         // Should have some nodes
-        assert!(graph.nodes.len() > 10,
-            "Should have many nodes, got {}", graph.nodes.len());
+        assert!(
+            graph.nodes.len() > 10,
+            "Should have many nodes, got {}",
+            graph.nodes.len()
+        );
 
         // All transistor node references should be valid
         for trans in &graph.transistors {
