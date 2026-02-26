@@ -5,7 +5,7 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 
 ## PHASE STATUS
 
-Summary: 92% overall completion (up from 85%)
+Summary: 92% overall completion
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
 - Phase 2: 100% (4040 CPU complete, all tests passing)
@@ -84,7 +84,7 @@ Summary: 92% overall completion (up from 85%)
     - Differential fuzzing: scalar reference executor with proptest
     - Performance benchmarking with throughput and memory metrics
   - Phase 4G: Solver-to-chip bridge
-    - SimulationFidelity enum (Behavioral/GateLevel/TransistorLevel)
+    - SimulationFidelity enum (Behavioral/PhaseAccurate/SwitchLevel/NodalLevel/TCADLevel)
     - ChipSolverBridge trait connecting behavioral models to circuit solvers
     - I4004 clock buffer proof-of-concept (3-inverter chain, DC + transient)
   - Phase 4H: Process model expansion (22 tests)
@@ -160,22 +160,23 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (baseline 2026-02-25)
+## TEST COUNTS (baseline 2026-02-26)
 
-982 tests passing with SIMD (938 without), 0 failures:
+935 tests passing, 0 failures:
 - mcs4-bus: 17
-- mcs4-chips: 212 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge)
+- mcs4-chips: 211 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge)
 - mcs4-chips fuzz_test: 1
 - mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)
-- mcs4-core: 454 (transistor solver, nodal solver, TCAD, process models, transient, circuit, fidelity, bridge)
+- mcs4-core: 449 (transistor solver, nodal solver, TCAD, process models, transient, circuit, fidelity, bridge)
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
+- mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
 - mcs4-fpga: 12 (Verilog export + chip module generation)
 - mcs4-gui: 75 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
-- mcs4-system: 87 with simd_cluster feature / 43 without (full 4004 ISA SIMD, differential fuzzing, benchmarks)
+- mcs4-system: 45 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-02-25 (Phase 5 75%: peripherals, Intellec-4, Verilog chips, 982 total)
+Last Updated: 2026-02-26 (debt resolution: compilation fixes, crate cleanup, dep audit, doc sync)

@@ -13,7 +13,7 @@ use eframe::egui;
 use mcs4_system::mcs4::Mcs4System;
 
 use crate::{
-    panels::{disasm::DisasmPanel, waveform::WaveformPanel, die_viewer::DieViewerPanel},
+    panels::{die_viewer::DieViewerPanel, disasm::DisasmPanel, waveform::WaveformPanel},
     signal_trace::SignalTrace,
 };
 
@@ -109,7 +109,7 @@ impl eframe::App for Mcs4App {
             egui::ScrollArea::vertical().show(ui, |ui| {
                 self.waveform_panel.show(ui);
                 ui.add_space(20.0);
-                
+
                 // Get CPU solver if active
                 if let Ok(sys) = self.system.read() {
                     let cpu_solver = sys.fidelity.get_solver_ref("CPU");

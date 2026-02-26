@@ -5,6 +5,7 @@
 //! analog Nodal level using TCAD-injected physics.
 
 use std::path::Path;
+
 use mcs4_core::{
     circuit::{
         netlist_bridge::{self, BridgeConfig},
@@ -47,8 +48,11 @@ fn test_4003_nodal_step() {
 
     // Identify important nodes
     let find_node = |name: &str| {
-        graph.nodes.iter().position(|n| n.name.as_deref() == Some(name))
-            .expect(&format!("Could not find node {}", name)) as u32
+        graph
+            .nodes
+            .iter()
+            .position(|n| n.name.as_deref() == Some(name))
+            .unwrap_or_else(|| panic!("Could not find node {}", name)) as u32
     };
 
     let clock_id = find_node("CLOCK");
@@ -63,13 +67,19 @@ fn test_4003_nodal_step() {
     // or just assume they weren't fixed in the default netlist (usually only VDD/VSS are).
     solver.add_voltage_source(clock_id, solver.get_gnd(), vss); // Clock inactive
     solver.add_voltage_source(data_id, solver.get_gnd(), vss); // Data inactive
-    solver.add_voltage_source(en_id, solver.get_gnd(), vss);   // Enable inactive
+    solver.add_voltage_source(en_id, solver.get_gnd(), vss); // Enable inactive
 
     // Initial solve with inputs
     assert!(solver.solve_robust(), "Initial robust solve failed");
 
     let q0_v = solver.voltage(q0_id);
     println!("DEBUG: 4003 Q0 Voltage: {}V", q0_v);
-    
-    assert!(q0_v <= vss + 0.1 && q0_v >= vdd - 0.1, "Q0 voltage {} out of range [{}, {}]", q0_v, vdd, vss);
+
+    assert!(
+        q0_v <= vss + 0.1 && q0_v >= vdd - 0.1,
+        "Q0 voltage {} out of range [{}, {}]",
+        q0_v,
+        vdd,
+        vss
+    );
 }

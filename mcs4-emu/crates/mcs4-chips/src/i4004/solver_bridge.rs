@@ -11,7 +11,7 @@
 //! operating point analysis and transient pulse response simulation.
 
 use mcs4_core::{
-    bridge::{ChipSolverBridge, PinMapping, PinDirection},
+    bridge::{ChipSolverBridge, PinDirection, PinMapping},
     circuit::graph::{CircuitGraph, TransistorKind},
     fidelity::SimulationFidelity,
 };
@@ -126,20 +126,76 @@ impl ChipSolverBridge for I4004 {
 
     fn pin_map(&self) -> Vec<PinMapping> {
         vec![
-            PinMapping { name: "CLK1".to_string(), node_id: 415, direction: PinDirection::Input },
-            PinMapping { name: "CLK2".to_string(), node_id: 1230, direction: PinDirection::Input },
-            PinMapping { name: "SYNC".to_string(), node_id: 1261, direction: PinDirection::Output },
-            PinMapping { name: "RESET".to_string(), node_id: 1232, direction: PinDirection::Input },
-            PinMapping { name: "TEST".to_string(), node_id: 1267, direction: PinDirection::Input },
-            PinMapping { name: "CMROM".to_string(), node_id: 716, direction: PinDirection::Output },
-            PinMapping { name: "D0".to_string(), node_id: 3442, direction: PinDirection::Bidirectional },
-            PinMapping { name: "D1".to_string(), node_id: 598, direction: PinDirection::Bidirectional },
-            PinMapping { name: "D2".to_string(), node_id: 3426, direction: PinDirection::Bidirectional },
-            PinMapping { name: "D3".to_string(), node_id: 2815, direction: PinDirection::Bidirectional },
-            PinMapping { name: "CMRAM0".to_string(), node_id: 3431, direction: PinDirection::Output },
-            PinMapping { name: "CMRAM1".to_string(), node_id: 3428, direction: PinDirection::Output },
-            PinMapping { name: "CMRAM2".to_string(), node_id: 2997, direction: PinDirection::Output },
-            PinMapping { name: "CMRAM3".to_string(), node_id: 405, direction: PinDirection::Output },
+            PinMapping {
+                name: "CLK1".to_string(),
+                node_id: 415,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CLK2".to_string(),
+                node_id: 1230,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "SYNC".to_string(),
+                node_id: 1261,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "RESET".to_string(),
+                node_id: 1232,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "TEST".to_string(),
+                node_id: 1267,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CMROM".to_string(),
+                node_id: 716,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "D0".to_string(),
+                node_id: 3442,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D1".to_string(),
+                node_id: 598,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D2".to_string(),
+                node_id: 3426,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D3".to_string(),
+                node_id: 2815,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "CMRAM0".to_string(),
+                node_id: 3431,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "CMRAM1".to_string(),
+                node_id: 3428,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "CMRAM2".to_string(),
+                node_id: 2997,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "CMRAM3".to_string(),
+                node_id: 405,
+                direction: PinDirection::Output,
+            },
         ]
     }
 }

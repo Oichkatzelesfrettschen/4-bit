@@ -14,12 +14,14 @@
 //! examine, deposit, and program load operations.
 
 use mcs4_chips::i4702::I4702;
-use mcs4_periph::{MatrixKeyboard, SevenSegDisplay, Uart, SerialConfig};
-use mcs4_system::{Mcs4System, Mcs40System, System};
+use mcs4_periph::{MatrixKeyboard, SerialConfig, SevenSegDisplay, Uart};
+use mcs4_system::{Mcs40System, Mcs4System, System};
 
-use crate::front_panel::{FrontPanel, PanelMode};
-use crate::monitor::{Monitor, MonitorAction};
-use crate::prom_programmer::{ProgResult, PromProgrammer};
+use crate::{
+    front_panel::{FrontPanel, PanelMode},
+    monitor::{Monitor, MonitorAction},
+    prom_programmer::{ProgResult, PromProgrammer},
+};
 
 /// Complete Intellec-4 development system.
 pub struct IntellecSystem<S: System = Mcs40System> {
@@ -147,8 +149,7 @@ impl<S: System> IntellecSystem<S> {
             self.system.reset();
             self.monitor.reset();
             self.panel.reset();
-            self.panel
-                .update_leds(0, 0, false, false);
+            self.panel.update_leds(0, 0, false, false);
             return;
         }
 
@@ -166,8 +167,7 @@ impl<S: System> IntellecSystem<S> {
             let addr = self.panel.address();
             let data = self.panel.data();
             self.deposit(addr, data);
-            self.panel
-                .update_leds(addr, data, false, false);
+            self.panel.update_leds(addr, data, false, false);
             self.update_display();
             return;
         }
@@ -256,10 +256,8 @@ impl<S: System> IntellecSystem<S> {
         let data = self.panel.leds().data;
 
         // Address digits (high to low)
-        self.display
-            .set_bcd(5, ((addr >> 8) & 0xF) as u8, false);
-        self.display
-            .set_bcd(4, ((addr >> 4) & 0xF) as u8, false);
+        self.display.set_bcd(5, ((addr >> 8) & 0xF) as u8, false);
+        self.display.set_bcd(4, ((addr >> 4) & 0xF) as u8, false);
         self.display.set_bcd(3, (addr & 0xF) as u8, false);
 
         // Data digits
@@ -269,8 +267,7 @@ impl<S: System> IntellecSystem<S> {
         // Status digit: show run state
         if self.panel.leds().run {
             // Show dash for "running"
-            self.display
-                .set_raw(0, mcs4_periph::seven_seg::segment::G);
+            self.display.set_raw(0, mcs4_periph::seven_seg::segment::G);
         } else {
             // Blank for stopped
             self.display.set_raw(0, 0);

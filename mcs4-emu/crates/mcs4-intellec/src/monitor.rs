@@ -131,8 +131,7 @@ impl Monitor {
 
                 // After 3 nibbles, interpret as 12-bit address
                 if self.nibbles_entered >= 3 {
-                    self.address =
-                        ((self.data_buffer as u16) << 4) | (n as u16 & 0x0F);
+                    self.address = ((self.data_buffer as u16) << 4) | (n as u16 & 0x0F);
                     self.address &= 0x0FFF;
                 }
 
@@ -140,31 +139,20 @@ impl Monitor {
             }
             MonitorCommand::Examine => {
                 self.nibbles_entered = 0;
-                MonitorAction::Examine {
-                    address: self.address,
-                }
+                MonitorAction::Examine { address: self.address }
             }
             MonitorCommand::Deposit => {
                 let data = self.data_buffer;
                 self.nibbles_entered = 0;
                 let addr = self.address;
                 self.address = (self.address + 1) & 0x0FFF;
-                MonitorAction::Deposit {
-                    address: addr,
-                    data,
-                }
+                MonitorAction::Deposit { address: addr, data }
             }
             MonitorCommand::Go => {
                 self.active = false;
-                MonitorAction::Go {
-                    address: self.address,
-                }
+                MonitorAction::Go { address: self.address }
             }
-            MonitorCommand::Step => {
-                MonitorAction::Step {
-                    address: self.address,
-                }
-            }
+            MonitorCommand::Step => MonitorAction::Step { address: self.address },
             MonitorCommand::Halt => {
                 self.active = true;
                 MonitorAction::Halt
@@ -349,7 +337,7 @@ mod tests {
     fn deposit_writes_and_increments() {
         let mut mon = Monitor::new();
         mon.process_key(0xA); // Go key sets up...
-        // Actually let's just set address directly and deposit
+                              // Actually let's just set address directly and deposit
         let mut mon = Monitor::new();
         mon.process_key(5); // data = 0x05
         let action = mon.process_key(0xD); // Deposit
@@ -432,21 +420,12 @@ mod tests {
 
     #[test]
     fn command_from_keycode_roundtrip() {
-        assert_eq!(
-            MonitorCommand::from_keycode(0),
-            MonitorCommand::HexDigit(0)
-        );
-        assert_eq!(
-            MonitorCommand::from_keycode(9),
-            MonitorCommand::HexDigit(9)
-        );
+        assert_eq!(MonitorCommand::from_keycode(0), MonitorCommand::HexDigit(0));
+        assert_eq!(MonitorCommand::from_keycode(9), MonitorCommand::HexDigit(9));
         assert_eq!(MonitorCommand::from_keycode(0xA), MonitorCommand::Go);
         assert_eq!(MonitorCommand::from_keycode(0xD), MonitorCommand::Deposit);
         assert_eq!(MonitorCommand::from_keycode(0xE), MonitorCommand::Examine);
         assert_eq!(MonitorCommand::from_keycode(0xF), MonitorCommand::Halt);
-        assert_eq!(
-            MonitorCommand::from_keycode(0x10),
-            MonitorCommand::Invalid
-        );
+        assert_eq!(MonitorCommand::from_keycode(0x10), MonitorCommand::Invalid);
     }
 }

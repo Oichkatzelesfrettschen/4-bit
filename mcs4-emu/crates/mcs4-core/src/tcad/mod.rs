@@ -11,16 +11,16 @@
 //! - [`carrier`] - Carrier statistics (Boltzmann, Fermi-Dirac)
 //! - [`poisson`] - 1D Poisson-Boltzmann electrostatic solver
 
+pub mod bridge;
 pub mod carrier;
 pub mod channel;
 pub mod drift_diffusion;
 pub mod mesh;
 pub mod poisson;
-pub mod bridge;
 
+pub use bridge::{DeviceResult, TCADBridge};
 pub use carrier::{CarrierStats, ChargeProfile};
 pub use channel::{ChannelConfig, ChannelMesh};
 pub use drift_diffusion::{DriftDiffusionConfig, DriftDiffusionResult, DriftDiffusionSolver};
 pub use mesh::Mesh1D;
 pub use poisson::{PoissonConfig, PoissonResult, PoissonSolver};
-pub use bridge::{TCADBridge, DeviceResult};

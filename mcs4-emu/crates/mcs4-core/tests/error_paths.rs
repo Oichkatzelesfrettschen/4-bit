@@ -38,7 +38,7 @@ fn nodal_solver_empty_network_converges() {
 fn nodal_solver_single_fixed_node() {
     let mut solver = NodalSolver::new();
     solver.set_gnd(1); // Set node 1 as ground
-    // Use a voltage source to fix node 0 at 5.0V relative to ground
+                       // Use a voltage source to fix node 0 at 5.0V relative to ground
     solver.add_voltage_source(0, 1, 5.0);
     assert!(solver.solve());
     assert_eq!(solver.voltage(0), 5.0);

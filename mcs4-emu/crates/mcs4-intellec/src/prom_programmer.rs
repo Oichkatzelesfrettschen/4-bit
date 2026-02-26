@@ -203,11 +203,7 @@ impl PromProgrammer {
     }
 
     /// Program and verify in one operation.
-    pub fn program_and_verify(
-        &mut self,
-        prom: &mut I4702,
-        start_address: u8,
-    ) -> ProgResult {
+    pub fn program_and_verify(&mut self, prom: &mut I4702, start_address: u8) -> ProgResult {
         let result = self.program(prom, start_address);
         if result != ProgResult::Ok {
             return result;
@@ -246,10 +242,7 @@ mod tests {
         prom.load(&[0x42]);
 
         let prog = PromProgrammer::default();
-        assert_eq!(
-            prog.blank_check(&prom, 0, 1),
-            ProgResult::NotBlank { address: 0 }
-        );
+        assert_eq!(prog.blank_check(&prom, 0, 1), ProgResult::NotBlank { address: 0 });
     }
 
     #[test]

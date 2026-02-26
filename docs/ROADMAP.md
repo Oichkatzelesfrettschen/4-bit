@@ -28,9 +28,9 @@ Guiding rules:
 - Pad anchoring is now partially tractable:
   - `netlist_v0` includes per-node bboxes/areas and pad-like node ranking (`docs/evidence/layout_pad_candidates_v0/`).
   - Geometry-based node suggestions for pad label boxes exist under `docs/evidence/layout_pad_labels_v0/`.
-- Transistor/switch-level solvers exist in `mcs4-core/src/transistor_solver.rs` and `mcs4-core/src/nodal_solver.rs` (450+ tests); solver-to-chip bridge connects behavioral models to circuit simulation via `ChipSolverBridge` trait.
+- Transistor/switch-level solvers exist in `mcs4-core/src/transistor_solver.rs` and `mcs4-core/src/nodal_solver.rs` (477 tests in mcs4-core); solver-to-chip bridge connects behavioral models to circuit simulation via `ChipSolverBridge` trait.
 - 4040 CPU is COMPLETE (60 instructions, 43 tests); all MCS-40 support chips COMPLETE (4201/4289/4308 + 10 additional chips).
-- SIMD cluster COMPLETE: 16-lane parallel 4004 execution with full 46-instruction ISA, differential fuzzing, and benchmarking (87 tests with `simd_cluster` feature).
+- SIMD cluster COMPLETE: 16-lane parallel 4004 execution with full 46-instruction ISA, differential fuzzing, and benchmarking (45 tests in mcs4-system).
 
 ## What Must Be Obtained (Primary Sources / Artifacts)
 
@@ -119,8 +119,8 @@ Deferred to Phase 5+:
    - rkyv snapshots and time-travel debugging
    - Advanced clustering optimizations (spatial and adaptive strategies)
 
-### Phase 5 - FPGA and Advanced Features (100% Design Complete - 6/6 tasks)
-Status: DESIGN PHASE COMPLETE (2026-01-29)
+### Phase 5 - FPGA and Advanced Features (75% Implemented)
+Status: IMPLEMENTED (peripherals, Intellec-4, Verilog chips complete; hardware validation deferred)
 Key Milestones:
    - **2026-01-29**: Verilog export architecture complete - gate-level netlist to synthesizable HDL.
    - **2026-01-29**: Verilog generator implemented - 8 files generated (4 modules + 4 testbenches) for all chips.
@@ -194,8 +194,8 @@ DEFERRED (Future Work):
 - Hardware-in-loop testing and co-simulation.
 - Advanced performance optimizations.
 
-## Phase 5 - FPGA + transistor-level fidelity (100% DESIGN COMPLETE)
-COMPLETED (2026-01-29):
+## Phase 5 - FPGA + transistor-level fidelity (75% IMPLEMENTED)
+Design COMPLETE (2026-01-29), implementation (peripherals/Intellec-4/Verilog) COMPLETE (2026-02-25):
 - [DONE] Verilog export architecture document (450 lines) - complete design specification.
 - [DONE] Gate-to-Verilog converter implementation (280 lines Python) - functional generator.
 - [DONE] Verilog module generation for all 4 chips (8 files: 4 modules + 4 testbenches).

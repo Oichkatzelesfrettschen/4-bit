@@ -3,26 +3,28 @@
 //! Orchestrates the switching between behavioral, switch-level,
 //! and analog nodal solvers for system components.
 
-use crate::fidelity::SimulationFidelity;
-use crate::nodal_solver::NodalSolver;
-use crate::tcad::TCADBridge;
-use crate::process::ProcessParams;
-use crate::circuit::graph::CircuitGraph;
 use std::collections::HashMap;
 
-use crate::bridge::{PinDirection, PinMapping};
+use crate::{
+    bridge::{PinDirection, PinMapping},
+    circuit::graph::CircuitGraph,
+    fidelity::SimulationFidelity,
+    nodal_solver::NodalSolver,
+    process::ProcessParams,
+    tcad::TCADBridge,
+};
 
 /// Manages the simulation fidelity of various system components.
 pub struct FidelityManager {
     /// Desired fidelity for each named component.
     component_fidelity: HashMap<String, SimulationFidelity>,
-    
+
     /// Active nodal solvers for components running at Nodal or TCAD level.
     nodal_backends: HashMap<String, NodalSolver>,
-    
+
     /// Mapping of pins for each component
     pin_mappings: HashMap<String, Vec<PinMapping>>,
-    
+
     /// Global process parameters for physics-driven simulation.
     process: ProcessParams,
 }
@@ -56,14 +58,14 @@ impl FidelityManager {
     /// Initialize an analog nodal backend for a component using its circuit graph.
     pub fn init_nodal_backend(&mut self, name: &str, graph: &CircuitGraph) {
         let mut solver = NodalSolver::new();
-        
+
         let level = self.get_fidelity(name);
         if level == SimulationFidelity::TCADLevel {
             solver.set_bridge(TCADBridge::new(&self.process));
         }
-        
+
         solver.load_circuit_graph(graph);
-        
+
         // Pre-add voltage sources for all input pins to allow dynamic updating
         if let Some(pins) = self.pin_mappings.get(name) {
             for pin in pins {
@@ -83,7 +85,11 @@ impl FidelityManager {
                 if pin.direction != PinDirection::Output {
                     let voltage = if pin.name.starts_with('D') {
                         let bit_idx: u8 = pin.name[1..].parse().unwrap_or(0);
-                        if (bus_value & (1 << bit_idx)) != 0 { vss } else { vdd }
+                        if (bus_value & (1 << bit_idx)) != 0 {
+                            vss
+                        } else {
+                            vdd
+                        }
                     } else {
                         vss // Default to inactive/high
                     };
@@ -98,15 +104,13 @@ impl FidelityManager {
         let mut bus_out = 0u8;
         if let (Some(solver), Some(pins)) = (self.nodal_backends.get(name), self.pin_mappings.get(name)) {
             for pin in pins {
-                if pin.direction != PinDirection::Input {
-                    if pin.name.starts_with('D') {
-                        let bit_idx: u8 = pin.name[1..].parse().unwrap_or(0);
-                        let v = solver.voltage(pin.node_id);
-                        // pMOS logic: nearer to VSS (0V) is High (1), nearer to VDD (-15V) is Low (0)
-                        let threshold = (vdd + vss) / 2.0;
-                        if v > threshold {
-                            bus_out |= 1 << bit_idx;
-                        }
+                if pin.direction != PinDirection::Input && pin.name.starts_with('D') {
+                    let bit_idx: u8 = pin.name[1..].parse().unwrap_or(0);
+                    let v = solver.voltage(pin.node_id);
+                    // pMOS logic: nearer to VSS (0V) is High (1), nearer to VDD (-15V) is Low (0)
+                    let threshold = (vdd + vss) / 2.0;
+                    if v > threshold {
+                        bus_out |= 1 << bit_idx;
                     }
                 }
             }

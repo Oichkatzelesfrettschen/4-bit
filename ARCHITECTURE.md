@@ -71,7 +71,7 @@ Level 1: Cycle-accurate (mcs4-chips, mcs4-system) [PRIMARY]
 Cargo.toml                        # Workspace root
 
 mcs4-emu/crates/
-  mcs4-core/                      # Simulation kernel (422+ tests)
+  mcs4-core/                      # Simulation kernel (480 tests)
     src/
       lib.rs                      # Re-exports, prelude
       gate.rs                     # Gate primitives: And2, Or2, Nand2/3, Nor2/3, Inv
@@ -138,7 +138,7 @@ mcs4-emu/crates/
       control.rs                  # ControlSignals: SYNC, CM-ROM, CM-RAM, IoOp
       clock.rs                    # TwoPhaseClock (phi1/phi2, non-overlapping)
 
-  mcs4-chips/                     # Chip implementations (206+ tests)
+  mcs4-chips/                     # Chip implementations (223 tests)
     src/
       lib.rs                      # Module registry, Chip trait
       disasm.rs                   # Disassembler + DisasmCache (O(1) window)
@@ -176,7 +176,7 @@ mcs4-emu/crates/
       fuzz_test.rs                # Fuzz regression (1 test)
       proptest_chips.rs           # Property-based tests (11 tests)
 
-  mcs4-system/                    # System assembly (43+ tests)
+  mcs4-system/                    # System assembly (54 tests)
     src/
       lib.rs                      # Workspace wiring, exports
       mcs4.rs                     # MCS-4 system builder (4004+4001+4002)
@@ -187,7 +187,7 @@ mcs4-emu/crates/
     tests/
       mcs40_4308_integration.rs   # End-to-end bus protocol tests (9 tests)
 
-  mcs4-gui/                       # GUI debugger (15 tests)
+  mcs4-gui/                       # GUI debugger (75 tests)
     src/
       app.rs                      # eframe application shell
       lib.rs
@@ -197,16 +197,38 @@ mcs4-emu/crates/
       panels/
         mod.rs
         disasm.rs                 # DisasmPanel with cached O(1) windowed lookup
+        registers.rs              # Register display with change highlighting
+        memory.rs                 # ROM/RAM hex dump with change highlighting
+        stack.rs                  # Stack display (3/7-level)
+        breakpoints.rs            # Breakpoint management (address/register/memory)
+        controls.rs               # Run/Stop/Step/Reset controls
         waveform.rs               # WaveformPanel: logic analyzer view
+        die_viewer.rs             # Die photomicrograph overlay (scaffold)
 
-  mcs4-fpga/                      # FPGA synthesis support (6 tests)
+  mcs4-fpga/                      # FPGA synthesis support (12 tests)
     src/
       lib.rs
       verilog.rs                  # Verilog export from gate-level models
 
+  mcs4-intellec/                  # Intellec-4 development system (44 tests)
+    src/
+      lib.rs
+      front_panel.rs              # Front panel (switches, LEDs)
+      monitor.rs                  # Monitor ROM (examine/deposit/go/halt)
+      prom_programmer.rs          # PROM programmer (4702 interface)
+      system.rs                   # System integration
+
+  mcs4-periph/                    # Peripheral devices (30 tests)
+    src/
+      lib.rs
+      seven_segment.rs            # 7-segment LED display
+      keyboard.rs                 # 4x4 matrix keyboard scanner
+      uart.rs                     # UART serial port (ASR-33 compatible)
+
   mcs4-core/tests/
     error_paths.rs                # Solver error path validation (12 tests)
     integration_validation.rs     # Cross-solver integration (18 tests)
+    nodal_4003.rs                 # 4003 shift register nodal simulation (1 test)
 ```
 
 ## Core Abstractions
@@ -271,7 +293,7 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **760 tests total, 0 failures** (baseline 2026-02-25)
+- **935 tests total, 0 failures** (baseline 2026-02-26)
 
 ## Build Commands
 
@@ -286,10 +308,11 @@ cargo fmt --all --check         # Format check
 
 Key workspace dependencies (pinned in root Cargo.toml):
 - `eframe` 0.33: GUI framework (egui + native backend)
-- `proptest` 1.6: Property-based testing
+- `proptest` 1.4: Property-based testing
 - `faer` 0.24: Linear algebra for solver matrices
-- `bumpalo` 3.17: Arena allocation for solver temporaries
+- `bumpalo` 3.19: Arena allocation for solver temporaries
 - `memmap2` 0.9: Memory-mapped ROM loading
+- `nalgebra` 0.34: Linear algebra (matrix stamping)
 
 ## References
 

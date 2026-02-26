@@ -131,7 +131,8 @@ pub fn chip_i4004() -> Module {
     m.body.push("    carry <= 1'b0;".into());
     m.body.push("    data_drive <= 1'b0;".into());
     m.body.push("  end else begin".into());
-    m.body.push("    phase <= (phase == 3'd7) ? 3'd0 : phase + 3'd1;".into());
+    m.body
+        .push("    phase <= (phase == 3'd7) ? 3'd0 : phase + 3'd1;".into());
     m.body.push("  end".into());
     m.body.push("end".into());
     m.body.push(String::new());
@@ -189,18 +190,21 @@ pub fn chip_i4001() -> Module {
     m.body.push("    data_drive <= 1'b0;".into());
     m.body.push("    io_latch <= 4'd0;".into());
     m.body.push("  end else begin".into());
-    m.body.push("    phase <= (phase == 3'd7) ? 3'd0 : phase + 3'd1;".into());
+    m.body
+        .push("    phase <= (phase == 3'd7) ? 3'd0 : phase + 3'd1;".into());
     m.body.push("  end".into());
     m.body.push("end".into());
     m.body.push(String::new());
 
     m.body.push("always @(posedge phi2) begin".into());
     m.body.push("  case (phase)".into());
-    m.body.push("    3'd0: addr_latch[3:0] <= data; // A1: low nibble".into());
+    m.body
+        .push("    3'd0: addr_latch[3:0] <= data; // A1: low nibble".into());
     m.body
         .push("    3'd1: addr_latch[7:4] <= data; // A2: high nibble".into());
     m.body.push("    3'd2: selected <= cm_rom; // A3: chip select".into());
-    m.body.push("    3'd3: if (selected) begin // M1: output low nibble".into());
+    m.body
+        .push("    3'd3: if (selected) begin // M1: output low nibble".into());
     m.body
         .push("      data_out <= rom[addr_latch][3:0]; data_drive <= 1'b1;".into());
     m.body.push("    end".into());

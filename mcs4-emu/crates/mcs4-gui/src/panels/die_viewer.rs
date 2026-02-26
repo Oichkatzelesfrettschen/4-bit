@@ -14,6 +14,12 @@ pub struct DieViewerPanel {
     highlight_active: bool,
 }
 
+impl Default for DieViewerPanel {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl DieViewerPanel {
     pub fn new() -> Self {
         Self {
@@ -24,7 +30,7 @@ impl DieViewerPanel {
 
     pub fn ui(&mut self, ui: &mut egui::Ui, solver: Option<&NodalSolver>) {
         ui.heading("Die Viewer (Digital Twin)");
-        
+
         ui.horizontal(|ui| {
             ui.label("Zoom:");
             ui.add(egui::Slider::new(&mut self.zoom, 0.1..=10.0));
@@ -32,14 +38,12 @@ impl DieViewerPanel {
         });
 
         egui::Frame::canvas(ui.style()).show(ui, |ui| {
-            let (_rect, _response) = ui.allocate_exact_size(
-                egui::vec2(ui.available_width(), 400.0),
-                egui::Sense::drag(),
-            );
+            let (_rect, _response) =
+                ui.allocate_exact_size(egui::vec2(ui.available_width(), 400.0), egui::Sense::drag());
 
             // TODO: Render die image and overlays
             ui.label("Photomicrograph overlay placeholder");
-            
+
             if let Some(_solver) = solver {
                 // TODO: Highlight transistors based on solver state
                 ui.label("(Active solver detected)");

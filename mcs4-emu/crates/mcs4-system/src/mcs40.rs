@@ -5,8 +5,7 @@
 
 use mcs4_bus::prelude::*;
 use mcs4_chips::{i4001::I4001, i4002::I4002, i4040::I4040, i4201::I4201, i4289::I4289, Chip};
-use mcs4_core::{FidelityManager, process::ProcessParams};
-use cosmic_scheduler::PhaseScheduler;
+use mcs4_core::{process::ProcessParams, FidelityManager};
 
 use crate::fixture::load_hex_bytes;
 
@@ -41,19 +40,6 @@ pub struct Mcs40System {
 
     /// Total machine cycles
     pub total_cycles: u64,
-}
-
-impl PhaseScheduler for Mcs40System {
-    type State = ();
-    type Error = ();
-
-    fn execute_phi1(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
-        Ok(())
-    }
-
-    fn execute_phi2(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
-        Ok(())
-    }
 }
 
 impl Mcs40System {
@@ -739,10 +725,10 @@ mod tests {
         // Execute first RPM
         // We need to provide "external" data to SMI during the RPM cycle.
         // Let's say external ROM at 0x068 contains 0xAB.
-        
+
         // During X2/X3 of the RPM cycle, SMI will have oe_n() active.
         // We'll simulate the system providing data.
-        
+
         // Cycle 4: RPM (fetch at PC=3)
         for _i in 0..8 {
             if sys.phase() == BusCycle::X2 {
@@ -750,10 +736,10 @@ mod tests {
             }
             sys.step();
         }
-        
+
         // After first RPM, accumulator should have high nibble (0xA)
         assert_eq!(sys.cpu.alu.accumulator(), 0xA);
-        
+
         // Run XCH R2
         sys.run_cycles(1);
         assert_eq!(sys.cpu.registers.get_r(2), 0xA);
@@ -782,7 +768,7 @@ mod tests {
         sys.load_rom(&[0x08, 0x0B, 0x0C, 0x03, 0x00]);
 
         sys.run_cycles(4);
-        
+
         // Expected value: 0x00 (ROM0) | 0x04 (REG1) | 0x02 (INT EN) = 0x06
         assert_eq!(sys.cpu.alu.accumulator(), 0x06);
     }

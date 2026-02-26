@@ -127,7 +127,7 @@ pub struct NoiseResult {
     /// Per-transistor noise sources.
     pub sources: Vec<TransistorNoise>,
     /// Total output noise spectral density at each frequency (V^2/Hz or A^2/Hz).
-    /// Indexed as [frequency_idx].
+    /// Indexed by frequency position.
     pub output_noise: Vec<f64>,
     /// Total input-referred noise spectral density at each frequency (V^2/Hz).
     pub input_noise: Vec<f64>,

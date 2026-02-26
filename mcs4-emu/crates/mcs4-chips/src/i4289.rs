@@ -67,8 +67,8 @@ impl Default for I4289 {
             data_out: 0,
             write_data: 0,
             read_mode: true,
-            oe_n: true, // inactive (high)
-            we_n: true, // inactive (high)
+            oe_n: true,          // inactive (high)
+            we_n: true,          // inactive (high)
             fl_flip_flop: false, // High (First)
             rpm_instr: false,
             wpm_instr: false,
@@ -514,37 +514,49 @@ mod tests {
 
         // 1. Fetch SRC P0 (at PC=0x123)
         // A1-A3: PC=0x123
-        bus.write(0x3); iface.tick_bus(BusCycle::A1, &mut bus, &ctrl);
-        bus.write(0x2); iface.tick_bus(BusCycle::A2, &mut bus, &ctrl);
-        bus.write(0x1); iface.tick_bus(BusCycle::A3, &mut bus, &ctrl);
+        bus.write(0x3);
+        iface.tick_bus(BusCycle::A1, &mut bus, &ctrl);
+        bus.write(0x2);
+        iface.tick_bus(BusCycle::A2, &mut bus, &ctrl);
+        bus.write(0x1);
+        iface.tick_bus(BusCycle::A3, &mut bus, &ctrl);
         assert_eq!(iface.address(), 0x123);
 
         // M1-M2: Opcode 0x21 (SRC P0)
-        bus.write(0x1); iface.tick_bus(BusCycle::M1, &mut bus, &ctrl);
-        bus.write(0x2); iface.tick_bus(BusCycle::M2, &mut bus, &ctrl);
+        bus.write(0x1);
+        iface.tick_bus(BusCycle::M1, &mut bus, &ctrl);
+        bus.write(0x2);
+        iface.tick_bus(BusCycle::M2, &mut bus, &ctrl);
 
         // X2-X3: SRC address 0x68 (High=6, Low=8)
-        bus.write(0x6); iface.tick_bus(BusCycle::X2, &mut bus, &ctrl);
-        bus.write(0x8); iface.tick_bus(BusCycle::X3, &mut bus, &ctrl);
-        
+        bus.write(0x6);
+        iface.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        bus.write(0x8);
+        iface.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+
         // After SRC, address register bits 0-7 should be 0x68
         assert_eq!(iface.src_latch, 0x68);
 
         // 2. Fetch RPM (at PC=0x124)
         // A1-A3: PC=0x124
-        bus.write(0x4); iface.tick_bus(BusCycle::A1, &mut bus, &ctrl);
-        bus.write(0x2); iface.tick_bus(BusCycle::A2, &mut bus, &ctrl);
-        bus.write(0x1); iface.tick_bus(BusCycle::A3, &mut bus, &ctrl);
+        bus.write(0x4);
+        iface.tick_bus(BusCycle::A1, &mut bus, &ctrl);
+        bus.write(0x2);
+        iface.tick_bus(BusCycle::A2, &mut bus, &ctrl);
+        bus.write(0x1);
+        iface.tick_bus(BusCycle::A3, &mut bus, &ctrl);
         assert_eq!(iface.address(), 0x124); // Driving PC during fetch
 
         // M1-M2: Opcode 0x0E (RPM)
-        bus.write(0xE); iface.tick_bus(BusCycle::M1, &mut bus, &ctrl);
-        bus.write(0x0); iface.tick_bus(BusCycle::M2, &mut bus, &ctrl);
+        bus.write(0xE);
+        iface.tick_bus(BusCycle::M1, &mut bus, &ctrl);
+        bus.write(0x0);
+        iface.tick_bus(BusCycle::M2, &mut bus, &ctrl);
 
         // During RPM execution phases, address should switch to combination of PC page (0x1) and SRC latch (0x68)
         iface.tick_bus(BusCycle::X1, &mut bus, &ctrl);
         assert_eq!(iface.address(), 0x168);
-        
+
         iface.tick_bus(BusCycle::X2, &mut bus, &ctrl);
         assert_eq!(iface.address(), 0x168);
 

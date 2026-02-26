@@ -353,7 +353,7 @@ mod tests {
         // 8 data bit periods
         for bit in 0..8u8 {
             uart.tx_tick(); // transition to data bit
-            // Sample at mid-bit
+                            // Sample at mid-bit
             for _ in 1..cpb / 2 {
                 uart.tx_tick();
             }

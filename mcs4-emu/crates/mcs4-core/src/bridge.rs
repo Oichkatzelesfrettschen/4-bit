@@ -68,7 +68,6 @@ pub trait ChipSolverBridge {
 mod tests {
     use super::*;
 
-    // Minimal test implementation to verify the trait compiles and works
     struct MockChip {
         fidelity: SimulationFidelity,
     }
@@ -83,15 +82,39 @@ mod tests {
         }
 
         fn subcircuit_names(&self) -> Vec<&str> {
-            vec!["inverter"]
+            vec!["inverter", "clock_buffer", "output_driver"]
         }
 
         fn subcircuit(&self, name: &str) -> Option<CircuitGraph> {
-            if name == "inverter" {
-                Some(CircuitGraph::new())
-            } else {
-                None
+            match name {
+                "inverter" | "clock_buffer" | "output_driver" => Some(CircuitGraph::new()),
+                _ => None,
             }
+        }
+
+        fn pin_map(&self) -> Vec<PinMapping> {
+            vec![
+                PinMapping {
+                    name: "D0".to_string(),
+                    node_id: 10,
+                    direction: PinDirection::Bidirectional,
+                },
+                PinMapping {
+                    name: "D1".to_string(),
+                    node_id: 11,
+                    direction: PinDirection::Bidirectional,
+                },
+                PinMapping {
+                    name: "SYNC".to_string(),
+                    node_id: 20,
+                    direction: PinDirection::Output,
+                },
+                PinMapping {
+                    name: "CLK1".to_string(),
+                    node_id: 30,
+                    direction: PinDirection::Input,
+                },
+            ]
         }
     }
 
@@ -102,11 +125,71 @@ mod tests {
         };
         assert_eq!(chip.fidelity(), SimulationFidelity::Behavioral);
 
-        chip.set_fidelity(SimulationFidelity::TransistorLevel);
-        assert_eq!(chip.fidelity(), SimulationFidelity::TransistorLevel);
+        chip.set_fidelity(SimulationFidelity::SwitchLevel);
+        assert_eq!(chip.fidelity(), SimulationFidelity::SwitchLevel);
 
-        assert_eq!(chip.subcircuit_names(), vec!["inverter"]);
+        assert_eq!(
+            chip.subcircuit_names(),
+            vec!["inverter", "clock_buffer", "output_driver"]
+        );
         assert!(chip.subcircuit("inverter").is_some());
         assert!(chip.subcircuit("nonexistent").is_none());
+    }
+
+    #[test]
+    fn fidelity_transitions_all_levels() {
+        let mut chip = MockChip {
+            fidelity: SimulationFidelity::Behavioral,
+        };
+
+        let levels = [
+            SimulationFidelity::Behavioral,
+            SimulationFidelity::PhaseAccurate,
+            SimulationFidelity::SwitchLevel,
+            SimulationFidelity::NodalLevel,
+            SimulationFidelity::TCADLevel,
+        ];
+
+        for &level in &levels {
+            chip.set_fidelity(level);
+            assert_eq!(chip.fidelity(), level);
+        }
+
+        // Verify downgrade works
+        chip.set_fidelity(SimulationFidelity::Behavioral);
+        assert_eq!(chip.fidelity(), SimulationFidelity::Behavioral);
+    }
+
+    #[test]
+    fn pin_map_returns_expected_mappings() {
+        let chip = MockChip {
+            fidelity: SimulationFidelity::Behavioral,
+        };
+
+        let pins = chip.pin_map();
+        assert_eq!(pins.len(), 4);
+
+        assert_eq!(pins[0].name, "D0");
+        assert_eq!(pins[0].direction, PinDirection::Bidirectional);
+
+        assert_eq!(pins[2].name, "SYNC");
+        assert_eq!(pins[2].direction, PinDirection::Output);
+
+        assert_eq!(pins[3].name, "CLK1");
+        assert_eq!(pins[3].direction, PinDirection::Input);
+    }
+
+    #[test]
+    fn multiple_subcircuits() {
+        let chip = MockChip {
+            fidelity: SimulationFidelity::Behavioral,
+        };
+
+        let names = chip.subcircuit_names();
+        assert_eq!(names.len(), 3);
+
+        for name in &names {
+            assert!(chip.subcircuit(name).is_some(), "subcircuit '{}' should exist", name);
+        }
     }
 }

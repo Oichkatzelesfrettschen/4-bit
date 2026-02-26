@@ -1,9 +1,9 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-02-25
+**Last Updated:** 2026-02-26
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
-## Phase Summary (85% overall)
+## Phase Summary (92% overall)
 
 | Phase | Description | Status | % |
 |-------|-------------|--------|---|
@@ -13,19 +13,19 @@
 | 2 | 4040 CPU complete | COMPLETE | 100% |
 | 3 | Support chips + GUI | COMPLETE | 100% |
 | 4 | Performance and clustering | COMPLETE | 100% |
-| 5 | FPGA and advanced features | SCAFFOLDING | 5% |
+| 5 | FPGA and advanced features | IMPLEMENTED | 75% |
 
-## Test Counts (baseline 2026-02-25)
+## Test Counts (baseline 2026-02-26)
 
-902 tests passing with SIMD feature (858 without), 0 failures:
+935 tests passing, 0 failures:
 - mcs4-bus: 17
-- mcs4-chips: 212 (+ 1 fuzz_test + 11 proptest_chips)
-- mcs4-core: 454 (+ 12 error_paths + 18 integration_validation)
-- mcs4-fpga: 6
+- mcs4-chips: 211 (+ 1 fuzz_test + 11 proptest_chips)
+- mcs4-core: 449 (+ 12 error_paths + 18 integration_validation + 1 nodal_4003)
+- mcs4-fpga: 12
 - mcs4-gui: 75 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform)
-- mcs4-system: 87 with simd_cluster / 43 without (+ 9 mcs40_4308_integration)
-- mcs4-intellec: 0 (scaffold)
-- mcs4-periph: 0 (scaffold)
+- mcs4-system: 45 (+ 9 mcs40_4308_integration)
+- mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
+- mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
 
 ## Chip Implementation Status
 
@@ -80,7 +80,7 @@
 ## Architecture
 
 - **Language:** Rust (8 crates in workspace)
-- **Accuracy:** Gate-level with transistor/nodal solvers, SPICE-class circuit simulation (450+ tests)
+- **Accuracy:** Gate-level with transistor/nodal solvers, SPICE-class circuit simulation (477 tests in mcs4-core)
 - **SIMD:** 16-lane parallel 4004 execution with full ISA, differential fuzzing (nightly feature)
 - **Process models:** Intel 10um pMOS: I/O drivers, power, ESD, ROM/SRAM cells
 - **Approach:** Cleanroom from primary Intel documentation
@@ -88,6 +88,14 @@
 
 ## Recent Session Log
 
+- 2026-02-26: Comprehensive debt resolution
+  - Fixed compilation: MockChip pin_map(), TransistorLevel->SwitchLevel, collapsible_if, too_many_arguments
+  - Fixed nodal solver: voltage divider convergence (linear circuit damping), test tolerance for gmin
+  - Fixed gui: DieViewerPanel Default impl
+  - Removed cosmic_scheduler and gororoba_engine crates (non-MCS-4)
+  - Removed 16 unused Reserved workspace dependencies
+  - Reconciled all status files: CLAUDE.md, STATUS.md, ROADMAP.md, ARCHITECTURE.md
+  - Ground truth: 932 tests, 8 crates, 0 clippy warnings
 - 2026-02-25: Phase 4 complete -- full SIMD ISA (46 instructions), solver bridge, process models, 902 total
   - Wave 1: Fixed SIMD opcode dispatch bugs (ADD/SUB writeback, removed phantom DEC)
   - Wave 2: All 14 accumulator ops (CLB/CLC/CMC/CMA/IAC/DAC/RAL/RAR/TCC/TCS/DAA/KBP/STC/DCL)

@@ -129,7 +129,7 @@ impl PoissonSolver {
             // Average potential in segment
             let psi_avg = 0.5 * (psi[i] + psi[i + 1]);
             let p = self.stats.hole_concentration(psi_avg);
-            
+
             // Only count excess carriers (inversion layer)
             if p > p0 {
                 total_q += Q * (p - p0) * dx * 1e6; // cm^-3 to m^-3

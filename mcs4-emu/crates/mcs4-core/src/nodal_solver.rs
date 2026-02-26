@@ -4,11 +4,14 @@
 //! Handles resistors, capacitors, voltage sources, and current sources.
 //! Provides DC operating point and transient simulation capabilities.
 
-use faer::{Mat, prelude::*};
 use std::collections::HashMap;
 
-use crate::circuit::graph::{CircuitGraph, TransistorKind};
-use crate::tcad::TCADBridge;
+use faer::{prelude::*, Mat};
+
+use crate::{
+    circuit::graph::{CircuitGraph, TransistorKind},
+    tcad::TCADBridge,
+};
 
 /// Types of circuit elements supported by the solver
 #[derive(Clone, Debug)]
@@ -22,7 +25,15 @@ pub enum Element {
     /// Independent current source I
     CurrentSource { from: u32, to: u32, i: f64 },
     /// TCAD-based pMOS transistor
-    TCADTransistor { g: u32, s: u32, d: u32, b: u32, w: f64, l: f64, kind: TransistorKind },
+    TCADTransistor {
+        g: u32,
+        s: u32,
+        d: u32,
+        b: u32,
+        w: f64,
+        l: f64,
+        kind: TransistorKind,
+    },
 }
 
 /// Nodal analysis solver using faer for matrix operations
@@ -84,13 +95,19 @@ impl NodalSolver {
         // Add nodes
         for (i, node) in graph.nodes.iter().enumerate() {
             let id = i as u32;
-            self.add_node(id, node.name.clone().unwrap_or_default(), node.voltage, node.capacitance, node.is_fixed);
-            
+            self.add_node(
+                id,
+                node.name.clone().unwrap_or_default(),
+                node.voltage,
+                node.capacitance,
+                node.is_fixed,
+            );
+
             // Fixed voltage sources (relative to ground)
             if node.is_fixed && id != self.gnd_id {
                 self.add_voltage_source(id, self.gnd_id, node.voltage);
             }
-            
+
             // Lumped capacitance to ground
             if node.capacitance > 0.0 && id != self.gnd_id {
                 self.add_capacitor(id, self.gnd_id, node.capacitance);
@@ -106,7 +123,7 @@ impl NodalSolver {
                 t.bulk.unwrap_or(t.a_node) as u32, // Default bulk to source if unknown
                 t.w,
                 t.l,
-                t.kind
+                t.kind,
             );
         }
     }
@@ -163,10 +180,16 @@ impl NodalSolver {
 
     /// Add a voltage source
     pub fn add_voltage_source(&mut self, n_pos: u32, n_neg: u32, v: f64) {
-        if n_pos == n_neg { return; }
+        if n_pos == n_neg {
+            return;
+        }
         self.add_node_if_missing(n_pos);
         self.add_node_if_missing(n_neg);
-        self.elements.push(Element::VoltageSource { from: n_pos, to: n_neg, v });
+        self.elements.push(Element::VoltageSource {
+            from: n_pos,
+            to: n_neg,
+            v,
+        });
         self.num_vsources += 1;
     }
 
@@ -174,10 +197,15 @@ impl NodalSolver {
     pub fn add_current_source(&mut self, n_pos: u32, n_neg: u32, i: f64) {
         self.add_node_if_missing(n_pos);
         self.add_node_if_missing(n_neg);
-        self.elements.push(Element::CurrentSource { from: n_pos, to: n_neg, i });
+        self.elements.push(Element::CurrentSource {
+            from: n_pos,
+            to: n_neg,
+            i,
+        });
     }
 
     /// Add a TCAD-based transistor
+    #[allow(clippy::too_many_arguments)]
     pub fn add_tcad_transistor(&mut self, g: u32, s: u32, d: u32, b: u32, w: f64, l: f64, kind: TransistorKind) {
         self.add_node_if_missing(g);
         self.add_node_if_missing(s);
@@ -197,96 +225,111 @@ impl NodalSolver {
     ///
     /// For systems with non-linear elements (TCAD transistors), this performs
     /// Newton-Raphson iterations.
-        /// Solve the DC operating point or one transient step.
-        pub fn solve(&mut self) -> bool {
-            // Ensure vectors are correctly sized
-            if self.voltages.len() != self.num_nodes {
-                self.voltages = vec![0.0; self.num_nodes];
+    /// Solve the DC operating point or one transient step.
+    pub fn solve(&mut self) -> bool {
+        // Ensure vectors are correctly sized
+        if self.voltages.len() != self.num_nodes {
+            self.voltages = vec![0.0; self.num_nodes];
+        }
+
+        // Capture current voltages as previous for this step
+        self.prev_voltages = self.voltages.clone();
+
+        let dim = self.num_nodes + self.num_vsources;
+        if dim == 0 {
+            return true;
+        }
+
+        let mut converged = false;
+        let has_nonlinear = self
+            .elements
+            .iter()
+            .any(|e| matches!(e, Element::TCADTransistor { .. }));
+        let mut damp = if has_nonlinear { 0.5 } else { 1.0 };
+        let mut last_max_delta = f64::MAX;
+
+        for _iter in 0..self.nr_max_iter {
+            let mut a = Mat::<f64>::zeros(dim, dim);
+            let mut b = Mat::<f64>::zeros(dim, 1);
+            let mut vsource_idx = 0;
+
+            // Gmin stabilization
+            let gmin = 1e-9;
+            for i in 0..self.num_nodes {
+                a[(i, i)] += gmin;
             }
-            
-            // Capture current voltages as previous for this step
-            self.prev_voltages = self.voltages.clone();
-    
-            let dim = self.num_nodes + self.num_vsources;
-            if dim == 0 { return true; }
-    
-            let mut converged = false;
-            let mut damp = 0.5;
-            let mut last_max_delta = f64::MAX;
-    
-            for _iter in 0..self.nr_max_iter {
-                let mut a = Mat::<f64>::zeros(dim, dim);
-                let mut b = Mat::<f64>::zeros(dim, 1);
-                let mut vsource_idx = 0;
-    
-                // Gmin stabilization
-                let gmin = 1e-9;
-                for i in 0..self.num_nodes {
-                    a[(i, i)] += gmin;
-                }
-    
-                for el in &self.elements {
-                    match *el {
-                        Element::Resistor { from, to, g } => {
-                            self.stamp_conductance(&mut a, from, to, g);
-                        }
-                        Element::Capacitor { from, to, c } => {
-                            let g_cap = c / self.dt;
-                            self.stamp_conductance(&mut a, from, to, g_cap);
-                            let v_prev = self.get_prev_v_diff(from, to);
-                            self.stamp_current_source(&mut b, to, from, g_cap * v_prev);
-                        }
-                        Element::VoltageSource { from, to, v } => {
-                            let idx = self.num_nodes + vsource_idx;
-                            self.stamp_voltage_source(&mut a, &mut b, from, to, v, idx);
-                            vsource_idx += 1;
-                        }
-                        Element::CurrentSource { from, to, i } => {
-                            self.stamp_current_source(&mut b, from, to, i);
-                        }
-                        Element::TCADTransistor { g, s, d, b: body, w, l: _, kind } => {
-                            if let Some(ref bridge) = self.bridge {
-                                let v_g = self.voltage(g);
-                                let v_s = self.voltage(s);
-                                let v_d = self.voltage(d);
-                                let v_b = self.voltage(body);
-                                let res = bridge.solve_device(v_g, v_s, v_d, v_b, w, kind);
-                                let i_rhs = res.ids - res.gm * v_g - res.gds * v_d;
-                                self.stamp_transconductance(&mut a, d, s, g, res.gm);
-                                self.stamp_conductance(&mut a, d, s, res.gds);
-                                self.stamp_current_source(&mut b, s, d, i_rhs);
-                                let g_cap = res.cg / self.dt;
-                                self.stamp_conductance(&mut a, g, s, g_cap);
-                                let v_gs_prev = self.get_prev_v_diff(g, s);
-                                self.stamp_current_source(&mut b, s, g, g_cap * v_gs_prev);
-                            }
+
+            for el in &self.elements {
+                match *el {
+                    Element::Resistor { from, to, g } => {
+                        self.stamp_conductance(&mut a, from, to, g);
+                    }
+                    Element::Capacitor { from, to, c } => {
+                        let g_cap = c / self.dt;
+                        self.stamp_conductance(&mut a, from, to, g_cap);
+                        let v_prev = self.get_prev_v_diff(from, to);
+                        self.stamp_current_source(&mut b, to, from, g_cap * v_prev);
+                    }
+                    Element::VoltageSource { from, to, v } => {
+                        let idx = self.num_nodes + vsource_idx;
+                        self.stamp_voltage_source(&mut a, &mut b, from, to, v, idx);
+                        vsource_idx += 1;
+                    }
+                    Element::CurrentSource { from, to, i } => {
+                        self.stamp_current_source(&mut b, from, to, i);
+                    }
+                    Element::TCADTransistor {
+                        g,
+                        s,
+                        d,
+                        b: body,
+                        w,
+                        l: _,
+                        kind,
+                    } => {
+                        if let Some(ref bridge) = self.bridge {
+                            let v_g = self.voltage(g);
+                            let v_s = self.voltage(s);
+                            let v_d = self.voltage(d);
+                            let v_b = self.voltage(body);
+                            let res = bridge.solve_device(v_g, v_s, v_d, v_b, w, kind);
+                            let i_rhs = res.ids - res.gm * v_g - res.gds * v_d;
+                            self.stamp_transconductance(&mut a, d, s, g, res.gm);
+                            self.stamp_conductance(&mut a, d, s, res.gds);
+                            self.stamp_current_source(&mut b, s, d, i_rhs);
+                            let g_cap = res.cg / self.dt;
+                            self.stamp_conductance(&mut a, g, s, g_cap);
+                            let v_gs_prev = self.get_prev_v_diff(g, s);
+                            self.stamp_current_source(&mut b, s, g, g_cap * v_gs_prev);
                         }
                     }
                 }
-    
-                let lu = a.partial_piv_lu();
-                let x = lu.solve(&b);
-    
-                                        // Check for NaN results (divergence)
-                                        for i in 0..dim {
-                                            if x[(i, 0)].is_nan() {
-                                                return false;
-                                            }
-                                        }                let mut max_delta_raw: f64 = 0.0;
+            }
+
+            let lu = a.partial_piv_lu();
+            let x = lu.solve(&b);
+
+            // Check for NaN results (divergence)
+            for i in 0..dim {
+                if x[(i, 0)].is_nan() {
+                    return false;
+                }
+            }
+            let mut max_delta_raw: f64 = 0.0;
             for i in 0..self.num_nodes {
                 let v_new_raw = x[(i, 0)];
                 let v_old = self.voltages[i];
                 let delta_raw = v_new_raw - v_old;
                 max_delta_raw = max_delta_raw.max(delta_raw.abs());
-                
-                // Adaptive damping based on progress
-                let limit = 1.0;
+
+                // Voltage-limiting for nonlinear convergence stability
+                let limit = if has_nonlinear { 1.0 } else { f64::MAX };
                 let delta_limited = if delta_raw.abs() > limit {
                     delta_raw.signum() * limit
                 } else {
                     delta_raw
                 };
-                
+
                 let delta = delta_limited * damp;
                 self.voltages[i] = v_old + delta;
             }
@@ -312,26 +355,26 @@ impl NodalSolver {
     pub fn solve_robust(&mut self) -> bool {
         let original_elements = self.elements.clone();
         let steps = 50;
-        
+
         for step in 1..=steps {
             let scale = step as f64 / steps as f64;
-            
+
             // Temporarily scale all voltage sources
             for el in &mut self.elements {
                 if let Element::VoltageSource { ref mut v, .. } = *el {
                     *v *= scale;
                 }
             }
-            
+
             if !self.solve() {
                 self.elements = original_elements;
                 return false;
             }
-            
+
             // Restore original values for next step scaling
             self.elements = original_elements.clone();
         }
-        
+
         true
     }
 
@@ -389,16 +432,31 @@ impl NodalSolver {
     }
 
     fn get_prev_v_diff(&self, n1: u32, n2: u32) -> f64 {
-        if self.prev_voltages.is_empty() { return 0.0; }
-        let v1 = self.node_to_idx.get(&n1).map(|&idx| self.prev_voltages[idx]).unwrap_or(0.0);
-        let v2 = self.node_to_idx.get(&n2).map(|&idx| self.prev_voltages[idx]).unwrap_or(0.0);
+        if self.prev_voltages.is_empty() {
+            return 0.0;
+        }
+        let v1 = self
+            .node_to_idx
+            .get(&n1)
+            .map(|&idx| self.prev_voltages[idx])
+            .unwrap_or(0.0);
+        let v2 = self
+            .node_to_idx
+            .get(&n2)
+            .map(|&idx| self.prev_voltages[idx])
+            .unwrap_or(0.0);
         v1 - v2
     }
 
     /// Get current voltage of a node
     pub fn voltage(&self, node_id: u32) -> f64 {
-        if node_id == self.gnd_id { return 0.0; }
-        self.node_to_idx.get(&node_id).map(|&idx| self.voltages[idx]).unwrap_or(0.0)
+        if node_id == self.gnd_id {
+            return 0.0;
+        }
+        self.node_to_idx
+            .get(&node_id)
+            .map(|&idx| self.voltages[idx])
+            .unwrap_or(0.0)
     }
 
     /// Set voltage of a driven node (for initialization)
@@ -446,9 +504,11 @@ mod tests {
         solver.add_resistor(2, 0, 10000.0);
 
         assert!(solver.solve());
-        
+
         assert!((solver.voltage(1) - 5.0).abs() < 1e-6);
-        assert!((solver.voltage(2) - 2.5).abs() < 1e-6);
+        // Tolerance 1e-4: gmin stabilization (1e-9 S) introduces small leakage
+        // that shifts the divider output by ~G_min / (2*G + G_min) * V
+        assert!((solver.voltage(2) - 2.5).abs() < 1e-4);
         assert_eq!(solver.voltage(0), 0.0);
     }
 
@@ -464,22 +524,27 @@ mod tests {
         solver.add_capacitor(2, 0, 1e-6); // 1uF
 
         // RC time constant = 1k * 1uF = 1ms
-        
+
         // Initial solve (t=0)
         solver.solve();
         let v_0 = solver.voltage(2);
-        
+
         // Run 10 steps (1ms total)
         for _ in 0..9 {
             solver.solve();
         }
-        
+
         let v_1ms = solver.voltage(2);
         assert!(v_1ms > v_0);
-        
+
         // After 1ms (1 time constant), V should be ~63% of 5V = 3.16V
         let expected = 5.0 * (1.0 - (-1.0f64).exp());
-        assert!((v_1ms - expected).abs() < 0.1, "Expected ~{:.2}V, got {:.2}V", expected, v_1ms);
+        assert!(
+            (v_1ms - expected).abs() < 0.1,
+            "Expected ~{:.2}V, got {:.2}V",
+            expected,
+            v_1ms
+        );
     }
 
     #[test]
@@ -487,32 +552,32 @@ mod tests {
         use crate::process::ProcessParams;
         let params = ProcessParams::default();
         let bridge = TCADBridge::new(&params);
-        
+
         let mut solver = NodalSolver::new();
         solver.set_bridge(bridge);
         solver.set_gnd(0); // VSS/Body
-        
+
         // VDD = -15V (Node 1)
         solver.add_voltage_source(1, 0, -15.0);
-        
+
         // Input = -15V (Node 2)
         solver.add_voltage_source(2, 0, -15.0);
-        
+
         // pMOS Transistor: G=2, S=0, D=3, B=0
         // W=10um, L=10um
         solver.add_tcad_transistor(2, 0, 3, 0, 10e-6, 10e-6, TransistorKind::Enhancement);
-        
+
         // Load resistor to VDD
         solver.add_resistor(3, 1, 100000.0); // 100k
-        
+
         // Solve DC OP
         assert!(solver.solve());
-        
+
         // With Vg = -15V (Logic Low), pMOS is ON.
         // Output (Node 3) should be near Source (0V).
         let v_out_on = solver.voltage(3);
         assert!(v_out_on > -5.0, "Output should be near 0V, got {}", v_out_on);
-        
+
         // Change input to 0V (Logic High)
         let mut solver_off = NodalSolver::new();
         solver_off.set_bridge(TCADBridge::new(&params));
@@ -521,9 +586,9 @@ mod tests {
         solver_off.add_voltage_source(2, 0, 0.0); // Input at 0V
         solver_off.add_tcad_transistor(2, 0, 3, 0, 10e-6, 10e-6, TransistorKind::Enhancement);
         solver_off.add_resistor(3, 1, 100000.0);
-        
+
         assert!(solver_off.solve());
-        
+
         // With Vg = 0V (Logic High), pMOS is OFF.
         // Output (Node 3) should be pulled to VDD (-15V).
         let v_out_off = solver_off.voltage(3);

@@ -6,8 +6,7 @@
 
 use mcs4_bus::prelude::*;
 use mcs4_chips::{i4001::I4001, i4002::I4002, i4003::I4003, i4004::I4004};
-use mcs4_core::{FidelityManager, process::ProcessParams};
-use cosmic_scheduler::PhaseScheduler;
+use mcs4_core::{process::ProcessParams, FidelityManager};
 
 use crate::fixture::load_hex_bytes;
 
@@ -52,21 +51,6 @@ pub struct Mcs4System {
 
     /// Breakpoint addresses (stop when PC matches)
     breakpoints: Vec<u16>,
-}
-
-impl PhaseScheduler for Mcs4System {
-    type State = ();
-    type Error = ();
-
-    fn execute_phi1(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
-        // Execute logic interaction (behavioral or analog)
-        Ok(())
-    }
-
-    fn execute_phi2(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
-        // Execute propagation
-        Ok(())
-    }
 }
 
 impl Mcs4System {

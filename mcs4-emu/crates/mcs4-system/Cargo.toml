@@ -18,7 +18,6 @@ simd_cluster = []
 mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }
 mcs4-chips = { path = "../mcs4-chips" }
-cosmic_scheduler.workspace = true
 tracing.workspace = true
 rayon.workspace = true
 memmap2.workspace = true

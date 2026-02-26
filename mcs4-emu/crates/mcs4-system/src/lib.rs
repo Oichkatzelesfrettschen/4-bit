@@ -11,13 +11,11 @@ pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
 
+pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 pub use mcs4::Mcs4System;
 pub use mcs40::Mcs40System;
-
 use mcs4_chips::{i4001::I4001, i4002::I4002};
 use mcs4_core::FidelityManager;
-
-pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 
 /// Common interface for MCS-4 and MCS-40 systems
 pub trait System {

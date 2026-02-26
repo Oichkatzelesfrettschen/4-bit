@@ -4,12 +4,16 @@
 //! This module bridges the 1D mesh solvers (Poisson, Drift-Diffusion) with nodal
 //! analysis by computing currents and Jacobian conductances from process parameters.
 
-use crate::process::ProcessParams;
-use crate::tcad::mesh::MeshConfig;
-use crate::tcad::poisson::{PoissonConfig, PoissonSolver};
-use crate::tcad::drift_diffusion::DriftDiffusionConfig;
-use crate::tcad::channel::ChannelConfig;
-use crate::circuit::graph::TransistorKind;
+use crate::{
+    circuit::graph::TransistorKind,
+    process::ProcessParams,
+    tcad::{
+        channel::ChannelConfig,
+        drift_diffusion::DriftDiffusionConfig,
+        mesh::MeshConfig,
+        poisson::{PoissonConfig, PoissonSolver},
+    },
+};
 
 /// Result of a device-level physics solve
 #[derive(Clone, Debug, Default)]
@@ -83,12 +87,12 @@ impl TCADBridge {
             p_tol: 1e-6,
         };
 
-        Self { 
-            p_config, 
-            dd_config, 
+        Self {
+            p_config,
+            dd_config,
             vth_enh: params.vth_enhancement,
             vth_dep: params.vth_depletion,
-            noise_seed: seed 
+            noise_seed: seed,
         }
     }
 
@@ -131,7 +135,7 @@ impl TCADBridge {
 
         // 4. Compute small-signal parameters via finite difference
         let dv = 1e-3; // 1mV perturbation
-        
+
         let res_s_plus = p_solver.solve(v_g + dv - v_s);
         let res_d_plus = p_solver.solve(v_g + dv - v_d);
         let ids_g_plus = (w / l) * mu * (res_s_plus.q_inv + res_d_plus.q_inv) * 0.5 * (v_s - v_d);
@@ -166,10 +170,10 @@ mod tests {
     fn test_inverter_gate_physics() {
         let params = ProcessParams::default();
         let bridge = TCADBridge::new(&params);
-        
+
         // pMOS: Source at 0V, VDD at -15V.
         // Logic High (0V) -> Vgs = 0V -> Cutoff
-        
+
         // Let's also check the Poisson result directly to see psi_surface
         let p_solver = PoissonSolver::new(bridge.p_config.clone());
         let p_res = p_solver.solve(0.0);
