@@ -15,3 +15,5 @@ workspace = true
 mcs4-core = { path = "../mcs4-core" }
 mcs4-system = { path = "../mcs4-system" }
 cosmic_scheduler.workspace = true
+nalgebra.workspace = true
+rand = { version = "0.10.0", features = ["std_rng"] }
