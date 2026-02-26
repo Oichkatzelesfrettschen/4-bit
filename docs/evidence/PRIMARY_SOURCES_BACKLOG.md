@@ -52,7 +52,9 @@ retrieved with clear provenance and licensing.
 - Store file under an appropriate `docs/` subfolder (prefer `docs/photomicrographs/` or chip-specific `docs/<chip>/`).
 - Add SHA256 to the provenance record and ensure references are linked from `docs/CHIP_ARTIFACTS.md`.
 
-## Current lead status (2026-01-11)
+## Current lead status (2026-02-25)
 
 - Wikimedia Commons: file search returns package photos/pinouts for 4040, but no 4040 die-shot images discovered.
 - CPU Grave Yard (happytrees.org): contains a 4040 family index and package-photo references, not die shots.
+- 4040 die shot remains the single highest-priority missing artifact for extending transistor-level analysis beyond 4004.
+- OCR benchmarks for 4001/4002/4003 still pending (tasks #70-74, deferred).

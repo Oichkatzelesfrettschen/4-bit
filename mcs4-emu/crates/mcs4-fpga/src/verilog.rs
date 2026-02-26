@@ -126,6 +126,7 @@ impl VerilogExporter {
 }
 
 #[cfg(test)]
+#[allow(clippy::unwrap_used)]
 mod tests {
     use super::*;
 
@@ -142,5 +143,66 @@ mod tests {
         assert!(s.contains("input wire clk;"));
         assert!(s.contains("input wire rst;"));
         assert!(s.contains("endmodule"));
+    }
+
+    #[test]
+    fn port_direction_rendering() {
+        let input = Port::input("clk");
+        assert!(input.decl().starts_with("input wire"));
+        assert!(input.decl().contains("clk"));
+
+        let output = Port::output("data_out");
+        assert!(output.decl().starts_with("output wire"));
+
+        let inout = Port::inout("bus");
+        assert!(inout.decl().starts_with("inout wire"));
+    }
+
+    #[test]
+    fn multi_bit_width() {
+        let port = Port::output("addr").width(12);
+        let decl = port.decl();
+        assert!(decl.contains("[11:0]"), "expected [11:0] in: {decl}");
+        assert!(decl.contains("addr"));
+    }
+
+    #[test]
+    fn single_bit_no_range() {
+        let port = Port::input("clk").width(1);
+        let decl = port.decl();
+        assert!(!decl.contains('['), "single-bit should not have range: {decl}");
+    }
+
+    #[test]
+    fn module_with_body() {
+        let mut module = Module::new("test_mod");
+        module.ports.push(Port::input("a"));
+        module.ports.push(Port::output("b").width(4));
+        module.body.push("assign b = {4{a}};".to_string());
+
+        let exporter = VerilogExporter::new("ignored");
+        let mut out = Vec::new();
+        exporter.export_module(&module, &mut out).unwrap();
+        let s = String::from_utf8(out).unwrap();
+
+        assert!(s.contains("module test_mod"));
+        assert!(s.contains("assign b = {4{a}};"));
+        assert!(s.contains("endmodule"));
+    }
+
+    #[test]
+    fn export_module_port_commas() {
+        let mut module = Module::new("two_port");
+        module.ports.push(Port::input("a"));
+        module.ports.push(Port::output("b"));
+
+        let exporter = VerilogExporter::new("x");
+        let mut out = Vec::new();
+        exporter.export_module(&module, &mut out).unwrap();
+        let s = String::from_utf8(out).unwrap();
+
+        // First port has comma, second does not
+        assert!(s.contains("a,"));
+        assert!(!s.contains("b,"));
     }
 }

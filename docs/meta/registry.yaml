@@ -1,6 +1,6 @@
 metadata:
-  version: "1.0"
-  last_updated: "2026-01-13T00:00:00Z"
+  version: "1.1"
+  last_updated: "2026-02-25T00:00:00Z"
 
 docs:
   - file: README.md
@@ -70,6 +70,14 @@ docs:
   - file: docs/evidence/PROVENANCE_CHECKLIST.md
     role: evidence
   - file: docs/evidence/ocr_manifest.yaml
+    role: evidence
+  - file: docs/evidence/source_manifest.json
+    role: evidence
+  - file: docs/evidence/bibliography.bib
+    role: evidence
+  - file: docs/evidence/CITATION_GUIDE.md
+    role: evidence
+  - file: docs/evidence/url_reachability_audit.md
     role: evidence
   - file: docs/evidence/ocr_results.md
     role: evidence

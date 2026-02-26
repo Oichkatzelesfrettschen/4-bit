@@ -1,0 +1,17 @@
+[package]
+name = "mcs4-intellec"
+description = "Intellec-4 development system emulation for MCS-4"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+mcs4-core = { path = "../mcs4-core" }
+mcs4-chips = { path = "../mcs4-chips" }
+mcs4-system = { path = "../mcs4-system" }

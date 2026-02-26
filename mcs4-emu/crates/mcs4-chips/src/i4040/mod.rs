@@ -55,6 +55,13 @@ pub struct I4040 {
     decoded_io_op: Option<IoOp>,
     /// True if PC was explicitly modified by instruction
     pc_modified: bool,
+    /// ROM data provided by system driver for LCR/RPM instructions.
+    /// The system populates this before the execute phase.
+    rom_data: u8,
+    /// RAM write data for LCR instruction (system reads this during X2/X3).
+    ram_write_data: u8,
+    /// Pending LCR write flag
+    lcr_pending: bool,
 }
 
 impl I4040 {
@@ -76,6 +83,9 @@ impl I4040 {
             io_data: 0,
             decoded_io_op: None,
             pc_modified: false,
+            rom_data: 0,
+            ram_write_data: 0,
+            lcr_pending: false,
         }
     }
 
@@ -93,6 +103,28 @@ impl I4040 {
 
     pub fn halted(&self) -> bool {
         self.halted
+    }
+
+    /// Supply ROM data for LCR/RPM instructions.
+    /// The system driver should call this before the execute phase
+    /// when the instruction decoder indicates an LCR or RPM.
+    pub fn supply_rom_data(&mut self, data: u8) {
+        self.rom_data = data;
+    }
+
+    /// Whether an LCR write is pending (system should write to RAM).
+    pub fn lcr_pending(&self) -> bool {
+        self.lcr_pending
+    }
+
+    /// Get the RAM write data from an LCR instruction.
+    pub fn ram_write_data(&self) -> u8 {
+        self.ram_write_data
+    }
+
+    /// Clear the LCR pending flag after system processes the write.
+    pub fn clear_lcr_pending(&mut self) {
+        self.lcr_pending = false;
     }
 
     pub fn cycle_state(&self) -> &CycleState {
@@ -564,9 +596,14 @@ impl I4040 {
     }
 
     /// LCR (0x03) - Load Command RAM (ROM -> RAM)
+    ///
+    /// Copies rom_data (provided by system) to the currently selected RAM
+    /// character position. The system driver must call supply_rom_data()
+    /// before execute and process lcr_pending() after execute.
     fn execute_lcr(&mut self) {
-        // TODO: Implement ROM to RAM copy
-        // ram[char] = rom[pc]; advance ROM address
+        // Transfer ROM data to RAM write buffer
+        self.ram_write_data = self.rom_data;
+        self.lcr_pending = true;
     }
 
     /// OR4 (0x04) - OR accumulator with R4
@@ -628,9 +665,11 @@ impl I4040 {
     }
 
     /// RPM (0x0E) - Read Program Memory
+    ///
+    /// Loads rom_data (provided by system) into the accumulator.
+    /// The system driver must call supply_rom_data() before execute.
     fn execute_rpm(&mut self) {
-        // TODO: Implement ROM read into accumulator
-        // acc = rom[pc]; advance ROM address
+        self.alu.set_accumulator(self.rom_data & 0x0F);
     }
 }
 
@@ -662,10 +701,99 @@ impl crate::Chip for I4040 {
         self.io_data = 0;
         self.decoded_io_op = None;
         self.pc_modified = false;
+        self.rom_data = 0;
+        self.ram_write_data = 0;
+        self.lcr_pending = false;
     }
 
     fn tick(&mut self, phase: BusCycle) {
         // Simplified tick without bus access
         let _ = phase;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn rpm_loads_accumulator_from_rom_data() {
+        let mut cpu = I4040::new();
+        cpu.supply_rom_data(0xA);
+        cpu.execute_rpm();
+        assert_eq!(cpu.accumulator(), 0xA);
+    }
+
+    #[test]
+    fn rpm_masks_to_4_bits() {
+        let mut cpu = I4040::new();
+        cpu.supply_rom_data(0xFF);
+        cpu.execute_rpm();
+        assert_eq!(cpu.accumulator(), 0xF);
+    }
+
+    #[test]
+    fn lcr_sets_pending_and_write_data() {
+        let mut cpu = I4040::new();
+        cpu.supply_rom_data(0x5A);
+        cpu.execute_lcr();
+        assert!(cpu.lcr_pending());
+        assert_eq!(cpu.ram_write_data(), 0x5A);
+    }
+
+    #[test]
+    fn lcr_pending_cleared_by_system() {
+        let mut cpu = I4040::new();
+        cpu.supply_rom_data(0x42);
+        cpu.execute_lcr();
+        assert!(cpu.lcr_pending());
+
+        cpu.clear_lcr_pending();
+        assert!(!cpu.lcr_pending());
+    }
+
+    #[test]
+    fn sb0_sb1_switch_ram_bank() {
+        let mut cpu = I4040::new();
+        assert_eq!(cpu.ram_bank, 0);
+
+        cpu.execute_sb1();
+        assert_eq!(cpu.ram_bank, 1);
+
+        cpu.execute_sb0();
+        assert_eq!(cpu.ram_bank, 0);
+    }
+
+    #[test]
+    fn halt_and_resume() {
+        let mut cpu = I4040::new();
+        assert!(!cpu.halted());
+
+        cpu.execute_hlt();
+        assert!(cpu.halted());
+    }
+
+    #[test]
+    fn or_instructions() {
+        let mut cpu = I4040::new();
+        // Set R4 = 0xA, accumulator = 0x5
+        cpu.registers.set_r(4, 0xA);
+        cpu.alu.set_accumulator(0x5);
+
+        cpu.execute_or4();
+        assert_eq!(cpu.accumulator(), 0xF); // 0x5 | 0xA = 0xF
+    }
+
+    #[test]
+    fn reset_clears_new_fields() {
+        use crate::Chip;
+        let mut cpu = I4040::new();
+        cpu.supply_rom_data(0xFF);
+        cpu.execute_lcr();
+        assert!(cpu.lcr_pending());
+
+        cpu.reset();
+        assert!(!cpu.lcr_pending());
+        assert_eq!(cpu.ram_write_data(), 0);
     }
 }

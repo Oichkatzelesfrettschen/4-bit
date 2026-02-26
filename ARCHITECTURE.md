@@ -2,30 +2,33 @@
 
 ## Project Goals
 
-Build a gate-level accurate emulator for the Intel MCS-4 (4004) and MCS-40 (4040) microcomputer systems with:
-- **Gate-level simulation** with propagation delays
-- **Transistor-level stubs** for future SPICE-style accuracy
-- **Full system emulation** including all support chips
-- **GUI debugger/programmer** with waveform visualization
-- **FPGA synthesis path** via Rust HDL crates
+Build a multi-fidelity emulator for the Intel MCS-4 (4004) and MCS-40 (4040)
+microcomputer systems:
+- **Cycle-accurate behavioral simulation** of all MCS-4/MCS-40 chips
+- **Transistor-level solver stack** (switch-level, nodal, TCAD) for physics validation
+- **Bus-protocol-accurate integration** across CPU, ROM, RAM, and peripherals
+- **GUI debugger** with disassembly, signal trace, and waveform views
+- **FPGA synthesis path** via Verilog export
 
 ## Accuracy Levels
 
 ```
-Level 3: Transistor-level (TODO)
-  - SPICE-like switch model per transistor
-  - Parasitic R/C from layout
-  - ~4-10 Hz effective clock
+Level 3: Transistor-level (mcs4-core)
+  Switch-level solver: VoltageLevel::High/Low/Z per node
+  Nodal analysis solver: analog-resolution RC networks
+  TCAD physics: process models, Level 1/3 MOSFET, body effect, velocity saturation
+  ~4-10 Hz effective clock
 
-Level 2: Gate-level (PRIMARY TARGET)
-  - NAND/NOR/INV with propagation delays
-  - Wire delays from fanout estimation
-  - ~1-100 kHz effective clock
+Level 2: Gate-level (mcs4-core)
+  NAND/NOR/INV/AND/OR primitives with propagation delays
+  Wire delays from fanout estimation
+  Event-driven simulation engine
+  ~1-100 kHz effective clock
 
-Level 1: Cycle-accurate (BASELINE)
-  - Phase-accurate (phi1/phi2) state machine
-  - Instruction-correct behavior
-  - Real-time or faster execution
+Level 1: Cycle-accurate (mcs4-chips, mcs4-system) [PRIMARY]
+  Phase-accurate (phi1/phi2) state machine
+  8-phase bus protocol: A1/A2/A3/M1/M2/X1/X2/X3
+  Instruction-correct behavior, real-time or faster
 ```
 
 ## System Architecture
@@ -38,6 +41,9 @@ Level 1: Cycle-accurate (BASELINE)
 |        |<----------------------->|  4003  | Shift register (10-bit)
 +--------+                         +--------+
     |
+    +-- 4008 Address latch + CM-ROM decode
+    +-- 4009 I/O expander (MCS-4 to standard bus)
+    +-- 3216/3226 Bus drivers (non-inverting/inverting)
     +-- SYNC, CM-ROM, CM-RAM control signals
     +-- phi1, phi2 two-phase clock
 ```
@@ -53,243 +59,202 @@ Level 1: Cycle-accurate (BASELINE)
     |
     +-- 4289 Standard Memory Interface
     +-- 4201/4207/4209/4211 Clock generators
+    +-- 4265 Programmable I/O (4x4 bits)
+    +-- 4316 LCD segment driver
+    +-- 4702 UV-erasable PROM (256x8)
     +-- Interrupt/halt signals
 ```
 
 ## Rust Workspace Structure
 
 ```
-Cargo.toml                      # Workspace root (canonical)
+Cargo.toml                        # Workspace root
 
-mcs4-emu/
-  crates/
-    mcs4-core/                  # Simulation kernel
-      src/
-        lib.rs
-        timing.rs               # Propagation delay models
-        gate.rs                 # Gate-level primitives
-        transistor.rs           # Transistor-level stubs (TODO)
-        wire.rs                 # Wire/net modeling
-        signal.rs               # Signal history and types
-        simulator.rs            # Simulation orchestration
+mcs4-emu/crates/
+  mcs4-core/                      # Simulation kernel (422+ tests)
+    src/
+      lib.rs                      # Re-exports, prelude
+      gate.rs                     # Gate primitives: And2, Or2, Nand2/3, Nor2/3, Inv
+      signal.rs                   # SignalLevel {High, Low, Z, X}, Signal history
+      timing.rs                   # Time type (picoseconds), NANOSECOND/MICROSECOND
+      wire.rs                     # Net, Wire, Fanout
+      simulator.rs                # Event-driven gate-level simulation engine
+      transistor.rs               # PmosFet, DepletionLoad, CircuitBuilder
+      transistor_solver.rs        # Switch-level iterative solver (14 tests)
+      nodal_solver.rs             # Nodal analysis with RC networks (14 tests)
+      trace_buffer.rs             # Signal capture for waveform display
+      layout_netlist.rs           # NetlistV1 JSON parser
+      netlist_v0.rs               # Legacy netlist parser
+      process/                    # Intel 10um pMOS process parameters
+        mod.rs                    # ProcessParams, SiliconProperties
+        oxide.rs                  # Gate oxide model (tox, Cox, breakdown)
+        silicon.rs                # Substrate properties, ni, mobility
+        mobility.rs               # Field-dependent mobility models
+        junction.rs               # PN junction, built-in potential
+        interconnect.rs           # Al metallization R/C
+        thermal.rs                # Thermal resistance, self-heating
+      device/                     # Transistor device models
+        mod.rs                    # DeviceModel trait
+        pmos_level1.rs            # Shichman-Hodges Level 1
+        pmos_level3.rs            # Level 3 with short-channel effects
+        cap_model.rs              # Meyer capacitance model
+        depletion_load.rs         # Depletion-load device model
+        parasitic.rs              # Layout parasitic extraction
+      circuit/                    # Circuit representation
+        mod.rs                    # CircuitGraph, Node types
+        graph.rs                  # Adjacency-based circuit graph
+        arch_map.rs               # Architecture block mapping
+        clock_tree.rs             # Clock distribution analysis
+        netlist_bridge.rs         # Netlist-to-graph conversion
+        parasitic_extract.rs      # R/C extraction from geometry
+        power_rail_id.rs          # VDD/VSS identification
+        spatial.rs                # Physical coordinate system
+        timing_analysis.rs        # Critical path analysis
+        bbox_to_geometry.rs       # Bounding box -> geometry conversion
+      solver/                     # SPICE-class simulation
+        mod.rs                    # Solver orchestration
+        dc_op.rs                  # DC operating point
+        ac.rs                     # AC small-signal analysis
+        transient.rs              # Transient simulation (adaptive timestep)
+        convergence.rs            # Newton-Raphson convergence control
+        matrix.rs                 # Dense matrix operations
+        sparse_matrix.rs          # Sparse matrix (CSR format)
+        stimulus.rs               # Voltage/current sources
+        event_scheduler.rs        # Event scheduling for mixed-mode
+        noise.rs                  # Noise analysis (thermal, flicker)
+        sensitivity.rs            # Parameter sensitivity analysis
+      tcad/                       # TCAD physics
+        mod.rs                    # TCAD module hub
+        mesh.rs                   # 2D finite-element mesh
+        poisson.rs                # Poisson equation solver
+        carrier.rs                # Carrier concentration models
+        channel.rs                # Channel formation physics
+        drift_diffusion.rs        # Drift-diffusion transport
 
-    mcs4-bus/                   # Bus infrastructure
-      src/
-        lib.rs
-        data_bus.rs             # 4-bit bidirectional bus
-        control.rs              # SYNC, CM-ROM, CM-RAM
-        clock.rs                # Two-phase clock generation
+  mcs4-bus/                       # Bus infrastructure (17 tests)
+    src/
+      lib.rs                      # Re-exports, prelude
+      data_bus.rs                 # 4-bit bidirectional data bus
+      control.rs                  # ControlSignals: SYNC, CM-ROM, CM-RAM, IoOp
+      clock.rs                    # TwoPhaseClock (phi1/phi2, non-overlapping)
 
-    mcs4-chips/                 # Chip implementations
-      src/
-        lib.rs
-        disasm.rs
-        simd.rs
-        i4004/                  # 4004 CPU
-          mod.rs
-          alu.rs
-          registers.rs
-          instruction_decode.rs
-          timing_io.rs
-        i4040/                  # 4040 CPU (extends 4004)
-          mod.rs
-          instruction_decode.rs
-          interrupt.rs
-          registers.rs
-          stack.rs
-        i4001.rs                # ROM + I/O
-        i4002.rs                # RAM + output
-        i4003.rs                # Shift register
-        i4101.rs                # Static RAM
-        i4201.rs                # Clock generator
-        i4289.rs                # Memory interface
-        i4308.rs                # Larger ROM
-      tests/
-        fuzz_test.rs            # Fuzz regression coverage
+  mcs4-chips/                     # Chip implementations (206+ tests)
+    src/
+      lib.rs                      # Module registry, Chip trait
+      disasm.rs                   # Disassembler + DisasmCache (O(1) window)
+      simd.rs                     # SIMD parallel execution (nightly, feature-gated)
+      i4004/                      # 4004 CPU (46 instructions)
+        mod.rs                    # CPU state machine, phase methods
+        alu.rs                    # 4-bit ALU with carry/BCD
+        registers.rs              # 16 index registers, 3-level stack
+        instruction_decode.rs     # Opcode decoder
+        timing_io.rs              # I/O timing coordination
+      i4040/                      # 4040 CPU (60 instructions)
+        mod.rs                    # Extended CPU, interrupt support
+        instruction_decode.rs     # 4040-specific opcodes (LCR, RPL, etc.)
+        interrupt.rs              # Interrupt controller with vector support
+        registers.rs              # 24 registers, register bank switching
+        stack.rs                  # 7-level stack
+      i4001.rs                    # ROM (256x8) + 4-bit I/O port
+      i4002.rs                    # RAM (320-bit) + 4-bit output port
+      i4003.rs                    # 10-bit shift register
+      i4008.rs                    # 12-bit address latch + CM-ROM decode
+      i4009.rs                    # Standard I/O expander
+      i3216.rs                    # Bus driver (non-inverting)
+      i3226.rs                    # Bus driver (inverting)
+      i4101.rs                    # 256x4 static RAM
+      i4201.rs                    # Clock generator (crystal, non-overlap, reset, STP)
+      i4207.rs                    # Single-phase crystal clock
+      i4209.rs                    # Single-to-two-phase converter
+      i4211.rs                    # RC oscillator + two-phase clock
+      i4265.rs                    # Programmable I/O (4x4 bits)
+      i4289.rs                    # Standard memory interface
+      i4308.rs                    # 1Kx8 ROM with I/O ports
+      i4316.rs                    # LCD segment driver
+      i4702.rs                    # 256x8 UV-erasable PROM
+    tests/
+      fuzz_test.rs                # Fuzz regression (1 test)
+      proptest_chips.rs           # Property-based tests (11 tests)
 
-    mcs4-system/                # Complete system assembly
-      src/
-        lib.rs
-        cluster.rs              # Multi-core cluster wiring
-        mcs4.rs                 # MCS-4 system builder
-        mcs40.rs                # MCS-40 system builder
+  mcs4-system/                    # System assembly (43+ tests)
+    src/
+      lib.rs                      # Workspace wiring, exports
+      mcs4.rs                     # MCS-4 system builder (4004+4001+4002)
+      mcs40.rs                    # MCS-40 system builder (4040+4308+4101+4201)
+      cluster.rs                  # Multi-CPU cluster wiring
+      fixture.rs                  # Test fixtures, hex loader
+      simd_cluster.rs             # SIMD parallel cluster (nightly, feature-gated)
+    tests/
+      mcs40_4308_integration.rs   # End-to-end bus protocol tests (9 tests)
 
-    mcs4-gui/                   # GUI debugger
-      src/
-        app.rs                  # GUI shell/controller
-        lib.rs
-        main.rs
-        signal_trace.rs         # Signal capture utilities
-        waveform.rs             # Logic analyzer view
-        panels/
-          mod.rs
-          disasm.rs
-          waveform.rs
+  mcs4-gui/                       # GUI debugger (15 tests)
+    src/
+      app.rs                      # eframe application shell
+      lib.rs
+      main.rs
+      signal_trace.rs             # SignalTrace: sample capture, overflow eviction
+      waveform.rs                 # Legacy waveform scaffolding
+      panels/
+        mod.rs
+        disasm.rs                 # DisasmPanel with cached O(1) windowed lookup
+        waveform.rs               # WaveformPanel: logic analyzer view
 
-    mcs4-fpga/                  # FPGA synthesis support
-      src/
-        lib.rs
-        verilog.rs              # Verilog export
+  mcs4-fpga/                      # FPGA synthesis support (6 tests)
+    src/
+      lib.rs
+      verilog.rs                  # Verilog export from gate-level models
+
+  mcs4-core/tests/
+    error_paths.rs                # Solver error path validation (12 tests)
+    integration_validation.rs     # Cross-solver integration (18 tests)
 ```
 
 ## Core Abstractions
 
-### Signal Types
+### Chip Trait
+
+Every chip implements the `Chip` trait for basic lifecycle:
 
 ```rust
-/// Voltage level at a point in time
-#[derive(Clone, Copy, Debug)]
-pub enum SignalLevel {
-    /// Logic low (Vdd = -15V for pMOS)
-    Low,
-    /// Logic high (Vss = 0V for pMOS)
-    High,
-    /// Undefined/floating
-    Z,
-    /// Contention (bus fight)
-    X,
-}
-
-/// Time in picoseconds (1e-12 seconds)
-pub type Time = u64;
-
-/// A signal with history for waveform display
-pub struct Signal {
-    name: String,
-    history: Vec<(Time, SignalLevel)>,
-    current: SignalLevel,
+pub trait Chip: Send + Sync {
+    fn name(&self) -> &'static str;
+    fn reset(&mut self);
+    fn tick(&mut self, phase: BusCycle);
 }
 ```
 
-### Gate-Level Primitives
+For bus-connected chips, the `tick_bus()` pattern provides full bus protocol participation:
 
 ```rust
-pub trait Gate {
-    /// Evaluate output given current inputs
-    fn evaluate(&self) -> SignalLevel;
-
-    /// Propagation delay from input change to output change
-    fn propagation_delay(&self) -> Time;
-
-    /// Input capacitance (for fanout calculations)
-    fn input_capacitance(&self) -> f64;
-}
-
-pub struct Nand2 {
-    a: SignalLevel,
-    b: SignalLevel,
-    tpd: Time,  // propagation delay
-}
-
-pub struct Nor2 {
-    a: SignalLevel,
-    b: SignalLevel,
-    tpd: Time,
-}
-
-pub struct Inverter {
-    input: SignalLevel,
-    tpd: Time,
-}
+fn tick_bus(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &ControlSignals);
 ```
-
-### Transistor-Level Stubs (TODO)
-
-```rust
-/// pMOS transistor model (future implementation)
-pub trait Transistor {
-    /// Update transistor state given terminal voltages
-    fn update(&mut self, vg: f64, vs: f64, vd: f64);
-
-    /// Drain-source current
-    fn ids(&self) -> f64;
-
-    /// On-resistance
-    fn ron(&self) -> f64;
-
-    /// Gate capacitance
-    fn cg(&self) -> f64;
-}
-
-/// Placeholder for SPICE-like transistor model
-pub struct PmosFet {
-    // TODO: BSIM4 or simple switch model parameters
-    w: f64,  // width
-    l: f64,  // length
-    vth: f64, // threshold voltage
-}
-```
-
-#### Switch-Level Model (planned)
-
-The next fidelity step is a *switch-level* simulator (digital resolution with transistor-controlled
-connectivity), used to validate gate-level behavior against extracted transistor candidates.
-
-Design sketch:
-- Represent circuit nodes as a graph with explicit *supply nodes* (`VDD`, `VSS`) plus internal nets.
-- Model each transistor as an ideal bidirectional switch between two nodes, controlled by a gate:
-  - enhancement pMOS: conducts when the gate is asserted for the process’ convention (to be
-    standardized in code as a `LogicConvention` rather than relying on voltage sign).
-  - depletion load: always conducting (acts as a weak pull).
-- Per timestep, compute connectivity of “currently conducting” switches (Union-Find / DSU), then
-  resolve each connected component to a stable digital state:
-  - If connected to exactly one supply: that supply dominates.
-  - If connected to both supplies: mark contention (error in the model or missing resistive behavior).
-  - If connected to no supply: float (Z), optionally retain last state via node capacitance.
-- Provide an adapter to map resolved node states to the existing gate/bus `SignalLevel` values.
-
-This is intentionally “digital-first”: analog effects (RC delay, charge sharing, bootstrap behavior)
-are layered on later, once connectivity and contention handling are stable and testable.
 
 ### Bus Protocol
 
-```rust
-/// MCS-4 bus cycle states
-#[derive(Clone, Copy, Debug)]
-pub enum BusCycle {
-    A1,  // Address phase 1 (bits 0-3)
-    A2,  // Address phase 2 (bits 4-7)
-    A3,  // Address phase 3 (bits 8-11)
-    M1,  // Memory read phase 1 (bits 0-3)
-    M2,  // Memory read phase 2 (bits 4-7)
-    X1,  // Execute phase 1
-    X2,  // Execute phase 2
-    X3,  // Execute phase 3
-}
+The MCS-4/MCS-40 bus operates on an 8-phase cycle multiplexing address and data on
+a shared 4-bit bus:
 
-/// Two-phase clock
-pub struct Clock {
-    phi1: Signal,
-    phi2: Signal,
-    period: Time,  // 1.35-2.0 us (740 kHz nominal)
-}
+```
+A1: CPU drives address bits 0-3   -> ROM/RAM latch
+A2: CPU drives address bits 4-7   -> ROM/RAM latch
+A3: CPU drives address bits 8-11  -> ROM/RAM latch + chip select
+M1: ROM drives data bits 0-3     -> CPU latches
+M2: ROM drives data bits 4-7     -> CPU latches
+X1: Decode phase                  -> I/O operations begin
+X2: Execute write phase           -> WRM/WMP/WRR: CPU drives, peripherals latch
+X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 ```
 
-#### Control-Line Timing Assumptions
+### Control-Line Timing
 
-This emulator models the *observable* external bus protocol at the system boundary:
-- Instruction decode happens in `X1`, but external I/O control lines are only asserted during the
-  *transfer* phases (`X2` for writes, `X3` for reads).
-- `SRC` is special: it spans `X2+X3` because it is effectively an addressing transfer used to set up
-  subsequent RAM operations.
-- `CM-RAM` and `CM-ROM` selection are gated to the same transfer phases so that peripherals are not
-  “always-on” on the bus.
-
-System scheduling detail:
-- In `X3` (read-oriented), peripherals tick before the CPU latches. To avoid a “late” decode, the
-  system must present `io_op` to peripherals prior to their `tick_bus()` call in `X3`.
-
-##### I/O Operation Timing Table
-
-| Instruction family | `io_op` asserted | Bus driver | Notes |
+| Instruction family | io_op asserted | Bus driver | Notes |
 |---|---:|---|---|
-| `WRM`, `WMP`, `WRR`, status write (`WR0`..`WR3`) | `X2` | CPU | Peripherals should not overwrite the bus in `X2`. |
-| `RDM`, `RDR`, status read (`RD0`..`RD3`), `ADM`, `SBM` | `X3` | Peripheral | CPU latches in `X3`; CPU should not overwrite the bus in `X3`. |
-| `SRC` | `X2+X3` | CPU | Address/setup transfer; often paired with RAM ops. |
-
-## Timing Model
+| WRM, WMP, WRR, WR0..WR3 | X2 | CPU | Write operations |
+| RDM, RDR, RD0..RD3, ADM, SBM | X3 | Peripheral | Read operations |
+| SRC | X2+X3 | CPU | Address/setup transfer |
 
 ### Clock Specifications (from datasheet)
+
 | Parameter | Min | Typ | Max | Unit |
 |-----------|-----|-----|-----|------|
 | tCY (period) | 1.35 | - | 2.0 | us |
@@ -299,196 +264,32 @@ System scheduling detail:
 | t0D1 (phi1->phi2) | 400 | 550 | - | ns |
 | t0D2 (phi2->phi1) | 150 | - | - | ns |
 
-### Gate Delay Model
+## Test Strategy
 
-```rust
-/// Simple linear delay model
-pub fn gate_delay(gate_type: GateType, fanout: usize) -> Time {
-    let base_delay = match gate_type {
-        GateType::Nand2 => 5_000,   // 5 ns base
-        GateType::Nor2 => 6_000,    // 6 ns base
-        GateType::Inv => 3_000,     // 3 ns base
-        GateType::Nand3 => 7_000,   // 7 ns base
-        GateType::Nor3 => 8_000,    // 8 ns base
-    };
+- **Unit tests**: Per-chip behavioral correctness (instructions, bus protocol, I/O)
+- **Property tests**: Invariant validation across randomized inputs (proptest)
+- **Error path tests**: Graceful behavior for missing nodes, empty circuits
+- **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
+- **Solver tests**: Convergence, accuracy, cross-validation between solver levels
+- **760 tests total, 0 failures** (baseline 2026-02-25)
 
-    // Add delay per fanout (capacitive loading)
-    let fanout_factor = 500;  // 0.5 ns per fanout
-    base_delay + (fanout as Time * fanout_factor)
-}
+## Build Commands
+
+```sh
+cargo check --workspace         # Type check
+cargo test --workspace          # Run all tests
+cargo clippy --all-targets -- -D warnings   # Lint (warnings = errors)
+cargo fmt --all --check         # Format check
 ```
 
-## Event-Driven Simulation
+## Dependencies
 
-```rust
-/// Simulation event
-pub struct Event {
-    time: Time,
-    target: SignalId,
-    value: SignalLevel,
-}
-
-/// Event queue for simulation
-pub struct Simulator {
-    current_time: Time,
-    events: BinaryHeap<Reverse<Event>>,
-    signals: HashMap<SignalId, Signal>,
-    gates: Vec<Box<dyn Gate>>,
-}
-
-impl Simulator {
-    pub fn step(&mut self) -> Option<Time> {
-        if let Some(Reverse(event)) = self.events.pop() {
-            self.current_time = event.time;
-            self.apply_event(event);
-            Some(self.current_time)
-        } else {
-            None
-        }
-    }
-
-    fn apply_event(&mut self, event: Event) {
-        // Update signal
-        let signal = self.signals.get_mut(&event.target).unwrap();
-        signal.update(event.time, event.value);
-
-        // Propagate to dependent gates
-        for gate_id in self.get_dependents(event.target) {
-            let gate = &self.gates[gate_id];
-            let new_value = gate.evaluate();
-            let delay = gate.propagation_delay();
-
-            self.events.push(Reverse(Event {
-                time: self.current_time + delay,
-                target: gate.output(),
-                value: new_value,
-            }));
-        }
-    }
-}
-```
-
-## Engineering Reality Check (MCS-4 Emulation)
-- 4004 ~740 kHz; modern CPU has ~6,000 host cycles per emulated cycle.
-- Single-core scalar emulation is sufficient; SIMD is for parallel instances/fuzzing, not single stream.
-- FPU irrelevant; use integer paths; focus on bit-twiddling and cache-friendly layouts.
-
-## Core Optimization Stack (Late 2025)
-- modular-bitfield: pack 4-bit fields; ergonomic 4-bit access.
-- bitflags: efficient CPU flags/conditions.
-- smallvec/tinyvec: on-stack call stacks (3-level 4004, 7-level 4040).
-- memchr: fast ROM scanning in decode/loader.
-- bytemuck: zero-copy buffer casting.
-- rkyv: zero-copy snapshots for traces/state.
-- ringbuf: SPSC event bus for UI decoupling.
-- tracing (+subscriber): structured per-opcode logging.
-- criterion: micro-bench loops; IPS metrics.
-
-## Parallel Emulation (portable-simd, nightly)
-- std::simd: vectorize instances (8/16 lanes); do not vectorize a single stream.
-- Strategy: pack N CPU states; masked operations for branches; gather reads batched.
-- Cranelift (optional): JIT microcode experiments and fuzz acceleration helpers.
-
-## Performance Art Rescope (Zero-Copy, Native Hotpath)
-
-- Superserialized core: rkyv archives for zero-copy snapshots; time-travel debugging via pointer moves.
-- Hotpath compilation: Release LTO fat, codegen-units=1, panic=abort; const generics to unroll cycle counts.
-- Memory map: mmap ROM (slice &'a [u8]); stack-allocate RAM; avoid Vec in hot loops.
-- Native build: RUSTFLAGS="-C target-cpu=native -C target-feature=+crt-static" for Ryzen-class CPUs.
-- Rationale: 4-bit CPU needs bit-twiddling and cache locality; SIMD reserved for parallel instances.
-
-- Lane width targets: 8 (AVX2), 16 (AVX-512), fallback 4 on SSE; compile-time const LANES with cfg.
-- Layout (SoA):
-  - acc: Simd<u8, LANES> (low nibble), carry: SimdMask<LANES>
-  - pc: Simd<u16, LANES> (12-bit masked), regs: [Simd<u8, LANES>; 16], stack: [Simd<u16, LANES>; 7], sp: Simd<u8, LANES>
-  - flags/status: Simd<u8, LANES> via modular-bitfield encode/decode helpers
-- Fetch/decode:
-  - rom_ptrs: [&[u8]; LANES] or Simd<u32, LANES> base + per-lane offsets; gather loads to fetch OPA/OPR
-  - decode scalar table, apply per-lane masks; future: vector-friendly decode table
-- Execute (examples):
-  - ADD r: value = regs[r]; sum = acc + value + carry.to_int(); carry = sum.gt(0x0F); acc = sum & 0x0F
-  - JCN cond, addr: mask = eval_cond(cond, acc, carry, test); pc = select(mask, (pc & 0xF00)|addr, pc)
-  - ISZ r, addr: inc = (regs[r]+1)&0x0F; zero = inc.eq(0); regs[r]=inc; pc=select(!zero,(pc&0xF00)|addr,pc)
-- Masking utilities:
-  - select(mask, a, b): mask.select(a, b) for Simd values; for arrays, per-lane write with mask
-  - stack push/pop: guard with lane masks; overflow/underflow tracked per lane
-- Bus and memory:
-  - ROM: per-lane pointer/offset; RAM/I/O: lane-indexed arrays; X1/X2/X3 phases advance per-lane
-- Fuzzing harness:
-  - Seed corpus per lane; run N steps; collect coverage (Simd<u32>) and divergence hashes; shrink failing inputs
-- Correctness gates:
-  - Property tests: scalar CPU vs SIMD lane 0..LANES-1 equivalence on random programs
-  - Determinism: ensure masked side effects don't bleed across lanes
-- Performance:
-  - Avoid gather/scatter hot paths by structuring ROM as contiguous banks; precompute per-lane page selects
-  - Batch branch resolution to reduce mask thrash; use bitmasks for conditions
-- API sketch:
-  - CpuSimd<const LANES: usize> { state: CpuStateSimd<LANES>, roms: [RomRef; LANES] }
-  - fn step(&mut self) -> StepResultSimd { /* vectorized phases */ }
-  - fn load_roms(&mut self, roms: [&[u8]; LANES]);
-- Nightly requirements:
-  - std::simd; feature gates in crate root; fallback to scalar when unavailable
-
-## 4-bit Data Handling Strategy
-- modular-bitfield for packed 4-bit fields (status/flags/registers) to avoid wasteful 8/32-bit storage.
-- bitflags for condition codes and CPU flags.
-- tinyvec/smallvec for 4004/4040 stacks to avoid heap allocations.
-
-### Main Window Layout
-```
-+------------------+-------------------+
-|   Registers      |    Memory View    |
-|   (4004/4040)    |    (ROM/RAM)      |
-+------------------+-------------------+
-|           Waveform Display           |
-|   (Logic Analyzer Style)             |
-+--------------------------------------+
-|           Disassembly View           |
-+--------------------------------------+
-|  Controls: Run | Step | Reset | Load |
-+--------------------------------------+
-```
-
-### Key Features
-1. **Waveform display**: Show phi1, phi2, SYNC, data bus, address, CM signals
-2. **Register view**: All 16 index registers, accumulator, carry, PC stack
-3. **Memory view**: ROM contents, RAM contents, I/O ports
-4. **Disassembly**: Current instruction with highlighting
-5. **Breakpoints**: By address, by signal condition
-6. **ROM programmer**: Load binary/hex files, assemble source
-
-## FPGA Synthesis Path
-
-The gate-level design can be exported to Verilog for FPGA synthesis:
-
-```rust
-pub fn export_verilog(system: &System, path: &Path) -> io::Result<()> {
-    let mut f = File::create(path)?;
-
-    // Module header
-    writeln!(f, "module mcs4_system(")?;
-    writeln!(f, "  input wire clk,")?;
-    writeln!(f, "  input wire rst,")?;
-    writeln!(f, "  // ... ports")?;
-    writeln!(f, ");")?;
-
-    // Gate instantiations from design
-    for gate in &system.gates {
-        gate.emit_verilog(&mut f)?;
-    }
-
-    writeln!(f, "endmodule")?;
-    Ok(())
-}
-```
-
-## Validation Strategy
-
-1. **Instruction tests**: Every 4004/4040 instruction in isolation
-2. **Timing tests**: Verify bus cycle timing matches datasheet
-3. **Integration test**: Run Busicom 141-PF calculator ROM
-4. **Cross-validation**: Compare against 4004.com simulator output
-5. **FPGA validation**: Synthesize and run on physical FPGA
+Key workspace dependencies (pinned in root Cargo.toml):
+- `eframe` 0.33: GUI framework (egui + native backend)
+- `proptest` 1.6: Property-based testing
+- `faer` 0.24: Linear algebra for solver matrices
+- `bumpalo` 3.17: Arena allocation for solver temporaries
+- `memmap2` 0.9: Memory-mapped ROM loading
 
 ## References
 
@@ -496,4 +297,4 @@ pub fn export_verilog(system: &System, path: &Path) -> io::Result<()> {
 - Intel MCS-40 User Manual (Nov 1974)
 - Intel 4004/4040 Datasheets
 - 4004.com transistor-level masks and schematics
-- OpenCores MCS-4 Verilog implementation (reference only)
+- See `docs/evidence/bibliography.bib` for full bibliography (40+ entries)

@@ -14,6 +14,7 @@
 mod alu;
 pub mod instruction_decode;
 mod registers;
+pub mod solver_bridge;
 mod timing_io;
 
 pub use alu::Alu;

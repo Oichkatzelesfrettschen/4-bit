@@ -1,60 +1,179 @@
-version: "1.0"
-generated_at: "2026-01-07T17:29:52Z"
+version: "1.1"
+generated_at: "2026-02-25T00:00:00Z"
+description: >-
+  Provenance manifest for primary source PDFs used in MCS-4/MCS-40 process
+  parameter research. Each entry links a local PDF to its download URL,
+  SHA-256 checksum, and OCR sidecar file (if available).
+checksum_algorithm: SHA-256
 sources:
+  # =====================================================================
+  # Datasheets
+  # =====================================================================
   - id: intel-4004-datasheet
     local_path: docs/4004/intel-4004-datasheet.pdf
     url: https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf
     sha256: d244a3aed2eb83722c567c84adc2da68609fb75209fee73c6fa8da695805ca1a
     sidecar: docs/evidence/ocr/4004-datasheet.txt
+    bibtex_key: intel4004ds
+    duplicates:
+      - docs/MCS-40/Intel_4004_Datasheet.pdf
+
   - id: intel-4040-datasheet
     local_path: docs/4040/4040-datasheet.pdf
     url: https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf
     sha256: 9091a128df1ec785a5abe338ca8779bc99ce601b1f3269c3178fcd45468c9c35
     sidecar: docs/evidence/ocr/4040-datasheet.txt
-  - id: mcs4-users-manual-feb73
-    local_path: docs/MCS-4/MCS-4_UsersManual_Feb73.pdf
-    url: https://bitsavers.org/components/intel/MCS4/MCS-4_UsersManual_Feb73.pdf
-    sha256: 90dbf930cbb399b99263c4573da59eb3abe503946b3ef888a4b8dc2c4d8f1f22
-    sidecar: docs/evidence/ocr/mcs4_users_manual.txt
+    bibtex_key: intel4040ds
+    notes: >-
+      4040 datasheet on chipdb.org is at /MCS-40/4040.pdf (verified 200).
+      The path /MCS-4/datashts/intel-4040.pdf does NOT exist (404).
+    duplicates:
+      - docs/MCS-40/4040_Datasheet.pdf
+
+  - id: 4004-applelogic-datasheet
+    local_path: docs/4004/4004_applelogic_datasheet.pdf
+    url: unknown
+    sha256: 84085c219440a778320ac58bc670f6b71441fcb38a1d813b9deda317b9d34788
+    bibtex_key: intel4004applelogic
+    notes: >-
+      Alternate 4004 datasheet scan. Origin URL not recorded; likely from
+      applelogic.org or similar hobbyist archive. No OCR sidecar.
+
+  # =====================================================================
+  # MCS-4 system documentation
+  # =====================================================================
   - id: mcs4-data-sheet-nov71
     local_path: docs/MCS-40/MCS4_Data_Sheet_Nov71.pdf
     url: https://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf
     sha256: 4672da4d81b75c98ef7c8892c9f33d522aa55922d48d6cd4952ecffe9a739622
     sidecar: docs/evidence/ocr/mcs4_data_sheet_nov71.txt
-  - id: intel-1975-data-catalog-232-252
-    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
-    url: unknown
-    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
-    sidecar: docs/evidence/ocr/1975_catalog_mcs40_232-252.txt
-    notes: "Chunked OCR pages 232-252 (MCS-4/MCS-40 system excerpts); source URL not recorded."
-  - id: intel-1975-data-catalog-276-282
-    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
-    url: unknown
-    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
-    sidecar: docs/evidence/ocr/1975_catalog_mcs40_276-282.txt
-    notes: "Chunked OCR pages 276-282 (module listings); source URL not recorded."
-  - id: intel-1975-data-catalog-302
-    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
-    url: unknown
-    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
-    sidecar: docs/evidence/ocr/1975_catalog_mcs4_302.txt
-    notes: "Chunked OCR page 302 (MCS-4 mention); source URL not recorded."
+    bibtex_key: intelmcs4ds1971
+    notes: >-
+      chipdb.org path (Intel/MCS-4/datashts/mcs4.pdf) returned 404;
+      bitsavers is the only verified source.
+
+  - id: mcs4-users-manual-feb73
+    local_path: docs/MCS-4/MCS-4_UsersManual_Feb73.pdf
+    url: https://bitsavers.org/components/intel/MCS4/MCS-4_UsersManual_Feb73.pdf
+    sha256: 90dbf930cbb399b99263c4573da59eb3abe503946b3ef888a4b8dc2c4d8f1f22
+    sidecar: docs/evidence/ocr/mcs4_users_manual.txt
+    bibtex_key: intelmcs4manual
+    notes: >-
+      chipdb.org path (Intel/MCS-4/mcs4_users_manual.pdf) returned 404;
+      bitsavers is the only verified source.
+    duplicates:
+      - docs/MCS-40/MCS-4_UsersManual_Feb73.pdf
+
+  - id: mcs4-assembly-language-manual-dec73
+    local_path: docs/MCS-4/MCS-4_Assembly_Language_Programming_Manual_Dec73.pdf
+    url: https://bitsavers.org/components/intel/MCS4/MCS-4_Assembly_Language_Programming_Manual_Dec73.pdf
+    sha256: a3ebc56ce7067f0b9f36a261f3187cc96796b61cfb1105a88fcb780024963b23
+    bibtex_key: intelmcs4asm
+    notes: "Assembly language programming manual. No OCR sidecar yet."
+
+  # =====================================================================
+  # MCS-40 system documentation
+  # =====================================================================
   - id: mcs40-users-manual-nov74
     local_path: docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf
     url: https://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf
     sha256: fe37193f3e0dcba6b176f29a67420d2ca7a0d4f548b6710d5705af0a6e00d63b
     sidecar: docs/evidence/ocr/mcs40_users_manual.txt
+    bibtex_key: intelmcs40manual
+    notes: >-
+      chipdb.org path (Intel/MCS-4/mcs40_users_manual.pdf) returned 404;
+      bitsavers is the only verified source.
+
   - id: mcs40-advance-specs-sep74
     local_path: docs/MCS-40/MCS-40_Advance_Specifications_Sep74.pdf
     url: https://bitsavers.org/components/intel/MCS40/MCS_40_Microcomputer_Set_Advance_Specifications_Sep74.pdf
     sha256: b23f4957c7c93e8fb3589f482e5e2552d5db6d7db5afdce794fb72b4c8d1a580
     sidecar: docs/evidence/ocr/mcs40_advance_specs.txt
+    bibtex_key: intelmcs40advance
+    notes: >-
+      chipdb.org path (Intel/MCS-4/mcs40_advance_specs.pdf) returned 404;
+      bitsavers is the only verified source.
+
+  # =====================================================================
+  # 1975 Intel Data Catalog (single PDF, multiple OCR page ranges)
+  # =====================================================================
+  - id: intel-1975-data-catalog
+    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
+    url: https://bitsavers.org/components/intel/_dataBooks/1975_Intel_Data_Catalog.pdf
+    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
+    bibtex_key: intel1975catalog
+    notes: >-
+      Full 1975 Intel Data Catalog. Three OCR page-range sidecars extracted
+      from this single PDF (see sidecar entries below). URL from bitsavers;
+      chipdb.org may also host individual page-range extracts.
+    sidecars:
+      - id: intel-1975-data-catalog-232-252
+        sidecar: docs/evidence/ocr/1975_catalog_mcs40_232-252.txt
+        bibtex_key: intel1975mcs40cat232
+        pages: "232-252"
+        notes: >-
+          MCS-4/MCS-40 system excerpts. chipdb.org page-range extract
+          URL (1975_catalog_232-252.pdf) returned 404; no standalone
+          page-range PDF available.
+      - id: intel-1975-data-catalog-276-282
+        sidecar: docs/evidence/ocr/1975_catalog_mcs40_276-282.txt
+        bibtex_key: intel1975mcs40cat276
+        pages: "276-282"
+        notes: >-
+          MCS-40 peripheral module listings. chipdb.org page-range extract
+          URL (1975_catalog_276-282.pdf) returned 404; no standalone
+          page-range PDF available.
+      - id: intel-1975-data-catalog-302
+        sidecar: docs/evidence/ocr/1975_catalog_mcs4_302.txt
+        bibtex_key: intel1975mcs4cat
+        pages: "302"
+        notes: >-
+          MCS-4 catalog entry. chipdb.org page-range extract URL
+          (1975_catalog_302.pdf) returned 404; no standalone
+          page-range PDF available.
+
+  # =====================================================================
+  # Schematics and reference material
+  # =====================================================================
+  - id: 4004-schematic-pdf
+    local_path: docs/4004/4004_schematic.pdf
+    url: https://www.4004.com/assets/i400x_analyzer_repacked_20221111.zip
+    sha256: d0d1b4353664499324a910dfa6af2956fe5dd0953a84e67536ed749e82779184
+    bibtex_key: mcnerney4004com
+    notes: >-
+      4004 schematic scan from 4004.com analyzer package. Extracted from
+      i400x_analyzer zip. No standalone download URL.
+    duplicates:
+      - docs/MCS-40/4004_schematic.pdf
+
+  - id: intellec4-mod40-reference-schematics
+    local_path: docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf
+    url: https://archive.org/details/bitsavers_intelMCS40ReferenceSchematics_81608214
+    sha256: 34f82ae6228f6ee0832c9696b4a0e922f8ea4bfccf92131476d013108b703bdb
+    bibtex_key: intelintellec4mod40
+    notes: "Intellec 4 MOD 40 development system reference schematics (81 MB)."
+
+  # =====================================================================
+  # 4004.com analyzer tools (not committed; download to /tmp)
+  # =====================================================================
   - id: 4004-netlist-analyzer-zip
     local_path: /tmp/i400x_analyzer_repacked_20221111.zip
     url: https://www.4004.com/assets/i400x_analyzer_repacked_20221111.zip
     sha256: 7a3c9396f0019f397190ed36466a584923d6fdffb07edf9949360af9321485ce
     notes: "Extract with password; see docs/evidence/README.md"
+
   - id: 4004-netlist-analyzer-readme
     local_path: /tmp/i400x_analyzer/unpacked/readme.txt
     sha256: 0f2acb89f9707295026a31d58dbb37787ab4d4151ad08ad9cb3c61288779d410
     notes: "Extracted from 4004.com analyzer zip"
+
+# =====================================================================
+# Duplicate tracking
+# =====================================================================
+# The following files are exact byte-identical copies of entries above.
+# They should be removed and references updated to the canonical path.
+#
+# docs/MCS-40/Intel_4004_Datasheet.pdf  -> docs/4004/intel-4004-datasheet.pdf
+# docs/MCS-40/4040_Datasheet.pdf        -> docs/4040/4040-datasheet.pdf
+# docs/MCS-40/MCS-4_UsersManual_Feb73.pdf -> docs/MCS-4/MCS-4_UsersManual_Feb73.pdf
+# docs/MCS-40/4004_schematic.pdf         -> docs/4004/4004_schematic.pdf

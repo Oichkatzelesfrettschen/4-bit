@@ -22,8 +22,10 @@
 //! - [`netlist_v0`] - Legacy NetlistV0 parser
 #![allow(missing_docs)]
 
+pub mod bridge;
 pub mod circuit;
 pub mod device;
+pub mod fidelity;
 pub mod gate;
 pub mod layout_netlist;
 pub mod netlist_v0;
@@ -39,6 +41,8 @@ pub mod transistor;
 pub mod transistor_solver;
 pub mod wire;
 
+pub use bridge::ChipSolverBridge;
+pub use fidelity::SimulationFidelity;
 pub use gate::{And2, Gate, GateType, Inverter, Nand2, Nand3, Nor2, Nor3, Or2};
 pub use signal::{Signal, SignalId, SignalLevel};
 pub use simulator::{Event, Simulator, SimulatorConfig};

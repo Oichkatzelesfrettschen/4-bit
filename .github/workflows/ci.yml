@@ -5,6 +5,15 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  # Shared system packages needed by egui/eframe (X11/Wayland)
+  SYSTEM_DEPS: >-
+    libxcb-render0-dev
+    libxcb-shape0-dev
+    libxcb-xfixes0-dev
+    libxkbcommon-dev
+    libssl-dev
+
 jobs:
   build-test:
     runs-on: ubuntu-latest
@@ -21,12 +30,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libxcb-render0-dev \
-            libxcb-shape0-dev \
-            libxcb-xfixes0-dev \
-            libxkbcommon-dev \
-            libssl-dev
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
 
       - name: Format check
         run: cargo fmt --all -- --check
@@ -63,12 +67,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libxcb-render0-dev \
-            libxcb-shape0-dev \
-            libxcb-xfixes0-dev \
-            libxkbcommon-dev \
-            libssl-dev
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
 
       - name: Generate coverage
         run: cargo llvm-cov --workspace --all-features --lcov --output-path coverage/lcov.info
@@ -94,14 +93,66 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            libxcb-render0-dev \
-            libxcb-shape0-dev \
-            libxcb-xfixes0-dev \
-            libxkbcommon-dev \
-            libssl-dev
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
 
       - name: Run benchmarks
         run: cargo bench --workspace --locked
         env:
           RUSTFLAGS: "-C target-cpu=x86-64-v3"
+
+  msrv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust stable toolchain (MSRV)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.92"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
+
+      - name: MSRV check
+        run: cargo +1.92 check --workspace --locked
+
+  deny:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: cargo-deny
+        uses: EmbarkStudios/cargo-deny-action@v2
+
+  miri:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-01-07
+          components: miri
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
+
+      - name: Miri on mcs4-core
+        run: cargo +nightly-2026-01-07 miri test -p mcs4-core
+
+      - name: Miri on mcs4-bus
+        run: cargo +nightly-2026-01-07 miri test -p mcs4-bus
+
+      - name: Miri on mcs4-chips
+        run: cargo +nightly-2026-01-07 miri test -p mcs4-chips
+
+      - name: Miri on mcs4-system
+        run: cargo +nightly-2026-01-07 miri test -p mcs4-system

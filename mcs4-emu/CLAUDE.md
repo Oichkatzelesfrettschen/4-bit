@@ -1,17 +1,17 @@
-# MCS-4/MCS-40 Emulator - Project Status (2026-01-29)
+# MCS-4/MCS-40 Emulator - Project Status (2026-02-25)
 
 ## PROJECT OVERVIEW
 Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate simulation of 4004/4040 chipsets.
 
 ## PHASE STATUS
 
-Summary: 59% overall completion (up from 57%)
+Summary: 85% overall completion (up from 74%)
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
 - Phase 2: 100% (4040 CPU complete, all tests passing)
-- Phase 3: 75% (4101 RAM done, 4201/4289 complete, GUI panels pending)
-- Phase 4: 60% (transistor/nodal/SIMD/differential/benchmarking done, fuzzing pending)
-- Phase 5: 0% (not started)
+- Phase 3: 100% (all support chips + all GUI panels + waveform viewer complete)
+- Phase 4: 100% (solvers, SIMD full ISA, differential fuzzing, solver bridge, process models)
+- Phase 5: 5% (scaffolding done, implementation pending)
 
 ### Phase 0.5: COMPLETE (90%)
 - OCR persistent cache: DONE (48,000x speedup)
@@ -35,21 +35,35 @@ Summary: 59% overall completion (up from 57%)
   - Interrupt vector logic: WORKING (INT → 0x003)
   - RAM status read/write: WORKING
 
-### Phase 3: IN PROGRESS (75%)
+### Phase 3: COMPLETE (100%)
 - DONE:
-  - 4101 RAM design (architecture)
-  - 4101 RAM implementation (read/write, 17 tests)
-  - Disassembler core (symbol tables, 8 tests)
+  - 4101 RAM design + implementation (read/write, 17 tests)
+  - 4201 Clock generator (crystal config, non-overlap, reset/STP, 8 tests)
+  - 4289 Memory interface (address latch, nibble assembly, OE/WE, 8 tests)
+  - 4308 ROM (1Kx8 storage, I/O ports, 8 tests)
+  - 4008 Address latch (12-bit latching, CM-ROM decode, 10 tests)
+  - 4009 I/O expander (bidirectional data, CM-RAM bank select, 8 tests)
+  - 3216/3226 Bus drivers (non-inverting/inverting, 8 tests each)
+  - 4207 Crystal clock generator (single-phase, 6 tests)
+  - 4209 Phase converter (1-to-2-phase, dead-time, 5 tests)
+  - 4211 RC oscillator + two-phase clock (6 tests)
+  - 4265 Programmable I/O (4x4 bits, direction control, 9 tests)
+  - 4316 LCD driver (segment/backplane AC drive, multiplex, 7 tests)
+  - 4702 EPROM (256x8, programming mode, UV erase, 8 tests)
+  - Disassembler core (symbol tables, 8 tests) + DisasmCache (O(1) windowed lookup, 8 tests)
   - Signal trace buffer (event capture, 18 tests)
   - MCS-40 system integration (memory map, bus protocol)
 - Pending:
-  - 4201 Clock generator (#91, #99)
-  - 4289 Memory interface (#100)
-  - 4003 Shift register tests (#89-94)
-  - GUI panels: register, memory, stack, disasm, breakpoints (#101-108)
-  - Waveform viewer (#131)
+  - ~~4003 Shift register cascade/bus tests~~ DONE (16 tests: cascade, port, enable, edge, system integration)
+  - ~~4201/4289/4308 bus protocol~~ DONE (13 tests each + proptest + 9 integration)
+  - ~~Register panel~~ DONE (CpuSnapshot, change highlighting, 4004/4040 mode, 8 tests)
+  - ~~Memory panel~~ DONE (ROM/RAM hex dump, change highlighting, region selector, 6 tests)
+  - ~~Stack panel~~ DONE (3/7-level display, SP indicator, change highlighting, 9 tests)
+  - ~~Breakpoint panel~~ DONE (address/register/memory breakpoints, enable/disable, hit counts, 13 tests)
+  - ~~Controls panel~~ DONE (Run/Stop/Step/Reset, speed slider, CPU selector, counters, 8 tests)
+  - ~~Waveform viewer~~ DONE (cursors, measurement markers, signal grouping, zoom, 16 tests)
 
-### Phase 4: IN PROGRESS (60%)
+### Phase 4: COMPLETE (100%)
 - DONE:
   - Phase 4A: Switch-level transistor simulator (14 tests)
     - Inverter chains, marginal conduction, high fanout
@@ -62,30 +76,31 @@ Summary: 59% overall completion (up from 57%)
     - Edge case validation for both solvers
     - Circuit topologies: inverter chains, parallel gates, networks
     - Convergence verification for diverse configurations
-  - Phase 4D: SIMD cluster execution framework
+  - Phase 4D-F: SIMD cluster (full 4004 ISA, 87 tests)
     - 16-lane parallel CPU execution (Struct-of-Arrays architecture)
-    - Full instruction set: NOP, INC, DEC, ADD, SUB, LD, XCH
-    - Vectorized instruction dispatch with SIMD masks
-    - Per-lane carry flag and register operations
-  - Phase 4E: Differential testing harness
-    - 7 comprehensive tests for SIMD cluster validation
-    - PC synchronization verification across lanes
-    - Per-lane independence tracking
-    - Statistics and reset validation
-  - Phase 4F: SIMD cluster performance benchmarking and metrics
-    - PerfMetrics struct with throughput calculations
-    - benchmark_execution() method with timing measurement
-    - Memory usage estimation (CPU + ROMs + RAMs)
-    - 7 new benchmark tests (throughput, memory, consistency)
-- Pending:
-  - #112: Transistor-level simulation solver integration (research phase)
-  - #113: SIMD cluster fuzzing and ROM validation
-  - #114: Multi-modal OCR fusion (Phase 0.5 enhancement)
+    - Full 46-instruction 4004 ISA: all single-byte + two-byte opcodes
+    - Two-phase fetch for 2-byte instructions (JUN/JMS/JCN/ISZ/FIM)
+    - Per-lane carry, stack, PC, register state
+    - Differential fuzzing: scalar reference executor with proptest
+    - Performance benchmarking with throughput and memory metrics
+  - Phase 4G: Solver-to-chip bridge
+    - SimulationFidelity enum (Behavioral/GateLevel/TransistorLevel)
+    - ChipSolverBridge trait connecting behavioral models to circuit solvers
+    - I4004 clock buffer proof-of-concept (3-inverter chain, DC + transient)
+  - Phase 4H: Process model expansion (22 tests)
+    - I/O driver model (Ron, slew rate, output impedance)
+    - Power model (static leakage + dynamic CV^2f per chip)
+    - ESD protection diode (forward/reverse/breakdown)
+    - ROM cell model (wordline RC, bitline charge sharing)
+    - SRAM cell model (6T SNM, read/write timing, min retention)
 
-### Phase 5: PLANNED (0%)
-- #115: Peripheral drivers (7-seg, keyboard, UART)
-- #116: FPGA synthesis
-- #117: ONNX CTC training
+### Phase 5: SCAFFOLDING (5%)
+- DONE: mcs4-intellec and mcs4-periph crate scaffolds
+- Pending:
+  - #115: Peripheral drivers (7-seg, keyboard, UART)
+  - #116: FPGA synthesis (hardware validation)
+  - #117: ONNX CTC training
+  - Intellec-4 development system emulator
 
 ## CURRENT IMPLEMENTATION
 
@@ -100,13 +115,6 @@ Summary: 59% overall completion (up from 57%)
 - Full 4004 ISA implemented in execute_4004()
 - Register file compatible (24 registers for 4040, 16 for 4004)
 - Stack compatible (7-level for 4040, 3-level for 4004)
-
-## FAILING TESTS (4)
-
-1. test_end_to_end_src_wrm_rdm_roundtrip - RAM data persistence
-2. test_fixture_src_wrm_rdm_hex_executes - RAM data persistence
-3. test_fixture_ram_status_wr1_rd1_hex_executes - RAM status read/write
-4. test_interrupt_ein_vectors_to_003_and_bbs_returns - interrupt vector not implemented
 
 ## BUILD COMMANDS
 
@@ -125,42 +133,35 @@ Summary: 59% overall completion (up from 57%)
 ## NEXT PRIORITY
 
 Critical path (in order):
-1. Phase 4C: Validate nodal solver vs SPICE references (complete Phase 4)
-2. Phase 2: Fix 4 failing tests (RAM persistence, interrupt vector) → 100% complete
-3. Phase 3: Finish support chips (4201, 4289) + GUI panels → 95% complete
-4. Phase 4: Implement clustering (SIMD/multi-modal OCR) → 50% complete
-5. Phase 0.5: OCR regression benchmarks (low priority, deferred)
+1. Phase 5: Intellec-4 development system, peripheral drivers, FPGA synthesis
+2. Phase 0.5: OCR regression benchmarks (deferred)
+3. Advanced: rkyv snapshots, time-travel debugging, hardware-in-loop testing
 
-Test progress: 194+ tests passing (all tests passing, 0 failures)
-- mcs4-bus: 17 tests
-- mcs4-chips: 62 tests (4004/4040 CPU, disassembler)
-- mcs4-core: 70 tests (transistor solver 14 + nodal solver 14 + other)
-- mcs4-system: 43 tests (4004/4040 system integration, RAM, IO)
-- SIMD cluster (feature-gated): 7 new benchmark tests (optional)
-- Total: 194 baseline + 7 optional SIMD tests
+## WORKSPACE CRATES (8)
 
-Current session achievements (2026-01-29):
-- Phase 4C: Comprehensive validation tests
-  - Transistor solver: extended from 9 to 14 tests (inverter chains, fanout, marginal conduction)
-  - Nodal solver: extended from 7 to 14 tests (high-Z, star networks, mesh, asymmetric dividers)
-  - All 28 Phase 4 tests passing with no regressions
-- Phase 2 status: Confirmed all 4 previously failing tests now passing (100% complete)
-- Phase 4D: SIMD cluster execution framework (16-lane parallel CPU)
-  - Implemented complete 4004 instruction set (NOP, INC, DEC, ADD, SUB, LD, XCH)
-  - Vectorized instruction dispatch with per-lane masking
-  - Struct-of-Arrays architecture for optimal SIMD performance
-- Phase 4E: SIMD cluster differential testing harness
-  - 7 comprehensive tests for SIMD cluster validation
-  - PC synchronization and lane independence verification
-- Phase 4F: SIMD cluster performance benchmarking and metrics
-  - PerfMetrics struct: execution time, throughput, memory tracking
-  - benchmark_execution() method with Instant timing
-  - 7 new benchmark tests (NOP throughput, register ops, memory, consistency)
-  - portable_simd API compatibility (1.92.0 nightly, trait imports fixed)
-- Updated CLAUDE.md with accurate phase completion status (59% overall, 60% Phase 4)
-- All 194+ tests passing (0 failures across workspace)
+- mcs4-bus: Bus protocol abstraction
+- mcs4-chips: All chip implementations (4004, 4040, 4001-4003, MCS-40 support/peripherals)
+- mcs4-core: Transistor/nodal solvers, process models, circuit graph, TCAD, fidelity/bridge
+- mcs4-fpga: Verilog export
+- mcs4-gui: egui panels (registers, memory, stack, breakpoints, controls, disasm, waveform)
+- mcs4-system: System integration, SIMD cluster (feature-gated)
+- mcs4-intellec: Intellec-4 development system (Phase 5 scaffold)
+- mcs4-periph: Peripheral devices (Phase 5 scaffold)
+
+## TEST COUNTS (baseline 2026-02-25)
+
+902 tests passing with SIMD (858 without), 0 failures:
+- mcs4-bus: 17
+- mcs4-chips: 212 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge)
+- mcs4-chips fuzz_test: 1
+- mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)
+- mcs4-core: 454 (transistor solver, nodal solver, TCAD, process models, transient, circuit, fidelity, bridge)
+- mcs4-core error_paths: 12 (solver error path validation)
+- mcs4-core integration_validation: 18
+- mcs4-fpga: 6 (Verilog export)
+- mcs4-gui: 75 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform)
+- mcs4-system: 87 with simd_cluster feature / 43 without (full 4004 ISA SIMD, differential fuzzing, benchmarks)
+- mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-01-29 (Phase 4F complete)
-Model: claude-haiku-4-5-20251001
-Session: Phase 4F SIMD cluster benchmarking and performance metrics (59% overall)
+Last Updated: 2026-02-25 (Phase 4 complete: full SIMD ISA, solver bridge, process models, 902 total)

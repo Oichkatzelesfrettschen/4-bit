@@ -3,17 +3,40 @@
 Purpose: Record primary sources, OCR sidecars, hashes, and extraction commands for MCS-4/MCS-40 evidence.
 
 Layout
-- docs/evidence/ocr/ (sidecar text from ocrmypdf)
-- docs/evidence/ocr_manifest.yaml (URLs, hashes, sidecars)
-- docs/evidence/ocr_results.md (snippets, "not found" checks)
-- `docs/evidence/audit_claims_backlog.md`: derived/pending claims extracted from `docs/AUDIT.md`
-- `docs/evidence/PRIMARY_SOURCES_BACKLOG.md`: missing primary-source materials to prioritize
+- `docs/evidence/ocr/` -- sidecar text from ocrmypdf
+- `docs/evidence/ocr_manifest.yaml` -- PDF URLs, SHA-256 hashes, sidecar mappings
+- `docs/evidence/source_manifest.json` -- OCR sidecar provenance (text files, checksums, bibtex keys)
+- `docs/evidence/bibliography.bib` -- BibTeX entries for all primary and secondary sources
+- `docs/evidence/CITATION_GUIDE.md` -- citation conventions and key table
+- `docs/evidence/ocr_results.md` -- snippets, "not found" checks
+- `docs/evidence/audit_claims_backlog.md` -- derived/pending claims from `docs/AUDIT.md`
+- `docs/evidence/PRIMARY_SOURCES_BACKLOG.md` -- missing primary-source materials to prioritize
+- `docs/evidence/url_reachability_audit.md` -- periodic URL reachability test results
 
 Reproduction workflow
-- Fetch PDFs from Bitsavers and ChipDB per ocr_manifest.yaml.
-- Prefer `ocrmypdf --skip-text --output-type pdf --sidecar <txt> <pdf> /tmp/<out>.pdf`.
-- Use `rg` and `sed -n` to extract evidence lines.
-- Hash sources with `sha256sum` and update ocr_manifest.yaml.
+1. Download all primary source PDFs:
+   `./scripts/fetch_sources.sh`
+   This parses `ocr_manifest.yaml`, downloads each PDF to its `local_path`,
+   and verifies the SHA-256 checksum. Idempotent: skips files already present
+   with matching checksums.
+
+2. Verify checksums only (no downloads):
+   `./scripts/fetch_sources.sh --verify`
+
+3. Test URL reachability (dry run, HEAD requests only):
+   `./scripts/fetch_sources.sh --dry-run`
+
+4. Full URL reachability audit (all project URLs, not just PDFs):
+   `./scripts/fetch_sources_test.sh`
+
+5. Generate OCR sidecars from downloaded PDFs:
+   `ocrmypdf --skip-text --output-type pdf --sidecar <txt> <pdf> /tmp/<out>.pdf`
+
+6. Extract evidence lines:
+   Use `rg` and `sed -n` against the OCR sidecar text.
+
+7. Update checksums:
+   `sha256sum <file>` and update ocr_manifest.yaml / source_manifest.json.
 
 Audit claim backlog
 - Generate a tracking view of “derived/pending” claims called out in `docs/AUDIT.md`:

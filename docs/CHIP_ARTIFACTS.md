@@ -76,7 +76,6 @@ Local artifacts
 ## Intel 4040 (CPU)
 Local artifacts
 - docs/4040/4040-datasheet.pdf
-- docs/MCS-40/4040_Datasheet.pdf
 
 External photo references
 - https://happytrees.org/chips/Intel_-_P4040 (package photo, CC BY-SA 4.0)
@@ -88,7 +87,7 @@ External photo references
 - docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf (board-level wiring)
 - docs/MCS-4/MCS-4_UsersManual_Feb73.pdf (system diagrams)
 - docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf (system diagrams)
-- docs/MCS-40/4004_schematic.pdf (duplicate of 4004 schematic)
+- docs/4004/4004_schematic.pdf (4004 schematic from 4004.com)
 - docs/MCS-40/1975_Intel_Data_Catalog.pdf (component catalog)
 
 ## Emulator analyzer reference

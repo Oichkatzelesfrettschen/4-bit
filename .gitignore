@@ -31,5 +31,12 @@ core.[0-9]*
 logs/
 .claude/
 
+# Compiler crash dumps
+rustc-ice-*
+
+# Profiling artifacts
+perf.data*
+flamegraph.svg
+
 # Generated OCR evidence artifacts (regeneratable)
 docs/evidence/ocr_signal_labels/*/crops/

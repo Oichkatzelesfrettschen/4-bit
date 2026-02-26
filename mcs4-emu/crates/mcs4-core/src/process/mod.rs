@@ -16,11 +16,16 @@
 //! - N-type silicon substrate (~10 ohm-cm)
 //! - Supply: VDD = -15V, VSS = 0V (later -10V variants)
 
+pub mod esd;
 pub mod interconnect;
+pub mod io_driver;
 pub mod junction;
 pub mod mobility;
 pub mod oxide;
+pub mod power;
+pub mod rom_cell;
 pub mod silicon;
+pub mod sram_cell;
 pub mod thermal;
 
 use oxide::cox;

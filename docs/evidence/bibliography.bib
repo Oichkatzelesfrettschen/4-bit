@@ -15,6 +15,7 @@
   title        = {{C4004} Single Chip 4-Bit P-Channel Microprocessor},
   year         = {1971},
   howpublished = {Component Data Sheet},
+  url          = {https://datasheets.chipdb.org/Intel/MCS-4/datashts/intel-4004.pdf},
   note         = {Primary source for 4004 electrical specifications:
                   supply voltage, clock timing, I/O levels, pin
                   capacitance, output resistance, power dissipation.
@@ -28,6 +29,7 @@
   year         = {1971},
   month        = nov,
   howpublished = {Component Data Sheet},
+  url          = {https://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf},
   note         = {Original November 1971 MCS-4 family data sheet
                   covering 4001/4002/4003/4004. Primary source for
                   system-level timing and electrical specifications.},
@@ -53,6 +55,7 @@
   title        = {{C4040} Single Chip 4-Bit P-Channel Microprocessor},
   year         = {1974},
   howpublished = {Component Data Sheet},
+  url          = {https://datasheets.chipdb.org/Intel/MCS-40/4040.pdf},
   note         = {4040 variant specifications. Shares same process
                   technology as 4004 but with extended instruction set
                   and 7-level stack.},
@@ -63,6 +66,7 @@
   author       = {{Intel Corporation}},
   title        = {{MCS-4} Users Manual},
   year         = {1973},
+  url          = {https://bitsavers.org/components/intel/MCS4/MCS-4_UsersManual_Feb73.pdf},
   note         = {Comprehensive technical manual for the MCS-4 family.
                   413 KB OCR'd text. Contains detailed timing diagrams,
                   instruction set, system design guidelines, and
@@ -74,6 +78,7 @@
   author       = {{Intel Corporation}},
   title        = {{MCS-40} Users Manual},
   year         = {1974},
+  url          = {https://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf},
   note         = {Technical manual for the MCS-40 family (4040-based).
                   300 KB OCR'd text. Includes updated specifications
                   and extended instruction documentation.},
@@ -85,9 +90,21 @@
   title        = {{MCS-40} Advance Information Specifications},
   year         = {1974},
   howpublished = {Advance specification sheet},
+  url          = {https://bitsavers.org/components/intel/MCS40/MCS_40_Microcomputer_Set_Advance_Specifications_Sep74.pdf},
   note         = {Advance specifications for MCS-40 family components.
                   89 KB OCR'd text.},
   local_file   = {docs/evidence/ocr/mcs40_advance_specs.txt},
+}
+
+@misc{intel1975catalog,
+  author       = {{Intel Corporation}},
+  title        = {1975 Intel Data Catalog},
+  year         = {1975},
+  howpublished = {Product catalog},
+  url          = {https://bitsavers.org/components/intel/_dataBooks/1975_Intel_Data_Catalog.pdf},
+  note         = {Full 1975 Intel product catalog. MCS-4/MCS-40 content
+                  spans multiple page ranges; see page-range entries below.},
+  local_file   = {docs/MCS-40/1975_Intel_Data_Catalog.pdf},
 }
 
 @misc{intel1975mcs4cat,
@@ -95,6 +112,7 @@
   title        = {{MCS-4} Catalog Entry},
   year         = {1975},
   howpublished = {Intel 1975 Product Catalog, page 302},
+  url          = {https://datasheets.chipdb.org/Intel/MCS-4/1975_catalog_302.pdf},
   note         = {Brief catalog entry for MCS-4 family. 0.9 KB OCR'd text.},
   local_file   = {docs/evidence/ocr/1975_catalog_mcs4_302.txt},
 }
@@ -104,6 +122,7 @@
   title        = {{MCS-40} Catalog Section (pages 232-252)},
   year         = {1975},
   howpublished = {Intel 1975 Product Catalog},
+  url          = {https://datasheets.chipdb.org/Intel/MCS-4/1975_catalog_232-252.pdf},
   note         = {Extended catalog section for MCS-40 family. 63 KB OCR'd text.
                   Contains detailed electrical specifications and timing.},
   local_file   = {docs/evidence/ocr/1975_catalog_mcs40_232-252.txt},
@@ -114,9 +133,43 @@
   title        = {{MCS-40} Catalog Section (pages 276-282)},
   year         = {1975},
   howpublished = {Intel 1975 Product Catalog},
+  url          = {https://datasheets.chipdb.org/Intel/MCS-4/1975_catalog_276-282.pdf},
   note         = {Catalog section for MCS-40 peripheral components.
                   14 KB OCR'd text.},
   local_file   = {docs/evidence/ocr/1975_catalog_mcs40_276-282.txt},
+}
+
+@manual{intelmcs4asm,
+  author       = {{Intel Corporation}},
+  title        = {{MCS-4} Assembly Language Programming Manual},
+  year         = {1973},
+  month        = dec,
+  url          = {https://bitsavers.org/components/intel/MCS4/MCS-4_Assembly_Language_Programming_Manual_Dec73.pdf},
+  note         = {Assembly language reference for MCS-4 family programming.
+                  Covers instruction set, assembler directives, and
+                  programming examples.},
+  local_file   = {docs/MCS-4/MCS-4_Assembly_Language_Programming_Manual_Dec73.pdf},
+}
+
+@misc{intel4004applelogic,
+  author       = {{Intel Corporation}},
+  title        = {{Intel 4004} Datasheet (alternate scan)},
+  year         = {1971},
+  howpublished = {Component Data Sheet},
+  note         = {Alternate scan of 4004 datasheet. Origin site not recorded
+                  (likely applelogic.org or similar hobbyist archive).},
+  local_file   = {docs/4004/4004_applelogic_datasheet.pdf},
+}
+
+@manual{intelintellec4mod40,
+  author       = {{Intel Corporation}},
+  title        = {Intellec 4/{MOD} 40 Reference Schematics},
+  year         = {1974},
+  url          = {https://archive.org/details/bitsavers_intelMCS40ReferenceSchematics_81608214},
+  note         = {Development system reference schematics for the
+                  Intellec 4 MOD 40 microcomputer development system.
+                  81 MB PDF from Internet Archive / bitsavers.},
+  local_file   = {docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf},
 }
 
 % ============================================================
@@ -206,7 +259,10 @@
   year         = {2018},
   url          = {https://hackaday.com/2018/06/25/federico-faggin-the-real-silicon-man/},
   note         = {Biographical article on Faggin. Provides context for
-                  silicon-gate technology development timeline.},
+                  silicon-gate technology development timeline.
+                  URL returned 404 as of 2026-02-25 (rechecked); article
+                  may have been removed or URL slug changed.
+                  Wayback fallback: https://web.archive.org/web/2023/https://hackaday.com/2018/06/25/federico-faggin-the-real-silicon-man/},
 }
 
 @misc{wp_intel4004,
@@ -223,5 +279,306 @@
   title        = {{Intel MCS-4/4004}},
   url          = {https://en.wikichip.org/wiki/intel/mcs-4/4004},
   note         = {Accessed 2026-02-24. Secondary source for feature size,
-                  die dimensions, and process details.},
+                  die dimensions, and process details. Site returned
+                  HTTP 520 as of 2026-02-25 (origin server error).},
+}
+
+@misc{asicerik2020j4004,
+  author       = {Erickson, A.},
+  title        = {j4004: Kotlin {Intel} 4004 Emulator},
+  year         = {2020},
+  url          = {https://github.com/asicerik/j4004},
+  note         = {Near cycle-accurate 4004 emulator in Kotlin.
+                  Reference implementation for instruction timing.},
+}
+
+@misc{asicerik2020go4004,
+  author       = {Erickson, A.},
+  title        = {go4004: Go/{SDL} {Intel} 4004 Emulator},
+  year         = {2020},
+  url          = {https://github.com/asicerik/go4004},
+  note         = {Near cycle-accurate 4004 emulator in Go with SDL
+                  display. Reference for cycle-level behavior.},
+}
+
+@misc{opencoresmcs4,
+  author       = {{OpenCores contributors}},
+  title        = {{MCS-4} {FPGA} Implementation},
+  url          = {https://opencores.org/projects/mcs-4},
+  note         = {Cycle-accurate Verilog implementation of the MCS-4
+                  system. Reference for RTL-level behavior.},
+}
+
+@misc{szyc2015e4004,
+  author       = {Szyc, P.},
+  title        = {e4004: JavaScript {Intel} 4004 Emulator},
+  year         = {2015},
+  url          = {http://e4004.szyc.org/},
+  note         = {Instruction-level 4004 emulator in JavaScript.
+                  Online interactive reference.},
+}
+
+@misc{intel4004original,
+  author       = {{intel4004.com}},
+  title        = {4004 Original Schematics},
+  url          = {http://www.intel4004.com/4004_original_schematics.htm},
+  note         = {Scans of original 4004 design schematics.
+                  Historical reference for circuit-level design.},
+}
+
+@misc{retrotechmcs4,
+  author       = {{RetroTechnology}},
+  title        = {{MCS} 4/40 Documentation},
+  url          = {https://www.retrotechnology.com/restore/4040_doc.html},
+  note         = {Curated collection of MCS-4 and MCS-40 documentation
+                  links and commentary.},
+}
+
+% ============================================================
+% MATERIALS SCIENCE AND PROCESS CHARACTERIZATION
+% ============================================================
+
+% --- Category A: Intel Process Characterization ---
+
+@inproceedings{faggin1972compcon,
+  author    = {Faggin, Federico and Hoff, Marcian E.},
+  title     = {Standard Parts and Custom Design},
+  booktitle = {COMPCON 72 Digest},
+  year      = {1972},
+  pages     = {75--77},
+  note      = {Faggin's own account of MCS-4 design methodology and
+               process constraints. Documents the rationale for
+               silicon-gate pMOS architecture selection and the
+               tradeoffs between custom and standard-cell approaches.},
+}
+
+@article{vadasz1969spectrum,
+  author  = {Vadasz, Leslie L. and Grove, Andrew S. and Rowe, Timothy A. and Moore, Gordon E.},
+  title   = {Silicon-Gate Technology},
+  journal = {IEEE Spectrum},
+  volume  = {6},
+  number  = {10},
+  pages   = {28--35},
+  year    = {1969},
+  doi     = {10.1109/MSPEC.1969.5213830},
+  note    = {Intel's first public description of the silicon-gate
+             process. Pre-dates Faggin and Klein 1970 SSE paper.
+             Contains early process parameter data for self-aligned
+             polysilicon gate fabrication.},
+}
+
+@article{faggin1977vlsi,
+  author  = {Faggin, Federico},
+  title   = {How {VLSI} Impacts Computer Architecture},
+  journal = {IEEE Spectrum},
+  volume  = {14},
+  number  = {5},
+  pages   = {28--31},
+  year    = {1977},
+  doi     = {10.1109/MSPEC.1977.6369349},
+  note    = {Retrospective on MCS-4 design tradeoffs from the
+             transistor-count, power, and process perspective.
+             Provides context for why 2300 transistors was the
+             practical ceiling for 10um pMOS in 1971.},
+}
+
+% --- Category B: pMOS Device Physics ---
+
+@article{deal1974oxidecharges,
+  author  = {Deal, Bruce E.},
+  title   = {Standardized Terminology for Oxide Charges Associated with
+             Thermally Oxidized Silicon},
+  journal = {Journal of the Electrochemical Society},
+  volume  = {121},
+  number  = {6},
+  pages   = {198C--205C},
+  year    = {1974},
+  doi     = {10.1149/1.2402380},
+  note    = {Definitive taxonomy of oxide charge types (Qf, Qit, Qm, Qot).
+             Essential for modeling Vth shifts in pMOS due to fixed
+             oxide charge and interface traps. Relevant to understanding
+             why 4004 Vth_enh is -3V rather than ideal.},
+}
+
+@book{nicollian1982mos,
+  author    = {Nicollian, Edward H. and Brews, John R.},
+  title     = {{MOS} ({Metal Oxide Semiconductor}) Physics and Technology},
+  publisher = {Wiley},
+  year      = {1982},
+  isbn      = {0-471-08500-6},
+  note      = {Definitive MOS reference. Chapters on oxide breakdown
+               relevant to 80nm tox at -15V (field ~1.9 MV/cm),
+               C-V characterization, and interface state density.
+               Key reference for oxide reliability modeling.},
+}
+
+@book{sze1981semiconductor,
+  author    = {Sze, Simon M.},
+  title     = {Physics of Semiconductor Devices},
+  edition   = {2nd},
+  publisher = {Wiley},
+  year      = {1981},
+  isbn      = {0-471-05661-8},
+  note      = {Standard reference for MOS capacitance models, threshold
+               voltage theory, contact resistance, and junction
+               characteristics. Used for derived parameter calculations
+               throughout the process model.},
+}
+
+@article{hofstein1965frequency,
+  author  = {Hofstein, Steven R. and Warfield, Gerald},
+  title   = {Carrier Mobility and Current Saturation in the {MOS}
+             Transistor},
+  journal = {IEEE Transactions on Electron Devices},
+  volume  = {ED-12},
+  number  = {3},
+  pages   = {129--138},
+  year    = {1965},
+  doi     = {10.1109/T-ED.1965.15466},
+  note    = {Early analysis of MOS frequency response limitations.
+             Explains the physics of why 10um pMOS with surface-hole
+             mobility ~175 cm2/Vs maxes out at approximately 1 MHz
+             clock rates, consistent with 4004 at 740 kHz.},
+}
+
+% --- Category C: Metal Interconnect ---
+
+@article{sinha1973aluminum,
+  author  = {Sinha, Ashok K.},
+  title   = {Electrical Properties of Evaporated Aluminum Films on Silicon},
+  journal = {Thin Solid Films},
+  volume  = {18},
+  number  = {2},
+  pages   = {S55--S57},
+  year    = {1973},
+  note    = {Al-on-Si contact resistance data from the pre-barrier-metal
+             era. Directly applicable to 4004 process where aluminum
+             contacts silicon without Ti/TiN diffusion barriers.
+             Contact resistance values feed interconnect parasitic models.},
+}
+
+@article{dheurle1971electrotransport,
+  author  = {d'Heurle, Francois and Ames, I.},
+  title   = {Electrotransport and Electromigration in Films of Aluminum},
+  journal = {Metallurgical Transactions},
+  volume  = {2},
+  number  = {3},
+  pages   = {683--689},
+  year    = {1971},
+  doi     = {10.1007/BF02662719},
+  note    = {Contemporary aluminum electromigration failure mechanism
+             data. Relevant to reliability modeling for single-layer
+             Al metallization at the current densities used in the
+             4004 clock driver and bus output stages.},
+}
+
+% --- Category D: Packaging Parasitics ---
+
+@book{tummala1989packaging,
+  author    = {Tummala, Rao R. and Rymaszewski, Eugene J.},
+  title     = {Microelectronics Packaging Handbook},
+  publisher = {Van Nostrand Reinhold},
+  year      = {1989},
+  isbn      = {0-442-20578-3},
+  note      = {Reference for DIP package electrical models: bond wire
+               inductance (1-5 nH/mm), lead capacitance (1-3 pF),
+               lead inductance (3-10 nH), and theta_JA thermal
+               resistance for 16-pin and 24-pin ceramic/plastic DIPs.},
+}
+
+% --- Category E: Reliability and Degradation ---
+
+@article{jeppson1977nbti,
+  author  = {Jeppson, K. O. and Svensson, Christer M.},
+  title   = {Negative Bias Stress of {MOS} Devices at High Electric Fields
+             and Degradation of {MNOS} Devices},
+  journal = {Journal of Applied Physics},
+  volume  = {48},
+  number  = {5},
+  pages   = {2004--2014},
+  year    = {1977},
+  doi     = {10.1063/1.323909},
+  note    = {Foundational NBTI (negative bias temperature instability)
+             paper. NBTI is the dominant reliability mechanism for pMOS
+             transistors under negative gate bias, directly applicable
+             to the 4004 operating at VDD=-15V.},
+}
+
+@inproceedings{crook1979tddb,
+  author    = {Crook, D. L.},
+  title     = {Method of Determining Reliability Screens for Time
+               Dependent Dielectric Breakdown},
+  booktitle = {International Reliability Physics Symposium (IRPS)},
+  pages     = {1--7},
+  year      = {1979},
+  note      = {TDDB (time-dependent dielectric breakdown) model for
+               thin gate oxides. Applicable to 80nm tox at -15V supply
+               where the oxide field is approximately 1.9 MV/cm.},
+}
+
+@article{hu1985hotelectron,
+  author  = {Hu, Chenming and Tam, Simon C. and Hsu, Fu-Chieh and Ko, Ping-Keung and Chan, Tung-Yi and Terrill, Kyle W.},
+  title   = {Hot-Electron-Induced {MOSFET} Degradation -- Model, Monitor,
+             and Improvement},
+  journal = {IEEE Transactions on Electron Devices},
+  volume  = {ED-32},
+  number  = {2},
+  pages   = {375--385},
+  year    = {1985},
+  doi     = {10.1109/T-ED.1985.21952},
+  note    = {Hot-carrier injection (HCI) degradation framework.
+             While HCI is more prominent in nMOS, the oxide field
+             stress model applies to pMOS at 1.9 MV/cm. Provides
+             the basis for accelerated aging estimates.},
+}
+
+% --- Category F: Doping and Ion Implantation ---
+
+@article{gibbons1968implantation,
+  author  = {Gibbons, James F.},
+  title   = {Ion Implantation in Semiconductors -- Part {I}: Range
+             Distribution Theory and Experiments},
+  journal = {Proceedings of the IEEE},
+  volume  = {56},
+  number  = {3},
+  pages   = {295--319},
+  year    = {1968},
+  doi     = {10.1109/PROC.1968.6273},
+  note    = {Foundational reference for ion implantation doping profiles.
+             Doping profiles determine Vth, body effect coefficient gamma,
+             and junction characteristics. Relevant to understanding
+             whether the 4040 uses threshold-adjust implants.},
+}
+
+@article{macpherson1971implant,
+  author  = {MacPherson, M. R.},
+  title   = {Threshold Voltage Shift Calculations for Ion Implanted
+             {MOS} Devices},
+  journal = {Solid-State Electronics},
+  volume  = {14},
+  number  = {9},
+  pages   = {881--887},
+  year    = {1971},
+  doi     = {10.1016/0038-1101(71)90027-2},
+  note    = {Analytical model for Vth adjustment via shallow ion implants.
+             The mechanism for creating enhancement (Vth_enh ~ -3V) and
+             depletion (Vth_dep ~ +1V) transistors on the same die
+             in Intel's pMOS process.},
+}
+
+% --- Category G: Noise Characterization ---
+
+@article{klaassen1971noise,
+  author  = {Klaassen, F. M.},
+  title   = {Characterization of Low 1/f Noise in {MOS} Transistors},
+  journal = {IEEE Transactions on Electron Devices},
+  volume  = {ED-18},
+  number  = {10},
+  pages   = {887--891},
+  year    = {1971},
+  doi     = {10.1109/T-ED.1971.17304},
+  note    = {Contemporary flicker (1/f) noise measurements for MOS
+             transistors. Provides Kf and Af parameter values applicable
+             to pMOS devices of the era. Relevant to noise margin
+             analysis at low clock frequencies.},
 }

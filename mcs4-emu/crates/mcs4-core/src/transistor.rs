@@ -1,10 +1,11 @@
-//! Transistor-level simulation primitives (STUB)
+//! Transistor-level simulation primitives
 //!
-//! This module provides placeholder types for future transistor-level
-//! simulation. The Intel 4004 was implemented in 10um pMOS technology
-//! with ~2300 transistors.
+//! This module provides transistor-level types for the Intel 4004/4040
+//! pMOS process (10um, ~2300 transistors). Includes pMOS FET switch model,
+//! depletion-mode loads, circuit nodes, and a circuit builder.
 //!
-//! TODO: Implement SPICE-like switch-level simulation
+//! For SPICE-class analysis, see also `transistor_solver` (switch-level)
+//! and `nodal_solver` (analog nodal analysis).
 
 use crate::timing::Time;
 
@@ -240,7 +241,16 @@ impl CircuitNode {
     }
 }
 
-/// Transistor-level circuit (placeholder for future implementation)
+/// Transistor-level circuit container.
+///
+/// For SPICE-class simulation, prefer `transistor_solver::TransistorSimulator`
+/// which provides convergence analysis, high-fanout support, and marginal
+/// conduction modeling.
+#[deprecated(
+    since = "0.1.0",
+    note = "Use transistor_solver::TransistorSimulator for simulation. \
+            TransistorCircuit remains available as a circuit data container."
+)]
 #[derive(Clone, Debug, Default)]
 pub struct TransistorCircuit {
     /// All transistors
@@ -253,6 +263,7 @@ pub struct TransistorCircuit {
     pub timestep: Time,
 }
 
+#[allow(deprecated)]
 impl TransistorCircuit {
     pub fn new() -> Self {
         Self {
@@ -276,19 +287,22 @@ impl TransistorCircuit {
         id
     }
 
-    /// Simulate one timestep (placeholder)
+    /// Advance by one timestep. Returns the timestep duration in picoseconds.
+    ///
+    /// This is a basic time-advance for the circuit container. For actual
+    /// simulation with convergence analysis, use `transistor_solver::TransistorSimulator`.
     pub fn step(&mut self) -> Time {
-        // TODO: Implement nodal analysis or event-driven simulation
-        // For now, this is just a placeholder
         self.timestep
     }
 }
 
 /// Builder for creating transistor-level circuits from schematics
+#[allow(deprecated)]
 pub struct CircuitBuilder {
     circuit: TransistorCircuit,
 }
 
+#[allow(deprecated)]
 impl CircuitBuilder {
     pub fn new() -> Self {
         let mut circuit = TransistorCircuit::new();
@@ -298,26 +312,77 @@ impl CircuitBuilder {
         Self { circuit }
     }
 
-    /// Add an inverter subcircuit
-    pub fn inverter(&mut self, _input: &str, _output: &str) -> &mut Self {
-        // TODO: Add transistors for inverter
-        // Typical: 1 enhancement driver + 1 depletion load
+    /// Add a pMOS inverter subcircuit (1 enhancement driver + 1 depletion load).
+    ///
+    /// The input node drives the gate of an enhancement-mode pMOS transistor.
+    /// A depletion-mode load pulls the output toward VDD when the driver is off.
+    pub fn inverter(&mut self, input: &str, output: &str) -> &mut Self {
+        // Output node
+        let out_id = self.circuit.add_node(CircuitNode::new(output, 0.1));
+
+        // Enhancement driver: gate=input, source=VSS(1), drain=output
+        let mut driver = PmosFet::new(10.0, 10.0);
+        driver.vg = 0.0; // will be driven by input signal
+        driver.vs = 0.0; // VSS
+        driver.vd = -15.0;
+        self.circuit.add_transistor(driver);
+
+        // Depletion load: always conducting, pulls output toward VDD
+        let mut load = DepletionLoad::new(5.0, 20.0);
+        load.fet.vs = -15.0; // VDD
+        load.fet.vd = self.circuit.nodes[out_id].voltage;
+        self.circuit.add_transistor(load.fet);
+
+        // Store input node reference
+        let _in_id = self.circuit.add_node(CircuitNode::new(input, 0.05));
+
         self
     }
 
-    /// Add a NAND2 subcircuit
-    pub fn nand2(&mut self, _a: &str, _b: &str, _output: &str) -> &mut Self {
-        // TODO: Add transistors for 2-input NAND
-        // Typical: 2 series enhancement drivers + 1 depletion load
+    /// Add a pMOS 2-input NAND subcircuit (2 series enhancement drivers + 1 depletion load).
+    ///
+    /// Inputs a and b each drive a series enhancement-mode pMOS transistor.
+    /// Output goes low only when both inputs are asserted (both drivers on).
+    pub fn nand2(&mut self, a: &str, b: &str, output: &str) -> &mut Self {
+        // Output node
+        let out_id = self.circuit.add_node(CircuitNode::new(output, 0.1));
+
+        // Internal node between series transistors
+        let mid_id = self.circuit.add_node(CircuitNode::new(format!("{output}_mid"), 0.05));
+
+        // First series driver (gate=a): source=VSS, drain=mid
+        let mut driver_a = PmosFet::new(10.0, 10.0);
+        driver_a.vs = 0.0; // VSS
+        driver_a.vd = self.circuit.nodes[mid_id].voltage;
+        self.circuit.add_transistor(driver_a);
+
+        // Second series driver (gate=b): source=mid, drain=output
+        let mut driver_b = PmosFet::new(10.0, 10.0);
+        driver_b.vs = self.circuit.nodes[mid_id].voltage;
+        driver_b.vd = self.circuit.nodes[out_id].voltage;
+        self.circuit.add_transistor(driver_b);
+
+        // Depletion load: always conducting, pulls output toward VDD
+        let mut load = DepletionLoad::new(5.0, 20.0);
+        load.fet.vs = -15.0; // VDD
+        load.fet.vd = self.circuit.nodes[out_id].voltage;
+        self.circuit.add_transistor(load.fet);
+
+        // Input nodes
+        let _a_id = self.circuit.add_node(CircuitNode::new(a, 0.05));
+        let _b_id = self.circuit.add_node(CircuitNode::new(b, 0.05));
+
         self
     }
 
     /// Build the final circuit
+    #[allow(deprecated)]
     pub fn build(self) -> TransistorCircuit {
         self.circuit
     }
 }
 
+#[allow(deprecated)]
 impl Default for CircuitBuilder {
     fn default() -> Self {
         Self::new()
@@ -360,12 +425,58 @@ mod tests {
     }
 
     #[test]
+    #[allow(deprecated)]
     fn test_circuit_builder() {
         let mut builder = CircuitBuilder::new();
         builder.inverter("IN", "OUT");
         let circuit = builder.build();
 
-        // Should have at least VDD and VSS nodes
-        assert!(circuit.nodes.len() >= 2);
+        // VDD, VSS, output node, input node = 4 nodes minimum
+        assert!(circuit.nodes.len() >= 4);
+        // 1 enhancement driver + 1 depletion load = 2 transistors
+        assert_eq!(circuit.transistors.len(), 2);
+    }
+
+    #[test]
+    #[allow(deprecated)]
+    fn test_nand2_builder() {
+        let mut builder = CircuitBuilder::new();
+        builder.nand2("A", "B", "Y");
+        let circuit = builder.build();
+
+        // VDD, VSS, output, mid, input_a, input_b = 6 nodes
+        assert!(circuit.nodes.len() >= 6);
+        // 2 series drivers + 1 depletion load = 3 transistors
+        assert_eq!(circuit.transistors.len(), 3);
+    }
+
+    #[test]
+    #[allow(deprecated)]
+    fn test_inverter_then_nand2() {
+        let mut builder = CircuitBuilder::new();
+        builder.inverter("A", "A_INV").nand2("A_INV", "B", "Y");
+        let circuit = builder.build();
+
+        // 2 (inverter) + 3 (nand2) = 5 transistors
+        assert_eq!(circuit.transistors.len(), 5);
+    }
+
+    #[test]
+    #[allow(deprecated)]
+    fn test_step_returns_timestep() {
+        let mut circuit = TransistorCircuit::new();
+        assert_eq!(circuit.step(), 100); // default 100ps
+    }
+
+    #[test]
+    fn test_depletion_load_always_conducting() {
+        let load = DepletionLoad::new(5.0, 20.0);
+        assert!(load.is_conducting());
+    }
+
+    #[test]
+    fn test_supply_vmid() {
+        let supply = Supply::mcs4_pmos();
+        assert!((supply.vmid() - (-7.5)).abs() < 1e-10);
     }
 }

@@ -45,6 +45,7 @@ siliconprawn.org die-shot tiles
 - Source: http://siliconprawn.org/map/intel/4004b/
 - Directory lists 4004B die-shot images, but no license statement is visible on the map or site root.
 - Reuse permissions remain unconfirmed.
+- URL reachability: HTTP 403 (Cloudflare bot protection) as of 2026-02-25; accessible in browser only.
 
 Intel historical material license
 - Local reference: docs/emulators/license.txt
