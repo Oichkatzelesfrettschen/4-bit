@@ -31,6 +31,8 @@ pub enum IoOp {
     /// RAM status nibble write/read (4002): WR0-3 / RD0-3.
     RamStatusWrite(u8),
     RamStatusRead(u8),
+    /// Read Program Memory (4040): RPM.
+    Rpm,
 }
 
 /// Control signals for the MCS-4 bus
@@ -69,6 +71,10 @@ pub struct ControlSignals {
 
     /// INT - Interrupt request (4040 only)
     pub int: Option<Signal>,
+
+    /// PM - Program Memory (4040 only)
+    /// Asserted during RPM and LCR execution to read data from ROM.
+    pub pm: Option<Signal>,
 }
 
 impl ControlSignals {
@@ -96,6 +102,7 @@ impl ControlSignals {
             stp: None,
             stop: None,
             int: None,
+            pm: None,
         }
     }
 
@@ -123,6 +130,7 @@ impl ControlSignals {
             stp: Some(Signal::new("STP", SignalLevel::Low)),
             stop: Some(Signal::new("STOP", SignalLevel::Low)),
             int: Some(Signal::new("INT", SignalLevel::Low)),
+            pm: Some(Signal::new("PM", SignalLevel::Low)),
         }
     }
 
@@ -236,6 +244,20 @@ impl ControlSignals {
     /// Deassert reset
     pub fn deassert_reset(&mut self, time: Time) {
         self.reset.update(time, SignalLevel::Low);
+    }
+
+    /// Assert PM (Program Memory) signal (4040 only)
+    pub fn assert_pm(&mut self, time: Time) {
+        if let Some(pm) = &mut self.pm {
+            pm.update(time, SignalLevel::High);
+        }
+    }
+
+    /// Deassert PM (Program Memory) signal (4040 only)
+    pub fn deassert_pm(&mut self, time: Time) {
+        if let Some(pm) = &mut self.pm {
+            pm.update(time, SignalLevel::Low);
+        }
     }
 
     /// Check if interrupt is pending (4040 only)

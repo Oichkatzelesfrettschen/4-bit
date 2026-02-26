@@ -210,12 +210,12 @@ impl SimdCluster {
             // Fast path: no pending two-byte instructions
             // Check if any lanes are starting a two-byte instruction
             let mut starting_two_byte = false;
-            for i in 0..16 {
-                let opr = opcode_arr[i] >> 4;
-                let opa = opcode_arr[i] & 0x0F;
+            for (i, &opcode) in opcode_arr.iter().enumerate() {
+                let opr = opcode >> 4;
+                let opa = opcode & 0x0F;
                 if Self::is_two_byte_opr(opr, opa) {
                     self.cpu.pending_two_byte[i] = true;
-                    self.cpu.pending_first_byte[i] = opcode_arr[i];
+                    self.cpu.pending_first_byte[i] = opcode;
                     starting_two_byte = true;
                 }
             }
@@ -531,9 +531,7 @@ impl SimdI4004 {
             if mask_array[i] {
                 let idx = indices_array[i] as usize & 0x0F;
                 let mut reg_array = self.registers[idx].to_array();
-                let temp = acc_array[i];
-                acc_array[i] = reg_array[i];
-                reg_array[i] = temp;
+                std::mem::swap(&mut acc_array[i], &mut reg_array[i]);
                 self.registers[idx] = U8x16::from_array(reg_array);
             }
         }
@@ -1019,9 +1017,7 @@ impl ScalarI4004 {
             0xB => {
                 // XCH
                 let idx = opa as usize;
-                let temp = self.acc;
-                self.acc = self.registers[idx];
-                self.registers[idx] = temp;
+                std::mem::swap(&mut self.acc, &mut self.registers[idx]);
             }
             0xC => {
                 // BBL
@@ -1174,7 +1170,7 @@ impl ScalarI4004 {
                 // JMS: push return address (PC after operand = current PC + 1)
                 let return_addr = self.pc.wrapping_add(1);
                 self.stack[self.sp as usize] = return_addr;
-                self.sp = ((self.sp + 1) % 3) as u8;
+                self.sp = (self.sp + 1) % 3;
                 let target = ((opa as u16) << 8) | (operand as u16);
                 self.pc = target;
                 true
@@ -1896,11 +1892,10 @@ mod tests {
             .filter(|&op| {
                 let opr = (op >> 4) as u8;
                 let opa = (op & 0x0F) as u8;
-                // Exclude two-byte opcodes (0x1*, 0x4*, 0x5*, 0x7*, 0x2 even)
-                !matches!(opr, 0x1 | 0x4 | 0x5 | 0x7) && !(opr == 0x2 && (opa & 1) == 0)
-                // Also exclude JIN (0x3 odd) which changes PC unpredictably
-                && !(opr == 0x3 && (opa & 1) == 1)
-                // Exclude BBL which pops uninitialized stack
+                // Exclude two-byte opcodes, JIN (unpredictable PC), BBL (uninit stack)
+                !(matches!(opr, 0x1 | 0x4 | 0x5 | 0x7)
+                    || (opr == 0x2 && (opa & 1) == 0)
+                    || (opr == 0x3 && (opa & 1) == 1))
                 && opr != 0xC
             })
             .map(|op| op as u8)

@@ -11,7 +11,7 @@
 //! operating point analysis and transient pulse response simulation.
 
 use mcs4_core::{
-    bridge::ChipSolverBridge,
+    bridge::{ChipSolverBridge, PinMapping, PinDirection},
     circuit::graph::{CircuitGraph, TransistorKind},
     fidelity::SimulationFidelity,
 };
@@ -36,7 +36,7 @@ impl I4004 {
     /// Each inverter stage: enhancement transistor (W=20um, L=10um) pulls
     /// output to VSS when gate is driven; depletion load (W=10um, L=40um)
     /// pulls output toward VDD when enhancement is off.
-    fn build_clock_buffer() -> CircuitGraph {
+    pub fn build_clock_buffer() -> CircuitGraph {
         let mut g = CircuitGraph::new();
 
         // Power rails
@@ -106,13 +106,11 @@ impl I4004 {
 
 impl ChipSolverBridge for I4004 {
     fn fidelity(&self) -> SimulationFidelity {
-        // Default behavioral; field could be added to I4004 struct later
-        SimulationFidelity::Behavioral
+        self.fidelity
     }
 
-    fn set_fidelity(&mut self, _fidelity: SimulationFidelity) {
-        // Stored fidelity not yet wired into I4004 execution;
-        // this is the bridge interface point for future integration.
+    fn set_fidelity(&mut self, fidelity: SimulationFidelity) {
+        self.fidelity = fidelity;
     }
 
     fn subcircuit_names(&self) -> Vec<&str> {
@@ -124,6 +122,25 @@ impl ChipSolverBridge for I4004 {
             "clock_buffer" => Some(Self::build_clock_buffer()),
             _ => None,
         }
+    }
+
+    fn pin_map(&self) -> Vec<PinMapping> {
+        vec![
+            PinMapping { name: "CLK1".to_string(), node_id: 415, direction: PinDirection::Input },
+            PinMapping { name: "CLK2".to_string(), node_id: 1230, direction: PinDirection::Input },
+            PinMapping { name: "SYNC".to_string(), node_id: 1261, direction: PinDirection::Output },
+            PinMapping { name: "RESET".to_string(), node_id: 1232, direction: PinDirection::Input },
+            PinMapping { name: "TEST".to_string(), node_id: 1267, direction: PinDirection::Input },
+            PinMapping { name: "CMROM".to_string(), node_id: 716, direction: PinDirection::Output },
+            PinMapping { name: "D0".to_string(), node_id: 3442, direction: PinDirection::Bidirectional },
+            PinMapping { name: "D1".to_string(), node_id: 598, direction: PinDirection::Bidirectional },
+            PinMapping { name: "D2".to_string(), node_id: 3426, direction: PinDirection::Bidirectional },
+            PinMapping { name: "D3".to_string(), node_id: 2815, direction: PinDirection::Bidirectional },
+            PinMapping { name: "CMRAM0".to_string(), node_id: 3431, direction: PinDirection::Output },
+            PinMapping { name: "CMRAM1".to_string(), node_id: 3428, direction: PinDirection::Output },
+            PinMapping { name: "CMRAM2".to_string(), node_id: 2997, direction: PinDirection::Output },
+            PinMapping { name: "CMRAM3".to_string(), node_id: 405, direction: PinDirection::Output },
+        ]
     }
 }
 

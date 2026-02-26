@@ -26,6 +26,16 @@ pub struct Transistor {
     pub gate_node: i32,
     pub a_node: i32,
     pub b_node: i32,
+    #[serde(default)]
+    pub bbox: Option<BBoxV1>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct BBoxV1 {
+    pub x: u32,
+    pub y: u32,
+    pub w: u32,
+    pub h: u32,
 }
 
 #[derive(Debug, Clone, Deserialize)]

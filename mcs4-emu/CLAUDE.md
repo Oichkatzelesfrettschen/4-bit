@@ -5,13 +5,13 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 
 ## PHASE STATUS
 
-Summary: 85% overall completion (up from 74%)
+Summary: 92% overall completion (up from 85%)
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
 - Phase 2: 100% (4040 CPU complete, all tests passing)
 - Phase 3: 100% (all support chips + all GUI panels + waveform viewer complete)
 - Phase 4: 100% (solvers, SIMD full ISA, differential fuzzing, solver bridge, process models)
-- Phase 5: 5% (scaffolding done, implementation pending)
+- Phase 5: 75% (peripherals, Intellec-4, Verilog chip modules complete; hardware validation deferred)
 
 ### Phase 0.5: COMPLETE (90%)
 - OCR persistent cache: DONE (48,000x speedup)
@@ -94,13 +94,25 @@ Summary: 85% overall completion (up from 74%)
     - ROM cell model (wordline RC, bitline charge sharing)
     - SRAM cell model (6T SNM, read/write timing, min retention)
 
-### Phase 5: SCAFFOLDING (5%)
-- DONE: mcs4-intellec and mcs4-periph crate scaffolds
+### Phase 5: IMPLEMENTED (75%)
+- DONE:
+  - Peripheral drivers (mcs4-periph crate, 30 tests):
+    - 7-segment LED display (BCD decode, shift chain loading, ASCII render, 11 tests)
+    - Matrix keyboard scanner (4x4, debounce, row drive, events, 10 tests)
+    - UART serial port (TX/RX FIFOs, bit-bang timing, ASR-33 config, 9 tests)
+  - Intellec-4 development system (mcs4-intellec crate, 44 tests):
+    - Front panel (address/data switches, Run/Stop/Step, LEDs, 11 tests)
+    - Monitor ROM (command dispatch, examine/deposit/go/halt, 11 tests)
+    - PROM programmer (blank check, program, verify, 4702 interface, 9 tests)
+    - System integration (CPU coordination, panel/monitor/peripherals, 13 tests)
+  - Verilog chip modules (mcs4-fpga, 12 tests):
+    - Synthesizable 4004 CPU module (8-phase, PC, accumulator, registers, stack)
+    - Synthesizable 4001 ROM module (address latch, chip select, output)
+    - Synthesizable 4002 RAM module (address, status registers, output port)
+    - Synthesizable 4003 shift register module (10-bit, enable, cascade)
 - Pending:
-  - #115: Peripheral drivers (7-seg, keyboard, UART)
-  - #116: FPGA synthesis (hardware validation)
-  - #117: ONNX CTC training
-  - Intellec-4 development system emulator
+  - #116: FPGA hardware validation (requires board purchase)
+  - #117: ONNX CTC training (requires dataset collection)
 
 ## CURRENT IMPLEMENTATION
 
@@ -133,7 +145,7 @@ Summary: 85% overall completion (up from 74%)
 ## NEXT PRIORITY
 
 Critical path (in order):
-1. Phase 5: Intellec-4 development system, peripheral drivers, FPGA synthesis
+1. Phase 5 remaining: FPGA hardware validation, ONNX CTC training
 2. Phase 0.5: OCR regression benchmarks (deferred)
 3. Advanced: rkyv snapshots, time-travel debugging, hardware-in-loop testing
 
@@ -145,12 +157,12 @@ Critical path (in order):
 - mcs4-fpga: Verilog export
 - mcs4-gui: egui panels (registers, memory, stack, breakpoints, controls, disasm, waveform)
 - mcs4-system: System integration, SIMD cluster (feature-gated)
-- mcs4-intellec: Intellec-4 development system (Phase 5 scaffold)
-- mcs4-periph: Peripheral devices (Phase 5 scaffold)
+- mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
+- mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
 ## TEST COUNTS (baseline 2026-02-25)
 
-902 tests passing with SIMD (858 without), 0 failures:
+982 tests passing with SIMD (938 without), 0 failures:
 - mcs4-bus: 17
 - mcs4-chips: 212 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge)
 - mcs4-chips fuzz_test: 1
@@ -158,10 +170,12 @@ Critical path (in order):
 - mcs4-core: 454 (transistor solver, nodal solver, TCAD, process models, transient, circuit, fidelity, bridge)
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
-- mcs4-fpga: 6 (Verilog export)
+- mcs4-fpga: 12 (Verilog export + chip module generation)
 - mcs4-gui: 75 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform)
+- mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
+- mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
 - mcs4-system: 87 with simd_cluster feature / 43 without (full 4004 ISA SIMD, differential fuzzing, benchmarks)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-02-25 (Phase 4 complete: full SIMD ISA, solver bridge, process models, 902 total)
+Last Updated: 2026-02-25 (Phase 5 75%: peripherals, Intellec-4, Verilog chips, 982 total)

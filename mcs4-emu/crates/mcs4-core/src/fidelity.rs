@@ -13,38 +13,49 @@
 /// Simulation fidelity level controlling model depth.
 ///
 /// Each level includes the capabilities of lower levels:
-/// - `Behavioral` runs fastest (no analog simulation)
-/// - `GateLevel` adds timing and fanout modeling
-/// - `TransistorLevel` provides full SPICE-class accuracy
+/// - `Behavioral`: ISA-level functional emulation (fastest).
+/// - `PhaseAccurate`: State transitions locked to clock phases.
+/// - `SwitchLevel`: Iterative switch-level transistor simulation.
+/// - `NodalLevel`: SPICE-class analog nodal analysis (MNA).
+/// - `TCADLevel`: Physics-driven simulation derived from semiconductor equations (most accurate).
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum SimulationFidelity {
     /// Functional simulation only. Instructions execute with correct
-    /// logical behavior but no analog or timing modeling. This is the
-    /// default for differential testing and ROM validation.
+    /// logical behavior but no analog or timing modeling.
     #[default]
     Behavioral,
 
-    /// Gate-level simulation with propagation delays and fanout.
-    /// Uses the event-driven simulator with calibrated gate delays
-    /// derived from transistor-level characterization.
-    GateLevel,
+    /// Phase-accurate simulation. Execution is locked to PHI1/PHI2
+    /// clock phases, but internal logic is still behavioral.
+    PhaseAccurate,
 
-    /// Full transistor-level SPICE-class simulation. Each subcircuit
-    /// is represented as a `CircuitGraph` and solved with the DC/transient
-    /// solvers. Slowest but most accurate; required for analog validation
-    /// and process corner analysis.
-    TransistorLevel,
+    /// Switch-level simulation. Transistors modeled as ideal switches
+    /// with basic RC delay estimations.
+    SwitchLevel,
+
+    /// Analog nodal analysis. Full MNA-based solver with non-linear
+    /// device models and transient integration.
+    NodalLevel,
+
+    /// TCAD-level physics simulation. Device parameters derived
+    /// from solving Poisson-Boltzmann and Drift-Diffusion equations.
+    TCADLevel,
 }
 
 impl SimulationFidelity {
     /// True if this level includes analog transistor-level simulation.
     pub fn is_analog(&self) -> bool {
-        *self == Self::TransistorLevel
+        *self >= Self::NodalLevel
     }
 
-    /// True if this level includes timing information.
+    /// True if this level includes timing information (gate or RC).
     pub fn has_timing(&self) -> bool {
-        *self >= Self::GateLevel
+        *self >= Self::PhaseAccurate
+    }
+
+    /// True if this level requires physical device physics (TCAD).
+    pub fn is_physics_driven(&self) -> bool {
+        *self == Self::TCADLevel
     }
 }
 
@@ -52,8 +63,10 @@ impl std::fmt::Display for SimulationFidelity {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Behavioral => write!(f, "Behavioral"),
-            Self::GateLevel => write!(f, "Gate-Level"),
-            Self::TransistorLevel => write!(f, "Transistor-Level"),
+            Self::PhaseAccurate => write!(f, "Phase-Accurate"),
+            Self::SwitchLevel => write!(f, "Switch-Level"),
+            Self::NodalLevel => write!(f, "Nodal-Level"),
+            Self::TCADLevel => write!(f, "TCAD-Level"),
         }
     }
 }
@@ -64,22 +77,25 @@ mod tests {
 
     #[test]
     fn ordering() {
-        assert!(SimulationFidelity::Behavioral < SimulationFidelity::GateLevel);
-        assert!(SimulationFidelity::GateLevel < SimulationFidelity::TransistorLevel);
+        assert!(SimulationFidelity::Behavioral < SimulationFidelity::PhaseAccurate);
+        assert!(SimulationFidelity::PhaseAccurate < SimulationFidelity::SwitchLevel);
+        assert!(SimulationFidelity::SwitchLevel < SimulationFidelity::NodalLevel);
+        assert!(SimulationFidelity::NodalLevel < SimulationFidelity::TCADLevel);
     }
 
     #[test]
     fn is_analog() {
         assert!(!SimulationFidelity::Behavioral.is_analog());
-        assert!(!SimulationFidelity::GateLevel.is_analog());
-        assert!(SimulationFidelity::TransistorLevel.is_analog());
+        assert!(!SimulationFidelity::PhaseAccurate.is_analog());
+        assert!(SimulationFidelity::NodalLevel.is_analog());
+        assert!(SimulationFidelity::TCADLevel.is_analog());
     }
 
     #[test]
     fn has_timing() {
         assert!(!SimulationFidelity::Behavioral.has_timing());
-        assert!(SimulationFidelity::GateLevel.has_timing());
-        assert!(SimulationFidelity::TransistorLevel.has_timing());
+        assert!(SimulationFidelity::PhaseAccurate.has_timing());
+        assert!(SimulationFidelity::TCADLevel.has_timing());
     }
 
     #[test]
@@ -90,7 +106,6 @@ mod tests {
     #[test]
     fn display() {
         assert_eq!(format!("{}", SimulationFidelity::Behavioral), "Behavioral");
-        assert_eq!(format!("{}", SimulationFidelity::GateLevel), "Gate-Level");
-        assert_eq!(format!("{}", SimulationFidelity::TransistorLevel), "Transistor-Level");
+        assert_eq!(format!("{}", SimulationFidelity::TCADLevel), "TCAD-Level");
     }
 }

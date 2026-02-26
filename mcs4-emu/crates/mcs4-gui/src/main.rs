@@ -77,7 +77,7 @@ fn validate_io_phase(phase: BusCycle, io_op: Option<IoOp>) {
         IoOp::RamMainWrite | IoOp::RamPortWrite | IoOp::RomPortWrite | IoOp::RamStatusWrite(_) => {
             assert_eq!(phase, BusCycle::X2, "write io_op must occur in X2");
         }
-        IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_) => {
+        IoOp::RamMainRead | IoOp::RomPortRead | IoOp::RamStatusRead(_) | IoOp::Rpm => {
             assert_eq!(phase, BusCycle::X3, "read io_op must occur in X3");
         }
     }

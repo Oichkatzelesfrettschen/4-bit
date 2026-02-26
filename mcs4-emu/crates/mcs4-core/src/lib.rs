@@ -26,6 +26,7 @@ pub mod bridge;
 pub mod circuit;
 pub mod device;
 pub mod fidelity;
+pub mod fidelity_manager;
 pub mod gate;
 pub mod layout_netlist;
 pub mod netlist_v0;
@@ -43,6 +44,7 @@ pub mod wire;
 
 pub use bridge::ChipSolverBridge;
 pub use fidelity::SimulationFidelity;
+pub use fidelity_manager::FidelityManager;
 pub use gate::{And2, Gate, GateType, Inverter, Nand2, Nand3, Nor2, Nor3, Or2};
 pub use signal::{Signal, SignalId, SignalLevel};
 pub use simulator::{Event, Simulator, SimulatorConfig};

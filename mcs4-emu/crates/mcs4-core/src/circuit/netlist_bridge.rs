@@ -102,9 +102,12 @@ pub fn netlist_v1_to_circuit(netlist: &NetlistV1, config: &BridgeConfig) -> Circ
         };
 
         // Estimate W/L from bounding box if available
-        // NetlistV1 transistors don't have a direct bbox field in the struct,
-        // but the JSON does. We use a default 10um/10um if not available.
-        let (w, l) = (10e-6, 10e-6); // Default geometry
+        let (w, l) = if let Some(bbox_v1) = &trans.bbox {
+            let bbox = BBox::new(bbox_v1.x, bbox_v1.y, bbox_v1.w, bbox_v1.h);
+            bbox_to_geometry::bbox_to_wl(&bbox, config.scale_um_per_px)
+        } else {
+            (10e-6, 10e-6) // Default 10um/10um
+        };
 
         graph.add_transistor(gate_idx, a_idx, b_idx, kind, w, l);
     }
@@ -157,6 +160,7 @@ mod tests {
                         gate_node: 3, // gate = a_node (depletion)
                         a_node: 3,    // output node
                         b_node: 1,    // VDD
+                        bbox: None,
                     },
                     // Enhancement driver
                     Transistor {
@@ -165,6 +169,7 @@ mod tests {
                         gate_node: 4, // input
                         a_node: 3,    // output
                         b_node: 2,    // VSS
+                        bbox: None,
                     },
                 ],
             },

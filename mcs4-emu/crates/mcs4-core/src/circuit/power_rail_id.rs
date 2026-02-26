@@ -76,6 +76,7 @@ mod tests {
                     gate_node: 10,
                     a_node: 1,
                     b_node: 2,
+                    bbox: None,
                 }],
             },
             signals: vec![

@@ -11,14 +11,61 @@ pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
 
-// SIMD cluster execution (Phase 4, nightly-only, stub implementation)
-// Requires: #![feature(portable_simd)]
-#[cfg(feature = "simd_cluster")]
-pub mod simd_cluster;
-
-pub use cluster::Cluster;
-pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 pub use mcs4::Mcs4System;
+pub use mcs40::Mcs40System;
+
+use mcs4_chips::{i4001::I4001, i4002::I4002};
+use mcs4_core::FidelityManager;
+
+pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
+
+/// Common interface for MCS-4 and MCS-40 systems
+pub trait System {
+    /// Step one bus phase
+    fn step(&mut self);
+
+    /// Advance analog solvers by given time step
+    fn step_analog(&mut self, dt: f64);
+
+    /// Get the fidelity manager
+    fn fidelity(&self) -> &FidelityManager;
+    fn fidelity_mut(&mut self) -> &mut FidelityManager;
+
+    /// Run for N machine cycles
+    fn run_cycles(&mut self, cycles: usize) {
+        for _ in 0..(cycles * 8) {
+            self.step();
+        }
+    }
+
+    /// Reset the system
+    fn reset(&mut self);
+
+    /// Set the program counter
+    fn set_pc(&mut self, addr: u16);
+
+    /// Get current program counter
+    fn pc(&self) -> u16;
+
+    /// Get accumulator value
+    fn accumulator(&self) -> u8;
+
+    /// Load program into ROM
+    fn load_rom(&mut self, data: &[u8]);
+
+    /// Read ROM at address
+    fn read_rom(&self, addr: u16) -> Option<u8>;
+
+    /// Access ROM chips
+    fn roms(&self) -> &[I4001];
+    fn roms_mut(&mut self) -> &mut [I4001];
+
+    /// Access RAM chips
+    fn rams(&self) -> &[I4002];
+    fn rams_mut(&mut self) -> &mut [I4002];
+}
+
+// SIMD cluster execution...
 
 #[cfg(test)]
 mod wiring_tests {

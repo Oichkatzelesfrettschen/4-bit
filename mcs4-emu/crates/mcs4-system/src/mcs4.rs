@@ -6,6 +6,8 @@
 
 use mcs4_bus::prelude::*;
 use mcs4_chips::{i4001::I4001, i4002::I4002, i4003::I4003, i4004::I4004};
+use mcs4_core::{FidelityManager, process::ProcessParams};
+use cosmic_scheduler::PhaseScheduler;
 
 use crate::fixture::load_hex_bytes;
 
@@ -26,6 +28,9 @@ pub struct Mcs4System {
 
     /// RAM chips (up to 4 banks x 4 chips = 16 x 4002)
     pub ram: Vec<I4002>,
+
+    /// Fidelity manager for multi-resolution simulation
+    pub fidelity: FidelityManager,
 
     /// Optional attached 4003 shift registers (wired to a RAM output port, best-effort).
     shift_regs: Vec<AttachedShiftReg>,
@@ -49,6 +54,21 @@ pub struct Mcs4System {
     breakpoints: Vec<u16>,
 }
 
+impl PhaseScheduler for Mcs4System {
+    type State = ();
+    type Error = ();
+
+    fn execute_phi1(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
+        // Execute logic interaction (behavioral or analog)
+        Ok(())
+    }
+
+    fn execute_phi2(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
+        // Execute propagation
+        Ok(())
+    }
+}
+
 impl Mcs4System {
     /// Create a minimal MCS-4 system (1 ROM, 1 RAM)
     pub fn minimal() -> Self {
@@ -56,6 +76,7 @@ impl Mcs4System {
             cpu: I4004::new(),
             rom: vec![I4001::new(0)],
             ram: vec![I4002::new(0, 0)],
+            fidelity: FidelityManager::new(ProcessParams::default()),
             shift_regs: Vec::new(),
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
@@ -83,6 +104,7 @@ impl Mcs4System {
                 I4002::new(2, 1),
                 I4002::new(3, 1),
             ],
+            fidelity: FidelityManager::new(ProcessParams::default()),
             shift_regs: Vec::new(),
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
@@ -111,6 +133,7 @@ impl Mcs4System {
             cpu: I4004::new(),
             rom,
             ram,
+            fidelity: FidelityManager::new(ProcessParams::default()),
             shift_regs: Vec::new(),
             bus: DataBus::new(),
             control: ControlSignals::mcs4(),
@@ -460,6 +483,64 @@ impl Mcs4System {
             .iter()
             .find(|r| r.bank_id == bank && r.chip_id == chip)
             .map(|r| r.read_direct(reg, char_addr))
+    }
+}
+
+impl crate::System for Mcs4System {
+    fn step(&mut self) {
+        self.step();
+    }
+
+    fn step_analog(&mut self, dt: f64) {
+        self.fidelity.step_analog(dt);
+    }
+
+    fn fidelity(&self) -> &FidelityManager {
+        &self.fidelity
+    }
+
+    fn fidelity_mut(&mut self) -> &mut FidelityManager {
+        &mut self.fidelity
+    }
+
+    fn reset(&mut self) {
+        self.reset();
+    }
+
+    fn set_pc(&mut self, addr: u16) {
+        self.cpu.registers.set_pc(addr);
+    }
+
+    fn pc(&self) -> u16 {
+        self.pc()
+    }
+
+    fn accumulator(&self) -> u8 {
+        self.accumulator()
+    }
+
+    fn load_rom(&mut self, data: &[u8]) {
+        self.load_rom(data);
+    }
+
+    fn read_rom(&self, addr: u16) -> Option<u8> {
+        self.read_rom(addr)
+    }
+
+    fn roms(&self) -> &[I4001] {
+        &self.rom
+    }
+
+    fn roms_mut(&mut self) -> &mut [I4001] {
+        &mut self.rom
+    }
+
+    fn rams(&self) -> &[I4002] {
+        &self.ram
+    }
+
+    fn rams_mut(&mut self) -> &mut [I4002] {
+        &mut self.ram
     }
 }
 

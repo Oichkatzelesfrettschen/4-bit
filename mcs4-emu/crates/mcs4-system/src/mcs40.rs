@@ -4,7 +4,9 @@
 //! Wires together 4040 CPU, 4201 Clock, and optional MCS-40 support chips.
 
 use mcs4_bus::prelude::*;
-use mcs4_chips::{i4001::I4001, i4002::I4002, i4040::I4040, i4201::I4201, i4289::I4289};
+use mcs4_chips::{i4001::I4001, i4002::I4002, i4040::I4040, i4201::I4201, i4289::I4289, Chip};
+use mcs4_core::{FidelityManager, process::ProcessParams};
+use cosmic_scheduler::PhaseScheduler;
 
 use crate::fixture::load_hex_bytes;
 
@@ -25,6 +27,9 @@ pub struct Mcs40System {
     /// RAM chips
     pub ram: Vec<I4002>,
 
+    /// Fidelity manager
+    pub fidelity: FidelityManager,
+
     /// 4-bit bidirectional data bus
     pub bus: DataBus,
 
@@ -35,7 +40,20 @@ pub struct Mcs40System {
     cycle: CycleState,
 
     /// Total machine cycles
-    total_cycles: u64,
+    pub total_cycles: u64,
+}
+
+impl PhaseScheduler for Mcs40System {
+    type State = ();
+    type Error = ();
+
+    fn execute_phi1(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
+        Ok(())
+    }
+
+    fn execute_phi2(&self, _state: &mut Self::State) -> Result<(), Self::Error> {
+        Ok(())
+    }
 }
 
 impl Mcs40System {
@@ -46,11 +64,17 @@ impl Mcs40System {
             smi: I4289::new(),
             rom: vec![I4001::new(0)],
             ram: vec![I4002::new(0, 0)],
+            fidelity: FidelityManager::new(ProcessParams::default()),
             bus: DataBus::new(),
             control: ControlSignals::mcs40(),
             cycle: CycleState::new(),
             total_cycles: 0,
         }
+    }
+
+    /// Create a minimal MCS-40 system (same as new() for now)
+    pub fn minimal() -> Self {
+        Self::new()
     }
 
     /// Step one bus phase
@@ -74,12 +98,14 @@ impl Mcs40System {
                 for r in &mut self.rom {
                     r.tick_bus(phase, &mut self.bus, &self.control);
                 }
+                self.smi.tick_bus(phase, &mut self.bus, &self.control);
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
             }
             BusCycle::X1 => {
                 // No data transfer yet; keep RAM bank select inactive to avoid "always-on" behavior.
                 self.control.deselect_ram(0);
                 self.cpu.tick(phase, &mut self.bus, &mut self.control);
+                self.smi.tick_bus(phase, &mut self.bus, &self.control);
                 for r in &mut self.ram {
                     r.tick_bus(phase, &mut self.bus, &self.control);
                 }
@@ -96,6 +122,7 @@ impl Mcs40System {
                 } else {
                     self.control.deselect_ram(0);
                 }
+                self.smi.tick_bus(phase, &mut self.bus, &self.control);
                 for r in &mut self.ram {
                     r.tick_bus(phase, &mut self.bus, &self.control);
                 }
@@ -122,6 +149,7 @@ impl Mcs40System {
                     // SRC uses the bus in X3, so CPU must drive before RAM latches.
                     self.cpu.tick(phase, &mut self.bus, &mut self.control);
                     self.control.select_ram(self.cpu.ram_bank(), 0);
+                    self.smi.tick_bus(phase, &mut self.bus, &self.control);
                     for r in &mut self.ram {
                         r.tick_bus(phase, &mut self.bus, &self.control);
                     }
@@ -139,6 +167,7 @@ impl Mcs40System {
                     } else {
                         self.control.deselect_ram(0);
                     }
+                    self.smi.tick_bus(phase, &mut self.bus, &self.control);
                     for r in &mut self.ram {
                         r.tick_bus(phase, &mut self.bus, &self.control);
                     }
@@ -210,6 +239,81 @@ impl Mcs40System {
 
     pub fn phase(&self) -> BusCycle {
         self.cycle.phase
+    }
+}
+
+impl crate::System for Mcs40System {
+    fn step(&mut self) {
+        self.step();
+    }
+
+    fn step_analog(&mut self, dt: f64) {
+        self.fidelity.step_analog(dt);
+    }
+
+    fn fidelity(&self) -> &FidelityManager {
+        &self.fidelity
+    }
+
+    fn fidelity_mut(&mut self) -> &mut FidelityManager {
+        &mut self.fidelity
+    }
+
+    fn reset(&mut self) {
+        self.cpu.reset();
+        self.clock_gen.reset();
+        self.smi.reset();
+        for r in &mut self.rom {
+            r.reset();
+        }
+        for r in &mut self.ram {
+            r.reset();
+        }
+        self.bus = DataBus::new();
+        self.control = ControlSignals::mcs40();
+        self.cycle = CycleState::new();
+        self.total_cycles = 0;
+    }
+
+    fn set_pc(&mut self, addr: u16) {
+        self.cpu.registers.set_pc(addr);
+    }
+
+    fn pc(&self) -> u16 {
+        self.pc()
+    }
+
+    fn accumulator(&self) -> u8 {
+        self.cpu.accumulator()
+    }
+
+    fn load_rom(&mut self, data: &[u8]) {
+        self.load_rom(data);
+    }
+
+    fn read_rom(&self, addr: u16) -> Option<u8> {
+        let chip_id = ((addr >> 8) & 0x0F) as u8;
+        let chip_addr = (addr & 0xFF) as u8;
+        self.rom
+            .iter()
+            .find(|r| r.chip_id == chip_id)
+            .map(|r| r.read_direct(chip_addr))
+    }
+
+    fn roms(&self) -> &[I4001] {
+        &self.rom
+    }
+
+    fn roms_mut(&mut self) -> &mut [I4001] {
+        &mut self.rom
+    }
+
+    fn rams(&self) -> &[I4002] {
+        &self.ram
+    }
+
+    fn rams_mut(&mut self) -> &mut [I4002] {
+        &mut self.ram
     }
 }
 
@@ -612,6 +716,75 @@ mod tests {
             sys.cpu.intr.enabled(),
             sys.cpu.intr.pending()
         );
+    }
+
+    #[test]
+    fn test_rpm_instruction() {
+        let mut sys = Mcs40System::new();
+
+        // 0x000: FIM P0, 0x68 (SRC address 0x68)
+        // 0x002: SRC P0
+        // 0x003: RPM (Read first nibble)
+        // 0x004: XCH R2 (Save first nibble) - Opcode 0xB2
+        // 0x005: RPM (Read second nibble)
+        // 0x006: NOP
+        sys.load_rom(&[0x20, 0x68, 0x21, 0x0E, 0xB2, 0x0E, 0x00]);
+
+        // Run until after SRC
+        sys.run_cycles(3);
+        // During non-RPM/WPM cycles, address() returns PC.
+        // We verify the SRC address was latched internally.
+        assert_eq!(sys.smi.src_latch(), 0x68);
+
+        // Execute first RPM
+        // We need to provide "external" data to SMI during the RPM cycle.
+        // Let's say external ROM at 0x068 contains 0xAB.
+        
+        // During X2/X3 of the RPM cycle, SMI will have oe_n() active.
+        // We'll simulate the system providing data.
+        
+        // Cycle 4: RPM (fetch at PC=3)
+        for _i in 0..8 {
+            if sys.phase() == BusCycle::X2 {
+                sys.smi.supply_read_data(0xAB);
+            }
+            sys.step();
+        }
+        
+        // After first RPM, accumulator should have high nibble (0xA)
+        assert_eq!(sys.cpu.alu.accumulator(), 0xA);
+        
+        // Run XCH R2
+        sys.run_cycles(1);
+        assert_eq!(sys.cpu.registers.get_r(2), 0xA);
+
+        // Execute second RPM
+        for _ in 0..8 {
+            if sys.phase() == BusCycle::X2 {
+                sys.smi.supply_read_data(0xAB);
+            }
+            sys.step();
+        }
+
+        // After second RPM, accumulator should have low nibble (0xB)
+        assert_eq!(sys.cpu.alu.accumulator(), 0xB);
+    }
+
+    #[test]
+    fn test_lcr_execution() {
+        let mut sys = Mcs40System::new();
+
+        // 0x000: DB0 (Select ROM bank 0)
+        // 0x001: SB1 (Select Reg bank 1)
+        // 0x002: EIN (Enable Interrupts)
+        // 0x003: LCR (Load Control Register to ACC)
+        // 0x004: NOP
+        sys.load_rom(&[0x08, 0x0B, 0x0C, 0x03, 0x00]);
+
+        sys.run_cycles(4);
+        
+        // Expected value: 0x00 (ROM0) | 0x04 (REG1) | 0x02 (INT EN) = 0x06
+        assert_eq!(sys.cpu.alu.accumulator(), 0x06);
     }
 
     #[test]

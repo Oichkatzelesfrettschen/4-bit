@@ -73,6 +73,8 @@ pub struct PoissonResult {
     pub residual: f64,
     /// Gate capacitance computed from dQ/dV (F/m^2).
     pub cg: f64,
+    /// Inversion charge density (C/m^2).
+    pub q_inv: f64,
 }
 
 /// 1D Poisson-Boltzmann solver for MOS electrostatics.
@@ -102,6 +104,9 @@ impl PoissonSolver {
         let (psi_plus, _, _, _) = self.solve_nr(v_gate + dv);
         let cg = self.gate_charge_diff(&psi, &psi_plus, dv);
 
+        // Compute inversion charge (holes for pMOS)
+        let q_inv = self.compute_inversion_charge(&psi);
+
         PoissonResult {
             psi,
             psi_surface,
@@ -110,7 +115,27 @@ impl PoissonSolver {
             converged,
             residual,
             cg,
+            q_inv,
         }
+    }
+
+    fn compute_inversion_charge(&self, psi: &[f64]) -> f64 {
+        use crate::process::silicon::Q;
+        let p0 = self.stats.ni() * self.stats.ni() / self.stats.n_doping;
+        let mut total_q = 0.0;
+
+        for i in self.mesh.interface_idx..self.mesh.len() - 1 {
+            let dx = self.mesh.dx(i);
+            // Average potential in segment
+            let psi_avg = 0.5 * (psi[i] + psi[i + 1]);
+            let p = self.stats.hole_concentration(psi_avg);
+            
+            // Only count excess carriers (inversion layer)
+            if p > p0 {
+                total_q += Q * (p - p0) * dx * 1e6; // cm^-3 to m^-3
+            }
+        }
+        total_q
     }
 
     /// Internal Newton-Raphson solve returning raw potential array.

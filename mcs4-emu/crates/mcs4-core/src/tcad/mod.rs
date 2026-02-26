@@ -16,9 +16,11 @@ pub mod channel;
 pub mod drift_diffusion;
 pub mod mesh;
 pub mod poisson;
+pub mod bridge;
 
 pub use carrier::{CarrierStats, ChargeProfile};
 pub use channel::{ChannelConfig, ChannelMesh};
 pub use drift_diffusion::{DriftDiffusionConfig, DriftDiffusionResult, DriftDiffusionSolver};
 pub use mesh::Mesh1D;
 pub use poisson::{PoissonConfig, PoissonResult, PoissonSolver};
+pub use bridge::{TCADBridge, DeviceResult};

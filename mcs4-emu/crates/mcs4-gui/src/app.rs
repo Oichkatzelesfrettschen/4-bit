@@ -13,7 +13,7 @@ use eframe::egui;
 use mcs4_system::mcs4::Mcs4System;
 
 use crate::{
-    panels::{disasm::DisasmPanel, waveform::WaveformPanel},
+    panels::{disasm::DisasmPanel, waveform::WaveformPanel, die_viewer::DieViewerPanel},
     signal_trace::SignalTrace,
 };
 
@@ -25,6 +25,7 @@ pub struct Mcs4App {
     // UI Panels
     waveform_panel: WaveformPanel,
     disasm_panel: DisasmPanel,
+    die_panel: DieViewerPanel,
 
     // Control
     running: Arc<AtomicBool>,
@@ -66,6 +67,7 @@ impl Mcs4App {
             _trace: trace.clone(),
             waveform_panel: WaveformPanel::new(trace),
             disasm_panel: DisasmPanel::new(),
+            die_panel: DieViewerPanel::new(),
             running,
             rom_data: vec![0; 256],
         }
@@ -104,7 +106,16 @@ impl eframe::App for Mcs4App {
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
-            self.waveform_panel.show(ui);
+            egui::ScrollArea::vertical().show(ui, |ui| {
+                self.waveform_panel.show(ui);
+                ui.add_space(20.0);
+                
+                // Get CPU solver if active
+                if let Ok(sys) = self.system.read() {
+                    let cpu_solver = sys.fidelity.get_solver_ref("CPU");
+                    self.die_panel.ui(ui, cpu_solver);
+                }
+            });
         });
 
         // Request repaint for smooth waveform updates if running

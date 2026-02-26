@@ -8,7 +8,7 @@ members = [
   "mcs4-emu/crates/mcs4-gui",
   "mcs4-emu/crates/mcs4-fpga",
   "mcs4-emu/crates/mcs4-intellec",
-  "mcs4-emu/crates/mcs4-periph",
+  "mcs4-emu/crates/mcs4-periph", "mcs4-emu/crates/cosmic_scheduler", "mcs4-emu/crates/gororoba_engine",
 ]
 
 [workspace.package]
@@ -84,6 +84,7 @@ pixels = "0.15"
 ratatui = "0.30"
 crossterm = "0.29"
 notcurses = "3.6"
+cosmic_scheduler = { path = "mcs4-emu/crates/cosmic_scheduler" }
 # Reserved: trace pipeline buffering (mcs4-system)
 ringbuf = "0.4"
 egui = "0.33"

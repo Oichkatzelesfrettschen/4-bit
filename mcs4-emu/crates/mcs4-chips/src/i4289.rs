@@ -15,8 +15,11 @@ use mcs4_bus::prelude::*;
 /// Provides OE/WE control signals and 8-bit data path to external memory.
 #[derive(Clone, Debug)]
 pub struct I4289 {
-    /// Latched 12-bit address
-    address: u16,
+    /// Latched 12-bit address from PC (A0-A11)
+    pc_address: u16,
+
+    /// Latched 8-bit address from SRC (X2-X3)
+    src_latch: u8,
 
     /// Current bus phase
     phase: BusCycle,
@@ -40,6 +43,15 @@ pub struct I4289 {
     /// Write Enable (active low): asserted during write operations
     we_n: bool,
 
+    /// First/Last flip-flop (toggles on RPM/WPM)
+    fl_flip_flop: bool,
+
+    /// Whether the current instruction is RPM (Read Program Memory)
+    rpm_instr: bool,
+
+    /// Whether the current instruction is WPM (Write Program Memory)
+    wpm_instr: bool,
+
     /// Address valid strobe
     address_valid: bool,
 }
@@ -47,7 +59,8 @@ pub struct I4289 {
 impl Default for I4289 {
     fn default() -> Self {
         Self {
-            address: 0,
+            pc_address: 0,
+            src_latch: 0,
             phase: BusCycle::A1,
             cs_rom: false,
             cs_ram: false,
@@ -56,6 +69,9 @@ impl Default for I4289 {
             read_mode: true,
             oe_n: true, // inactive (high)
             we_n: true, // inactive (high)
+            fl_flip_flop: false, // High (First)
+            rpm_instr: false,
+            wpm_instr: false,
             address_valid: false,
         }
     }
@@ -66,9 +82,21 @@ impl I4289 {
         Self::default()
     }
 
-    /// Get current 12-bit address for external memory
+    /// Get current 12-bit address for external memory.
+    ///
+    /// Returns the combination of current page (A8-A11) and SRC latch (A0-A7)
+    /// during RPM/WPM instructions, or pc_address otherwise.
     pub fn address(&self) -> u16 {
-        self.address
+        if self.rpm_instr || self.wpm_instr {
+            (self.pc_address & 0x0F00) | (self.src_latch as u16)
+        } else {
+            self.pc_address
+        }
+    }
+
+    /// Get the 8-bit SRC address latch.
+    pub fn src_latch(&self) -> u8 {
+        self.src_latch
     }
 
     /// Get latched 8-bit read data (assembled from M1+M2 bus nibbles)
@@ -126,16 +154,16 @@ impl I4289 {
                 self.oe_n = true;
                 self.we_n = true;
                 self.address_valid = false;
-                // Latch address bits 0-3
-                self.address = (self.address & 0xFFF0) | (bus.read() as u16);
+                // Latch PC address bits 0-3
+                self.pc_address = (self.pc_address & 0xFFF0) | (bus.read() as u16);
             }
             BusCycle::A2 => {
-                // Latch address bits 4-7
-                self.address = (self.address & 0xFF0F) | ((bus.read() as u16) << 4);
+                // Latch PC address bits 4-7
+                self.pc_address = (self.pc_address & 0xFF0F) | ((bus.read() as u16) << 4);
             }
             BusCycle::A3 => {
-                // Latch address bits 8-11
-                self.address = (self.address & 0xF0FF) | ((bus.read() as u16) << 8);
+                // Latch PC address bits 8-11
+                self.pc_address = (self.pc_address & 0xF0FF) | ((bus.read() as u16) << 8);
                 self.address_valid = true;
 
                 // Check if we are selected by CM-ROM/CM-RAM lines
@@ -158,25 +186,67 @@ impl I4289 {
                 self.data_out = (self.data_out & 0x0F) | ((bus.read() & 0x0F) << 4);
                 // Deassert OE after read data captured
                 self.oe_n = true;
+
+                // Decode instruction to track state
+                let instr = self.data_out;
+                if (instr & 0xF0) == 0x20 {
+                    // SRC instruction (0x2X): reset F/L flip-flop to 'First'
+                    self.fl_flip_flop = false;
+                }
+                self.rpm_instr = instr == 0x0E;
+                self.wpm_instr = instr == 0xE3;
             }
             BusCycle::X1 => {
-                // Decode phase: no external memory activity
+                // Decode phase
             }
             BusCycle::X2 => {
+                // RPM/WPM behavior: assert PM (mode select)
+                // For RPM, drive the bus during X3.
+                // For WPM, latch the bus during X2/X3.
+
+                // If SRC is being executed, latch the new address from the bus
+                let instr = self.data_out;
+                if (instr & 0xF0) == 0x20 {
+                    // SRC latches register pair high nibble (address bits 4-7) during X2
+                    self.src_latch = (self.src_latch & 0x0F) | ((bus.read() & 0x0F) << 4);
+                }
+
                 // Write data low nibble (if write operation)
-                if ctrl.is_io_write() && self.chip_selected() {
+                if (ctrl.is_io_write() || self.wpm_instr) && self.chip_selected() {
                     self.write_data = (self.write_data & 0xF0) | (bus.read() & 0x0F);
                     // Assert WE on write
                     self.we_n = false;
                 }
             }
             BusCycle::X3 => {
+                // If SRC is being executed, latch the low nibble from the bus
+                let instr = self.data_out;
+                if (instr & 0xF0) == 0x20 {
+                    // SRC latches register pair low nibble (address bits 0-3) during X3
+                    self.src_latch = (self.src_latch & 0xF0) | (bus.read() & 0x0F);
+                }
+
                 // Write data high nibble (if write operation)
-                if ctrl.is_io_write() && self.chip_selected() {
+                if (ctrl.is_io_write() || self.wpm_instr) && self.chip_selected() {
                     self.write_data = (self.write_data & 0x0F) | ((bus.read() & 0x0F) << 4);
                 }
                 // Deassert WE after write data presented
                 self.we_n = true;
+
+                // Handle RPM: drive bus with ROM nibble
+                if self.rpm_instr && self.chip_selected() {
+                    let nibble = if !self.fl_flip_flop {
+                        (self.data_out >> 4) & 0x0F // Upper nibble (First)
+                    } else {
+                        self.data_out & 0x0F // Lower nibble (Last)
+                    };
+                    bus.write(nibble);
+                }
+
+                // Toggle F/L flip-flop after RPM/WPM execution
+                if self.rpm_instr || self.wpm_instr {
+                    self.fl_flip_flop = !self.fl_flip_flop;
+                }
             }
         }
     }
@@ -187,7 +257,8 @@ impl super::Chip for I4289 {
         "4289"
     }
     fn reset(&mut self) {
-        self.address = 0;
+        self.pc_address = 0;
+        self.src_latch = 0;
         self.cs_rom = false;
         self.cs_ram = false;
         self.data_out = 0;
@@ -195,6 +266,9 @@ impl super::Chip for I4289 {
         self.read_mode = true;
         self.oe_n = true;
         self.we_n = true;
+        self.fl_flip_flop = false;
+        self.rpm_instr = false;
+        self.wpm_instr = false;
         self.address_valid = false;
     }
     fn tick(&mut self, _phase: BusCycle) {}
@@ -429,6 +503,53 @@ mod tests {
         let mut iface = I4289::new();
         iface.supply_read_data(0xDE);
         assert_eq!(iface.data(), 0xDE);
+    }
+
+    #[test]
+    fn test_src_and_rpm_addressing() {
+        let mut iface = I4289::new();
+        let mut bus = DataBus::new();
+        let mut ctrl = ControlSignals::mcs40();
+        ctrl.select_rom(0, 0);
+
+        // 1. Fetch SRC P0 (at PC=0x123)
+        // A1-A3: PC=0x123
+        bus.write(0x3); iface.tick_bus(BusCycle::A1, &mut bus, &ctrl);
+        bus.write(0x2); iface.tick_bus(BusCycle::A2, &mut bus, &ctrl);
+        bus.write(0x1); iface.tick_bus(BusCycle::A3, &mut bus, &ctrl);
+        assert_eq!(iface.address(), 0x123);
+
+        // M1-M2: Opcode 0x21 (SRC P0)
+        bus.write(0x1); iface.tick_bus(BusCycle::M1, &mut bus, &ctrl);
+        bus.write(0x2); iface.tick_bus(BusCycle::M2, &mut bus, &ctrl);
+
+        // X2-X3: SRC address 0x68 (High=6, Low=8)
+        bus.write(0x6); iface.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        bus.write(0x8); iface.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+        
+        // After SRC, address register bits 0-7 should be 0x68
+        assert_eq!(iface.src_latch, 0x68);
+
+        // 2. Fetch RPM (at PC=0x124)
+        // A1-A3: PC=0x124
+        bus.write(0x4); iface.tick_bus(BusCycle::A1, &mut bus, &ctrl);
+        bus.write(0x2); iface.tick_bus(BusCycle::A2, &mut bus, &ctrl);
+        bus.write(0x1); iface.tick_bus(BusCycle::A3, &mut bus, &ctrl);
+        assert_eq!(iface.address(), 0x124); // Driving PC during fetch
+
+        // M1-M2: Opcode 0x0E (RPM)
+        bus.write(0xE); iface.tick_bus(BusCycle::M1, &mut bus, &ctrl);
+        bus.write(0x0); iface.tick_bus(BusCycle::M2, &mut bus, &ctrl);
+
+        // During RPM execution phases, address should switch to combination of PC page (0x1) and SRC latch (0x68)
+        iface.tick_bus(BusCycle::X1, &mut bus, &ctrl);
+        assert_eq!(iface.address(), 0x168);
+        
+        iface.tick_bus(BusCycle::X2, &mut bus, &ctrl);
+        assert_eq!(iface.address(), 0x168);
+
+        iface.tick_bus(BusCycle::X3, &mut bus, &ctrl);
+        assert_eq!(iface.address(), 0x168);
     }
 
     #[test]

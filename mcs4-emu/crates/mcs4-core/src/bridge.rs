@@ -14,6 +14,28 @@
 
 use crate::{circuit::graph::CircuitGraph, fidelity::SimulationFidelity};
 
+/// Direction of a physical chip pin
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PinDirection {
+    /// Driven by the system, read by the chip
+    Input,
+    /// Driven by the chip, read by the system
+    Output,
+    /// Can be driven by either depending on bus phase
+    Bidirectional,
+}
+
+/// Mapping from a physical pin name to a node in the circuit graph
+#[derive(Clone, Debug)]
+pub struct PinMapping {
+    /// Human-readable pin name (e.g., "DATA0", "SYNC")
+    pub name: String,
+    /// Internal node ID in the extracted netlist
+    pub node_id: u32,
+    /// Directionality of the pin
+    pub direction: PinDirection,
+}
+
 /// Bridge between chip behavioral models and the circuit solver.
 ///
 /// Implementors expose named subcircuits that can be extracted and
@@ -37,6 +59,9 @@ pub trait ChipSolverBridge {
     /// The returned graph is fully populated with nodes, transistors,
     /// power rails, and initial voltages ready for solver consumption.
     fn subcircuit(&self, name: &str) -> Option<CircuitGraph>;
+
+    /// Return the physical pin mapping for the full chip.
+    fn pin_map(&self) -> Vec<PinMapping>;
 }
 
 #[cfg(test)]

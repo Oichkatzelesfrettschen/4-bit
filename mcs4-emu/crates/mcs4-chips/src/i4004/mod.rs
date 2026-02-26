@@ -20,6 +20,7 @@ mod timing_io;
 pub use alu::Alu;
 pub use instruction_decode::{Instruction, InstructionDecoder};
 use mcs4_bus::prelude::*;
+use mcs4_core::SimulationFidelity;
 #[allow(unused_imports)]
 use mcs4_core::prelude::*;
 pub use registers::Registers;
@@ -38,6 +39,9 @@ pub struct I4004 {
 
     /// Timing and I/O control
     pub timing: TimingIo,
+
+    /// Simulation fidelity level
+    fidelity: SimulationFidelity,
 
     /// Current cycle state
     cycle: CycleState,
@@ -78,6 +82,7 @@ impl I4004 {
             registers: Registers::new(),
             decoder: InstructionDecoder::new(),
             timing: TimingIo::new(),
+            fidelity: SimulationFidelity::Behavioral,
             cycle: CycleState::new(),
             instruction_byte: 0,
             operand: 0,

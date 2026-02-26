@@ -11,7 +11,7 @@ pub enum I4040Instruction {
     Hlt,
     /// Branch Back from interrupt (0x02) - restore SRC and return
     Bbs,
-    /// Load Command RAM (0x03) - read ROM into RAM
+    /// Load Control Register (0x03) - copy internal state to accumulator
     Lcr,
     /// OR accumulator with R4 (0x04)
     Or4,
@@ -21,19 +21,19 @@ pub enum I4040Instruction {
     An6,
     /// AND accumulator with R7 (0x07)
     An7,
-    /// Designate Bank 0 (0x08) - switch to register bank 0
+    /// Designate Bank 0 (0x08) - switch to ROM bank 0
     Db0,
-    /// Designate Bank 1 (0x09) - switch to register bank 1
+    /// Designate Bank 1 (0x09) - switch to ROM bank 1
     Db1,
-    /// Select RAM Bank 0 (0x0A)
+    /// Select Register Bank 0 (0x0A) - switch to index register bank 0
     Sb0,
-    /// Select RAM Bank 1 (0x0B)
+    /// Select Register Bank 1 (0x0B) - switch to index register bank 1
     Sb1,
     /// Enable Interrupts (0x0C)
     Ein,
     /// Disable Interrupts (0x0D)
     Din,
-    /// Read Program Memory (0x0E) - read ROM byte to accumulator
+    /// Read Program Memory (0x0E) - read ROM nibble to accumulator
     Rpm,
 }
 
