@@ -71,5 +71,5 @@ The `.hex` fixture format accepts:
 
 ## Known Gaps
 
-- 4308 and broader MCS-40 support-chip protocols are not yet integrated into system wiring.
+- 4308 is integrated into MCS-40 system wiring (13+9 bus protocol tests). Remaining unimplemented chips: 4002-1/2, 4269, 3205, 3404, 2101, 2102, 1302.
 - I/O control-line modeling is still a simplified, best-effort decode (`IoOp`), but RAM/ROM side-effects are no longer “always-on”.

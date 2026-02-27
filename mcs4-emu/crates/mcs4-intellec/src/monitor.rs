@@ -329,7 +329,7 @@ mod tests {
                 // Address should be derived from entered nibbles
                 assert!(address <= 0x0FFF);
             }
-            _ => panic!("Expected Examine action"),
+            other => panic!("Expected Examine action, got {:?}", other),
         }
     }
 
@@ -347,7 +347,7 @@ mod tests {
                 assert_eq!(address, 0); // initial address
                 assert_eq!(data, 0x05);
             }
-            _ => panic!("Expected Deposit action"),
+            other => panic!("Expected Deposit action, got {:?}", other),
         }
         // Address should have incremented
         assert_eq!(mon.address(), 1);
@@ -390,7 +390,7 @@ mod tests {
             MonitorAction::Step { address } => {
                 assert!(address <= 0x0FFF);
             }
-            _ => panic!("Expected Step action"),
+            other => panic!("Expected Step action, got {:?}", other),
         }
     }
 

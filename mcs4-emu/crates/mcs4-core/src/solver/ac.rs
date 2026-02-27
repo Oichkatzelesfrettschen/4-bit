@@ -348,7 +348,6 @@ impl AcSolver {
 /// The linearized model: ids = gm*(vg-vs) + gds*(vd-vs)
 /// KCL at drain: +ids flows in
 /// KCL at source: -ids flows out
-#[allow(clippy::too_many_arguments)]
 fn stamp_conductance(
     g: &mut [f64],
     n: usize,

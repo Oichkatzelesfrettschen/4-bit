@@ -205,7 +205,6 @@ impl NodalSolver {
     }
 
     /// Add a TCAD-based transistor
-    #[allow(clippy::too_many_arguments)]
     pub fn add_tcad_transistor(&mut self, g: u32, s: u32, d: u32, b: u32, w: f64, l: f64, kind: TransistorKind) {
         self.add_node_if_missing(g);
         self.add_node_if_missing(s);
@@ -253,7 +252,13 @@ impl NodalSolver {
             let mut b = Mat::<f64>::zeros(dim, 1);
             let mut vsource_idx = 0;
 
-            // Gmin stabilization
+            // Gmin stabilization: add a small conductance to ground on every node.
+            // WHY: Prevents singular matrices when nodes are floating (no DC path
+            // to ground). 1e-9 S = 1 GOhm shunt, chosen as a trade-off:
+            //   too small (< 1e-12) -> near-singular matrix, poor convergence
+            //   too large (> 1e-6)  -> shifts resistive dividers by > 1mV
+            // At 1e-9 S the voltage shift on a typical voltage divider is ~1e-5 V;
+            // tests use 1e-4 V tolerance to account for this systematic offset.
             let gmin = 1e-9;
             for i in 0..self.num_nodes {
                 a[(i, i)] += gmin;

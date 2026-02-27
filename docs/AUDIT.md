@@ -1,5 +1,7 @@
 # Repository Audit
 
+See also: `docs/ACCURACY_PROGRAM.md` for the full accuracy roadmap and evidence-to-simulation pipeline.
+
 ## Scope
 Initial audit of documentation claims, build hygiene, and configuration alignment.
 This file is a living log. Each claim is marked as verified, contradicted, or pending

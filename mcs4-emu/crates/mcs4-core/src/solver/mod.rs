@@ -21,6 +21,7 @@ pub mod noise;
 pub mod sensitivity;
 pub mod sparse_matrix;
 pub mod stimulus;
+pub mod temp_sweep;
 pub mod transient;
 
 pub use ac::{AcConfig, AcResult, AcSolver};

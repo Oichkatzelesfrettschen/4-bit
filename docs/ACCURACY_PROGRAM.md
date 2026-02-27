@@ -1,5 +1,7 @@
 # Accuracy Program (Evidence → Netlist → Simulation)
 
+See also: `docs/AUDIT.md` for per-claim verification status and source citations.
+
 This repo currently has a strong **cycle-/phase-accurate** emulator core, and an expanding set of
 **evidence extraction** tools. The next fidelity jump is not “more code”, it is *traceability*:
 every claim and every extracted artifact must map to a testable hypothesis.

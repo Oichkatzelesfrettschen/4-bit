@@ -114,7 +114,6 @@ impl SparseMnaSystem {
     /// Stamp a transistor linearization (Norton equivalent).
     ///
     /// Same semantics as [`super::matrix::MnaSystem::stamp_transistor`].
-    #[allow(clippy::too_many_arguments)]
     pub fn stamp_transistor(
         &mut self,
         gate: usize,

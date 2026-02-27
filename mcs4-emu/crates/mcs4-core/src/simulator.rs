@@ -396,6 +396,50 @@ mod tests {
     }
 
     #[test]
+    fn test_reset_clears_state() {
+        let mut sim = Simulator::new();
+        let sig = sim.alloc_signal("s", SignalLevel::Low);
+        sim.schedule(100, sig, SignalLevel::High, EventSource::Stimulus);
+        sim.run_until(200);
+        assert_eq!(sim.stats().events_processed, 1);
+
+        sim.reset();
+        assert_eq!(sim.time(), 0);
+        assert_eq!(sim.stats().events_processed, 0);
+        assert!(sim.is_done(), "event queue should be empty after reset");
+    }
+
+    #[test]
+    fn test_is_done_empty_queue() {
+        let sim = Simulator::new();
+        assert!(sim.is_done(), "new simulator with no events should be done");
+    }
+
+    #[test]
+    fn test_pending_events_count() {
+        let mut sim = Simulator::new();
+        let sig = sim.alloc_signal("s", SignalLevel::Low);
+        assert_eq!(sim.pending_events(), 0);
+        sim.schedule(10, sig, SignalLevel::High, EventSource::Stimulus);
+        assert_eq!(sim.pending_events(), 1);
+        sim.schedule(20, sig, SignalLevel::Low, EventSource::Stimulus);
+        assert_eq!(sim.pending_events(), 2);
+    }
+
+    #[test]
+    fn test_run_events_limit() {
+        let mut sim = Simulator::new();
+        let sig = sim.alloc_signal("s", SignalLevel::Low);
+        sim.schedule(10, sig, SignalLevel::High, EventSource::Stimulus);
+        sim.schedule(20, sig, SignalLevel::Low, EventSource::Stimulus);
+        sim.schedule(30, sig, SignalLevel::High, EventSource::Stimulus);
+
+        // Only run 2 of 3 events
+        sim.run_events(2);
+        assert_eq!(sim.pending_events(), 1, "one event should remain after running 2");
+    }
+
+    #[test]
     fn test_event_ordering() {
         let mut sim = Simulator::new();
 

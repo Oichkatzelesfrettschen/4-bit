@@ -53,3 +53,27 @@ impl DieViewerPanel {
         });
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_default_creates_panel() {
+        let panel = DieViewerPanel::default();
+        // Default should be constructable without panics
+        let _ = panel;
+    }
+
+    #[test]
+    fn test_new_default_zoom() {
+        let panel = DieViewerPanel::new();
+        assert!((panel.zoom - 1.0).abs() < f32::EPSILON);
+    }
+
+    #[test]
+    fn test_highlight_active_default() {
+        let panel = DieViewerPanel::new();
+        assert!(panel.highlight_active, "highlight_active should default to true");
+    }
+}

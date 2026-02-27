@@ -163,4 +163,54 @@ mod tests {
         let v_old = vec![1.0, 2.0, 3.5];
         assert!((max_delta(&v_new, &v_old) - 3.0).abs() < 1e-10);
     }
+
+    #[test]
+    fn pmos_vgs_limit_deep_operating() {
+        let vth = -3.0;
+        // Deep in operating region: Vgs << 2*Vth; limit should be 2.0V
+        let vgs_old = -10.0; // well past 2*|Vth| = 6V
+        let vgs_new = -15.0;
+        let limited = pmos_vgs_limit(vgs_new, vgs_old, vth);
+        assert!(
+            (limited - (-12.0)).abs() < 1e-10,
+            "deep operating region should allow 2V step"
+        );
+    }
+
+    #[test]
+    fn gmin_schedule_past_total_steps() {
+        let g0 = 1e-6;
+        // When step >= total_steps, should return gmin_initial unchanged
+        let result = gmin_schedule(g0, 10, 5);
+        assert!(
+            (result - g0).abs() < 1e-20,
+            "past total_steps should return initial gmin"
+        );
+    }
+
+    #[test]
+    fn max_delta_empty_vectors() {
+        let empty: Vec<f64> = vec![];
+        assert!(
+            (max_delta(&empty, &empty) - 0.0).abs() < 1e-20,
+            "empty vectors should give 0 delta"
+        );
+    }
+
+    #[test]
+    fn check_convergence_single_element() {
+        let v_new = vec![5.0];
+        let v_old = vec![5.0 + 1e-8];
+        assert!(
+            check_convergence(&v_new, &v_old, 1e-6),
+            "single element within tolerance should converge"
+        );
+
+        let v_new2 = vec![5.0];
+        let v_old2 = vec![5.0 + 1e-3];
+        assert!(
+            !check_convergence(&v_new2, &v_old2, 1e-6),
+            "single element outside tolerance should not converge"
+        );
+    }
 }

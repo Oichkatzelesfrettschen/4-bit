@@ -15,16 +15,17 @@
 | 4 | Performance and clustering | COMPLETE | 100% |
 | 5 | FPGA and advanced features | IMPLEMENTED | 75% |
 
-## Test Counts (baseline 2026-02-26)
+## Test Counts (updated 2026-02-26 after full plan implementation)
 
-935 tests passing, 0 failures:
+968 tests passing, 0 failures:
 - mcs4-bus: 17
 - mcs4-chips: 211 (+ 1 fuzz_test + 11 proptest_chips)
-- mcs4-core: 449 (+ 12 error_paths + 18 integration_validation + 1 nodal_4003)
+- mcs4-core: 473 (+ 12 error_paths + 18 integration_validation + 1 nodal_4003)
 - mcs4-fpga: 12
-- mcs4-gui: 75 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform)
+- mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-system: 45 (+ 9 mcs40_4308_integration)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
+- mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
 
 ## Chip Implementation Status

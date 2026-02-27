@@ -64,7 +64,7 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Recorded evidence tooling steps in `docs/evidence/README.md`, `docs/evidence/ocr_manifest.yaml`, and the new `docs/evidence/PROVENANCE_CHECKLIST.md`.
 - Chunked OCR for the 1975 Intel Data Catalog and captured datasheet timing claims from reliable sources.
 - Cataloged schematics/mask layers/die shots, documented license gaps, and introduced `scripts/generate_layer_overlays.py` for reproducible overlays.
-- Rust toolchain locked to nightly-2026-01-06 with edition/workspace defaults targeting Rust **2021** + MSRV 1.92.0; warnings-as-errors enforced via clippy/deny.
+- Rust toolchain locked to nightly-2026-01-07 with edition/workspace defaults targeting Rust **2021** + MSRV 1.92.0; warnings-as-errors enforced via clippy/deny.
 - Cataloged transistor counts from the 4004 analyzer, documented missing 4040 die shots, and recorded provenance for each imported image.
 
 ## Phase 0.5 - Evidence & photomicrograph audit (In Progress)
@@ -131,8 +131,8 @@ Key Milestones:
 
 Deferred Work:
    - Hardware validation with physical FPGA boards (requires hardware purchase)
-   - Peripheral driver implementation (7-segment, keyboard, UART)
    - Custom ONNX CTC model training (requires dataset collection)
+   Note: Peripheral drivers (7-segment, keyboard, UART) are DONE in mcs4-periph (30 tests).
 
 2. **What must be done immediately:**
    - (DONE) Map the remaining SYNC / POC_PAD / TEST_PAD anchors from the bounding-box sync outputs and commit them into `docs/evidence/schematic_layout_anchors_v1.json` so the remap/incidence pipeline can consume them.
@@ -213,7 +213,7 @@ DEFERRED (Future Work - Requires Hardware):
 - Hardware validation with physical FPGA boards (iCE40 or Spartan-7 purchase required).
 - FPGA bitstream synthesis and programming on actual hardware.
 - Hardware-in-loop testing and differential validation vs software emulator.
-- Peripheral driver implementation (7-segment display, matrix keyboard, serial UART).
+- (DONE) Peripheral drivers: 7-segment display, matrix keyboard, serial UART (mcs4-periph, 30 tests).
 - Custom ONNX CTC model training (requires 200+ labeled training crops).
 - Multi-chip FPGA system integration (4004 + ROM + RAM on single FPGA).
 - Transistor-level simulation model implementation (event-driven or nodal solver).

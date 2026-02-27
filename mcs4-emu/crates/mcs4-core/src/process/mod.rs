@@ -88,22 +88,29 @@ pub struct ProcessParams {
 
 impl Default for ProcessParams {
     /// Best-estimate parameters for the Intel 4004 process (1971).
+    ///
+    /// Sources:
+    /// - Faggin 1970/1971: Intel silicon-gate process first published
+    /// - Sze, "Physics of Semiconductor Devices" (1981) for mobility/Vth models
+    /// - Intel MCS-4 User Manual (Feb 1973): supply voltages and basic specs
+    /// - 4004.com transistor extraction: geometry constraints (10um min feature)
+    /// - Estimated: x_j, eta_dibl, theta (not available in primary sources)
     fn default() -> Self {
         Self {
-            vss: 0.0,
-            vdd: -15.0,
-            t_ox: 80e-9,           // 80nm = 800 angstrom
-            vth_enhancement: -3.0, // -2V to -4V range, center estimate
-            vth_depletion: 1.0,    // positive Vth for depletion mode
-            mu_0: 175.0,           // cm^2/V*s (surface holes)
-            theta: 0.03,           // mobility degradation
-            n_sub: 4.5e14,         // ~10 ohm-cm n-type
-            n_sd: 1e19,            // p+ source/drain
-            l_min: 10e-6,          // 10um
-            x_j: 2e-6,             // 2um junction depth (estimated)
-            lambda: 0.02,          // 1/V, moderate CLM for 10um
-            eta_dibl: 0.005,       // V/V, negligible at 10um
-            temp: 300.0,
+            vss: 0.0,              // MCS-4 User Manual: VSS = 0V reference
+            vdd: -15.0,            // MCS-4 User Manual: VDD = -15V (later -10V variants)
+            t_ox: 80e-9,           // ~800A SiO2; Faggin 1970, silicon-gate SGT process
+            vth_enhancement: -3.0, // -2V to -4V range; Sze 1981 Chapter 6, center estimate
+            vth_depletion: 1.0,    // positive Vth for depletion load; estimated from circuit behavior
+            mu_0: 175.0,           // cm^2/V*s surface hole mobility; Sze 1981 Table 1
+            theta: 0.03,           // mobility degradation coefficient; estimated for 10um
+            n_sub: 4.5e14,         // ~10 ohm-cm n-type Si; Faggin 1970 process spec
+            n_sd: 1e19,            // p+ source/drain; typical boron implant concentration
+            l_min: 10e-6,          // 10um minimum feature; 4004.com mask geometry
+            x_j: 2e-6,             // 2um junction depth; estimated for 10um pMOS process
+            lambda: 0.02,          // 1/V channel-length modulation; moderate for 10um
+            eta_dibl: 0.005,       // V/V DIBL; negligible at 10um, included for model completeness
+            temp: 300.0,           // 300K nominal (27C); datasheet operating range 0-70C
         }
     }
 }
@@ -194,6 +201,41 @@ impl ProcessParams {
         Self {
             vdd: -10.0,
             ..Self::default()
+        }
+    }
+
+    /// Return a copy of these parameters scaled to the given temperature.
+    ///
+    /// # Temperature-dependent scaling
+    ///
+    /// - `mu_0`: scales as (300/T)^1.5 -- Sze 1981, Chapter 8, lattice scattering
+    ///   dominates at room temperature for holes in silicon (T > 200 K).
+    /// - `vth_enhancement`: shifts by approximately +2 mV/K from the 300 K reference
+    ///   (pMOS Vth becomes less negative at higher T, magnitude decreases).
+    ///   Standard bulk pMOS temperature coefficient from MOS Physics (Tsividis).
+    /// - `n_sub`: updated via `silicon::ni(T)` for substrate minority carrier calcs.
+    ///   Fermi-level shift is implicit through this and phi_f().
+    /// - All other parameters are process/geometry constants independent of temperature.
+    ///
+    /// Valid for T in 250-400 K (the operating envelope of the 4004: 0-70 deg C is
+    /// 273-343 K). Extrapolation outside this range is undefined.
+    pub fn at_temperature(&self, temp_k: f64) -> Self {
+        // Mobility scales as power law (Sze 1981, lattice scattering for holes)
+        let mu_scale = (300.0_f64 / temp_k).powf(1.5);
+        let mu_0_t = self.mu_0 * mu_scale;
+
+        // Threshold voltage: ~+2 mV/K shift for pMOS enhancement (convention: Vth becomes
+        // less negative at higher T, i.e., magnitude decreases). The standard temperature
+        // coefficient is approximately +2 mV/K for pMOS threshold voltage (Tsividis,
+        // "Operation and Modeling of the MOS Transistor", 2nd ed., Chapter 3).
+        let delta_t = temp_k - 300.0;
+        let vth_enhancement_t = self.vth_enhancement + 0.002 * delta_t;
+
+        Self {
+            mu_0: mu_0_t,
+            vth_enhancement: vth_enhancement_t,
+            temp: temp_k,
+            ..self.clone()
         }
     }
 }

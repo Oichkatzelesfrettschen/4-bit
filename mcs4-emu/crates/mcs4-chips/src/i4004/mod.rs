@@ -20,8 +20,6 @@ mod timing_io;
 pub use alu::Alu;
 pub use instruction_decode::{Instruction, InstructionDecoder};
 use mcs4_bus::prelude::*;
-#[allow(unused_imports)]
-use mcs4_core::prelude::*;
 use mcs4_core::SimulationFidelity;
 pub use registers::Registers;
 pub use timing_io::TimingIo;

@@ -112,7 +112,6 @@ impl MnaSystem {
     /// For pMOS with absolute terminal voltages (gate, source, drain as
     /// graph node indices), using companion model:
     ///   Id = Ids_op + gm*(Vgs - Vgs_op) + gds*(Vds - Vds_op)
-    #[allow(clippy::too_many_arguments)]
     pub fn stamp_transistor(
         &mut self,
         gate: usize,

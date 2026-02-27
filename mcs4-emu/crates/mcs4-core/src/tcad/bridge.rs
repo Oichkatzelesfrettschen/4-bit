@@ -177,15 +177,15 @@ mod tests {
         // Let's also check the Poisson result directly to see psi_surface
         let p_solver = PoissonSolver::new(bridge.p_config.clone());
         let p_res = p_solver.solve(0.0);
-        eprintln!("DEBUG: Vgs=0, psi_surface={}", p_res.psi_surface);
+        tracing::debug!(psi_surface = p_res.psi_surface, "Vgs=0 Poisson solve");
 
         let res_off = bridge.solve_device(0.0, 0.0, -15.0, 0.0, 10e-6, TransistorKind::Enhancement);
-        eprintln!("DEBUG: res_off.ids = {}", res_off.ids);
+        tracing::debug!(ids = res_off.ids, "res_off (cutoff)");
         assert!(res_off.ids.abs() < 1e-6);
 
         // Logic Low (-15V) -> Vgs = -15V -> Saturation
         let res_on = bridge.solve_device(-15.0, 0.0, -15.0, 0.0, 10e-6, TransistorKind::Enhancement);
-        eprintln!("DEBUG: res_on.ids = {}", res_on.ids);
+        tracing::debug!(ids = res_on.ids, "res_on (saturation)");
         assert!(res_on.ids.abs() > 1e-6);
         assert!(res_on.gm > 0.0);
     }

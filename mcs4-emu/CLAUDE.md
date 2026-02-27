@@ -160,23 +160,25 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (baseline 2026-02-26)
+## TEST COUNTS (updated 2026-02-26 after full plan implementation)
 
-935 tests passing, 0 failures:
+968 tests passing, 0 failures:
 - mcs4-bus: 17
 - mcs4-chips: 211 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge)
 - mcs4-chips fuzz_test: 1
 - mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)
-- mcs4-core: 449 (transistor solver, nodal solver, TCAD, process models, transient, circuit, fidelity, bridge)
+- mcs4-core: 473 (transistor/nodal/TCAD solvers, process models, transient+trapezoidal integration,
+    temperature sweep, sensitivity analysis integration, circuit, fidelity, bridge)
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
 - mcs4-fpga: 12 (Verilog export + chip module generation)
-- mcs4-gui: 75 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform)
+- mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
+- mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
 - mcs4-system: 45 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-02-26 (debt resolution: compilation fixes, crate cleanup, dep audit, doc sync)
+Last Updated: 2026-02-26 (full plan: debt resolution + trapezoidal integration + temperature sweep + multi-system tests + sensitivity integration)

@@ -28,17 +28,15 @@ const CELL_L: f64 = 10e-6; // 10um
 const WORDLINE_PITCH: f64 = 20e-6; // 20um
 
 /// Bitline pitch (m). Cell-to-cell spacing along a column.
-/// Used for bitline length calculations in future detailed models.
-#[allow(dead_code)]
-const BITLINE_PITCH: f64 = 15e-6; // 15um
+/// Reserved for bitline length calculations in future detailed models.
+const _BITLINE_PITCH: f64 = 15e-6; // 15um
 
 /// Wordline width (m). Polysilicon.
 const WORDLINE_WIDTH: f64 = 5e-6; // 5um
 
 /// Bitline width (m). Diffusion or metal.
-/// Used for bitline resistance calculations in future detailed models.
-#[allow(dead_code)]
-const BITLINE_WIDTH: f64 = 5e-6; // 5um
+/// Reserved for bitline resistance calculations in future detailed models.
+const _BITLINE_WIDTH: f64 = 5e-6; // 5um
 
 /// Wordline RC delay for the full array (seconds).
 ///

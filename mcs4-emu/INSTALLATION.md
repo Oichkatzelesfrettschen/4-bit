@@ -1,7 +1,7 @@
 # Installation Requirements
 
 ## Toolchain (Required)
-- Rust nightly pinned in `rust-toolchain.toml` (2026-01-06) with components: rustfmt, clippy, miri, llvm-tools-preview.
+- Rust nightly pinned in `rust-toolchain.toml` (2026-01-07) with components: rustfmt, clippy, miri, llvm-tools-preview.
 - Edition: 2021 (workspace-wide).
 - MSRV (stable baseline): Rust 1.92.0 (latest stable as of 2026-01-05).
   - Source: https://github.com/rust-lang/rust/releases/tag/1.92.0
@@ -66,4 +66,6 @@ The `mcs4-emu` binary supports running `.hex` fixtures from `mcs4-emu/crates/mcs
 - `mcs4-chips`: pure Rust; no native deps.
 - `mcs4-system`: pure Rust; no native deps.
 - `mcs4-gui`: requires X11/Wayland runtime; run `cargo run -p mcs4-gui`.
-- `mcs4-fpga`: stub targets; no external tooling required yet.
+- `mcs4-fpga`: Verilog export for 4 chip modules (12 tests); no external tooling required.
+- `mcs4-periph`: pure Rust; peripheral devices (7-segment, keyboard, UART; 30 tests).
+- `mcs4-intellec`: pure Rust; Intellec-4 development system (front panel, monitor, PROM programmer; 44 tests).

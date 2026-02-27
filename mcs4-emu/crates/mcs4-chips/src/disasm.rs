@@ -28,8 +28,8 @@ pub struct DisasmLine {
 /// Disassembler for MCS-4 instruction set
 #[derive(Clone, Debug)]
 pub struct Disassembler {
-    #[allow(dead_code)]
-    cpu_type: CpuType,
+    /// Reserved for 4040 dispatch (4040-specific opcode decoding not yet implemented)
+    _cpu_type: CpuType,
     symbols: HashMap<u16, String>,
     comments: HashMap<u16, String>,
 }
@@ -38,7 +38,7 @@ impl Disassembler {
     /// Create a new disassembler for the specified CPU type
     pub fn new(cpu_type: CpuType) -> Self {
         Self {
-            cpu_type,
+            _cpu_type: cpu_type,
             symbols: HashMap::new(),
             comments: HashMap::new(),
         }

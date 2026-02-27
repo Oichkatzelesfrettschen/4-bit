@@ -9,9 +9,8 @@ pub struct Alu {
     /// Carry flag
     carry: bool,
 
-    /// Temporary register (for two-step operations)
-    #[allow(dead_code)]
-    temp: u8,
+    /// Temporary register (reserved for future two-step operations)
+    _temp: u8,
 }
 
 impl Alu {
@@ -19,7 +18,7 @@ impl Alu {
         Self {
             acc: 0,
             carry: false,
-            temp: 0,
+            _temp: 0,
         }
     }
 
@@ -72,9 +71,14 @@ impl Alu {
     }
 
     /// Decrement accumulator
+    ///
+    /// Per MCS-4 User Manual: DAC decrements the accumulator. The carry flag
+    /// is set to 1 (no borrow) when acc != 0 before the decrement, and cleared
+    /// to 0 (borrow) when acc wraps from 0 to F. This is the "inverted borrow"
+    /// convention: carry=1 means no underflow, carry=0 means underflow occurred.
     pub fn dac(&mut self) {
         let result = self.acc.wrapping_sub(1);
-        self.carry = self.acc != 0; // Borrow (inverted)
+        self.carry = self.acc != 0; // Inverted borrow: 1 = no underflow, 0 = underflow
         self.acc = result & 0x0F;
     }
 

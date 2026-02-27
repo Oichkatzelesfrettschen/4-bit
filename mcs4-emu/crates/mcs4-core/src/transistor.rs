@@ -6,6 +6,13 @@
 //!
 //! For SPICE-class analysis, see also `transistor_solver` (switch-level)
 //! and `nodal_solver` (analog nodal analysis).
+//!
+//! # Deprecation notes
+//!
+//! `CircuitBuilder` is deprecated in favor of `TransistorSimulator` (in
+//! `transistor_solver.rs`). The `#[allow(deprecated)]` annotations throughout
+//! this file are intentional: they suppress warnings for tests that exercise
+//! the deprecated builder API to preserve backwards-compatibility coverage.
 
 use crate::timing::Time;
 

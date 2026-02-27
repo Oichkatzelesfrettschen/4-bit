@@ -9,7 +9,11 @@
 //! method (deferred to Phase IV) would reduce this to 2 solves
 //! regardless of P, at the cost of implementation complexity.
 
-use crate::process::ProcessParams;
+use crate::{
+    circuit::CircuitGraph,
+    process::ProcessParams,
+    solver::{dc_op::DcSolver, SolverConfig},
+};
 
 /// A named process parameter that can be perturbed.
 #[derive(Clone, Debug)]
@@ -247,6 +251,123 @@ pub fn default_params() -> Vec<SensitivityParam> {
     ]
 }
 
+impl SensitivityResult {
+    /// Return the sensitivity matrix as a 2-D `Vec[node_idx][param_idx]` of normalized sensitivities.
+    ///
+    /// Shape: N x P, where N = number of nodes and P = number of parameters.
+    /// Each entry is the normalized sensitivity (dV/V) / (dp/p) for that node-parameter pair.
+    pub fn sensitivity_matrix(&self) -> Vec<Vec<f64>> {
+        let num_nodes = self.baseline_voltages.len();
+        let num_params = self.params.len();
+        let mut matrix = vec![vec![0.0_f64; num_params]; num_nodes];
+        for (p_idx, pr) in self.params.iter().enumerate() {
+            for ns in &pr.nodes {
+                if ns.node_idx < num_nodes {
+                    matrix[ns.node_idx][p_idx] = ns.normalized;
+                }
+            }
+        }
+        matrix
+    }
+
+    /// Return parameters ranked by maximum absolute sensitivity across all nodes.
+    ///
+    /// Returns up to `top_n` entries of (SensitivityParam, max_abs_sensitivity).
+    /// Sorted descending (most sensitive first).
+    pub fn most_sensitive_parameters(&self, top_n: usize) -> Vec<(&SensitivityParam, f64)> {
+        let mut ranked: Vec<(&SensitivityParam, f64)> =
+            self.params.iter().map(|pr| (&pr.param, pr.max_sensitivity)).collect();
+        ranked.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Equal));
+        ranked.truncate(top_n);
+        ranked
+    }
+
+    /// Return tornado chart data for a specific node.
+    ///
+    /// Returns a Vec of (param_name, low_delta_V, high_delta_V) tuples, one per parameter.
+    /// `low_delta_V` is the voltage change for a -delta perturbation (negative).
+    /// `high_delta_V` is the voltage change for a +delta perturbation (positive).
+    ///
+    /// For a finite-difference sensitivity stored in dv_dp, the approximate changes are:
+    ///   high_delta_V = dv_dp * abs_delta
+    ///   low_delta_V  = -dv_dp * abs_delta
+    pub fn tornado_data(&self, node_idx: usize) -> Vec<(String, f64, f64)> {
+        self.params
+            .iter()
+            .map(|pr| {
+                let base_value = pr.param.get_value(&ProcessParams::default());
+                let abs_delta = if base_value.abs() < 1e-15 {
+                    pr.delta
+                } else {
+                    base_value * pr.delta
+                };
+                let dv_dp = pr
+                    .nodes
+                    .iter()
+                    .find(|ns| ns.node_idx == node_idx)
+                    .map(|ns| ns.dv_dp)
+                    .unwrap_or(0.0);
+                let high_delta = dv_dp * abs_delta;
+                let low_delta = -high_delta;
+                (pr.param.name().to_string(), low_delta, high_delta)
+            })
+            .collect()
+    }
+}
+
+/// Run integrated sensitivity analysis: baseline DC solve + one perturbed solve per parameter.
+///
+/// WHY: The existing `compute_param_sensitivity` operates on pre-computed voltage vectors.
+/// This function closes the loop by running the DC solves internally, connecting the sensitivity
+/// framework to the actual circuit solver.
+///
+/// For N nodes and P parameters, runs P+1 DC solves total (1 baseline + 1 per parameter).
+///
+/// # Arguments
+/// * `graph` - Circuit graph (mutated for each solve; node voltages are reset between solves).
+/// * `base_params` - Process parameters at the nominal operating point.
+/// * `params_to_sweep` - List of parameters to perturb.
+pub fn run_sensitivity_analysis(
+    graph: &mut CircuitGraph,
+    base_params: &ProcessParams,
+    params_to_sweep: &[SensitivityParam],
+) -> SensitivityResult {
+    // Save initial voltages for reset between solves.
+    let initial_voltages: Vec<f64> = graph.nodes.iter().map(|n| n.voltage).collect();
+
+    // Baseline solve.
+    let config = SolverConfig::default();
+    let baseline_result = DcSolver::new(config.clone(), base_params.clone()).solve(graph);
+    let baseline_voltages = baseline_result.voltages.clone();
+
+    let mut param_results = Vec::new();
+
+    for param in params_to_sweep {
+        // Reset node voltages before each perturbed solve.
+        for (node, &v) in graph.nodes.iter_mut().zip(initial_voltages.iter()) {
+            node.voltage = v;
+        }
+
+        let delta = param.default_delta();
+        let perturbed_params = param.perturb(base_params, delta);
+        let perturbed_result = DcSolver::new(config.clone(), perturbed_params).solve(graph);
+
+        let pr = compute_param_sensitivity(
+            &baseline_voltages,
+            &perturbed_result.voltages,
+            param.clone(),
+            base_params,
+            delta,
+        );
+        param_results.push(pr);
+    }
+
+    SensitivityResult {
+        params: param_results,
+        baseline_voltages,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -390,5 +511,169 @@ mod tests {
             "perturbed eta_dibl from 0: got {:.3e}",
             pert_val
         );
+    }
+
+    // --- Phase 11: Integrated sensitivity runner tests ---
+
+    use crate::circuit::CircuitGraph;
+
+    fn fixed_two_rail_graph() -> CircuitGraph {
+        let mut g = CircuitGraph::new();
+        let vss = g.add_node(0);
+        let vdd = g.add_node(1);
+        g.set_power_rail(vss, 0.0, "VSS");
+        g.set_power_rail(vdd, -15.0, "VDD");
+        g
+    }
+
+    #[test]
+    fn sensitivity_matrix_dimensions() {
+        // WHY: NxP matrix must have correct shape (N nodes x P params).
+        let base = ProcessParams::default();
+        let params_to_sweep = vec![SensitivityParam::VthEnhancement, SensitivityParam::Mu0];
+        let mut graph = fixed_two_rail_graph();
+
+        let result = run_sensitivity_analysis(&mut graph, &base, &params_to_sweep);
+        let matrix = result.sensitivity_matrix();
+
+        let num_nodes = result.baseline_voltages.len();
+        let num_params = params_to_sweep.len();
+
+        assert_eq!(matrix.len(), num_nodes, "Matrix rows must equal node count");
+        for row in &matrix {
+            assert_eq!(row.len(), num_params, "Matrix columns must equal param count");
+        }
+    }
+
+    #[test]
+    fn sensitivity_ranking_sorted_descending() {
+        // WHY: most_sensitive_parameters must return entries in descending order.
+        let base = ProcessParams::default();
+        let params_to_sweep = vec![
+            SensitivityParam::VthEnhancement,
+            SensitivityParam::Mu0,
+            SensitivityParam::Lambda,
+        ];
+        let mut graph = fixed_two_rail_graph();
+
+        let result = run_sensitivity_analysis(&mut graph, &base, &params_to_sweep);
+        let ranked = result.most_sensitive_parameters(3);
+
+        // Verify sorted descending.
+        for window in ranked.windows(2) {
+            assert!(
+                window[0].1 >= window[1].1,
+                "Parameters should be sorted descending: {:.3e} vs {:.3e}",
+                window[0].1,
+                window[1].1
+            );
+        }
+    }
+
+    #[test]
+    fn tornado_data_format() {
+        // WHY: tornado_data must return (name, low_delta, high_delta) tuples for all params.
+        let base = ProcessParams::default();
+        let params_to_sweep = vec![SensitivityParam::VthEnhancement, SensitivityParam::Mu0];
+        let mut graph = fixed_two_rail_graph();
+
+        let result = run_sensitivity_analysis(&mut graph, &base, &params_to_sweep);
+        let tornado = result.tornado_data(0); // node 0 = VSS
+
+        assert_eq!(tornado.len(), params_to_sweep.len(), "One entry per parameter");
+        for (name, low, high) in &tornado {
+            assert!(!name.is_empty(), "Parameter name must be non-empty");
+            // For a fixed node, all deltas should be zero.
+            assert!(
+                low.abs() < 1e-10,
+                "Fixed node low_delta should be ~0: {}={:.3e}",
+                name,
+                low
+            );
+            assert!(
+                high.abs() < 1e-10,
+                "Fixed node high_delta should be ~0: {}={:.3e}",
+                name,
+                high
+            );
+        }
+    }
+
+    #[test]
+    fn sensitivity_symmetric_perturbation() {
+        // WHY: for a linear system, +delta and -delta should give approximately equal
+        // and opposite sensitivities (linearity check). Fixed-rail circuit is trivially linear.
+        let base = ProcessParams::default();
+        let params_to_sweep = vec![SensitivityParam::VthEnhancement];
+        let mut graph = fixed_two_rail_graph();
+
+        // Run with positive perturbation (default via run_sensitivity_analysis).
+        let result_pos = run_sensitivity_analysis(&mut graph, &base, &params_to_sweep);
+
+        // Run with manual negative perturbation.
+        let initial_voltages: Vec<f64> = graph.nodes.iter().map(|n| n.voltage).collect();
+        for (node, &v) in graph.nodes.iter_mut().zip(initial_voltages.iter()) {
+            node.voltage = v;
+        }
+        let delta = SensitivityParam::VthEnhancement.default_delta();
+        let neg_params = SensitivityParam::VthEnhancement.perturb(&base, -delta);
+        let baseline_result = DcSolver::new(SolverConfig::default(), base.clone()).solve(&mut graph);
+        for (node, &v) in graph.nodes.iter_mut().zip(initial_voltages.iter()) {
+            node.voltage = v;
+        }
+        let neg_result = DcSolver::new(SolverConfig::default(), neg_params).solve(&mut graph);
+
+        // For fixed nodes, both pos and neg perturbations should give zero dV.
+        let pos_dv: Vec<f64> = result_pos.params[0].nodes.iter().map(|ns| ns.dv_dp).collect();
+        let neg_dv: Vec<f64> = baseline_result
+            .voltages
+            .iter()
+            .zip(neg_result.voltages.iter())
+            .map(|(&vb, &vp)| {
+                let abs_delta = SensitivityParam::VthEnhancement.get_value(&base) * delta;
+                (vb - vp) / abs_delta
+            })
+            .collect();
+
+        for (pd, nd) in pos_dv.iter().zip(neg_dv.iter()) {
+            assert!(
+                (pd + nd).abs() < 1e-8 || (pd.abs() < 1e-10 && nd.abs() < 1e-10),
+                "Symmetry: pos={:.3e}, neg={:.3e}, sum={:.3e}",
+                pd,
+                nd,
+                pd + nd
+            );
+        }
+    }
+
+    #[test]
+    fn run_sensitivity_analysis_fixed_circuit() {
+        // WHY: Smoke test that run_sensitivity_analysis completes without panicking
+        // and returns the correct number of parameter results.
+        let base = ProcessParams::default();
+        let sweep_params = default_params();
+        let num_params = sweep_params.len();
+        let mut graph = fixed_two_rail_graph();
+
+        let result = run_sensitivity_analysis(&mut graph, &base, &sweep_params);
+
+        assert_eq!(result.params.len(), num_params, "One result per param");
+        assert_eq!(
+            result.baseline_voltages.len(),
+            graph.nodes.len(),
+            "Baseline voltages must cover all nodes"
+        );
+
+        // For a fixed-only circuit, all dV should be zero.
+        for pr in &result.params {
+            for ns in &pr.nodes {
+                assert!(
+                    ns.dv_dp.abs() < 1e-10,
+                    "Fixed nodes should have zero sensitivity for {}: dv_dp={:.3e}",
+                    pr.param.name(),
+                    ns.dv_dp
+                );
+            }
+        }
     }
 }

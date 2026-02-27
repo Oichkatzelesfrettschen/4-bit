@@ -74,7 +74,6 @@ impl MnaBackend {
         }
     }
 
-    #[allow(clippy::too_many_arguments)]
     fn stamp_transistor(
         &mut self,
         gate: usize,

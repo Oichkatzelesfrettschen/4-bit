@@ -155,7 +155,6 @@ impl Circuit {
         id
     }
 
-    #[allow(clippy::too_many_arguments)]
     pub fn add_transistor(
         &mut self,
         ty: TransistorType,
@@ -201,7 +200,11 @@ impl Circuit {
     }
 }
 
-/// Transistor-level simulator using iterative convergence
+/// Transistor-level simulator using iterative convergence.
+///
+/// Used externally in integration tests and by the nodal solver bridge.
+/// The dead_code allow is intentional: this type is instantiated in tests
+/// and future ChipSolverBridge implementations but not yet in the main binary.
 #[allow(dead_code)]
 pub struct TransistorSimulator {
     circuit: Circuit,

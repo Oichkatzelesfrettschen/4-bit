@@ -8,7 +8,7 @@
 - OCR optimization: jbig2enc (improves ocrmypdf compression), unpaper, pngquant.
 - Python OCR helpers: python-pytesseract, python-pdfplumber.
 - CMake: for optional native tooling, keep separate.
-- Toolchain baseline: MSRV 1.92.0; nightly 2026-01-06 required for portable_simd.
+- Toolchain baseline: MSRV 1.92.0; nightly 2026-01-07 required for portable_simd.
 
 ## Automation
 - scripts/clean.sh to remove build, coverage, and core dump artifacts.

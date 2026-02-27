@@ -414,7 +414,7 @@ mod tests {
         let action = sys.key_input(0xE);
         match action {
             MonitorAction::Examine { .. } => {}
-            _ => panic!("Expected Examine action"),
+            other => panic!("Expected Examine action, got {:?}", other),
         }
     }
 

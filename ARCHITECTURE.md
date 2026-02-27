@@ -71,7 +71,7 @@ Level 1: Cycle-accurate (mcs4-chips, mcs4-system) [PRIMARY]
 Cargo.toml                        # Workspace root
 
 mcs4-emu/crates/
-  mcs4-core/                      # Simulation kernel (480 tests)
+  mcs4-core/                      # Simulation kernel (473 tests)
     src/
       lib.rs                      # Re-exports, prelude
       gate.rs                     # Gate primitives: And2, Or2, Nand2/3, Nor2/3, Inv
@@ -138,7 +138,7 @@ mcs4-emu/crates/
       control.rs                  # ControlSignals: SYNC, CM-ROM, CM-RAM, IoOp
       clock.rs                    # TwoPhaseClock (phi1/phi2, non-overlapping)
 
-  mcs4-chips/                     # Chip implementations (223 tests)
+  mcs4-chips/                     # Chip implementations (211 tests)
     src/
       lib.rs                      # Module registry, Chip trait
       disasm.rs                   # Disassembler + DisasmCache (O(1) window)
@@ -176,7 +176,7 @@ mcs4-emu/crates/
       fuzz_test.rs                # Fuzz regression (1 test)
       proptest_chips.rs           # Property-based tests (11 tests)
 
-  mcs4-system/                    # System assembly (54 tests)
+  mcs4-system/                    # System assembly (45 tests)
     src/
       lib.rs                      # Workspace wiring, exports
       mcs4.rs                     # MCS-4 system builder (4004+4001+4002)
@@ -187,7 +187,7 @@ mcs4-emu/crates/
     tests/
       mcs40_4308_integration.rs   # End-to-end bus protocol tests (9 tests)
 
-  mcs4-gui/                       # GUI debugger (75 tests)
+  mcs4-gui/                       # GUI debugger (78 tests)
     src/
       app.rs                      # eframe application shell
       lib.rs
@@ -232,6 +232,27 @@ mcs4-emu/crates/
 ```
 
 ## Core Abstractions
+
+### SimulationFidelity and ChipSolverBridge
+
+`SimulationFidelity` (defined in `mcs4-core/src/fidelity.rs`) selects the depth of circuit simulation:
+
+```
+Behavioral       -- pure Rust state machine (fastest)
+PhaseAccurate    -- bus-cycle-accurate timing
+SwitchLevel      -- transistor switch-level (mcs4-core transistor_solver)
+NodalLevel       -- analog nodal analysis (mcs4-core nodal_solver)
+TCADLevel        -- full device physics via TCAD bridge
+```
+
+The `ChipSolverBridge` trait (defined in `mcs4-core/src/bridge.rs`) connects behavioral chip
+models to circuit solvers. Each chip that implements `ChipSolverBridge` can escalate its
+simulation fidelity on demand, enabling mixed-mode simulation where some chips run at
+`Behavioral` level while others run at `NodalLevel` or `TCADLevel`.
+
+The `I4004` clock buffer proof-of-concept (3-inverter chain) demonstrates the full path:
+behavioral `tick()` -> `ChipSolverBridge::solve_dc()` / `solve_transient()` -> `DcSolver` /
+`TransientSolver` -> `ProcessParams`-based device models.
 
 ### Chip Trait
 
@@ -293,7 +314,7 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **935 tests total, 0 failures** (baseline 2026-02-26)
+- **968 tests total, 0 failures** (updated 2026-02-26 after full plan: debt resolution + trapezoidal integration + temperature sweep + multi-system tests + sensitivity integration)
 
 ## Build Commands
 
