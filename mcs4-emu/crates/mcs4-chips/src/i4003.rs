@@ -15,9 +15,10 @@
 //! which in turn drives the 4003.
 
 use mcs4_bus::BusCycle;
+use mcs4_core::SimulationFidelity;
 
 /// Intel 4003: 10-bit shift register
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct I4003 {
     /// Internal 10-bit register
     data: u16,
@@ -30,6 +31,15 @@ pub struct I4003 {
 
     /// Enable pin (directly from 4002 output port or active-tied high)
     enabled: bool,
+
+    /// Simulation fidelity level
+    pub(crate) fidelity: SimulationFidelity,
+}
+
+impl Default for I4003 {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl I4003 {
@@ -39,6 +49,7 @@ impl I4003 {
             serial_in: false,
             last_clock: false,
             enabled: true, // default enabled for standalone use
+            fidelity: SimulationFidelity::Behavioral,
         }
     }
 
@@ -115,6 +126,140 @@ impl super::Chip for I4003 {
     }
     fn tick(&mut self, _phase: BusCycle) {
         // Behavioral model: clock is driven by I/O instructions (WMP/WRR)
+    }
+}
+
+// --- Solver Bridge ---
+
+use mcs4_core::{
+    bridge::{ChipSolverBridge, PinDirection, PinMapping},
+    circuit::graph::CircuitGraph,
+};
+
+/// Subcircuit names from `docs/evidence/subcircuits_v0/4003/metrics.json`.
+const SUBCIRCUIT_NAMES: &[&str] = &["custom", "OUT", "CLOCK", "EN", "DATA"];
+
+impl I4003 {
+    /// Load a subcircuit from the evidence JSON files.
+    fn load_subcircuit_json(name: &str) -> Option<CircuitGraph> {
+        let manifest_dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        let repo_root = manifest_dir.ancestors().nth(3)?;
+        let path = repo_root
+            .join("docs/evidence/subcircuits_v0/4003")
+            .join(format!("4003_{}_subcircuit_v0.json", name));
+
+        let netlist = mcs4_core::layout_netlist::load_netlist_v1(&path).ok()?;
+        let config = mcs4_core::circuit::netlist_bridge::BridgeConfig::default();
+        Some(mcs4_core::circuit::netlist_bridge::netlist_v1_to_circuit(
+            &netlist, &config,
+        ))
+    }
+}
+
+impl ChipSolverBridge for I4003 {
+    fn fidelity(&self) -> SimulationFidelity {
+        self.fidelity
+    }
+
+    fn set_fidelity(&mut self, fidelity: SimulationFidelity) {
+        self.fidelity = fidelity;
+    }
+
+    fn subcircuit_names(&self) -> Vec<&str> {
+        SUBCIRCUIT_NAMES.to_vec()
+    }
+
+    fn subcircuit(&self, name: &str) -> Option<CircuitGraph> {
+        if SUBCIRCUIT_NAMES.contains(&name) {
+            Self::load_subcircuit_json(name)
+        } else {
+            None
+        }
+    }
+
+    fn pin_map(&self) -> Vec<PinMapping> {
+        vec![
+            PinMapping {
+                name: "CLOCK".into(),
+                node_id: 239,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "DATA".into(),
+                node_id: 235,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "EN".into(),
+                node_id: 279,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "OUT".into(),
+                node_id: 352,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q0".into(),
+                node_id: 237,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q1".into(),
+                node_id: 151,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q2".into(),
+                node_id: 78,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q3".into(),
+                node_id: 370,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q4".into(),
+                node_id: 389,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q5".into(),
+                node_id: 110,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q6".into(),
+                node_id: 7,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q7".into(),
+                node_id: 386,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q8".into(),
+                node_id: 385,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "Q9".into(),
+                node_id: 390,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "VDD".into(),
+                node_id: 359,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "VSS".into(),
+                node_id: 152,
+                direction: PinDirection::Input,
+            },
+        ]
     }
 }
 
@@ -390,5 +535,46 @@ mod tests {
         use crate::Chip;
         let sr = I4003::new();
         assert_eq!(sr.name(), "4003");
+    }
+
+    // --- Solver Bridge tests ---
+
+    use mcs4_core::bridge::ChipSolverBridge;
+
+    #[test]
+    fn bridge_subcircuit_names_count() {
+        let sr = I4003::new();
+        let names = sr.subcircuit_names();
+        assert_eq!(names.len(), 5);
+        assert!(names.contains(&"CLOCK"));
+        assert!(names.contains(&"DATA"));
+    }
+
+    #[test]
+    fn bridge_fidelity_default() {
+        let sr = I4003::new();
+        assert_eq!(sr.fidelity(), mcs4_core::SimulationFidelity::Behavioral);
+    }
+
+    #[test]
+    fn bridge_clock_subcircuit_has_2_transistors() {
+        let sr = I4003::new();
+        let g = sr.subcircuit("CLOCK").expect("CLOCK subcircuit");
+        assert_eq!(g.transistor_count(), 2);
+    }
+
+    #[test]
+    fn bridge_custom_subcircuit_has_9_transistors() {
+        let sr = I4003::new();
+        let g = sr.subcircuit("custom").expect("custom subcircuit");
+        assert_eq!(g.transistor_count(), 9);
+    }
+
+    #[test]
+    fn bridge_pin_map_has_entries() {
+        let sr = I4003::new();
+        let pins = sr.pin_map();
+        assert!(pins.len() >= 10);
+        assert!(pins.iter().any(|p| p.name == "CLOCK"));
     }
 }

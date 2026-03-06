@@ -18,7 +18,26 @@ use mcs4_core::{
 
 use super::I4004;
 
+/// Subcircuit names from `docs/evidence/subcircuits_v0/4004/metrics.json`.
+const JSON_SUBCIRCUIT_NAMES: &[&str] = &[
+    "CLK1", "CMROM", "CMRAM0", "D0_PAD", "CLK2", "D2_PAD", "CMRAM3", "CMRAM2", "D1_PAD", "D3_PAD", "CMRAM1",
+];
+
 impl I4004 {
+    /// Load a subcircuit from evidence JSON files.
+    fn load_subcircuit_json(name: &str) -> Option<CircuitGraph> {
+        let manifest_dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        let repo_root = manifest_dir.ancestors().nth(3)?;
+        let path = repo_root
+            .join("docs/evidence/subcircuits_v0/4004")
+            .join(format!("4004_{}_subcircuit_v0.json", name));
+        let netlist = mcs4_core::layout_netlist::load_netlist_v1(&path).ok()?;
+        let config = mcs4_core::circuit::netlist_bridge::BridgeConfig::default();
+        Some(mcs4_core::circuit::netlist_bridge::netlist_v1_to_circuit(
+            &netlist, &config,
+        ))
+    }
+
     /// Build a 3-inverter chain subcircuit for clock buffering.
     ///
     /// Circuit topology (pMOS with depletion loads):
@@ -114,12 +133,15 @@ impl ChipSolverBridge for I4004 {
     }
 
     fn subcircuit_names(&self) -> Vec<&str> {
-        vec!["clock_buffer"]
+        let mut names = vec!["clock_buffer"];
+        names.extend_from_slice(JSON_SUBCIRCUIT_NAMES);
+        names
     }
 
     fn subcircuit(&self, name: &str) -> Option<CircuitGraph> {
         match name {
             "clock_buffer" => Some(Self::build_clock_buffer()),
+            n if JSON_SUBCIRCUIT_NAMES.contains(&n) => Self::load_subcircuit_json(n),
             _ => None,
         }
     }
@@ -220,7 +242,10 @@ mod tests {
     fn bridge_subcircuit_names() {
         let cpu = make_4004();
         let names = cpu.subcircuit_names();
-        assert_eq!(names, vec!["clock_buffer"]);
+        assert_eq!(names.len(), 12); // clock_buffer + 11 from JSON
+        assert_eq!(names[0], "clock_buffer");
+        assert!(names.contains(&"CLK1"));
+        assert!(names.contains(&"CMRAM1"));
     }
 
     #[test]
@@ -354,5 +379,28 @@ mod tests {
             first_time,
             last_time
         );
+    }
+
+    #[test]
+    fn subcircuit_clk1_loads_437_transistors() {
+        let cpu = make_4004();
+        let g = cpu.subcircuit("CLK1").expect("should load CLK1 subcircuit");
+        assert_eq!(g.transistor_count(), 437, "CLK1 should have 437 transistors");
+        assert!(g.nodes.len() > 100, "CLK1 should have many nodes");
+    }
+
+    #[test]
+    fn subcircuit_cmram1_loads_1_transistor() {
+        let cpu = make_4004();
+        let g = cpu.subcircuit("CMRAM1").expect("should load CMRAM1 subcircuit");
+        assert_eq!(g.transistor_count(), 1, "CMRAM1 should have 1 transistor");
+    }
+
+    #[test]
+    fn subcircuit_d2_pad_loads_57_transistors() {
+        let cpu = make_4004();
+        let g = cpu.subcircuit("D2_PAD").expect("should load D2_PAD subcircuit");
+        assert_eq!(g.transistor_count(), 57, "D2_PAD should have 57 transistors");
+        assert!(g.nodes.len() > 20, "D2_PAD should have many nodes");
     }
 }

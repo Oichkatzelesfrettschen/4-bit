@@ -4,6 +4,7 @@
 //! Memory organization: 4 registers x 16 characters x 4 bits + 4 status characters x 4 bits
 
 use mcs4_bus::prelude::*;
+use mcs4_core::SimulationFidelity;
 
 /// Intel 4002: 320-bit RAM with 4-bit output port
 #[derive(Clone, Debug)]
@@ -40,6 +41,9 @@ pub struct I4002 {
 
     /// Current phase tracking
     phase: BusCycle,
+
+    /// Simulation fidelity level
+    pub(crate) fidelity: SimulationFidelity,
 }
 
 impl I4002 {
@@ -57,6 +61,7 @@ impl I4002 {
             src_pending: false,
             selected: false,
             phase: BusCycle::A1,
+            fidelity: SimulationFidelity::Behavioral,
         }
     }
 
@@ -265,6 +270,137 @@ impl super::Chip for I4002 {
     }
 }
 
+// --- Solver Bridge ---
+
+use mcs4_core::{
+    bridge::{ChipSolverBridge, PinDirection, PinMapping},
+    circuit::graph::CircuitGraph,
+};
+
+const SUBCIRCUIT_NAMES_4002: &[&str] = &["custom", "OUT1", "D0_PAD", "OUT2", "OUT3", "OUT0"];
+
+impl I4002 {
+    fn load_subcircuit_json(name: &str) -> Option<CircuitGraph> {
+        let manifest_dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        let repo_root = manifest_dir.ancestors().nth(3)?;
+        let path = repo_root
+            .join("docs/evidence/subcircuits_v0/4002")
+            .join(format!("4002_{}_subcircuit_v0.json", name));
+        let netlist = mcs4_core::layout_netlist::load_netlist_v1(&path).ok()?;
+        let config = mcs4_core::circuit::netlist_bridge::BridgeConfig::default();
+        Some(mcs4_core::circuit::netlist_bridge::netlist_v1_to_circuit(
+            &netlist, &config,
+        ))
+    }
+}
+
+impl ChipSolverBridge for I4002 {
+    fn fidelity(&self) -> SimulationFidelity {
+        self.fidelity
+    }
+
+    fn set_fidelity(&mut self, fidelity: SimulationFidelity) {
+        self.fidelity = fidelity;
+    }
+
+    fn subcircuit_names(&self) -> Vec<&str> {
+        SUBCIRCUIT_NAMES_4002.to_vec()
+    }
+
+    fn subcircuit(&self, name: &str) -> Option<CircuitGraph> {
+        if SUBCIRCUIT_NAMES_4002.contains(&name) {
+            Self::load_subcircuit_json(name)
+        } else {
+            None
+        }
+    }
+
+    fn pin_map(&self) -> Vec<PinMapping> {
+        vec![
+            PinMapping {
+                name: "CLK1".into(),
+                node_id: 2259,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CLK2".into(),
+                node_id: 2619,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CM".into(),
+                node_id: 799,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CS".into(),
+                node_id: 789,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "D0_PAD".into(),
+                node_id: 868,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D1_PAD".into(),
+                node_id: 872,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D2_PAD".into(),
+                node_id: 938,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D3_PAD".into(),
+                node_id: 896,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "OUT0".into(),
+                node_id: 3115,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "OUT1".into(),
+                node_id: 2855,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "OUT2".into(),
+                node_id: 2605,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "OUT3".into(),
+                node_id: 1685,
+                direction: PinDirection::Output,
+            },
+            PinMapping {
+                name: "SYNC".into(),
+                node_id: 3261,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "RESET".into(),
+                node_id: 3225,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "VDD".into(),
+                node_id: 3251,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "VSS".into(),
+                node_id: 73,
+                direction: PinDirection::Input,
+            },
+        ]
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -378,5 +514,46 @@ mod tests {
         ram1.tick_bus(BusCycle::X2, &mut bus, &ctrl);
         assert_eq!(ram0.read_direct(0, 3), 0xA);
         assert_eq!(ram1.read_direct(2, 4), 0xB);
+    }
+
+    // --- Solver Bridge tests ---
+
+    use mcs4_core::bridge::ChipSolverBridge;
+
+    #[test]
+    fn bridge_subcircuit_names_count() {
+        let ram = I4002::new(0, 0);
+        let names = ram.subcircuit_names();
+        assert_eq!(names.len(), 6);
+        assert!(names.contains(&"custom"));
+        assert!(names.contains(&"OUT0"));
+    }
+
+    #[test]
+    fn bridge_fidelity_default() {
+        let ram = I4002::new(0, 0);
+        assert_eq!(ram.fidelity(), mcs4_core::SimulationFidelity::Behavioral);
+    }
+
+    #[test]
+    fn bridge_custom_subcircuit_loads() {
+        let ram = I4002::new(0, 0);
+        let g = ram.subcircuit("custom").expect("custom subcircuit");
+        assert_eq!(g.transistor_count(), 42);
+    }
+
+    #[test]
+    fn bridge_out0_subcircuit_loads() {
+        let ram = I4002::new(0, 0);
+        let g = ram.subcircuit("OUT0").expect("OUT0 subcircuit");
+        assert_eq!(g.transistor_count(), 1);
+    }
+
+    #[test]
+    fn bridge_pin_map_has_entries() {
+        let ram = I4002::new(0, 0);
+        let pins = ram.pin_map();
+        assert!(pins.len() >= 10);
+        assert!(pins.iter().any(|p| p.name == "CLK1"));
     }
 }

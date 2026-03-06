@@ -2,11 +2,102 @@
   "schema_version": 0,
   "chip": "4003",
   "description": "Gate-level netlist extracted from transistor netlist",
-  "gates": [],
+  "gates": [
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        65,
+        42
+      ],
+      "outputs": [
+        290
+      ],
+      "transistors": [
+        3,
+        12
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        58,
+        74
+      ],
+      "outputs": [
+        297
+      ],
+      "transistors": [
+        6,
+        16
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        42,
+        68
+      ],
+      "outputs": [
+        303
+      ],
+      "transistors": [
+        15,
+        17
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        78,
+        7
+      ],
+      "outputs": [
+        389
+      ],
+      "transistors": [
+        20,
+        35
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        94,
+        86
+      ],
+      "outputs": [
+        377
+      ],
+      "transistors": [
+        25,
+        33
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        7,
+        110
+      ],
+      "outputs": [
+        415
+      ],
+      "transistors": [
+        35,
+        36
+      ],
+      "confidence": 0.8
+    }
+  ],
   "statistics": {
-    "total_gates": 0,
+    "total_gates": 6,
     "inverters": 0,
-    "nand_gates": 0,
+    "nand_gates": 6,
     "nor_gates": 0,
     "transmission_gates": 0,
     "pass_transistors": 0

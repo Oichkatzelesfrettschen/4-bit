@@ -35,10 +35,15 @@ pub mod i4004;
 pub mod i4040;
 
 // MCS-4 support chips
+pub mod i3205;
 pub mod i3216;
 pub mod i3226;
+pub mod i3404;
 pub mod i4008;
 pub mod i4009;
+
+// External memory chips
+pub mod i2101;
 
 // MCS-40 specific chips
 pub mod i4101;

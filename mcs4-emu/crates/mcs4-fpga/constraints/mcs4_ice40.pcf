@@ -1,0 +1,78 @@
+# MCS-4 System Pin Constraints for Lattice iCE40HX4K-TQ144
+#
+# WHY: Maps MCS-4 signals to iCE40 package pins for FPGA prototyping.
+# WHAT: Core MCS-4 system (4004 + 4001 + 4002 + 4003) on iCE40HX4K.
+# HOW: Use with nextpnr-ice40: --hx4k --package tq144 --pcf mcs4_ice40.pcf
+
+# ============================================================
+# Clock and Reset
+# ============================================================
+
+# Two-phase clock inputs (directly from 4201 or external generator)
+set_io phi1 21
+set_io phi2 22
+
+# System reset (active high for MCS-40)
+set_io rst 23
+
+# ============================================================
+# 4-bit Multiplexed Data Bus
+# ============================================================
+
+# Shared bidirectional data bus (active during all 8 phases)
+set_io data[0] 24
+set_io data[1] 25
+set_io data[2] 26
+set_io data[3] 27
+
+# ============================================================
+# CPU Control Signals (from 4004)
+# ============================================================
+
+set_io sync 28
+set_io cm_rom 29
+set_io cm_ram 30
+set_io test_pin 31
+
+# ============================================================
+# 4001 ROM I/O Port
+# ============================================================
+
+set_io rom_io[0] 32
+set_io rom_io[1] 33
+set_io rom_io[2] 34
+set_io rom_io[3] 35
+
+# ============================================================
+# 4002 RAM Output Port
+# ============================================================
+
+set_io ram_out[0] 36
+set_io ram_out[1] 37
+set_io ram_out[2] 38
+set_io ram_out[3] 39
+
+# ============================================================
+# 4003 Shift Register
+# ============================================================
+
+set_io sr_serial_out 40
+set_io sr_parallel[0] 41
+set_io sr_parallel[1] 42
+set_io sr_parallel[2] 43
+set_io sr_parallel[3] 44
+set_io sr_parallel[4] 45
+set_io sr_parallel[5] 46
+set_io sr_parallel[6] 47
+set_io sr_parallel[7] 48
+set_io sr_parallel[8] 49
+set_io sr_parallel[9] 50
+
+# ============================================================
+# Debug / Status LEDs
+# ============================================================
+
+set_io led[0] 95    # Heartbeat / clock active
+set_io led[1] 96    # Sync indicator
+set_io led[2] 97    # CPU halted
+set_io led[3] 98    # Error flag

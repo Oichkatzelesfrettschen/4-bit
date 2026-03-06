@@ -208,18 +208,78 @@ def extract_gates_from_netlist(
     Returns:
         Gate-level netlist dictionary
     """
-    # Placeholder - would load actual netlist and extract gates
+    # Load and parse the transistor netlist
+    if not netlist_path.exists():
+        return {
+            "schema_version": 0,
+            "chip": chip,
+            "description": "Gate-level netlist (no input netlist found)",
+            "gates": [],
+            "statistics": {
+                "total_gates": 0,
+                "inverters": 0,
+                "nand_gates": 0,
+                "nor_gates": 0,
+                "transmission_gates": 0,
+                "pass_transistors": 0,
+            },
+        }
+
+    with open(netlist_path, encoding="utf-8") as f:
+        netlist_data = json.load(f)
+
+    # Parse transistors into Transistor dataclass instances
+    raw_transistors = netlist_data.get("devices", {}).get("transistors", [])
+    transistors: list[Transistor] = []
+    for i, t in enumerate(raw_transistors):
+        tid = t.get("id", i)
+        # Determine type: if gate_node == a_node or gate_node == b_node,
+        # it is a depletion load (acts like PMOS pull-up). Otherwise treat
+        # as enhancement (NMOS-equivalent in the pMOS logic family).
+        if t["gate_node"] == t["a_node"] or t["gate_node"] == t["b_node"]:
+            ttype = "PMOS"
+        else:
+            ttype = "NMOS"
+        transistors.append(
+            Transistor(
+                id=tid,
+                type=ttype,
+                gate=t["gate_node"],
+                source=t["a_node"],
+                drain=t["b_node"],
+            )
+        )
+
+    # Run all gate detection algorithms
+    inverters = detect_inverter(transistors)
+    nand_gates = detect_nand_gates(transistors)
+    nor_gates = detect_nor_gates(transistors)
+    tgates = detect_transmission_gates(transistors)
+
+    # Aggregate all detected gates
+    all_gates = []
+    for g in inverters + nand_gates + nor_gates + tgates:
+        all_gates.append(
+            {
+                "gate_type": g.gate_type,
+                "inputs": g.inputs,
+                "outputs": g.outputs,
+                "transistors": g.transistors,
+                "confidence": g.confidence,
+            }
+        )
+
     gates_netlist = {
         "schema_version": 0,
         "chip": chip,
         "description": "Gate-level netlist extracted from transistor netlist",
-        "gates": [],
+        "gates": all_gates,
         "statistics": {
-            "total_gates": 0,
-            "inverters": 0,
-            "nand_gates": 0,
-            "nor_gates": 0,
-            "transmission_gates": 0,
+            "total_gates": len(all_gates),
+            "inverters": len(inverters),
+            "nand_gates": len(nand_gates),
+            "nor_gates": len(nor_gates),
+            "transmission_gates": len(tgates),
             "pass_transistors": 0,
         },
     }
@@ -258,7 +318,7 @@ def main():
     for chip in args.chips:
         print(f"Processing {chip}...")
 
-        netlist_path = args.input_dir / chip / f"{chip}_netlist_v1.json"
+        netlist_path = args.input_dir / f"{chip}_netlist_v1.json"
 
         if not netlist_path.exists():
             print(f"  ⚠ Netlist not found: {netlist_path}")
@@ -287,11 +347,6 @@ def main():
         print("")
 
     print("✓ Gate-level extraction complete")
-    print("")
-    print("NOTE: This is a PLACEHOLDER implementation.")
-    print("TODO: Implement actual gate pattern detection from transistor netlists.")
-    print("TODO: Add multi-input NAND/NOR detection.")
-    print("TODO: Implement gate library matching.")
 
 
 if __name__ == "__main__":

@@ -2,12 +2,6463 @@
   "schema_version": 0,
   "chip": "4002",
   "description": "Gate-level netlist extracted from transistor netlist",
-  "gates": [],
+  "gates": [
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        20,
+        22
+      ],
+      "outputs": [
+        905
+      ],
+      "transistors": [
+        1,
+        5
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        19,
+        21
+      ],
+      "outputs": [
+        904
+      ],
+      "transistors": [
+        3,
+        4
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        485,
+        488
+      ],
+      "outputs": [
+        1216
+      ],
+      "transistors": [
+        12,
+        96
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        485,
+        489
+      ],
+      "outputs": [
+        1158
+      ],
+      "transistors": [
+        12,
+        97
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        485,
+        488
+      ],
+      "outputs": [
+        1346
+      ],
+      "transistors": [
+        12,
+        118
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        489
+      ],
+      "outputs": [
+        1966
+      ],
+      "transistors": [
+        13,
+        337
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        488
+      ],
+      "outputs": [
+        2087
+      ],
+      "transistors": [
+        13,
+        357
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        493
+      ],
+      "outputs": [
+        1350
+      ],
+      "transistors": [
+        14,
+        160
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        492
+      ],
+      "outputs": [
+        1525
+      ],
+      "transistors": [
+        14,
+        179
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        497
+      ],
+      "outputs": [
+        1916
+      ],
+      "transistors": [
+        15,
+        341
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        496
+      ],
+      "outputs": [
+        2102
+      ],
+      "transistors": [
+        15,
+        359
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        500
+      ],
+      "outputs": [
+        1977
+      ],
+      "transistors": [
+        16,
+        342
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        501
+      ],
+      "outputs": [
+        1919
+      ],
+      "transistors": [
+        16,
+        343
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        501
+      ],
+      "outputs": [
+        2103
+      ],
+      "transistors": [
+        16,
+        360
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        509
+      ],
+      "outputs": [
+        1237
+      ],
+      "transistors": [
+        17,
+        107
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        508
+      ],
+      "outputs": [
+        1361
+      ],
+      "transistors": [
+        17,
+        123
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1928
+      ],
+      "transistors": [
+        18,
+        349
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        2109
+      ],
+      "transistors": [
+        18,
+        366
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        516
+      ],
+      "outputs": [
+        1051
+      ],
+      "transistors": [
+        19,
+        51
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        517
+      ],
+      "outputs": [
+        1052
+      ],
+      "transistors": [
+        19,
+        52
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        516
+      ],
+      "outputs": [
+        1178
+      ],
+      "transistors": [
+        19,
+        65
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        520
+      ],
+      "outputs": [
+        1997
+      ],
+      "transistors": [
+        20,
+        352
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        521
+      ],
+      "outputs": [
+        1998
+      ],
+      "transistors": [
+        20,
+        353
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        520
+      ],
+      "outputs": [
+        2112
+      ],
+      "transistors": [
+        20,
+        364
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1150
+      ],
+      "transistors": [
+        22,
+        78
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1151
+      ],
+      "transistors": [
+        23,
+        79
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        487,
+        487
+      ],
+      "outputs": [
+        1142
+      ],
+      "transistors": [
+        24,
+        70
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1143
+      ],
+      "transistors": [
+        25,
+        71
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        495,
+        495
+      ],
+      "outputs": [
+        1144
+      ],
+      "transistors": [
+        26,
+        72
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1145
+      ],
+      "transistors": [
+        27,
+        73
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        1146
+      ],
+      "transistors": [
+        28,
+        74
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1147
+      ],
+      "transistors": [
+        29,
+        75
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1148
+      ],
+      "transistors": [
+        30,
+        76
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        514
+      ],
+      "outputs": [
+        1149
+      ],
+      "transistors": [
+        31,
+        77
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        71,
+        76
+      ],
+      "outputs": [
+        1104
+      ],
+      "transistors": [
+        32,
+        56
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1114
+      ],
+      "transistors": [
+        33,
+        80
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        525,
+        131
+      ],
+      "outputs": [
+        1115
+      ],
+      "transistors": [
+        34,
+        68
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        76,
+        129
+      ],
+      "outputs": [
+        1118
+      ],
+      "transistors": [
+        56,
+        81
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1216
+      ],
+      "transistors": [
+        58,
+        96
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1158
+      ],
+      "transistors": [
+        58,
+        97
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1346
+      ],
+      "transistors": [
+        58,
+        118
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1161
+      ],
+      "transistors": [
+        59,
+        99
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        492
+      ],
+      "outputs": [
+        1349
+      ],
+      "transistors": [
+        59,
+        119
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1224
+      ],
+      "transistors": [
+        60,
+        100
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1225
+      ],
+      "transistors": [
+        60,
+        101
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1352
+      ],
+      "transistors": [
+        60,
+        120
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        1229
+      ],
+      "transistors": [
+        61,
+        103
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1355
+      ],
+      "transistors": [
+        61,
+        121
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1232
+      ],
+      "transistors": [
+        62,
+        104
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1233
+      ],
+      "transistors": [
+        62,
+        105
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1358
+      ],
+      "transistors": [
+        62,
+        122
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1237
+      ],
+      "transistors": [
+        63,
+        107
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        508
+      ],
+      "outputs": [
+        1361
+      ],
+      "transistors": [
+        63,
+        123
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1240
+      ],
+      "transistors": [
+        64,
+        108
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1241
+      ],
+      "transistors": [
+        64,
+        109
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1364
+      ],
+      "transistors": [
+        64,
+        124
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1244
+      ],
+      "transistors": [
+        65,
+        110
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        517
+      ],
+      "outputs": [
+        1179
+      ],
+      "transistors": [
+        65,
+        111
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1367
+      ],
+      "transistors": [
+        65,
+        125
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1248
+      ],
+      "transistors": [
+        66,
+        112
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        521
+      ],
+      "outputs": [
+        1249
+      ],
+      "transistors": [
+        66,
+        113
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1370
+      ],
+      "transistors": [
+        66,
+        126
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        131,
+        131
+      ],
+      "outputs": [
+        1257
+      ],
+      "transistors": [
+        68,
+        94
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        487,
+        487
+      ],
+      "outputs": [
+        1269
+      ],
+      "transistors": [
+        70,
+        82
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1272
+      ],
+      "transistors": [
+        71,
+        83
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        495,
+        495
+      ],
+      "outputs": [
+        1275
+      ],
+      "transistors": [
+        72,
+        84
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1278
+      ],
+      "transistors": [
+        73,
+        85
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        1281
+      ],
+      "transistors": [
+        74,
+        86
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1284
+      ],
+      "transistors": [
+        75,
+        87
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1287
+      ],
+      "transistors": [
+        76,
+        88
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        514,
+        514
+      ],
+      "outputs": [
+        1290
+      ],
+      "transistors": [
+        77,
+        89
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1293
+      ],
+      "transistors": [
+        78,
+        90
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1296
+      ],
+      "transistors": [
+        79,
+        91
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1265
+      ],
+      "transistors": [
+        80,
+        93
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        129,
+        133
+      ],
+      "outputs": [
+        1208
+      ],
+      "transistors": [
+        81,
+        92
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        487,
+        486
+      ],
+      "outputs": [
+        1331
+      ],
+      "transistors": [
+        82,
+        129
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1332
+      ],
+      "transistors": [
+        83,
+        130
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        495,
+        495
+      ],
+      "outputs": [
+        1333
+      ],
+      "transistors": [
+        84,
+        131
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1334
+      ],
+      "transistors": [
+        85,
+        132
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        1335
+      ],
+      "transistors": [
+        86,
+        133
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1336
+      ],
+      "transistors": [
+        87,
+        134
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1337
+      ],
+      "transistors": [
+        88,
+        135
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        514,
+        514
+      ],
+      "outputs": [
+        1338
+      ],
+      "transistors": [
+        89,
+        136
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1339
+      ],
+      "transistors": [
+        90,
+        137
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1340
+      ],
+      "transistors": [
+        91,
+        138
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1305
+      ],
+      "transistors": [
+        93,
+        139
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1161
+      ],
+      "transistors": [
+        98,
+        99
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        492
+      ],
+      "outputs": [
+        1349
+      ],
+      "transistors": [
+        98,
+        119
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        1229
+      ],
+      "transistors": [
+        102,
+        103
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1355
+      ],
+      "transistors": [
+        102,
+        121
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1237
+      ],
+      "transistors": [
+        106,
+        107
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        508
+      ],
+      "outputs": [
+        1361
+      ],
+      "transistors": [
+        106,
+        123
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        133,
+        183
+      ],
+      "outputs": [
+        1309
+      ],
+      "transistors": [
+        116,
+        140
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1403
+      ],
+      "transistors": [
+        118,
+        157
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1347
+      ],
+      "transistors": [
+        118,
+        158
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1522
+      ],
+      "transistors": [
+        118,
+        178
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1350
+      ],
+      "transistors": [
+        119,
+        160
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        492
+      ],
+      "outputs": [
+        1525
+      ],
+      "transistors": [
+        119,
+        179
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1353
+      ],
+      "transistors": [
+        120,
+        162
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1528
+      ],
+      "transistors": [
+        120,
+        180
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1415
+      ],
+      "transistors": [
+        121,
+        163
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        1416
+      ],
+      "transistors": [
+        121,
+        164
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1531
+      ],
+      "transistors": [
+        121,
+        181
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1419
+      ],
+      "transistors": [
+        122,
+        165
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1420
+      ],
+      "transistors": [
+        122,
+        166
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1534
+      ],
+      "transistors": [
+        122,
+        182
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        508
+      ],
+      "outputs": [
+        1423
+      ],
+      "transistors": [
+        123,
+        167
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1424
+      ],
+      "transistors": [
+        123,
+        168
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1537
+      ],
+      "transistors": [
+        123,
+        183
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1427
+      ],
+      "transistors": [
+        124,
+        169
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1365
+      ],
+      "transistors": [
+        124,
+        170
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1540
+      ],
+      "transistors": [
+        124,
+        184
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1431
+      ],
+      "transistors": [
+        125,
+        171
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        517
+      ],
+      "outputs": [
+        1432
+      ],
+      "transistors": [
+        125,
+        172
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1543
+      ],
+      "transistors": [
+        125,
+        185
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1435
+      ],
+      "transistors": [
+        126,
+        173
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        521
+      ],
+      "outputs": [
+        1436
+      ],
+      "transistors": [
+        126,
+        174
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1546
+      ],
+      "transistors": [
+        126,
+        186
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        1449
+      ],
+      "transistors": [
+        129,
+        141
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1452
+      ],
+      "transistors": [
+        130,
+        142
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        495,
+        495
+      ],
+      "outputs": [
+        1455
+      ],
+      "transistors": [
+        131,
+        143
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1458
+      ],
+      "transistors": [
+        132,
+        144
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        1461
+      ],
+      "transistors": [
+        133,
+        145
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1464
+      ],
+      "transistors": [
+        134,
+        146
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1467
+      ],
+      "transistors": [
+        135,
+        147
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        514,
+        515
+      ],
+      "outputs": [
+        1470
+      ],
+      "transistors": [
+        136,
+        148
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1473
+      ],
+      "transistors": [
+        137,
+        149
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1476
+      ],
+      "transistors": [
+        138,
+        150
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        525
+      ],
+      "outputs": [
+        1447
+      ],
+      "transistors": [
+        139,
+        153
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        1508
+      ],
+      "transistors": [
+        141,
+        189
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1509
+      ],
+      "transistors": [
+        142,
+        190
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        495,
+        495
+      ],
+      "outputs": [
+        1510
+      ],
+      "transistors": [
+        143,
+        191
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1511
+      ],
+      "transistors": [
+        144,
+        192
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        503
+      ],
+      "outputs": [
+        1512
+      ],
+      "transistors": [
+        145,
+        193
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1513
+      ],
+      "transistors": [
+        146,
+        194
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1514
+      ],
+      "transistors": [
+        147,
+        195
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        1515
+      ],
+      "transistors": [
+        148,
+        196
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1516
+      ],
+      "transistors": [
+        149,
+        197
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1517
+      ],
+      "transistors": [
+        150,
+        198
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        183,
+        187
+      ],
+      "outputs": [
+        1478
+      ],
+      "transistors": [
+        151,
+        176
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        525,
+        528
+      ],
+      "outputs": [
+        1483
+      ],
+      "transistors": [
+        153,
+        199
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        525,
+        238
+      ],
+      "outputs": [
+        1484
+      ],
+      "transistors": [
+        154,
+        188
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1350
+      ],
+      "transistors": [
+        159,
+        160
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        492
+      ],
+      "outputs": [
+        1525
+      ],
+      "transistors": [
+        159,
+        179
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1353
+      ],
+      "transistors": [
+        161,
+        162
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1528
+      ],
+      "transistors": [
+        161,
+        180
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        187,
+        236
+      ],
+      "outputs": [
+        1487
+      ],
+      "transistors": [
+        176,
+        200
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1584
+      ],
+      "transistors": [
+        178,
+        217
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1585
+      ],
+      "transistors": [
+        178,
+        218
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1722
+      ],
+      "transistors": [
+        178,
+        238
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1526
+      ],
+      "transistors": [
+        179,
+        220
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1725
+      ],
+      "transistors": [
+        179,
+        239
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1529
+      ],
+      "transistors": [
+        180,
+        222
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1728
+      ],
+      "transistors": [
+        180,
+        240
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1596
+      ],
+      "transistors": [
+        181,
+        223
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        1597
+      ],
+      "transistors": [
+        181,
+        224
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1731
+      ],
+      "transistors": [
+        181,
+        241
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1535
+      ],
+      "transistors": [
+        182,
+        226
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1734
+      ],
+      "transistors": [
+        182,
+        242
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        509,
+        508
+      ],
+      "outputs": [
+        1604
+      ],
+      "transistors": [
+        183,
+        227
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        509,
+        509
+      ],
+      "outputs": [
+        1605
+      ],
+      "transistors": [
+        183,
+        228
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        509,
+        509
+      ],
+      "outputs": [
+        1737
+      ],
+      "transistors": [
+        183,
+        243
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1541
+      ],
+      "transistors": [
+        184,
+        230
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1740
+      ],
+      "transistors": [
+        184,
+        244
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1612
+      ],
+      "transistors": [
+        185,
+        231
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        517
+      ],
+      "outputs": [
+        1613
+      ],
+      "transistors": [
+        185,
+        232
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1743
+      ],
+      "transistors": [
+        185,
+        245
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1616
+      ],
+      "transistors": [
+        186,
+        233
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        521
+      ],
+      "outputs": [
+        1617
+      ],
+      "transistors": [
+        186,
+        234
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1746
+      ],
+      "transistors": [
+        186,
+        246
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        238,
+        238
+      ],
+      "outputs": [
+        1624
+      ],
+      "transistors": [
+        188,
+        214
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        1640
+      ],
+      "transistors": [
+        189,
+        203
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1643
+      ],
+      "transistors": [
+        190,
+        204
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        495,
+        494
+      ],
+      "outputs": [
+        1636
+      ],
+      "transistors": [
+        191,
+        205
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1637
+      ],
+      "transistors": [
+        192,
+        206
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        503,
+        503
+      ],
+      "outputs": [
+        1648
+      ],
+      "transistors": [
+        193,
+        207
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1651
+      ],
+      "transistors": [
+        194,
+        208
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1654
+      ],
+      "transistors": [
+        195,
+        209
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        1657
+      ],
+      "transistors": [
+        196,
+        210
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1660
+      ],
+      "transistors": [
+        197,
+        211
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1663
+      ],
+      "transistors": [
+        198,
+        202
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1633
+      ],
+      "transistors": [
+        199,
+        213
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        236,
+        236
+      ],
+      "outputs": [
+        1578
+      ],
+      "transistors": [
+        200,
+        212
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1715
+      ],
+      "transistors": [
+        202,
+        258
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        1706
+      ],
+      "transistors": [
+        203,
+        249
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1707
+      ],
+      "transistors": [
+        204,
+        250
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        1708
+      ],
+      "transistors": [
+        205,
+        251
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1709
+      ],
+      "transistors": [
+        206,
+        252
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        503,
+        503
+      ],
+      "outputs": [
+        1710
+      ],
+      "transistors": [
+        207,
+        253
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1711
+      ],
+      "transistors": [
+        208,
+        254
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1712
+      ],
+      "transistors": [
+        209,
+        255
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        1713
+      ],
+      "transistors": [
+        210,
+        256
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1714
+      ],
+      "transistors": [
+        211,
+        257
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1677
+      ],
+      "transistors": [
+        213,
+        259
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1526
+      ],
+      "transistors": [
+        219,
+        220
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1725
+      ],
+      "transistors": [
+        219,
+        239
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1529
+      ],
+      "transistors": [
+        221,
+        222
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1728
+      ],
+      "transistors": [
+        221,
+        240
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1535
+      ],
+      "transistors": [
+        225,
+        226
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1734
+      ],
+      "transistors": [
+        225,
+        242
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1541
+      ],
+      "transistors": [
+        229,
+        230
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1740
+      ],
+      "transistors": [
+        229,
+        244
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        293,
+        293
+      ],
+      "outputs": [
+        1772
+      ],
+      "transistors": [
+        235,
+        272
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        240,
+        291
+      ],
+      "outputs": [
+        1681
+      ],
+      "transistors": [
+        236,
+        260
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1723
+      ],
+      "transistors": [
+        238,
+        279
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1909
+      ],
+      "transistors": [
+        238,
+        299
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        493
+      ],
+      "outputs": [
+        1787
+      ],
+      "transistors": [
+        239,
+        281
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        493
+      ],
+      "outputs": [
+        1912
+      ],
+      "transistors": [
+        239,
+        300
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1790
+      ],
+      "transistors": [
+        240,
+        282
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1791
+      ],
+      "transistors": [
+        240,
+        283
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        1915
+      ],
+      "transistors": [
+        240,
+        301
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        500
+      ],
+      "outputs": [
+        1794
+      ],
+      "transistors": [
+        241,
+        284
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        1795
+      ],
+      "transistors": [
+        241,
+        285
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        1918
+      ],
+      "transistors": [
+        241,
+        302
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1798
+      ],
+      "transistors": [
+        242,
+        286
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1799
+      ],
+      "transistors": [
+        242,
+        287
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        1921
+      ],
+      "transistors": [
+        242,
+        303
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        509,
+        509
+      ],
+      "outputs": [
+        1738
+      ],
+      "transistors": [
+        243,
+        289
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        509,
+        508
+      ],
+      "outputs": [
+        1924
+      ],
+      "transistors": [
+        243,
+        304
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1806
+      ],
+      "transistors": [
+        244,
+        290
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1807
+      ],
+      "transistors": [
+        244,
+        291
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        1927
+      ],
+      "transistors": [
+        244,
+        305
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1810
+      ],
+      "transistors": [
+        245,
+        292
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        517
+      ],
+      "outputs": [
+        1744
+      ],
+      "transistors": [
+        245,
+        293
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1930
+      ],
+      "transistors": [
+        245,
+        306
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1814
+      ],
+      "transistors": [
+        246,
+        294
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        521
+      ],
+      "outputs": [
+        1815
+      ],
+      "transistors": [
+        246,
+        295
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1933
+      ],
+      "transistors": [
+        246,
+        307
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        267,
+        293
+      ],
+      "outputs": [
+        1772
+      ],
+      "transistors": [
+        248,
+        272
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        1832
+      ],
+      "transistors": [
+        249,
+        262
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1835
+      ],
+      "transistors": [
+        250,
+        263
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        1838
+      ],
+      "transistors": [
+        251,
+        264
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1841
+      ],
+      "transistors": [
+        252,
+        265
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        503,
+        502
+      ],
+      "outputs": [
+        1844
+      ],
+      "transistors": [
+        253,
+        266
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1847
+      ],
+      "transistors": [
+        254,
+        268
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1850
+      ],
+      "transistors": [
+        255,
+        269
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        1853
+      ],
+      "transistors": [
+        256,
+        270
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1856
+      ],
+      "transistors": [
+        257,
+        271
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1859
+      ],
+      "transistors": [
+        258,
+        267
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1828
+      ],
+      "transistors": [
+        259,
+        274
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        291,
+        291
+      ],
+      "outputs": [
+        1776
+      ],
+      "transistors": [
+        260,
+        273
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        489
+      ],
+      "outputs": [
+        2088
+      ],
+      "transistors": [
+        261,
+        395
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        1898
+      ],
+      "transistors": [
+        262,
+        310
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        1895
+      ],
+      "transistors": [
+        263,
+        311
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        1899
+      ],
+      "transistors": [
+        264,
+        312
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        1896
+      ],
+      "transistors": [
+        265,
+        313
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        1897
+      ],
+      "transistors": [
+        266,
+        314
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        1904
+      ],
+      "transistors": [
+        267,
+        319
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        1900
+      ],
+      "transistors": [
+        268,
+        315
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        1901
+      ],
+      "transistors": [
+        269,
+        316
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        1902
+      ],
+      "transistors": [
+        270,
+        317
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        1903
+      ],
+      "transistors": [
+        271,
+        318
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        1869
+      ],
+      "transistors": [
+        274,
+        320
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        347,
+        347
+      ],
+      "outputs": [
+        1870
+      ],
+      "transistors": [
+        275,
+        309
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1723
+      ],
+      "transistors": [
+        278,
+        279
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        1909
+      ],
+      "transistors": [
+        278,
+        299
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1787
+      ],
+      "transistors": [
+        280,
+        281
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        1912
+      ],
+      "transistors": [
+        280,
+        300
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1738
+      ],
+      "transistors": [
+        288,
+        289
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        508
+      ],
+      "outputs": [
+        1924
+      ],
+      "transistors": [
+        288,
+        304
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        296,
+        346
+      ],
+      "outputs": [
+        1871
+      ],
+      "transistors": [
+        297,
+        321
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1966
+      ],
+      "transistors": [
+        299,
+        337
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        2087
+      ],
+      "transistors": [
+        299,
+        357
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        492
+      ],
+      "outputs": [
+        1969
+      ],
+      "transistors": [
+        300,
+        338
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        493
+      ],
+      "outputs": [
+        1913
+      ],
+      "transistors": [
+        300,
+        339
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        493
+      ],
+      "outputs": [
+        2099
+      ],
+      "transistors": [
+        300,
+        358
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1916
+      ],
+      "transistors": [
+        301,
+        341
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        2102
+      ],
+      "transistors": [
+        301,
+        359
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        500
+      ],
+      "outputs": [
+        1977
+      ],
+      "transistors": [
+        302,
+        342
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        501
+      ],
+      "outputs": [
+        1919
+      ],
+      "transistors": [
+        302,
+        343
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        501
+      ],
+      "outputs": [
+        2103
+      ],
+      "transistors": [
+        302,
+        360
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1922
+      ],
+      "transistors": [
+        303,
+        345
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        2106
+      ],
+      "transistors": [
+        303,
+        361
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1925
+      ],
+      "transistors": [
+        304,
+        347
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        2108
+      ],
+      "transistors": [
+        304,
+        362
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1928
+      ],
+      "transistors": [
+        305,
+        349
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        2109
+      ],
+      "transistors": [
+        305,
+        366
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        1993
+      ],
+      "transistors": [
+        306,
+        350
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        517
+      ],
+      "outputs": [
+        1994
+      ],
+      "transistors": [
+        306,
+        351
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        2110
+      ],
+      "transistors": [
+        306,
+        363
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        1997
+      ],
+      "transistors": [
+        307,
+        352
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        521
+      ],
+      "outputs": [
+        1998
+      ],
+      "transistors": [
+        307,
+        353
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        2112
+      ],
+      "transistors": [
+        307,
+        364
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        347,
+        347
+      ],
+      "outputs": [
+        2003
+      ],
+      "transistors": [
+        309,
+        334
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        2014
+      ],
+      "transistors": [
+        310,
+        322
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        2017
+      ],
+      "transistors": [
+        311,
+        323
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        2020
+      ],
+      "transistors": [
+        312,
+        324
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        2023
+      ],
+      "transistors": [
+        313,
+        325
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        2026
+      ],
+      "transistors": [
+        314,
+        326
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        2029
+      ],
+      "transistors": [
+        315,
+        327
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        2032
+      ],
+      "transistors": [
+        316,
+        328
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        2035
+      ],
+      "transistors": [
+        317,
+        329
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        2038
+      ],
+      "transistors": [
+        318,
+        330
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        2041
+      ],
+      "transistors": [
+        319,
+        331
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        2011
+      ],
+      "transistors": [
+        320,
+        333
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        2073
+      ],
+      "transistors": [
+        322,
+        367
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        2074
+      ],
+      "transistors": [
+        323,
+        368
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        2075
+      ],
+      "transistors": [
+        324,
+        369
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        2076
+      ],
+      "transistors": [
+        325,
+        370
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        2077
+      ],
+      "transistors": [
+        326,
+        371
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        2078
+      ],
+      "transistors": [
+        327,
+        374
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        2079
+      ],
+      "transistors": [
+        328,
+        375
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        2080
+      ],
+      "transistors": [
+        329,
+        376
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        2081
+      ],
+      "transistors": [
+        330,
+        372
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        2082
+      ],
+      "transistors": [
+        331,
+        373
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        2047
+      ],
+      "transistors": [
+        333,
+        377
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        1966
+      ],
+      "transistors": [
+        336,
+        337
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        488
+      ],
+      "outputs": [
+        2087
+      ],
+      "transistors": [
+        336,
+        357
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        497
+      ],
+      "outputs": [
+        1916
+      ],
+      "transistors": [
+        340,
+        341
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        2102
+      ],
+      "transistors": [
+        340,
+        359
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        1922
+      ],
+      "transistors": [
+        344,
+        345
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        2106
+      ],
+      "transistors": [
+        344,
+        361
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        1925
+      ],
+      "transistors": [
+        346,
+        347
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        508,
+        509
+      ],
+      "outputs": [
+        2108
+      ],
+      "transistors": [
+        346,
+        362
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        1928
+      ],
+      "transistors": [
+        348,
+        349
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        2109
+      ],
+      "transistors": [
+        348,
+        366
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        349,
+        397
+      ],
+      "outputs": [
+        2049
+      ],
+      "transistors": [
+        355,
+        378
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        2088
+      ],
+      "transistors": [
+        357,
+        395
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        493,
+        493
+      ],
+      "outputs": [
+        2100
+      ],
+      "transistors": [
+        358,
+        397
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        496,
+        496
+      ],
+      "outputs": [
+        2178
+      ],
+      "transistors": [
+        359,
+        398
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        501,
+        501
+      ],
+      "outputs": [
+        2180
+      ],
+      "transistors": [
+        360,
+        401
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        504
+      ],
+      "outputs": [
+        2182
+      ],
+      "transistors": [
+        361,
+        402
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        504,
+        505
+      ],
+      "outputs": [
+        2161
+      ],
+      "transistors": [
+        361,
+        403
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        516
+      ],
+      "outputs": [
+        2170
+      ],
+      "transistors": [
+        363,
+        408
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        516,
+        517
+      ],
+      "outputs": [
+        2185
+      ],
+      "transistors": [
+        363,
+        409
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        520
+      ],
+      "outputs": [
+        2173
+      ],
+      "transistors": [
+        364,
+        410
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        520,
+        521
+      ],
+      "outputs": [
+        2186
+      ],
+      "transistors": [
+        364,
+        411
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        512
+      ],
+      "outputs": [
+        2167
+      ],
+      "transistors": [
+        366,
+        406
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        512,
+        513
+      ],
+      "outputs": [
+        2184
+      ],
+      "transistors": [
+        366,
+        407
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        2197
+      ],
+      "transistors": [
+        367,
+        379
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        2200
+      ],
+      "transistors": [
+        368,
+        380
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        2203
+      ],
+      "transistors": [
+        369,
+        381
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        2206
+      ],
+      "transistors": [
+        370,
+        382
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        503
+      ],
+      "outputs": [
+        2209
+      ],
+      "transistors": [
+        371,
+        383
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        2221
+      ],
+      "transistors": [
+        372,
+        387
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        2224
+      ],
+      "transistors": [
+        373,
+        388
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        2212
+      ],
+      "transistors": [
+        374,
+        384
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        2215
+      ],
+      "transistors": [
+        375,
+        385
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        515
+      ],
+      "outputs": [
+        2218
+      ],
+      "transistors": [
+        376,
+        386
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        2195
+      ],
+      "transistors": [
+        377,
+        390
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        397,
+        403
+      ],
+      "outputs": [
+        2142
+      ],
+      "transistors": [
+        378,
+        389
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        2261
+      ],
+      "transistors": [
+        379,
+        426
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        2262
+      ],
+      "transistors": [
+        380,
+        427
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        2263
+      ],
+      "transistors": [
+        381,
+        428
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        2264
+      ],
+      "transistors": [
+        382,
+        429
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        503,
+        502
+      ],
+      "outputs": [
+        2265
+      ],
+      "transistors": [
+        383,
+        430
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        2266
+      ],
+      "transistors": [
+        384,
+        431
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        2267
+      ],
+      "transistors": [
+        385,
+        432
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        515,
+        514
+      ],
+      "outputs": [
+        2268
+      ],
+      "transistors": [
+        386,
+        433
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        2269
+      ],
+      "transistors": [
+        387,
+        434
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        2270
+      ],
+      "transistors": [
+        388,
+        435
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        2233
+      ],
+      "transistors": [
+        390,
+        436
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        525,
+        456
+      ],
+      "outputs": [
+        2234
+      ],
+      "transistors": [
+        391,
+        425
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        488,
+        489
+      ],
+      "outputs": [
+        2088
+      ],
+      "transistors": [
+        394,
+        395
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        492,
+        493
+      ],
+      "outputs": [
+        2100
+      ],
+      "transistors": [
+        396,
+        397
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        500,
+        501
+      ],
+      "outputs": [
+        2180
+      ],
+      "transistors": [
+        400,
+        401
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        403,
+        455
+      ],
+      "outputs": [
+        2237
+      ],
+      "transistors": [
+        413,
+        438
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        456,
+        456
+      ],
+      "outputs": [
+        2366
+      ],
+      "transistors": [
+        425,
+        451
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        486,
+        486
+      ],
+      "outputs": [
+        2381
+      ],
+      "transistors": [
+        426,
+        439
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        490,
+        490
+      ],
+      "outputs": [
+        2384
+      ],
+      "transistors": [
+        427,
+        440
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        494,
+        494
+      ],
+      "outputs": [
+        2387
+      ],
+      "transistors": [
+        428,
+        441
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        498,
+        498
+      ],
+      "outputs": [
+        2390
+      ],
+      "transistors": [
+        429,
+        442
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        502,
+        502
+      ],
+      "outputs": [
+        2393
+      ],
+      "transistors": [
+        430,
+        443
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        506,
+        506
+      ],
+      "outputs": [
+        2396
+      ],
+      "transistors": [
+        431,
+        444
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        510,
+        510
+      ],
+      "outputs": [
+        2399
+      ],
+      "transistors": [
+        432,
+        445
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        514,
+        515
+      ],
+      "outputs": [
+        2402
+      ],
+      "transistors": [
+        433,
+        446
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        518,
+        518
+      ],
+      "outputs": [
+        2405
+      ],
+      "transistors": [
+        434,
+        447
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        522,
+        522
+      ],
+      "outputs": [
+        2408
+      ],
+      "transistors": [
+        435,
+        448
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        528,
+        528
+      ],
+      "outputs": [
+        2375
+      ],
+      "transistors": [
+        436,
+        450
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        455,
+        455
+      ],
+      "outputs": [
+        2368
+      ],
+      "transistors": [
+        438,
+        449
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        455,
+        459
+      ],
+      "outputs": [
+        2410
+      ],
+      "transistors": [
+        449,
+        474
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        538,
+        560
+      ],
+      "outputs": [
+        2500
+      ],
+      "transistors": [
+        477,
+        535
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        539,
+        558
+      ],
+      "outputs": [
+        2544
+      ],
+      "transistors": [
+        478,
+        548
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        555,
+        579
+      ],
+      "outputs": [
+        2524
+      ],
+      "transistors": [
+        481,
+        544
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        556,
+        556
+      ],
+      "outputs": [
+        2481
+      ],
+      "transistors": [
+        482,
+        531
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        556,
+        556
+      ],
+      "outputs": [
+        2453
+      ],
+      "transistors": [
+        482,
+        532
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        576,
+        586
+      ],
+      "outputs": [
+        2527
+      ],
+      "transistors": [
+        483,
+        545
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        540,
+        563
+      ],
+      "outputs": [
+        2503
+      ],
+      "transistors": [
+        484,
+        536
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        542,
+        565
+      ],
+      "outputs": [
+        2506
+      ],
+      "transistors": [
+        486,
+        538
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        543,
+        544
+      ],
+      "outputs": [
+        2490
+      ],
+      "transistors": [
+        487,
+        507
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        543,
+        544
+      ],
+      "outputs": [
+        2429
+      ],
+      "transistors": [
+        487,
+        508
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        544,
+        566
+      ],
+      "outputs": [
+        2509
+      ],
+      "transistors": [
+        488,
+        539
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        546,
+        568
+      ],
+      "outputs": [
+        2512
+      ],
+      "transistors": [
+        489,
+        540
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        548,
+        558
+      ],
+      "outputs": [
+        2553
+      ],
+      "transistors": [
+        490,
+        556
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        549,
+        570
+      ],
+      "outputs": [
+        2515
+      ],
+      "transistors": [
+        491,
+        541
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        550,
+        558
+      ],
+      "outputs": [
+        2556
+      ],
+      "transistors": [
+        492,
+        558
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        551,
+        573
+      ],
+      "outputs": [
+        2518
+      ],
+      "transistors": [
+        493,
+        542
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        551,
+        558
+      ],
+      "outputs": [
+        2559
+      ],
+      "transistors": [
+        494,
+        560
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        552,
+        574
+      ],
+      "outputs": [
+        2521
+      ],
+      "transistors": [
+        495,
+        543
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        539,
+        539
+      ],
+      "outputs": [
+        2486
+      ],
+      "transistors": [
+        498,
+        499
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        541,
+        541
+      ],
+      "outputs": [
+        2488
+      ],
+      "transistors": [
+        502,
+        503
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        543,
+        543
+      ],
+      "outputs": [
+        2489
+      ],
+      "transistors": [
+        505,
+        506
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        545,
+        545
+      ],
+      "outputs": [
+        2491
+      ],
+      "transistors": [
+        509,
+        510
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        547,
+        547
+      ],
+      "outputs": [
+        2492
+      ],
+      "transistors": [
+        513,
+        514
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        549,
+        549
+      ],
+      "outputs": [
+        2471
+      ],
+      "transistors": [
+        517,
+        518
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        551,
+        551
+      ],
+      "outputs": [
+        2474
+      ],
+      "transistors": [
+        521,
+        522
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        575,
+        553
+      ],
+      "outputs": [
+        2477
+      ],
+      "transistors": [
+        525,
+        526
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        555,
+        555
+      ],
+      "outputs": [
+        2480
+      ],
+      "transistors": [
+        529,
+        530
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        535,
+        576
+      ],
+      "outputs": [
+        2495
+      ],
+      "transistors": [
+        533,
+        534
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        560,
+        580
+      ],
+      "outputs": [
+        2543
+      ],
+      "transistors": [
+        535,
+        547
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        563,
+        580
+      ],
+      "outputs": [
+        2546
+      ],
+      "transistors": [
+        536,
+        549
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        564,
+        558
+      ],
+      "outputs": [
+        2536
+      ],
+      "transistors": [
+        537,
+        550
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        565,
+        580
+      ],
+      "outputs": [
+        2548
+      ],
+      "transistors": [
+        538,
+        551
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        566,
+        566
+      ],
+      "outputs": [
+        2550
+      ],
+      "transistors": [
+        539,
+        553
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        568,
+        569
+      ],
+      "outputs": [
+        2552
+      ],
+      "transistors": [
+        540,
+        555
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        570,
+        581
+      ],
+      "outputs": [
+        2554
+      ],
+      "transistors": [
+        541,
+        557
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        573,
+        581
+      ],
+      "outputs": [
+        2558
+      ],
+      "transistors": [
+        542,
+        559
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        574,
+        581
+      ],
+      "outputs": [
+        2561
+      ],
+      "transistors": [
+        543,
+        561
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        598,
+        598
+      ],
+      "outputs": [
+        2643
+      ],
+      "transistors": [
+        562,
+        579
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        592,
+        598
+      ],
+      "outputs": [
+        2643
+      ],
+      "transistors": [
+        563,
+        579
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        580,
+        582
+      ],
+      "outputs": [
+        2584
+      ],
+      "transistors": [
+        564,
+        568
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        581,
+        582
+      ],
+      "outputs": [
+        2587
+      ],
+      "transistors": [
+        565,
+        570
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        602,
+        602
+      ],
+      "outputs": [
+        2663
+      ],
+      "transistors": [
+        584,
+        585
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        602,
+        602
+      ],
+      "outputs": [
+        2664
+      ],
+      "transistors": [
+        585,
+        586
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        602,
+        602
+      ],
+      "outputs": [
+        2665
+      ],
+      "transistors": [
+        586,
+        587
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        602,
+        602
+      ],
+      "outputs": [
+        2666
+      ],
+      "transistors": [
+        587,
+        588
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        778,
+        31
+      ],
+      "outputs": [
+        3186
+      ],
+      "transistors": [
+        629,
+        632
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NAND",
+      "inputs": [
+        799,
+        805
+      ],
+      "outputs": [
+        3251
+      ],
+      "transistors": [
+        636,
+        637
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        485,
+        488
+      ],
+      "outputs": [
+        1157
+      ],
+      "transistors": [
+        12,
+        58
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        506,
+        508
+      ],
+      "outputs": [
+        1172
+      ],
+      "transistors": [
+        17,
+        63
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        485,
+        485
+      ],
+      "outputs": [
+        1020
+      ],
+      "transistors": [
+        36,
+        57
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        524,
+        524
+      ],
+      "outputs": [
+        1183
+      ],
+      "transistors": [
+        67,
+        114
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        485,
+        485
+      ],
+      "outputs": [
+        1213
+      ],
+      "transistors": [
+        95,
+        117
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        524,
+        524
+      ],
+      "outputs": [
+        1439
+      ],
+      "transistors": [
+        175,
+        187
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        485,
+        485
+      ],
+      "outputs": [
+        1720
+      ],
+      "transistors": [
+        237,
+        277
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        486,
+        488
+      ],
+      "outputs": [
+        2087
+      ],
+      "transistors": [
+        261,
+        419
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        524,
+        524
+      ],
+      "outputs": [
+        1818
+      ],
+      "transistors": [
+        296,
+        308
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        485,
+        485
+      ],
+      "outputs": [
+        2147
+      ],
+      "transistors": [
+        393,
+        414
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        524,
+        524
+      ],
+      "outputs": [
+        2175
+      ],
+      "transistors": [
+        412,
+        418
+      ],
+      "confidence": 0.8
+    },
+    {
+      "gate_type": "NOR",
+      "inputs": [
+        509,
+        509
+      ],
+      "outputs": [
+        2346
+      ],
+      "transistors": [
+        466,
+        476
+      ],
+      "confidence": 0.8
+    }
+  ],
   "statistics": {
-    "total_gates": 0,
+    "total_gates": 430,
     "inverters": 0,
-    "nand_gates": 0,
-    "nor_gates": 0,
+    "nand_gates": 418,
+    "nor_gates": 12,
     "transmission_gates": 0,
     "pass_transistors": 0
   }

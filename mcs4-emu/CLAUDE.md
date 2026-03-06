@@ -5,13 +5,16 @@ Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate s
 
 ## PHASE STATUS
 
-Summary: 92% overall completion
+Summary: 95% overall completion
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
 - Phase 2: 100% (4040 CPU complete, all tests passing)
 - Phase 3: 100% (all support chips + all GUI panels + waveform viewer complete)
 - Phase 4: 100% (solvers, SIMD full ISA, differential fuzzing, solver bridge, process models)
-- Phase 5: 75% (peripherals, Intellec-4, Verilog chip modules complete; hardware validation deferred)
+- Phase 5: 85% (peripherals, Intellec-4, Verilog 22 chip modules, FPGA constraints/Makefile; hardware validation deferred)
+- Phase 6: 100% (gate extraction, subcircuit bridges for all 4 core chips, full-chip circuit sims)
+- Phase 7: 100% (3205/3404/2101 new chips, behavioral Verilog for all 22 chips, gate-level Verilog populated)
+- Phase 8: 90% (iCE40/Spartan-7 constraints, synthesis Makefile; actual synthesis requires toolchain)
 
 ### Phase 0.5: COMPLETE (90%)
 - OCR persistent cache: DONE (48,000x speedup)
@@ -105,11 +108,16 @@ Summary: 92% overall completion
     - Monitor ROM (command dispatch, examine/deposit/go/halt, 11 tests)
     - PROM programmer (blank check, program, verify, 4702 interface, 9 tests)
     - System integration (CPU coordination, panel/monitor/peripherals, 13 tests)
-  - Verilog chip modules (mcs4-fpga, 12 tests):
-    - Synthesizable 4004 CPU module (8-phase, PC, accumulator, registers, stack)
-    - Synthesizable 4001 ROM module (address latch, chip select, output)
-    - Synthesizable 4002 RAM module (address, status registers, output port)
-    - Synthesizable 4003 shift register module (10-bit, enable, cascade)
+  - Verilog chip modules (mcs4-fpga, 24 tests):
+    - 22 synthesizable behavioral Verilog modules for complete MCS-4/MCS-40 family:
+      MCS-4 core: 4004, 4001, 4002, 4003
+      MCS-4 support: 4008, 4009, 3216, 3226, 3205, 3404, 2101
+      MCS-40 core: 4040, 4101, 4201, 4289, 4308
+      MCS-40 clocks: 4207, 4209, 4211
+      MCS-40 peripherals: 4265, 4316, 4702
+    - Gate-level Verilog populated from extracted netlists (7,525 lines total)
+    - FPGA constraint files: iCE40 (.pcf) and Spartan-7 (.xdc)
+    - Synthesis Makefile (Yosys/nextpnr for iCE40, Vivado for Spartan-7)
 - Pending:
   - #116: FPGA hardware validation (requires board purchase)
   - #117: ONNX CTC training (requires dataset collection)
@@ -160,11 +168,13 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (updated 2026-02-26 after full plan implementation)
+## TEST COUNTS (updated 2026-03-05 after phases 6-8 execution)
 
-968 tests passing, 0 failures:
+1,024 tests passing, 0 failures:
 - mcs4-bus: 17
-- mcs4-chips: 211 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge)
+- mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
+    3205/3404/2101 new chips)
+- mcs4-chips circuit_sim: 4 (full-chip 4003 DC+transient, 4004 DC, behavioral-vs-circuit cross-validation)
 - mcs4-chips fuzz_test: 1
 - mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)
 - mcs4-core: 473 (transistor/nodal/TCAD solvers, process models, transient+trapezoidal integration,
@@ -172,7 +182,7 @@ Critical path (in order):
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
-- mcs4-fpga: 12 (Verilog export + chip module generation)
+- mcs4-fpga: 24 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
@@ -181,4 +191,4 @@ Critical path (in order):
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-02-26 (full plan: debt resolution + trapezoidal integration + temperature sweep + multi-system tests + sensitivity integration)
+Last Updated: 2026-03-05 (phases 6-8: gate extraction, subcircuit bridges, circuit sims, 3205/3404/2101 chips, 22 Verilog modules, FPGA constraints)

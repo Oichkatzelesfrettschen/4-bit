@@ -8,8 +8,30 @@ module i4003_gates (
 );
 
     // Internal wires
+    wire n7;
+    wire n42;
+    wire n58;
+    wire n65;
+    wire n68;
+    wire n74;
+    wire n78;
+    wire n86;
+    wire n94;
+    wire n110;
+    wire n290;
+    wire n297;
+    wire n303;
+    wire n377;
+    wire n389;
+    wire n415;
 
     // Gate instances
+    nand2 g0 (.A(n65), .B(n42), .Y(n290));
+    nand2 g1 (.A(n58), .B(n74), .Y(n297));
+    nand2 g2 (.A(n42), .B(n68), .Y(n303));
+    nand2 g3 (.A(n78), .B(n7), .Y(n389));
+    nand2 g4 (.A(n94), .B(n86), .Y(n377));
+    nand2 g5 (.A(n7), .B(n110), .Y(n415));
 
 endmodule
 

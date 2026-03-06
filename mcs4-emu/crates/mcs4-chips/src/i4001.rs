@@ -4,6 +4,7 @@
 //! Up to 16 4001 chips can be addressed in an MCS-4 system.
 
 use mcs4_bus::prelude::*;
+use mcs4_core::SimulationFidelity;
 
 /// Intel 4001: 256x8 ROM with 4-bit I/O port
 #[derive(Clone, Debug)]
@@ -28,6 +29,9 @@ pub struct I4001 {
 
     /// Current phase tracking
     phase: BusCycle,
+
+    /// Simulation fidelity level
+    pub(crate) fidelity: SimulationFidelity,
 }
 
 impl I4001 {
@@ -41,6 +45,7 @@ impl I4001 {
             address: 0,
             selected: false,
             phase: BusCycle::A1,
+            fidelity: SimulationFidelity::Behavioral,
         }
     }
 
@@ -169,6 +174,139 @@ impl super::Chip for I4001 {
     }
 }
 
+// --- Solver Bridge ---
+
+use mcs4_core::{
+    bridge::{ChipSolverBridge, PinDirection, PinMapping},
+    circuit::graph::CircuitGraph,
+};
+
+const SUBCIRCUIT_NAMES_4001: &[&str] = &[
+    "custom", "D1_PAD", "D2_PAD", "D3_PAD", "CLK2", "RESET", "CLK1", "CL", "CM", "D0_PAD", "SYNC",
+];
+
+impl I4001 {
+    fn load_subcircuit_json(name: &str) -> Option<CircuitGraph> {
+        let manifest_dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"));
+        let repo_root = manifest_dir.ancestors().nth(3)?;
+        let path = repo_root
+            .join("docs/evidence/subcircuits_v0/4001")
+            .join(format!("4001_{}_subcircuit_v0.json", name));
+        let netlist = mcs4_core::layout_netlist::load_netlist_v1(&path).ok()?;
+        let config = mcs4_core::circuit::netlist_bridge::BridgeConfig::default();
+        Some(mcs4_core::circuit::netlist_bridge::netlist_v1_to_circuit(
+            &netlist, &config,
+        ))
+    }
+}
+
+impl ChipSolverBridge for I4001 {
+    fn fidelity(&self) -> SimulationFidelity {
+        self.fidelity
+    }
+
+    fn set_fidelity(&mut self, fidelity: SimulationFidelity) {
+        self.fidelity = fidelity;
+    }
+
+    fn subcircuit_names(&self) -> Vec<&str> {
+        SUBCIRCUIT_NAMES_4001.to_vec()
+    }
+
+    fn subcircuit(&self, name: &str) -> Option<CircuitGraph> {
+        if SUBCIRCUIT_NAMES_4001.contains(&name) {
+            Self::load_subcircuit_json(name)
+        } else {
+            None
+        }
+    }
+
+    fn pin_map(&self) -> Vec<PinMapping> {
+        vec![
+            PinMapping {
+                name: "CLK1".into(),
+                node_id: 242,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CLK2".into(),
+                node_id: 3183,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "SYNC".into(),
+                node_id: 1607,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "RESET".into(),
+                node_id: 4563,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "D0_PAD".into(),
+                node_id: 34,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D1_PAD".into(),
+                node_id: 2599,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D2_PAD".into(),
+                node_id: 2618,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "D3_PAD".into(),
+                node_id: 2647,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "IO0".into(),
+                node_id: 2159,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "IO1".into(),
+                node_id: 1955,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "IO2".into(),
+                node_id: 5604,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "IO3".into(),
+                node_id: 3253,
+                direction: PinDirection::Bidirectional,
+            },
+            PinMapping {
+                name: "CL".into(),
+                node_id: 5457,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "CM".into(),
+                node_id: 5454,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "VDD".into(),
+                node_id: 5657,
+                direction: PinDirection::Input,
+            },
+            PinMapping {
+                name: "VSS".into(),
+                node_id: 2570,
+                direction: PinDirection::Input,
+            },
+        ]
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -205,5 +343,46 @@ mod tests {
         // Test masking to 4 bits
         let rom2 = I4001::new(0x1F);
         assert_eq!(rom2.chip_id(), 0x0F);
+    }
+
+    // --- Solver Bridge tests ---
+
+    use mcs4_core::bridge::ChipSolverBridge;
+
+    #[test]
+    fn bridge_subcircuit_names_count() {
+        let rom = I4001::new(0);
+        let names = rom.subcircuit_names();
+        assert_eq!(names.len(), 11);
+        assert!(names.contains(&"CLK1"));
+        assert!(names.contains(&"SYNC"));
+    }
+
+    #[test]
+    fn bridge_fidelity_default() {
+        let rom = I4001::new(0);
+        assert_eq!(rom.fidelity(), mcs4_core::SimulationFidelity::Behavioral);
+    }
+
+    #[test]
+    fn bridge_custom_subcircuit_loads() {
+        let rom = I4001::new(0);
+        let g = rom.subcircuit("custom").expect("custom subcircuit");
+        assert_eq!(g.transistor_count(), 117);
+    }
+
+    #[test]
+    fn bridge_sync_subcircuit_loads() {
+        let rom = I4001::new(0);
+        let g = rom.subcircuit("SYNC").expect("SYNC subcircuit");
+        assert_eq!(g.transistor_count(), 1);
+    }
+
+    #[test]
+    fn bridge_pin_map_has_entries() {
+        let rom = I4001::new(0);
+        let pins = rom.pin_map();
+        assert!(pins.len() >= 10);
+        assert!(pins.iter().any(|p| p.name == "CLK1"));
     }
 }
