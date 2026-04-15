@@ -1,6 +1,6 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-03-05
+**Last Updated:** 2026-04-06
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Phase Summary (95% overall)
@@ -18,7 +18,7 @@
 | 7 | New chips + behavioral Verilog (22 modules) | COMPLETE | 100% |
 | 8 | FPGA constraints + synthesis Makefile | COMPLETE | 90% |
 
-## Test Counts (updated 2026-03-05 after phases 6-8)
+## Test Counts (updated 2026-04-06 after debt hardening sync)
 
 1,024 tests passing, 0 failures:
 - mcs4-bus: 17
@@ -113,7 +113,7 @@ Gate-level Verilog populated from extracted netlists (7,525 lines total).
 ## Architecture
 
 - **Language:** Rust (8 crates in workspace)
-- **Accuracy:** Gate-level with transistor/nodal solvers, SPICE-class circuit simulation (477 tests in mcs4-core)
+- **Accuracy:** Gate-level with transistor/nodal solvers, SPICE-class circuit simulation (473 tests in mcs4-core)
 - **SIMD:** 16-lane parallel 4004 execution with full ISA, differential fuzzing (nightly feature)
 - **Process models:** Intel 10um pMOS: I/O drivers, power, ESD, ROM/SRAM cells
 - **FPGA:** 22 synthesizable behavioral Verilog modules, gate-level Verilog, iCE40+Spartan-7 constraints
@@ -122,6 +122,13 @@ Gate-level Verilog populated from extracted netlists (7,525 lines total).
 
 ## Recent Session Log
 
+- 2026-04-06: Debt hardening and reconciliation pass
+  - Nightly pin synchronized to `nightly-2026-04-05` across toolchain, CI, and docs references.
+  - Added `scripts/status_sync_check.sh` and wired it into `scripts/doc_validate.sh` to enforce
+    canonical status consistency (nightly pin, completion %, test totals, last-updated date).
+  - Resolved docs drift from pin-format mismatch in `mcs4-emu/INSTALLATION.md`.
+  - Consolidated debt matrix in `docs/AUDIT.md` with completed remediation vs residual blockers.
+  - Implementation debt tranche completed for evidence scripts (non-placeholder transform/connectivity outputs).
 - 2026-03-05: Phases 6-8 complete
   - Phase 6: Gate extraction, subcircuit bridges for all 4 core chips, full-chip circuit sims
   - Phase 7: 3205/3404/2101 new chips, behavioral Verilog for all 22 chips, gate-level Verilog populated

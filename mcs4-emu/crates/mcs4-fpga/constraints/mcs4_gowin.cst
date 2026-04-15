@@ -1,0 +1,53 @@
+// MCS-4 System Pin Constraints for Gowin GW1N-2 LQFP100
+//
+// WHY: Maps MCS-4 system signals to physical pins on the KIWI FPGA
+//      TINY 1P5 EVK board (GW1N-2, IDCODE 0x120681B).
+// WHAT: UART (GWU2U bridge), LED, button pin assignments.
+// HOW: Use with gw_sh: set_device -name GW1N-2 -package LQFP100
+//      source constraints/mcs4_gowin.cst
+//
+// Pin assignments verified against:
+//   /opt/gowin-eda-ide/data/device/GW1N-2/LQFP100-LV.json
+//   ~/Playground/Hardware/fpga/pdp11.cst (working reference)
+//   Board silk-screen markings
+
+// ============================================================
+// UART (GWU2U USB-UART bridge, directly connected)
+// ============================================================
+
+// TX: FPGA -> GWU2U -> Host (pin 17 = IOL14B, Bank 4)
+IO_LOC "uart_tx" 17;
+IO_PORT "uart_tx" IO_TYPE=LVCMOS33;
+
+// RX: Host -> GWU2U -> FPGA (pin 18 = IOL15A, Bank 3)
+IO_LOC "uart_rx" 18;
+IO_PORT "uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// ============================================================
+// LEDs
+// ============================================================
+
+// D3 (Red) - Heartbeat / CPU running indicator (pin 10 = IOL8B, Bank 5)
+IO_LOC "led_d3" 10;
+IO_PORT "led_d3" IO_TYPE=LVCMOS33 DRIVE=8;
+
+// NOTE: D4 (Green) is listed at pin 11, but pin 11 = VCCIO4 on
+// LQFP100 package (power pin, NOT user I/O). Skip D4 for now.
+// Resolve during Phase 0 board probing with oscilloscope.
+
+// ============================================================
+// Buttons (active-low, on-board pull-up + debounce RC)
+// ============================================================
+
+// S1 - System reset (pin 20 = IOL16A, Bank 3, GCLKT_5)
+IO_LOC "btn_s1" 20;
+IO_PORT "btn_s1" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// S2 - User button (pin 21 = IOL16B, Bank 3, GCLKC_5)
+IO_LOC "btn_s2" 21;
+IO_PORT "btn_s2" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// ============================================================
+// NOTE: No external clock pin needed.
+// The design uses the Gowin OSCH internal oscillator primitive.
+// ============================================================

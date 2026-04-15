@@ -3,10 +3,10 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 REG="$ROOT_DIR/docs/meta/registry.yaml"
 
-# Parse registry.yaml -- prefer yq, fall back to python3
-if command -v yq >/dev/null 2>&1; then
+# Parse registry.yaml -- prefer yq v4+, fall back to python3
+if command -v yq >/dev/null 2>&1 && yq e '.' "$REG" >/dev/null 2>&1; then
     yq e '.metadata.version and .docs' "$REG" >/dev/null || { echo "Invalid registry schema"; exit 1; }
-    files=$(yq '.docs[].file' "$REG")
+    files=$(yq e '.docs[].file' "$REG")
 elif command -v python3 >/dev/null 2>&1; then
     files=$(python3 -c "
 import yaml, sys
@@ -29,4 +29,5 @@ while IFS= read -r f; do
 done <<< "$files"
 
 [ "$missing" -eq 0 ] || exit 1
+"$ROOT_DIR/scripts/status_sync_check.sh"
 echo "Docs validated."

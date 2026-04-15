@@ -86,19 +86,15 @@ impl I4009 {
                 self.ram_bank = ctrl.selected_ram();
                 self.enabled = self.ram_bank.is_some() || ctrl.selected_rom().is_some();
             }
-            BusCycle::X2 => {
+            BusCycle::X2 if self.enabled && ctrl.is_io_write() => {
                 // Output phase: CPU drives bus, we latch it for external I/O
-                if self.enabled && ctrl.is_io_write() {
-                    self.output_latch = bus.read() & 0x0F;
-                    self.direction = IoDirection::Output;
-                }
+                self.output_latch = bus.read() & 0x0F;
+                self.direction = IoDirection::Output;
             }
-            BusCycle::X3 => {
+            BusCycle::X3 if self.enabled && ctrl.is_io_read() => {
                 // Input phase: external I/O data driven onto bus for CPU
-                if self.enabled && ctrl.is_io_read() {
-                    bus.write(self.input_latch & 0x0F);
-                    self.direction = IoDirection::Input;
-                }
+                bus.write(self.input_latch & 0x0F);
+                self.direction = IoDirection::Input;
             }
             BusCycle::A1 => {
                 // New cycle starts: clear direction

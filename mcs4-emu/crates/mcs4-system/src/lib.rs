@@ -1,4 +1,3 @@
-#![cfg_attr(feature = "simd_cluster", feature(portable_simd))]
 #![allow(missing_docs)]
 
 //! MCS-4 System Integration

@@ -577,17 +577,13 @@ mod tests {
                     assert_eq!(sys.control.selected_ram(), None);
                     saw_x1 = true;
                 }
-                BusCycle::X2 => {
-                    if sys.control.is_io_write() {
-                        assert!(sys.control.selected_ram().is_some());
-                        saw_x2 = true;
-                    }
+                BusCycle::X2 if sys.control.is_io_write() => {
+                    assert!(sys.control.selected_ram().is_some());
+                    saw_x2 = true;
                 }
-                BusCycle::X3 => {
-                    if sys.control.io_op == Some(IoOp::Src) || sys.control.is_io_read() {
-                        assert!(sys.control.selected_ram().is_some());
-                        saw_x3 = true;
-                    }
+                BusCycle::X3 if sys.control.io_op == Some(IoOp::Src) || sys.control.is_io_read() => {
+                    assert!(sys.control.selected_ram().is_some());
+                    saw_x3 = true;
                 }
                 _ => {}
             }

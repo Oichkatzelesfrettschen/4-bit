@@ -138,7 +138,7 @@ mcs4-emu/crates/
       control.rs                  # ControlSignals: SYNC, CM-ROM, CM-RAM, IoOp
       clock.rs                    # TwoPhaseClock (phi1/phi2, non-overlapping)
 
-  mcs4-chips/                     # Chip implementations (211 tests)
+  mcs4-chips/                     # Chip implementations (251 tests)
     src/
       lib.rs                      # Module registry, Chip trait
       disasm.rs                   # Disassembler + DisasmCache (O(1) window)
@@ -205,7 +205,7 @@ mcs4-emu/crates/
         waveform.rs               # WaveformPanel: logic analyzer view
         die_viewer.rs             # Die photomicrograph overlay (scaffold)
 
-  mcs4-fpga/                      # FPGA synthesis support (12 tests)
+  mcs4-fpga/                      # FPGA synthesis support (24 tests)
     src/
       lib.rs
       verilog.rs                  # Verilog export from gate-level models
@@ -314,7 +314,7 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **968 tests total, 0 failures** (updated 2026-02-26 after full plan: debt resolution + trapezoidal integration + temperature sweep + multi-system tests + sensitivity integration)
+- **1,024 tests total, 0 failures** (updated 2026-03-05 from workspace status reconciliation; operational metric, see `mcs4-emu/STATUS.md`)
 
 ## Build Commands
 

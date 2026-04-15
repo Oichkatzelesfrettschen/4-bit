@@ -18,3 +18,4 @@ Generated from `docs/AUDIT.md` by `scripts/audit_claims_backlog.py`.
 - 4040 CPU max clock rate explicitly stated in a primary datasheet or hardware spec (not just derived from clock period).
 - Memory addressing claims (ROM/RAM limits) vs primary manuals.
 - 2025 discrete-transistor implementation claim: seek a primary publication or build log.
+- Note: 1976 and 1978 Intel data catalogs were scanned locally on 2026-04-06; they did not close the transistor-count/max-clock gaps.

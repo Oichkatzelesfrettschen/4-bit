@@ -1,7 +1,7 @@
 # Installation Requirements
 
 ## Toolchain (Required)
-- Rust nightly pinned in `rust-toolchain.toml` (2026-01-07) with components: rustfmt, clippy, miri, llvm-tools-preview.
+- Rust nightly pinned in `rust-toolchain.toml` (`nightly-2026-04-05`) with components: rustfmt, clippy, miri, llvm-tools-preview.
 - Edition: 2021 (workspace-wide).
 - MSRV (stable baseline): Rust 1.92.0 (latest stable as of 2026-01-05).
   - Source: https://github.com/rust-lang/rust/releases/tag/1.92.0

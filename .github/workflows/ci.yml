@@ -1,9 +1,8 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  # Quota hold: disable automatic CI lanes; allow manual runs only.
+  workflow_dispatch:
 
 env:
   # Shared system packages needed by egui/eframe (X11/Wayland)
@@ -24,8 +23,11 @@ jobs:
       - name: Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly-2026-01-07
+          toolchain: nightly-2026-04-05
           components: rustfmt, clippy, miri, llvm-tools-preview
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
 
       - name: Install system dependencies
         run: |
@@ -58,8 +60,11 @@ jobs:
       - name: Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly-2026-01-07
+          toolchain: nightly-2026-04-05
           components: llvm-tools-preview
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
 
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
@@ -88,7 +93,10 @@ jobs:
       - name: Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly-2026-01-07
+          toolchain: nightly-2026-04-05
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
 
       - name: Install system dependencies
         run: |
@@ -110,6 +118,9 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: "1.92"
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
 
       - name: Install system dependencies
         run: |
@@ -137,8 +148,11 @@ jobs:
       - name: Rust toolchain
         uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly-2026-01-07
+          toolchain: nightly-2026-04-05
           components: miri
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
 
       - name: Install system dependencies
         run: |
@@ -146,13 +160,13 @@ jobs:
           sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
 
       - name: Miri on mcs4-core
-        run: cargo +nightly-2026-01-07 miri test -p mcs4-core
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-core
 
       - name: Miri on mcs4-bus
-        run: cargo +nightly-2026-01-07 miri test -p mcs4-bus
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-bus
 
       - name: Miri on mcs4-chips
-        run: cargo +nightly-2026-01-07 miri test -p mcs4-chips
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-chips
 
       - name: Miri on mcs4-system
-        run: cargo +nightly-2026-01-07 miri test -p mcs4-system
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-system

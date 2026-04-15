@@ -10,7 +10,7 @@ Rust workspace that emulates the MCS-4/MCS-40 family (4004/4040 and support chip
 - Documentation and scans live under `docs/`.
 
 ## Toolchain and Policies
-- Nightly pinned in `rust-toolchain.toml` (2026-01-07) for portable_simd.
+- Nightly pinned in `rust-toolchain.toml` (2026-04-05) for portable_simd.
 - MSRV baseline: Rust 1.92.0 (stable).
 - Warnings are errors (`.cargo/config.toml`, `cargo clippy-all` alias).
 - Edition: 2021 (workspace-wide).

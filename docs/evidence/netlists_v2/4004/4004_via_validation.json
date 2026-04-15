@@ -1,0 +1,12 @@
+{
+  "valid": true,
+  "errors": [],
+  "warnings": [
+    "33 vias have only one node connection."
+  ],
+  "statistics": {
+    "floating_vias": 33,
+    "over_connected_vias": 0,
+    "disconnected_transistors": 0
+  }
+}

@@ -38,11 +38,7 @@ pub struct I4211 {
 impl I4211 {
     /// Create with specified RC-determined frequency.
     pub fn new(frequency_hz: u64) -> Self {
-        let period_ps = if frequency_hz > 0 {
-            1_000_000_000_000 / frequency_hz
-        } else {
-            1_000_000
-        };
+        let period_ps = 1_000_000_000_000u64.checked_div(frequency_hz).unwrap_or(1_000_000);
         Self {
             frequency_hz,
             period_ps,

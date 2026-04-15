@@ -37,7 +37,13 @@
 ## ARCHITECTURE INSIGHTS
 
 ### Closed-Loop Fidelity Synchronization
-By extracting the exact pad locations (node IDs) from the JSON layout netlists, we can instantiate a full 2300-transistor MNA solver for the 4004. The `FidelityManager` acts as the translation layer: when the system executes phase `X2`, it asserts `-15V` on the abstract bus. The manager translates this to a 0V (pMOS Logic 1) or -15V (pMOS Logic 0) `VoltageSource` on the specific silicon layout node. The `NodalSolver` steps the physics, and in `X3`, the resulting voltage on output pins is thresholded back into an 8-bit bus value.
+By extracting the exact pad locations (node IDs) from the JSON layout netlists,
+we can instantiate a full 2300-transistor MNA solver for the 4004. The
+`FidelityManager` acts as the translation layer: when the system executes phase
+`X2`, it asserts `-15V` on the abstract bus. The manager translates this to a
+0V (pMOS Logic 1) or -15V (pMOS Logic 0) `VoltageSource` on the specific
+silicon layout node. The `NodalSolver` steps the physics, and in `X3`, the
+resulting voltage on output pins is thresholded back into an 8-bit bus value.
 
 ---
 

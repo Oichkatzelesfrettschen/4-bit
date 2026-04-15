@@ -36,6 +36,15 @@ CPU Grave Yard (happytrees.org) 4040 package photo
 - License: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0), per file page.
 - Note: same image as Wikimedia; package photo only.
 
+CPU Graveyard - Die shots 4040 die photo (imported)
+- Page: https://happytrees.org/dieshots/Intel_-_4040
+- File page: https://happytrees.org/dieshots/File:Intel-4040die1shot_117.jpg
+- Local file: docs/photomicrographs/4040/4040-die-wepwawet-117.jpg
+- SHA256: 25c249ec3b9cf00d0dfec46742eb043411c159db6338bd9ab7e8fbf991017018
+- Original author: wepwawet (as listed on file page metadata).
+- Upstream source listed on file page: https://www.cpu-world.com/forum/viewtopic.php?t=12428&highlight=4040+die
+- License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0).
+
 cpu-collection.de Intel 4040 entry (package photos + specs table)
 - Source: https://www.cpu-collection.de/?l0=co&l1=Intel&l2=4040&l3=Intel_4040
 - Page includes a specs table (e.g., “Transistors: 3,000”, “Core Frequency: 0.74 MHz”) and package photos.

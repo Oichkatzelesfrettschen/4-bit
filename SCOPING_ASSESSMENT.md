@@ -513,7 +513,7 @@ software emulator, multi-chip MCS-4 system on single FPGA.
 | Tracing | tracing, tracing-subscriber |
 | Build | seq-macro, paste, static_assertions |
 
-**Rust edition**: 2021, **MSRV**: 1.92, **Toolchain**: nightly-2026-01-07
+**Rust edition**: 2021, **MSRV**: 1.92, **Toolchain**: nightly-2026-04-05
 
 ---
 

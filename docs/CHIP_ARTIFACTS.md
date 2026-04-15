@@ -76,8 +76,11 @@ Local artifacts
 ## Intel 4040 (CPU)
 Local artifacts
 - docs/4040/4040-datasheet.pdf
+- docs/photomicrographs/4040/4040-die-wepwawet-117.jpg (CPU Graveyard - Die shots, CC BY-NC-SA 4.0)
 
 External photo references
+- https://happytrees.org/dieshots/Intel_-_4040 (die-shot page)
+- https://happytrees.org/dieshots/File:Intel-4040die1shot_117.jpg (die image page, CC BY-NC-SA 4.0)
 - https://happytrees.org/chips/Intel_-_P4040 (package photo, CC BY-SA 4.0)
 - https://commons.wikimedia.org/wiki/File:Ic-photo-Intel--P4040--(4040-CPU).jpg (package photo, CC BY-SA)
 - cpu-collection (package photos; also lists “Transistors: 3,000” and “Core Frequency: 0.74 MHz”;
@@ -107,8 +110,8 @@ Derived (machine-readable) extractions
 - Analyzer highlights transistors and wires by signal state and can simulate CPU/ROM/RAM together.
 
 ## Known gaps
-- No confirmed die-shot photos in repo for 4040 or MCS-40 support chips.
-- Only package photos found so far for 4040; no die photomicrographs located yet.
+- Only one small 4040 die photo is currently in repo; no mask-layer sets or layer-separated imagery are available.
+- No confirmed die-shot photos in repo for MCS-40 support chips.
 - Only thumbnail composite photomicrographs for 4001-4004 are in repo; no full-size composites yet.
 - External 4004B die-shot tiles exist (siliconprawn.org) but license is unverified.
 - No mask-layer sets for 4040 or MCS-40 support chips in repo.
@@ -140,6 +143,8 @@ Derived (machine-readable) extractions
 - 4004.com: CC BY-NC-SA 3.0 statement recorded in docs/evidence/photomicrograph_permissions.md.
 - alumni.media.mit.edu photomicrographs: license not recorded in repo; verify terms.
 - Wikimedia 4040 package photo: CC BY-SA per file page; attribution required.
-- CPU Grave Yard (happytrees.org): CC BY-SA 4.0 per site footer and file page.
+- CPU Graveyard (happytrees.org):
+  - chips wiki text/pages: CC BY-SA 4.0 by site footer,
+  - dieshots 4040 image page: image explicitly CC BY-NC-SA 4.0 (author: wepwawet).
 - siliconprawn.org die-shot tiles: license not recorded in repo; verify terms.
 - intel4004.com: license not recorded in repo; verify terms.

@@ -24,5 +24,4 @@ memmap2.workspace = true
 bumpalo.workspace = true
 
 [dev-dependencies]
-criterion.workspace = true
 tempfile.workspace = true

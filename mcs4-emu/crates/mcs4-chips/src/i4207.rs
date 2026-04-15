@@ -31,11 +31,7 @@ pub struct I4207 {
 impl I4207 {
     /// Create a 4207 with the specified crystal frequency.
     pub fn new(frequency_hz: u64) -> Self {
-        let period_ps = if frequency_hz > 0 {
-            1_000_000_000_000 / frequency_hz
-        } else {
-            1_000_000 // default 1MHz equivalent
-        };
+        let period_ps = 1_000_000_000_000u64.checked_div(frequency_hz).unwrap_or(1_000_000); // default 1MHz equivalent
         Self {
             frequency_hz,
             period_ps,

@@ -2,8 +2,21 @@
   "anchors": {
     "4001": {
       "(RESET)": {
-        "layout_node": null,
+        "layout_node": 4563,
+        "layout_node_uid": "60f3396db2ec911e575653c00de143f062607361",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 4563,
+          "source_signal": "RESET"
+        },
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "RESET",
+          "dst_node": 4563,
+          "dst_node_uid": "60f3396db2ec911e575653c00de143f062607361",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 41,
           "x1": 201,
@@ -486,8 +499,21 @@
         }
       },
       "D0": {
-        "layout_node": null,
+        "layout_node": 34,
+        "layout_node_uid": "d3de8fb3a5e56a65472b7163a92d8bef7c3b7f2e",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 34,
+          "source_signal": "D0_PAD"
+        },
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D0_PAD",
+          "dst_node": 34,
+          "dst_node_uid": "d3de8fb3a5e56a65472b7163a92d8bef7c3b7f2e",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 2703,
           "x1": 2863,
@@ -587,8 +613,21 @@
         }
       },
       "D1": {
-        "layout_node": null,
+        "layout_node": 2599,
+        "layout_node_uid": "ebe05f468a04157019932480a4b00badafa796a5",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 2599,
+          "source_signal": "D1_PAD"
+        },
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D1_PAD",
+          "dst_node": 2599,
+          "dst_node_uid": "ebe05f468a04157019932480a4b00badafa796a5",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 2703,
           "x1": 2863,
@@ -748,8 +787,21 @@
         }
       },
       "D2": {
-        "layout_node": null,
+        "layout_node": 2618,
+        "layout_node_uid": "a95d96915846351508e55314ceae8d8703988a03",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 2618,
+          "source_signal": "D2_PAD"
+        },
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D2_PAD",
+          "dst_node": 2618,
+          "dst_node_uid": "a95d96915846351508e55314ceae8d8703988a03",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 2703,
           "x1": 2863,
@@ -864,8 +916,21 @@
         }
       },
       "D3": {
-        "layout_node": null,
+        "layout_node": 2647,
+        "layout_node_uid": "3345ad2f9d4601b6fc30007a59a8ee654f037f82",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 2647,
+          "source_signal": "D3_PAD"
+        },
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D3_PAD",
+          "dst_node": 2647,
+          "dst_node_uid": "3345ad2f9d4601b6fc30007a59a8ee654f037f82",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 2703,
           "x1": 2863,
@@ -2925,8 +2990,21 @@
     },
     "4002": {
       "(RESET)": {
-        "layout_node": null,
+        "layout_node": 3225,
+        "layout_node_uid": "1ea01ab9610c709495f24b6622f070a9077eaf44",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 3225,
+          "source_signal": "RESET"
+        },
         "note": "From `docs/emulators/i4002-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "RESET",
+          "dst_node": 3225,
+          "dst_node_uid": "1ea01ab9610c709495f24b6622f070a9077eaf44",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 2553,
           "x1": 2713,
@@ -3454,8 +3532,21 @@
         }
       },
       "D0": {
-        "layout_node": null,
+        "layout_node": 868,
+        "layout_node_uid": "ab4b5da397ca185fdf95de95be3c4e367ee1ee3d",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 868,
+          "source_signal": "D0_PAD"
+        },
         "note": "From `docs/emulators/i4002-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D0_PAD",
+          "dst_node": 868,
+          "dst_node_uid": "ab4b5da397ca185fdf95de95be3c4e367ee1ee3d",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 162,
           "x1": 322,
@@ -3560,8 +3651,21 @@
         }
       },
       "D1": {
-        "layout_node": null,
+        "layout_node": 872,
+        "layout_node_uid": "50c9ec92c41bdb0d745f0219174e0570fa813fb1",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 872,
+          "source_signal": "D1_PAD"
+        },
         "note": "From `docs/emulators/i4002-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D1_PAD",
+          "dst_node": 872,
+          "dst_node_uid": "50c9ec92c41bdb0d745f0219174e0570fa813fb1",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 162,
           "x1": 322,
@@ -3666,8 +3770,21 @@
         }
       },
       "D2": {
-        "layout_node": null,
+        "layout_node": 938,
+        "layout_node_uid": "f866b7b67b3c380d0c6fa30e1e9f980f338ec73c",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 938,
+          "source_signal": "D2_PAD"
+        },
         "note": "From `docs/emulators/i4002-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D2_PAD",
+          "dst_node": 938,
+          "dst_node_uid": "f866b7b67b3c380d0c6fa30e1e9f980f338ec73c",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 162,
           "x1": 322,
@@ -3772,8 +3889,21 @@
         }
       },
       "D3": {
-        "layout_node": null,
+        "layout_node": 896,
+        "layout_node_uid": "d2e40751f60bace59d4c8bd99314b4b2cef0f420",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 896,
+          "source_signal": "D3_PAD"
+        },
         "note": "From `docs/emulators/i4002-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "D3_PAD",
+          "dst_node": 896,
+          "dst_node_uid": "d2e40751f60bace59d4c8bd99314b4b2cef0f420",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 162,
           "x1": 322,
@@ -10355,8 +10485,21 @@
         }
       },
       "[RESET]": {
-        "layout_node": null,
+        "layout_node": 3225,
+        "layout_node_uid": "1ea01ab9610c709495f24b6622f070a9077eaf44",
+        "layout_seed_v1": {
+          "kind": "priority_alias_v1",
+          "source_layout_node": 3225,
+          "source_signal": "RESET"
+        },
         "note": "From `docs/emulators/i4002-signals.txt`; layout node not yet mapped.",
+        "remap_v1": {
+          "alias_from": "RESET",
+          "dst_node": 3225,
+          "dst_node_uid": "1ea01ab9610c709495f24b6622f070a9077eaf44",
+          "ok": true,
+          "reason": "priority_alias_v1"
+        },
         "schematic_bbox": {
           "x0": 3068,
           "x1": 3228,
@@ -14652,6 +14795,183 @@
       "skipped": 0,
       "strict": false,
       "template": "docs/evidence/layout_pad_labels_v0/4004/pad_pin_template_v0.md"
+    },
+    {
+      "applied": 10,
+      "kind": "priority_alias_v1",
+      "results": [
+        {
+          "chip": "4001",
+          "node": 4563,
+          "source": "RESET",
+          "status": "applied",
+          "target": "(RESET)"
+        },
+        {
+          "chip": "4001",
+          "node": 34,
+          "source": "D0_PAD",
+          "status": "applied",
+          "target": "D0"
+        },
+        {
+          "chip": "4001",
+          "node": 2599,
+          "source": "D1_PAD",
+          "status": "applied",
+          "target": "D1"
+        },
+        {
+          "chip": "4001",
+          "node": 2618,
+          "source": "D2_PAD",
+          "status": "applied",
+          "target": "D2"
+        },
+        {
+          "chip": "4001",
+          "node": 2647,
+          "source": "D3_PAD",
+          "status": "applied",
+          "target": "D3"
+        },
+        {
+          "chip": "4002",
+          "node": 3225,
+          "source": "RESET",
+          "status": "applied",
+          "target": "(RESET)"
+        },
+        {
+          "chip": "4002",
+          "node": 868,
+          "source": "D0_PAD",
+          "status": "applied",
+          "target": "D0"
+        },
+        {
+          "chip": "4002",
+          "node": 872,
+          "source": "D1_PAD",
+          "status": "applied",
+          "target": "D1"
+        },
+        {
+          "chip": "4002",
+          "node": 938,
+          "source": "D2_PAD",
+          "status": "applied",
+          "target": "D2"
+        },
+        {
+          "chip": "4002",
+          "node": 896,
+          "source": "D3_PAD",
+          "status": "applied",
+          "target": "D3"
+        }
+      ]
+    },
+    {
+      "applied": 1,
+      "kind": "priority_alias_v1",
+      "results": [
+        {
+          "chip": "4001",
+          "node": 4563,
+          "source": "RESET",
+          "status": "target_already_mapped",
+          "target": "(RESET)"
+        },
+        {
+          "chip": "4001",
+          "node": 34,
+          "source": "D0_PAD",
+          "status": "target_already_mapped",
+          "target": "D0"
+        },
+        {
+          "chip": "4001",
+          "node": 2599,
+          "source": "D1_PAD",
+          "status": "target_already_mapped",
+          "target": "D1"
+        },
+        {
+          "chip": "4001",
+          "node": 2618,
+          "source": "D2_PAD",
+          "status": "target_already_mapped",
+          "target": "D2"
+        },
+        {
+          "chip": "4001",
+          "node": 2647,
+          "source": "D3_PAD",
+          "status": "target_already_mapped",
+          "target": "D3"
+        },
+        {
+          "chip": "4002",
+          "node": 3225,
+          "source": "RESET",
+          "status": "target_already_mapped",
+          "target": "(RESET)"
+        },
+        {
+          "chip": "4002",
+          "node": 868,
+          "source": "D0_PAD",
+          "status": "target_already_mapped",
+          "target": "D0"
+        },
+        {
+          "chip": "4002",
+          "node": 872,
+          "source": "D1_PAD",
+          "status": "target_already_mapped",
+          "target": "D1"
+        },
+        {
+          "chip": "4002",
+          "node": 938,
+          "source": "D2_PAD",
+          "status": "target_already_mapped",
+          "target": "D2"
+        },
+        {
+          "chip": "4002",
+          "node": 896,
+          "source": "D3_PAD",
+          "status": "target_already_mapped",
+          "target": "D3"
+        },
+        {
+          "chip": "4002",
+          "source": "RAM_READ&X21&~RESET",
+          "status": "source_unmapped",
+          "target": "[RAM_READ&X21&~RESET]"
+        },
+        {
+          "chip": "4002",
+          "source": "RAM_WRITE&X22&~RESET",
+          "status": "source_unmapped",
+          "target": "[RAM_WRITE&X22&~RESET]"
+        },
+        {
+          "chip": "4002",
+          "node": 3225,
+          "source": "RESET",
+          "status": "applied",
+          "target": "[RESET]"
+        },
+        {
+          "chip": "4002",
+          "source": "X12+X22",
+          "status": "source_missing",
+          "target": "[X12+X22]"
+        }
+      ]
     }
   ],
   "schema": {

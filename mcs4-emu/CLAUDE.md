@@ -1,4 +1,4 @@
-# MCS-4/MCS-40 Emulator - Project Status (2026-02-25)
+# MCS-4/MCS-40 Emulator - Project Status (2026-04-06)
 
 ## PROJECT OVERVIEW
 Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate simulation of 4004/4040 chipsets.
@@ -15,6 +15,13 @@ Summary: 95% overall completion
 - Phase 6: 100% (gate extraction, subcircuit bridges for all 4 core chips, full-chip circuit sims)
 - Phase 7: 100% (3205/3404/2101 new chips, behavioral Verilog for all 22 chips, gate-level Verilog populated)
 - Phase 8: 90% (iCE40/Spartan-7 constraints, synthesis Makefile; actual synthesis requires toolchain)
+
+### 2026-04 Hardening Snapshot
+- Toolchain pin upgraded and synchronized to `nightly-2026-04-05` across rust-toolchain, CI, and docs.
+- Gate hardening completed: cargo audit alias/config issues fixed; docs gate scripts optimized and clean.
+- Dependency cleanup completed: unused direct dependencies removed across workspace crates and lockfile pruned.
+- Implementation debt reduced: coordinate transform and via extraction scripts no longer emit placeholder-only outputs.
+- Debt ledger consolidated in `docs/AUDIT.md` with explicit residual blockers and source-of-truth citations.
 
 ### Phase 0.5: COMPLETE (90%)
 - OCR persistent cache: DONE (48,000x speedup)
@@ -97,7 +104,7 @@ Summary: 95% overall completion
     - ROM cell model (wordline RC, bitline charge sharing)
     - SRAM cell model (6T SNM, read/write timing, min retention)
 
-### Phase 5: IMPLEMENTED (75%)
+### Phase 5: IMPLEMENTED (85%)
 - DONE:
   - Peripheral drivers (mcs4-periph crate, 30 tests):
     - 7-segment LED display (BCD decode, shift chain loading, ASCII render, 11 tests)
@@ -168,7 +175,7 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (updated 2026-03-05 after phases 6-8 execution)
+## TEST COUNTS (updated 2026-04-06 after debt hardening sync)
 
 1,024 tests passing, 0 failures:
 - mcs4-bus: 17
@@ -191,4 +198,4 @@ Critical path (in order):
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-03-05 (phases 6-8: gate extraction, subcircuit bridges, circuit sims, 3205/3404/2101 chips, 22 Verilog modules, FPGA constraints)
+Last Updated: 2026-04-06 (debt hardening: nightly pin sync, gate/perf hardening, dependency cleanup, implementation placeholder remediation)

@@ -48,10 +48,15 @@
 ## ARCHITECTURE INSIGHTS
 
 ### 4289 Addressing Logic
-The 4289 SMI maintains a 12-bit address bus where the high 4 bits ($A_8$-$A_{11}$) are always latched from the PC high nibble during A3, while the low 8 bits ($A_0$-$A_7$) are either latched from PC (A1/A2) or SRC (X2/X3). This creates a "paged" memory access model for standard ROMs.
+The 4289 SMI maintains a 12-bit address bus where the high 4 bits
+($A_8$-$A_{11}$) are always latched from the PC high nibble during A3, while
+the low 8 bits ($A_0$-$A_7$) are either latched from PC (A1/A2) or SRC (X2/X3).
+This creates a "paged" memory access model for standard ROMs.
 
 ### RPM/WPM Timing
-Data transfer for standard memory occurs during X2/X3 phases of the RPM/WPM instructions. The 4289 manages the 8-bit to 4-bit multiplexing using an internal flip-flop reset by SRC and toggled by each RPM/WPM call.
+Data transfer for standard memory occurs during X2/X3 phases of the RPM/WPM
+instructions. The 4289 manages the 8-bit to 4-bit multiplexing using an
+internal flip-flop reset by SRC and toggled by each RPM/WPM call.
 
 ---
 

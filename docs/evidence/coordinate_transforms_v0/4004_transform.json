@@ -1,28 +1,213 @@
 {
   "chip": "4004",
-  "schema_version": 0,
-  "transform_type": "homography",
-  "matrix": [
-    [
-      1.0,
-      0.0,
-      0.0
-    ],
-    [
-      0.0,
-      1.0,
-      0.0
-    ],
-    [
-      0.0,
-      0.0,
-      1.0
-    ]
-  ],
+  "schema_version": 1,
+  "transform_type": "unresolved_low_inliers",
+  "matrix": null,
   "validation": {
-    "rmse_pixels": 0.0,
-    "num_points": 0,
-    "max_residual": 0.0
+    "rmse_pixels": 3997.0089855081665,
+    "rmse_inliers": 1.763342462654383,
+    "num_points": 15,
+    "max_residual": 14338.033887247233,
+    "inliers": 1,
+    "inlier_ratio": 0.06666666666666667,
+    "outliers": 14,
+    "layout_sources": {
+      "remap_v1.src_bbox": 11,
+      "layout_bbox": 4
+    },
+    "source_rank": 2,
+    "quality_thresholds": {
+      "min_inliers": 6,
+      "min_inlier_ratio": 0.5,
+      "max_rmse_pixels": 250.0
+    },
+    "quality_failures": [
+      "inliers<6",
+      "inlier_ratio<0.50",
+      "rmse_pixels>250.0"
+    ]
   },
-  "notes": "PLACEHOLDER: Identity transform - replace with actual homography"
+  "correspondences": [
+    {
+      "signal": "CLK1",
+      "schematic_point": [
+        80.0,
+        2318.0
+      ],
+      "layout_point": [
+        958.5,
+        1408.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CLK2",
+      "schematic_point": [
+        80.0,
+        2398.0
+      ],
+      "layout_point": [
+        1305.5,
+        400.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CMRAM0",
+      "schematic_point": [
+        42.0,
+        3832.0
+      ],
+      "layout_point": [
+        435.0,
+        2610.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CMRAM1",
+      "schematic_point": [
+        42.0,
+        3753.0
+      ],
+      "layout_point": [
+        346.0,
+        2584.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CMRAM2",
+      "schematic_point": [
+        42.0,
+        3674.0
+      ],
+      "layout_point": [
+        290.5,
+        2031.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CMRAM3",
+      "schematic_point": [
+        42.0,
+        3594.0
+      ],
+      "layout_point": [
+        69.0,
+        1849.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CMROM",
+      "schematic_point": [
+        42.0,
+        3911.0
+      ],
+      "layout_point": [
+        74.0,
+        424.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D0_PAD",
+      "schematic_point": [
+        3104.0,
+        3886.0
+      ],
+      "layout_point": [
+        1164.5,
+        2620.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D1_PAD",
+      "schematic_point": [
+        3104.0,
+        3652.0
+      ],
+      "layout_point": [
+        1099.0,
+        2624.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D2_PAD",
+      "schematic_point": [
+        3104.0,
+        3418.0
+      ],
+      "layout_point": [
+        1798.5,
+        2597.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D3_PAD",
+      "schematic_point": [
+        3104.0,
+        3184.0
+      ],
+      "layout_point": [
+        1876.0,
+        1816.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "POC",
+      "schematic_point": [
+        471.0,
+        3442.0
+      ],
+      "layout_point": [
+        613.5,
+        83.5
+      ],
+      "layout_source": "layout_bbox"
+    },
+    {
+      "signal": "POC_PAD",
+      "schematic_point": [
+        436.0,
+        3310.0
+      ],
+      "layout_point": [
+        613.5,
+        83.5
+      ],
+      "layout_source": "layout_bbox"
+    },
+    {
+      "signal": "SYNC",
+      "schematic_point": [
+        145.0,
+        2815.0
+      ],
+      "layout_point": [
+        1037.0,
+        88.5
+      ],
+      "layout_source": "layout_bbox"
+    },
+    {
+      "signal": "TEST_PAD",
+      "schematic_point": [
+        975.0,
+        2602.0
+      ],
+      "layout_point": [
+        240.5,
+        87.0
+      ],
+      "layout_source": "layout_bbox"
+    }
+  ],
+  "notes": "Homography fit is unstable (fewer than 4 inliers). Refine anchor correspondences before using this transform."
 }

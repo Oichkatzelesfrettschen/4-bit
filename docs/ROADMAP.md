@@ -28,7 +28,7 @@ Guiding rules:
 - Pad anchoring is now partially tractable:
   - `netlist_v0` includes per-node bboxes/areas and pad-like node ranking (`docs/evidence/layout_pad_candidates_v0/`).
   - Geometry-based node suggestions for pad label boxes exist under `docs/evidence/layout_pad_labels_v0/`.
-- Transistor/switch-level solvers exist in `mcs4-core/src/transistor_solver.rs` and `mcs4-core/src/nodal_solver.rs` (477 tests in mcs4-core); solver-to-chip bridge connects behavioral models to circuit simulation via `ChipSolverBridge` trait.
+- Transistor/switch-level solvers exist in `mcs4-core/src/transistor_solver.rs` and `mcs4-core/src/nodal_solver.rs` (473 tests in mcs4-core); solver-to-chip bridge connects behavioral models to circuit simulation via `ChipSolverBridge` trait.
 - 4040 CPU is COMPLETE (60 instructions, 43 tests); all MCS-40 support chips COMPLETE (4201/4289/4308 + 10 additional chips).
 - SIMD cluster COMPLETE: 16-lane parallel 4004 execution with full 46-instruction ISA, differential fuzzing, and benchmarking (45 tests in mcs4-system).
 
@@ -36,7 +36,7 @@ Guiding rules:
 
 Track these in `docs/evidence/PRIMARY_SOURCES_BACKLOG.md` and record provenance/licensing in
 `docs/evidence/photomicrograph_permissions.md` before importing:
-- 4040 die shot / mask-layer imagery (enables the same kind of transistor evidence we have for 4004).
+- Additional 4040 die shots and mask-layer imagery (one CC BY-NC-SA 4040 die photo is now imported; layer-parity evidence is still missing).
 - Primary confirmation for 4004/4040 transistor counts (current sources are secondary + analyzer forensic counts).
 - Primary, explicit 4040 max-clock figure (current value is derived from clock period; need an explicit spec quote).
 - MCS-40 support chip silicon/layer artifacts (4101/4201/4289/4308) and higher-resolution board-level schematics.
@@ -64,12 +64,12 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
 - Recorded evidence tooling steps in `docs/evidence/README.md`, `docs/evidence/ocr_manifest.yaml`, and the new `docs/evidence/PROVENANCE_CHECKLIST.md`.
 - Chunked OCR for the 1975 Intel Data Catalog and captured datasheet timing claims from reliable sources.
 - Cataloged schematics/mask layers/die shots, documented license gaps, and introduced `scripts/generate_layer_overlays.py` for reproducible overlays.
-- Rust toolchain locked to nightly-2026-01-07 with edition/workspace defaults targeting Rust **2021** + MSRV 1.92.0; warnings-as-errors enforced via clippy/deny.
-- Cataloged transistor counts from the 4004 analyzer, documented missing 4040 die shots, and recorded provenance for each imported image.
+- Rust toolchain locked to nightly-2026-04-05 with edition/workspace defaults targeting Rust **2021** + MSRV 1.92.0; warnings-as-errors enforced via clippy/deny.
+- Cataloged transistor counts from the 4004 analyzer, recorded 4040 die-shot provenance, and documented remaining 4040 mask/layer evidence gaps.
 
-## Phase 0.5 - Evidence & photomicrograph audit (In Progress)
+## Phase 0.5 - Evidence & photomicrograph audit (COMPLETE 90%, maintenance ongoing)
 - Track outstanding primary sources (Intel users manuals, catalogs, mask shots) and capture supplemental OCR/transcription notes.
-- Continue hunting vetted 4040/MCS-40 die shots or mask-layer imagery; add provenance notes before importing.
+- Continue hunting higher-fidelity 4040/MCS-40 die shots and mask-layer imagery; add provenance notes before importing.
 - Maintain the photomicrograph registry (`docs/photomicrographs/`, `docs/evidence/photomicrograph_permissions.md`) with SHA256 and license notes.
 - Expand the netlist extraction workflow with analyzer notes and annotate which layer intersections remain undocumented.
 - Align `docs/AUDIT.md`, `ARCHITECTURE.md`, and `docs/CHIP_ARTIFACTS.md` with the evidence inventory; highlight gaps remaining for 4040/4289/4308.
@@ -119,7 +119,7 @@ Deferred to Phase 5+:
    - rkyv snapshots and time-travel debugging
    - Advanced clustering optimizations (spatial and adaptive strategies)
 
-### Phase 5 - FPGA and Advanced Features (75% Implemented)
+### Phase 5 - FPGA and Advanced Features (85% Implemented)
 Status: IMPLEMENTED (peripherals, Intellec-4, Verilog chips complete; hardware validation deferred)
 Key Milestones:
    - **2026-01-29**: Verilog export architecture complete - gate-level netlist to synthesizable HDL.
@@ -158,7 +158,7 @@ Deferred Work:
 - **P0 (Done):** 4004, 4001, 4002, 4003
 - **P1 (Done):** 4040, 4101, 4201, 4289, 4308 (bus protocol + proptest)
 - **P2 (Done):** 4008, 4009, 3216, 3226, 4207, 4209, 4211, 4265, 4316, 4702
-- **P3+ (Deferred):** 4002-1/2, 4269, 3205, 3404, 2101, 2102, 1302, TTL glue, peripherals
+- **P3+ (Deferred):** 4002-1/2, 4269, 2102, 1302, TTL glue
 
 ## Phase 2 - Support chips and system integration
 - Implement bus-accurate 4003, 4101, 4201, 4289, 4308 protocols.
@@ -194,11 +194,11 @@ DEFERRED (Future Work):
 - Hardware-in-loop testing and co-simulation.
 - Advanced performance optimizations.
 
-## Phase 5 - FPGA + transistor-level fidelity (75% IMPLEMENTED)
+## Phase 5 - FPGA + transistor-level fidelity (85% IMPLEMENTED)
 Design COMPLETE (2026-01-29), implementation (peripherals/Intellec-4/Verilog) COMPLETE (2026-02-25):
 - [DONE] Verilog export architecture document (450 lines) - complete design specification.
 - [DONE] Gate-to-Verilog converter implementation (280 lines Python) - functional generator.
-- [DONE] Verilog module generation for all 4 chips (8 files: 4 modules + 4 testbenches).
+- [DONE] Initial Verilog module generation milestone for 4 chips (8 files: 4 modules + 4 testbenches); superseded by full 22-chip module coverage.
 - [DONE] Inline primitive library (INV, NAND2/3, NOR2/3, TGATE) in generated Verilog.
 - [DONE] FPGA synthesis workflow documentation (520 lines) - complete toolchain guide.
 - [DONE] Target platform specifications: Lattice iCE40HX4K and Xilinx Spartan-7.

@@ -1,3 +1,5 @@
+# Tooling Audit 2026-01-29
+
 == Core CLI ==
 OK   git -> /bin/git
 git version 2.52.0

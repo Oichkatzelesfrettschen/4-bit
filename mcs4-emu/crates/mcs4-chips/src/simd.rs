@@ -3,7 +3,7 @@
 //! Vectorizes multiple CPU instances to run in parallel on a single thread.
 //! Useful for fuzzing and large-scale simulation.
 
-use std::simd::prelude::*;
+use std::simd::{prelude::*, Select};
 
 /// Number of parallel CPU lanes (adjust based on target architecture)
 pub const LANES: usize = 8; // AVX2 friendly

@@ -6,8 +6,9 @@ retrieved with clear provenance and licensing.
 
 ## Highest priority
 
-- **4040 die shot / mask-layer imagery**
-  - Needed to move beyond package photos and enable transistor/layer evidence comparable to the 4004.
+- **4040 mask-layer imagery + additional die coverage**
+  - One licensed 4040 die photo is now in-repo: `docs/photomicrographs/4040/4040-die-wepwawet-117.jpg` (CC BY-NC-SA 4.0).
+  - Still needed: mask-layer imagery (or higher-fidelity die/layer sets) to support transistor/layer evidence parity with 4004.
   - Acceptance: license/provenance recorded in `docs/evidence/photomicrograph_permissions.md`, plus SHA256 recorded.
 - **Primary confirmation of 4004/4040 transistor counts**
   - Current sources are secondary (Wikipedia) and analyzer forensic counts (`docs/emulators/readme.txt`).
@@ -52,9 +53,15 @@ retrieved with clear provenance and licensing.
 - Store file under an appropriate `docs/` subfolder (prefer `docs/photomicrographs/` or chip-specific `docs/<chip>/`).
 - Add SHA256 to the provenance record and ensure references are linked from `docs/CHIP_ARTIFACTS.md`.
 
-## Current lead status (2026-02-25)
+## Current lead status (2026-04-07)
 
 - Wikimedia Commons: file search returns package photos/pinouts for 4040, but no 4040 die-shot images discovered.
-- CPU Grave Yard (happytrees.org): contains a 4040 family index and package-photo references, not die shots.
-- 4040 die shot remains the single highest-priority missing artifact for extending transistor-level analysis beyond 4004.
+- CPU Graveyard - Die shots (`https://happytrees.org/dieshots/Intel_-_4040`) provides a 4040 die image
+  (`Intel-4040die1shot_117.jpg`) with an explicit CC BY-NC-SA 4.0 license; imported into repo with
+  provenance + SHA256.
+- Local scan of `docs/datasheets/1976_Intel_Data_Catalog.pdf` and
+  `docs/datasheets/1978_Intel_Component_Data_Catalog.pdf` did not yield explicit
+  primary quotes for 4004/4040 transistor counts or an explicit 4040 max-clock figure.
+- Remaining highest-priority evidence gaps are now primary transistor-count confirmation, explicit 4040 max-clock quote,
+  and mask-layer artifacts suitable for extraction.
 - OCR benchmarks for 4001/4002/4003 still pending (tasks #70-74, deferred).

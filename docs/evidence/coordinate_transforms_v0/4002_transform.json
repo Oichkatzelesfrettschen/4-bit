@@ -1,28 +1,200 @@
 {
   "chip": "4002",
-  "schema_version": 0,
-  "transform_type": "homography",
-  "matrix": [
-    [
-      1.0,
-      0.0,
-      0.0
-    ],
-    [
-      0.0,
-      1.0,
-      0.0
-    ],
-    [
-      0.0,
-      0.0,
-      1.0
-    ]
-  ],
+  "schema_version": 1,
+  "transform_type": "unresolved_quality_gate",
+  "matrix": null,
   "validation": {
-    "rmse_pixels": 0.0,
-    "num_points": 0,
-    "max_residual": 0.0
+    "rmse_pixels": 789.7596837251493,
+    "rmse_inliers": 1.6082726183605713,
+    "num_points": 14,
+    "max_residual": 1614.2853935843893,
+    "inliers": 5,
+    "inlier_ratio": 0.35714285714285715,
+    "outliers": 9,
+    "layout_sources": {
+      "remap_v1.src_bbox": 14
+    },
+    "source_rank": 2,
+    "quality_thresholds": {
+      "min_inliers": 6,
+      "min_inlier_ratio": 0.5,
+      "max_rmse_pixels": 250.0
+    },
+    "quality_failures": [
+      "inliers<6",
+      "inlier_ratio<0.50",
+      "rmse_pixels>250.0"
+    ]
   },
-  "notes": "PLACEHOLDER: Identity transform - replace with actual homography"
+  "correspondences": [
+    {
+      "signal": "CLK1",
+      "schematic_point": [
+        40.0,
+        2114.0
+      ],
+      "layout_point": [
+        2084.0,
+        1002.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CLK2",
+      "schematic_point": [
+        40.0,
+        2194.0
+      ],
+      "layout_point": [
+        2088.5,
+        1421.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CM",
+      "schematic_point": [
+        1072.0,
+        2423.0
+      ],
+      "layout_point": [
+        744.0,
+        2459.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "CS",
+      "schematic_point": [
+        400.0,
+        2383.0
+      ],
+      "layout_point": [
+        1050.5,
+        2469.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D0_PAD",
+      "schematic_point": [
+        30.0,
+        153.0
+      ],
+      "layout_point": [
+        668.0,
+        103.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D1_PAD",
+      "schematic_point": [
+        30.0,
+        391.0
+      ],
+      "layout_point": [
+        956.0,
+        103.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D2_PAD",
+      "schematic_point": [
+        30.0,
+        629.0
+      ],
+      "layout_point": [
+        1517.5,
+        108.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "D3_PAD",
+      "schematic_point": [
+        30.0,
+        867.0
+      ],
+      "layout_point": [
+        1877.0,
+        104.0
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "OUT0",
+      "schematic_point": [
+        3182.0,
+        168.0
+      ],
+      "layout_point": [
+        92.0,
+        2064.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "OUT1",
+      "schematic_point": [
+        3182.0,
+        326.0
+      ],
+      "layout_point": [
+        63.5,
+        1864.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "OUT2",
+      "schematic_point": [
+        3182.0,
+        484.0
+      ],
+      "layout_point": [
+        92.0,
+        1378.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "OUT3",
+      "schematic_point": [
+        3182.0,
+        642.0
+      ],
+      "layout_point": [
+        92.0,
+        742.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "RESET",
+      "schematic_point": [
+        2747.0,
+        2594.0
+      ],
+      "layout_point": [
+        1291.0,
+        2469.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    },
+    {
+      "signal": "SYNC",
+      "schematic_point": [
+        40.0,
+        2274.0
+      ],
+      "layout_point": [
+        1697.5,
+        2469.5
+      ],
+      "layout_source": "remap_v1.src_bbox"
+    }
+  ],
+  "notes": "Homography fit failed acceptance thresholds. Refine correspondences before using this transform."
 }

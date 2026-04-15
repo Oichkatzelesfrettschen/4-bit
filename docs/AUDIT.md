@@ -49,6 +49,7 @@ with a source URL.
 - 4040 primary docs confirm instruction cycle timing and clock period only; CPU max clock rate still derived, not explicitly stated.
 - OCR output for some MCS-4/MCS-40 scans is noisy; re-run with higher quality scans if available.
 - OCR of the 1975 Intel Data Catalog succeeded only via chunked runs; Ghostscript/tesseract warnings remain.
+- Blocked primary-source gaps are tracked in `docs/evidence/audit_claims_backlog.md` and `docs/evidence/PRIMARY_SOURCES_BACKLOG.md` until new artifacts are imported.
 
 ## OCR Coverage (2026-01)
 - `docs/4004/intel-4004-datasheet.pdf`: clock period confirmed via OCR sidecar in docs/evidence/ocr/4004-datasheet.txt.
@@ -63,7 +64,7 @@ with a source URL.
 - Diagram and layer artifacts are indexed in `docs/CHIP_ARTIFACTS.md`.
 - MCS-4 chips have metal/poly/diffusion/via layers plus schematics via the i400x analyzer assets.
 - MCS-4 photomicrograph thumbnails (4001-4004) are present under `docs/photomicrographs/`.
-- 4040 has datasheets only; die shots and layer sets are not present in repo, and only package photos have been located so far.
+- 4040 now has one imported die photo (`docs/photomicrographs/4040/4040-die-wepwawet-117.jpg`), but no layer-separated imagery or mask sets are present in repo.
 
 ## Chip Design Verification (Primary Sources)
 
@@ -92,6 +93,22 @@ with a source URL.
 - Confirmed 5.185 MHz system clock for Intellec 4/MOD 40 (system spec, not CPU max clock).
 - 1975 Intel Data Catalog chunked OCR captured Intellec 4/MOD 4 and 4/MOD 40 memory specs; no transistor counts found.
 - Remaining primary gaps: 4004/4040 transistor counts and 4040 max clock remain unverified in primary sources.
+
+## Debt Remediation Snapshot (2026-04)
+
+| Debt class | Source-of-truth inputs | Remediation completed | Residual debt |
+| --- | --- | --- | --- |
+| Toolchain pin drift | `rust-toolchain.toml`, `.github/workflows/*.yml` | Pinned to `nightly-2026-04-05` and synced workflow/docs references. | Re-pin cadence should remain explicit in roadmap/status updates. |
+| Warnings-as-errors gate reliability | `.cargo/config.toml`, CI gate scripts | Full gate suite aligned to strict `-D warnings`; cargo audit alias/config blockers fixed. | None for policy; only normal regression risk from future upstream changes. |
+| Gate performance debt | `scripts/md_validate.sh`, CI workflows, `Cargo.toml` | Reworked markdown validation to single-pass scanning, enabled Rust cache in CI, tuned `[profile.test]`. | Cold-cache compile latency still dominates on first build. |
+| Dependency overlap and hygiene | `Cargo.toml`, `Cargo.lock`, cargo audit/deny/outdated/udeps outputs | Removed unused direct dependencies across workspace crates and pruned lockfile. | Some transitive duplicate-version clusters and accepted unmaintained transitive crates remain. |
+| Implementation placeholders | `scripts/build_coordinate_transform_v0.py`, `scripts/extract_via_connectivity_v0.py` | Replaced placeholders with anchor-driven transform fitting, acceptance-threshold gating, and heuristic via-to-node routing graph extraction (`netlists_v2`) plus anchor cross-check summary (`via_route_validation_summary.json`). | Routing is still bbox/proximity heuristic and needs physical-route validation against higher-confidence correspondence evidence. |
+| Documentation/source-truth drift | `ARCHITECTURE.md`, `docs/ROADMAP.md`, `mcs4-emu/STATUS.md`, `mcs4-emu/CLAUDE.md`, evidence ledgers | Synced nightly/tooling claims and corrected stale references while keeping primary-vs-secondary claim labeling explicit. | Primary-source gaps still block full closure for transistor counts, explicit 4040 max clock quote, and 4040 mask/layer evidence. |
+
+### Deferred blockers (explicit)
+- Missing primary-source confirmation for 4004/4040 transistor counts and explicit 4040 max clock statement.
+- Missing 4040 mask/layer artifacts in-repo (one die photo is now imported, but extraction-grade layer evidence is still absent).
+- Data-quality gap for high-confidence coordinate transforms on some chips.
 
 [bitsavers-mcs4-data-sheet]: http://bitsavers.org/components/intel/MCS4/MCS4_Data_Sheet_Nov71.pdf
 [bitsavers-mcs40-users-manual]: http://bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf

@@ -5,7 +5,27 @@ This file tracks **what is still missing** for chip-accurate (and eventually tra
 ## Cross-cutting (all chips)
 
 - **Schematic↔layout coordinate transforms**: `docs/emulators/i400x-signals.txt` coordinates are in schematic bitmap space and are **not directly comparable** to metal-mask pixel coordinates; each chip needs an explicit transform (homography/affine + validation).
-  - **Status (2026-01-29)**: BLOCKED - requires manual identification of at least 4 corresponding anchor points per chip (same physical point in both schematic and layout coordinate systems). Script infrastructure exists (`scripts/build_coordinate_transform_v0.py`) but cannot compute homography without ground-truth correspondence data.
+  - **Status (2026-04-06)**: QUALITY-GATED (UNRESOLVED) - `scripts/build_coordinate_transform_v0.py` now enforces acceptance thresholds (`min_inliers=6`, `min_inlier_ratio=0.50`, `max_rmse_pixels=250`). Current outputs are:
+    - `4001`: `unresolved_collinear`
+    - `4002`: `unresolved_quality_gate`
+    - `4003`: `unresolved_quality_gate`
+    - `4004`: `unresolved_low_inliers`
+    Remaining gap: correspondences are still largely heuristic remap outputs and need primary-source/manual validation before any chip is promoted to accepted homography.
+- **Via↔node routing extraction (`netlists_v2`)**: `scripts/extract_via_connectivity_v0.py` now detects vias from `i400x-vias.bmp` using connected-component fallback and maps vias to node candidates via bbox/proximity heuristics.
+  - **Status (2026-04-06)**: PARTIALLY RESOLVED - `docs/evidence/netlists_v2/*/*_netlist_v2.json` now contains non-empty `vias`, `routing_graph.edges`, and per-chip validation reports.
+  - Cross-check summary against anchor-mapped nodes (`docs/evidence/netlists_v2/via_route_validation_summary.json`):
+    - 4001: 19/21 anchor-trace nodes have via evidence (90.5%)
+    - 4002: 20/22 anchor-trace nodes have via evidence (90.9%)
+    - 4003: 13/16 anchor-trace nodes have via evidence (81.2%)
+    - 4004: 16/19 anchor-trace nodes have via evidence (84.2%)
+    - 2026-04-07 first-wave alias mapping applied for 4001/4002: `(RESET)` + `D0..D3` seeded from mapped `RESET`/`D*_PAD` anchors via `scripts/apply_priority_anchor_aliases_v1.py`.
+    - Coverage caveat: many anchors still lack mapped trace nodes (especially 4002), so this is not end-to-end anchor coverage yet.
+  - Priority queue for next manual trace-node mapping pass (from `priority_signals_*` in the summary JSON):
+    - 4001: focus shifts to clock-gated decode/control nets and reset via evidence (`(RESET)`/`RESET` currently mapped but lacking via edges).
+    - 4002: focus remains clocked RAM control nets (`CLK*`, `RAM_*`); `[RESET]` alias now maps to `RESET`, while `D3`/`D3_PAD` still lack via evidence.
+    - 4003: `VDD` has trace-node presence but currently no via evidence.
+    - 4004: `CMROM`, `D0_PAD`, and `D1_PAD` currently have no via evidence.
+  - Remaining gap: connectivity is heuristic (bbox/proximity), not yet validated against explicit physical route traces or manual layer-by-layer correspondence.
 - **Power-rail anchoring**: `VSS/VDD/VCC` anchors exist in `docs/evidence/schematic_layout_anchors_v1.json`, with confidence now updated:
   - 4004 rails are tied to edge-label evidence (tokens `G`/`V`) and are treated as **evidence-backed**.
   - 4001-4003 rails are now **medium-confidence** (2026-01-14): pad geometry verified against PRIMARY_SOURCE_PINOUTS.md DIP pin positions. See `docs/evidence/POWER_RAIL_EVIDENCE.md`.

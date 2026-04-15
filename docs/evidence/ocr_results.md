@@ -65,6 +65,16 @@ Clock period evidence (OCR noise preserved)
   2059	4-bit bytes of data RAM memory, 3 4-bit input ports and
 ```
 
+Supplemental catalog scan (2026-04-06)
+- Sources scanned: `docs/datasheets/1976_Intel_Data_Catalog.pdf`,
+  `docs/datasheets/1978_Intel_Component_Data_Catalog.pdf`.
+- Method: `pdftotext` piped to `rg -n` for
+  `transistor|instruction cycle|clock|kHz|MHz|max.*clock|4040|4004`.
+- Result: both catalogs include many index/marketing references to 4004/4040 families and
+  related modules, but no explicit primary quote found for:
+  - 4004/4040 transistor counts, or
+  - explicit 4040 max clock spec.
+
 Transistor count evidence (4004.com analyzer)
 - Source: /tmp/i400x_analyzer/unpacked/readme.txt
 ```text
@@ -86,6 +96,7 @@ Transistor count not found (rg returned no matches)
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/1975_catalog_mcs40_232-252.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/1975_catalog_mcs40_276-282.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/1975_catalog_mcs4_302.txt`
+- `rg -n "transistor count|count.*transistor|transistor.*count" <pdftotext 1976/1978 catalogs>`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_users_manual.txt`
 - `rg -n "transistor count|count.*transistor|transistor.*count" docs/evidence/ocr/mcs40_advance_specs.txt`
 - `rg -n "transistor" docs/evidence/ocr/4004-datasheet.txt docs/evidence/ocr/4040-datasheet.txt`

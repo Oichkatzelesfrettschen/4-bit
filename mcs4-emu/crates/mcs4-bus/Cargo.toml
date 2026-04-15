@@ -16,4 +16,3 @@ serde.workspace = true
 rkyv.workspace = true
 bytemuck.workspace = true
 zerocopy.workspace = true
-modular-bitfield.workspace = true

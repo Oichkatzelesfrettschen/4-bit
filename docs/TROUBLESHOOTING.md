@@ -22,7 +22,7 @@ sudo pacman -S --needed libxcb libxkbcommon libxrender openssl
 This project requires a specific nightly Rust toolchain pinned in `rust-toolchain.toml`.
 If `rustup` cannot find it, run:
 ```sh
-rustup toolchain install nightly-2026-01-07 --profile minimal \
+rustup toolchain install nightly-2026-04-05 --profile minimal \
   --component rustfmt,clippy,miri,llvm-tools-preview
 ```
 
@@ -48,7 +48,7 @@ Ensure your display server is running and `DISPLAY` is set. For Wayland, you may
 ### egui/eframe version mismatch
 
 If you see trait-mismatch errors between egui and eframe, verify that both are pinned to the
-same version in the workspace dependencies (currently 0.29).
+same version in the workspace dependencies (currently 0.33).
 
 ## Test Failures
 

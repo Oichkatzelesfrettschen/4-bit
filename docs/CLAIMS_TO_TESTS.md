@@ -41,6 +41,6 @@ It exists to prevent “documentation drift” as we move toward higher fidelity
 These are intentionally *not enforced* yet; they must remain marked pending until proven:
 - primary transistor counts (4004/4040),
 - 4040 explicit max clock quote,
-- 4040 die/layer imagery provenance.
+- 4040 mask/layer imagery provenance for extraction-grade evidence (one die photo is now provenance-tracked).
 
 Tracked in `docs/evidence/PRIMARY_SOURCES_BACKLOG.md` and `docs/AUDIT.md`.

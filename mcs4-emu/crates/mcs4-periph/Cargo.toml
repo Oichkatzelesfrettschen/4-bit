@@ -10,8 +10,3 @@ authors.workspace = true
 
 [lints]
 workspace = true
-
-[dependencies]
-mcs4-core = { path = "../mcs4-core" }
-mcs4-bus = { path = "../mcs4-bus" }
-mcs4-chips = { path = "../mcs4-chips" }

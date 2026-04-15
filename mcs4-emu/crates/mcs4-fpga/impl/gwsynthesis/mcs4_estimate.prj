@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gowin-synthesis-project>
+<Project>
+    <Version>beta</Version>
+    <Device id="GW1N-9C" package="LQFP144" speed="6" partNumber="GW1N-LV9LQ144C6/I5"/>
+    <FileList>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/gowin/mcs4_proxy.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/gowin/clock_gen.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/gowin/uart_hw.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/gowin/uart_bridge.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/gowin/rom_bsram.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/gowin/ram_bsram.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/build/i4004_fpga.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/build/i4001_fpga.v" type="verilog"/>
+        <File path="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/build/i4002_fpga.v" type="verilog"/>
+    </FileList>
+    <OptionList>
+        <Option type="disable_insert_pad" value="0"/>
+        <Option type="global_freq" value="50.000"/>
+        <Option type="looplimit" value="2000"/>
+        <Option type="output_file" value="/home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/impl/gwsynthesis/mcs4_estimate.vg"/>
+        <Option type="print_all_synthesis_warning" value="0"/>
+        <Option type="ram_rw_check" value="0"/>
+        <Option type="top_module" value="mcs4_proxy"/>
+        <Option type="vcc" value="1.2"/>
+        <Option type="verilog_language" value="verilog-2001"/>
+        <Option type="vhdl_language" value="vhdl-1993"/>
+    </OptionList>
+</Project>

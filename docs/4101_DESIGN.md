@@ -7,7 +7,9 @@
 
 ## 1. OVERVIEW
 
-The Intel 4101 is a 1024-bit static RAM organized as **256 words × 4 bits**, designed for the MCS-40 microcomputer system. It serves as the primary data memory when used with the 4289 Standard Memory Interface.
+The Intel 4101 is a 1024-bit static RAM organized as **256 words × 4 bits**,
+designed for the MCS-40 microcomputer system. It serves as the primary data
+memory when used with the 4289 Standard Memory Interface.
 
 ### Key Characteristics
 - **Capacity**: 256 × 4 bits (1024 bits total)

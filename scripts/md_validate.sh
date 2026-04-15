@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-find "$ROOT" -name '*.md' -not -path '*/target/*' -print0 | xargs -0 -I{} bash -lc 'grep -n "\[[^]]\+\](\([^)]\+\))" {} >/dev/null || true'
+
+# Single-pass scan (avoids spawning one shell per markdown file).
+find "$ROOT" -name '*.md' -not -path '*/target/*' \
+  -exec grep -nE '\[[^]]+\]\(([^)]+)\)' {} + >/dev/null || true
+
 echo "Markdown basic validation done."

@@ -133,10 +133,8 @@ impl Cluster {
                 PortType::TestPin => {
                     sys.set_test_pin(val != 0);
                 }
-                PortType::ResetPin => {
-                    if val != 0 {
-                        sys.reset();
-                    }
+                PortType::ResetPin if val != 0 => {
+                    sys.reset();
                 }
                 _ => {}
             }

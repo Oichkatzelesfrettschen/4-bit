@@ -17,18 +17,12 @@ mimalloc = ["dep:mimalloc"]
 
 [dependencies]
 # Optimization
-modular-bitfield.workspace = true
 bitflags.workspace = true
-bitvec.workspace = true
 smallvec.workspace = true
-tinyvec.workspace = true
 bytemuck.workspace = true
 zerocopy.workspace = true
 mimalloc = { workspace = true, optional = true }
-memmap2.workspace = true
-bumpalo.workspace = true
 num-traits.workspace = true
-unchecked-index.workspace = true
 
 # Serialization
 rkyv.workspace = true
@@ -40,8 +34,6 @@ mcs4-bus = { path = "../mcs4-bus" }
 tracing.workspace = true
 
 # Tooling
-paste.workspace = true
-static_assertions.workspace = true
 seq-macro.workspace = true
 
 [dev-dependencies]

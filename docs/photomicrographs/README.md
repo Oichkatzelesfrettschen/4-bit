@@ -6,6 +6,7 @@ Local files
 - 4003/4003-composite-thumb.jpg (4004.com, CC BY-NC-SA 3.0)
 - 4004/4004-composite-thumb.jpg (4004.com, CC BY-NC-SA 3.0)
 - 4004/4004-layout-cc0.jpg (Wikimedia Commons, CC0; layout poster photo, not a die shot)
+- 4040/4040-die-wepwawet-117.jpg (CPU Graveyard - Die shots, CC BY-NC-SA 4.0)
 
 License
 - 4004.com states: "The works on this web site are licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License."

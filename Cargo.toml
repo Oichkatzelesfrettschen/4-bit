@@ -21,12 +21,8 @@ authors = ["Oichkatzelesfrettschen"]
 
 [workspace.dependencies]
 # --- Core Logic & Bits ---
-modular-bitfield = "0.13"
 bitflags = "2.10"
-bitvec = "1.0"
-tinyvec = { version = "1.10", features = ["alloc", "serde"] }
 num-traits = "0.2"
-unchecked-index = "0.2"
 smallvec = { version = "1.13", features = ["serde", "union", "const_generics", "const_new"] }
 
 # --- Zero-Copy & Persistence ---
@@ -39,8 +35,6 @@ serde_json = "1.0"
 
 # --- Compile-Time Optimization ---
 seq-macro = "0.3"
-paste = "1.0"
-static_assertions = "1.1"
 
 # --- Memory Management ---
 mimalloc = { version = "0.1", default-features = false }
@@ -95,6 +89,11 @@ strip = true
 opt-level = 1
 debug = true
 split-debuginfo = "unpacked"
+
+[profile.test]
+opt-level = 0
+debug = false
+incremental = true
 
 [profile.bench]
 opt-level = 3

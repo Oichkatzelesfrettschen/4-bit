@@ -1,0 +1,16 @@
+-d /home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/impl/gwsynthesis/mcs4_system.vg
+-p GW1N-2-LQFP100-6
+-pn GW1N-UV2LQ100C6/I5
+-cst /home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/constraints/mcs4_gowin.cst
+-cfg /home/eirikr/Github/4-bit/mcs4-emu/crates/mcs4-fpga/impl/pnr/device.cfg
+-bit
+-tr
+-ph
+-timing
+-cst_error
+-place_option 0
+-route_option 0
+-clock_route_order 0
+-correct_hold 1
+-route_maxfan 10
+-global_freq 50.000
