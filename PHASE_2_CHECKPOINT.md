@@ -1,5 +1,12 @@
 # Phase 2 - COMPLETE (2026-01-29, continuation session 4)
 
+> SNAPSHOT (2026-01-29): Historical session log captured at the close of Phase 2
+> (4040 CPU execution integration). Not the canonical status; for current status
+> see `mcs4-emu/CLAUDE.md`. Subsequent Phase 4 (Performance and Clustering) and
+> Phases 5-8 (FPGA/Verilog/gate-extraction) shipped after this checkpoint and are
+> tracked in `mcs4-emu/STATUS.md` and `docs/ROADMAP.md`.
+
+
 ## SESSION ACHIEVEMENTS (CURRENT SESSION - SESSION 4)
 
 PHASE 2 EXECUTION INTEGRATION: 100% COMPLETE (43/43 tests passing)

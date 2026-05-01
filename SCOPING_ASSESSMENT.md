@@ -1,7 +1,12 @@
 # MCS-4 / MCS-40 Ecosystem: Complete Circuit-Level Replica Scoping Assessment
 
-**Date**: 2026-03-05
+**Date**: 2026-03-05 (point-in-time snapshot)
 **Type**: Read-only assessment (no code changes)
+**Status authority**: This is a SNAPSHOT, not the canonical status. For current
+phase percentages, test counts, and priorities consult `mcs4-emu/CLAUDE.md`
+(canonical), `mcs4-emu/STATUS.md` (session log), and `docs/ROADMAP.md` (forward
+plan). Numerical values below (test counts, file counts, percentages) are
+captured as of 2026-03-05; do not rely on them for current state.
 **Purpose**: Full scope of what exists, what is missing, and how far the project is from
 a complete circuit-level replica in software and FPGA of the entire MCS-4, MCS-40, and
 extended chip ecosystem.

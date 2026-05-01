@@ -1,5 +1,15 @@
 # Installation Requirements
 
+> Per-crate dependency, feature, and gotcha notes live alongside each crate:
+> - `crates/mcs4-bus/REQUIREMENTS.md`
+> - `crates/mcs4-chips/REQUIREMENTS.md`
+> - `crates/mcs4-core/REQUIREMENTS.md`
+> - `crates/mcs4-fpga/REQUIREMENTS.md`
+> - `crates/mcs4-gui/REQUIREMENTS.md`
+> - `crates/mcs4-intellec/REQUIREMENTS.md`
+> - `crates/mcs4-periph/REQUIREMENTS.md`
+> - `crates/mcs4-system/REQUIREMENTS.md`
+
 ## Toolchain (Required)
 - Rust nightly pinned in `rust-toolchain.toml` (`nightly-2026-04-05`) with components: rustfmt, clippy, miri, llvm-tools-preview.
 - Edition: 2021 (workspace-wide).

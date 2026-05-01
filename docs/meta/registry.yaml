@@ -1,23 +1,45 @@
 metadata:
-  version: "1.1"
-  last_updated: "2026-02-25T00:00:00Z"
+  version: "1.2"
+  last_updated: "2026-04-30T00:00:00Z"
 
 docs:
   - file: README.md
     role: overview
   - file: requirements.md
     role: requirements
-  - file: gemini.md
-    role: meta
   - file: claude.md
     role: meta
   - file: ARCHITECTURE.md
     role: architecture
+  - file: NEXT_STEPS.md
+    role: planning-snapshot
+  - file: SCOPING_ASSESSMENT.md
+    role: planning-snapshot
+  - file: PHASE_2_CHECKPOINT.md
+    role: phase-snapshot
+  - file: mcs4-emu/CLAUDE.md
+    role: status-canonical
   - file: mcs4-emu/STATUS.md
     role: status
   - file: mcs4-emu/INSTALLATION.md
     role: installation
   - file: mcs4-emu/requirements.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-bus/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-chips/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-core/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-fpga/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-gui/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-intellec/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-periph/REQUIREMENTS.md
+    role: requirements
+  - file: mcs4-emu/crates/mcs4-system/REQUIREMENTS.md
     role: requirements
   - file: docs/API.md
     role: api
@@ -45,11 +67,39 @@ docs:
     role: tooling
   - file: docs/CHIP_ARTIFACTS.md
     role: reference
+  - file: docs/CHIP_EXTRACTION_STATUS.md
+    role: reference
   - file: docs/NETLIST_WORKFLOW.md
+    role: reference
+  - file: docs/NETLIST_V1_SCHEMA.md
     role: reference
   - file: docs/LAYER_ANNOTATIONS.md
     role: reference
+  - file: docs/MCS40_SYSTEM_INTEGRATION.md
+    role: reference
+  - file: docs/ACCURACY_PROGRAM.md
+    role: reference
+  - file: docs/CLAIMS_TO_TESTS.md
+    role: reference
+  - file: docs/TRANSISTOR_SOLVER_ARCHITECTURE.md
+    role: reference
+  - file: docs/4101_DESIGN.md
+    role: design
+  - file: docs/4289_DESIGN.md
+    role: design
+  - file: docs/OCR_RICING.md
+    role: tooling
+  - file: docs/PHASE_2_STATUS.md
+    role: phase-snapshot
+  - file: docs/PHASE_2_DEBUG_NOTES.md
+    role: phase-snapshot
+  - file: docs/PHASE_3_STATUS.md
+    role: phase-snapshot
+  - file: docs/PHASE_LOG.md
+    role: phase-index
   - file: docs/photomicrographs/README.md
+    role: reference
+  - file: docs/emulators/README.md
     role: reference
   - file: docs/evidence/README.md
     role: evidence
@@ -81,3 +131,61 @@ docs:
     role: evidence
   - file: docs/evidence/ocr_results.md
     role: evidence
+  - file: docs/evidence/CLUSTERING_STRATEGY_V0.md
+    role: evidence
+  - file: docs/evidence/FINAL_EXECUTION_SUMMARY.md
+    role: evidence
+  - file: docs/evidence/FPGA_SYNTHESIS_WORKFLOW_V0.md
+    role: evidence
+  - file: docs/evidence/interconnect_parameters.md
+    role: evidence
+  - file: docs/evidence/LACUNAE_STATUS.md
+    role: evidence
+  - file: docs/evidence/NETLIST_PARAM_SENSITIVITY.md
+    role: evidence
+  - file: docs/evidence/noise_parameters.md
+    role: evidence
+  - file: docs/evidence/OCR_TRAINING_PIPELINE_V0.md
+    role: evidence
+  - file: docs/evidence/packaging_parasitics.md
+    role: evidence
+  - file: docs/evidence/PERIPHERAL_INTERFACES_V0.md
+    role: evidence
+  - file: docs/evidence/PHASE_0.5_1_COMPLETION_SUMMARY.md
+    role: evidence
+  - file: docs/evidence/PHASE_0.5_ADDENDUM_OCR_CACHE.md
+    role: evidence
+  - file: docs/evidence/PHASE_0.5_CACHE_IMPLEMENTATION.md
+    role: evidence
+  - file: docs/evidence/PHASE_0.5_COMPLETION.md
+    role: evidence
+  - file: docs/evidence/PHASE_1_COMPLETION_SUMMARY.md
+    role: evidence
+  - file: docs/evidence/PHASE_4_COMPLETION_SUMMARY.md
+    role: evidence
+  - file: docs/evidence/PHASE_5_COMPLETION_SUMMARY.md
+    role: evidence
+  - file: docs/evidence/PRIMARY_SOURCE_PINOUTS.md
+    role: evidence
+  - file: docs/evidence/process_parameters_v0.md
+    role: evidence
+  - file: docs/evidence/process_parameters_v1.md
+    role: evidence
+  - file: docs/evidence/process_params_audit.md
+    role: evidence
+  - file: docs/evidence/reliability_models.md
+    role: evidence
+  - file: docs/evidence/SIMD_CLUSTER_DESIGN_V0.md
+    role: evidence
+  - file: docs/evidence/VERILOG_EXPORT_DESIGN_V0.md
+    role: evidence
+  - file: docs/archive/SESSION_LOG.md
+    role: archive
+  - file: docs/archive/UNIFIED_COSMIC_ROADMAP.md
+    role: archive
+  - file: docs/archive/TOOLING_AUDIT_20260129.md
+    role: archive
+  - file: docs/archive/PHASE_4_STATUS.md
+    role: archive
+  - file: docs/archive/gemini.md
+    role: archive

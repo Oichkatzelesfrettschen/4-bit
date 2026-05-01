@@ -1,3 +1,14 @@
+// FILE STATUS (2026-04-30, debt phase D1.4.3): NOT WIRED.
+// This file is not declared as a module in `lib.rs`. It accumulated 2k LOC of
+// in-progress 16-lane SIMD work and has bitrotted: building under the existing
+// `simd_cluster` Cargo feature surfaces 147 compile errors (missing
+// `#![feature(portable_simd)]` crate attribute among them). The plan to either
+// resurrect or excise this code lives in
+// `~/.claude/plans/elucidate-and-build-out-merry-gadget.md` (D1.4.3 + D2.2).
+// Do not edit without updating that plan and `mcs4-system/REQUIREMENTS.md`.
+//
+// Original header follows.
+//
 // SIMD Cluster Execution for parallel CPU simulation
 //
 // This module implements vectorized execution of multiple 4004/4040 CPU instances

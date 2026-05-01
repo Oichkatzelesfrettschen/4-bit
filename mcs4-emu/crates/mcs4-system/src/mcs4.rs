@@ -154,10 +154,10 @@ impl Mcs4System {
         }
     }
 
-    /// Load program from a file using memory mapping
+    /// Load program from a file using memory mapping. See
+    /// [`crate::load_rom_mmap`] for the safety contract.
     pub fn load_rom_file(&mut self, path: impl AsRef<std::path::Path>) -> std::io::Result<()> {
-        let file = std::fs::File::open(path)?;
-        let mmap = unsafe { memmap2::Mmap::map(&file)? };
+        let mmap = crate::load_rom_mmap(path)?;
         self.load_rom(&mmap);
         Ok(())
     }

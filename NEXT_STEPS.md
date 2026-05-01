@@ -1,6 +1,12 @@
 # MCS-4 / MCS-40 Ecosystem: Next Steps
 
-**Date**: 2026-03-05
+**Date**: 2026-03-05 (point-in-time roadmap snapshot)
+**Status authority**: SNAPSHOT, not canonical. Items below were planned 2026-03-05;
+many are now complete. Cross-check against `mcs4-emu/CLAUDE.md` (canonical phase
+status) and `docs/ROADMAP.md` (forward plan) before acting on any item. Phase 6
+gate-extraction, Phase 7 new chips and behavioral Verilog (22 modules), and
+Phase 8 FPGA constraints/Makefile have all completed since this document was
+written; see `mcs4-emu/STATUS.md` session log.
 **Based on**: SCOPING_ASSESSMENT.md findings
 **Scope**: Actionable work items, ordered by ROI and dependency chain
 

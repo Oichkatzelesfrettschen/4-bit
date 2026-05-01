@@ -1,0 +1,31 @@
+[project]
+name = "mcs4-scripts"
+version = "0.1.0"
+description = "Evidence pipeline and analysis scripts for the 4-bit (MCS-4/MCS-40) workspace"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+# pytest looks for tests under scripts/tests/ only; manual smoke tests like
+# scripts/test_ocr_cache.py are explicitly excluded from automated discovery.
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-q --strict-markers --tb=short"
+markers = [
+    "slow: long-running tests (skipped in CI quick runs)",
+    "needs_tesseract: requires tesseract binary on PATH",
+    "needs_cuda: requires a CUDA runtime",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["__pycache__", ".pytest_cache"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

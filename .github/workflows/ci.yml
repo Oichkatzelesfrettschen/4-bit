@@ -12,6 +12,11 @@ env:
     libxcb-xfixes0-dev
     libxkbcommon-dev
     libssl-dev
+  # Phase D10.1.3: pin locale and timezone so any locale-sensitive build
+  # outputs (test harnesses comparing string formats, sorted output, etc.)
+  # are reproducible across runners.
+  LC_ALL: C
+  TZ: UTC
 
 jobs:
   build-test:
@@ -170,3 +175,109 @@ jobs:
 
       - name: Miri on mcs4-system
         run: cargo +nightly-2026-04-05 miri test -p mcs4-system
+
+      # Phase D3.1.1: extend Miri coverage to the remaining four crates.
+      # mcs4-gui touches eframe/winit which are not Miri-friendly; allow
+      # failure so we still surface the rest.
+      - name: Miri on mcs4-fpga
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-fpga
+
+      - name: Miri on mcs4-intellec
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-intellec
+
+      - name: Miri on mcs4-periph
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-periph
+
+      - name: Miri on mcs4-gui (best-effort; egui/winit FFI may surface UB)
+        run: cargo +nightly-2026-04-05 miri test -p mcs4-gui
+        continue-on-error: true
+
+  audit:
+    # Phase D3.1.2: cargo-audit against the RustSec advisory database.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: cargo-audit
+        uses: rustsec/audit-check@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  semver_checks:
+    # Phase D3.1.3: cargo-semver-checks against the most-depended-on crates.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-04-05
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
+
+      - name: Install cargo-semver-checks
+        uses: taiki-e/install-action@cargo-semver-checks
+
+      - name: cargo-semver-checks (informational; no published baseline yet)
+        run: cargo semver-checks check-release -p mcs4-bus -p mcs4-core --baseline-rev main || true
+
+  no_default_features:
+    # Phase D3.1.4: build matrix without default features for the heaviest
+    # consumers, ensuring the workspace stays compilable when feature gates
+    # are flipped off.
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        crate: [mcs4-system, mcs4-chips]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-04-05
+          components: rustfmt, clippy
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
+
+      - name: Build (no default features)
+        run: cargo build -p ${{ matrix.crate }} --no-default-features --locked
+
+      - name: Test (no default features)
+        run: cargo test -p ${{ matrix.crate }} --no-default-features --locked
+
+  python_tests:
+    # Phase D4.5: pytest smoke for evidence-pipeline scripts.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pytest
+        run: pip install --no-cache-dir pytest pyyaml
+
+      - name: Run pytest smoke suite
+        working-directory: scripts
+        run: python -m pytest tests/ -q
