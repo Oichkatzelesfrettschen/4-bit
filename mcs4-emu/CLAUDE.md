@@ -1,4 +1,4 @@
-# MCS-4/MCS-40 Emulator - Project Status (2026-04-06)
+# MCS-4/MCS-40 Emulator - Project Status (2026-04-30)
 
 ## PROJECT OVERVIEW
 Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate simulation of 4004/4040 chipsets.
@@ -175,9 +175,10 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (updated 2026-04-06 after debt hardening sync)
+## TEST COUNTS (updated 2026-04-30 after debt-roadmap Phase D0 reconciliation)
 
-1,024 tests passing, 0 failures:
+1,042 tests passing, 0 failures:
+(1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
@@ -189,7 +190,7 @@ Critical path (in order):
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
-- mcs4-fpga: 24 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family)
+- mcs4-fpga: 42 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
@@ -198,4 +199,4 @@ Critical path (in order):
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-04-06 (debt hardening: nightly pin sync, gate/perf hardening, dependency cleanup, implementation placeholder remediation)
+Last Updated: 2026-04-30 (debt-roadmap Phase D0 complete: status reconciliation, dead-crate ref removal, registry sync, per-crate REQUIREMENTS, test count refresh 1024 -> 1042 reflecting mcs4-fpga 24 -> 42)

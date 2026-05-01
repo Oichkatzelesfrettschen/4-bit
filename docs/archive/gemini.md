@@ -1,4 +1,9 @@
-# Gemini Notes
+# Gemini Notes (ARCHIVED)
+
+> ARCHIVE NOTE (2026-04-30): These Gemini-CLI-specific notes duplicate the
+> canonical project guidance in `claude.md` and `mcs4-emu/CLAUDE.md`. Moved
+> here to keep the repo root focused on a single agent-facing entrypoint
+> (`claude.md`). Gemini users should consult `claude.md` directly.
 
 ## Summary
 This repository preserves Intel 4-bit microprocessor documentation and hosts a

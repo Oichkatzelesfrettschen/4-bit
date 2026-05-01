@@ -1,6 +1,6 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-04-06
+**Last Updated:** 2026-04-30
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Phase Summary (95% overall)
@@ -18,9 +18,10 @@
 | 7 | New chips + behavioral Verilog (22 modules) | COMPLETE | 100% |
 | 8 | FPGA constraints + synthesis Makefile | COMPLETE | 90% |
 
-## Test Counts (updated 2026-04-06 after debt hardening sync)
+## Test Counts (updated 2026-04-30 after debt-roadmap Phase D0 reconciliation)
 
-1,024 tests passing, 0 failures:
+1,042 tests passing, 0 failures:
+(1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
@@ -32,7 +33,7 @@
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
-- mcs4-fpga: 24 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family)
+- mcs4-fpga: 42 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)

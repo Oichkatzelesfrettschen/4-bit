@@ -30,4 +30,5 @@ done <<< "$files"
 
 [ "$missing" -eq 0 ] || exit 1
 "$ROOT_DIR/scripts/status_sync_check.sh"
+"$ROOT_DIR/scripts/registry_audit.sh"
 echo "Docs validated."

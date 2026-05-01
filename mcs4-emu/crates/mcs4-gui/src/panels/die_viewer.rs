@@ -41,11 +41,16 @@ impl DieViewerPanel {
             let (_rect, _response) =
                 ui.allocate_exact_size(egui::vec2(ui.available_width(), 400.0), egui::Sense::drag());
 
-            // TODO: Render die image and overlays
+            // PLANNED (debt phase D1.5.3): render the photomicrograph from
+            // `docs/photomicrographs/` via egui textures and overlay
+            // schematic-anchor bounding boxes from
+            // `docs/evidence/schematic_layout_anchors_v1.json`.
             ui.label("Photomicrograph overlay placeholder");
 
             if let Some(_solver) = solver {
-                // TODO: Highlight transistors based on solver state
+                // PLANNED (debt phase D1.5.3): when a NodalSolver is attached,
+                // colour each transistor bbox by its on/off / saturation state
+                // using `solver.voltage(node_id)` and the device-model thresholds.
                 ui.label("(Active solver detected)");
             } else {
                 ui.label("(Running at Behavioral level)");

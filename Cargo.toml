@@ -75,6 +75,11 @@ pedantic = { level = "allow", priority = -1 }
 nursery = { level = "allow", priority = -1 }
 cargo = { level = "allow", priority = -1 }
 unwrap_used = "warn"
+# `clippy::panic` is intentionally NOT denied workspace-wide. As of debt phase
+# D1.1, every production file in this workspace is panic-free; the only
+# `panic!` sites left are inside `#[cfg(test)] mod tests` blocks where they
+# convert non-matching enum variants into clear test failures (idiomatic
+# Rust). A future per-crate deny + per-test allow can re-enable this lint.
 
 [profile.release]
 opt-level = 3

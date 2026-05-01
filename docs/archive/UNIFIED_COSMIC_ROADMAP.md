@@ -1,8 +1,16 @@
-# UNIFIED COSMIC ROADMAP & DEBT DEEP-DIVE
+# UNIFIED COSMIC ROADMAP & DEBT DEEP-DIVE (ARCHIVED)
+
+> ARCHIVE NOTE (2026-04-30): This roadmap describes integration with the
+> `open_gororoba` Sedenion Babbage Machine and crates `cosmic_scheduler` and
+> `gororoba_engine` that were removed from this workspace on 2026-02-26
+> (see `mcs4-emu/STATUS.md` session log). The document is preserved as a
+> historical snapshot and is no longer authoritative. Forward planning lives
+> in `docs/ROADMAP.md` and `mcs4-emu/CLAUDE.md`.
+
 ## Intellectual Synthesis: The Sedenion Babbage Machine & MCS-4/MCS-40 Digital Twin
 **Version:** 1.0 (Integration of `open_gororoba` physics and `4-bit` transistor simulation)
 **Date:** February 2026
-**Framework:** Cosmic Engine Hypothesis — Universe as Neural Ray-Tracer
+**Framework:** Cosmic Engine Hypothesis -- Universe as Neural Ray-Tracer
 
 ---
 

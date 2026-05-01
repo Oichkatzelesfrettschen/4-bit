@@ -10,11 +10,42 @@ pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
 
+// `src/simd_cluster.rs` is intentionally NOT declared as a module here. It
+// holds 2k LOC of in-progress 16-lane SIMD work that has rotted (147 build
+// errors under `--features simd_cluster` as of 2026-04-30, primarily the
+// missing `#![feature(portable_simd)]` crate attribute and other drift).
+// Resurrecting it is tracked under debt phase D1.4.3 / D2.2 in
+// `~/.claude/plans/elucidate-and-build-out-merry-gadget.md`. Until that
+// happens, the `simd_cluster` Cargo feature is inert.
+
 pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 pub use mcs4::Mcs4System;
 pub use mcs40::Mcs40System;
 use mcs4_chips::{i4001::I4001, i4002::I4002};
 use mcs4_core::FidelityManager;
+
+/// Memory-map a ROM file as read-only bytes.
+///
+/// Convenience wrapper around `memmap2::Mmap::map` used by both `Mcs4System`
+/// and `Mcs40System` to load ROM images.
+///
+/// # Safety
+///
+/// `memmap2::Mmap::map` is `unsafe` because the kernel can change the
+/// underlying file's contents while the mapping is alive (e.g., another
+/// process truncating or writing to the same path). For ROM-image loading we
+/// treat the file as content-addressed: callers point at static, read-only
+/// fixtures under `mcs4-emu/crates/mcs4-system/fixtures/` (or test-only
+/// tempfiles whose handles are kept alive by the caller). Under those
+/// invariants the mapped memory is stable for the lifetime of the returned
+/// `Mmap`. If you intend to consume mutable or writer-shared files, use
+/// `std::fs::read` instead.
+pub fn load_rom_mmap(path: impl AsRef<std::path::Path>) -> std::io::Result<memmap2::Mmap> {
+    let file = std::fs::File::open(path)?;
+    // SAFETY: see function-level docs. Caller-provided ROM images are
+    // expected to be immutable for the lifetime of the returned mapping.
+    unsafe { memmap2::Mmap::map(&file) }
+}
 
 /// Common interface for MCS-4 and MCS-40 systems
 pub trait System {

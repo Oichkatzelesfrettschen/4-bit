@@ -1,4 +1,8 @@
-# Tooling Audit 2026-01-29
+# Tooling Audit 2026-01-29 (ARCHIVED)
+
+> ARCHIVE NOTE (2026-04-30): Point-in-time tooling snapshot from 2026-01-29.
+> Superseded by `docs/TOOLING_AUDIT.md` (current). Preserved for historical
+> reproducibility records.
 
 == Core CLI ==
 OK   git -> /bin/git

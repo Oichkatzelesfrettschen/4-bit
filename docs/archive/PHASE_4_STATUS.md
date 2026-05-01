@@ -1,4 +1,11 @@
-# Phase 4: The Grand Synthesis & Falsification - STATUS REPORT
+# Phase 4: The Grand Synthesis & Falsification - STATUS REPORT (ARCHIVED)
+
+> ARCHIVE NOTE (2026-04-30): This document tracked the abandoned `gororoba_engine`
+> cosmic-synthesis stream (LBM, Sedenion algebra, A-infinity m4 correction) which
+> was removed from this workspace on 2026-02-26 (see `mcs4-emu/STATUS.md` session
+> log). Its "Phase 4" numbering conflicts with the canonical 4-bit project
+> Phase 4 (Performance and Clustering, COMPLETE 2026-02-25; see
+> `mcs4-emu/CLAUDE.md`). Preserved as a historical snapshot only.
 
 **Date**: 2026-02-25
 **Status**: IN PROGRESS (Task 4.1 executing)

@@ -47,17 +47,15 @@ resulting voltage on output pins is thresholded back into an 8-bit bus value.
 
 ---
 
-## NEXT IMMEDIATE STEPS: PHASE 4 - THE COSMIC SYNTHESIS
+## NEXT IMMEDIATE STEPS
 
-With the lowest-level silicon Digital Twin complete, we now turn to the **Sedenion Babbage Machine** integration (`open_gororoba` correlation).
-
-### Phase 4.1: The 6-Layer Orchestrator (`gororoba_engine`)
-1. Implement the LBM (Lattice Boltzmann Method) fluid collision/streaming logic driven by the `cosmic_scheduler` ($\phi_1/\phi_2$) traits we just built.
-2. Bind the simulated kinematic viscosity $\nu(x)$ to the output timing jitter observed in the TCAD Nodal solver during stochastic doping sweeps.
-
-### Phase 4.2: Neural $m_4$ Correction
-1. Vectorize the 4040 execution using `std::simd` to generate high-throughput truth tables.
-2. Formulate the non-trivial $m_4$ A-infinity homotopy tensor.
+> NOTE (2026-04-30): This section originally referenced the `cosmic_scheduler`
+> and `gororoba_engine` crates plus an `open_gororoba` Sedenion Babbage Machine
+> integration. Those crates were removed from this workspace on 2026-02-26 and
+> the integration plan is archived under `docs/archive/UNIFIED_COSMIC_ROADMAP.md`.
+> Current forward work for this project lives in `docs/ROADMAP.md` and
+> `mcs4-emu/CLAUDE.md`; the SIMD cluster work referenced below is COMPLETE
+> (see Phase 4 entry in `mcs4-emu/CLAUDE.md`).
 
 ---
 
