@@ -281,3 +281,54 @@ jobs:
       - name: Run pytest smoke suite
         working-directory: scripts
         run: python -m pytest tests/ -q
+
+  fuzz_smoke:
+    # Phase D4.2: compile fuzz targets and run each for 30s on every PR.
+    # Full long-running corpus runs are intended for local developer sessions
+    # and scheduled nightly runs; this job proves no immediate panics exist.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust nightly toolchain
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-04-05
+
+      - name: Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: mcs4-emu/fuzz -> target
+
+      - name: Install cargo-fuzz
+        run: cargo install cargo-fuzz --locked
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
+
+      - name: Fuzz netlist_v1_parser (30s)
+        working-directory: mcs4-emu
+        run: >
+          cargo +nightly-2026-04-05 fuzz run netlist_v1_parser
+          fuzz/corpus/netlist_v1_parser
+          -- -max_total_time=30
+        continue-on-error: false
+
+      - name: Fuzz disasm_4004 (30s)
+        working-directory: mcs4-emu
+        run: >
+          cargo +nightly-2026-04-05 fuzz run disasm_4004
+          fuzz/corpus/disasm_4004
+          -- -max_total_time=30
+        continue-on-error: false
+
+      - name: Fuzz rom_hex_loader (30s)
+        working-directory: mcs4-emu
+        run: >
+          cargo +nightly-2026-04-05 fuzz run rom_hex_loader
+          fuzz/corpus/rom_hex_loader
+          -- -max_total_time=30
+        continue-on-error: false

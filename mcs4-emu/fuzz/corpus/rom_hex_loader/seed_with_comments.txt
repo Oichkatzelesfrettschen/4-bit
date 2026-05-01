@@ -1,0 +1,3 @@
+# comment
+DA E0 00 ; trailing
+0x20 0x01, // inline

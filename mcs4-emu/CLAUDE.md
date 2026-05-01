@@ -175,9 +175,9 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (updated 2026-04-30 after debt-roadmap Phase D0 reconciliation)
+## TEST COUNTS (updated 2026-04-30 after debt-roadmap phases D4.1/D4.2/D10.3.3)
 
-1,042 tests passing, 0 failures:
+1,053 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
@@ -190,13 +190,18 @@ Critical path (in order):
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
+- mcs4-core proptest_solvers: 6 (DC rail invariant, node-ID permutation, gmin sweep, dense/sparse
+    agreement, transient time monotonicity, transient rail invariant)
 - mcs4-fpga: 42 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
-- mcs4-system: 45 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing)
+- mcs4-system: 50 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing; +5
+    parse_hex_bytes_bounded tests)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ---
-Last Updated: 2026-04-30 (debt-roadmap Phase D0 complete: status reconciliation, dead-crate ref removal, registry sync, per-crate REQUIREMENTS, test count refresh 1024 -> 1042 reflecting mcs4-fpga 24 -> 42)
+Last Updated: 2026-04-30 (D4.1: 6 proptest_solvers for mcs4-core solver invariants; D4.2: cargo-fuzz
+harness with 3 targets netlist_v1_parser/disasm_4004/rom_hex_loader + CI job; D10.3.3:
+parse_hex_bytes_bounded with 5 tests; total 1042 -> 1053)

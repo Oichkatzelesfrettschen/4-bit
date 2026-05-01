@@ -1,0 +1,37 @@
+[package]
+name = "mcs4-emu-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+# Cargo-fuzz requires a self-contained workspace (not merged into the parent).
+[workspace]
+
+[[bin]]
+name = "netlist_v1_parser"
+path = "fuzz_targets/netlist_v1_parser.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "disasm_4004"
+path = "fuzz_targets/disasm_4004.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "rom_hex_loader"
+path = "fuzz_targets/rom_hex_loader.rs"
+test = false
+doc = false
+
+[dependencies]
+libfuzzer-sys = "0.4"
+mcs4-core = { path = "../crates/mcs4-core" }
+mcs4-chips = { path = "../crates/mcs4-chips" }
+mcs4-system = { path = "../crates/mcs4-system" }
+serde_json = "1"
+
+[profile.release]
+debug = 1
+opt-level = 3

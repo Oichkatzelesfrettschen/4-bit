@@ -2501,6 +2501,7 @@ dependencies = [
  "bytemuck",
  "faer",
  "nalgebra",
+ "proptest",
  "rkyv",
  "serde",
  "serde_json",

@@ -4,16 +4,10 @@
 //! Lines may contain comments starting with `#`, `//`, or `;`.
 //!
 //! Bounds: [`parse_hex_bytes`] returns the parsed bytes verbatim and does
-//! not enforce a maximum size. Callers that load the result into a
-//! fixed-size ROM bank (e.g. `Mcs4System::load_rom`) are responsible for
-//! verifying the slice fits the destination. The 4001 ROM is 256 bytes
-//! per bank and 16 banks max (4 KiB total addressable); the 4308 ROM is
-//! 1024 bytes. `load_rom` truncates silently rather than panicking, so
-//! oversize fixtures degrade to "first N bytes loaded" behavior. This is
-//! intentional for the fixture/REPL use-case but should NOT be relied on
-//! by future callers loading user-supplied ROM images; expose a
-//! `parse_hex_bytes_bounded(s, max)` variant before doing so. (Tracked
-//! under debt phase D10.3.3.)
+//! not enforce a maximum size. Use [`parse_hex_bytes_bounded`] when loading
+//! user-supplied ROM images that must fit a fixed-size destination.
+//! The 4001 ROM is 256 bytes per bank (16 banks max = 4 KiB total);
+//! the 4308 ROM is 1024 bytes.
 
 use std::path::Path;
 
@@ -21,6 +15,8 @@ use std::path::Path;
 pub enum FixtureError {
     Io(std::io::Error),
     Parse { line: usize, token: String },
+    /// Parsed byte count exceeded the caller-supplied maximum.
+    TooLarge { parsed: usize, max: usize },
 }
 
 impl std::fmt::Display for FixtureError {
@@ -30,6 +26,9 @@ impl std::fmt::Display for FixtureError {
             FixtureError::Parse { line, token } => {
                 write!(f, "fixture parse error on line {line}: invalid byte {token:?}")
             }
+            FixtureError::TooLarge { parsed, max } => {
+                write!(f, "fixture too large: {parsed} bytes parsed, max is {max}")
+            }
         }
     }
 }
@@ -38,7 +37,7 @@ impl std::error::Error for FixtureError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
             FixtureError::Io(e) => Some(e),
-            FixtureError::Parse { .. } => None,
+            FixtureError::Parse { .. } | FixtureError::TooLarge { .. } => None,
         }
     }
 }
@@ -53,6 +52,23 @@ impl From<std::io::Error> for FixtureError {
 pub fn load_hex_bytes(path: impl AsRef<Path>) -> Result<Vec<u8>, FixtureError> {
     let s = std::fs::read_to_string(path)?;
     parse_hex_bytes(&s)
+}
+
+/// Load whitespace-separated hex bytes from a file, failing if the byte count exceeds `max`.
+pub fn load_hex_bytes_bounded(path: impl AsRef<Path>, max: usize) -> Result<Vec<u8>, FixtureError> {
+    let s = std::fs::read_to_string(path)?;
+    parse_hex_bytes_bounded(&s, max)
+}
+
+/// Parse whitespace-separated hex bytes from a string, failing if more than `max` bytes are found.
+///
+/// Use this when the destination buffer has a fixed capacity (e.g. 256 bytes for a 4001 ROM bank).
+pub fn parse_hex_bytes_bounded(s: &str, max: usize) -> Result<Vec<u8>, FixtureError> {
+    let bytes = parse_hex_bytes(s)?;
+    if bytes.len() > max {
+        return Err(FixtureError::TooLarge { parsed: bytes.len(), max });
+    }
+    Ok(bytes)
 }
 
 /// Parse whitespace-separated hex bytes from a string.
@@ -116,5 +132,43 @@ mod tests {
         .expect("parse");
 
         assert_eq!(bytes, vec![0xDA, 0xE0, 0x00, 0x20, 0x01]);
+    }
+
+    #[test]
+    fn bounded_accepts_within_limit() {
+        let bytes = parse_hex_bytes_bounded("AA BB CC", 3).expect("should accept 3 bytes within limit 3");
+        assert_eq!(bytes, vec![0xAA, 0xBB, 0xCC]);
+    }
+
+    #[test]
+    fn bounded_accepts_below_limit() {
+        let bytes = parse_hex_bytes_bounded("AA BB", 256).expect("2 bytes well within 256");
+        assert_eq!(bytes.len(), 2);
+    }
+
+    #[test]
+    fn bounded_rejects_oversize() {
+        let input = "AA BB CC DD";
+        let err = parse_hex_bytes_bounded(input, 3).expect_err("4 bytes should exceed max=3");
+        match err {
+            FixtureError::TooLarge { parsed, max } => {
+                assert_eq!(parsed, 4);
+                assert_eq!(max, 3);
+            }
+            other => panic!("expected TooLarge, got: {other}"),
+        }
+    }
+
+    #[test]
+    fn bounded_zero_max_rejects_any_byte() {
+        let err = parse_hex_bytes_bounded("FF", 0).expect_err("1 byte should exceed max=0");
+        assert!(matches!(err, FixtureError::TooLarge { parsed: 1, max: 0 }));
+    }
+
+    #[test]
+    fn bounded_display_message() {
+        let err = FixtureError::TooLarge { parsed: 300, max: 256 };
+        assert!(err.to_string().contains("300"));
+        assert!(err.to_string().contains("256"));
     }
 }

@@ -19,3 +19,6 @@ zerocopy.workspace = true
 tracing.workspace = true
 nalgebra.workspace = true
 faer.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

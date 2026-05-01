@@ -314,7 +314,7 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **1,042 tests total, 0 failures** (updated 2026-04-30 during debt-roadmap Phase D0 reconciliation; operational metric, see `mcs4-emu/STATUS.md`)
+- **1,053 tests total, 0 failures** (updated 2026-04-30 after debt-roadmap D4.1/D4.2/D10.3.3; operational metric, see `mcs4-emu/STATUS.md`)
 
 ## Build Commands
 
