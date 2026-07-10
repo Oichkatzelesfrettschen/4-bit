@@ -75,6 +75,31 @@ elif [[ "$claude_tests" != "$status_tests" ]]; then
     errors+=("test-count mismatch: CLAUDE.md=$claude_tests STATUS.md=$status_tests")
 fi
 
+# The per-suite breakdown rows must sum to the headline count inside each
+# file; comparing only headlines across files misses a stale breakdown.
+sum_breakdown() {
+    awk '
+        /^[0-9,]+ tests passing, 0 failures:$/ { inblock = 1; next }
+        inblock && /^## / { inblock = 0 }
+        inblock && /^- / {
+            if (match($0, /: *[0-9]+/)) {
+                s = substr($0, RSTART, RLENGTH)
+                gsub(/[^0-9]/, "", s)
+                total += s
+            }
+        }
+        END { print total + 0 }
+    ' "$1"
+}
+
+for file in "$CLAUDE" "$STATUS"; do
+    headline="$(sed -nE 's/^([0-9,]+) tests passing, 0 failures:$/\1/p' "$file" | head -n1 | tr -d ',')"
+    rows_sum="$(sum_breakdown "$file")"
+    if [[ -n "$headline" && "$headline" != "$rows_sum" ]]; then
+        errors+=("test-count checksum: ${file#$ROOT_DIR/} headline=$headline sum-of-rows=$rows_sum")
+    fi
+done
+
 if [[ ${#errors[@]} -gt 0 ]]; then
     echo "status_sync_check: found ${#errors[@]} issue(s):" >&2
     for error in "${errors[@]}"; do

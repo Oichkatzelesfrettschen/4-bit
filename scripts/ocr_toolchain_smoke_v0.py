@@ -11,7 +11,8 @@ from typing import Any
 
 def _run(cmd: list[str], *, timeout: float = 10.0) -> tuple[int, str]:
     try:
-        p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, check=False)
+        # Fixed argv lists probing local toolchain binaries; no shell, no untrusted input.
+        p = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
         out = (p.stdout or "") + (p.stderr or "")
         return int(p.returncode), out.strip()
     except subprocess.TimeoutExpired:

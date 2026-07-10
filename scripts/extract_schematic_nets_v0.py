@@ -8,7 +8,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -77,7 +76,8 @@ def load_ocr_rows(path: Path) -> dict[int, dict[str, object]]:
             continue
         try:
             idx = int(r.get("idx"))
-        except Exception:
+        except (TypeError, ValueError):
+            # Rows without a usable integer idx carry no per-box verdict; skip them.
             continue
         out[idx] = {
             "ok": bool(r.get("ok")),

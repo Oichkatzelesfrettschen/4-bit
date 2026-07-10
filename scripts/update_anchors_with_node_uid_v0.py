@@ -61,7 +61,7 @@ def main() -> int:
             if isinstance(uid, str) and uid:
                 idx[int(ns["node"])] = uid
 
-        for name, row in block.items():
+        for _name, row in block.items():
             if not isinstance(row, dict):
                 continue
             n = row.get("layout_node")

@@ -8,7 +8,6 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -108,7 +107,8 @@ def main() -> int:
                     "metal_area": int(n.get("metal_area", 0)),
                     "metal_bbox": mb,
                 }
-        assert best is not None
+        if best is None:
+            raise AssertionError("node scoring produced no best candidate")
         suggestions.append(
             {
                 "box_index": idx,

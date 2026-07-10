@@ -4,16 +4,18 @@ from __future__ import annotations
 import dataclasses
 import functools
 import json
+import logging
 import math
 import os
 import re
 import subprocess
 import tempfile
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable, Protocol
+from typing import Protocol
 
-import numpy as np
 import cv2  # type: ignore
+import numpy as np
 
 try:
     import onnxruntime as ort  # type: ignore
@@ -31,6 +33,8 @@ from ocr_preprocess_v0 import (
     preprocess_label_for_ocr,
     preprocess_label_preset_v0,
  )
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -172,7 +176,8 @@ def _tesseract_cli_best_token_one_psm(
             "tsv",
         ]
         try:
-            proc = subprocess.run(
+            # Fixed argv list invoking the pinned tesseract binary; no shell, no untrusted input.
+            proc = subprocess.run(  # noqa: S603
                 cmd,
                 check=False,
                 capture_output=True,
@@ -750,8 +755,9 @@ class OnnxCtcBackend:
                 if isinstance(blank_id, int) and blank_id >= 0:
                     object.__setattr__(self, "blank_id", blank_id)
 
-    def _session(self) -> "ort.InferenceSession":
-        assert ort is not None
+    def _session(self) -> ort.InferenceSession:
+        if ort is None:
+            raise AssertionError("onnxruntime is not importable")
         return _get_onnx_session(str(self.model_path), self.providers)
 
     def _prepare_input(self, gray: np.ndarray) -> tuple[str, np.ndarray]:
@@ -900,7 +906,9 @@ def resolve_backend(
             try:
                 return TemplateDirBackend(Path(tdir))
             except Exception:
-                pass
+                logger.debug(
+                    "template dir %s unusable; falling back to Hu moments", tdir, exc_info=True
+                )
         return HuMomentsBackend()
 
     # Throughput-first chain:
@@ -918,13 +926,15 @@ def resolve_backend(
         try:
             tess_chain.append(TemplateDirBackend(Path(tdir)))
         except Exception:
-            pass
+            logger.debug(
+                "template dir %s unusable; omitting it from the chain", tdir, exc_info=True
+            )
     try:
         tcmd = Path(pytesseract.pytesseract.tesseract_cmd or "tesseract")
         if tcmd.exists():
             tess_chain.append(TesseractCliBackend())
     except Exception:
-        pass
+        logger.debug("tesseract CLI probe failed; omitting CLI backend", exc_info=True)
     tess_chain.append(TesseractBackend())
     tess_chain.append(HuMomentsBackend())
 
@@ -949,8 +959,9 @@ def resolve_backend(
 
 
 @functools.lru_cache(maxsize=8)
-def _get_onnx_session(model_path: str, providers: tuple[str, ...]) -> "ort.InferenceSession":
-    assert ort is not None
+def _get_onnx_session(model_path: str, providers: tuple[str, ...]) -> ort.InferenceSession:
+    if ort is None:
+        raise AssertionError("onnxruntime is not importable")
     sess_opts = ort.SessionOptions()
     # Keep logs quiet for batch OCR runs.
     sess_opts.log_severity_level = 3

@@ -270,7 +270,7 @@ def generate_cluster_hierarchy(
     """
     # Level 0: Individual subcircuits
     level0_clusters = []
-    for i, sub in enumerate(subcircuits):
+    for _index, sub in enumerate(subcircuits):
         cluster = Cluster(
             id=f"{chip}_{sub.name}_L0",
             name=sub.name,

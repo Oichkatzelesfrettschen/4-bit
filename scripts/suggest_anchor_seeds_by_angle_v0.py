@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import json
 import math
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -118,10 +117,11 @@ def _best_cyclic_alignment(sig_sorted: list[tuple[str, float]], nodes: list[dict
         if best is None or cost < best[0]:
             best = (float(cost), int(start), float(off), seg, diffs)
 
-    assert best is not None
+    if best is None:
+        raise AssertionError("angle alignment sweep produced no candidate segment")
     cost, start, off, seg, diffs = best
     matches: list[dict[str, Any]] = []
-    for (name, sa), nrow, d in zip(sig_sorted, seg, diffs):
+    for (name, sa), nrow, d in zip(sig_sorted, seg, diffs, strict=False):
         matches.append(
             {
                 "signal": name,

@@ -7,12 +7,12 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def run(cmd: list[str]) -> None:
-    proc = subprocess.run(cmd, cwd=ROOT, check=False, text=True, capture_output=True)
+    # Fixed argv lists built from sys.executable and repo scripts; no shell, no untrusted input.
+    proc = subprocess.run(cmd, cwd=ROOT, check=False, text=True, capture_output=True)  # noqa: S603
     if proc.returncode != 0:
         sys.stderr.write(proc.stdout)
         sys.stderr.write(proc.stderr)

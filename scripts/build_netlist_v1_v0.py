@@ -78,7 +78,8 @@ def main() -> int:
         if args.anchors is not None and not args.anchors.is_absolute()
         else (args.anchors if args.anchors is not None else ROOT / "docs" / "evidence" / "schematic_layout_anchors_v0.json")
     )
-    assert anchors_path is not None
+    if anchors_path is None:
+        raise AssertionError("anchors_path resolution produced None")
     schem_names_path = ROOT / "docs" / "evidence" / "schematic_net_names_v0" / f"{chip.lower()}_schematic_net_names_v0.json"
     schem_wirenets_path = (
         ROOT / "docs" / "evidence" / "schematic_wirenets_v0" / chip / f"{chip.lower()}_schematic_wirenets_v0.json"
@@ -89,7 +90,8 @@ def main() -> int:
         if args.layout_netlist_v0 is not None and not args.layout_netlist_v0.is_absolute()
         else (args.layout_netlist_v0 if args.layout_netlist_v0 is not None else ROOT / "docs" / "evidence" / "netlists_v0" / f"{chip.lower()}_netlist_v0.json")
     )
-    assert layout_path is not None
+    if layout_path is None:
+        raise AssertionError("layout_path resolution produced None")
 
     anchors = load_json(anchors_path)
     a = _get(anchors, "anchors", chip)

@@ -10,9 +10,9 @@ from pathlib import Path
 
 import numpy as np
 
+from imgio_v0 import load_gray
 from ocr_backend_v0 import resolve_backend
 from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop
-from imgio_v0 import load_gray
 from ocr_presets_v0 import preset_layout_edge_label
 
 ROOT = Path(__file__).resolve().parents[1]

@@ -10,11 +10,10 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw
 
 from ocr_cached_backend_v0 import resolve_cached_backend
 from ocr_presets_v0 import preset_layout_edge_label
-
 
 ROOT = Path(__file__).resolve().parents[1]
 

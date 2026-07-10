@@ -46,7 +46,8 @@ def run_cargo_bench(bench_name: str | None = None) -> list[BenchmarkResult]:
     start = time.time()
 
     try:
-        result = subprocess.run(
+        # Fixed cargo argv list; no shell, no untrusted input.
+        result = subprocess.run(  # noqa: S603
             cmd,
             cwd=ROOT / "mcs4-emu",
             capture_output=True,
@@ -86,7 +87,8 @@ def run_fixture_tests() -> list[BenchmarkResult]:
     start = time.time()
 
     try:
-        result = subprocess.run(
+        # Fixed cargo argv list; no shell, no untrusted input.
+        result = subprocess.run(  # noqa: S603
             cmd,
             cwd=ROOT / "mcs4-emu",
             capture_output=True,

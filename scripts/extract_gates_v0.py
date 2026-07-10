@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -322,7 +322,7 @@ def main():
 
         if not netlist_path.exists():
             print(f"  ⚠ Netlist not found: {netlist_path}")
-            print(f"    Creating placeholder output")
+            print("    Creating placeholder output")
 
         try:
             gates_netlist = extract_gates_from_netlist(

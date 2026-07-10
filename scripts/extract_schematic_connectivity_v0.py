@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 import re
 from collections import defaultdict
 from dataclasses import dataclass
@@ -128,12 +127,13 @@ def _find_seed(skel: np.ndarray, x: int, y: int, *, max_r: int) -> tuple[int, in
             continue
         # Choose nearest pixel (deterministic tie-break by y,x)
         best = None
-        for yy, xx in sorted(zip(ys.tolist(), xs.tolist()), key=lambda t: (t[0], t[1])):
+        for yy, xx in sorted(zip(ys.tolist(), xs.tolist(), strict=False), key=lambda t: (t[0], t[1])):
             px, py = x0 + int(xx), y0 + int(yy)
             d = (px - x) * (px - x) + (py - y) * (py - y)
             if best is None or d < best[0]:
                 best = (d, px, py)
-        assert best is not None
+        if best is None:
+            raise AssertionError("nearest-pixel scan over a non-empty window produced no pixel")
         return (int(best[1]), int(best[2]))
     return None
 

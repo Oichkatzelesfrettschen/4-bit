@@ -12,7 +12,8 @@ from pathlib import Path
 
 def _run(cmd: list[str]) -> dict[str, object]:
     try:
-        p = subprocess.run(cmd, check=False, text=True, capture_output=True)
+        # Fixed argv lists probing local toolchain binaries; no shell, no untrusted input.
+        p = subprocess.run(cmd, check=False, text=True, capture_output=True)  # noqa: S603
         return {
             "cmd": cmd,
             "returncode": int(p.returncode),

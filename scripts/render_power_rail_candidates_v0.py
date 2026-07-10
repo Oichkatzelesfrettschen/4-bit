@@ -7,7 +7,6 @@ from pathlib import Path
 
 import cv2  # type: ignore
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -19,7 +18,7 @@ def _load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _read_gray(path: Path) -> "cv2.typing.MatLike":
+def _read_gray(path: Path) -> cv2.typing.MatLike:
     img = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
     if img is None:
         raise FileNotFoundError(str(path))

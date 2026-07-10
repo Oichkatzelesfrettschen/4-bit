@@ -6,10 +6,8 @@ import json
 import time
 from pathlib import Path
 
-import numpy as np
-
-from ocr_cached_backend_v0 import resolve_cached_backend
 from imgio_v0 import load_gray
+from ocr_cached_backend_v0 import resolve_cached_backend
 from ocr_presets_v0 import preset_layout_edge_label
 
 ROOT = Path(__file__).resolve().parents[1]

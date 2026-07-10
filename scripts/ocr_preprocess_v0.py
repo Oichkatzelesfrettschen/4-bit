@@ -3,13 +3,12 @@ from __future__ import annotations
 
 import dataclasses
 import re
-from typing import Iterable
+from collections.abc import Iterable
+from pathlib import Path
 
 import cv2
 import numpy as np
 import pytesseract
-
-from pathlib import Path
 
 
 def _ensure_tesseract_cmd() -> None:
@@ -250,7 +249,7 @@ def ocr_best_token(
             output_type=pytesseract.Output.DICT,
             timeout=float(timeout_s),
         )
-        for txt, conf in zip(data.get("text", []), data.get("conf", [])):
+        for txt, conf in zip(data.get("text", []), data.get("conf", []), strict=False):
             tok = normalize_token(txt or "")
             if not token_is_plausible(tok, min_len=min_len, max_len=max_len):
                 continue
