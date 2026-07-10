@@ -10,8 +10,8 @@ It exists to prevent “documentation drift” as we move toward higher fidelity
 
 | Claim | Primary evidence | Enforcement |
 | --- | --- | --- |
-| 4004 instruction cycle is 10.8 µs | `docs/evidence/ocr/mcs4_data_sheet_nov71.txt` | Emulator fixtures + phase-accurate bus tests (`cargo test`) |
-| 4040 has 60 instructions (14 new) | `docs/evidence/ocr/mcs40_users_manual.txt` | Decoder unit tests (`mcs4-chips`) |
+| 4004 instruction cycle is 10.8 µs | `docs/evidence/ocr/mcs4_data_sheet_nov71.txt` | `mcs4-core/tests/timing_claims.rs::instruction_cycle_is_10_8_us_at_typical_clock` |
+| 4040 has 60 instructions (14 new) | `docs/evidence/ocr/mcs40_users_manual.txt` | `mcs4-chips/tests/instruction_census.rs::i4040_adds_14_instructions_for_60_total` |
 | I/O ops asserted only in transfer phases | MCS-4/MCS-40 manuals (timing sections) | `mcs4-system` timing tests (bus phase assertions) |
 
 ## Netlist + Transistor Evidence Claims

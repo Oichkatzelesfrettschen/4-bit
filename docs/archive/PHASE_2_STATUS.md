@@ -1,4 +1,9 @@
-# Phase 2: 4040 CPU Execution - STATUS REPORT
+# Phase 2: 4040 CPU Execution - STATUS REPORT (ARCHIVED)
+
+> ARCHIVE NOTE (2026-07-09): Session status report for Phase 2 (4040 CPU
+> execution), formerly at `docs/PHASE_2_STATUS.md`. Archived as a superseded
+> snapshot; the phase it tracked is complete. Current status lives in
+> `mcs4-emu/CLAUDE.md` (canonical) with the session log in `mcs4-emu/STATUS.md`.
 
 **Date**: 2026-02-25
 **Status**: COMPLETE (100% complete, 19/19 mcs40 system tests passing)

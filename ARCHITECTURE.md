@@ -205,7 +205,7 @@ mcs4-emu/crates/
         waveform.rs               # WaveformPanel: logic analyzer view
         die_viewer.rs             # Die photomicrograph overlay (scaffold)
 
-  mcs4-fpga/                      # FPGA synthesis support (24 tests)
+  mcs4-fpga/                      # FPGA synthesis support (42 tests)
     src/
       lib.rs
       verilog.rs                  # Verilog export from gate-level models
@@ -314,7 +314,7 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **1,053 tests total, 0 failures** (updated 2026-04-30 after debt-roadmap D4.1/D4.2/D10.3.3; operational metric, see `mcs4-emu/STATUS.md`)
+- **1,057 tests total, 0 failures** (updated 2026-07-09 after debt-roadmap phases D11-D17; operational metric, see `mcs4-emu/STATUS.md`)
 
 ## Build Commands
 

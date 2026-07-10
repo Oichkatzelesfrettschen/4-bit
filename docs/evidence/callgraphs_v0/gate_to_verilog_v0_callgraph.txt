@@ -1,0 +1,43 @@
+# call graph: scripts/gate_to_verilog_v0.py
+# functions defined: 7
+# internal edges: 7, external calls: 31
+## internal edges
+<module> -> main
+generate_verilog_module -> generate_gate_instance
+generate_verilog_module -> generate_primitive_library
+main -> extract_nodes
+main -> generate_testbench
+main -> generate_verilog_module
+main -> parse_gates_netlist
+## external calls (dedup by caller,name)
+<module> -> [ext] Path
+<module> -> [ext] resolve
+extract_nodes -> [ext] get
+extract_nodes -> [ext] set
+extract_nodes -> [ext] update
+generate_gate_instance -> [ext] append
+generate_gate_instance -> [ext] chr
+generate_gate_instance -> [ext] enumerate
+generate_gate_instance -> [ext] get
+generate_gate_instance -> [ext] join
+generate_gate_instance -> [ext] len
+generate_gate_instance -> [ext] ord
+generate_testbench -> [ext] join
+generate_verilog_module -> [ext] append
+generate_verilog_module -> [ext] enumerate
+generate_verilog_module -> [ext] extend
+generate_verilog_module -> [ext] join
+generate_verilog_module -> [ext] sorted
+main -> [ext] ArgumentParser
+main -> [ext] Gate
+main -> [ext] add_argument
+main -> [ext] enumerate
+main -> [ext] exists
+main -> [ext] get
+main -> [ext] len
+main -> [ext] mkdir
+main -> [ext] parse_args
+main -> [ext] print
+main -> [ext] write_text
+parse_gates_netlist -> [ext] loads
+parse_gates_netlist -> [ext] read_text

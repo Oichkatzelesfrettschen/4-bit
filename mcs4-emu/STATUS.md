@@ -1,6 +1,6 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-04-30
+**Last Updated:** 2026-07-09
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 ## Phase Summary (95% overall)
@@ -18,27 +18,32 @@
 | 7 | New chips + behavioral Verilog (22 modules) | COMPLETE | 100% |
 | 8 | FPGA constraints + synthesis Makefile | COMPLETE | 90% |
 
-## Test Counts (updated 2026-04-30 after debt-roadmap Phase D0 reconciliation)
+## Test Counts (updated 2026-07-09 after debt-roadmap phases D11-D17)
 
-1,042 tests passing, 0 failures:
+1,057 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
 - mcs4-chips circuit_sim: 4 (full-chip 4003 DC+transient, 4004 DC, behavioral-vs-circuit cross-validation)
 - mcs4-chips fuzz_test: 1
+- mcs4-chips instruction_census: 2 (4004=46 and 4040=60 instruction-set size claims)
 - mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)
 - mcs4-core: 473 (transistor/nodal/TCAD solvers, process models, transient+trapezoidal integration,
     temperature sweep, sensitivity analysis integration, circuit, fidelity, bridge)
 - mcs4-core error_paths: 12 (solver error path validation)
 - mcs4-core integration_validation: 18
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
+- mcs4-core proptest_solvers: 6 (DC rail invariant, node-ID permutation, gmin sweep, dense/sparse
+    agreement, transient time monotonicity, transient rail invariant)
+- mcs4-core timing_claims: 2 (10.8 us instruction cycle, datasheet clock-period bounds)
 - mcs4-fpga: 42 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
-- mcs4-system: 45 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing)
+- mcs4-system: 50 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing,
+    parse_hex_bytes_bounded)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
 
 ## Chip Implementation Status

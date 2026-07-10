@@ -1,4 +1,9 @@
-# Phase 2 RAM Operation Debugging Notes
+# Phase 2 RAM Operation Debugging Notes (ARCHIVED)
+
+> ARCHIVE NOTE (2026-07-09): Debugging notes for the Phase 2 SRC/WRM/RDM
+> RAM round-trip failure, formerly at `docs/PHASE_2_DEBUG_NOTES.md`. Archived
+> as a superseded snapshot; the bug was fixed and the phase is complete.
+> Current status lives in `mcs4-emu/CLAUDE.md` (canonical).
 
 Date: 2026-01-29
 Focus: test_end_to_end_src_wrm_rdm_roundtrip failure analysis

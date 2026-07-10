@@ -1,4 +1,10 @@
-# Phase 3: System-Level Synthesis & Visualization - STATUS REPORT
+# Phase 3: System-Level Synthesis & Visualization - STATUS REPORT (ARCHIVED)
+
+> ARCHIVE NOTE (2026-07-09): Session status report for Phase 3 (support chips,
+> fidelity architecture, GUI), formerly at `docs/PHASE_3_STATUS.md`. Archived
+> as a superseded snapshot; the phase it tracked is complete. Current status
+> lives in `mcs4-emu/CLAUDE.md` (canonical) with the session log in
+> `mcs4-emu/STATUS.md`.
 
 **Date**: 2026-02-25
 **Status**: COMPLETE (100% complete)

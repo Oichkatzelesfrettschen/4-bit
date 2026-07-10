@@ -1,6 +1,6 @@
 metadata:
   version: "1.2"
-  last_updated: "2026-04-30T00:00:00Z"
+  last_updated: "2026-07-09T00:00:00Z"
 
 docs:
   - file: README.md
@@ -11,12 +11,8 @@ docs:
     role: meta
   - file: ARCHITECTURE.md
     role: architecture
-  - file: NEXT_STEPS.md
-    role: planning-snapshot
   - file: SCOPING_ASSESSMENT.md
     role: planning-snapshot
-  - file: PHASE_2_CHECKPOINT.md
-    role: phase-snapshot
   - file: mcs4-emu/CLAUDE.md
     role: status-canonical
   - file: mcs4-emu/STATUS.md
@@ -53,6 +49,8 @@ docs:
     role: changelog
   - file: docs/ROADMAP.md
     role: roadmap
+  - file: docs/DEBT_ROADMAP.md
+    role: debt-roadmap
   - file: docs/TODO.md
     role: tracking
   - file: docs/INDEX.md
@@ -89,12 +87,6 @@ docs:
     role: design
   - file: docs/OCR_RICING.md
     role: tooling
-  - file: docs/PHASE_2_STATUS.md
-    role: phase-snapshot
-  - file: docs/PHASE_2_DEBUG_NOTES.md
-    role: phase-snapshot
-  - file: docs/PHASE_3_STATUS.md
-    role: phase-snapshot
   - file: docs/PHASE_LOG.md
     role: phase-index
   - file: docs/photomicrographs/README.md
@@ -188,4 +180,14 @@ docs:
   - file: docs/archive/PHASE_4_STATUS.md
     role: archive
   - file: docs/archive/gemini.md
+    role: archive
+  - file: docs/archive/PHASE_2_CHECKPOINT.md
+    role: archive
+  - file: docs/archive/NEXT_STEPS.md
+    role: archive
+  - file: docs/archive/PHASE_2_STATUS.md
+    role: archive
+  - file: docs/archive/PHASE_2_DEBUG_NOTES.md
+    role: archive
+  - file: docs/archive/PHASE_3_STATUS.md
     role: archive
