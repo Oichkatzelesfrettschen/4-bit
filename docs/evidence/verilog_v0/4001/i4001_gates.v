@@ -6,12 +6,12 @@
 module i4001_gates (
     input wire VDD,
     input wire VSS,
-    input wire D0_PAD,
+    input wire D0,  // aliases: D0, D0_PAD
     input wire IO0,
     output wire CL,
     output wire CM,
-    output wire D2_PAD,
-    output wire D3_PAD
+    output wire D2,  // aliases: D2, D2_PAD
+    output wire D3  // aliases: D3, D3_PAD
 );
 
     // Internal wires
@@ -1945,12 +1945,12 @@ module i4001_gates (
     wire n5698;
 
     // Pad bindings (signal anchor -> gate-netlist node)
-    assign n34 = D0_PAD;
+    assign n34 = D0;
     assign n2159 = IO0;
     assign CL = n5457;
     assign CM = n5454;
-    assign D2_PAD = n2618;
-    assign D3_PAD = n2647;
+    assign D2 = n2618;
+    assign D3 = n2647;
 
     // Gate instances
     nand2 g0 (.A(n39), .B(n39), .Y(n2601));

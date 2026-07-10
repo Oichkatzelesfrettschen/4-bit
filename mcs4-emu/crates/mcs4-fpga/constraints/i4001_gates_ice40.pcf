@@ -9,8 +9,8 @@
 # HOW:  nextpnr-ice40 --hx8k --package ct256 --pcf i4001_gates_ice40.pcf
 #
 # module i4001_gates (
-#     input  wire VDD, VSS, D0_PAD, IO0,
-#     output wire CL, CM, D2_PAD, D3_PAD
+#     input  wire VDD, VSS, D0, IO0,
+#     output wire CL, CM, D2, D3
 # );
 
 # ============================================================
@@ -26,9 +26,9 @@ set_io VSS B2
 # Data I/O
 # ============================================================
 
-set_io D0_PAD C1
+set_io D0 C1
 set_io IO0 C2
 set_io CL D1
 set_io CM D2
-set_io D2_PAD F1
-set_io D3_PAD E2
+set_io D2 F1
+set_io D3 E2

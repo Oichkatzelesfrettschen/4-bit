@@ -24015,15 +24015,15 @@
   "inputs": {
     "anchors_v0": "docs/evidence/schematic_layout_anchors_v1.json",
     "layout_netlist_v0": "docs/evidence/netlists_v0/4001_netlist_v0.json",
-    "schematic_connectivity_v0": null,
+    "schematic_connectivity_v0": "docs/evidence/schematic_connectivity_v0/4001/4001_schematic_connectivity_v0.json",
     "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4001_schematic_net_names_v0.json",
-    "schematic_wirenets_v0": null,
+    "schematic_wirenets_v0": "docs/evidence/schematic_wirenets_v0/4001/4001_schematic_wirenets_v0.json",
     "sha256": {
-      "anchors_v0": "43960b74bc4bc12d3a85999c1872cac51b647c8359f6806e2e0ad55950469ad8",
+      "anchors_v0": "14f86b0c3c7e4de110a7be884737b80f010bc933f128719c267c4e7025495da8",
       "layout_netlist_v0": "4404ee88a3cf69e21648329e9a6ef85bdb1ac1d28e097ac8a18f714eab5fbc82",
-      "schematic_connectivity_v0": null,
+      "schematic_connectivity_v0": "b2f9248f14f659be69cd2faae950fc6506239e00417a7fce701b10d0a8527b5f",
       "schematic_net_names_v0": "b10002a34e33e246f40295bf0a4f69508d8a5694df7cd8d2f646d70eb8b88568",
-      "schematic_wirenets_v0": null
+      "schematic_wirenets_v0": "87fc129c153a41fce632929c007c69402efbb4066191467bc74cb1f725b59eb6"
     }
   },
   "nodes": [
@@ -61085,14 +61085,14 @@
         "anchor": true,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
       },
-      "layout_node": null,
-      "layout_node_uid": null,
+      "layout_node": 4563,
+      "layout_node_uid": "60f3396db2ec911e575653c00de143f062607361",
       "match": {
-        "confidence": 0.0,
+        "confidence": 1.0,
         "kind": "manual_anchor_v0"
       },
       "name": "(RESET)",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61106,7 +61106,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "A11/2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61120,7 +61120,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "A12",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61134,7 +61134,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "A12/2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61148,7 +61148,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "A22",
-      "schematic_component": null
+      "schematic_component": 153
     },
     {
       "evidence": {
@@ -61162,7 +61162,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "A22/2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61176,7 +61176,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "A32",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61190,7 +61190,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CHIPNUM",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61204,7 +61204,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CHIPSEL",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61218,7 +61218,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CL",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61232,7 +61232,53 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CLK1",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 7008,
+          "junctions_est": 0,
+          "pixels": 147832,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPNUM",
+          "CHIPSEL",
+          "CL",
+          "CLK1",
+          "CLK2",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO3",
+          "IO0",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD3",
+          "SRCFF",
+          "X22",
+          "~(CM&X22&CLK2)",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE",
+          "~X21"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 1154
+        }
+      }
     },
     {
       "evidence": {
@@ -61246,7 +61292,52 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CLK2",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 7006,
+          "junctions_est": 0,
+          "pixels": 147737,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPNUM",
+          "CHIPSEL",
+          "CL",
+          "CLK2",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO3",
+          "IO0",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD3",
+          "SRCFF",
+          "X22",
+          "~(CM&X22&CLK2)",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE",
+          "~X21"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 1232
+        }
+      }
     },
     {
       "evidence": {
@@ -61260,21 +61351,88 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CM",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6980,
+          "junctions_est": 0,
+          "pixels": 143061,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO3",
+          "IO0",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD3",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 1072
+        }
+      }
     },
     {
       "evidence": {
         "anchor": true,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
       },
-      "layout_node": null,
-      "layout_node_uid": null,
+      "layout_node": 34,
+      "layout_node_uid": "d3de8fb3a5e56a65472b7163a92d8bef7c3b7f2e",
       "match": {
-        "confidence": 0.0,
+        "confidence": 1.0,
         "kind": "manual_anchor_v0"
       },
       "name": "D0",
-      "schematic_component": null
+      "schematic_component": 63,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 2556,
+          "x1": 2810,
+          "y0": 475,
+          "y1": 1310
+        },
+        "counts": {
+          "crossings_est": 341,
+          "junctions_est": 0,
+          "pixels": 8590,
+          "states": 14022
+        },
+        "hits": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "~D0",
+          "~D1",
+          "~D2",
+          "~D3"
+        ],
+        "seed": {
+          "x": 2782,
+          "y": 747
+        }
+      }
     },
     {
       "evidence": {
@@ -61288,21 +61446,96 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D0_PAD",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6709,
+          "junctions_est": 0,
+          "pixels": 148331,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D0_PAD",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO1",
+          "DO2",
+          "DO3",
+          "IO0",
+          "IO1",
+          "IO2",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD0",
+          "MEMD1",
+          "MEMD2",
+          "MEMD3",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 189
+        }
+      }
     },
     {
       "evidence": {
         "anchor": true,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
       },
-      "layout_node": null,
-      "layout_node_uid": null,
+      "layout_node": 2599,
+      "layout_node_uid": "ebe05f468a04157019932480a4b00badafa796a5",
       "match": {
-        "confidence": 0.0,
+        "confidence": 1.0,
         "kind": "manual_anchor_v0"
       },
       "name": "D1",
-      "schematic_component": null
+      "schematic_component": 63,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 2556,
+          "x1": 2810,
+          "y0": 475,
+          "y1": 1310
+        },
+        "counts": {
+          "crossings_est": 341,
+          "junctions_est": 0,
+          "pixels": 8590,
+          "states": 14022
+        },
+        "hits": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "~D0",
+          "~D1",
+          "~D2",
+          "~D3"
+        ],
+        "seed": {
+          "x": 2782,
+          "y": 836
+        }
+      }
     },
     {
       "evidence": {
@@ -61316,7 +61549,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D1&D0&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61330,7 +61563,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D1&D0&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61344,7 +61577,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D1&~D0&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61358,7 +61591,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D1&~D0&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61372,21 +61605,94 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D1_PAD",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6863,
+          "junctions_est": 0,
+          "pixels": 148211,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO1",
+          "DO2",
+          "DO3",
+          "IO0",
+          "IO1",
+          "IO2",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD1",
+          "MEMD2",
+          "MEMD3",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 370
+        }
+      }
     },
     {
       "evidence": {
         "anchor": true,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
       },
-      "layout_node": null,
-      "layout_node_uid": null,
+      "layout_node": 2618,
+      "layout_node_uid": "a95d96915846351508e55314ceae8d8703988a03",
       "match": {
-        "confidence": 0.0,
+        "confidence": 1.0,
         "kind": "manual_anchor_v0"
       },
       "name": "D2",
-      "schematic_component": null
+      "schematic_component": 63,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 2556,
+          "x1": 2810,
+          "y0": 475,
+          "y1": 1310
+        },
+        "counts": {
+          "crossings_est": 341,
+          "junctions_est": 0,
+          "pixels": 8590,
+          "states": 14022
+        },
+        "hits": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "~D0",
+          "~D1",
+          "~D2",
+          "~D3"
+        ],
+        "seed": {
+          "x": 2782,
+          "y": 503
+        }
+      }
     },
     {
       "evidence": {
@@ -61400,7 +61706,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D2+~D1+D0",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61414,21 +61720,94 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D2_PAD",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6859,
+          "junctions_est": 0,
+          "pixels": 147616,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO1",
+          "DO2",
+          "DO3",
+          "IO0",
+          "IO1",
+          "IO2",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD1",
+          "MEMD2",
+          "MEMD3",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 551
+        }
+      }
     },
     {
       "evidence": {
         "anchor": true,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
       },
-      "layout_node": null,
-      "layout_node_uid": null,
+      "layout_node": 2647,
+      "layout_node_uid": "3345ad2f9d4601b6fc30007a59a8ee654f037f82",
       "match": {
-        "confidence": 0.0,
+        "confidence": 1.0,
         "kind": "manual_anchor_v0"
       },
       "name": "D3",
-      "schematic_component": null
+      "schematic_component": 63,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 2556,
+          "x1": 2810,
+          "y0": 475,
+          "y1": 1310
+        },
+        "counts": {
+          "crossings_est": 341,
+          "junctions_est": 0,
+          "pixels": 8590,
+          "states": 14022
+        },
+        "hits": [
+          "D0",
+          "D1",
+          "D2",
+          "D3",
+          "~D0",
+          "~D1",
+          "~D2",
+          "~D3"
+        ],
+        "seed": {
+          "x": 2782,
+          "y": 592
+        }
+      }
     },
     {
       "evidence": {
@@ -61442,7 +61821,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D3&D2&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61456,7 +61835,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D3&D2&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61470,7 +61849,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D3&~D2&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61484,7 +61863,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D3&~D2&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61498,7 +61877,47 @@
         "kind": "manual_anchor_v0"
       },
       "name": "D3_PAD",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6951,
+          "junctions_est": 0,
+          "pixels": 145527,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "D3_PAD",
+          "DO0",
+          "DO3",
+          "IO0",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD3",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 732
+        }
+      }
     },
     {
       "evidence": {
@@ -61512,7 +61931,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "DO0",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61526,7 +61945,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "DO1",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61540,7 +61959,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "DO2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61554,7 +61973,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "DO3",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61568,7 +61987,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "IO0",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61582,7 +62001,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "IO1",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61596,7 +62015,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "IO2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61610,7 +62029,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "IO3",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61624,7 +62043,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "IOREAD",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61638,7 +62057,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "IOWRITE",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61652,7 +62071,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "M11",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61666,7 +62085,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "M12",
-      "schematic_component": null
+      "schematic_component": 155
     },
     {
       "evidence": {
@@ -61680,7 +62099,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "M21",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61694,7 +62113,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "M22",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61708,7 +62127,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "M22&SRCFF&CM&D3&~D2&D1&~D0",
-      "schematic_component": null
+      "schematic_component": 104
     },
     {
       "evidence": {
@@ -61722,7 +62141,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "M22&SRCFF&CM&~D3&~D2&D1&~D0",
-      "schematic_component": null
+      "schematic_component": 94
     },
     {
       "evidence": {
@@ -61736,7 +62155,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "MBUSREAD",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61750,7 +62169,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "MEMD0",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61764,7 +62183,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "MEMD1",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61778,7 +62197,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "MEMD2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61792,7 +62211,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "MEMD3",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61806,7 +62225,47 @@
         "kind": "manual_anchor_v0"
       },
       "name": "RESET",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6980,
+          "junctions_est": 0,
+          "pixels": 143137,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO3",
+          "IO0",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD3",
+          "RESET",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 988
+        }
+      }
     },
     {
       "evidence": {
@@ -61820,7 +62279,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "SRCFF",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61834,7 +62293,53 @@
         "kind": "manual_anchor_v0"
       },
       "name": "SYNC",
-      "schematic_component": null
+      "schematic_component": 1,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 29,
+          "x1": 2759,
+          "y0": 12,
+          "y1": 1347
+        },
+        "counts": {
+          "crossings_est": 6876,
+          "junctions_est": 0,
+          "pixels": 147546,
+          "states": 250000
+        },
+        "hits": [
+          "(RESET)",
+          "A22/2",
+          "CHIPNUM",
+          "CHIPSEL",
+          "CL",
+          "CM",
+          "D0_PAD",
+          "D1_PAD",
+          "D2+~D1+D0",
+          "D2_PAD",
+          "DO0",
+          "DO3",
+          "IO0",
+          "IO3",
+          "M11",
+          "M21",
+          "MEMD3",
+          "SRCFF",
+          "SYNC",
+          "X22",
+          "~(CM&X22&CLK2)",
+          "~(M22&SRCFF&CM)",
+          "~CLK1",
+          "~CLK2",
+          "~EXTBUSDRIVE",
+          "~X21"
+        ],
+        "seed": {
+          "x": 30,
+          "y": 1315
+        }
+      }
     },
     {
       "evidence": {
@@ -61848,7 +62353,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "SYNC+A11S+A11/2+A21/2",
-      "schematic_component": null
+      "schematic_component": 23
     },
     {
       "evidence": {
@@ -61890,7 +62395,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "X12",
-      "schematic_component": null
+      "schematic_component": 157
     },
     {
       "evidence": {
@@ -61904,7 +62409,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "X22",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61918,7 +62423,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)",
-      "schematic_component": null
+      "schematic_component": 91
     },
     {
       "evidence": {
@@ -61932,7 +62437,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~(CM&X22&CLK2)",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61946,7 +62451,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~(M22&SRCFF&CM)",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61960,7 +62465,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~(SYNC+A11S)",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61974,7 +62479,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~(SYNC+A11S+A11/2+A21/2)",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -61988,7 +62493,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~A11",
-      "schematic_component": null
+      "schematic_component": 151
     },
     {
       "evidence": {
@@ -62002,7 +62507,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~A11/2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62016,7 +62521,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~A21",
-      "schematic_component": null
+      "schematic_component": 152
     },
     {
       "evidence": {
@@ -62030,7 +62535,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~A21/2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62044,7 +62549,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~A31",
-      "schematic_component": null
+      "schematic_component": 154
     },
     {
       "evidence": {
@@ -62058,7 +62563,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~CHIPNUM",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62072,7 +62577,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~CLK1",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62086,7 +62591,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~CLK2",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62100,7 +62605,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D0",
-      "schematic_component": null
+      "schematic_component": 63
     },
     {
       "evidence": {
@@ -62114,7 +62619,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D1",
-      "schematic_component": null
+      "schematic_component": 63
     },
     {
       "evidence": {
@@ -62128,7 +62633,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D1&D0&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62142,7 +62647,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D1&D0&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62156,7 +62661,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D1&~D0&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62170,7 +62675,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D1&~D0&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62184,7 +62689,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D2",
-      "schematic_component": null
+      "schematic_component": 63
     },
     {
       "evidence": {
@@ -62198,7 +62703,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D3",
-      "schematic_component": null
+      "schematic_component": 63
     },
     {
       "evidence": {
@@ -62212,7 +62717,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D3&D2&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62226,7 +62731,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D3&D2&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62240,7 +62745,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D3&~D2&([A12/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62254,7 +62759,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~D3&~D2&([A22/2][CLK2])",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62268,7 +62773,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~EXTBUSDRIVE",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62282,7 +62787,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~IOWRITE",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62296,7 +62801,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~M11",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62310,7 +62815,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~M21",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62324,7 +62829,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~RESET",
-      "schematic_component": null
+      "schematic_component": 1
     },
     {
       "evidence": {
@@ -62338,7 +62843,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~X11",
-      "schematic_component": null
+      "schematic_component": 156
     },
     {
       "evidence": {
@@ -62352,7 +62857,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "~X21",
-      "schematic_component": null
+      "schematic_component": 1
     }
   ]
 }
