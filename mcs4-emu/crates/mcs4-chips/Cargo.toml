@@ -13,28 +13,11 @@ workspace = true
 
 [features]
 simd = []
-mimalloc = ["dep:mimalloc"]
 
 [dependencies]
-# Optimization
-bitflags.workspace = true
-smallvec.workspace = true
-bytemuck.workspace = true
-zerocopy.workspace = true
-mimalloc = { workspace = true, optional = true }
-num-traits.workspace = true
-
-# Serialization
-rkyv.workspace = true
-serde.workspace = true
-
-# Workspace
 mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }
 tracing.workspace = true
-
-# Tooling
-seq-macro.workspace = true
 
 [dev-dependencies]
 criterion.workspace = true

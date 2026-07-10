@@ -2767,7 +2767,7 @@ mod tests {
     // --- Verilog file generation (run with --ignored) ---
 
     #[test]
-    #[ignore]
+    #[ignore = "codegen helper writing build/*.v; run explicitly with --ignored"]
     fn generate_fpga_verilog() {
         use std::{fs, path::Path};
 

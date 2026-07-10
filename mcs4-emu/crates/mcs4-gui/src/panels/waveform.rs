@@ -276,7 +276,12 @@ impl WaveformPanel {
             self.cursors.set_time_cursor(tick);
         }
 
-        let trace = self.trace.read().expect("signal trace lock poisoned");
+        let Ok(trace) = self.trace.read() else {
+            // A writer panicked while holding the lock; keep the GUI alive
+            // and surface the fault instead of aborting the render loop.
+            ui.colored_label(egui::Color32::RED, "Signal trace unavailable (lock poisoned).");
+            return;
+        };
         if trace.is_empty() {
             ui.label("No signal data captured.");
             return;

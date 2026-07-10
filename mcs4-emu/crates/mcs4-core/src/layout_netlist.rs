@@ -53,9 +53,42 @@ pub struct Evidence {
     pub anchor: bool,
 }
 
-pub fn load_netlist_v1(path: impl AsRef<Path>) -> Result<NetlistV1, std::io::Error> {
+/// Failure while loading a netlist JSON document from disk
+#[derive(Debug)]
+pub enum NetlistLoadError {
+    /// Filesystem read failed
+    Io(std::io::Error),
+    /// File content is not a valid netlist document
+    Parse(serde_json::Error),
+}
+
+impl std::fmt::Display for NetlistLoadError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Io(e) => write!(f, "netlist file read failed: {e}"),
+            Self::Parse(e) => write!(f, "netlist parse failed: {e}"),
+        }
+    }
+}
+
+impl std::error::Error for NetlistLoadError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::Io(e) => Some(e),
+            Self::Parse(e) => Some(e),
+        }
+    }
+}
+
+impl From<std::io::Error> for NetlistLoadError {
+    fn from(e: std::io::Error) -> Self {
+        Self::Io(e)
+    }
+}
+
+pub fn load_netlist_v1(path: impl AsRef<Path>) -> Result<NetlistV1, NetlistLoadError> {
     let s = std::fs::read_to_string(path)?;
-    serde_json::from_str(&s).map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))
+    serde_json::from_str(&s).map_err(NetlistLoadError::Parse)
 }
 
 pub fn transistor_incidence(net: &NetlistV1) -> HashMap<i32, u32> {

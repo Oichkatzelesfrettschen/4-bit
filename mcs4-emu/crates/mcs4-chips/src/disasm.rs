@@ -14,6 +14,35 @@ pub enum CpuType {
     I4040,
 }
 
+/// Disassembly failure at a specific ROM address
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DisasmError {
+    /// Address lies outside the provided ROM image
+    AddressOutOfBounds { addr: u16, rom_len: usize },
+    /// Two-byte instruction whose second byte extends past the ROM image
+    TruncatedTwoByte { addr: u16 },
+    /// Byte sequence the decoder cannot map to an instruction
+    Undecodable { addr: u16, opcode: u8 },
+}
+
+impl std::fmt::Display for DisasmError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::AddressOutOfBounds { addr, rom_len } => {
+                write!(f, "address 0x{addr:03X} out of bounds (ROM length {rom_len})")
+            }
+            Self::TruncatedTwoByte { addr } => {
+                write!(f, "two-byte instruction at 0x{addr:03X} extends past ROM")
+            }
+            Self::Undecodable { addr, opcode } => {
+                write!(f, "undecodable opcode 0x{opcode:02X} at 0x{addr:03X}")
+            }
+        }
+    }
+}
+
+impl std::error::Error for DisasmError {}
+
 /// A disassembled instruction line with metadata
 #[derive(Clone, Debug)]
 pub struct DisasmLine {
@@ -55,9 +84,12 @@ impl Disassembler {
     }
 
     /// Disassemble a single instruction at the given address
-    pub fn disasm_one(&self, rom: &[u8], addr: u16) -> Result<DisasmLine, String> {
+    pub fn disasm_one(&self, rom: &[u8], addr: u16) -> Result<DisasmLine, DisasmError> {
         if addr as usize >= rom.len() {
-            return Err(format!("Address 0x{:03X} out of bounds", addr));
+            return Err(DisasmError::AddressOutOfBounds {
+                addr,
+                rom_len: rom.len(),
+            });
         }
 
         let mut decoder = InstructionDecoder::new();
@@ -68,7 +100,7 @@ impl Disassembler {
         let (bytes, instruction) = if decoder.two_byte {
             let next_addr = (addr as usize) + 1;
             if next_addr >= rom.len() {
-                return Err(format!("Two-byte instruction at 0x{:03X} extends past ROM", addr));
+                return Err(DisasmError::TruncatedTwoByte { addr });
             }
             let second_byte = rom[next_addr];
             decoder.decode_second(second_byte);
@@ -77,7 +109,10 @@ impl Disassembler {
             (vec![first_byte], decoder.get_instruction())
         };
 
-        let instruction = instruction.ok_or("Failed to decode instruction".to_string())?;
+        let instruction = instruction.ok_or(DisasmError::Undecodable {
+            addr,
+            opcode: first_byte,
+        })?;
         let (mnemonic, operands) = self.format_instruction(instruction);
 
         Ok(DisasmLine {
