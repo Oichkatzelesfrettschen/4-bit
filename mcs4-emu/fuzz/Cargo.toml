@@ -8,6 +8,12 @@ edition = "2021"
 [workspace]
 
 [[bin]]
+name = "netlist_v0_parser"
+path = "fuzz_targets/netlist_v0_parser.rs"
+test = false
+doc = false
+
+[[bin]]
 name = "netlist_v1_parser"
 path = "fuzz_targets/netlist_v1_parser.rs"
 test = false
