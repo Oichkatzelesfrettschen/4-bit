@@ -3,6 +3,25 @@ name = "mcs4-scripts"
 version = "0.1.0"
 description = "Evidence pipeline and analysis scripts for the 4-bit (MCS-4/MCS-40) workspace"
 requires-python = ">=3.11"
+# Third-party imports the scripts actually use (verified via grep of
+# scripts/*.py); versions pinned to what is installed and test-passing
+# locally, since mcs4-emu/INSTALLATION.md names packages in prose without
+# version numbers. onnxruntime/torch are optional (imported inside
+# try/except in ocr_backend_v0.py, ocr_capabilities_v0.py,
+# ocr_toolchain_smoke_v0.py) and stay out of the required set.
+dependencies = [
+    "Pillow==12.3.0",
+    "numpy==2.5.1",
+    "opencv-python==5.0.0.93",
+    "pytesseract==0.3.13",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.0.3",
+    "pyyaml==6.0.3",
+    "ruff==0.14.11",
+]
 
 [tool.pytest.ini_options]
 # pytest looks for tests under scripts/tests/ only; manual smoke tests like

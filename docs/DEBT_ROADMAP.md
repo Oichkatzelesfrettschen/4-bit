@@ -295,8 +295,43 @@ status_sync_check green.
   -- the truthful structural state, not a testbench defect. Functional
   per-chip vectors stay open pending fuller gate extraction (D19.1).
 
-Remaining open phases: D13.1/D13.9 (i4004 unit suite; bus/gui/periph
-integration dirs), D14.4 (constraint reconciliation to the new port
-lists), D14.9 (tgate path), D15.1, D15.2, D15.6 (Python dependency
-pins, per-family smoke tests), D16.2-D16.4, D16.6-D16.8 (convention
-dedupe, guide stubs, naming decisions), D18, D19.
+## Resolved in the agent-wave pass (2026-07-09/10)
+
+- D13.1: mcs4-chips/tests/i4004_cpu.rs -- 31 tests driving the CPU
+  through the public tick() API (8-phase walk, ALU group, control flow,
+  SRC/RAM I/O). Total 1,057 -> 1,088.
+- D15.1/D15.2: scripts/pyproject.toml [project.dependencies] with ==
+  pins (Pillow/numpy/opencv-python/pytesseract + dev extras); CI pip
+  installs pinned to match.
+- D18.2/D18.3/D18.4: every workflow action SHA-pinned with tag comments
+  (annotated-tag vs branch resolution handled per action); mdbook URL
+  pinned to its release tag; SOURCE_DATE_EPOCH exported from the commit
+  timestamp in both artifact-producing docs jobs.
+- D16.2: Status File Convention stated once (root claude.md); STATUS.md
+  links instead of restating.
+
+New findings from the i4004 suite (behavior reported by tests, fixes
+deliberately deferred to their own reviewed change):
+- D13.10: Fin executes as a stub -- reads pair 0, ignores its operand,
+  never loads the target pair. Real hardware fetches ROM[P0] into the
+  addressed pair.
+- D13.11: FIN/JIN complete in one machine cycle while
+  Instruction::cycles() says 2 and hardware takes 2 -- decoder marks
+  opr=3 single-cycle; three-way mismatch.
+- D13.12: Dcl stores acc & 0xF raw into ram_bank without CM-RAM line
+  decode; CM-RAM assertion lives entirely in the system layer.
+- D13.13: Jcn treats test_pin==true as condition-satisfied; the 4004
+  TEST pin is active-low -- verify polarity against the datasheet.
+
+D19.1 status (in progress, artifacts uncommitted): a first
+extract_gates_v1.py pass runs ruff-clean and produces
+docs/evidence/gates_v1/ drafts, but fails its own acceptance targets
+(INV=0 on 4001/4002/4003; 4003 rails unresolved). Root-cause evidence:
+the 4004 rail search resolved node 415, which is the CLK1 signal
+anchor -- rail identification by incidence picks clock spines over
+supply rails. The completion pass must identify rails from netlist_v1
+VDD/VSS signal anchors first and fall back to incidence only with a
+clock-anchor exclusion.
+
+Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
+D16.6-D16.8, D18.1, D18.5, D19.1 (completion pass), D19.2-D19.4.
