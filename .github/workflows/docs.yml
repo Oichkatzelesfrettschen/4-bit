@@ -8,7 +8,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Install tooling
         run: |
           sudo apt-get update
@@ -30,15 +30,15 @@ jobs:
   rustdoc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Rust toolchain
-        uses: dtolnay/rust-toolchain@nightly
+        uses: dtolnay/rust-toolchain@efcb852328a9f50117170cc43094fb6f09eaf1ae # nightly
         with:
           toolchain: nightly-2026-04-05
 
       - name: Cache Rust artifacts
-        uses: Swatinem/rust-cache@v2
+        uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
 
       - name: Install system dependencies
         run: |
@@ -50,13 +50,18 @@ jobs:
             libxkbcommon-dev \
             libssl-dev
 
+      - name: Set SOURCE_DATE_EPOCH
+        # Pin the build timestamp to the commit time so rustdoc output is
+        # byte-reproducible across runs of the same commit.
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
+
       - name: Build rustdoc
         run: cargo doc --workspace --no-deps --all-features
         env:
           RUSTDOCFLAGS: "-D warnings"
 
       - name: Upload rustdoc artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: rustdoc
           path: target/doc/
@@ -65,18 +70,23 @@ jobs:
   mdbook:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Install mdBook
         run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/latest/download/mdbook-v0.4.44-x86_64-unknown-linux-gnu.tar.gz \
+          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.44/mdbook-v0.4.44-x86_64-unknown-linux-gnu.tar.gz \
             | tar -xz -C /usr/local/bin
+
+      - name: Set SOURCE_DATE_EPOCH
+        # Pin the build timestamp to the commit time so the mdbook output is
+        # byte-reproducible across runs of the same commit.
+        run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
 
       - name: Build book
         run: mdbook build
 
       - name: Upload book artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: mdbook
           path: target/book/
@@ -94,25 +104,25 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Download rustdoc artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: rustdoc
           path: site/api/
 
       - name: Download mdbook artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
           name: mdbook
           path: site/
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
       - name: Upload combined site
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: site/
 
       - name: Deploy to GitHub Pages
         id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
