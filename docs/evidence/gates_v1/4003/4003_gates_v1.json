@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "chip": "4003",
+  "description": "Ratioed-logic gate netlist (pMOS enhancement driver + saturated load)",
+  "rails": [
+    152,
+    359
+  ],
+  "rail_identification_method": "signals",
+  "rails_resolved": false,
+  "rail_detail": {
+    "signal_rails": {
+      "VDD": {
+        "node": 359,
+        "channel_incidence": 1,
+        "metal_area": 0
+      },
+      "VSS": {
+        "node": 152,
+        "channel_incidence": 1,
+        "metal_area": 0
+      }
+    },
+    "anchor_conflicts": [],
+    "excluded_non_rail_anchor_nodes": [
+      239
+    ],
+    "incidence_threshold": 8,
+    "incidence_rail_candidates": [],
+    "busiest_channel_nodes": [
+      {
+        "node": 276,
+        "channel_incidence": 2,
+        "metal_area": 0,
+        "named_anchor": null
+      },
+      {
+        "node": 277,
+        "channel_incidence": 2,
+        "metal_area": 0,
+        "named_anchor": null
+      },
+      {
+        "node": 278,
+        "channel_incidence": 2,
+        "metal_area": 0,
+        "named_anchor": null
+      },
+      {
+        "node": 279,
+        "channel_incidence": 2,
+        "metal_area": 0,
+        "named_anchor": [
+          "EN"
+        ]
+      },
+      {
+        "node": 284,
+        "channel_incidence": 2,
+        "metal_area": 0,
+        "named_anchor": null
+      }
+    ]
+  },
+  "gates": [],
+  "load_devices": [],
+  "pass_transistors": [],
+  "unclassified": {
+    "isolated_dangling": [
+      0,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      36
+    ],
+    "gate_on_rail_bias_no_load": [],
+    "rail_touching_role_unresolved": [
+      1,
+      24
+    ],
+    "fragmented_no_resolved_rail": [
+      35
+    ]
+  },
+  "statistics": {
+    "total_transistors": 37,
+    "total_gates": 0,
+    "gate_type_counts": {
+      "INV": 0,
+      "NAND2": 0,
+      "NAND3": 0,
+      "NAND_other": 0,
+      "NOR2": 0,
+      "NOR3": 0,
+      "NOR_other": 0,
+      "AOI": 0
+    },
+    "load_devices": 0,
+    "pass_transistors": 0,
+    "unclassified_transistors": 37,
+    "coverage": {
+      "confirmed_structure_transistors": 0,
+      "confirmed_coverage_pct": 0.0,
+      "role_unconfirmed_pass_transistors": 0,
+      "classified_transistors": 0,
+      "coverage_pct": 0.0,
+      "double_claims": 0
+    }
+  }
+}

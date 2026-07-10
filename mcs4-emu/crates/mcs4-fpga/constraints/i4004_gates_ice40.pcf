@@ -1,0 +1,31 @@
+# i4004_gates Pin Constraints for Lattice iCE40 HX8K-CT256
+#
+# WHY: MODE=gate synthesizes TOP=i4004_gates from
+#      docs/evidence/verilog_v0/4004/i4004_gates.v (gate-level extraction of
+#      the 4004 CPU). Every port on that module header is constrained here.
+# WHAT: iCE40 HX8K-CT256 pin assignment for the i4004_gates top module.
+# HOW:  nextpnr-ice40 --hx8k --package ct256 --pcf i4004_gates_ice40.pcf
+#
+# module i4004_gates (
+#     input  wire VDD, VSS,
+#     output wire CLK1, CMRAM0, D0_PAD
+# );
+#
+# NOTE: CLK1 is a module OUTPUT in this gate-level netlist (the extracted
+# 4004 generates its own two-phase clock internally); there is no external
+# clock input port to constrain.
+
+# ============================================================
+# Rail ports (structural model only; see i4001_gates_ice40.pcf header)
+# ============================================================
+
+set_io VDD B1
+set_io VSS B2
+
+# ============================================================
+# CPU status/clock outputs
+# ============================================================
+
+set_io CLK1 C1
+set_io CMRAM0 C2
+set_io D0_PAD D1

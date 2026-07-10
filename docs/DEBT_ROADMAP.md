@@ -333,5 +333,34 @@ supply rails. The completion pass must identify rails from netlist_v1
 VDD/VSS signal anchors first and fall back to incidence only with a
 clock-anchor exclusion.
 
+## Resolved in the classification + constraints pass (2026-07-09/10)
+
+- D19.1: extract_gates_v1.py lands with rail identification from signal
+  anchors (incidence fallback excludes named non-rail anchors), a
+  data-verified load definition, zero double-claimed transistors, and a
+  confirmed vs role-unconfirmed coverage split. Its headline result is
+  negative and evidence-backed: netlist_v1 rails on 4001/4002/4003 are
+  fragmented (anchor incidence <= 2, metal_area 0 on every
+  channel-touching node), so gate recognition there is impossible from
+  this data -- INV=0 is the true value, not an extractor defect. Only
+  the 4004 resolves rails (and contains exactly one rail-to-rail
+  inverter, hand-verified). Two findings follow:
+  - gates_v0 coverage is structurally spurious: v0 emits a gate per
+    ordered series pair, double-claiming transistors by the hundreds
+    (independently confirmed). The 7,525-line gate-level Verilog derives
+    from those counts and inherits the over-statement.
+  - D19.5 (new, upstream unblock): generate schematic_wirenets_v0 /
+    schematic_connectivity_v0 for 4001/4002/4003 (they exist only for
+    4004) so rail nets consolidate; the v1 extractor then works
+    unmodified.
+- D14.4: per-chip .pcf/.xdc generated from the real gate-top headers
+  (orphan mcs4_ice40.pcf/mcs4_spartan7.xdc deleted); Makefile device
+  targets corrected (hx8k/ct256, xc7s25csga324). All four gate tops
+  synthesize AND place-and-route cleanly through yosys + nextpnr-ice40
+  -- the first successful hardware flow in this environment. One
+  invalid CT256 ball (E1) was caught by running the real chipdb.
+  Spartan-7 .xdc pins remain Vivado-unverified (stated in
+  constraints/README.md); pins are placeholders pending board bring-up.
+
 Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
-D16.6-D16.8, D18.1, D18.5, D19.1 (completion pass), D19.2-D19.4.
+D16.6-D16.8, D18.1, D18.5, D19.2-D19.5.
