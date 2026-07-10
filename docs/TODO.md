@@ -16,16 +16,10 @@ docs/evidence/PHASE_0.5_COMPLETION.md:101:| 16 | Regenerate TODO.md via todo_sca
 docs/evidence/PHASE_0.5_COMPLETION.md:135:7. `docs/TODO.md`:
 docs/evidence/PHASE_0.5_COMPLETION.md:136:   - Regenerated from codebase TODO comments
 docs/evidence/PHASE_0.5_COMPLETION.md:245:4. **TODO tracking**: Granular 31-item plan with clear dependencies prevented drift
-docs/evidence/verilog_v0/4001/tb_i4001_gates.v:21:        // TODO: Add test stimulus
-docs/evidence/verilog_v0/4002/tb_i4002_gates.v:21:        // TODO: Add test stimulus
-docs/evidence/verilog_v0/4003/tb_i4003_gates.v:21:        // TODO: Add test stimulus
-docs/evidence/verilog_v0/4004/tb_i4004_gates.v:21:        // TODO: Add test stimulus
 docs/INDEX.md:105:- "docs/TODO.md"
 docs/meta/registry.yaml:54:  - file: docs/TODO.md
 docs/ROADMAP.md:228:- Keep `docs/ROADMAP.md` aligned with `mcs4-emu/STATUS.md` and TODO scans (`scripts/todo_scan.sh` → `docs/TODO.md`).
 docs/TODO.md:1:# TODO / FIXME / XXX
-scripts/gate_to_verilog_v0.py:229:        "        // TODO: Add test stimulus",
-scripts/gate_to_verilog_v0.py:338:    print("TODO: Extract I/O from anchor nodes in subcircuit manifests")
 scripts/todo_scan.sh:18:    -e "\\b(TODO|FIXME|XXX)\\b" \
 scripts/todo_scan.sh:26:    -e "TODO" -e "FIXME" -e "XXX" \
 scripts/todo_scan.sh:31:  echo "# TODO / FIXME / XXX"

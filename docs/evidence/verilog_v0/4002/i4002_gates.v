@@ -1,10 +1,12 @@
 // Auto-generated from gate-level netlist
 // Chip: 4002
 // Tool: gate_to_verilog_v0.py
+// Ports derived from netlist_v1 signal anchors (layout_node)
 
 module i4002_gates (
     input wire VDD,
-    input wire VSS
+    input wire VSS,
+    input wire CM
 );
 
     // Internal wires
@@ -484,6 +486,9 @@ module i4002_gates (
     wire n2666;
     wire n3186;
     wire n3251;
+
+    // Pad bindings (signal anchor -> gate-netlist node)
+    assign n799 = CM;
 
     // Gate instances
     nand2 g0 (.A(n20), .B(n22), .Y(n905));
