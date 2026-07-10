@@ -1,0 +1,1171 @@
+{
+  "chip": "4001",
+  "components": [
+    {
+      "area": 393045,
+      "bbox": {
+        "h": 1338,
+        "w": 2826,
+        "x": 28,
+        "y": 11
+      },
+      "id": 1,
+      "point_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        19,
+        20,
+        22,
+        23,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        39,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        66,
+        68,
+        69,
+        70,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ]
+    },
+    {
+      "area": 259,
+      "bbox": {
+        "h": 105,
+        "w": 20,
+        "x": 2512,
+        "y": 326
+      },
+      "id": 23,
+      "point_indices": [
+        38
+      ]
+    },
+    {
+      "area": 9085,
+      "bbox": {
+        "h": 836,
+        "w": 255,
+        "x": 2556,
+        "y": 475
+      },
+      "id": 63,
+      "point_indices": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "area": 515,
+      "bbox": {
+        "h": 113,
+        "w": 84,
+        "x": 249,
+        "y": 946
+      },
+      "id": 91,
+      "point_indices": [
+        71
+      ]
+    },
+    {
+      "area": 368,
+      "bbox": {
+        "h": 102,
+        "w": 59,
+        "x": 446,
+        "y": 957
+      },
+      "id": 94,
+      "point_indices": [
+        67
+      ]
+    },
+    {
+      "area": 327,
+      "bbox": {
+        "h": 61,
+        "w": 80,
+        "x": 610,
+        "y": 998
+      },
+      "id": 104,
+      "point_indices": [
+        65
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 111,
+        "y": 1288
+      },
+      "id": 151,
+      "point_indices": [
+        14
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 187,
+        "y": 1288
+      },
+      "id": 152,
+      "point_indices": [
+        16
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 225,
+        "y": 1288
+      },
+      "id": 153,
+      "point_indices": [
+        17
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 263,
+        "y": 1288
+      },
+      "id": 154,
+      "point_indices": [
+        18
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 377,
+        "y": 1288
+      },
+      "id": 155,
+      "point_indices": [
+        21
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 491,
+        "y": 1288
+      },
+      "id": 156,
+      "point_indices": [
+        24
+      ]
+    },
+    {
+      "area": 180,
+      "bbox": {
+        "h": 61,
+        "w": 37,
+        "x": 529,
+        "y": 1288
+      },
+      "id": 157,
+      "point_indices": [
+        25
+      ]
+    }
+  ],
+  "counts": {
+    "components_referenced": 13,
+    "components_total": 164,
+    "nets": 13,
+    "points_unmapped": 0,
+    "signal_points": 89
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "84f6e4b89e128a3c83aa8b1410627c8e5e232d27b04c0debda3c4ce749230464",
+      "signals_txt": "4c02635bfd0d463717ae65bc11b00aeafd6cde6d7cbc179a4da954cd95058bf6"
+    },
+    "signals_txt": "docs/emulators/i4001-signals.txt"
+  },
+  "nets": [
+    {
+      "names": [
+        "(RESET)",
+        "A11/2",
+        "A12",
+        "A12/2",
+        "A22/2",
+        "A32",
+        "CHIPNUM",
+        "CHIPSEL",
+        "CL",
+        "CLK1",
+        "CLK2",
+        "CM",
+        "D0_PAD",
+        "D1&D0&([A12/2][CLK2])",
+        "D1&D0&([A22/2][CLK2])",
+        "D1&~D0&([A12/2][CLK2])",
+        "D1&~D0&([A22/2][CLK2])",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "D3&D2&([A12/2][CLK2])",
+        "D3&D2&([A22/2][CLK2])",
+        "D3&~D2&([A12/2][CLK2])",
+        "D3&~D2&([A22/2][CLK2])",
+        "D3_PAD",
+        "DO0",
+        "DO1",
+        "DO2",
+        "DO3",
+        "IO0",
+        "IO1",
+        "IO2",
+        "IO3",
+        "IOREAD",
+        "IOWRITE",
+        "M11",
+        "M21",
+        "M22",
+        "MBUSREAD",
+        "MEMD0",
+        "MEMD1",
+        "MEMD2",
+        "MEMD3",
+        "RESET",
+        "SRCFF",
+        "SYNC",
+        "X22",
+        "~(CM&X22&CLK2)",
+        "~(M22&SRCFF&CM)",
+        "~(SYNC+A11S)",
+        "~(SYNC+A11S+A11/2+A21/2)",
+        "~A11/2",
+        "~A21/2",
+        "~CHIPNUM",
+        "~CLK1",
+        "~CLK2",
+        "~D1&D0&([A12/2][CLK2])",
+        "~D1&D0&([A22/2][CLK2])",
+        "~D1&~D0&([A12/2][CLK2])",
+        "~D1&~D0&([A22/2][CLK2])",
+        "~D3&D2&([A12/2][CLK2])",
+        "~D3&D2&([A22/2][CLK2])",
+        "~D3&~D2&([A12/2][CLK2])",
+        "~D3&~D2&([A22/2][CLK2])",
+        "~EXTBUSDRIVE",
+        "~IOWRITE",
+        "~M11",
+        "~M21",
+        "~RESET",
+        "~X21"
+      ],
+      "point_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        19,
+        20,
+        22,
+        23,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        39,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        66,
+        68,
+        69,
+        70,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88
+      ],
+      "schematic_component": 1
+    },
+    {
+      "names": [
+        "SYNC+A11S+A11/2+A21/2"
+      ],
+      "point_indices": [
+        38
+      ],
+      "schematic_component": 23
+    },
+    {
+      "names": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "~D0",
+        "~D1",
+        "~D2",
+        "~D3"
+      ],
+      "point_indices": [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "schematic_component": 63
+    },
+    {
+      "names": [
+        "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)"
+      ],
+      "point_indices": [
+        71
+      ],
+      "schematic_component": 91
+    },
+    {
+      "names": [
+        "M22&SRCFF&CM&~D3&~D2&D1&~D0"
+      ],
+      "point_indices": [
+        67
+      ],
+      "schematic_component": 94
+    },
+    {
+      "names": [
+        "M22&SRCFF&CM&D3&~D2&D1&~D0"
+      ],
+      "point_indices": [
+        65
+      ],
+      "schematic_component": 104
+    },
+    {
+      "names": [
+        "~A11"
+      ],
+      "point_indices": [
+        14
+      ],
+      "schematic_component": 151
+    },
+    {
+      "names": [
+        "~A21"
+      ],
+      "point_indices": [
+        16
+      ],
+      "schematic_component": 152
+    },
+    {
+      "names": [
+        "A22"
+      ],
+      "point_indices": [
+        17
+      ],
+      "schematic_component": 153
+    },
+    {
+      "names": [
+        "~A31"
+      ],
+      "point_indices": [
+        18
+      ],
+      "schematic_component": 154
+    },
+    {
+      "names": [
+        "M12"
+      ],
+      "point_indices": [
+        21
+      ],
+      "schematic_component": 155
+    },
+    {
+      "names": [
+        "~X11"
+      ],
+      "point_indices": [
+        24
+      ],
+      "schematic_component": 156
+    },
+    {
+      "names": [
+        "X12"
+      ],
+      "point_indices": [
+        25
+      ],
+      "schematic_component": 157
+    }
+  ],
+  "params": {
+    "polarity": "auto",
+    "sample": 9,
+    "threshold": 200
+  },
+  "points": [
+    {
+      "idx": 0,
+      "name": "CLK1",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 1155
+    },
+    {
+      "idx": 1,
+      "name": "CLK2",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 1233
+    },
+    {
+      "idx": 2,
+      "name": "RESET",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 989
+    },
+    {
+      "idx": 3,
+      "name": "CL",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 907
+    },
+    {
+      "idx": 4,
+      "name": "D0_PAD",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 190
+    },
+    {
+      "idx": 5,
+      "name": "D1_PAD",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 371
+    },
+    {
+      "idx": 6,
+      "name": "D2_PAD",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 552
+    },
+    {
+      "idx": 7,
+      "name": "D3_PAD",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 733
+    },
+    {
+      "idx": 8,
+      "name": "SYNC",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 1316
+    },
+    {
+      "idx": 9,
+      "name": "CM",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 1073
+    },
+    {
+      "idx": 10,
+      "name": "IO0",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 327
+    },
+    {
+      "idx": 11,
+      "name": "IO1",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 508
+    },
+    {
+      "idx": 12,
+      "name": "IO2",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 689
+    },
+    {
+      "idx": 13,
+      "name": "IO3",
+      "schematic_component": 1,
+      "x": 30,
+      "y": 870
+    },
+    {
+      "idx": 14,
+      "name": "~A11",
+      "schematic_component": 151,
+      "x": 117,
+      "y": 1316
+    },
+    {
+      "idx": 15,
+      "name": "A12",
+      "schematic_component": 1,
+      "x": 155,
+      "y": 1316
+    },
+    {
+      "idx": 16,
+      "name": "~A21",
+      "schematic_component": 152,
+      "x": 193,
+      "y": 1316
+    },
+    {
+      "idx": 17,
+      "name": "A22",
+      "schematic_component": 153,
+      "x": 231,
+      "y": 1316
+    },
+    {
+      "idx": 18,
+      "name": "~A31",
+      "schematic_component": 154,
+      "x": 269,
+      "y": 1316
+    },
+    {
+      "idx": 19,
+      "name": "A32",
+      "schematic_component": 1,
+      "x": 307,
+      "y": 1316
+    },
+    {
+      "idx": 20,
+      "name": "~M11",
+      "schematic_component": 1,
+      "x": 345,
+      "y": 1316
+    },
+    {
+      "idx": 21,
+      "name": "M12",
+      "schematic_component": 155,
+      "x": 383,
+      "y": 1316
+    },
+    {
+      "idx": 22,
+      "name": "~M21",
+      "schematic_component": 1,
+      "x": 421,
+      "y": 1316
+    },
+    {
+      "idx": 23,
+      "name": "M22",
+      "schematic_component": 1,
+      "x": 459,
+      "y": 1316
+    },
+    {
+      "idx": 24,
+      "name": "~X11",
+      "schematic_component": 156,
+      "x": 497,
+      "y": 1316
+    },
+    {
+      "idx": 25,
+      "name": "X12",
+      "schematic_component": 157,
+      "x": 535,
+      "y": 1316
+    },
+    {
+      "idx": 26,
+      "name": "~X21",
+      "schematic_component": 1,
+      "x": 573,
+      "y": 1316
+    },
+    {
+      "idx": 27,
+      "name": "X22",
+      "schematic_component": 1,
+      "x": 611,
+      "y": 1316
+    },
+    {
+      "idx": 28,
+      "name": "~CLK1",
+      "schematic_component": 1,
+      "x": 2715,
+      "y": 322
+    },
+    {
+      "idx": 29,
+      "name": "~CLK2",
+      "schematic_component": 1,
+      "x": 122,
+      "y": 1046
+    },
+    {
+      "idx": 30,
+      "name": "~RESET",
+      "schematic_component": 1,
+      "x": 94,
+      "y": 973
+    },
+    {
+      "idx": 31,
+      "name": "(RESET)",
+      "schematic_component": 1,
+      "x": 121,
+      "y": 973
+    },
+    {
+      "idx": 32,
+      "name": "~A11/2",
+      "schematic_component": 1,
+      "x": 2570,
+      "y": 119
+    },
+    {
+      "idx": 33,
+      "name": "A12/2",
+      "schematic_component": 1,
+      "x": 2617,
+      "y": 119
+    },
+    {
+      "idx": 34,
+      "name": "~A21/2",
+      "schematic_component": 1,
+      "x": 2664,
+      "y": 119
+    },
+    {
+      "idx": 35,
+      "name": "A22/2",
+      "schematic_component": 1,
+      "x": 2711,
+      "y": 119
+    },
+    {
+      "idx": 36,
+      "name": "A11/2",
+      "schematic_component": 1,
+      "x": 2479,
+      "y": 150
+    },
+    {
+      "idx": 37,
+      "name": "~(SYNC+A11S)",
+      "schematic_component": 1,
+      "x": 2582,
+      "y": 398
+    },
+    {
+      "idx": 38,
+      "name": "SYNC+A11S+A11/2+A21/2",
+      "schematic_component": 23,
+      "x": 2527,
+      "y": 354
+    },
+    {
+      "idx": 39,
+      "name": "~(SYNC+A11S+A11/2+A21/2)",
+      "schematic_component": 1,
+      "x": 2464,
+      "y": 398
+    },
+    {
+      "idx": 40,
+      "name": "D0",
+      "schematic_component": 63,
+      "x": 2783,
+      "y": 747
+    },
+    {
+      "idx": 41,
+      "name": "D1",
+      "schematic_component": 63,
+      "x": 2783,
+      "y": 836
+    },
+    {
+      "idx": 42,
+      "name": "D2",
+      "schematic_component": 63,
+      "x": 2783,
+      "y": 503
+    },
+    {
+      "idx": 43,
+      "name": "D3",
+      "schematic_component": 63,
+      "x": 2783,
+      "y": 592
+    },
+    {
+      "idx": 44,
+      "name": "~D0",
+      "schematic_component": 63,
+      "x": 2806,
+      "y": 791
+    },
+    {
+      "idx": 45,
+      "name": "~D1",
+      "schematic_component": 63,
+      "x": 2806,
+      "y": 880
+    },
+    {
+      "idx": 46,
+      "name": "~D2",
+      "schematic_component": 63,
+      "x": 2806,
+      "y": 547
+    },
+    {
+      "idx": 47,
+      "name": "~D3",
+      "schematic_component": 63,
+      "x": 2806,
+      "y": 636
+    },
+    {
+      "idx": 48,
+      "name": "MEMD0",
+      "schematic_component": 1,
+      "x": 973,
+      "y": 693
+    },
+    {
+      "idx": 49,
+      "name": "MEMD1",
+      "schematic_component": 1,
+      "x": 1325,
+      "y": 693
+    },
+    {
+      "idx": 50,
+      "name": "MEMD2",
+      "schematic_component": 1,
+      "x": 1677,
+      "y": 693
+    },
+    {
+      "idx": 51,
+      "name": "MEMD3",
+      "schematic_component": 1,
+      "x": 2029,
+      "y": 693
+    },
+    {
+      "idx": 52,
+      "name": "DO0",
+      "schematic_component": 1,
+      "x": 611,
+      "y": 292
+    },
+    {
+      "idx": 53,
+      "name": "DO1",
+      "schematic_component": 1,
+      "x": 611,
+      "y": 473
+    },
+    {
+      "idx": 54,
+      "name": "DO2",
+      "schematic_component": 1,
+      "x": 611,
+      "y": 654
+    },
+    {
+      "idx": 55,
+      "name": "DO3",
+      "schematic_component": 1,
+      "x": 611,
+      "y": 835
+    },
+    {
+      "idx": 56,
+      "name": "M11",
+      "schematic_component": 1,
+      "x": 366,
+      "y": 1205
+    },
+    {
+      "idx": 57,
+      "name": "M21",
+      "schematic_component": 1,
+      "x": 399,
+      "y": 1205
+    },
+    {
+      "idx": 58,
+      "name": "D2+~D1+D0",
+      "schematic_component": 1,
+      "x": 2656,
+      "y": 1250
+    },
+    {
+      "idx": 59,
+      "name": "~CHIPNUM",
+      "schematic_component": 1,
+      "x": 2550,
+      "y": 1051
+    },
+    {
+      "idx": 60,
+      "name": "CHIPNUM",
+      "schematic_component": 1,
+      "x": 682,
+      "y": 1316
+    },
+    {
+      "idx": 61,
+      "name": "~(CM&X22&CLK2)",
+      "schematic_component": 1,
+      "x": 579,
+      "y": 1161
+    },
+    {
+      "idx": 62,
+      "name": "SRCFF",
+      "schematic_component": 1,
+      "x": 473,
+      "y": 1196
+    },
+    {
+      "idx": 63,
+      "name": "~(M22&SRCFF&CM)",
+      "schematic_component": 1,
+      "x": 436,
+      "y": 1161
+    },
+    {
+      "idx": 64,
+      "name": "CHIPSEL",
+      "schematic_component": 1,
+      "x": 217,
+      "y": 1205
+    },
+    {
+      "idx": 65,
+      "name": "M22&SRCFF&CM&D3&~D2&D1&~D0",
+      "schematic_component": 104,
+      "x": 661,
+      "y": 1026
+    },
+    {
+      "idx": 66,
+      "name": "IOREAD",
+      "schematic_component": 1,
+      "x": 550,
+      "y": 1026
+    },
+    {
+      "idx": 67,
+      "name": "M22&SRCFF&CM&~D3&~D2&D1&~D0",
+      "schematic_component": 94,
+      "x": 476,
+      "y": 1026
+    },
+    {
+      "idx": 68,
+      "name": "IOWRITE",
+      "schematic_component": 1,
+      "x": 381,
+      "y": 969
+    },
+    {
+      "idx": 69,
+      "name": "~IOWRITE",
+      "schematic_component": 1,
+      "x": 111,
+      "y": 813
+    },
+    {
+      "idx": 70,
+      "name": "MBUSREAD",
+      "schematic_component": 1,
+      "x": 359,
+      "y": 1026
+    },
+    {
+      "idx": 71,
+      "name": "~(((M11+M21)&CHIPSEL+IOREAD)&~RESET)",
+      "schematic_component": 91,
+      "x": 316,
+      "y": 974
+    },
+    {
+      "idx": 72,
+      "name": "~EXTBUSDRIVE",
+      "schematic_component": 1,
+      "x": 187,
+      "y": 1011
+    },
+    {
+      "idx": 73,
+      "name": "D3&D2&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 533
+    },
+    {
+      "idx": 74,
+      "name": "D3&D2&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 557
+    },
+    {
+      "idx": 75,
+      "name": "D3&~D2&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 581
+    },
+    {
+      "idx": 76,
+      "name": "D3&~D2&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 605
+    },
+    {
+      "idx": 77,
+      "name": "~D3&D2&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 629
+    },
+    {
+      "idx": 78,
+      "name": "~D3&D2&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 653
+    },
+    {
+      "idx": 79,
+      "name": "~D3&~D2&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 677
+    },
+    {
+      "idx": 80,
+      "name": "~D3&~D2&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 701
+    },
+    {
+      "idx": 81,
+      "name": "~D1&~D0&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 725
+    },
+    {
+      "idx": 82,
+      "name": "~D1&~D0&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 749
+    },
+    {
+      "idx": 83,
+      "name": "~D1&D0&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 773
+    },
+    {
+      "idx": 84,
+      "name": "~D1&D0&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 797
+    },
+    {
+      "idx": 85,
+      "name": "D1&~D0&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 821
+    },
+    {
+      "idx": 86,
+      "name": "D1&~D0&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 845
+    },
+    {
+      "idx": 87,
+      "name": "D1&D0&([A22/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 869
+    },
+    {
+      "idx": 88,
+      "name": "D1&D0&([A12/2][CLK2])",
+      "schematic_component": 1,
+      "x": 2482,
+      "y": 893
+    }
+  ],
+  "schema": {
+    "description": "Schematic bitmap connected-components and signals.txt point\u2192component assignment.",
+    "version": 0
+  },
+  "unmapped_point_indices": []
+}

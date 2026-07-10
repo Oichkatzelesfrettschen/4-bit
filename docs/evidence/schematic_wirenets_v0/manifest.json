@@ -1,6 +1,21 @@
 {
   "outputs": [
     {
+      "chip": "4001",
+      "output_json": "docs/evidence/schematic_wirenets_v0/4001/4001_schematic_wirenets_v0.json",
+      "output_png": "docs/evidence/schematic_wirenets_v0/4001/4001_schematic_wirenets_v0.png"
+    },
+    {
+      "chip": "4002",
+      "output_json": "docs/evidence/schematic_wirenets_v0/4002/4002_schematic_wirenets_v0.json",
+      "output_png": "docs/evidence/schematic_wirenets_v0/4002/4002_schematic_wirenets_v0.png"
+    },
+    {
+      "chip": "4003",
+      "output_json": "docs/evidence/schematic_wirenets_v0/4003/4003_schematic_wirenets_v0.json",
+      "output_png": "docs/evidence/schematic_wirenets_v0/4003/4003_schematic_wirenets_v0.png"
+    },
+    {
       "chip": "4004",
       "output_json": "docs/evidence/schematic_wirenets_v0/4004/4004_schematic_wirenets_v0.json",
       "output_png": "docs/evidence/schematic_wirenets_v0/4004/4004_schematic_wirenets_v0.png"

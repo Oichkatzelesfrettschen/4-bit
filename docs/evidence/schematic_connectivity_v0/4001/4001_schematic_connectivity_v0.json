@@ -1,0 +1,599 @@
+{
+  "chip": "4001",
+  "counts": {
+    "targets": 13
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4001-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "84f6e4b89e128a3c83aa8b1410627c8e5e232d27b04c0debda3c4ce749230464",
+      "signals_txt": "4c02635bfd0d463717ae65bc11b00aeafd6cde6d7cbc179a4da954cd95058bf6"
+    },
+    "signals_txt": "docs/emulators/i4001-signals.txt"
+  },
+  "params": {
+    "dot_radius": 2,
+    "dot_thresh": 0.55,
+    "max_states": 250000,
+    "name_regex": "^(CLK1|CLK2|SYNC|CM|RESET|D[0-3]|D[0-3]_PAD)$",
+    "polarity": "auto",
+    "seed_radius": 24,
+    "threshold": 200
+  },
+  "schema": {
+    "description": "Skeleton-based schematic connectivity traces for selected signals.",
+    "version": 0
+  },
+  "targets": [
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 7008,
+        "junctions_est": 0,
+        "pixels": 147832,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPNUM",
+        "CHIPSEL",
+        "CL",
+        "CLK1",
+        "CLK2",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO3",
+        "IO0",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD3",
+        "SRCFF",
+        "X22",
+        "~(CM&X22&CLK2)",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE",
+        "~X21"
+      ],
+      "name": "CLK1",
+      "point": {
+        "x": 30,
+        "y": 1155
+      },
+      "seed": {
+        "x": 30,
+        "y": 1154
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 7006,
+        "junctions_est": 0,
+        "pixels": 147737,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPNUM",
+        "CHIPSEL",
+        "CL",
+        "CLK2",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO3",
+        "IO0",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD3",
+        "SRCFF",
+        "X22",
+        "~(CM&X22&CLK2)",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE",
+        "~X21"
+      ],
+      "name": "CLK2",
+      "point": {
+        "x": 30,
+        "y": 1233
+      },
+      "seed": {
+        "x": 30,
+        "y": 1232
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6980,
+        "junctions_est": 0,
+        "pixels": 143137,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO3",
+        "IO0",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD3",
+        "RESET",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE"
+      ],
+      "name": "RESET",
+      "point": {
+        "x": 30,
+        "y": 989
+      },
+      "seed": {
+        "x": 30,
+        "y": 988
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6709,
+        "junctions_est": 0,
+        "pixels": 148331,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D0_PAD",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO1",
+        "DO2",
+        "DO3",
+        "IO0",
+        "IO1",
+        "IO2",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD0",
+        "MEMD1",
+        "MEMD2",
+        "MEMD3",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE"
+      ],
+      "name": "D0_PAD",
+      "point": {
+        "x": 30,
+        "y": 190
+      },
+      "seed": {
+        "x": 30,
+        "y": 189
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6863,
+        "junctions_est": 0,
+        "pixels": 148211,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO1",
+        "DO2",
+        "DO3",
+        "IO0",
+        "IO1",
+        "IO2",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD1",
+        "MEMD2",
+        "MEMD3",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE"
+      ],
+      "name": "D1_PAD",
+      "point": {
+        "x": 30,
+        "y": 371
+      },
+      "seed": {
+        "x": 30,
+        "y": 370
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6859,
+        "junctions_est": 0,
+        "pixels": 147616,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO1",
+        "DO2",
+        "DO3",
+        "IO0",
+        "IO1",
+        "IO2",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD1",
+        "MEMD2",
+        "MEMD3",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE"
+      ],
+      "name": "D2_PAD",
+      "point": {
+        "x": 30,
+        "y": 552
+      },
+      "seed": {
+        "x": 30,
+        "y": 551
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6951,
+        "junctions_est": 0,
+        "pixels": 145527,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "D3_PAD",
+        "DO0",
+        "DO3",
+        "IO0",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD3",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE"
+      ],
+      "name": "D3_PAD",
+      "point": {
+        "x": 30,
+        "y": 733
+      },
+      "seed": {
+        "x": 30,
+        "y": 732
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6876,
+        "junctions_est": 0,
+        "pixels": 147546,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPNUM",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D0_PAD",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO3",
+        "IO0",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD3",
+        "SRCFF",
+        "SYNC",
+        "X22",
+        "~(CM&X22&CLK2)",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE",
+        "~X21"
+      ],
+      "name": "SYNC",
+      "point": {
+        "x": 30,
+        "y": 1316
+      },
+      "seed": {
+        "x": 30,
+        "y": 1315
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 2759,
+        "y0": 12,
+        "y1": 1347
+      },
+      "counts": {
+        "crossings_est": 6980,
+        "junctions_est": 0,
+        "pixels": 143061,
+        "states": 250000
+      },
+      "hits": [
+        "(RESET)",
+        "A22/2",
+        "CHIPSEL",
+        "CL",
+        "CM",
+        "D1_PAD",
+        "D2+~D1+D0",
+        "D2_PAD",
+        "DO0",
+        "DO3",
+        "IO0",
+        "IO3",
+        "M11",
+        "M21",
+        "MEMD3",
+        "~(M22&SRCFF&CM)",
+        "~CLK1",
+        "~CLK2",
+        "~EXTBUSDRIVE"
+      ],
+      "name": "CM",
+      "point": {
+        "x": 30,
+        "y": 1073
+      },
+      "seed": {
+        "x": 30,
+        "y": 1072
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2556,
+        "x1": 2810,
+        "y0": 475,
+        "y1": 1310
+      },
+      "counts": {
+        "crossings_est": 341,
+        "junctions_est": 0,
+        "pixels": 8590,
+        "states": 14022
+      },
+      "hits": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "~D0",
+        "~D1",
+        "~D2",
+        "~D3"
+      ],
+      "name": "D0",
+      "point": {
+        "x": 2783,
+        "y": 747
+      },
+      "seed": {
+        "x": 2782,
+        "y": 747
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2556,
+        "x1": 2810,
+        "y0": 475,
+        "y1": 1310
+      },
+      "counts": {
+        "crossings_est": 341,
+        "junctions_est": 0,
+        "pixels": 8590,
+        "states": 14022
+      },
+      "hits": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "~D0",
+        "~D1",
+        "~D2",
+        "~D3"
+      ],
+      "name": "D1",
+      "point": {
+        "x": 2783,
+        "y": 836
+      },
+      "seed": {
+        "x": 2782,
+        "y": 836
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2556,
+        "x1": 2810,
+        "y0": 475,
+        "y1": 1310
+      },
+      "counts": {
+        "crossings_est": 341,
+        "junctions_est": 0,
+        "pixels": 8590,
+        "states": 14022
+      },
+      "hits": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "~D0",
+        "~D1",
+        "~D2",
+        "~D3"
+      ],
+      "name": "D2",
+      "point": {
+        "x": 2783,
+        "y": 503
+      },
+      "seed": {
+        "x": 2782,
+        "y": 503
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2556,
+        "x1": 2810,
+        "y0": 475,
+        "y1": 1310
+      },
+      "counts": {
+        "crossings_est": 341,
+        "junctions_est": 0,
+        "pixels": 8590,
+        "states": 14022
+      },
+      "hits": [
+        "D0",
+        "D1",
+        "D2",
+        "D3",
+        "~D0",
+        "~D1",
+        "~D2",
+        "~D3"
+      ],
+      "name": "D3",
+      "point": {
+        "x": 2783,
+        "y": 592
+      },
+      "seed": {
+        "x": 2782,
+        "y": 592
+      }
+    }
+  ]
+}

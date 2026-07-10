@@ -1,0 +1,440 @@
+{
+  "chip": "4003",
+  "components": [
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 516,
+        "y": 61
+      },
+      "id": 32,
+      "point_indices": [
+        4
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 646,
+        "y": 61
+      },
+      "id": 33,
+      "point_indices": [
+        5
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 776,
+        "y": 61
+      },
+      "id": 34,
+      "point_indices": [
+        6
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 906,
+        "y": 61
+      },
+      "id": 35,
+      "point_indices": [
+        7
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 1036,
+        "y": 61
+      },
+      "id": 36,
+      "point_indices": [
+        8
+      ]
+    },
+    {
+      "area": 134,
+      "bbox": {
+        "h": 45,
+        "w": 51,
+        "x": 22,
+        "y": 168
+      },
+      "id": 53,
+      "point_indices": [
+        0
+      ]
+    },
+    {
+      "area": 134,
+      "bbox": {
+        "h": 45,
+        "w": 51,
+        "x": 22,
+        "y": 436
+      },
+      "id": 82,
+      "point_indices": [
+        1
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 516,
+        "y": 441
+      },
+      "id": 88,
+      "point_indices": [
+        9
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 646,
+        "y": 441
+      },
+      "id": 89,
+      "point_indices": [
+        10
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 776,
+        "y": 441
+      },
+      "id": 90,
+      "point_indices": [
+        11
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 906,
+        "y": 441
+      },
+      "id": 91,
+      "point_indices": [
+        12
+      ]
+    },
+    {
+      "area": 81,
+      "bbox": {
+        "h": 9,
+        "w": 9,
+        "x": 1036,
+        "y": 441
+      },
+      "id": 92,
+      "point_indices": [
+        13
+      ]
+    },
+    {
+      "area": 135,
+      "bbox": {
+        "h": 45,
+        "w": 52,
+        "x": 22,
+        "y": 541
+      },
+      "id": 97,
+      "point_indices": [
+        2
+      ]
+    },
+    {
+      "area": 171,
+      "bbox": {
+        "h": 84,
+        "w": 44,
+        "x": 22,
+        "y": 626
+      },
+      "id": 100,
+      "point_indices": [
+        3
+      ]
+    }
+  ],
+  "counts": {
+    "components_referenced": 14,
+    "components_total": 105,
+    "nets": 14,
+    "points_unmapped": 0,
+    "signal_points": 14
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "e401f6f7a509043cf3e0117f91d64aa190dbff54ab8cda4b5583c2f574b22230",
+      "signals_txt": "0afd09622ba573bc49e83772e64f02f05c732da2b28f28099a3f3c80931a02fd"
+    },
+    "signals_txt": "docs/emulators/i4003-signals.txt"
+  },
+  "nets": [
+    {
+      "names": [
+        "Q0"
+      ],
+      "point_indices": [
+        4
+      ],
+      "schematic_component": 32
+    },
+    {
+      "names": [
+        "Q1"
+      ],
+      "point_indices": [
+        5
+      ],
+      "schematic_component": 33
+    },
+    {
+      "names": [
+        "Q2"
+      ],
+      "point_indices": [
+        6
+      ],
+      "schematic_component": 34
+    },
+    {
+      "names": [
+        "Q3"
+      ],
+      "point_indices": [
+        7
+      ],
+      "schematic_component": 35
+    },
+    {
+      "names": [
+        "Q4"
+      ],
+      "point_indices": [
+        8
+      ],
+      "schematic_component": 36
+    },
+    {
+      "names": [
+        "CLOCK"
+      ],
+      "point_indices": [
+        0
+      ],
+      "schematic_component": 53
+    },
+    {
+      "names": [
+        "DATA"
+      ],
+      "point_indices": [
+        1
+      ],
+      "schematic_component": 82
+    },
+    {
+      "names": [
+        "Q5"
+      ],
+      "point_indices": [
+        9
+      ],
+      "schematic_component": 88
+    },
+    {
+      "names": [
+        "Q6"
+      ],
+      "point_indices": [
+        10
+      ],
+      "schematic_component": 89
+    },
+    {
+      "names": [
+        "Q7"
+      ],
+      "point_indices": [
+        11
+      ],
+      "schematic_component": 90
+    },
+    {
+      "names": [
+        "Q8"
+      ],
+      "point_indices": [
+        12
+      ],
+      "schematic_component": 91
+    },
+    {
+      "names": [
+        "Q9"
+      ],
+      "point_indices": [
+        13
+      ],
+      "schematic_component": 92
+    },
+    {
+      "names": [
+        "EN"
+      ],
+      "point_indices": [
+        2
+      ],
+      "schematic_component": 97
+    },
+    {
+      "names": [
+        "OUT"
+      ],
+      "point_indices": [
+        3
+      ],
+      "schematic_component": 100
+    }
+  ],
+  "params": {
+    "polarity": "auto",
+    "sample": 9,
+    "threshold": 200
+  },
+  "points": [
+    {
+      "idx": 0,
+      "name": "CLOCK",
+      "schematic_component": 53,
+      "x": 24,
+      "y": 173
+    },
+    {
+      "idx": 1,
+      "name": "DATA",
+      "schematic_component": 82,
+      "x": 24,
+      "y": 441
+    },
+    {
+      "idx": 2,
+      "name": "EN",
+      "schematic_component": 97,
+      "x": 24,
+      "y": 546
+    },
+    {
+      "idx": 3,
+      "name": "OUT",
+      "schematic_component": 100,
+      "x": 24,
+      "y": 670
+    },
+    {
+      "idx": 4,
+      "name": "Q0",
+      "schematic_component": 32,
+      "x": 514,
+      "y": 66
+    },
+    {
+      "idx": 5,
+      "name": "Q1",
+      "schematic_component": 33,
+      "x": 644,
+      "y": 66
+    },
+    {
+      "idx": 6,
+      "name": "Q2",
+      "schematic_component": 34,
+      "x": 774,
+      "y": 66
+    },
+    {
+      "idx": 7,
+      "name": "Q3",
+      "schematic_component": 35,
+      "x": 904,
+      "y": 66
+    },
+    {
+      "idx": 8,
+      "name": "Q4",
+      "schematic_component": 36,
+      "x": 1034,
+      "y": 66
+    },
+    {
+      "idx": 9,
+      "name": "Q5",
+      "schematic_component": 88,
+      "x": 514,
+      "y": 446
+    },
+    {
+      "idx": 10,
+      "name": "Q6",
+      "schematic_component": 89,
+      "x": 644,
+      "y": 446
+    },
+    {
+      "idx": 11,
+      "name": "Q7",
+      "schematic_component": 90,
+      "x": 774,
+      "y": 446
+    },
+    {
+      "idx": 12,
+      "name": "Q8",
+      "schematic_component": 91,
+      "x": 904,
+      "y": 446
+    },
+    {
+      "idx": 13,
+      "name": "Q9",
+      "schematic_component": 92,
+      "x": 1034,
+      "y": 446
+    }
+  ],
+  "schema": {
+    "description": "Schematic bitmap connected-components and signals.txt point\u2192component assignment.",
+    "version": 0
+  },
+  "unmapped_point_indices": []
+}
