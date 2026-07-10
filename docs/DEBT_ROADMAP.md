@@ -394,5 +394,21 @@ Corrected unblock chain (replaces D19.5's premise):
   nodes on 4001/4002/4003 (all currently 0), bounding what recognition
   can confirm even after D19.6/D19.7.
 
+## Resolved: D19.6 rail anchors restored, netlist_v1 reproducible (2026-07-10)
+
+Framing correction from primary sources: the v0 anchors file never held
+rail entries in any revision; rails lived only in
+schematic_layout_anchors_v1.json via an ensure_power_reset pass, and
+committed netlist_v1 provenance names the v1 file. Rail entries are now
+restored into v0 in pre-remap shape (the remap script maps all 8 rails
+exactly onto the committed node IDs -- no exemption needed), and all
+four netlist_v1 files regenerate byte-identically on rebuild with the
+provenance-recorded anchors (4004 proof: VCC=415/VSS=3, zero deltas).
+Rust hardcoded rail IDs preserved. 4001 pad ports renamed
+D0/D2/D3 (aliases kept); verilog_v0, .pcf/.xdc, and PnR re-verified.
+gates_v1 output is byte-identical as expected -- recognition on
+4001/4002/4003 still waits on D19.7 (node merge) and D19.8
+(metal_area).
+
 Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
-D16.6-D16.8, D18.1, D18.5, D19.2-D19.4, D19.6-D19.8.
+D16.6-D16.8, D18.1, D18.5, D19.2-D19.4, D19.7-D19.8.

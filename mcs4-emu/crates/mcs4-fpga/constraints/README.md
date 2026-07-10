@@ -36,12 +36,12 @@ the board's actual VCC/GND supply pins.
 |---------|-----------|-------------------|--------------------|
 | VDD     | in        | B1                 | M13                |
 | VSS     | in        | B2                 | M14                |
-| D0_PAD  | in        | C1                 | N13                |
+| D0      | in        | C1                 | N13                |
 | IO0     | in        | C2                 | N14                |
 | CL      | out       | D1                 | P13                |
 | CM      | out       | D2                 | P14                |
-| D2_PAD  | out       | F1                 | R13                |
-| D3_PAD  | out       | E2                 | R14                |
+| D2      | out       | F1                 | R13                |
+| D3      | out       | E2                 | R14                |
 
 ### 4002 (docs/evidence/verilog_v0/4002/i4002_gates.v)
 
@@ -97,7 +97,7 @@ port synthesizes (`yosys synth_ice40`) and places-and-routes
 (`nextpnr-ice40 --pcf ... --asc ...`) to completion with 0 unresolved
 pins. B1/B2/C1/C2/D1/D2/E2/F1 are valid CT256 balls; E1 is not a CT256
 user-IO ball (nextpnr rejects it as "package does not have a pin named
-'E1'"), which is why 4001's `D2_PAD` uses `F1` instead. The Spartan-7
+'E1'"), which is why 4001's `D2` uses `F1` instead. The Spartan-7
 `PACKAGE_PIN` names have not been run through Vivado (not installed in
 this environment) and carry the same placeholder caveat as the rest of
 this table.

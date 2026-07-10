@@ -471,15 +471,15 @@
   "inputs": {
     "anchors_v0": "docs/evidence/schematic_layout_anchors_v1.json",
     "layout_netlist_v0": "docs/evidence/netlists_v0/4003_netlist_v0.json",
-    "schematic_connectivity_v0": null,
+    "schematic_connectivity_v0": "docs/evidence/schematic_connectivity_v0/4003/4003_schematic_connectivity_v0.json",
     "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4003_schematic_net_names_v0.json",
-    "schematic_wirenets_v0": null,
+    "schematic_wirenets_v0": "docs/evidence/schematic_wirenets_v0/4003/4003_schematic_wirenets_v0.json",
     "sha256": {
-      "anchors_v0": "43960b74bc4bc12d3a85999c1872cac51b647c8359f6806e2e0ad55950469ad8",
+      "anchors_v0": "14f86b0c3c7e4de110a7be884737b80f010bc933f128719c267c4e7025495da8",
       "layout_netlist_v0": "36b8b66a87243549637873d74a3a348426a2c332bc314d92238e778e200b0b17",
-      "schematic_connectivity_v0": null,
+      "schematic_connectivity_v0": "50779746e929e8d35bc48d0fa384800877fa13f3346da4fc678e6610656da68b",
       "schematic_net_names_v0": "6902f70ed694452c7725f0e6da17dd92091e58aa62ef74d38170a9ca6750e16e",
-      "schematic_wirenets_v0": null
+      "schematic_wirenets_v0": "1031ce0cb95a0d72b6cfffa75dcfca3943448e520c6a70be2edb0689e2d1f03c"
     }
   },
   "nodes": [
@@ -2221,7 +2221,28 @@
         "kind": "manual_anchor_v0"
       },
       "name": "CLOCK",
-      "schematic_component": null
+      "schematic_component": 53,
+      "schematic_connectivity_v0": {
+        "bbox": {
+          "x0": 23,
+          "x1": 72,
+          "y0": 168,
+          "y1": 211
+        },
+        "counts": {
+          "crossings_est": 6,
+          "junctions_est": 0,
+          "pixels": 117,
+          "states": 192
+        },
+        "hits": [
+          "CLOCK"
+        ],
+        "seed": {
+          "x": 24,
+          "y": 172
+        }
+      }
     },
     {
       "evidence": {
@@ -2235,7 +2256,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "DATA",
-      "schematic_component": null
+      "schematic_component": 82
     },
     {
       "evidence": {
@@ -2249,7 +2270,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "EN",
-      "schematic_component": null
+      "schematic_component": 97
     },
     {
       "evidence": {
@@ -2263,7 +2284,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "OUT",
-      "schematic_component": null
+      "schematic_component": 100
     },
     {
       "evidence": {
@@ -2277,7 +2298,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q0",
-      "schematic_component": null
+      "schematic_component": 32
     },
     {
       "evidence": {
@@ -2291,7 +2312,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q1",
-      "schematic_component": null
+      "schematic_component": 33
     },
     {
       "evidence": {
@@ -2305,7 +2326,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q2",
-      "schematic_component": null
+      "schematic_component": 34
     },
     {
       "evidence": {
@@ -2319,7 +2340,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q3",
-      "schematic_component": null
+      "schematic_component": 35
     },
     {
       "evidence": {
@@ -2333,7 +2354,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q4",
-      "schematic_component": null
+      "schematic_component": 36
     },
     {
       "evidence": {
@@ -2347,7 +2368,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q5",
-      "schematic_component": null
+      "schematic_component": 88
     },
     {
       "evidence": {
@@ -2361,7 +2382,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q6",
-      "schematic_component": null
+      "schematic_component": 89
     },
     {
       "evidence": {
@@ -2375,7 +2396,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q7",
-      "schematic_component": null
+      "schematic_component": 90
     },
     {
       "evidence": {
@@ -2389,7 +2410,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q8",
-      "schematic_component": null
+      "schematic_component": 91
     },
     {
       "evidence": {
@@ -2403,7 +2424,7 @@
         "kind": "manual_anchor_v0"
       },
       "name": "Q9",
-      "schematic_component": null
+      "schematic_component": 92
     },
     {
       "evidence": {

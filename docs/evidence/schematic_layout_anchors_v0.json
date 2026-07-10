@@ -221,6 +221,514 @@
         "layout_node": null,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
       },
+      "VDD": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 2185,
+                "x1": 2419,
+                "y0": 1664,
+                "y1": 1768
+              },
+              "bbox_area": 24336,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 1,
+                "terminal_ratio": 1.0,
+                "total": 1
+              },
+              "node": 5743
+            },
+            {
+              "bbox": {
+                "x0": 2179,
+                "x1": 2425,
+                "y0": 1659,
+                "y1": 1768
+              },
+              "bbox_area": 26814,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2540
+            },
+            {
+              "bbox": {
+                "x0": 105,
+                "x1": 2653,
+                "y0": 89,
+                "y1": 1528
+              },
+              "bbox_area": 3666572,
+              "edge_distance": 59,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2
+            },
+            {
+              "bbox": {
+                "x0": 659,
+                "x1": 2653,
+                "y0": 280,
+                "y1": 945
+              },
+              "bbox_area": 1326010,
+              "edge_distance": 59,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 14
+            },
+            {
+              "bbox": {
+                "x0": 407,
+                "x1": 582,
+                "y0": 1620,
+                "y1": 1709
+              },
+              "bbox_area": 15575,
+              "edge_distance": 59,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2538
+            },
+            {
+              "bbox": {
+                "x0": 201,
+                "x1": 2484,
+                "y0": 332,
+                "y1": 1708
+              },
+              "bbox_area": 3141408,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 35,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 35
+              },
+              "node": 20
+            },
+            {
+              "bbox": {
+                "x0": 530,
+                "x1": 2652,
+                "y0": 265,
+                "y1": 618
+              },
+              "bbox_area": 749066,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 13
+            },
+            {
+              "bbox": {
+                "x0": 1113,
+                "x1": 2097,
+                "y0": 1534,
+                "y1": 1708
+              },
+              "bbox_area": 171216,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2522
+            },
+            {
+              "bbox": {
+                "x0": 1113,
+                "x1": 1723,
+                "y0": 1547,
+                "y1": 1708
+              },
+              "bbox_area": 98210,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2523
+            },
+            {
+              "bbox": {
+                "x0": 636,
+                "x1": 833,
+                "y0": 60,
+                "y1": 163
+              },
+              "bbox_area": 20291,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 1
+            },
+            {
+              "bbox": {
+                "x0": 741,
+                "x1": 935,
+                "y0": 1620,
+                "y1": 1708
+              },
+              "bbox_area": 17072,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2539
+            },
+            {
+              "bbox": {
+                "x0": 194,
+                "x1": 370,
+                "y0": 60,
+                "y1": 149
+              },
+              "bbox_area": 15664,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 0
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4001/4001_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 2523,
+        "layout_node_uid": "64e4958471e6bddce298ebcc60844dacd7576a00",
+        "layout_seed_history": [
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 5642,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 5642,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 5454,
+            "source": "pre_apply_pad_pin_template"
+          }
+        ],
+        "layout_seed_v0": {
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "notes": "Hypothesis mapping; refine with better evidence.",
+          "pad_idx": 11,
+          "pin_dip": 12,
+          "seed_node": 2523,
+          "template": "docs/evidence/layout_pad_labels_v0/4001/pad_pin_template_v0.md"
+        },
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4001-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "assumptions": [
+            "Periphery pad ordering matches DIP pin ordering counter-clockwise (CCW).",
+            "Primary-source pinouts correctly identify VSS/VDD/VCC pins.",
+            "Remapped layout_node may land on an internal trunk net; treat layout_node_src as the pad metal seed."
+          ],
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "pad_idx": 11,
+          "pin_dip": 12,
+          "seed_node": 2523,
+          "template": "docs/evidence/layout_pad_labels_v0/4001/pad_pin_template_v0.md"
+        }
+      },
+      "VSS": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 2185,
+                "x1": 2419,
+                "y0": 1664,
+                "y1": 1768
+              },
+              "bbox_area": 24336,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 1,
+                "terminal_ratio": 1.0,
+                "total": 1
+              },
+              "node": 5743
+            },
+            {
+              "bbox": {
+                "x0": 2179,
+                "x1": 2425,
+                "y0": 1659,
+                "y1": 1768
+              },
+              "bbox_area": 26814,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2540
+            },
+            {
+              "bbox": {
+                "x0": 105,
+                "x1": 2653,
+                "y0": 89,
+                "y1": 1528
+              },
+              "bbox_area": 3666572,
+              "edge_distance": 59,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2
+            },
+            {
+              "bbox": {
+                "x0": 659,
+                "x1": 2653,
+                "y0": 280,
+                "y1": 945
+              },
+              "bbox_area": 1326010,
+              "edge_distance": 59,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 14
+            },
+            {
+              "bbox": {
+                "x0": 407,
+                "x1": 582,
+                "y0": 1620,
+                "y1": 1709
+              },
+              "bbox_area": 15575,
+              "edge_distance": 59,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2538
+            },
+            {
+              "bbox": {
+                "x0": 201,
+                "x1": 2484,
+                "y0": 332,
+                "y1": 1708
+              },
+              "bbox_area": 3141408,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 35,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 35
+              },
+              "node": 20
+            },
+            {
+              "bbox": {
+                "x0": 530,
+                "x1": 2652,
+                "y0": 265,
+                "y1": 618
+              },
+              "bbox_area": 749066,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 13
+            },
+            {
+              "bbox": {
+                "x0": 1113,
+                "x1": 2097,
+                "y0": 1534,
+                "y1": 1708
+              },
+              "bbox_area": 171216,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2522
+            },
+            {
+              "bbox": {
+                "x0": 1113,
+                "x1": 1723,
+                "y0": 1547,
+                "y1": 1708
+              },
+              "bbox_area": 98210,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2523
+            },
+            {
+              "bbox": {
+                "x0": 636,
+                "x1": 833,
+                "y0": 60,
+                "y1": 163
+              },
+              "bbox_area": 20291,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 1
+            },
+            {
+              "bbox": {
+                "x0": 741,
+                "x1": 935,
+                "y0": 1620,
+                "y1": 1708
+              },
+              "bbox_area": 17072,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2539
+            },
+            {
+              "bbox": {
+                "x0": 194,
+                "x1": 370,
+                "y0": 60,
+                "y1": 149
+              },
+              "bbox_area": 15664,
+              "edge_distance": 60,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 0
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4001/4001_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 4,
+        "layout_node_uid": "d85f7dc2069239e3ba6df1d10a19c90355120ff7",
+        "layout_seed_history": [
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 2570,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 2570,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 2647,
+            "source": "pre_apply_pad_pin_template"
+          }
+        ],
+        "layout_seed_v0": {
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "notes": "Hypothesis mapping; refine with better evidence.",
+          "pad_idx": 4,
+          "pin_dip": 5,
+          "seed_node": 4,
+          "template": "docs/evidence/layout_pad_labels_v0/4001/pad_pin_template_v0.md"
+        },
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4001-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "assumptions": [
+            "Periphery pad ordering matches DIP pin ordering counter-clockwise (CCW).",
+            "Primary-source pinouts correctly identify VSS/VDD/VCC pins.",
+            "Remapped layout_node may land on an internal trunk net; treat layout_node_src as the pad metal seed."
+          ],
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "pad_idx": 4,
+          "pin_dip": 5,
+          "seed_node": 4,
+          "template": "docs/evidence/layout_pad_labels_v0/4001/pad_pin_template_v0.md"
+        }
+      },
       "X12": {
         "layout_node": null,
         "note": "From `docs/emulators/i4001-signals.txt`; layout node not yet mapped."
@@ -377,7 +885,7 @@
       },
       "CLK1": {
         "layout_node": 36,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈91x111). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u224891x111). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "CLK1&(M11+X11)": {
         "layout_node": null,
@@ -393,7 +901,7 @@
       },
       "CLK2": {
         "layout_node": 5,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈110x91). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248110x91). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "CLK2&(M12+X12)&~RESET": {
         "layout_node": null,
@@ -409,7 +917,7 @@
       },
       "CM": {
         "layout_node": 738,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈98x142). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u224898x142). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "COMMAND": {
         "layout_node": null,
@@ -417,7 +925,7 @@
       },
       "CS": {
         "layout_node": 672,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈121x123). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration). This pad appears to carry a single-glyph '0' marking on the metal mask (likely P0/CS)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248121x123). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration). This pad appears to carry a single-glyph '0' marking on the metal mask (likely P0/CS)."
       },
       "D0": {
         "layout_node": null,
@@ -425,7 +933,7 @@
       },
       "D0_PAD": {
         "layout_node": 292,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈109x206). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248109x206). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "D1": {
         "layout_node": null,
@@ -433,7 +941,7 @@
       },
       "D1_PAD": {
         "layout_node": 235,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈89x108). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u224889x108). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "D2": {
         "layout_node": null,
@@ -441,7 +949,7 @@
       },
       "D2_PAD": {
         "layout_node": 128,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈109x206). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248109x206). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "D3": {
         "layout_node": null,
@@ -449,7 +957,7 @@
       },
       "D3_PAD": {
         "layout_node": 69,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈108x111). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248108x111). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "M12": {
         "layout_node": null,
@@ -477,19 +985,19 @@
       },
       "OUT0": {
         "layout_node": 819,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈146x97). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248146x97). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "OUT1": {
         "layout_node": 818,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈140x97). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248140x97). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "OUT2": {
         "layout_node": 817,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈141x98). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248141x98). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "OUT3": {
         "layout_node": 821,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈85x64). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u224885x64). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "RAM_COMMAND": {
         "layout_node": null,
@@ -1825,7 +2333,7 @@
       },
       "RESET": {
         "layout_node": 816,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈148x97). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248148x97). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
       },
       "RFSH.0": {
         "layout_node": null,
@@ -1877,7 +2385,515 @@
       },
       "SYNC": {
         "layout_node": 2,
-        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh≈208x107). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+        "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4002_netlist_v0.json` (metal_bbox near edge; bbox wh\u2248208x107). Mapping chosen by cyclic angle alignment between schematic pin anchors in `docs/emulators/i4002-signals.txt` (first section) and periphery pad-like node centers; validate/refine against MCS-40 User's Manual Figure 4-14 (4002 pin configuration)."
+      },
+      "VDD": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 3,
+                "x1": 124,
+                "y0": 1803,
+                "y1": 1926
+              },
+              "bbox_area": 14883,
+              "edge_distance": 3,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 672
+            },
+            {
+              "bbox": {
+                "x0": 3,
+                "x1": 116,
+                "y0": 1810,
+                "y1": 1921
+              },
+              "bbox_area": 12543,
+              "edge_distance": 3,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2875
+            },
+            {
+              "bbox": {
+                "x0": 1610,
+                "x1": 1756,
+                "y0": 2421,
+                "y1": 2518
+              },
+              "bbox_area": 14162,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 819
+            },
+            {
+              "bbox": {
+                "x0": 967,
+                "x1": 1108,
+                "y0": 2420,
+                "y1": 2518
+              },
+              "bbox_area": 13818,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 817
+            },
+            {
+              "bbox": {
+                "x0": 1233,
+                "x1": 1373,
+                "y0": 2421,
+                "y1": 2518
+              },
+              "bbox_area": 13580,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 818
+            },
+            {
+              "bbox": {
+                "x0": 1872,
+                "x1": 1908,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1944,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 824
+            },
+            {
+              "bbox": {
+                "x0": 1918,
+                "x1": 1950,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1728,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 825
+            },
+            {
+              "bbox": {
+                "x0": 1964,
+                "x1": 1995,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1674,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 826
+            },
+            {
+              "bbox": {
+                "x0": 2010,
+                "x1": 2041,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1674,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 827
+            },
+            {
+              "bbox": {
+                "x0": 43,
+                "x1": 2123,
+                "y0": 60,
+                "y1": 2517
+              },
+              "bbox_area": 5110560,
+              "edge_distance": 35,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 4
+            },
+            {
+              "bbox": {
+                "x0": 370,
+                "x1": 518,
+                "y0": 2420,
+                "y1": 2517
+              },
+              "bbox_area": 14356,
+              "edge_distance": 35,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 816
+            },
+            {
+              "bbox": {
+                "x0": 84,
+                "x1": 2135,
+                "y0": 204,
+                "y1": 2251
+              },
+              "bbox_area": 4198397,
+              "edge_distance": 41,
+              "incidence": {
+                "gate": 29,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 29
+              },
+              "node": 31
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4002/4002_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 816,
+        "layout_node_uid": "08c23da336c7e148e8e14c8c597350be0ced441f",
+        "layout_seed_history": [
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 3251,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 3251,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 799,
+            "source": "pre_apply_pad_pin_template"
+          }
+        ],
+        "layout_seed_v0": {
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "notes": "Hypothesis mapping; refine with better evidence.",
+          "pad_idx": 11,
+          "pin_dip": 12,
+          "seed_node": 816,
+          "template": "docs/evidence/layout_pad_labels_v0/4002/pad_pin_template_v0.md"
+        },
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4002-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "assumptions": [
+            "Periphery pad ordering matches DIP pin ordering counter-clockwise (CCW).",
+            "Primary-source pinouts correctly identify VSS/VDD/VCC pins.",
+            "Remapped layout_node may land on an internal trunk net; treat layout_node_src as the pad metal seed."
+          ],
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "pad_idx": 11,
+          "pin_dip": 12,
+          "seed_node": 816,
+          "template": "docs/evidence/layout_pad_labels_v0/4002/pad_pin_template_v0.md"
+        }
+      },
+      "VSS": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 3,
+                "x1": 124,
+                "y0": 1803,
+                "y1": 1926
+              },
+              "bbox_area": 14883,
+              "edge_distance": 3,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 672
+            },
+            {
+              "bbox": {
+                "x0": 3,
+                "x1": 116,
+                "y0": 1810,
+                "y1": 1921
+              },
+              "bbox_area": 12543,
+              "edge_distance": 3,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2875
+            },
+            {
+              "bbox": {
+                "x0": 1610,
+                "x1": 1756,
+                "y0": 2421,
+                "y1": 2518
+              },
+              "bbox_area": 14162,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 819
+            },
+            {
+              "bbox": {
+                "x0": 967,
+                "x1": 1108,
+                "y0": 2420,
+                "y1": 2518
+              },
+              "bbox_area": 13818,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 817
+            },
+            {
+              "bbox": {
+                "x0": 1233,
+                "x1": 1373,
+                "y0": 2421,
+                "y1": 2518
+              },
+              "bbox_area": 13580,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 818
+            },
+            {
+              "bbox": {
+                "x0": 1872,
+                "x1": 1908,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1944,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 824
+            },
+            {
+              "bbox": {
+                "x0": 1918,
+                "x1": 1950,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1728,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 825
+            },
+            {
+              "bbox": {
+                "x0": 1964,
+                "x1": 1995,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1674,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 826
+            },
+            {
+              "bbox": {
+                "x0": 2010,
+                "x1": 2041,
+                "y0": 2464,
+                "y1": 2518
+              },
+              "bbox_area": 1674,
+              "edge_distance": 34,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 827
+            },
+            {
+              "bbox": {
+                "x0": 43,
+                "x1": 2123,
+                "y0": 60,
+                "y1": 2517
+              },
+              "bbox_area": 5110560,
+              "edge_distance": 35,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 4
+            },
+            {
+              "bbox": {
+                "x0": 370,
+                "x1": 518,
+                "y0": 2420,
+                "y1": 2517
+              },
+              "bbox_area": 14356,
+              "edge_distance": 35,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 816
+            },
+            {
+              "bbox": {
+                "x0": 84,
+                "x1": 2135,
+                "y0": 204,
+                "y1": 2251
+              },
+              "bbox_area": 4198397,
+              "edge_distance": 41,
+              "incidence": {
+                "gate": 29,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 29
+              },
+              "node": 31
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4002/4002_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 128,
+        "layout_node_uid": "46702413c9fa0b4667903ddc76ed9c16d8191d08",
+        "layout_seed_history": [
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 73,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 1183,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 896,
+            "source": "pre_apply_pad_pin_template"
+          }
+        ],
+        "layout_seed_v0": {
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "notes": "Hypothesis mapping; refine with better evidence.",
+          "pad_idx": 4,
+          "pin_dip": 5,
+          "seed_node": 128,
+          "template": "docs/evidence/layout_pad_labels_v0/4002/pad_pin_template_v0.md"
+        },
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4002-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "assumptions": [
+            "Periphery pad ordering matches DIP pin ordering counter-clockwise (CCW).",
+            "Primary-source pinouts correctly identify VSS/VDD/VCC pins.",
+            "Remapped layout_node may land on an internal trunk net; treat layout_node_src as the pad metal seed."
+          ],
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "pad_idx": 4,
+          "pin_dip": 5,
+          "seed_node": 128,
+          "template": "docs/evidence/layout_pad_labels_v0/4002/pad_pin_template_v0.md"
+        }
       },
       "X11": {
         "layout_node": null,
@@ -2080,6 +3096,524 @@
       "Q9": {
         "layout_node": 98,
         "note": "Seeded from periphery pad-like nodes in `docs/evidence/netlists_v0/4003_netlist_v0.json` via cyclic angle alignment between schematic pin anchors in `docs/emulators/i4003-signals.txt` (first section) and periphery pad-like node centers; generated by `scripts/suggest_anchor_seeds_by_angle_v0.py`. See `docs/evidence/anchor_seed_suggestions_v0/4003_angle_alignment.json`. Provisional: validate/refine against MCS-40 User's Manual Figure 4-21 (4003 pin configuration)."
+      },
+      "VDD": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 1854,
+                "x1": 2107,
+                "y0": 1299,
+                "y1": 1456
+              },
+              "bbox_area": 39721,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 1,
+                "terminal_ratio": 1.0,
+                "total": 1
+              },
+              "node": 489
+            },
+            {
+              "bbox": {
+                "x0": 1852,
+                "x1": 2105,
+                "y0": 1298,
+                "y1": 1456
+              },
+              "bbox_area": 39974,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 138
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 2155,
+                "y0": 26,
+                "y1": 1317
+              },
+              "bbox_area": 2745957,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 901,
+                "y0": 26,
+                "y1": 345
+              },
+              "bbox_area": 278487,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 0
+            },
+            {
+              "bbox": {
+                "x0": 466,
+                "x1": 1190,
+                "y0": 26,
+                "y1": 345
+              },
+              "bbox_area": 230956,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 1
+            },
+            {
+              "bbox": {
+                "x0": 1232,
+                "x1": 1480,
+                "y0": 26,
+                "y1": 345
+              },
+              "bbox_area": 79112,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 3
+            },
+            {
+              "bbox": {
+                "x0": 1536,
+                "x1": 1768,
+                "y0": 27,
+                "y1": 345
+              },
+              "bbox_area": 73776,
+              "edge_distance": 27,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 4
+            },
+            {
+              "bbox": {
+                "x0": 2150,
+                "x1": 2298,
+                "y0": 27,
+                "y1": 236
+              },
+              "bbox_area": 30932,
+              "edge_distance": 27,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 5
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 773,
+                "y0": 1143,
+                "y1": 1412
+              },
+              "bbox_area": 200405,
+              "edge_distance": 28,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 129
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 611,
+                "y0": 295,
+                "y1": 476
+              },
+              "bbox_area": 105523,
+              "edge_distance": 28,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 19
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 480,
+                "y0": 994,
+                "y1": 1194
+              },
+              "bbox_area": 90400,
+              "edge_distance": 28,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 109
+            },
+            {
+              "bbox": {
+                "x0": 1985,
+                "x1": 2298,
+                "y0": 911,
+                "y1": 1269
+              },
+              "bbox_area": 112054,
+              "edge_distance": 30,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 98
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4003/4003_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 129,
+        "layout_node_uid": "7dfb1117be66123c9f13dbec641918beeff2422f",
+        "layout_seed_history": [
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 94,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 94,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 94,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 390,
+            "source": "pre_apply_pad_pin_template"
+          }
+        ],
+        "layout_seed_v0": {
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "notes": "VDD on primary source diagram (pin 14).",
+          "pad_idx": 13,
+          "pin_dip": 14,
+          "seed_node": 129,
+          "template": "docs/evidence/layout_pad_labels_v0/4003/pad_pin_template_v0.md"
+        },
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4003-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "assumptions": [
+            "Periphery pad ordering matches DIP pin ordering counter-clockwise (CCW).",
+            "Primary-source pinouts correctly identify VSS/VDD/VCC pins.",
+            "Remapped layout_node may land on an internal trunk net; treat layout_node_src as the pad metal seed."
+          ],
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "pad_idx": 13,
+          "pin_dip": 14,
+          "seed_node": 129,
+          "template": "docs/evidence/layout_pad_labels_v0/4003/pad_pin_template_v0.md"
+        }
+      },
+      "VSS": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 1854,
+                "x1": 2107,
+                "y0": 1299,
+                "y1": 1456
+              },
+              "bbox_area": 39721,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 1,
+                "terminal_ratio": 1.0,
+                "total": 1
+              },
+              "node": 489
+            },
+            {
+              "bbox": {
+                "x0": 1852,
+                "x1": 2105,
+                "y0": 1298,
+                "y1": 1456
+              },
+              "bbox_area": 39974,
+              "edge_distance": 0,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 138
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 2155,
+                "y0": 26,
+                "y1": 1317
+              },
+              "bbox_area": 2745957,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 901,
+                "y0": 26,
+                "y1": 345
+              },
+              "bbox_area": 278487,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 0
+            },
+            {
+              "bbox": {
+                "x0": 466,
+                "x1": 1190,
+                "y0": 26,
+                "y1": 345
+              },
+              "bbox_area": 230956,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 1
+            },
+            {
+              "bbox": {
+                "x0": 1232,
+                "x1": 1480,
+                "y0": 26,
+                "y1": 345
+              },
+              "bbox_area": 79112,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 3
+            },
+            {
+              "bbox": {
+                "x0": 1536,
+                "x1": 1768,
+                "y0": 27,
+                "y1": 345
+              },
+              "bbox_area": 73776,
+              "edge_distance": 27,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 4
+            },
+            {
+              "bbox": {
+                "x0": 2150,
+                "x1": 2298,
+                "y0": 27,
+                "y1": 236
+              },
+              "bbox_area": 30932,
+              "edge_distance": 27,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 5
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 773,
+                "y0": 1143,
+                "y1": 1412
+              },
+              "bbox_area": 200405,
+              "edge_distance": 28,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 129
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 611,
+                "y0": 295,
+                "y1": 476
+              },
+              "bbox_area": 105523,
+              "edge_distance": 28,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 19
+            },
+            {
+              "bbox": {
+                "x0": 28,
+                "x1": 480,
+                "y0": 994,
+                "y1": 1194
+              },
+              "bbox_area": 90400,
+              "edge_distance": 28,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 109
+            },
+            {
+              "bbox": {
+                "x0": 1985,
+                "x1": 2298,
+                "y0": 911,
+                "y1": 1269
+              },
+              "bbox_area": 112054,
+              "edge_distance": 30,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 98
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4003/4003_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 5,
+        "layout_node_uid": "2c0b022358b93c5109e9919a9ea4e9b2505695b7",
+        "layout_seed_history": [
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 152,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 152,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 152,
+            "source": "pre_apply_pad_pin_template"
+          },
+          {
+            "kind": "prev_layout_node",
+            "layout_node": 151,
+            "source": "pre_apply_pad_pin_template"
+          }
+        ],
+        "layout_seed_v0": {
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "notes": "Hypothesis: pad order follows DIP pin order (CCW).",
+          "pad_idx": 4,
+          "pin_dip": 5,
+          "seed_node": 5,
+          "template": "docs/evidence/layout_pad_labels_v0/4003/pad_pin_template_v0.md"
+        },
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4003-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "assumptions": [
+            "Periphery pad ordering matches DIP pin ordering counter-clockwise (CCW).",
+            "Primary-source pinouts correctly identify VSS/VDD/VCC pins.",
+            "Remapped layout_node may land on an internal trunk net; treat layout_node_src as the pad metal seed."
+          ],
+          "confidence": 0.3,
+          "kind": "pad_pin_template_v0",
+          "pad_idx": 4,
+          "pin_dip": 5,
+          "seed_node": 5,
+          "template": "docs/evidence/layout_pad_labels_v0/4003/pad_pin_template_v0.md"
+        }
       }
     },
     "4004": {
@@ -2149,6 +3683,452 @@
       "TEST_PAD": {
         "layout_node": 0,
         "note": "TEST pad; top-edge label `T` detected by layout_edge_labels_v0 (note analyzer mentions schematic vs mask revision mismatch)."
+      },
+      "VCC": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 1809,
+                "x1": 1943,
+                "y0": 1744,
+                "y1": 1889
+              },
+              "bbox_area": 19430,
+              "edge_distance": 25,
+              "incidence": {
+                "gate": 0,
+                "terminal": 1,
+                "terminal_ratio": 1.0,
+                "total": 1
+              },
+              "node": 2815
+            },
+            {
+              "bbox": {
+                "x0": 26,
+                "x1": 1891,
+                "y0": 248,
+                "y1": 2568
+              },
+              "bbox_area": 4326800,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 65,
+                "terminal": 64,
+                "terminal_ratio": 0.49612403100775193,
+                "total": 129
+              },
+              "node": 415
+            },
+            {
+              "bbox": {
+                "x0": 128,
+                "x1": 1942,
+                "y0": 42,
+                "y1": 2661
+              },
+              "bbox_area": 4750866,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 5,
+                "terminal": 53,
+                "terminal_ratio": 0.9137931034482759,
+                "total": 58
+              },
+              "node": 3
+            },
+            {
+              "bbox": {
+                "x0": 26,
+                "x1": 199,
+                "y0": 1785,
+                "y1": 2511
+              },
+              "bbox_area": 125598,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 441
+            },
+            {
+              "bbox": {
+                "x0": 26,
+                "x1": 290,
+                "y0": 2086,
+                "y1": 2525
+              },
+              "bbox_area": 115896,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 518
+            },
+            {
+              "bbox": {
+                "x0": 1723,
+                "x1": 1942,
+                "y0": 266,
+                "y1": 439
+              },
+              "bbox_area": 37887,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 49
+            },
+            {
+              "bbox": {
+                "x0": 1812,
+                "x1": 1942,
+                "y0": 1744,
+                "y1": 2024
+              },
+              "bbox_area": 36400,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 432
+            },
+            {
+              "bbox": {
+                "x0": 27,
+                "x1": 151,
+                "y0": 367,
+                "y1": 835
+              },
+              "bbox_area": 58032,
+              "edge_distance": 27,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 71
+            },
+            {
+              "bbox": {
+                "x0": 1880,
+                "x1": 1939,
+                "y0": 1644,
+                "y1": 1701
+              },
+              "bbox_area": 3363,
+              "edge_distance": 29,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2710
+            },
+            {
+              "bbox": {
+                "x0": 1881,
+                "x1": 1939,
+                "y0": 1684,
+                "y1": 1720
+              },
+              "bbox_area": 2088,
+              "edge_distance": 29,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2755
+            },
+            {
+              "bbox": {
+                "x0": 1812,
+                "x1": 1938,
+                "y0": 2049,
+                "y1": 2490
+              },
+              "bbox_area": 55566,
+              "edge_distance": 30,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 514
+            },
+            {
+              "bbox": {
+                "x0": 35,
+                "x1": 72,
+                "y0": 552,
+                "y1": 584
+              },
+              "bbox_area": 1184,
+              "edge_distance": 35,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 1651
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4004/4004_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 415,
+        "layout_node_uid": "84ab4d4f4e225640b7eae5100eedcb518e37689c",
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4004-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "conf": 80.0,
+          "kind": "edge_crop_token",
+          "min_conf": 70.0,
+          "node": 415,
+          "source_crop": "002_V_node415_conf80.0.png",
+          "token": "V"
+        }
+      },
+      "VSS": {
+        "layout_candidates_v0": {
+          "candidates": [
+            {
+              "bbox": {
+                "x0": 1809,
+                "x1": 1943,
+                "y0": 1744,
+                "y1": 1889
+              },
+              "bbox_area": 19430,
+              "edge_distance": 25,
+              "incidence": {
+                "gate": 0,
+                "terminal": 1,
+                "terminal_ratio": 1.0,
+                "total": 1
+              },
+              "node": 2815
+            },
+            {
+              "bbox": {
+                "x0": 26,
+                "x1": 1891,
+                "y0": 248,
+                "y1": 2568
+              },
+              "bbox_area": 4326800,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 65,
+                "terminal": 64,
+                "terminal_ratio": 0.49612403100775193,
+                "total": 129
+              },
+              "node": 415
+            },
+            {
+              "bbox": {
+                "x0": 128,
+                "x1": 1942,
+                "y0": 42,
+                "y1": 2661
+              },
+              "bbox_area": 4750866,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 5,
+                "terminal": 53,
+                "terminal_ratio": 0.9137931034482759,
+                "total": 58
+              },
+              "node": 3
+            },
+            {
+              "bbox": {
+                "x0": 26,
+                "x1": 199,
+                "y0": 1785,
+                "y1": 2511
+              },
+              "bbox_area": 125598,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 441
+            },
+            {
+              "bbox": {
+                "x0": 26,
+                "x1": 290,
+                "y0": 2086,
+                "y1": 2525
+              },
+              "bbox_area": 115896,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 518
+            },
+            {
+              "bbox": {
+                "x0": 1723,
+                "x1": 1942,
+                "y0": 266,
+                "y1": 439
+              },
+              "bbox_area": 37887,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 49
+            },
+            {
+              "bbox": {
+                "x0": 1812,
+                "x1": 1942,
+                "y0": 1744,
+                "y1": 2024
+              },
+              "bbox_area": 36400,
+              "edge_distance": 26,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 432
+            },
+            {
+              "bbox": {
+                "x0": 27,
+                "x1": 151,
+                "y0": 367,
+                "y1": 835
+              },
+              "bbox_area": 58032,
+              "edge_distance": 27,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 71
+            },
+            {
+              "bbox": {
+                "x0": 1880,
+                "x1": 1939,
+                "y0": 1644,
+                "y1": 1701
+              },
+              "bbox_area": 3363,
+              "edge_distance": 29,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2710
+            },
+            {
+              "bbox": {
+                "x0": 1881,
+                "x1": 1939,
+                "y0": 1684,
+                "y1": 1720
+              },
+              "bbox_area": 2088,
+              "edge_distance": 29,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 2755
+            },
+            {
+              "bbox": {
+                "x0": 1812,
+                "x1": 1938,
+                "y0": 2049,
+                "y1": 2490
+              },
+              "bbox_area": 55566,
+              "edge_distance": 30,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 514
+            },
+            {
+              "bbox": {
+                "x0": 35,
+                "x1": 72,
+                "y0": 552,
+                "y1": 584
+              },
+              "bbox_area": 1184,
+              "edge_distance": 35,
+              "incidence": {
+                "gate": 0,
+                "terminal": 0,
+                "terminal_ratio": 0.0,
+                "total": 0
+              },
+              "node": 1651
+            }
+          ],
+          "source": "docs/evidence/power_rail_candidates_v0/4004/4004_power_rail_candidates_v0.json",
+          "top": 12
+        },
+        "layout_node": 3,
+        "layout_node_uid": "9d2af4288a4402695aaf4fbeda740ab331f1fe33",
+        "note": "Placeholder anchor (power/reset). Not currently present in docs/emulators/i4004-signals.txt; to be resolved via primary-source pinouts + power-rail identification in netlist_v1.",
+        "rail_evidence_v0": {
+          "conf": 89.7,
+          "kind": "edge_crop_token",
+          "min_conf": 70.0,
+          "node": 3,
+          "source_crop": "000_G_node3_conf89.7.png",
+          "token": "G"
+        }
       }
     }
   },
@@ -2187,6 +4167,52 @@
       "kind": "sync_signal_anchors_v0",
       "signal_list": "docs/emulators/i4003-signals.txt",
       "total": 14
+    },
+    {
+      "kind": "restore_power_rail_anchors_v0",
+      "restored": [
+        {
+          "chip": "4001",
+          "layout_node": 2523,
+          "signal": "VDD"
+        },
+        {
+          "chip": "4001",
+          "layout_node": 4,
+          "signal": "VSS"
+        },
+        {
+          "chip": "4002",
+          "layout_node": 816,
+          "signal": "VDD"
+        },
+        {
+          "chip": "4002",
+          "layout_node": 128,
+          "signal": "VSS"
+        },
+        {
+          "chip": "4003",
+          "layout_node": 129,
+          "signal": "VDD"
+        },
+        {
+          "chip": "4003",
+          "layout_node": 5,
+          "signal": "VSS"
+        },
+        {
+          "chip": "4004",
+          "layout_node": 415,
+          "signal": "VCC"
+        },
+        {
+          "chip": "4004",
+          "layout_node": 3,
+          "signal": "VSS"
+        }
+      ],
+      "source": "docs/evidence/schematic_layout_anchors_v1.json (ensure_power_reset_anchors_v1 entries; layout_node reset to pre-remap seed node)"
     }
   ],
   "schema": {

@@ -12391,7 +12391,7 @@
     "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4004_schematic_net_names_v0.json",
     "schematic_wirenets_v0": "docs/evidence/schematic_wirenets_v0/4004/4004_schematic_wirenets_v0.json",
     "sha256": {
-      "anchors_v0": "43960b74bc4bc12d3a85999c1872cac51b647c8359f6806e2e0ad55950469ad8",
+      "anchors_v0": "14f86b0c3c7e4de110a7be884737b80f010bc933f128719c267c4e7025495da8",
       "layout_netlist_v0": "cb8939a0fd04a06b4617ccf1d7436f0b95aa96260909b34719b15c8101d827d9",
       "schematic_connectivity_v0": "2d61c5cccc8854476c2b4dcbb0c18acc9fd0774db5d048ab4584533e4857d16b",
       "schematic_net_names_v0": "18c63424c36719b871811c90b881b89aca6a077fb1fb20f47c52b987a236df29",

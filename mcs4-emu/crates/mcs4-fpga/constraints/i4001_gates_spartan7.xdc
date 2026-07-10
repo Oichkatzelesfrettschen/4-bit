@@ -7,8 +7,8 @@
 # HOW:  vivado -source ... ; read_xdc i4001_gates_spartan7.xdc
 #
 # module i4001_gates (
-#     input  wire VDD, VSS, D0_PAD, IO0,
-#     output wire CL, CM, D2_PAD, D3_PAD
+#     input  wire VDD, VSS, D0, IO0,
+#     output wire CL, CM, D2, D3
 # );
 
 # ============================================================
@@ -24,9 +24,9 @@ set_property -dict {PACKAGE_PIN M14 IOSTANDARD LVCMOS33} [get_ports VSS]
 # Data I/O
 # ============================================================
 
-set_property -dict {PACKAGE_PIN N13 IOSTANDARD LVCMOS33} [get_ports D0_PAD]
+set_property -dict {PACKAGE_PIN N13 IOSTANDARD LVCMOS33} [get_ports D0]
 set_property -dict {PACKAGE_PIN N14 IOSTANDARD LVCMOS33} [get_ports IO0]
 set_property -dict {PACKAGE_PIN P13 IOSTANDARD LVCMOS33} [get_ports CL]
 set_property -dict {PACKAGE_PIN P14 IOSTANDARD LVCMOS33} [get_ports CM]
-set_property -dict {PACKAGE_PIN R13 IOSTANDARD LVCMOS33} [get_ports D2_PAD]
-set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS33} [get_ports D3_PAD]
+set_property -dict {PACKAGE_PIN R13 IOSTANDARD LVCMOS33} [get_ports D2]
+set_property -dict {PACKAGE_PIN R14 IOSTANDARD LVCMOS33} [get_ports D3]
