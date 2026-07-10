@@ -1,0 +1,24 @@
+# i4002_gates Pin Constraints for Lattice iCE40 HX8K-CT256
+#
+# WHY: MODE=gate synthesizes TOP=i4002_gates from
+#      docs/evidence/verilog_v0/4002/i4002_gates.v (gate-level extraction of
+#      the 4002 RAM). Every port on that module header is constrained here.
+# WHAT: iCE40 HX8K-CT256 pin assignment for the i4002_gates top module.
+# HOW:  nextpnr-ice40 --hx8k --package ct256 --pcf i4002_gates_ice40.pcf
+#
+# module i4002_gates (
+#     input wire VDD, VSS, CM
+# );
+
+# ============================================================
+# Rail ports (structural model only; see i4001_gates_ice40.pcf header)
+# ============================================================
+
+set_io VDD B1
+set_io VSS B2
+
+# ============================================================
+# Command line input
+# ============================================================
+
+set_io CM C1

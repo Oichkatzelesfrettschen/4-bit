@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "tool": "scripts/extract_gates_v1.py",
+  "description": "Ratioed-logic gate extraction manifest. Recognizes pMOS enhancement-driver + saturated-load gates. Coverage is reported against gates_v0 for comparison; gates_v0 coverage is inflated by double-claimed transistors (spurious pairwise NAND matches).",
+  "chips": [
+    {
+      "chip": "4001",
+      "total_transistors": 1999,
+      "rails": [
+        2570,
+        5657
+      ],
+      "rail_identification_method": "signals",
+      "rails_resolved": false,
+      "gate_type_counts": {
+        "INV": 0,
+        "NAND2": 0,
+        "NAND3": 0,
+        "NAND_other": 0,
+        "NOR2": 0,
+        "NOR3": 0,
+        "NOR_other": 0,
+        "AOI": 0
+      },
+      "load_devices": 0,
+      "pass_transistors": 0,
+      "unclassified_transistors": 1999,
+      "unclassified_breakdown": {
+        "isolated_dangling": 142,
+        "gate_on_rail_bias_no_load": 0,
+        "rail_touching_role_unresolved": 4,
+        "fragmented_no_resolved_rail": 1853
+      },
+      "coverage_v1": {
+        "confirmed_structure_transistors": 0,
+        "confirmed_coverage_pct": 0.0,
+        "role_unconfirmed_pass_transistors": 0,
+        "classified_transistors": 0,
+        "coverage_pct": 0.0,
+        "double_claims": 0
+      },
+      "coverage_v0": {
+        "available": true,
+        "total_gates": 1889,
+        "distinct_transistors_claimed": 1931,
+        "double_claims": 1847,
+        "coverage_pct": 96.6
+      }
+    },
+    {
+      "chip": "4002",
+      "total_transistors": 639,
+      "rails": [
+        926,
+        3251
+      ],
+      "rail_identification_method": "signals+incidence",
+      "rails_resolved": true,
+      "gate_type_counts": {
+        "INV": 0,
+        "NAND2": 0,
+        "NAND3": 0,
+        "NAND_other": 0,
+        "NOR2": 0,
+        "NOR3": 0,
+        "NOR_other": 0,
+        "AOI": 0
+      },
+      "load_devices": 0,
+      "pass_transistors": 221,
+      "unclassified_transistors": 418,
+      "unclassified_breakdown": {
+        "isolated_dangling": 315,
+        "gate_on_rail_bias_no_load": 0,
+        "rail_touching_role_unresolved": 103,
+        "fragmented_no_resolved_rail": 0
+      },
+      "coverage_v1": {
+        "confirmed_structure_transistors": 0,
+        "confirmed_coverage_pct": 0.0,
+        "role_unconfirmed_pass_transistors": 221,
+        "classified_transistors": 221,
+        "coverage_pct": 34.6,
+        "double_claims": 0
+      },
+      "coverage_v0": {
+        "available": true,
+        "total_gates": 430,
+        "distinct_transistors_claimed": 476,
+        "double_claims": 384,
+        "coverage_pct": 74.5
+      }
+    },
+    {
+      "chip": "4003",
+      "total_transistors": 37,
+      "rails": [
+        152,
+        359
+      ],
+      "rail_identification_method": "signals",
+      "rails_resolved": false,
+      "gate_type_counts": {
+        "INV": 0,
+        "NAND2": 0,
+        "NAND3": 0,
+        "NAND_other": 0,
+        "NOR2": 0,
+        "NOR3": 0,
+        "NOR_other": 0,
+        "AOI": 0
+      },
+      "load_devices": 0,
+      "pass_transistors": 0,
+      "unclassified_transistors": 37,
+      "unclassified_breakdown": {
+        "isolated_dangling": 34,
+        "gate_on_rail_bias_no_load": 0,
+        "rail_touching_role_unresolved": 2,
+        "fragmented_no_resolved_rail": 1
+      },
+      "coverage_v1": {
+        "confirmed_structure_transistors": 0,
+        "confirmed_coverage_pct": 0.0,
+        "role_unconfirmed_pass_transistors": 0,
+        "classified_transistors": 0,
+        "coverage_pct": 0.0,
+        "double_claims": 0
+      },
+      "coverage_v0": {
+        "available": true,
+        "total_gates": 6,
+        "distinct_transistors_claimed": 11,
+        "double_claims": 1,
+        "coverage_pct": 29.7
+      }
+    },
+    {
+      "chip": "4004",
+      "total_transistors": 1030,
+      "rails": [
+        3,
+        415
+      ],
+      "rail_identification_method": "signals",
+      "rails_resolved": true,
+      "gate_type_counts": {
+        "INV": 1,
+        "NAND2": 0,
+        "NAND3": 0,
+        "NAND_other": 0,
+        "NOR2": 0,
+        "NOR3": 0,
+        "NOR_other": 0,
+        "AOI": 0
+      },
+      "load_devices": 11,
+      "pass_transistors": 427,
+      "unclassified_transistors": 590,
+      "unclassified_breakdown": {
+        "isolated_dangling": 443,
+        "gate_on_rail_bias_no_load": 58,
+        "rail_touching_role_unresolved": 89,
+        "fragmented_no_resolved_rail": 0
+      },
+      "coverage_v1": {
+        "confirmed_structure_transistors": 13,
+        "confirmed_coverage_pct": 1.3,
+        "role_unconfirmed_pass_transistors": 427,
+        "classified_transistors": 440,
+        "coverage_pct": 42.7,
+        "double_claims": 0
+      },
+      "coverage_v0": {
+        "available": true,
+        "total_gates": 1768,
+        "distinct_transistors_claimed": 664,
+        "double_claims": 2872,
+        "coverage_pct": 64.5
+      }
+    }
+  ]
+}

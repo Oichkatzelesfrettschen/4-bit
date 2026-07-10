@@ -1,0 +1,29 @@
+# i4003_gates Pin Constraints for Lattice iCE40 HX8K-CT256
+#
+# WHY: MODE=gate synthesizes TOP=i4003_gates from
+#      docs/evidence/verilog_v0/4003/i4003_gates.v (gate-level extraction of
+#      the 4003 shift register). Every port on that module header is
+#      constrained here.
+# WHAT: iCE40 HX8K-CT256 pin assignment for the i4003_gates top module.
+# HOW:  nextpnr-ice40 --hx8k --package ct256 --pcf i4003_gates_ice40.pcf
+#
+# module i4003_gates (
+#     input  wire VDD, VSS, Q2, Q5, Q6,
+#     output wire Q4
+# );
+
+# ============================================================
+# Rail ports (structural model only; see i4001_gates_ice40.pcf header)
+# ============================================================
+
+set_io VDD B1
+set_io VSS B2
+
+# ============================================================
+# Shift register clock/data/enable in, cascade out
+# ============================================================
+
+set_io Q2 C1
+set_io Q5 C2
+set_io Q6 D1
+set_io Q4 D2

@@ -35,8 +35,15 @@ else
   VERILOG := $(BUILD_DIR)/$(TOP).v
 endif
 
-PCF := $(CONST_DIR)/mcs4_ice40.pcf
-XDC := $(CONST_DIR)/mcs4_spartan7.xdc
+# PCF/XDC track TOP: gate mode synthesizes i$(CHIP)_gates from the
+# extracted netlist, so its constraints are i$(CHIP)_gates_ice40.pcf /
+# _spartan7.xdc (see constraints/README.md for the port<->pin provenance).
+# Behavioral mode's TOP is i$(CHIP) with no matching per-chip constraint
+# file yet (mcs4-fpga generated Verilog has no fixed pinout); ice40_synth
+# and xilinx_synth only consume PCF/XDC at the pnr/impl stage, which
+# behavioral mode does not reach via these targets today.
+PCF := $(CONST_DIR)/$(TOP)_ice40.pcf
+XDC := $(CONST_DIR)/$(TOP)_spartan7.xdc
 CST := $(CONST_DIR)/mcs4_gowin.cst
 
 # Gowin device (KIWI FPGA TINY 1P5 EVK, actual GW1N-2 LQFP100)
@@ -45,12 +52,14 @@ GW_SH        := /opt/gowin-eda-ide/bin/gw_sh
 GW_SH_EDU    := /opt/gowin-eda-edu/IDE/bin/gw_sh
 GOWIN_DIR    := gowin
 
-# iCE40 device selection
-ICE40_DEVICE  ?= hx4k
-ICE40_PACKAGE ?= tq144
+# iCE40 device selection: HX8K-CT256 matches the ball names
+# (B1/C1/D1/...) used in constraints/i<chip>_gates_ice40.pcf.
+ICE40_DEVICE  ?= hx8k
+ICE40_PACKAGE ?= ct256
 
-# Spartan-7 part
-SPARTAN7_PART ?= xc7s15ftgb196-1
+# Spartan-7 part: xc7s25csga324 matches the PACKAGE_PIN names
+# (M13/N13/P13/...) used in constraints/i<chip>_gates_spartan7.xdc.
+SPARTAN7_PART ?= xc7s25csga324-1
 
 # ============================================================
 # Tool availability guards
