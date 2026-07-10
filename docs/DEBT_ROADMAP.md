@@ -362,5 +362,37 @@ clock-anchor exclusion.
   Spartan-7 .xdc pins remain Vivado-unverified (stated in
   constraints/README.md); pins are placeholders pending board bring-up.
 
+## Resolved in the wirenet pass (2026-07-10): D19.5 executed, hypothesis falsified
+
+schematic_wirenets_v0 and schematic_connectivity_v0 now exist for all
+four chips (generated from the real i400x schematic bitmaps with the
+4004's parameters; 0 unmapped signal points). The unblock hypothesis is
+falsified: build_netlist_v1_v0.py consumes wirenets only to annotate
+signals (schematic_component / connectivity hits) and never merges
+layout nodes, so rail incidence is untouched -- gates_v1 output is
+byte-identical before and after (proven by revert-and-rerun). The
+discriminating diagnostic: 4004 rail anchors touch 53-64 channels with
+large metal_area; 4001/4002/4003 rail anchors touch <= 2 channels with
+metal_area 0.
+
+Deeper finding: schematic_layout_anchors_v0.json carries NO rail
+anchors for any chip since commit 783b895 (remap to transistor-incident
+nodes) -- the committed netlist_v1 files bake in rail anchors from an
+older anchors file and are not reproducible from current inputs
+(regenerating even the working 4004 drops its rails). A regeneration
+was performed, diagnosed, and deliberately reverted to avoid shipping
+that regression.
+
+Corrected unblock chain (replaces D19.5's premise):
+- D19.6: restore VDD/VSS entries in schematic_layout_anchors_v0.json
+  mapped to high-incidence rail nodes (the 4004 pattern), restoring
+  netlist_v1 reproducibility.
+- D19.7: add a connectivity-driven node-merge step in
+  build_netlist_v1_v0.py so electrically-common layout nodes
+  consolidate before rail identification.
+- D19.8: netlist_v0 extraction records metal_area for channel-touching
+  nodes on 4001/4002/4003 (all currently 0), bounding what recognition
+  can confirm even after D19.6/D19.7.
+
 Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
-D16.6-D16.8, D18.1, D18.5, D19.2-D19.5.
+D16.6-D16.8, D18.1, D18.5, D19.2-D19.4, D19.6-D19.8.

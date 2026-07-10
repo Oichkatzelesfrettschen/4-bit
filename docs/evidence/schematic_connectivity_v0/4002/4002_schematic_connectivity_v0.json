@@ -1,0 +1,691 @@
+{
+  "chip": "4002",
+  "counts": {
+    "targets": 13
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4002-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "6b363327824419fda0eb1ca133d9a4d7213c947528f8f485239c4f8e51117672",
+      "signals_txt": "9985d13745bfcf93f6d5e31c1f7d7ad8b22a9a2edfcfc11915435851c990ce9b"
+    },
+    "signals_txt": "docs/emulators/i4002-signals.txt"
+  },
+  "params": {
+    "dot_radius": 2,
+    "dot_thresh": 0.55,
+    "max_states": 250000,
+    "name_regex": "^(CLK1|CLK2|SYNC|CM|RESET|D[0-3]|D[0-3]_PAD)$",
+    "polarity": "auto",
+    "seed_radius": 24,
+    "threshold": 200
+  },
+  "schema": {
+    "description": "Skeleton-based schematic connectivity traces for selected signals.",
+    "version": 0
+  },
+  "targets": [
+    {
+      "bbox": {
+        "x0": 39,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5825,
+        "junctions_est": 0,
+        "pixels": 155359,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1",
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "CLK2",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~RESET"
+      ],
+      "name": "CLK1",
+      "point": {
+        "x": 40,
+        "y": 2114
+      },
+      "seed": {
+        "x": 40,
+        "y": 2113
+      }
+    },
+    {
+      "bbox": {
+        "x0": 39,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5828,
+        "junctions_est": 0,
+        "pixels": 155386,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1",
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "CLK2",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~RESET"
+      ],
+      "name": "CLK2",
+      "point": {
+        "x": 40,
+        "y": 2194
+      },
+      "seed": {
+        "x": 40,
+        "y": 2193
+      }
+    },
+    {
+      "bbox": {
+        "x0": 2684,
+        "x1": 2746,
+        "y0": 2593,
+        "y1": 2629
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 143,
+        "states": 216
+      },
+      "hits": [
+        "RESET"
+      ],
+      "name": "RESET",
+      "point": {
+        "x": 2747,
+        "y": 2594
+      },
+      "seed": {
+        "x": 2746,
+        "y": 2593
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5935,
+        "junctions_est": 0,
+        "pixels": 151223,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D0_PAD",
+        "D1_PAD",
+        "D2_PAD",
+        "D3_PAD",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~CLK2",
+        "~DRIVE_EXT_DATABUS",
+        "~RESET"
+      ],
+      "name": "D0_PAD",
+      "point": {
+        "x": 30,
+        "y": 153
+      },
+      "seed": {
+        "x": 30,
+        "y": 152
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5917,
+        "junctions_est": 0,
+        "pixels": 151879,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D1_PAD",
+        "D2_PAD",
+        "D3_PAD",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~CLK2",
+        "~DRIVE_EXT_DATABUS",
+        "~RESET"
+      ],
+      "name": "D1_PAD",
+      "point": {
+        "x": 30,
+        "y": 391
+      },
+      "seed": {
+        "x": 30,
+        "y": 390
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5888,
+        "junctions_est": 0,
+        "pixels": 152535,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D2_PAD",
+        "D3_PAD",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~CLK2",
+        "~DRIVE_EXT_DATABUS",
+        "~RESET"
+      ],
+      "name": "D2_PAD",
+      "point": {
+        "x": 30,
+        "y": 629
+      },
+      "seed": {
+        "x": 30,
+        "y": 628
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5850,
+        "junctions_est": 0,
+        "pixels": 152339,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D3_PAD",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~CLK2",
+        "~DRIVE_EXT_DATABUS",
+        "~RESET"
+      ],
+      "name": "D3_PAD",
+      "point": {
+        "x": 30,
+        "y": 867
+      },
+      "seed": {
+        "x": 30,
+        "y": 866
+      }
+    },
+    {
+      "bbox": {
+        "x0": 39,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5826,
+        "junctions_est": 0,
+        "pixels": 155174,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1",
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "CLK2",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "SYNC",
+        "[RESET]",
+        "[X12+X22]&RAM_READ",
+        "~(COMMAND&X22&CLK2)",
+        "~RESET"
+      ],
+      "name": "SYNC",
+      "point": {
+        "x": 40,
+        "y": 2274
+      },
+      "seed": {
+        "x": 40,
+        "y": 2273
+      }
+    },
+    {
+      "bbox": {
+        "x0": 1009,
+        "x1": 1071,
+        "y0": 2386,
+        "y1": 2422
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 143,
+        "states": 216
+      },
+      "hits": [
+        "CM"
+      ],
+      "name": "CM",
+      "point": {
+        "x": 1072,
+        "y": 2423
+      },
+      "seed": {
+        "x": 1071,
+        "y": 2422
+      }
+    },
+    {
+      "bbox": {
+        "x0": 39,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5620,
+        "junctions_est": 0,
+        "pixels": 149053,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1",
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "CLK2",
+        "CLK2&X32&SRC_SEL_COMMAND",
+        "D0",
+        "REG1",
+        "REG2",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "[RAM_READ&X21&~RESET]",
+        "[RAM_WRITE&X22&~RESET]",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~RESET",
+        "~X11+~CLK2&X32&SRC_SEL_COMMAND"
+      ],
+      "name": "D0",
+      "point": {
+        "x": 242,
+        "y": 219
+      },
+      "seed": {
+        "x": 242,
+        "y": 218
+      }
+    },
+    {
+      "bbox": {
+        "x0": 115,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5578,
+        "junctions_est": 0,
+        "pixels": 148235,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D1",
+        "D2",
+        "REG1",
+        "REG2",
+        "REG2.M0.2",
+        "REG2.M1.2",
+        "REG2.M10.2",
+        "REG2.M11.2",
+        "REG2.M14.2",
+        "REG2.M15.2",
+        "REG2.M2.2",
+        "REG2.M3.2",
+        "REG2.M4.2",
+        "REG2.M6.2",
+        "REG2.M7.2",
+        "REG2.M8.2",
+        "REG2.M9.2",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "SRC_SEL_COMMAND",
+        "[RAM_READ&X21&~RESET]",
+        "[RAM_WRITE&X22&~RESET]",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~RESET"
+      ],
+      "name": "D1",
+      "point": {
+        "x": 242,
+        "y": 457
+      },
+      "seed": {
+        "x": 242,
+        "y": 456
+      }
+    },
+    {
+      "bbox": {
+        "x0": 115,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5535,
+        "junctions_est": 0,
+        "pixels": 147267,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D2",
+        "REG1",
+        "REG2",
+        "REG2.M0.2",
+        "REG2.M1.2",
+        "REG2.M10.2",
+        "REG2.M11.2",
+        "REG2.M14.2",
+        "REG2.M15.2",
+        "REG2.M2.2",
+        "REG2.M3.2",
+        "REG2.M4.2",
+        "REG2.M6.2",
+        "REG2.M7.2",
+        "REG2.M8.2",
+        "REG2.M9.2",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "SRC_SEL_COMMAND",
+        "[RAM_READ&X21&~RESET]",
+        "[RAM_WRITE&X22&~RESET]",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~RESET"
+      ],
+      "name": "D2",
+      "point": {
+        "x": 242,
+        "y": 695
+      },
+      "seed": {
+        "x": 242,
+        "y": 694
+      }
+    },
+    {
+      "bbox": {
+        "x0": 29,
+        "x1": 3179,
+        "y0": 12,
+        "y1": 2744
+      },
+      "counts": {
+        "crossings_est": 5972,
+        "junctions_est": 0,
+        "pixels": 150493,
+        "states": 250000
+      },
+      "hits": [
+        "CLK1&(M21+RAM_WRITE&X21)",
+        "D0_PAD",
+        "D1_PAD",
+        "D2_PAD",
+        "D3",
+        "D3_PAD",
+        "REG3.M0.0",
+        "REG3.M1.0",
+        "REG3.M10.0",
+        "REG3.M11.0",
+        "REG3.M12.0",
+        "REG3.M13.0",
+        "REG3.M14.0",
+        "REG3.M15.0",
+        "REG3.M2.0",
+        "REG3.M3.0",
+        "REG3.M4.0",
+        "REG3.M5.0",
+        "REG3.M6.0",
+        "REG3.M7.0",
+        "REG3.M8.0",
+        "REG3.M9.0",
+        "REG3.S0.0",
+        "REG3.S1.0",
+        "REG3.S2.0",
+        "REG3.S3.0",
+        "SRC_SEL_COMMAND",
+        "[RESET]",
+        "~(COMMAND&X22&CLK2)",
+        "~CLK2",
+        "~DRIVE_EXT_DATABUS",
+        "~RESET"
+      ],
+      "name": "D3",
+      "point": {
+        "x": 242,
+        "y": 933
+      },
+      "seed": {
+        "x": 242,
+        "y": 932
+      }
+    }
+  ]
+}

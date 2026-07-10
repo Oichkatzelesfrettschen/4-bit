@@ -1,0 +1,55 @@
+{
+  "chip": "4003",
+  "counts": {
+    "targets": 1
+  },
+  "inputs": {
+    "schematic_bmp": "docs/emulators/i4003-schematic.bmp",
+    "sha256": {
+      "schematic_bmp": "e401f6f7a509043cf3e0117f91d64aa190dbff54ab8cda4b5583c2f574b22230",
+      "signals_txt": "0afd09622ba573bc49e83772e64f02f05c732da2b28f28099a3f3c80931a02fd"
+    },
+    "signals_txt": "docs/emulators/i4003-signals.txt"
+  },
+  "params": {
+    "dot_radius": 2,
+    "dot_thresh": 0.55,
+    "max_states": 250000,
+    "name_regex": "^CLOCK$",
+    "polarity": "auto",
+    "seed_radius": 24,
+    "threshold": 200
+  },
+  "schema": {
+    "description": "Skeleton-based schematic connectivity traces for selected signals.",
+    "version": 0
+  },
+  "targets": [
+    {
+      "bbox": {
+        "x0": 23,
+        "x1": 72,
+        "y0": 168,
+        "y1": 211
+      },
+      "counts": {
+        "crossings_est": 6,
+        "junctions_est": 0,
+        "pixels": 117,
+        "states": 192
+      },
+      "hits": [
+        "CLOCK"
+      ],
+      "name": "CLOCK",
+      "point": {
+        "x": 24,
+        "y": 173
+      },
+      "seed": {
+        "x": 24,
+        "y": 172
+      }
+    }
+  ]
+}
