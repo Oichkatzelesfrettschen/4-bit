@@ -410,5 +410,70 @@ gates_v1 output is byte-identical as expected -- recognition on
 4001/4002/4003 still waits on D19.7 (node merge) and D19.8
 (metal_area).
 
+## Falsified: D19.7 build-stage node-merge cannot raise rail incidence (2026-07-10)
+
+D19.7 premised a connectivity-driven node-merge in
+build_netlist_v1_v0.py that consolidates electrically-common layout
+nodes before rail identification, unblocking gate recognition on
+4001/4002/4003. Primary-source investigation falsifies that premise on
+two independent legs; no honest merge exists to add, so the build stage
+is left unchanged and netlist_v1 stays byte-identical.
+
+Leg 1 -- the artifact D19.7 names is unusable for merging. The
+schematic_connectivity_v0 flood-fill reports junctions_est=0 on every
+target for all three chips, so it treats each wire crossing as a
+junction and bleeds across the whole schematic: each spine seed
+(CLK1/CLK2/SYNC/CM/RESET) hits 19-27 of the ~13 named nets, i.e.
+all-to-all. Its seed set is name_regex
+"^(CLK1|CLK2|SYNC|CM|RESET|D[0-3]|D[0-3]_PAD)$" -- VDD/VSS are not
+seeded at all, so it carries no rail net by construction. The only
+localized targets (D0-D3, 8 hits each) are data lines, not rails, so no
+slice of this artifact serves the objective. It operates in
+schematic-name space, not layout-node space, and cannot merge layout
+fragments.
+
+Leg 2 -- the node-merge already happens upstream, and its governing
+input is absent for these chips. extract_netlist_v0.py builds nodes by
+connected-components over the metal/poly/diffusion masks plus a
+union-find that stitches metal<->poly through the vias mask and
+metal<->diffusion through the contacts mask. netlist_v1 node IDs are
+therefore finished electrical nets; a downstream merge in
+build_netlist_v1 has no new committed evidence to draw on. The rail nets
+reach the transistor source/drain channels only through
+metal<->diffusion contacts, and the contacts artifact exists solely for
+4004 (docs/emulators/i4004-contacts.bmp; specs() sets contacts_bmp=None
+for 4001/4002/4003, and no i4001/i4002/i4003-contacts bitmap exists on
+disk). Controlled comparison from the netlist_v0 counts: 4004 has 586
+contact stitches and resolves rails (VCC=415 metal_area 232361 inc 57,
+VSS=3 metal_area 411436 inc 50, INV=1); 4001/4002/4003 have 0 contact
+stitches and unresolved rails (metal_area 0, terminal incidence 1-2,
+INV=0). 4002 VSS node 73 makes the mechanism visible: its rail metal
+exists (metal_area 8027) and the channels exist, but with no contact
+stitch nothing joins them, so terminal incidence is 0.
+
+Rejected alternative: merging nodes on metal_bbox overlap. Connected-
+components already proved distinct metal node IDs are separate metal
+components; a bounding-box overlap merge would fabricate connectivity
+between unconnected parallel wires, violating the "do not invent
+connectivity" constraint. No such merge was added.
+
+gates_v1 before == after (no netlist change): 4001 rails=[2570,5657]
+resolved=False INV=0; 4002 rails=[926,3251] resolved=True INV=0; 4003
+rails=[152,359] resolved=False INV=0; 4004 rails=[3,415] resolved=True
+INV=1. Rust hardcoded rail IDs are untouched (no netlist_v1 delta).
+Reproducibility: netlist_v1 rebuilds byte-identically only with
+--anchors docs/evidence/schematic_layout_anchors_v1.json (the committed
+provenance file); the build script default (anchors_v0) does not
+reproduce the committed files.
+
+True blocker: the metal<->diffusion contact layer for 4001/4002/4003 is
+missing primary evidence, which is exactly the D19.8 symptom
+(metal_area 0 on channel-touching nodes). Rail incidence stays < 8 on
+these chips until a contacts bitmap (or equivalent metal-diffusion
+stitch evidence) is extracted and fed to extract_netlist_v0 -- a
+netlist_v0 regeneration that would reassign node IDs and must be
+coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
+falsified; the recognition unblock moves entirely to D19.8.
+
 Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
-D16.6-D16.8, D18.1, D18.5, D19.2-D19.4, D19.7-D19.8.
+D16.6-D16.8, D18.1, D18.5, D19.2-D19.4, D19.8.
