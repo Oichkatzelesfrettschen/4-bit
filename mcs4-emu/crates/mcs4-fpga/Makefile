@@ -38,10 +38,12 @@ endif
 # PCF/XDC track TOP: gate mode synthesizes i$(CHIP)_gates from the
 # extracted netlist, so its constraints are i$(CHIP)_gates_ice40.pcf /
 # _spartan7.xdc (see constraints/README.md for the port<->pin provenance).
-# Behavioral mode's TOP is i$(CHIP) with no matching per-chip constraint
-# file yet (mcs4-fpga generated Verilog has no fixed pinout); ice40_synth
-# and xilinx_synth only consume PCF/XDC at the pnr/impl stage, which
-# behavioral mode does not reach via these targets today.
+# Behavioral mode's TOP is i$(CHIP), for which no per-chip constraint file
+# exists yet (mcs4-fpga generated Verilog has no fixed pinout). ice40_pnr
+# reads PCF only at the pnr stage (ice40_synth itself does not); xilinx_synth
+# reads XDC immediately via read_xdc, so xilinx_synth CHIP=<n> MODE=behavioral
+# fails fast on a missing constraints/i<n>_spartan7.xdc rather than silently
+# using the wrong pinout.
 PCF := $(CONST_DIR)/$(TOP)_ice40.pcf
 XDC := $(CONST_DIR)/$(TOP)_spartan7.xdc
 CST := $(CONST_DIR)/mcs4_gowin.cst
