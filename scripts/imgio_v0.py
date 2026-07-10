@@ -6,7 +6,6 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-
 PNM_EXTS = {".pbm", ".pgm", ".ppm", ".pnm"}
 
 

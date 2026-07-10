@@ -1,4 +1,10 @@
-# Phase 2 - COMPLETE (2026-01-29, continuation session 4)
+# Phase 2 - COMPLETE (2026-01-29, continuation session 4) (ARCHIVED)
+
+> ARCHIVE NOTE (2026-07-09): Point-in-time session checkpoint for Phase 2
+> (4040 CPU execution integration), formerly at the repository root as
+> `PHASE_2_CHECKPOINT.md`. Archived as a superseded snapshot; the phase it
+> tracked is long complete. Current status lives in `mcs4-emu/CLAUDE.md`
+> (canonical) with the session log in `mcs4-emu/STATUS.md`.
 
 > SNAPSHOT (2026-01-29): Historical session log captured at the close of Phase 2
 > (4040 CPU execution integration). Not the canonical status; for current status
@@ -54,7 +60,7 @@ All tests passing. All 4040 features implemented and verified:
 
 ## DOCUMENTED STRATEGY
 
-File: docs/PHASE_2_DEBUG_NOTES.md
+File: docs/archive/PHASE_2_DEBUG_NOTES.md
 - Contains detailed analysis of RAM operation failure
 - Diagnostic procedure for next session
 - Code location references for WRM/RDM/SRC operations

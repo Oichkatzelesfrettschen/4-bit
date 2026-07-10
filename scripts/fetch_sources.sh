@@ -56,6 +56,13 @@ fail() { printf "${RED}FAIL${RESET} %s\n" "$1"; }
 warn() { printf "${YELLOW}WARN${RESET} %s\n" "$1"; }
 info() { printf "     %s\n" "$1"; }
 
+# Per-entry detail lines, enabled by --verbose.
+verbose() {
+    if [ "$VERBOSE" -eq 1 ]; then
+        printf "     %s\n" "$1"
+    fi
+}
+
 # Detect download tool
 detect_downloader() {
     if command -v aria2c >/dev/null 2>&1; then
@@ -138,6 +145,8 @@ printf "=== fetch_sources.sh (mode: %s, downloader: %s) ===\n\n" "$MODE" "$DOWNL
 parse_manifest | while IFS='	' read -r id local_path url sha256; do
     TOTAL=$((TOTAL + 1))
     abs_path="$REPO_ROOT/$local_path"
+    verbose "$id: url=$url"
+    verbose "$id: local_path=$local_path expected_sha256=$sha256"
 
     # Handle unknown URLs
     if [ "$url" = "unknown" ]; then

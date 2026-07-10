@@ -2466,10 +2466,7 @@ dependencies = [
 name = "mcs4-bus"
 version = "0.1.0"
 dependencies = [
- "bytemuck",
  "mcs4-core",
- "rkyv",
- "serde",
  "tracing",
  "zerocopy",
 ]
@@ -2478,27 +2475,17 @@ dependencies = [
 name = "mcs4-chips"
 version = "0.1.0"
 dependencies = [
- "bitflags 2.11.0",
- "bytemuck",
  "criterion",
  "mcs4-bus",
  "mcs4-core",
- "mimalloc",
- "num-traits",
  "proptest",
- "rkyv",
- "seq-macro",
- "serde",
- "smallvec",
  "tracing",
- "zerocopy",
 ]
 
 [[package]]
 name = "mcs4-core"
 version = "0.1.0"
 dependencies = [
- "bytemuck",
  "faer",
  "nalgebra",
  "proptest",
@@ -2507,7 +2494,6 @@ dependencies = [
  "serde_json",
  "smallvec",
  "tracing",
- "zerocopy",
 ]
 
 [[package]]

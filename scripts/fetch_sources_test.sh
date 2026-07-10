@@ -83,7 +83,7 @@ printf "=== URL Reachability Test ===\n"
 printf "Date: %s\n\n" "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 # Extract URLs from ocr_manifest.yaml
-printf "--- ocr_manifest.yaml ---\n"
+printf '%s\n' "--- ocr_manifest.yaml ---"
 python3 -c "
 import yaml, sys
 with open(sys.argv[1]) as f:

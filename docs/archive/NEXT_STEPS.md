@@ -1,4 +1,9 @@
-# MCS-4 / MCS-40 Ecosystem: Next Steps
+# MCS-4 / MCS-40 Ecosystem: Next Steps (ARCHIVED)
+
+> ARCHIVE NOTE (2026-07-09): Point-in-time roadmap snapshot dated 2026-03-05,
+> formerly at the repository root as `NEXT_STEPS.md`. Archived as a superseded
+> snapshot; the Phase 6-8 work it planned has shipped. Current status lives in
+> `mcs4-emu/CLAUDE.md` (canonical); the forward plan lives in `docs/ROADMAP.md`.
 
 **Date**: 2026-03-05 (point-in-time roadmap snapshot)
 **Status authority**: SNAPSHOT, not canonical. Items below were planned 2026-03-05;
@@ -27,7 +32,8 @@ A third stream (circuit-level MCS-40) is **hard-blocked** on acquiring 4040 die 
 
 ### WHY
 The full solver stack (21K lines, 504 tests) is proven end-to-end but only exercised on
-6 transistors (clock buffer) and 37 transistors (4003). The remaining 3,668 transistors
+6 transistors (clock buffer) and 37 transistors (4003). The remaining 3,705
+(corrected; per-chip kept-device sum, see SCOPING_ASSESSMENT.md) transistors
 across 4 chips have extracted netlists and subcircuits but no simulation wiring. Completing
 this stream delivers the project's core differentiator: circuit-level simulation of real
 silicon from photomicrographs.

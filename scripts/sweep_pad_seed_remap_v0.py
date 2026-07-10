@@ -14,19 +14,23 @@ from __future__ import annotations
 import argparse
 import json
 import re
-from pathlib import Path
-from typing import Any
 
 # Reuse the remap algorithm (bbox scoring + incidence) rather than re-implementing.
 import sys
+from pathlib import Path
+from typing import Any
 
 # Allow importing sibling script modules when run from repo root.
 SCRIPTS_DIR = Path(__file__).resolve().parent
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from remap_anchors_to_incident_nodes_v1 import _best_bbox, _build_incidence, _index_nodes, _pick_candidate  # type: ignore
-
+from remap_anchors_to_incident_nodes_v1 import (  # type: ignore  # noqa: E402
+    _best_bbox,
+    _build_incidence,
+    _index_nodes,
+    _pick_candidate,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 

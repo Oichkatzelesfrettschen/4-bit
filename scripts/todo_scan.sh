@@ -13,6 +13,8 @@ scan_with_rg() {
     --glob '!mcs4-emu/target/*' \
     --glob '!docs/evidence/ocr/*' \
     --glob '!docs/emulators/*' \
+    --glob '!.claude_plans/*' \
+    --glob '!docs/archive/*' \
     -e "\\b(TODO|FIXME|XXX)\\b" \
     "$ROOT_DIR"
 }
@@ -20,6 +22,7 @@ scan_with_rg() {
 scan_with_grep() {
   grep -RIn --exclude-dir=.git --exclude-dir=target --exclude-dir=coverage --exclude-dir=mcs4-emu/target \
     --exclude-dir=docs/evidence/ocr --exclude-dir=docs/emulators \
+    --exclude-dir=.claude_plans --exclude-dir=archive \
     -e "TODO" -e "FIXME" -e "XXX" \
     "$ROOT_DIR" || true
 }

@@ -144,7 +144,7 @@ def main():
             print(f"  ✗ Failed for {chip}: {e}")
             continue
 
-    print(f"\n✓ Benchmark generation complete")
+    print("\n✓ Benchmark generation complete")
 
 
 if __name__ == "__main__":

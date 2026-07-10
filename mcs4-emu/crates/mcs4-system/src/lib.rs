@@ -10,13 +10,12 @@ pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
 
-// `src/simd_cluster.rs` is intentionally NOT declared as a module here. It
-// holds 2k LOC of in-progress 16-lane SIMD work that has rotted (147 build
-// errors under `--features simd_cluster` as of 2026-04-30, primarily the
-// missing `#![feature(portable_simd)]` crate attribute and other drift).
-// Resurrecting it is tracked under debt phase D1.4.3 / D2.2 in
-// `~/.claude/plans/elucidate-and-build-out-merry-gadget.md`. Until that
-// happens, the `simd_cluster` Cargo feature is inert.
+// A 16-lane portable_simd cluster rewrite once lived at
+// `src/simd_cluster.rs`; it rotted to 147 build errors without ever being
+// declared as a module and was retired in favor of the working `cluster`
+// module. The file remains recoverable from git history; the retirement
+// decision is recorded in `docs/DEBT_ROADMAP.md`
+// (phase simd-cluster-resurrection-or-retirement).
 
 pub use fixture::{load_hex_bytes, parse_hex_bytes, FixtureError};
 pub use mcs4::Mcs4System;
@@ -106,6 +105,9 @@ mod wiring_tests {
     fn mmap_and_bumpalo_work() {
         let mut f = tempfile::tempfile().expect("tempfile");
         f.write_all(&[0u8; 64]).expect("write temp data");
+        // SAFETY: the tempfile is exclusively owned by this test, already
+        // sized to 64 bytes, and no other mapping or writer aliases it for
+        // the lifetime of the map.
         let mmap = unsafe { MmapOptions::new().len(64).map(&f).expect("mmap temp file") };
         assert_eq!(mmap.len(), 64);
         let bump = Bump::new();

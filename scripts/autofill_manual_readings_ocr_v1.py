@@ -3,13 +3,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 import cv2  # type: ignore[import-not-found]
 import pytesseract  # type: ignore[import-not-found]
+
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -85,7 +88,7 @@ def _tesseract_best(img: Any, *, psm: int, whitelist: str, timeout_s: float) -> 
     )
     texts: list[str] = []
     confs: list[float] = []
-    for t, c in zip(data.get("text", []) or [], data.get("conf", []) or []):
+    for t, c in zip(data.get("text", []) or [], data.get("conf", []) or [], strict=False):
         if t is None:
             continue
         s = str(t).strip()
@@ -163,7 +166,7 @@ def _prefer_clean_crop(path: Path) -> Path:
             if img is not None and int(img.min()) != int(img.max()):
                 return mask
         except Exception:
-            pass
+            logger.debug("unreadable mask crop %s; trying next crop source", mask, exc_info=True)
     # Legacy detector crops (OCR-masked, but may be empty for some chips).
     legacy = base / "crops" / f"box_{idx}_NA.png"
     if legacy.exists():
@@ -172,7 +175,7 @@ def _prefer_clean_crop(path: Path) -> Path:
             if img is not None and int(img.min()) != int(img.max()):
                 return legacy
         except Exception:
-            pass
+            logger.debug("unreadable legacy crop %s; using original path", legacy, exc_info=True)
     return path
 
 
@@ -313,8 +316,9 @@ def main() -> int:
             continue
         idx_s, suggested_node, ocr_best, crop, printed_label, anchor_name, notes = cols
         try:
-            idx = int(idx_s)
-        except Exception:
+            int(idx_s)
+        except ValueError:
+            # A non-numeric index column marks a separator or header row; skip it.
             continue
         m = re.search(r"`([^`]+)`", crop)
         crop_path = Path(m.group(1)) if m else None

@@ -99,7 +99,8 @@ def _parse_manual_anchor_rows(path: Path) -> dict[int, str]:
             continue
         try:
             idx = int(cols[0])
-        except Exception:
+        except ValueError:
+            # A non-numeric index cell marks a header or separator row; skip it.
             continue
         anchor_name = cols[5].strip()
         if anchor_name and anchor_name != "*":

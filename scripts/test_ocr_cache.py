@@ -6,8 +6,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent / "scripts"))
 
-from ocr_cached_backend_v0 import resolve_cached_backend
 import numpy as np
+
+from ocr_cached_backend_v0 import resolve_cached_backend
 
 # Create a simple test image (white background)
 img = np.ones((100, 100), dtype=np.uint8) * 255
@@ -47,7 +48,9 @@ else:
     sys.exit(1)
 
 # Show cache stats
-from ocr_cache_v0 import OcrCache
+# Deferred import keeps the timing measurements above import-cost free.
+from ocr_cache_v0 import OcrCache  # noqa: E402
+
 cache = OcrCache()
 stats = cache.get_stats()
 print()

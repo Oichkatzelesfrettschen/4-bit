@@ -12,7 +12,4 @@ workspace = true
 [dependencies]
 mcs4-core = { path = "../mcs4-core" }
 tracing.workspace = true
-serde.workspace = true
-rkyv.workspace = true
-bytemuck.workspace = true
 zerocopy.workspace = true

@@ -10,7 +10,21 @@
 - Automation scripts pass
 - Clean script removes artifacts (target/coverage)
 
+## Enforcement model
+Both GitHub workflows trigger on `workflow_dispatch` only (quota hold; the
+lift decision is tracked as `docs/DEBT_ROADMAP.md` task D11.1). Until the
+hold lifts, every gate above is enforced locally -- `just verify` for the
+Rust surface, `ruff check scripts/` + `shellcheck -S warning scripts/*.sh`
+for the script surface, `scripts/doc_validate.sh` for docs -- and by manual
+workflow dispatch before merges.
+
 ## Latest Verification
+- 2026-07-09: `cargo test --workspace` (1,053 passed / 0 failed / 1 ignored)
+- 2026-07-09: `cargo clippy --workspace --all-targets` (clean)
+- 2026-07-09: `cargo fmt --all -- --check` (edition 2021)
+- 2026-07-09: `ruff check --no-cache scripts/` (clean)
+- 2026-07-09: `shellcheck -S warning scripts/*.sh` (clean)
+- 2026-07-09: `scripts/doc_validate.sh` + `scripts/status_sync_check.sh` (checksum-extended)
 - 2026-01-06: `cargo fmt --all -- --check`
 - 2026-01-06: `cargo clippy-all`
 - 2026-01-06: `cargo test --workspace --locked`

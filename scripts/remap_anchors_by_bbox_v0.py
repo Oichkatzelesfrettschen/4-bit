@@ -67,7 +67,7 @@ def main() -> int:
 
     remapped = json.loads(json.dumps(anchors))  # deep copy via json
     block = remapped["anchors"][chip]
-    for name, row in block.items():
+    for _name, row in block.items():
         if not isinstance(row, dict):
             continue
         n = row.get("layout_node")

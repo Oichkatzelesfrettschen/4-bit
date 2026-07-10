@@ -5,9 +5,6 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-
 # Pinned versions (update these when intentionally upgrading toolchain)
 # Last updated: 2026-01-29
 PINNED_TESSERACT_VERSION="5.5.2"

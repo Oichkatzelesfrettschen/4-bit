@@ -7,10 +7,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-
+from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 

@@ -119,7 +119,8 @@ def _run_extract(
         str(stitch_policy),
     ]
     cmd.append("--diffusion-split" if diffusion_split else "--no-diffusion-split")
-    p = subprocess.run(cmd, check=False, text=True, capture_output=True)
+    # Fixed argv list running the sibling extract script via sys.executable; no shell.
+    p = subprocess.run(cmd, check=False, text=True, capture_output=True)  # noqa: S603
     if p.returncode != 0:
         raise SystemExit(f"extract failed ({p.returncode}): {' '.join(cmd)}\n{p.stderr}")
     return out_dir / f"{chip.lower()}_netlist_v0.json"

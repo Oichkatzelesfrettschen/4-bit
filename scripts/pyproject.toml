@@ -23,8 +23,14 @@ target-version = "py311"
 extend-exclude = ["__pycache__", ".pytest_cache"]
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "B", "UP"]
-ignore = []
+select = ["E", "F", "W", "I", "B", "UP", "S"]
+# E501 stays ignored: 643 long lines live in generated-ish analysis scripts and
+# reflowing them risks churn without behavior benefit; all other rules gate.
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# pytest tests express expectations with bare assert by design.
+"tests/*" = ["S101"]
 
 [tool.ruff.format]
 quote-style = "double"

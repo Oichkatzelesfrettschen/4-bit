@@ -48,7 +48,9 @@ jobs:
       - name: Tests
         run: cargo test --workspace --locked
 
-      - name: Performance benchmarks
+      - name: Performance benchmarks (advisory)
+        # Advisory only until docs/evidence/benchmarks_baseline_v0.json is
+        # committed (tracked as debt task D18.1); failures never gate the job.
         run: |
           python3 scripts/benchmark_emulator_v0.py \
             --output docs/evidence/benchmarks_ci.json \
@@ -282,6 +284,31 @@ jobs:
         working-directory: scripts
         run: python -m pytest tests/ -q
 
+  script_lint:
+    # Lint gates for the evidence-pipeline scripts: ruff over Python,
+    # shellcheck over shell. Both surfaces are kept warning-clean.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ruff
+        run: pip install --no-cache-dir ruff
+
+      - name: Ruff check
+        run: ruff check --no-cache scripts/
+
+      - name: Shellcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          shellcheck -S warning scripts/*.sh
+
   fuzz_smoke:
     # Phase D4.2: compile fuzz targets and run each for 30s on every PR.
     # Full long-running corpus runs are intended for local developer sessions
@@ -308,6 +335,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ${{ env.SYSTEM_DEPS }}
+
+      - name: Fuzz netlist_v0_parser (30s)
+        working-directory: mcs4-emu
+        run: >
+          cargo +nightly-2026-04-05 fuzz run netlist_v0_parser
+          fuzz/corpus/netlist_v0_parser
+          -- -max_total_time=30
+        continue-on-error: false
 
       - name: Fuzz netlist_v1_parser (30s)
         working-directory: mcs4-emu

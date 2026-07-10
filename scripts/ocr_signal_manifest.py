@@ -6,7 +6,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -16,8 +15,10 @@ def load_json(path: Path) -> object:
 
 def tesseract_version() -> str | None:
     try:
-        proc = subprocess.run(
-            ["tesseract", "--version"],
+        # PATH lookup of the tesseract binary is the probe itself; FileNotFoundError
+        # below reports the tool as absent.
+        proc = subprocess.run(  # noqa: S603
+            ["tesseract", "--version"],  # noqa: S607
             check=False,
             cwd=ROOT,
             text=True,

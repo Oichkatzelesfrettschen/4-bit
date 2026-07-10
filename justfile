@@ -11,9 +11,9 @@ check:
 test:
     cargo test --workspace
 
-# Run clippy with warnings as errors
+# Run clippy with warnings as errors (same surface as the CI clippy-all alias)
 lint:
-    cargo clippy --all-targets -- -D warnings
+    cargo clippy --workspace --all-targets --all-features -- -D warnings
 
 # Check formatting (no writes)
 fmt:

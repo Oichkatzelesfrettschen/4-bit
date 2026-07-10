@@ -14,8 +14,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 import pytesseract
-from PIL import Image
-from PIL import ImageDraw
+from PIL import Image, ImageDraw
 
 
 @dataclass(frozen=True)
@@ -351,7 +350,7 @@ def ocr_tokens(pre: Image.Image, *, psm: int, whitelist: str) -> list[dict[str, 
         parts = raw.split("\t")
         if len(parts) != len(header):
             continue
-        row = dict(zip(header, parts))
+        row = dict(zip(header, parts, strict=False))
         text = row.get("text", "").strip()
         if not text:
             continue

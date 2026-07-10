@@ -14,9 +14,15 @@ use std::path::Path;
 #[derive(Debug)]
 pub enum FixtureError {
     Io(std::io::Error),
-    Parse { line: usize, token: String },
+    Parse {
+        line: usize,
+        token: String,
+    },
     /// Parsed byte count exceeded the caller-supplied maximum.
-    TooLarge { parsed: usize, max: usize },
+    TooLarge {
+        parsed: usize,
+        max: usize,
+    },
 }
 
 impl std::fmt::Display for FixtureError {
@@ -66,7 +72,10 @@ pub fn load_hex_bytes_bounded(path: impl AsRef<Path>, max: usize) -> Result<Vec<
 pub fn parse_hex_bytes_bounded(s: &str, max: usize) -> Result<Vec<u8>, FixtureError> {
     let bytes = parse_hex_bytes(s)?;
     if bytes.len() > max {
-        return Err(FixtureError::TooLarge { parsed: bytes.len(), max });
+        return Err(FixtureError::TooLarge {
+            parsed: bytes.len(),
+            max,
+        });
     }
     Ok(bytes)
 }

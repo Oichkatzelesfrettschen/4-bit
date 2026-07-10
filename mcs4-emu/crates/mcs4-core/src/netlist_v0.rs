@@ -133,9 +133,9 @@ pub struct NetlistV0SourceComponent {
     pub poly_diff_id: u32,
 }
 
-pub fn load_netlist_v0(path: impl AsRef<Path>) -> Result<NetlistV0, Box<dyn std::error::Error + Send + Sync>> {
+pub fn load_netlist_v0(path: impl AsRef<Path>) -> Result<NetlistV0, crate::layout_netlist::NetlistLoadError> {
     let text = std::fs::read_to_string(path)?;
-    let netlist: NetlistV0 = serde_json::from_str(&text)?;
+    let netlist: NetlistV0 = serde_json::from_str(&text).map_err(crate::layout_netlist::NetlistLoadError::Parse)?;
     Ok(netlist)
 }
 

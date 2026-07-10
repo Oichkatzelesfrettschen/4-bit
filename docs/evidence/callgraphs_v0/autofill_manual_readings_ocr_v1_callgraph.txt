@@ -1,0 +1,120 @@
+# call graph: scripts/autofill_manual_readings_ocr_v1.py
+# functions defined: 17
+# internal edges: 19, external calls: 96
+## internal edges
+<module> -> main
+_looks_like_debug_overlay -> _normalize_token
+_looks_like_die_marking -> _normalize_token
+_map_token_to_anchor -> _looks_like_die_marking
+_map_token_to_anchor -> _normalize_token
+_ocr_crop -> _prep
+_ocr_crop -> _tesseract_best
+_tesseract_best -> _normalize_token
+main -> _dedupe_notes
+main -> _format_row
+main -> _iter_names_for_chip
+main -> _load_json
+main -> _looks_like_debug_overlay
+main -> _map_token_to_anchor
+main -> _note_looks_corrupted
+main -> _ocr_crop
+main -> _parse_table
+main -> _prefer_clean_crop
+main -> _split_row
+## external calls (dedup by caller,name)
+<module> -> [ext] Path
+<module> -> [ext] SystemExit
+<module> -> [ext] dataclass
+<module> -> [ext] resolve
+OcrAttempt.score -> [ext] float
+OcrAttempt.score -> [ext] len
+_dedupe_notes -> [ext] add
+_dedupe_notes -> [ext] append
+_dedupe_notes -> [ext] join
+_dedupe_notes -> [ext] set
+_dedupe_notes -> [ext] split
+_dedupe_notes -> [ext] strip
+_format_row -> [ext] join
+_iter_names_for_chip -> [ext] get
+_iter_names_for_chip -> [ext] isinstance
+_iter_names_for_chip -> [ext] keys
+_iter_names_for_chip -> [ext] set
+_iter_names_for_chip -> [ext] str
+_load_json -> [ext] loads
+_load_json -> [ext] read_text
+_looks_like_debug_overlay -> [ext] any
+_looks_like_debug_overlay -> [ext] isdigit
+_looks_like_debug_overlay -> [ext] startswith
+_map_token_to_anchor -> [ext] group
+_map_token_to_anchor -> [ext] match
+_normalize_token -> [ext] strip
+_normalize_token -> [ext] sub
+_normalize_token -> [ext] upper
+_ocr_crop -> [ext] OcrAttempt
+_ocr_crop -> [ext] bool
+_ocr_crop -> [ext] imread
+_ocr_crop -> [ext] int
+_ocr_crop -> [ext] str
+_parse_table -> [ext] enumerate
+_parse_table -> [ext] len
+_parse_table -> [ext] range
+_parse_table -> [ext] startswith
+_parse_table -> [ext] strip
+_prefer_clean_crop -> [ext] exists
+_prefer_clean_crop -> [ext] group
+_prefer_clean_crop -> [ext] imread
+_prefer_clean_crop -> [ext] int
+_prefer_clean_crop -> [ext] max
+_prefer_clean_crop -> [ext] min
+_prefer_clean_crop -> [ext] search
+_prefer_clean_crop -> [ext] str
+_prep -> [ext] GaussianBlur
+_prep -> [ext] any
+_prep -> [ext] astype
+_prep -> [ext] bitwise_not
+_prep -> [ext] copy
+_prep -> [ext] copyMakeBorder
+_prep -> [ext] cvtColor
+_prep -> [ext] float
+_prep -> [ext] getattr
+_prep -> [ext] max
+_prep -> [ext] min
+_prep -> [ext] resize
+_prep -> [ext] split
+_prep -> [ext] threshold
+_split_row -> [ext] split
+_split_row -> [ext] strip
+_tesseract_best -> [ext] append
+_tesseract_best -> [ext] float
+_tesseract_best -> [ext] get
+_tesseract_best -> [ext] image_to_data
+_tesseract_best -> [ext] int
+_tesseract_best -> [ext] join
+_tesseract_best -> [ext] len
+_tesseract_best -> [ext] max
+_tesseract_best -> [ext] str
+_tesseract_best -> [ext] strip
+_tesseract_best -> [ext] sum
+_tesseract_best -> [ext] zip
+main -> [ext] ArgumentParser
+main -> [ext] Path
+main -> [ext] SystemExit
+main -> [ext] add_argument
+main -> [ext] dumps
+main -> [ext] float
+main -> [ext] group
+main -> [ext] int
+main -> [ext] is_absolute
+main -> [ext] join
+main -> [ext] len
+main -> [ext] parse_args
+main -> [ext] print
+main -> [ext] range
+main -> [ext] read_text
+main -> [ext] resolve
+main -> [ext] search
+main -> [ext] splitlines
+main -> [ext] startswith
+main -> [ext] str
+main -> [ext] strip
+main -> [ext] write_text

@@ -57,7 +57,7 @@ def main() -> int:
             entries.append(Entry(id=img.stem, image=rel_or_abs(img), expected=tok))
 
     if args.dedupe:
-        for (tok, node), (_, img) in sorted(best_by_key.items(), key=lambda kv: (kv[0][0], kv[0][1])):
+        for (tok, _node), (_, img) in sorted(best_by_key.items(), key=lambda kv: (kv[0][0], kv[0][1])):
             entries.append(Entry(id=img.stem, image=rel_or_abs(img), expected=tok))
 
     out = args.out

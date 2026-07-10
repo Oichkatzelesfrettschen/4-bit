@@ -1,4 +1,4 @@
-# MCS-4/MCS-40 Emulator - Project Status (2026-04-30)
+# MCS-4/MCS-40 Emulator - Project Status (2026-07-09)
 
 ## PROJECT OVERVIEW
 Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate simulation of 4004/4040 chipsets.
@@ -46,6 +46,8 @@ Summary: 95% overall completion
   - RAM status read/write: WORKING
 
 ### Phase 3: COMPLETE (100%)
+(Per-chip test counts below are as-of phase completion; the TEST COUNTS
+section is authoritative for current totals.)
 - DONE:
   - 4101 RAM design + implementation (read/write, 17 tests)
   - 4201 Clock generator (crystal config, non-overlap, reset/STP, 8 tests)
@@ -115,7 +117,7 @@ Summary: 95% overall completion
     - Monitor ROM (command dispatch, examine/deposit/go/halt, 11 tests)
     - PROM programmer (blank check, program, verify, 4702 interface, 9 tests)
     - System integration (CPU coordination, panel/monitor/peripherals, 13 tests)
-  - Verilog chip modules (mcs4-fpga, 24 tests):
+  - Verilog chip modules (mcs4-fpga, 42 tests):
     - 22 synthesizable behavioral Verilog modules for complete MCS-4/MCS-40 family:
       MCS-4 core: 4004, 4001, 4002, 4003
       MCS-4 support: 4008, 4009, 3216, 3226, 3205, 3404, 2101
@@ -175,15 +177,16 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (updated 2026-04-30 after debt-roadmap phases D4.1/D4.2/D10.3.3)
+## TEST COUNTS (updated 2026-07-09 after debt-roadmap phases D11-D17)
 
-1,053 tests passing, 0 failures:
+1,057 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
 - mcs4-chips circuit_sim: 4 (full-chip 4003 DC+transient, 4004 DC, behavioral-vs-circuit cross-validation)
 - mcs4-chips fuzz_test: 1
+- mcs4-chips instruction_census: 2 (4004=46 and 4040=60 instruction-set size claims)
 - mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)
 - mcs4-core: 473 (transistor/nodal/TCAD solvers, process models, transient+trapezoidal integration,
     temperature sweep, sensitivity analysis integration, circuit, fidelity, bridge)
@@ -192,6 +195,7 @@ Critical path (in order):
 - mcs4-core nodal_4003: 1 (4003 shift register nodal simulation)
 - mcs4-core proptest_solvers: 6 (DC rail invariant, node-ID permutation, gmin sweep, dense/sparse
     agreement, transient time monotonicity, transient rail invariant)
+- mcs4-core timing_claims: 2 (10.8 us instruction cycle, datasheet clock-period bounds)
 - mcs4-fpga: 42 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)

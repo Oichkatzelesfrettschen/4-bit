@@ -12,10 +12,7 @@
 use mcs4_core::{
     circuit::graph::{CircuitGraph, TransistorKind},
     process::ProcessParams,
-    solver::{
-        dc_op::DcSolver,
-        SolverBackend, SolverConfig, TransientConfig, TransientSolver,
-    },
+    solver::{dc_op::DcSolver, SolverBackend, SolverConfig, TransientConfig, TransientSolver},
 };
 use proptest::prelude::*;
 
@@ -25,13 +22,7 @@ use proptest::prelude::*;
 ///
 /// Returns `(graph, output_idx)`.  All netlist IDs are caller-supplied so the
 /// same topology can be instantiated with different node numbering.
-fn build_inverter(
-    v_in: f64,
-    vdd_id: i32,
-    vss_id: i32,
-    input_id: i32,
-    output_id: i32,
-) -> (CircuitGraph, usize) {
+fn build_inverter(v_in: f64, vdd_id: i32, vss_id: i32, input_id: i32, output_id: i32) -> (CircuitGraph, usize) {
     let mut g = CircuitGraph::new();
 
     let vdd = g.add_node(vdd_id);
@@ -296,7 +287,7 @@ proptest! {
         for (step_i, point) in result.waveforms.iter().enumerate() {
             for (node_j, &v) in point.voltages.iter().enumerate() {
                 prop_assert!(
-                    v >= -16.0 && v <= 1.0,
+                    (-16.0..=1.0).contains(&v),
                     "Voltage out of rails at step {} node {}: {:.3}V",
                     step_i, node_j, v
                 );

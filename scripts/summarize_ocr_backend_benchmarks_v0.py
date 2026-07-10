@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 
+logger = logging.getLogger(__name__)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,6 +45,7 @@ def main() -> int:
         try:
             data = json.loads(p.read_text(encoding="utf-8"))
         except Exception:
+            logger.debug("skipping unreadable benchmark file %s", p, exc_info=True)
             continue
         results = data.get("results") or {}
         params = data.get("params") or {}

@@ -16,8 +16,12 @@ import pytesseract
 from PIL import Image, ImageDraw, ImageFont
 
 from ocr_cached_backend_v0 import resolve_cached_backend
-from ocr_preprocess_v0 import crop_label_text_roi, extract_dense_component, head_crop, preprocess_label_for_ocr
-
+from ocr_preprocess_v0 import (
+    crop_label_text_roi,
+    extract_dense_component,
+    head_crop,
+    preprocess_label_for_ocr,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -30,7 +34,7 @@ _OCR_STRING_CACHE: dict[str, str] = {}
 
 
 def _ocr_cache_key(img: np.ndarray, cfg: str, *, kind: str) -> str:
-    h = hashlib.sha1()
+    h = hashlib.sha1(usedforsecurity=False)
     h.update(kind.encode("utf-8"))
     h.update(b"\0")
     h.update(cfg.encode("utf-8"))
@@ -91,7 +95,7 @@ def ocr_token(img: np.ndarray, *, psm: int, timeout_s: float) -> tuple[str, floa
         )
         _OCR_DATA_CACHE[key] = data
     best = ("", -1.0)
-    for txt, conf in zip(data.get("text", []), data.get("conf", [])):
+    for txt, conf in zip(data.get("text", []), data.get("conf", []), strict=False):
         t = (txt or "").strip().upper()
         if not t:
             continue
@@ -675,7 +679,7 @@ def main() -> int:
             if bbox_contains(mb, x=int(tip["x"]), y=int(tip["y"])):
                 inside.append(n)
 
-        def node_score(n: dict) -> tuple[float, int]:
+        def node_score(n: dict, tip: dict = tip) -> tuple[float, int]:
             mb = n["metal_bbox"]
             d = dist_point_to_bbox(float(tip["x"]), float(tip["y"]), mb)
             a = float(n.get("metal_area", 0))
@@ -699,7 +703,8 @@ def main() -> int:
             else:
                 if score < best_node[1]:
                     best_node = (n, score)
-        assert best_node is not None
+        if best_node is None:
+            raise AssertionError("candidate node scan produced no best node")
         bn = best_node[0]
         best_node_payload = {
             "node": int(bn["node"]),

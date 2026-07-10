@@ -81,11 +81,12 @@ impl I4211 {
                     self.phi1 = false;
                     self.phi2 = true;
                 }
-                3 => {
+                // phase_counter is always mod-4; the final arm is the
+                // second dead-time quarter (counter == 3).
+                _ => {
                     self.phi1 = false;
                     self.phi2 = false;
                 }
-                _ => unreachable!(),
             }
         }
     }

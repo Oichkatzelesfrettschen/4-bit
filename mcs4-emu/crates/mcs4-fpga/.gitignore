@@ -1,0 +1,8 @@
+# Regenerable simulation outputs (iverilog compile + vvp run recreate them);
+# generated build/*.v stay visible to git as consumed synthesis inputs.
+build/*.vcd
+build/tb_mcs4_system
+
+# Coverage profiles from instrumented test runs
+coverage/
+*.profraw

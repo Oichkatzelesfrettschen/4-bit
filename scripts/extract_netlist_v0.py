@@ -12,7 +12,6 @@ import cv2
 import numpy as np
 from PIL import Image
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -261,7 +260,9 @@ def main() -> int:
         if close_iters > 0:
             ck = np.ones((3, 3), dtype=np.uint8)
 
-            def close_mask(mask: np.ndarray) -> np.ndarray:
+            def close_mask(
+                mask: np.ndarray, ck: np.ndarray = ck, close_iters: int = close_iters
+            ) -> np.ndarray:
                 u8 = np.where(mask, 255, 0).astype(np.uint8)
                 u8 = cv2.morphologyEx(u8, cv2.MORPH_CLOSE, ck, iterations=close_iters)
                 return u8 > 0
@@ -295,7 +296,7 @@ def main() -> int:
         total_comps = m_count + p_count + d_count
         dsu = DSU(total_comps)
 
-        def gid(layer: str, label: int) -> int:
+        def gid(layer: str, label: int, offsets: dict[str, int] = offsets) -> int:
             if label <= 0:
                 raise ValueError("label must be >0")
             return offsets[layer] + (label - 1)
@@ -377,7 +378,12 @@ def main() -> int:
         roots = sorted({dsu.find(i) for i in range(total_comps)})
         root_to_node = {r: idx for idx, r in enumerate(roots)}
 
-        def node_of(layer: str, label: int) -> int:
+        def node_of(
+            layer: str,
+            label: int,
+            root_to_node: dict[int, int] = root_to_node,
+            dsu: DSU = dsu,
+        ) -> int:
             return int(root_to_node[dsu.find(gid(layer, label))])
 
         node_count = int(len(roots))
@@ -503,7 +509,20 @@ def main() -> int:
         schematic_img = Image.open(spec.schematic_bmp)
         schematic_w, schematic_h = schematic_img.size
 
-        def node_uid_for(i: int) -> str:
+        def node_uid_for(
+            i: int,
+            node_metal_bbox: list = node_metal_bbox,
+            node_poly_bbox: list = node_poly_bbox,
+            node_diff_bbox: list = node_diff_bbox,
+            node_metal_area: list = node_metal_area,
+            node_poly_area: list = node_poly_area,
+            node_diff_area: list = node_diff_area,
+            node_metal_cc: list = node_metal_cc,
+            node_poly_cc: list = node_poly_cc,
+            node_diff_cc: list = node_diff_cc,
+            node_gate_degree: list = node_gate_degree,
+            node_terminal_degree: list = node_terminal_degree,
+        ) -> str:
             """
             Stable-ish content-derived identifier for a node.
 
@@ -526,7 +545,7 @@ def main() -> int:
                 "terminal_degree": int(node_terminal_degree[i]),
             }
             raw = json.dumps(fp, sort_keys=True, separators=(",", ":")).encode("utf-8")
-            return hashlib.sha1(raw).hexdigest()
+            return hashlib.sha1(raw, usedforsecurity=False).hexdigest()
 
         node_stats = [
             {

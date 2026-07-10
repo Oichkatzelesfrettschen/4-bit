@@ -283,7 +283,7 @@ def main():
 
         if not gates_file.exists():
             print(f"  Warning: Gates file not found: {gates_file}")
-            print(f"  Creating placeholder output")
+            print("  Creating placeholder output")
 
             # Create placeholder netlist
             netlist = {

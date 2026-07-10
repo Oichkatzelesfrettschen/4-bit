@@ -9,6 +9,10 @@
 #      make xilinx_synth CHIP=4001
 #      make gowin_synth  (MCS-4 system on GW1N-2)
 
+# Recipes run under bash: the Vivado targets feed Tcl scripts through a
+# <<< herestring, which POSIX sh does not support.
+SHELL := /bin/bash
+
 # ============================================================
 # Configuration
 # ============================================================
@@ -38,6 +42,7 @@ CST := $(CONST_DIR)/mcs4_gowin.cst
 # Gowin device (KIWI FPGA TINY 1P5 EVK, actual GW1N-2 LQFP100)
 GOWIN_DEVICE := GW1N-LV2LQ100C6/I5
 GW_SH        := /opt/gowin-eda-ide/bin/gw_sh
+GW_SH_EDU    := /opt/gowin-eda-edu/IDE/bin/gw_sh
 GOWIN_DIR    := gowin
 
 # iCE40 device selection
@@ -46,6 +51,31 @@ ICE40_PACKAGE ?= tq144
 
 # Spartan-7 part
 SPARTAN7_PART ?= xc7s15ftgb196-1
+
+# ============================================================
+# Tool availability guards
+# ============================================================
+# Every target that invokes an external FPGA tool checks for the tool up
+# front and fails with an install hint instead of a raw
+# "command not found" shell error.
+
+# require-tool: verify a tool is on PATH.
+# $(1) = tool name, $(2) = install hint (no commas)
+define require-tool
+@command -v $(1) >/dev/null 2>&1 || { \
+  echo "$(1) not found; install $(2)"; \
+  exit 1; \
+}
+endef
+
+# require-path: verify an executable exists at a fixed absolute path.
+# $(1) = absolute path, $(2) = install hint (no commas)
+define require-path
+@test -x $(1) || { \
+  echo "$(1) not found; install $(2)"; \
+  exit 1; \
+}
+endef
 
 # ============================================================
 # Build directory
@@ -71,6 +101,7 @@ generate: $(BUILD_DIR)
 .PHONY: ice40_synth ice40_pnr ice40_bitstream ice40_prog ice40_all
 
 ice40_synth: $(BUILD_DIR)
+	$(call require-tool,yosys,the OSS CAD Suite or the yosys package)
 	@echo "=== Synthesizing $(TOP) for iCE40 ==="
 	yosys -p "read_verilog $(VERILOG); \
 	          synth_ice40 -top $(TOP) -json $(BUILD_DIR)/$(TOP)_synth.json" \
@@ -78,6 +109,7 @@ ice40_synth: $(BUILD_DIR)
 	@echo "Synthesis log: $(BUILD_DIR)/$(TOP)_synth.log"
 
 ice40_pnr: ice40_synth
+	$(call require-tool,nextpnr-ice40,the OSS CAD Suite or the nextpnr package)
 	@echo "=== Place-and-Route $(TOP) ==="
 	nextpnr-ice40 --$(ICE40_DEVICE) --package $(ICE40_PACKAGE) \
 	              --json $(BUILD_DIR)/$(TOP)_synth.json \
@@ -86,11 +118,13 @@ ice40_pnr: ice40_synth
 	              --report $(BUILD_DIR)/$(TOP)_timing.json
 
 ice40_bitstream: ice40_pnr
+	$(call require-tool,icepack,the icestorm tools)
 	@echo "=== Generating bitstream ==="
 	icepack $(BUILD_DIR)/$(TOP)_routed.asc $(BUILD_DIR)/$(TOP).bin
 	@echo "Bitstream: $(BUILD_DIR)/$(TOP).bin"
 
 ice40_prog: ice40_bitstream
+	$(call require-tool,iceprog,the icestorm tools)
 	iceprog $(BUILD_DIR)/$(TOP).bin
 
 ice40_all: ice40_bitstream
@@ -103,6 +137,7 @@ ice40_all: ice40_bitstream
 .PHONY: xilinx_synth xilinx_impl xilinx_bitstream
 
 xilinx_synth: $(BUILD_DIR)
+	$(call require-tool,vivado,Xilinx Vivado and add it to PATH)
 	@echo "=== Synthesizing $(TOP) for Spartan-7 ==="
 	vivado -mode batch -nojournal -nolog -source /dev/stdin <<< '\
 	  read_verilog $(VERILOG); \
@@ -112,6 +147,7 @@ xilinx_synth: $(BUILD_DIR)
 	  report_utilization -file $(BUILD_DIR)/$(TOP)_utilization.rpt'
 
 xilinx_impl: xilinx_synth
+	$(call require-tool,vivado,Xilinx Vivado and add it to PATH)
 	vivado -mode batch -nojournal -nolog -source /dev/stdin <<< '\
 	  open_checkpoint $(BUILD_DIR)/$(TOP)_post_synth.dcp; \
 	  opt_design; \
@@ -121,6 +157,7 @@ xilinx_impl: xilinx_synth
 	  report_timing_summary -file $(BUILD_DIR)/$(TOP)_timing.rpt'
 
 xilinx_bitstream: xilinx_impl
+	$(call require-tool,vivado,Xilinx Vivado and add it to PATH)
 	vivado -mode batch -nojournal -nolog -source /dev/stdin <<< '\
 	  open_checkpoint $(BUILD_DIR)/$(TOP)_post_route.dcp; \
 	  write_bitstream -force $(BUILD_DIR)/$(TOP).bit'
@@ -165,6 +202,7 @@ gowin_gen: $(BUILD_DIR)
 
 # Step 2: Synthesize + PnR + bitstream via gw_sh
 gowin_synth: gowin_gen
+	$(call require-path,$(GW_SH),the Gowin EDA IDE under /opt/gowin-eda-ide)
 	@echo "=== Synthesizing MCS-4 system for GW1N-2 ==="
 	QT_QPA_PLATFORM=offscreen $(GW_SH) $(GOWIN_DIR)/mcs4_gowin.tcl
 	@ls -lh $(GOWIN_FS) 2>/dev/null && echo "Bitstream ready" || \
@@ -172,11 +210,13 @@ gowin_synth: gowin_gen
 
 # Step 3: Program FPGA via GWU2X JTAG (volatile SRAM)
 gowin_prog:
+	$(call require-tool,openFPGALoader,the openFPGALoader package)
 	@echo "=== Programming GW1N-2 SRAM ==="
 	openFPGALoader -c gwu2x $(GOWIN_FS)
 
 # Program to Flash (persistent across power cycles)
 gowin_flash:
+	$(call require-tool,openFPGALoader,the openFPGALoader package)
 	@echo "=== Programming GW1N-2 Flash ==="
 	openFPGALoader -c gwu2x -f $(GOWIN_FS)
 
@@ -196,6 +236,7 @@ gowin_tty:
 
 # Lint check (no license needed)
 gowin_lint: gowin_gen
+	$(call require-tool,verilator,the verilator package)
 	@echo "=== Verilator lint ==="
 	@verilator --lint-only \
 	  -Wno-MULTIDRIVEN -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM \
@@ -206,18 +247,21 @@ gowin_lint: gowin_gen
 
 # Simulate (no license needed)
 gowin_sim: gowin_gen
+	$(call require-tool,iverilog,the iverilog (Icarus Verilog) package)
 	@echo "=== Simulating MCS-4 system ==="
 	iverilog -DSIM -o $(BUILD_DIR)/tb_mcs4_system \
 	  $(GOWIN_DIR)/tb_mcs4_system.v $(GOWIN_SRCS)
 	cd $(BUILD_DIR) && vvp tb_mcs4_system
 
 gowin_sim_view: gowin_sim
+	$(call require-tool,gtkwave,the gtkwave package)
 	gtkwave $(BUILD_DIR)/tb_mcs4_system.vcd
 
 # Resource estimation via Education edition (no GW1N-2 license needed)
 gowin_estimate: gowin_gen
+	$(call require-path,$(GW_SH_EDU),the Gowin EDA Education edition under /opt/gowin-eda-edu)
 	@echo "=== Resource estimation (GW1N-9C proxy) ==="
-	QT_QPA_PLATFORM=offscreen /opt/gowin-eda-edu/IDE/bin/gw_sh $(GOWIN_DIR)/mcs4_estimate.tcl
+	QT_QPA_PLATFORM=offscreen $(GW_SH_EDU) $(GOWIN_DIR)/mcs4_estimate.tcl
 	@echo ""; grep -A5 "Resource Usage" impl/pnr/mcs4_estimate.rpt.txt 2>/dev/null | head -10
 
 # ============================================================
@@ -227,6 +271,7 @@ gowin_estimate: gowin_gen
 .PHONY: sim sim_view
 
 sim: $(BUILD_DIR)
+	$(call require-tool,iverilog,the iverilog (Icarus Verilog) package)
 	@echo "=== Simulating $(TOP) ==="
 	iverilog -o $(BUILD_DIR)/tb_$(TOP) \
 	         $(VERILOG_DIR)/$(CHIP)/tb_$(TOP).v \
@@ -234,6 +279,7 @@ sim: $(BUILD_DIR)
 	cd $(BUILD_DIR) && vvp tb_$(TOP)
 
 sim_view: sim
+	$(call require-tool,gtkwave,the gtkwave package)
 	gtkwave $(BUILD_DIR)/tb_$(TOP).vcd
 
 # ============================================================
