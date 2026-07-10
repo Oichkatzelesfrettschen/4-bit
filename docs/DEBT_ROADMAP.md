@@ -278,7 +278,25 @@ status_sync_check green.
   serves the role; the file remains in git history); inert feature flag
   deleted.
 
+## Resolved in the port-extraction pass (2026-07-09, follow-up)
+
+- D14.1/D14.2: gate_to_verilog_v0.py derives module ports from
+  netlist_v1 signal anchors (name -> layout_node), with structural
+  direction inference (gate-driven node -> output), alias collapse for
+  signals sharing a pad node, power-rail exclusion, and logged skips for
+  anchors absent from the recognized-gate subgraph. All four chips
+  regenerated: 4001 = 2 in / 4 out, 4002 = 1 in / 0 out, 4003 = 3 in /
+  1 out, 4004 = 0 in / 3 out. Every module compiles under iverilog.
+- D14.3 (structural tier): testbenches emit a 1350 ns two-phase
+  non-overlapping clock, a reset pulse, and a walking data pattern; all
+  four simulate to completion under vvp with VCD dumps. The 4003 (full
+  pad coverage) settles to defined outputs; 4001/4004 outputs remain x
+  because their partial gate subgraphs contain undriven interior cones
+  -- the truthful structural state, not a testbench defect. Functional
+  per-chip vectors stay open pending fuller gate extraction (D19.1).
+
 Remaining open phases: D13.1/D13.9 (i4004 unit suite; bus/gui/periph
-integration dirs), D14.1-D14.4/D14.9 (port extraction cascade), D15.1,
-D15.2, D15.6 (Python dependency pins, per-family smoke tests), D16.2-D16.4,
-D16.6-D16.8 (convention dedupe, guide stubs, naming decisions), D18, D19.
+integration dirs), D14.4 (constraint reconciliation to the new port
+lists), D14.9 (tgate path), D15.1, D15.2, D15.6 (Python dependency
+pins, per-family smoke tests), D16.2-D16.4, D16.6-D16.8 (convention
+dedupe, guide stubs, naming decisions), D18, D19.
