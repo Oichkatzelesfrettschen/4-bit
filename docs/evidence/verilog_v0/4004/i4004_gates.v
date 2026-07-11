@@ -2551,14 +2551,3 @@ module nor3 (
 );
     assign Y = ~(A | B | C);
 endmodule
-
-// Transmission gate (bidirectional)
-module tgate (
-    input wire EN,
-    input wire ENB,
-    inout wire A,
-    inout wire B
-);
-    assign A = EN ? B : 1'bz;
-    assign B = EN ? A : 1'bz;
-endmodule

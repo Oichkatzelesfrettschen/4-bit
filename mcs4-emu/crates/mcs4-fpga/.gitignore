@@ -1,7 +1,13 @@
-# Regenerable simulation outputs (iverilog compile + vvp run recreate them);
-# generated build/*.v stay visible to git as consumed synthesis inputs.
-build/*.vcd
-build/tb_mcs4_system
+# build/ holds generated artifacts only; nothing under it is a source of
+# truth. Regeneration provenance:
+#   build/*.v            cargo test -p mcs4-fpga generate_fpga_verilog -- --ignored
+#   build/*_synth.json,  Makefile synthesis/PnR targets (yosys/nextpnr;
+#   *_routed.asc, logs   see `make help` in this directory)
+#   build/*.vcd,         iverilog compile + vvp simulation runs
+#   build/tb_mcs4_system
+# The explicit rule keeps the artifacts ignored regardless of any
+# user-global gitignore configuration.
+build/
 
 # Coverage profiles from instrumented test runs
 coverage/
