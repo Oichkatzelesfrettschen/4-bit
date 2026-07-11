@@ -1031,7 +1031,12 @@ pub fn chip_i4004_fpga() -> Module {
         .push("reg need_operand; // 1 = 2-byte instruction, need second fetch".into());
     m.body
         .push("reg [7:0] src_addr; // SRC address register (set by SRC instruction)".into());
-    m.body.push("reg [3:0] ram_bank; // DCL bank select".into());
+    m.body
+        .push("reg [3:0] ram_bank; // DCL result: CM-RAM line mask (bit 0 = CM-RAM0)".into());
+    m.body
+        .push("reg fin_active; // 1 = next machine cycle is the FIN indirect fetch".into());
+    m.body
+        .push("reg [2:0] fin_pair; // register pair loaded by the FIN fetch".into());
     m.body
         .push("reg [3:0] io_data; // data to drive on bus during X2/X3".into());
     m.body
@@ -1050,8 +1055,14 @@ pub fn chip_i4004_fpga() -> Module {
 
     // === Combinational bus output ===
     // A1-A3: drive PC address. X2: drive SRC low or I/O data. X3: drive SRC high.
-    m.body.push("assign data_out = (phase == 3'd0) ? pc[3:0] :".into());
-    m.body.push("                  (phase == 3'd1) ? pc[7:4] :".into());
+    // The FIN indirect fetch cycle replaces the low 8 address bits with
+    // register pair 0 (R0 = high nibble, R1 = low nibble); the page comes
+    // from the PC, which already points past the FIN byte, so a FIN in the
+    // last location of a page fetches from the next page.
+    m.body
+        .push("assign data_out = (phase == 3'd0) ? (fin_active ? regs[1] : pc[3:0]) :".into());
+    m.body
+        .push("                  (phase == 3'd1) ? (fin_active ? regs[0] : pc[7:4]) :".into());
     m.body.push("                  (phase == 3'd2) ? pc[11:8] :".into());
     m.body
         .push("                  (phase == 3'd6 && src_drive) ? src_addr[3:0] :".into());
@@ -1068,8 +1079,10 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("assign sync = (phase == 3'd0);".into());
     m.body.push("assign cm_rom = (phase == 3'd2);".into());
     // CM-RAM active during X2/X3 for RAM/IO operations
+    // The FIN indirect fetch cycle overwrites the instruction register with
+    // the fetched data byte, so RAM/IO decode is suppressed while fin_active.
     m.body
-        .push("wire is_ram_io = (instruction[7:4] == 4'hE); // E0-EF are RAM/IO ops".into());
+        .push("wire is_ram_io = (instruction[7:4] == 4'hE) && !fin_active; // E0-EF are RAM/IO ops".into());
     m.body
         .push("assign cm_ram = (phase == 3'd6 || phase == 3'd7) && is_ram_io;".into());
     // WMP strobe: registered pulse, fires when io_drive transitions from 0 to 1
@@ -1099,6 +1112,7 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("    instruction <= 8'd0; operand <= 8'd0;".into());
     m.body.push("    need_operand <= 1'b0;".into());
     m.body.push("    src_addr <= 8'd0; ram_bank <= 4'd0;".into());
+    m.body.push("    fin_active <= 1'b0; fin_pair <= 3'd0;".into());
     m.body
         .push("    io_data <= 4'd0; io_drive <= 1'b0; src_drive <= 1'b0; pc_written <= 1'b0;".into());
     m.body.push("    wmp_strobe_r <= 1'b0; wmp_data_r <= 4'd0;".into());
@@ -1129,7 +1143,16 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("        3'd5: begin // X1: decode and execute".into());
     m.body
         .push("          io_drive <= 1'b0; src_drive <= 1'b0; pc_written <= 1'b0; wmp_strobe_r <= 1'b0;".into());
-    m.body.push("          if (need_operand) begin".into());
+    // FIN indirect fetch cycle: M1/M2 latched the byte at the pair-0 address;
+    // load it into the target pair and hold the PC, which already points at
+    // the next instruction.
+    m.body.push("          if (fin_active) begin".into());
+    m.body
+        .push("            regs[{fin_pair, 1'b0}] <= instruction[7:4];".into());
+    m.body
+        .push("            regs[{fin_pair, 1'b1}] <= instruction[3:0];".into());
+    m.body.push("            pc_written <= 1'b1;".into());
+    m.body.push("          end else if (need_operand) begin".into());
     // Second cycle of 2-byte instruction: operand was fetched, now execute
     m.body.push("            need_operand <= 1'b0;".into());
     m.body.push("            casez (operand)".into());
@@ -1197,14 +1220,16 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("                src_drive <= 1'b1;".into());
     m.body.push("              end".into());
 
-    // FIN: fetch indirect using R0R1 as ROM address (simplified: load from regs)
-    m.body
-        .push("              8'b0011_???0: begin // FIN (simplified: NOP for now)".into());
+    // FIN: arm the indirect fetch machine cycle; the fetched byte loads the
+    // designated pair when that cycle reaches X1
+    m.body.push("              8'b0011_???0: begin // FIN".into());
+    m.body.push("                fin_active <= 1'b1;".into());
+    m.body.push("                fin_pair <= instruction[3:1];".into());
     m.body.push("              end".into());
 
-    // JIN: jump indirect via register pair
+    // JIN: jump indirect via register pair (even register = high nibble)
     m.body.push("              8'b0011_???1: begin // JIN".into());
-    m.body.push("                pc <= {pc[11:8], regs[{instruction[3:1], 1'b1}], regs[{instruction[3:1], 1'b0}]}; pc_written <= 1'b1;".into());
+    m.body.push("                pc <= {pc[11:8], regs[{instruction[3:1], 1'b0}], regs[{instruction[3:1], 1'b1}]}; pc_written <= 1'b1;".into());
     m.body.push("              end".into());
 
     // INC
@@ -1292,8 +1317,10 @@ pub fn chip_i4004_fpga() -> Module {
         .push("                  4'b1000: acc <= 4'd4; default: acc <= 4'hF;".into());
     m.body.push("                endcase".into());
     m.body.push("              end".into());
+    // DCL: accumulator bits 2:0 select the CM-RAM line mask; 000 selects
+    // CM-RAM0, other values shift left to combine CM-RAM1..CM-RAM3
     m.body
-        .push("              8'b1111_1101: ram_bank <= acc; // DCL".into());
+        .push("              8'b1111_1101: ram_bank <= (acc[2:0] == 3'd0) ? 4'b0001 : {acc[2:0], 1'b0}; // DCL".into());
     m.body.push("              default: ;".into());
     m.body.push("            endcase".into());
     m.body.push("          end".into());
@@ -1302,8 +1329,11 @@ pub fn chip_i4004_fpga() -> Module {
     // X3 (phase 7): RAM/IO read completion + PC advance
     m.body
         .push("        3'd7: begin // X3: read completion + advance PC".into());
+    // The FIN indirect fetch cycle carries a data byte in the instruction
+    // register; it ends here without RAM/IO read completion or PC advance.
+    m.body.push("          fin_active <= 1'b0;".into());
     // RAM/IO read: latch bus data into accumulator
-    m.body.push("          casez (instruction)".into());
+    m.body.push("          if (!fin_active) casez (instruction)".into());
     m.body
         .push("            8'b1110_1000: {carry, acc} <= acc + ~data_in + {4'd0, ~carry}; // SBM".into());
     m.body.push("            8'b1110_1001: acc <= data_in; // RDM".into());
@@ -1576,7 +1606,12 @@ pub fn chip_i4040_fpga() -> Module {
     m.body.push("reg [2:0] phase;".into());
     m.body.push("reg need_operand;".into());
     m.body.push("reg [7:0] src_addr;".into());
-    m.body.push("reg [3:0] ram_bank;".into());
+    m.body
+        .push("reg [3:0] ram_bank; // DCL result: CM-RAM line mask (bit 0 = CM-RAM0)".into());
+    m.body
+        .push("reg fin_active; // 1 = next machine cycle is the FIN indirect fetch".into());
+    m.body
+        .push("reg [2:0] fin_pair; // register pair loaded by the FIN fetch".into());
     m.body.push("reg [3:0] io_data;".into());
     m.body.push("reg io_drive;".into());
     m.body.push("reg src_drive;".into());
@@ -1600,9 +1635,13 @@ pub fn chip_i4040_fpga() -> Module {
         .push("wire [4:0] reg_idx = {reg_bank, instruction[2:0]}; // 5-bit index into 24-reg file".into());
     m.body.push(String::new());
 
-    // Combinational outputs (same structure as i4004_fpga)
-    m.body.push("assign data_out = (phase == 3'd0) ? pc[3:0] :".into());
-    m.body.push("                  (phase == 3'd1) ? pc[7:4] :".into());
+    // Combinational outputs (same structure as i4004_fpga). The FIN indirect
+    // fetch cycle replaces the low 8 address bits with register pair 0
+    // (R0 = high nibble, R1 = low nibble); the page comes from the PC.
+    m.body
+        .push("assign data_out = (phase == 3'd0) ? (fin_active ? regs[1] : pc[3:0]) :".into());
+    m.body
+        .push("                  (phase == 3'd1) ? (fin_active ? regs[0] : pc[7:4]) :".into());
     m.body.push("                  (phase == 3'd2) ? pc[11:8] :".into());
     m.body
         .push("                  (phase == 3'd6 && src_drive) ? src_addr[3:0] :".into());
@@ -1618,7 +1657,8 @@ pub fn chip_i4040_fpga() -> Module {
         .push("                 ((phase == 3'd6 || phase == 3'd7) && (src_drive || io_drive)));".into());
     m.body.push("assign sync = (phase == 3'd0);".into());
     m.body.push("assign cm_rom = (phase == 3'd2);".into());
-    m.body.push("wire is_ram_io = (instruction[7:4] == 4'hE);".into());
+    m.body
+        .push("wire is_ram_io = (instruction[7:4] == 4'hE) && !fin_active;".into());
     m.body
         .push("assign cm_ram = (phase == 3'd6 || phase == 3'd7) && is_ram_io;".into());
     m.body.push("assign stp = halted;".into());
@@ -1650,6 +1690,7 @@ pub fn chip_i4040_fpga() -> Module {
     m.body.push("    instruction <= 8'd0; operand <= 8'd0;".into());
     m.body.push("    need_operand <= 1'b0;".into());
     m.body.push("    src_addr <= 8'd0; ram_bank <= 4'd0;".into());
+    m.body.push("    fin_active <= 1'b0; fin_pair <= 3'd0;".into());
     m.body
         .push("    io_data <= 4'd0; io_drive <= 1'b0; src_drive <= 1'b0; pc_written <= 1'b0;".into());
     m.body
@@ -1681,8 +1722,17 @@ pub fn chip_i4040_fpga() -> Module {
     m.body
         .push("          io_drive <= 1'b0; src_drive <= 1'b0; pc_written <= 1'b0;".into());
 
+    // FIN indirect fetch cycle: load the fetched byte into the target pair
+    // and hold the PC, which already points at the next instruction.
+    m.body.push("          if (fin_active) begin".into());
+    m.body
+        .push("            regs[{fin_pair, 1'b0}] <= instruction[7:4];".into());
+    m.body
+        .push("            regs[{fin_pair, 1'b1}] <= instruction[3:0];".into());
+    m.body.push("            pc_written <= 1'b1;".into());
     // Handle interrupt: at start of X1, if pending, push PC and jump to 0x003
-    m.body.push("          if (int_pending && !need_operand) begin".into());
+    m.body
+        .push("          end else if (int_pending && !need_operand) begin".into());
     m.body
         .push("            int_pending <= 1'b0; int_enabled <= 1'b0;".into());
     m.body
@@ -1717,8 +1767,8 @@ pub fn chip_i4040_fpga() -> Module {
         .push("              8'b0111_????: begin need_operand <= 1'b1; operand <= instruction; end // ISZ".into());
     // SRC, JIN, FIN
     m.body.push("              8'b0010_???1: begin src_addr <= {regs[{instruction[3:1], 1'b1}], regs[{instruction[3:1], 1'b0}]}; src_drive <= 1'b1; end // SRC".into());
-    m.body.push("              8'b0011_???0: ; // FIN (stub)".into());
-    m.body.push("              8'b0011_???1: begin pc <= {pc[11:8], regs[{instruction[3:1], 1'b1}], regs[{instruction[3:1], 1'b0}]}; pc_written <= 1'b1; end // JIN".into());
+    m.body.push("              8'b0011_???0: begin fin_active <= 1'b1; fin_pair <= instruction[3:1]; end // FIN: arm indirect fetch cycle".into());
+    m.body.push("              8'b0011_???1: begin pc <= {pc[11:8], regs[{instruction[3:1], 1'b0}], regs[{instruction[3:1], 1'b1}]}; pc_written <= 1'b1; end // JIN (even register = high nibble)".into());
     // Register ops
     m.body
         .push("              8'b0110_????: regs[instruction[3:0]] <= regs[instruction[3:0]] + 4'd1; // INC".into());
@@ -1772,8 +1822,10 @@ pub fn chip_i4040_fpga() -> Module {
     m.body
         .push("              8'b1111_1011: if (acc > 4'd9 || carry) {carry, acc} <= acc + 5'd6; // DAA".into());
     m.body.push("              8'b1111_1100: begin case (acc) 4'd0: acc<=4'd0; 4'd1: acc<=4'd1; 4'd2: acc<=4'd2; 4'd4: acc<=4'd3; 4'd8: acc<=4'd4; default: acc<=4'hF; endcase end // KBP".into());
+    // DCL: accumulator bits 2:0 select the CM-RAM line mask; 000 selects
+    // CM-RAM0, other values shift left to combine CM-RAM1..CM-RAM3
     m.body
-        .push("              8'b1111_1101: ram_bank <= acc; // DCL".into());
+        .push("              8'b1111_1101: ram_bank <= (acc[2:0] == 3'd0) ? 4'b0001 : {acc[2:0], 1'b0}; // DCL".into());
     // 4040-specific instructions (0x00 range with specific OPA)
     m.body.push("              8'b0000_0001: halted <= 1'b1; // HLT".into());
     m.body
@@ -1796,9 +1848,12 @@ pub fn chip_i4040_fpga() -> Module {
     m.body.push("          end".into());
     m.body.push("        end".into());
 
-    // X3: read completion + PC advance
+    // X3: read completion + PC advance. The FIN indirect fetch cycle carries
+    // a data byte in the instruction register; it ends here without RAM/IO
+    // read completion or PC advance.
     m.body.push("        3'd7: begin".into());
-    m.body.push("          casez (instruction)".into());
+    m.body.push("          fin_active <= 1'b0;".into());
+    m.body.push("          if (!fin_active) casez (instruction)".into());
     m.body
         .push("            8'b1110_1000: {carry, acc} <= acc + ~data_in + {4'd0, ~carry}; // SBM".into());
     m.body.push("            8'b1110_1001: acc <= data_in; // RDM".into());
@@ -2836,6 +2891,40 @@ mod tests {
         assert!(v.contains("CMA"), "missing CMA");
         assert!(v.contains("KBP"), "missing KBP");
         assert!(v.contains("DAA"), "missing DAA");
+    }
+
+    #[test]
+    fn cpu_fpga_fin_indirect_fetch_and_dcl_line_mask() {
+        for m in [chip_i4004_fpga(), chip_i4040_fpga()] {
+            let v = render_module(&m);
+            // FIN arms a dedicated indirect fetch machine cycle that drives
+            // register pair 0 on A1/A2 and loads the fetched byte into the
+            // designated pair.
+            assert!(v.contains("fin_active <= 1'b1"), "{}: FIN never arms", m.name);
+            assert!(
+                v.contains("fin_active ? regs[1] : pc[3:0]"),
+                "{}: FIN cycle must drive R1 on A1",
+                m.name
+            );
+            assert!(
+                v.contains("regs[{fin_pair, 1'b0}] <= instruction[7:4]"),
+                "{}: FIN must load the even register with the high nibble",
+                m.name
+            );
+            // DCL decodes accumulator bits 2:0 into a CM-RAM line mask.
+            assert!(
+                v.contains("ram_bank <= (acc[2:0] == 3'd0) ? 4'b0001 : {acc[2:0], 1'b0}"),
+                "{}: DCL must decode a CM-RAM line mask",
+                m.name
+            );
+            assert!(!v.contains("ram_bank <= acc;"), "{}: raw-accumulator DCL", m.name);
+            // JIN packs the even register as the high nibble, matching FIM.
+            assert!(
+                v.contains("pc <= {pc[11:8], regs[{instruction[3:1], 1'b0}], regs[{instruction[3:1], 1'b1}]}"),
+                "{}: JIN pair order must be even-high",
+                m.name
+            );
+        }
     }
 
     #[test]
