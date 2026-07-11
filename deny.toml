@@ -7,8 +7,16 @@ targets = [
 [advisories]
 db-path = "~/.cargo/advisory-db"
 db-urls = ["https://github.com/rustsec/advisory-db"]
-# paste crate is unmaintained (RUSTSEC-2024-0436) but functional; no replacement available
-ignore = ["RUSTSEC-2024-0436"]
+# paste crate is unmaintained (RUSTSEC-2024-0436) but functional. Time-boxed:
+# review at the first workspace dependency refresh after 2026-10-01; candidate
+# replacement is the maintained pastey fork (drop-in) or removing the macro use.
+# If the review passes without action, this ignore expires and cargo-deny fails.
+ignore = [
+    { id = "RUSTSEC-2024-0436", reason = "paste unmaintained but functional; time-boxed to 2026-10-01, candidate replacement: pastey" },
+    { id = "RUSTSEC-2026-0194", reason = "quick-xml <0.41 pinned by wayland-scanner (winit stack); build-time proc-macro parsing trusted Wayland protocol XML; time-boxed to 2026-10-01, clears when the egui/winit stack bumps smithay" },
+    { id = "RUSTSEC-2026-0195", reason = "same quick-xml pin as RUSTSEC-2026-0194; time-boxed to 2026-10-01" },
+    { id = "RUSTSEC-2026-0192", reason = "ttf-parser unmaintained, no safe upgrade (egui font stack); time-boxed to 2026-10-01, clears when egui adopts a maintained font parser" },
+]
 
 [licenses]
 allow = [

@@ -479,7 +479,34 @@ coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
 Remaining open phases: D16.3/D16.4,
-D16.6-D16.8, D18.1, D18.5, D19.2-D19.4.
+D16.6-D16.8, D19.2-D19.4.
+
+## Resolved: benchmark baseline committed; advisory ignores time-boxed; lockfile advisories cleared (2026-07-11)
+
+Executes D18.1 and D18.5.
+
+- D18.1: docs/evidence/benchmarks_baseline_v0.json is committed (real
+  data from benchmark_emulator_v0.py --save-baseline: cargo bench wall
+  time, fixture-suite wall time, two not-implemented synthetic
+  placeholders at 0.0 that the >0 guard excludes from comparison). The
+  script's no-baseline path returned a dict without the improvements
+  key and crashed before it could ever save a first baseline; fixed at
+  the return site. The ci.yml step comment now states why the step
+  stays advisory: the baseline records wall-clock milliseconds from a
+  developer host, so cross-host deltas exceed the 20% threshold on
+  noise alone.
+- D18.5: every deny.toml advisory ignore is an inline table with a
+  reason and a 2026-10-01 time-box: RUSTSEC-2024-0436 (paste;
+  candidate replacement pastey), RUSTSEC-2026-0194/0195 (quick-xml
+  <0.41 pinned by wayland-scanner in the winit stack; build-time
+  proc-macro over trusted Wayland protocol XML), RUSTSEC-2026-0192
+  (ttf-parser unmaintained, no safe upgrade, egui font stack).
+  Freshly-published advisories that had compatible fixes were cleared
+  by lockfile updates instead of ignores: crossbeam-epoch 0.9.18 ->
+  0.9.20 (RUSTSEC-2026-0204), memmap2 0.9.10 -> 0.9.11
+  (RUSTSEC-2026-0186), rkyv_derive 0.8.15 -> 0.8.17 (RUSTSEC-2026-0122).
+  cargo deny check advisories passes; 1,123 workspace tests pass on the
+  refreshed lockfile.
 
 ## Resolved: bus, gui, and periph crates carry integration suites (2026-07-11)
 

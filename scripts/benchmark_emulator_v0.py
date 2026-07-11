@@ -187,7 +187,7 @@ def compare_with_baseline(
 ) -> dict[str, Any]:
     """Compare current results with saved baseline."""
     if not baseline_path.exists():
-        return {"status": "no_baseline", "regressions": []}
+        return {"status": "no_baseline", "regressions": [], "improvements": []}
 
     baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
 
