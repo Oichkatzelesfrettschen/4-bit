@@ -179,7 +179,7 @@ Critical path (in order):
 
 ## TEST COUNTS (updated 2026-07-09 after debt-roadmap phases D11-D17)
 
-1,123 tests passing, 0 failures:
+1,124 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-bus bus_cycle: 10 (8-phase machine-cycle walk, SYNC/CM timing vs cycle_timing constants,
@@ -200,6 +200,7 @@ Critical path (in order):
 - mcs4-core proptest_solvers: 6 (DC rail invariant, node-ID permutation, gmin sweep, dense/sparse
     agreement, transient time monotonicity, transient rail invariant)
 - mcs4-core timing_claims: 2 (10.8 us instruction cycle, datasheet clock-period bounds)
+- mcs4-core solver_datasheet_timing: 1 (transient inverter delay vs t0D1/t0D2 clock windows)
 - mcs4-fpga: 43 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family, FIN/DCL/JIN CPU-generator semantics; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-gui waveform_logic: 8 (shared SignalTrace producer/consumer model: cross-handle visibility,
