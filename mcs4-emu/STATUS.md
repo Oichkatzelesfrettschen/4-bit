@@ -20,9 +20,11 @@
 
 ## Test Counts (updated 2026-07-09 after debt-roadmap phases D11-D17)
 
-1,095 tests passing, 0 failures:
+1,123 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
+- mcs4-bus bus_cycle: 10 (8-phase machine-cycle walk, SYNC/CM timing vs cycle_timing constants,
+    mask-driven CM-RAM lines, multi-master handoff, contention/float, two-phase non-overlap)
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
 - mcs4-chips circuit_sim: 4 (full-chip 4003 DC+transient, 4004 DC, behavioral-vs-circuit cross-validation)
@@ -41,9 +43,13 @@
 - mcs4-core timing_claims: 2 (10.8 us instruction cycle, datasheet clock-period bounds)
 - mcs4-fpga: 43 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family, FIN/DCL/JIN CPU-generator semantics; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
+- mcs4-gui waveform_logic: 8 (shared SignalTrace producer/consumer model: cross-handle visibility,
+    threaded producer ordering, scroll/zoom window slicing, poisoned-lock contract)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
+- mcs4-periph peripheral_roundtrip: 10 (UART capture-then-replay roundtrips incl. 2-stop-bit framing,
+    keyboard matrix scan + debounce events, 7-seg shift-chain multi-digit and BCD decode)
 - mcs4-system: 50 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing,
     parse_hex_bytes_bounded)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)

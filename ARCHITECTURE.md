@@ -314,7 +314,7 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **1,095 tests total, 0 failures** (updated 2026-07-11 after the Verilog CPU-generator FIN/DCL/JIN pass; operational metric, see `mcs4-emu/STATUS.md`)
+- **1,123 tests total, 0 failures** (updated 2026-07-11 after the bus/gui/periph integration suites; operational metric, see `mcs4-emu/STATUS.md`)
 
 ## Build Commands
 
