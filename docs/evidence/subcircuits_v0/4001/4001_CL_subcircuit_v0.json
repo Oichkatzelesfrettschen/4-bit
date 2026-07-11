@@ -89,7 +89,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4001_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "8df440fdc47b1ba8fc27071f51fa8d8e920a2a24291916dd0cad87562172fb52"
+      "netlist_v1": "e2ea686e893dbabf0a541834e72914adb119023c983dd67a6672f3aea8165f9f"
     }
   },
   "nodes": [
@@ -135,5 +135,14 @@
     "nodes": [
       5457
     ]
-  }
+  },
+  "signals": [
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 5457,
+      "name": "CL"
+    }
+  ]
 }

@@ -24,7 +24,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4002_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "47669d7fbfe641c814196a7efe59f0f36f57fd41611da61d42fffd9921076930"
+      "netlist_v1": "8b2879748a3ab429447afef73794f5a8679c26f2697e5c196790cddfa2836909"
     }
   },
   "nodes": [
@@ -52,5 +52,14 @@
     "nodes": [
       3115
     ]
-  }
+  },
+  "signals": [
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 3115,
+      "name": "OUT0"
+    }
+  ]
 }
