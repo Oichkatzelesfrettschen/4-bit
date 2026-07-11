@@ -392,7 +392,10 @@ Corrected unblock chain (replaces D19.5's premise):
   consolidate before rail identification.
 - D19.8: netlist_v0 extraction records metal_area for channel-touching
   nodes on 4001/4002/4003 (all currently 0), bounding what recognition
-  can confirm even after D19.6/D19.7.
+  can confirm even after D19.6/D19.7. FALSIFIED 2026-07-10 -- no contacts
+  mask exists for these chips and none is honestly derivable; see
+  "Falsified: D19.8 contact-layer extraction has no primary evidence"
+  below.
 
 ## Resolved: D19.6 rail anchors restored, netlist_v1 reproducible (2026-07-10)
 
@@ -476,4 +479,62 @@ coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
 Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
-D16.6-D16.8, D18.1, D18.5, D19.2-D19.4, D19.8.
+D16.6-D16.8, D18.1, D18.5, D19.2-D19.4.
+
+## Falsified: D19.8 contact-layer extraction has no primary evidence for 4001/4002/4003 (2026-07-10)
+
+D19.8 premised a metal<->diffusion contact layer for 4001/4002/4003 that
+extract_netlist_v0 could stitch to raise rail incidence at transistor
+channels. The contact layer is the sole remaining recognition unblock
+after D19.5 (wirenets annotate, never merge) and D19.7 (upstream union-
+find already merges components; connectivity_v0 bleeds all-to-all).
+Three routes to obtain that layer are checked; all fail. No netlist,
+no Rust rail constant, and no gate artifact is touched.
+
+Route 1 -- the source contacts mask exists only for 4004. On disk
+docs/emulators/ carries i4004-contacts.bmp (671150-byte mask, 85933
+contact-hole pixels) and no i4001/i4002/i4003-contacts file. The
+original 2009 distribution confirms the asymmetry: unzipping
+docs/emulators/i400x_analyzer_20210324.zip lists metal, vias, poly,
+diffusion, schematic, and signals for each of 4001/4002/4003, plus a
+lone i4004-contacts.bmp dated 2008-12-22. readme.txt records why: Tim
+McNerney sent the 4002 masks in December 2008 and the 4004 masks
+(contacts included) separately; the 4001/4002/4003 contact masks were
+never scanned. The contacts_bmp=None entries in specs() reflect missing
+primary evidence, not an unwired code path.
+
+Route 2 -- metal-over-diffusion overlap does not reconstruct the 4004
+contacts. Measured against the one chip that has both, contacts are a
+sparse cut geometry, not the full metal AND diffusion region: the
+overlap covers 604383 pixels while only 85933 are real contacts.
+Precision (real contacts inside the overlap) is 0.036, recall (real
+contacts the overlap covers) is 0.250, IoU is 0.032. Restricting to
+metal AND diffusion AND NOT poly (a contact cannot sit on a channel)
+makes it worse: precision 0.017, recall 0.091. The overlap heuristic
+would fabricate roughly 580000 false contact pixels and still miss
+three quarters of the real ones. The deeper kill: all five 4004 masks
+share one 2706x1968 raster, yet real contacts land only 45% inside
+metal and 46% inside diffusion (58% overlap poly). Contacts are not
+reconstructible from layer overlap even on the chip that has them, so
+no overlap rule applied to 4001/4002/4003 could stand in for a scanned
+contacts mask.
+
+Route 3 -- the vias mask is not a unified contact layer. On 4004 the
+vias and contacts masks are near-disjoint: 9.7% of contact pixels lie
+inside vias, 3.0% of vias pixels lie inside contacts, IoU 0.023. Vias
+encode metal<->poly cuts only; the extractor's vias->metal/poly stitch
+is complete and the vias bitmaps for 4001/4002/4003 carry no metal<->
+diffusion contact information to recover.
+
+Polarity does not flip the verdict: 85933 dark contact-hole pixels
+against 1.91M metal and 1.38M diffusion pixels are physically sane, and
+no threshold or inversion rescues a 0.036-precision derivation.
+
+Consequence: rail incidence stays < 8 on 4001/4002/4003 (INV=0 where the
+honest classifier reports it) with no evidence-grounded way to raise it.
+Recognition for these chips is blocked on a scanned contacts mask that
+does not exist and cannot be honestly synthesized from the metal, vias,
+poly, or diffusion layers. D19.8 is closed as falsified. 4004 remains
+the only core chip whose rails reach transistor channels
+(VCC=415 metal_area 232361 inc 57, VSS=3 metal_area 411436 inc 50,
+INV=1), because it is the only core chip with a contacts mask.
