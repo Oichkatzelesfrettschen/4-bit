@@ -365,7 +365,11 @@ impl Instruction {
         }
     }
 
-    /// Get number of machine cycles
+    /// Get number of machine cycles.
+    ///
+    /// FIN is one byte yet takes two machine cycles: the second cycle sends
+    /// register pair 0 out as an indirect ROM address and fetches the data.
+    /// JIN executes in a single cycle.
     pub fn cycles(&self) -> u8 {
         match self {
             Instruction::Jcn { .. }
@@ -373,8 +377,7 @@ impl Instruction {
             | Instruction::Jun { .. }
             | Instruction::Jms { .. }
             | Instruction::Isz { .. }
-            | Instruction::Fin { .. }
-            | Instruction::Jin { .. } => 2,
+            | Instruction::Fin { .. } => 2,
             _ => 1,
         }
     }
@@ -482,5 +485,15 @@ mod tests {
         assert_eq!(jun.length(), 2);
         assert_eq!(jun.cycles(), 2);
         assert_eq!(jun.mnemonic(), "JUN");
+
+        // FIN occupies one byte but takes two machine cycles for the
+        // indirect ROM fetch; JIN is one byte and one cycle.
+        let fin = Instruction::Fin { pair: 3 };
+        assert_eq!(fin.length(), 1);
+        assert_eq!(fin.cycles(), 2);
+
+        let jin = Instruction::Jin { pair: 3 };
+        assert_eq!(jin.length(), 1);
+        assert_eq!(jin.cycles(), 1);
     }
 }

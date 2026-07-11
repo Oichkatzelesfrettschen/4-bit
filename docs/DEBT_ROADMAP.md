@@ -478,8 +478,60 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D13.9-D13.13, D14.9, D15.6, D16.3/D16.4,
+Remaining open phases: D13.9, D14.9, D15.6, D16.3/D16.4,
 D16.6-D16.8, D18.1, D18.5, D19.2-D19.4.
+
+## Resolved: 4004/4040 FIN, DCL, and JCN TEST semantics match the MCS-4 manuals (2026-07-10)
+
+Executes D13.10-D13.13 against primary sources: the MCS-4 Assembly
+Language Programming Manual (Dec 1973), sections 3.3.2 (FIN), 3.9 (JCN),
+3.10.1 (DCL), and the MCS-40 Users Manual (Nov 1974) 4004 instruction
+notes (FIN "requires two memory cycles (21.6 usec)" and the xxFF
+next-page note). The 4040 (i4040/mod.rs) duplicated every defect and
+shares the I4002 chips, so all four fixes apply to both CPUs.
+
+- D13.10 FIN executes the real indirect fetch. execute() arms the
+  target pair; phase_x3 schedules a second machine cycle through the
+  existing CycleState two-cycle path; the second cycle's A1-A3 emit
+  (PC & 0xF00) | R0R1 via fetch_address(), M1/M2 latch the ROM byte,
+  and phase_x1 loads it into the pair. Because the PC has already
+  advanced past the FIN byte, a FIN at the last location of a page
+  fetches from the next page -- the manual's documented boundary
+  behavior falls out of the mechanism. Tests: i4004_cpu.rs FIN group
+  (basic fetch, pair-0 self-target, following-instruction integrity,
+  page boundary). The test harness now latches A1-A3 addresses like a
+  4001 instead of assuming address == PC.
+- D13.11 cycle metadata: Instruction::cycles() keeps FIN at 2 (one
+  byte, two machine cycles) and corrects JIN to 1. The roadmap note
+  had framed both as 2-cycle; the manual says only FIN among the
+  one-byte opcodes is double-cycle (JCN/FIM/JUN/JMS/ISZ are the five
+  two-word instructions). The emulator now actually executes FIN in
+  two machine cycles (16 clocks). Test: test_instruction_metadata.
+- D13.12 DCL decodes accumulator bits 2:0 into the CM-RAM line mask
+  (decode_cm_ram_lines: 000 -> CM-RAM0, otherwise the value shifts
+  onto CM-RAM1..3, combinations included, addressing 8 banks).
+  ram_bank now stores the mask; RESET and construction select CM-RAM0
+  (bank 0 per the manual's RESET rule). ControlSignals::select_ram
+  drives the lines from the mask, and each I4002 matches its own
+  CM-RAM line instead of comparing bank numbers. Test:
+  dcl_decodes_accumulator_into_cm_ram_lines (full 8-entry table +
+  bit-3-ignored case).
+- D13.13 JCN condition bit C1 jumps when the TEST pin is 0 (manual:
+  "If this bit = 1, jump if the test signal of the 4004 is = 0"); the
+  invert bit composes per the manual's Boolean equation. Two mcs40.rs
+  system tests that encoded the inverted polarity are corrected.
+  Tests: jcn_test_condition_jumps_when_test_pin_is_zero,
+  jcn_test_condition_falls_through_when_test_pin_is_one,
+  jcn_inverted_test_condition_jumps_when_test_pin_is_one.
+
+Scalar/SIMD parity: the full-ISA SIMD cluster was retired (see the
+simd_cluster note in mcs4-system/src/lib.rs); the surviving
+feature-gated mcs4-chips simd.rs models only ADD and duplicates none of
+these semantics, and cluster.rs delegates to Mcs4System, so parity
+holds by construction. Residual: the behavioral Verilog 4004
+(mcs4-fpga/src/verilog.rs) already has the correct JCN TEST polarity
+but still carries the raw-accumulator DCL and a FIN stub -- tracked as
+D14.9-adjacent Verilog debt. Totals 1,088 -> 1,094.
 
 ## Falsified: D19.8 contact-layer extraction has no primary evidence for 4001/4002/4003 (2026-07-10)
 

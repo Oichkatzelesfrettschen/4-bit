@@ -129,8 +129,11 @@ impl I4002 {
     pub fn tick_bus(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &ControlSignals) {
         self.phase = phase;
 
-        // Check if we're selected by CM-RAM bank
-        let bank_selected = ctrl.selected_ram() == Some(self.bank_id);
+        // Each DATA RAM bank hangs off one CM-RAM line; this chip is selected
+        // when its bank's line is asserted in the CM-RAM mask.
+        let bank_selected = ctrl
+            .selected_ram()
+            .is_some_and(|lines| lines & (1 << self.bank_id) != 0);
 
         match phase {
             BusCycle::A1 | BusCycle::A2 | BusCycle::A3 | BusCycle::M1 | BusCycle::M2 => {
@@ -454,7 +457,8 @@ mod tests {
         // - X3: character nibble
         let mut bus = DataBus::new();
         let mut ctrl = ControlSignals::mcs4();
-        ctrl.select_ram(1, 0);
+        // Bank 1 hangs off CM-RAM1: assert that line in the mask.
+        ctrl.select_ram(0b0010, 0);
         ctrl.io_op = Some(IoOp::Src);
 
         let chip_reg = 2u8 | (1u8 << 2);
@@ -477,7 +481,8 @@ mod tests {
 
         let mut bus = DataBus::new();
         let mut ctrl = ControlSignals::mcs4();
-        ctrl.select_ram(0, 0);
+        // Bank 0 hangs off CM-RAM0: assert that line in the mask.
+        ctrl.select_ram(0b0001, 0);
 
         // SRC selects chip 0, reg 0, char 3.
         ctrl.io_op = Some(IoOp::Src);

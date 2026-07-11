@@ -179,13 +179,14 @@ Critical path (in order):
 
 ## TEST COUNTS (updated 2026-07-09 after debt-roadmap phases D11-D17)
 
-1,088 tests passing, 0 failures:
+1,094 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
 - mcs4-chips circuit_sim: 4 (full-chip 4003 DC+transient, 4004 DC, behavioral-vs-circuit cross-validation)
-- mcs4-chips i4004_cpu: 31 (4004 top-level: 8-phase walk, ALU ops, control flow, SRC/RAM I/O)
+- mcs4-chips i4004_cpu: 37 (4004 top-level: 8-phase walk, ALU ops, control flow, SRC/RAM I/O,
+    FIN indirect fetch + page boundary, DCL CM-RAM decode, JCN TEST polarity)
 - mcs4-chips fuzz_test: 1
 - mcs4-chips instruction_census: 2 (4004=46 and 4040=60 instruction-set size claims)
 - mcs4-chips proptest_chips: 11 (property-based tests for 4201/4289/4308)

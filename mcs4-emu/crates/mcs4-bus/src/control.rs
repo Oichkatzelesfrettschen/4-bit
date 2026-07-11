@@ -166,7 +166,10 @@ impl ControlSignals {
         }
     }
 
-    /// Select RAM bank (0-15)
+    /// Drive the CM-RAM lines from a 4-bit mask (bit i asserts CM-RAMi).
+    ///
+    /// The mask comes from the CPU's DCL decode; each DATA RAM bank listens
+    /// on one CM-RAM line.
     pub fn select_ram(&mut self, bank: u8, time: Time) {
         self.ram_enabled = true;
         let bank = bank & 0x0F;
