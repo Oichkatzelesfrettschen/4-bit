@@ -66,13 +66,17 @@ elif [[ "$claude_pct" != "$status_pct" ]]; then
     errors+=("phase-summary mismatch: CLAUDE.md=${claude_pct}% STATUS.md=${status_pct}%")
 fi
 
+# CLAUDE.md is the sole source of the test-count breakdown; STATUS.md
+# carries a pointer instead of a copy, so there is no cross-file count
+# to compare and nothing to drift.
 claude_tests="$(sed -nE 's/^([0-9,]+) tests passing, 0 failures:$/\1/p' "$CLAUDE" | head -n1)"
-status_tests="$(sed -nE 's/^([0-9,]+) tests passing, 0 failures:$/\1/p' "$STATUS" | head -n1)"
 
-if [[ -z "$claude_tests" || -z "$status_tests" ]]; then
-    errors+=("test-count parse failed in CLAUDE.md or STATUS.md")
-elif [[ "$claude_tests" != "$status_tests" ]]; then
-    errors+=("test-count mismatch: CLAUDE.md=$claude_tests STATUS.md=$status_tests")
+if [[ -z "$claude_tests" ]]; then
+    errors+=("test-count parse failed in CLAUDE.md")
+fi
+
+if sed -nE 's/^([0-9,]+) tests passing, 0 failures:$/\1/p' "$STATUS" | grep -q .; then
+    errors+=("STATUS.md carries a test-count headline; the breakdown is single-sourced in CLAUDE.md")
 fi
 
 # The per-suite breakdown rows must sum to the headline count inside each
@@ -92,13 +96,11 @@ sum_breakdown() {
     ' "$1"
 }
 
-for file in "$CLAUDE" "$STATUS"; do
-    headline="$(sed -nE 's/^([0-9,]+) tests passing, 0 failures:$/\1/p' "$file" | head -n1 | tr -d ',')"
-    rows_sum="$(sum_breakdown "$file")"
-    if [[ -n "$headline" && "$headline" != "$rows_sum" ]]; then
-        errors+=("test-count checksum: ${file#$ROOT_DIR/} headline=$headline sum-of-rows=$rows_sum")
-    fi
-done
+headline="$(printf '%s' "$claude_tests" | tr -d ',')"
+rows_sum="$(sum_breakdown "$CLAUDE")"
+if [[ -n "$headline" && "$headline" != "$rows_sum" ]]; then
+    errors+=("test-count checksum: ${CLAUDE#$ROOT_DIR/} headline=$headline sum-of-rows=$rows_sum")
+fi
 
 if [[ ${#errors[@]} -gt 0 ]]; then
     echo "status_sync_check: found ${#errors[@]} issue(s):" >&2
@@ -108,4 +110,4 @@ if [[ ${#errors[@]} -gt 0 ]]; then
     exit 1
 fi
 
-echo "Status sync check passed: nightly=$nightly_pin, updated=$status_date, completion=${status_pct}%, tests=$status_tests"
+echo "Status sync check passed: nightly=$nightly_pin, updated=$status_date, completion=${status_pct}%, tests=$claude_tests"

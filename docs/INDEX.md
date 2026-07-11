@@ -32,6 +32,9 @@ NICE TO DOCUMENT
 
 Information Architecture
 - Modular docs; central index (docs/INDEX.md); metadata registry (docs/meta/registry.yaml)
+- Registry scope: docs/-rooted files, repo-root files, and mcs4-emu/ status
+  files. guide/ is the mdBook layer: chapters either transclude registry-
+  covered docs via {{#include}} or are marked "(WIP stub)" in guide/SUMMARY.md
 - Cross-links across README, ARCHITECTURE, ROADMAP, STATUS; ToC for long docs
 - Automation: link_check.sh, md_lint.sh; CI builds docs, validates links
 
@@ -109,7 +112,7 @@ Metrics & Anti-Patterns
 - "docs/AUDIT.md"
 - "docs/TOOLING_AUDIT.md"
 - "docs/CHIP_ARTIFACTS.md"
-- "docs/CHIP_EXTRACTION_STATUS.md"
+- "docs/CHIP_EXTRACTION.md"
 - "docs/NETLIST_WORKFLOW.md"
 - "docs/NETLIST_V1_SCHEMA.md"
 - "docs/LAYER_ANNOTATIONS.md"

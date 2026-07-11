@@ -65,7 +65,7 @@ docs:
     role: tooling
   - file: docs/CHIP_ARTIFACTS.md
     role: reference
-  - file: docs/CHIP_EXTRACTION_STATUS.md
+  - file: docs/CHIP_EXTRACTION.md
     role: reference
   - file: docs/NETLIST_WORKFLOW.md
     role: reference

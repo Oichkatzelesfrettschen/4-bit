@@ -138,11 +138,11 @@ Deferred Work:
    - (DONE) Map the remaining SYNC / POC_PAD / TEST_PAD anchors from the bounding-box sync outputs and commit them into `docs/evidence/schematic_layout_anchors_v1.json` so the remap/incidence pipeline can consume them.
    - (DONE) Finish documenting pad readings for 4001/4002/4003, flagging low-confidence rails/pads, and finalize the pad-pin templates (rationalized naming + offsets).
    - (DONE) Run remap -> incidence -> subcircuit extraction for 4001/4002/4003, validate netlists against schematic layouts, and record any mismatches in `docs/evidence/anchor_incidence_v0/` plus `subcircuits_v0/` outputs.
-   - (IN PROGRESS) Update the living docs (`docs/ROADMAP.md`, `docs/CHIP_EXTRACTION_STATUS.md`, `docs/evidence/LACUNAE_STATUS.md`) after each batch of anchor/pad work so the roadmap reflects actual dependencies and next focus areas.
+   - (IN PROGRESS) Update the living docs (`docs/ROADMAP.md`, `docs/CHIP_EXTRACTION.md`, `docs/evidence/LACUNAE_STATUS.md`) after each batch of anchor/pad work so the roadmap reflects actual dependencies and next focus areas.
 3. **What must be built next:**
    - Deploy the enhanced OCR toolchain (CUDA + ONNX + pytesseract fallback) and train it on the collected pad label crops so future anchor detection is ensemble-backed and self-validating.
    - Translate the remapped anchors/subcircuits into a transistor-aware netlist that can feed the transistor/switch solver in `mcs4-core/src/transistor.rs` and the future FPGA exporter.
-   - Expand the plan's 50-step cycle with tooling milestones (self-training OCR, anchor propagation automation, fixture validation) and keep the status snapshots (Roadmap, CHIP_EXTRACTION_STATUS, LACUNAE_STATUS) up to date.
+   - Expand the plan's 50-step cycle with tooling milestones (self-training OCR, anchor propagation automation, fixture validation) and keep the status snapshots (Roadmap, CHIP_EXTRACTION, LACUNAE_STATUS) up to date.
    - (DONE) Phase 1 (4040 CPU): register banks, 7-level stack, interrupts, and 14 new opcodes complete.
 
 ## Phase 1 - CPU correctness and instruction coverage (COMPLETE)

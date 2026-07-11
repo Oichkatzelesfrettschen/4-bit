@@ -478,8 +478,38 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D16.3/D16.4,
-D16.6-D16.8, D19.2-D19.4.
+Remaining open phases: D19.2-D19.4.
+
+## Resolved: status docs single-sourced; guide stubs declared; extraction doc mechanism-named (2026-07-11)
+
+Executes D16.3, D16.4, D16.6, D16.7, D16.8.
+
+- D16.3: the per-crate test breakdown lives only in mcs4-emu/CLAUDE.md
+  TEST COUNTS; STATUS.md carries a pointer. status_sync_check.sh now
+  checksums the breakdown in CLAUDE.md alone and FAILS if STATUS.md
+  reintroduces a test-count headline. The removed STATUS copy had
+  already drifted cosmetically from CLAUDE.md on the mcs4-system row --
+  direct evidence of the dual-maintenance debt.
+- D16.4: mcs4-emu/STATUS.md Chip Implementation Status is the single
+  chip-status table set. ARCHITECTURE.md's family diagrams now state
+  they show bus topology only and point at STATUS.md;
+  SCOPING_ASSESSMENT.md already self-qualifies as a dated snapshot
+  (its 3205/3404/2101 rows predate their implementations).
+- D16.6: the six bare chip chapters with no {{#include}} (i4001,
+  i4002, i4101, i4201, i4289, i4308) are marked "(WIP stub)" in
+  guide/SUMMARY.md; the other short chapters transclude registry-
+  covered docs at build time and are not stubs. docs/INDEX.md states
+  the registry scope explicitly (docs/-rooted, repo-root, mcs4-emu/
+  status files) and guide/'s relationship to it.
+- D16.7 DECISION: root claude.md keeps its name; it now opens its
+  Status File Convention section by stating it is repo-level agent
+  guidance distinct from mcs4-emu/CLAUDE.md, and both live canonical
+  references were already path-qualified. Renaming was rejected
+  because the filename participates in tool discovery conventions.
+- D16.8: docs/CHIP_EXTRACTION_STATUS.md renamed to
+  docs/CHIP_EXTRACTION.md; guide transclusion, INDEX, registry,
+  ROADMAP, and PHASE_0.5_1 references updated. Archived session logs
+  keep the old name as dated history.
 
 ## Resolved: benchmark baseline committed; advisory ignores time-boxed; lockfile advisories cleared (2026-07-11)
 
