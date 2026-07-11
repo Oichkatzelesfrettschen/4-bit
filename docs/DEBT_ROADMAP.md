@@ -478,8 +478,22 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D13.9, D15.6, D16.3/D16.4,
+Remaining open phases: D13.9, D16.3/D16.4,
 D16.6-D16.8, D18.1, D18.5, D19.2-D19.4.
+
+## Resolved: extractor families carry unit smoke coverage (2026-07-11)
+
+Executes D15.6. scripts/tests/test_extractor_units.py adds nine unit
+smoke tests over pure helpers with tiny synthetic inputs (no bitmaps,
+no evidence files, no OCR invocations): extract_netlist_v0 (DSU
+union-find stitching, signals.txt parsing, background-excluding mode
+label), extract_gates_v1 (channel incidence on both terminals, rail
+identification via named signal anchors, RAIL_INCIDENCE_FLOOR=8
+fallback exercised at and below the floor with CLK-anchor exclusion),
+build_netlist_v1_v0 (nested-get and bbox-area helpers), and
+ocr_signal_labels (name normalization, expected-signal classification,
+match scoring, bbox union). Pytest items grow 11 -> 20 in about one
+second; every target script is import-safe behind a main guard.
 
 ## Resolved: fpga build/ artifacts are generated-with-provenance; TGATE lowering removed as unreachable (2026-07-11)
 
