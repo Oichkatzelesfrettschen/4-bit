@@ -478,8 +478,37 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D13.9, D16.3/D16.4,
+Remaining open phases: D16.3/D16.4,
 D16.6-D16.8, D18.1, D18.5, D19.2-D19.4.
+
+## Resolved: bus, gui, and periph crates carry integration suites (2026-07-11)
+
+Executes D13.9. Three new tests/ directories, 28 integration tests,
+written against public APIs only and asserting current behavior (no
+src/ change was needed):
+
+- mcs4-bus tests/bus_cycle.rs (10): full 8-phase A1..X3 walk; SYNC and
+  CM-ROM/CM-RAM assertion windows bound to the crate's cycle_timing
+  constants; select_ram proven mask-driven with bit 0 = CM-RAM0 by
+  asserting individual cm_ram line levels, including multi-line masks;
+  CPU->ROM multi-master handoff reconstructing a 12-bit address and
+  8-bit instruction with release-before-drive; contention resolves to
+  X; a released bus floats Z; two-cycle instruction retirement;
+  two-phase clock non-overlap across a full period.
+- mcs4-gui tests/waveform_logic.rs (8): the shared
+  Arc<RwLock<SignalTrace>> producer/consumer model behind the waveform
+  panel -- composite sample capture, cross-handle write visibility, a
+  spawned producer thread appending ordered samples, scroll/zoom window
+  slicing, empty/cleared consumer views, and the poisoned-lock contract
+  the panel guard relies on.
+- mcs4-periph tests/peripheral_roundtrip.rs (10): UART
+  capture-then-replay roundtrips (single byte, 0x00/0xFF boundaries,
+  ASR-33-style two-stop-bit framing, multibyte stream); keyboard
+  full-matrix scan-to-keycode plus press/release debounce events with
+  positions; 7-seg shift-chain multi-digit rendering, full 0-F BCD
+  decode, raw/BCD path agreement.
+
+Totals 1,095 -> 1,123.
 
 ## Resolved: extractor families carry unit smoke coverage (2026-07-11)
 
