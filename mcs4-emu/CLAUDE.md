@@ -117,7 +117,7 @@ section is authoritative for current totals.)
     - Monitor ROM (command dispatch, examine/deposit/go/halt, 11 tests)
     - PROM programmer (blank check, program, verify, 4702 interface, 9 tests)
     - System integration (CPU coordination, panel/monitor/peripherals, 13 tests)
-  - Verilog chip modules (mcs4-fpga, 42 tests):
+  - Verilog chip modules (mcs4-fpga, 43 tests):
     - 22 synthesizable behavioral Verilog modules for complete MCS-4/MCS-40 family:
       MCS-4 core: 4004, 4001, 4002, 4003
       MCS-4 support: 4008, 4009, 3216, 3226, 3205, 3404, 2101
@@ -179,7 +179,7 @@ Critical path (in order):
 
 ## TEST COUNTS (updated 2026-07-09 after debt-roadmap phases D11-D17)
 
-1,094 tests passing, 0 failures:
+1,095 tests passing, 0 failures:
 (1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
 - mcs4-bus: 17
 - mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
@@ -198,7 +198,7 @@ Critical path (in order):
 - mcs4-core proptest_solvers: 6 (DC rail invariant, node-ID permutation, gmin sweep, dense/sparse
     agreement, transient time monotonicity, transient rail invariant)
 - mcs4-core timing_claims: 2 (10.8 us instruction cycle, datasheet clock-period bounds)
-- mcs4-fpga: 42 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family; 1 ignored regen)
+- mcs4-fpga: 43 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family, FIN/DCL/JIN CPU-generator semantics; 1 ignored regen)
 - mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)

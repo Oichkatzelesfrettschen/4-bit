@@ -528,10 +528,15 @@ Scalar/SIMD parity: the full-ISA SIMD cluster was retired (see the
 simd_cluster note in mcs4-system/src/lib.rs); the surviving
 feature-gated mcs4-chips simd.rs models only ADD and duplicates none of
 these semantics, and cluster.rs delegates to Mcs4System, so parity
-holds by construction. Residual: the behavioral Verilog 4004
-(mcs4-fpga/src/verilog.rs) already has the correct JCN TEST polarity
-but still carries the raw-accumulator DCL and a FIN stub -- tracked as
-D14.9-adjacent Verilog debt. Totals 1,088 -> 1,094.
+holds by construction. Residual resolved 2026-07-11: the behavioral
+Verilog CPU generators (mcs4-fpga/src/verilog.rs, i4004_fpga and
+i4040_fpga) now implement FIN as a dedicated indirect fetch machine
+cycle (register pair 0 on A1/A2, page from the advanced PC, fetched
+byte loaded into the target pair, RAM/IO decode suppressed while the
+fetch byte occupies the instruction register), decode DCL into the
+CM-RAM line mask, and pack JIN with the even register as the high
+nibble, matching FIM and the Rust model. Both modules elaborate under
+iverilog and yosys. Totals 1,088 -> 1,094 -> 1,095.
 
 ## Falsified: D19.8 contact-layer extraction has no primary evidence for 4001/4002/4003 (2026-07-10)
 
