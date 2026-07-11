@@ -478,7 +478,20 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D19.3, D19.4.
+Remaining open phases: D19.4.
+
+## Resolved: coordinate transforms are computed, quality-gated, and honestly unresolved (2026-07-11)
+
+Executes D19.3 by correcting its stale premise. The identity-matrix
+placeholder no longer exists: build_coordinate_transform_v0.py computes
+RANSAC homographies (cv2.findHomography, reprojection threshold 5 px)
+from anchor correspondences and applies quality gates (min 6 inliers,
+inlier ratio >= 0.5, RMSE <= 250 px). Every committed transform records
+matrix: null with an unresolved_* transform_type and per-point
+residuals: 4001 collinear anchors, 4002 5/14 inliers, 4003 4/14, 4004
+1/15. PHASE_0.5_1_COMPLETION_SUMMARY.md's "placeholder identity
+matrices" claim is corrected. A passing transform is blocked on more
+or better-spread anchor correspondences (evidence work), not code.
 
 ## Resolved: subcircuit JSONs carry evidence-backed signals (2026-07-11)
 
