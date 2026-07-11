@@ -478,8 +478,31 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D13.9, D14.9, D15.6, D16.3/D16.4,
+Remaining open phases: D13.9, D15.6, D16.3/D16.4,
 D16.6-D16.8, D18.1, D18.5, D19.2-D19.4.
+
+## Resolved: fpga build/ artifacts are generated-with-provenance; TGATE lowering removed as unreachable (2026-07-11)
+
+Executes D14.7 and D14.9.
+
+- D14.7: mcs4-fpga/build/ holds generated artifacts only. The crate
+  .gitignore now ignores build/ explicitly and records regeneration
+  provenance per artifact class (generate_fpga_verilog for *.v, the
+  Makefile synthesis/PnR targets for synth/route outputs, iverilog+vvp
+  for simulation outputs). The prior .gitignore comment claimed
+  build/*.v "stay visible to git", but a user-global gitignore build/
+  rule kept them untracked; the explicit crate rule removes the
+  dependence on global configuration and the stale-vs-source ambiguity.
+- D14.9: the TGATE/PASS lowering in gate_to_verilog_v0.py was an
+  emission path no input can reach. extract_gates_v0's TGATE predicate
+  requires one PMOS plus one NMOS, impossible in the single-type pMOS
+  Intel process; the committed gates_v0 JSONs contain only NAND (3,847)
+  and NOR (246), extract_gates_v1 emits INV/NAND/NOR/AOI/OPEN, and the
+  committed i400x_gates.v contain zero tgate instances. The dead branch
+  and the tgate primitive module are removed; an unsupported gate type
+  now raises ValueError instead of emitting an unresolvable "unknown"
+  primitive. All four verilog_v0 files regenerate with exactly the
+  11-line tgate primitive module removed, byte-identical otherwise.
 
 ## Resolved: 4004/4040 FIN, DCL, and JCN TEST semantics match the MCS-4 manuals (2026-07-10)
 

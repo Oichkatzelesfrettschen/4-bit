@@ -7,7 +7,10 @@ Reads gates_v0 JSON format and generates:
 - Testbench template
 - Timing constraints (optional)
 
-Supports: INV, NAND, NOR, TGATE gate primitives
+Supports: INV, NAND, NOR gate primitives. The single-type pMOS Intel
+process yields no complementary transmission gates, so no classifier in
+this pipeline emits a TGATE/PASS gate type; an unsupported type raises
+instead of emitting an unresolvable primitive.
 """
 
 from __future__ import annotations
@@ -187,32 +190,27 @@ def generate_gate_instance(gate: Gate, inst_id: int) -> str:
         "INV": "inv",
         "NAND": f"nand{len(gate.inputs)}",
         "NOR": f"nor{len(gate.inputs)}",
-        "TGATE": "tgate",
-        "PASS": "pass_trans",
     }
 
-    prim_name = gate_type_map.get(gate.gate_type, "unknown")
+    if gate.gate_type not in gate_type_map:
+        raise ValueError(f"unsupported gate type {gate.gate_type!r} for gate g{inst_id}")
+
+    prim_name = gate_type_map[gate.gate_type]
     inst_name = f"g{inst_id}"
 
     # Build port connections
     connections = []
 
-    if gate.gate_type in ["INV"]:
+    if gate.gate_type == "INV":
         # Single input, single output
         connections.append(f".A(n{gate.inputs[0]})")
         connections.append(f".Y(n{gate.outputs[0]})")
-    elif gate.gate_type in ["NAND", "NOR"]:
-        # Multiple inputs, single output
+    else:
+        # NAND/NOR: multiple inputs, single output
         for i, inp in enumerate(gate.inputs):
             port_name = chr(ord("A") + i)  # A, B, C, ...
             connections.append(f".{port_name}(n{inp})")
         connections.append(f".Y(n{gate.outputs[0]})")
-    elif gate.gate_type == "TGATE":
-        # Transmission gate (2 control, bidirectional data)
-        connections.append(f".EN(n{gate.inputs[0]})")
-        connections.append(f".ENB(n{gate.inputs[1]})")
-        connections.append(f".A(n{gate.outputs[0]})")
-        connections.append(f".B(n{gate.outputs[1] if len(gate.outputs) > 1 else gate.outputs[0]})")
 
     return f"{prim_name} {inst_name} ({', '.join(connections)});"
 
@@ -268,17 +266,6 @@ def generate_primitive_library() -> list[str]:
         "    output wire Y",
         ");",
         "    assign Y = ~(A | B | C);",
-        "endmodule",
-        "",
-        "// Transmission gate (bidirectional)",
-        "module tgate (",
-        "    input wire EN,",
-        "    input wire ENB,",
-        "    inout wire A,",
-        "    inout wire B",
-        ");",
-        "    assign A = EN ? B : 1'bz;",
-        "    assign B = EN ? A : 1'bz;",
         "endmodule",
         "",
     ]
