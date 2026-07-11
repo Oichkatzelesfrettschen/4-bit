@@ -478,7 +478,23 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D19.4.
+No open phases remain; every D11-D19 row is executed, falsified with
+recorded evidence, or resolved by decision.
+
+## Resolved: solver timing validated against the datasheet clock windows (2026-07-11)
+
+Executes D19.4. mcs4-core/tests/solver_datasheet_timing.rs
+(inverter_propagation_delay_fits_datasheet_clock_windows) transient-
+simulates a ratioed pMOS inverter built from ProcessParams (enhancement
+driver W/L = 20/10 um, depletion load 10/40 um, the 4004 clock-buffer
+geometry) driven by a pulse shaped from timing::clock_spec (t0R/t0F
+50 ns edges, t0PW 480 ns, TCY_MIN period). Measured edge-start to
+output-mid-rail delay: 22.6 ns against the 150 ns t0D2 minimum phase
+gap (margin 127.4 ns) and the 400 ns t0D1 minimum. The 50%-to-50%
+convention measures nothing useful here -- the fast ratioed stage
+crosses mid-rail before its slow 50 ns input edge does, so the test
+measures from the clock edge start, conservatively including the whole
+input edge. Totals 1,123 -> 1,124.
 
 ## Resolved: coordinate transforms are computed, quality-gated, and honestly unresolved (2026-07-11)
 
