@@ -21,6 +21,6 @@ fn instruction_cycle_is_10_8_us_at_typical_clock() {
 fn clock_period_bounds_match_datasheet() {
     assert_eq!(clock_spec::TCY_MIN, 1_350 * NANOSECOND);
     assert_eq!(clock_spec::TCY_MAX, 2_000 * NANOSECOND);
-    assert!(clock_spec::TCY_MIN <= clock_spec::TCY_TYP);
-    assert!(clock_spec::TCY_TYP <= clock_spec::TCY_MAX);
+    const { assert!(clock_spec::TCY_MIN <= clock_spec::TCY_TYP) };
+    const { assert!(clock_spec::TCY_TYP <= clock_spec::TCY_MAX) };
 }

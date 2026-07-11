@@ -15,10 +15,7 @@
 //! (`second_cycle`/`two_cycle`) coherent with the harness phase.
 
 use mcs4_bus::prelude::*;
-use mcs4_chips::{
-    i4004::{Instruction, I4004},
-    Chip,
-};
+use mcs4_chips::{i4004::I4004, Chip};
 use mcs4_core::prelude::SignalLevel;
 
 /// Minimal single-CPU harness: ROM fetch plus a peripheral-driven X3 read value.
@@ -30,6 +27,8 @@ struct Cpu {
     phase: BusCycle,
     /// Value a 4002/4001 would drive on the bus during X3 for read-oriented ops.
     read_value: u8,
+    /// 12-bit ROM address latched from the bus during A1-A3, as a 4001 would.
+    latched_addr: u16,
 }
 
 impl Cpu {
@@ -41,6 +40,7 @@ impl Cpu {
             rom: vec![0u8; 4096],
             phase: BusCycle::A1,
             read_value: 0,
+            latched_addr: 0,
         }
     }
 
@@ -49,18 +49,19 @@ impl Cpu {
         self.rom[addr..addr + bytes.len()].copy_from_slice(bytes);
     }
 
-    /// Tick the current phase, presenting ROM bytes at M1/M2 and the peripheral
-    /// read value at X3 for read ops, then advance to the next phase.
+    /// Tick the current phase, latching the CPU-driven address during A1-A3,
+    /// presenting ROM bytes at M1/M2 from the latched address (as a 4001
+    /// does; the FIN second cycle emits an indirect address, not the PC), and
+    /// driving the peripheral read value at X3 for read ops.
     fn tick_phase(&mut self) {
         let phase = self.phase;
         match phase {
-            // M1 latches OPA (low nibble); M2 latches OPR (high nibble) of rom[pc].
             BusCycle::M1 => {
-                let byte = self.rom[self.cpu.pc() as usize];
+                let byte = self.rom[self.latched_addr as usize];
                 self.bus.write(byte & 0x0F);
             }
             BusCycle::M2 => {
-                let byte = self.rom[self.cpu.pc() as usize];
+                let byte = self.rom[self.latched_addr as usize];
                 self.bus.write((byte >> 4) & 0x0F);
             }
             // Read-oriented ops latch the bus in X3; a peripheral must drive it first.
@@ -70,6 +71,18 @@ impl Cpu {
             _ => {}
         }
         self.cpu.tick(phase, &mut self.bus, &mut self.ctrl);
+        match phase {
+            BusCycle::A1 => {
+                self.latched_addr = (self.latched_addr & 0xFF0) | u16::from(self.bus.read() & 0x0F);
+            }
+            BusCycle::A2 => {
+                self.latched_addr = (self.latched_addr & 0xF0F) | (u16::from(self.bus.read() & 0x0F) << 4);
+            }
+            BusCycle::A3 => {
+                self.latched_addr = (self.latched_addr & 0x0FF) | (u16::from(self.bus.read() & 0x0F) << 8);
+            }
+            _ => {}
+        }
         self.phase = phase.next();
     }
 
@@ -105,7 +118,8 @@ fn reset_state_is_all_zero() {
     assert!(!cpu.carry());
     assert_eq!(cpu.ram_address(), 0);
     assert_eq!(cpu.ram_chip(), 0);
-    assert_eq!(cpu.ram_bank(), 0);
+    // RESET selects DATA RAM bank 0, i.e. the CM-RAM0 line.
+    assert_eq!(cpu.ram_bank(), 0b0001);
     assert!(!cpu.test_pin());
 }
 
@@ -423,12 +437,32 @@ fn jin_jumps_indirect_through_register_pair() {
 // ---------------------------------------------------------------------------
 
 #[test]
-fn dcl_latches_ram_bank_from_accumulator() {
-    let mut harness = Cpu::new();
-    harness.load(0, &[0xD3, 0xFD]); // LDM 3 ; DCL
-    harness.run_cycles(2);
-    // The CPU only records the bank; asserting CM-RAM lines is the system's job.
-    assert_eq!(harness.cpu.ram_bank(), 3);
+fn dcl_decodes_accumulator_into_cm_ram_lines() {
+    // DCL uses accumulator bits 2:0 to choose 1 of 8 DATA RAM banks; the CPU
+    // records the decoded CM-RAM line mask: 000 asserts CM-RAM0, 001 CM-RAM1,
+    // 010 CM-RAM2, 100 CM-RAM3, and other values assert line combinations.
+    let cases: [(u8, u8); 8] = [
+        (0, 0b0001), // bank 0 -> CM-RAM0
+        (1, 0b0010), // bank 1 -> CM-RAM1
+        (2, 0b0100), // bank 2 -> CM-RAM2
+        (3, 0b0110), // bank 3 -> CM-RAM1 + CM-RAM2
+        (4, 0b1000), // bank 4 -> CM-RAM3
+        (5, 0b1010), // bank 5 -> CM-RAM1 + CM-RAM3
+        (6, 0b1100), // bank 6 -> CM-RAM2 + CM-RAM3
+        (7, 0b1110), // bank 7 -> CM-RAM1 + CM-RAM2 + CM-RAM3
+    ];
+    for (acc, lines) in cases {
+        let mut harness = Cpu::new();
+        harness.load(0, &[0xD0 | acc, 0xFD]); // LDM acc ; DCL
+        harness.run_cycles(2);
+        assert_eq!(harness.cpu.ram_bank(), lines, "acc={acc}");
+    }
+
+    // Accumulator bit 3 is ignored by the decode.
+    let mut high_bit = Cpu::new();
+    high_bit.load(0, &[0xD9, 0xFD]); // LDM 9 (1001) ; DCL
+    high_bit.run_cycles(2);
+    assert_eq!(high_bit.cpu.ram_bank(), 0b0010);
 }
 
 #[test]
@@ -529,22 +563,99 @@ fn adm_adds_the_bus_value_read_in_x3() {
 }
 
 // ---------------------------------------------------------------------------
-// Documented gaps: FIN is a stub; FIN/JIN run in one cycle despite cycles()==2.
+// FIN: indirect ROM fetch through register pair 0 (two machine cycles)
 // ---------------------------------------------------------------------------
 
 #[test]
-fn fin_is_a_stub_and_does_not_load_the_target_pair() {
+fn fin_fetches_rom_byte_addressed_by_pair_zero_into_target_pair() {
     let mut harness = Cpu::new();
-    harness.cpu.registers.set_pair(0, 0x42); // address source pair
-    harness.cpu.registers.set_pair(1, 0x00); // target pair, expected loaded by real FIN
+    harness.cpu.registers.set_pair(0, 0x42); // indirect address, low 8 bits
     harness.load(0, &[0x32]); // FIN P1
-    harness.run_cycles(1);
+    harness.load(0x042, &[0x6E]); // data fetched from the FIN's own page
 
-    // Real hardware fetches ROM[P0] into P1; this implementation leaves P1 untouched.
+    // First machine cycle fetches the FIN opcode; the pair is still untouched.
+    harness.run_cycles(1);
     assert_eq!(harness.cpu.registers.get_pair(1), 0x00);
-    assert_eq!(harness.pc(), 1); // FIN itself does not branch
-    assert_eq!(
-        harness.cpu.decoder.get_instruction(),
-        Some(Instruction::Fin { pair: 1 })
-    );
+
+    // Second machine cycle sends R0R1 out as the ROM address and loads the
+    // fetched byte into the target pair. FIN does not branch.
+    harness.run_cycles(1);
+    assert_eq!(harness.cpu.registers.get_pair(1), 0x6E);
+    assert_eq!(harness.cpu.registers.get_pair(0), 0x42); // source pair unaffected
+    assert_eq!(harness.pc(), 1);
+}
+
+#[test]
+fn fin_into_pair_zero_replaces_the_address_source() {
+    let mut harness = Cpu::new();
+    harness.cpu.registers.set_pair(0, 0x10);
+    harness.load(0, &[0x30]); // FIN P0
+    harness.load(0x010, &[0xAB]);
+    harness.run_cycles(2);
+    assert_eq!(harness.cpu.registers.get_pair(0), 0xAB);
+}
+
+#[test]
+fn fin_execution_does_not_disturb_the_following_instruction() {
+    let mut harness = Cpu::new();
+    harness.cpu.registers.set_pair(0, 0x20);
+    harness.load(0, &[0x32, 0xD7]); // FIN P1 ; LDM 7
+    harness.load(0x020, &[0x55]);
+    harness.run_cycles(3); // FIN (2 cycles) + LDM (1 cycle)
+    assert_eq!(harness.cpu.registers.get_pair(1), 0x55);
+    assert_eq!(harness.acc(), 7);
+    assert_eq!(harness.pc(), 2);
+}
+
+#[test]
+fn fin_at_last_location_of_page_fetches_from_next_page() {
+    // A FIN in the last location of a page takes its indirect page from the
+    // incremented PC, so the data comes from the NEXT page.
+    let mut harness = Cpu::new();
+    harness.cpu.registers.set_pair(0, 0x3C);
+    harness.load(0x0FF, &[0x3E]); // FIN P7 at the last byte of page 0
+    harness.load(0x13C, &[0x9A]); // fetched from page 1, not page 0
+    harness.load(0x03C, &[0x11]); // decoy on the FIN's own page
+    harness.cpu.registers.set_pc(0x0FF);
+    harness.run_cycles(2);
+    assert_eq!(harness.cpu.registers.get_pair(7), 0x9A);
+    assert_eq!(harness.pc(), 0x100);
+}
+
+// ---------------------------------------------------------------------------
+// JCN TEST-pin condition: condition bit C1 jumps when the TEST pin is 0
+// ---------------------------------------------------------------------------
+
+#[test]
+fn jcn_test_condition_jumps_when_test_pin_is_zero() {
+    let mut harness = Cpu::new();
+    harness.cpu.set_test_pin(false);
+    harness.load(0, &[0x11, 0x0A]); // JCN test, 0x0A
+    harness.run_cycles(2);
+    assert_eq!(harness.pc(), 0x00A);
+}
+
+#[test]
+fn jcn_test_condition_falls_through_when_test_pin_is_one() {
+    let mut harness = Cpu::new();
+    harness.cpu.set_test_pin(true);
+    harness.load(0, &[0x11, 0x0A]); // JCN test, 0x0A
+    harness.run_cycles(2);
+    assert_eq!(harness.pc(), 2);
+}
+
+#[test]
+fn jcn_inverted_test_condition_jumps_when_test_pin_is_one() {
+    // Condition 0x9 = invert + test: jump when NOT (TEST == 0), i.e. TEST = 1.
+    let mut harness = Cpu::new();
+    harness.cpu.set_test_pin(true);
+    harness.load(0, &[0x19, 0x0A]); // JCN invert|test, 0x0A
+    harness.run_cycles(2);
+    assert_eq!(harness.pc(), 0x00A);
+
+    let mut fall_through = Cpu::new();
+    fall_through.cpu.set_test_pin(false);
+    fall_through.load(0, &[0x19, 0x0A]);
+    fall_through.run_cycles(2);
+    assert_eq!(fall_through.pc(), 2);
 }

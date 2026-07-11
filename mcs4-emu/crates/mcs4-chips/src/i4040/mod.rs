@@ -19,7 +19,10 @@ use mcs4_bus::prelude::*;
 use mcs4_core::SimulationFidelity;
 pub use registers::Registers;
 
-use crate::i4004;
+use crate::{
+    i4004,
+    i4004::{decode_cm_ram_lines, CM_RAM0},
+};
 
 /// Intel 4040 CPU (stub implementation)
 ///
@@ -35,7 +38,7 @@ pub struct I4040 {
     pub decoder: i4004::InstructionDecoder,
     /// Halted state
     halted: bool,
-    /// RAM bank selection (0-7 via DCL)
+    /// CM-RAM line selection mask (set by DCL; reset selects CM-RAM0)
     ram_bank: u8,
     /// ROM bank selection (0 or 1 via DB0/DB1)
     rom_bank: u8,
@@ -53,12 +56,12 @@ pub struct I4040 {
     ram_chip: u8,
     /// Test pin input
     test_pin: bool,
-    /// Pending I/O data
-    io_data: u8,
     /// Decoded I/O operation for current instruction
     decoded_io_op: Option<IoOp>,
     /// True if PC was explicitly modified by instruction
     pc_modified: bool,
+    /// Register pair awaiting the FIN indirect ROM fetch during the second machine cycle.
+    fin_pair: Option<u8>,
 }
 
 impl I4040 {
@@ -69,7 +72,7 @@ impl I4040 {
             intr: InterruptController::new(),
             decoder: i4004::InstructionDecoder::new(),
             halted: false,
-            ram_bank: 0,
+            ram_bank: CM_RAM0,
             rom_bank: 0,
             fidelity: SimulationFidelity::Behavioral,
             cycle: CycleState::new(),
@@ -78,9 +81,9 @@ impl I4040 {
             ram_address: 0,
             ram_chip: 0,
             test_pin: false,
-            io_data: 0,
             decoded_io_op: None,
             pc_modified: false,
+            fin_pair: None,
         }
     }
 
@@ -222,21 +225,36 @@ impl I4040 {
         }
 
         // Output address bits 0-3 and assert SYNC
-        let addr = self.registers.pc();
+        let addr = self.fetch_address();
         bus.write((addr & 0x0F) as u8);
         ctrl.assert_sync(0);
     }
 
+    /// Address emitted during A1-A3.
+    ///
+    /// The FIN second cycle sends register pair 0 as the low 8 bits with the
+    /// page taken from the program counter. The PC has already advanced past
+    /// the FIN byte, so a FIN in the last location of a page fetches from the
+    /// next page, matching the documented boundary behavior.
+    fn fetch_address(&self) -> u16 {
+        let pc = self.registers.pc();
+        if self.fin_pair.is_some() && self.cycle.second_cycle {
+            (pc & 0xF00) | u16::from(self.registers.get_pair(0))
+        } else {
+            pc
+        }
+    }
+
     fn phase_a2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         // Output address bits 4-7, deassert SYNC
-        let addr = self.registers.pc();
+        let addr = self.fetch_address();
         bus.write(((addr >> 4) & 0x0F) as u8);
         ctrl.deassert_sync(0);
     }
 
     fn phase_a3(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         // Output address bits 8-11, select ROM bank
-        let addr = self.registers.pc();
+        let addr = self.fetch_address();
         bus.write(((addr >> 8) & 0x0F) as u8);
 
         // 4040 selects one of two 4KB banks via DB0/DB1.
@@ -258,6 +276,20 @@ impl I4040 {
     }
 
     fn phase_x1(&mut self, _bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // FIN second cycle: M1/M2 latched the byte at the indirect address;
+        // load it into the target register pair. The PC already points at the
+        // next instruction, so suppress decode and the X3 PC advance.
+        if self.cycle.second_cycle {
+            if let Some(pair) = self.fin_pair.take() {
+                self.registers.set_pair(pair, self.instruction_byte);
+                self.decoder.instruction = None;
+                self.decoded_io_op = None;
+                self.pc_modified = true;
+                ctrl.clear_io_op();
+                return;
+            }
+        }
+
         // Decode the instruction
         if self.cycle.second_cycle {
             self.decoder.decode_second(self.instruction_byte);
@@ -349,6 +381,14 @@ impl I4040 {
             }
         }
 
+        // FIN: schedule the indirect ROM fetch as a second machine cycle.
+        // The PC still advances past the FIN byte below, which gives the
+        // second cycle's A phases the page of the byte after the FIN (the
+        // documented page-boundary behavior).
+        if self.fin_pair.is_some() && !self.cycle.second_cycle {
+            self.cycle.two_cycle = true;
+        }
+
         // Advance PC if not modified by instruction
         if !self.pc_modified {
             let next_pc = (self.registers.pc() + 1) & 0x0FFF;
@@ -381,9 +421,10 @@ impl I4040 {
                 self.ram_chip = (addr >> 4) & 0x0F;
             }
             Fin { pair } => {
-                let addr = self.registers.get_pair(0);
-                self.io_data = addr;
-                let _ = pair;
+                // Fetch indirect: arm the second machine cycle, which sends
+                // register pair 0 as the ROM address and loads the fetched
+                // byte into the target pair.
+                self.fin_pair = Some(pair);
             }
             Jin { pair } => {
                 let addr = self.registers.get_pair(pair);
@@ -489,7 +530,9 @@ impl I4040 {
             Daa => self.alu.daa(),
             Kbp => self.alu.kbp(),
             Dcl => {
-                self.ram_bank = self.alu.accumulator() & 0x0F;
+                // Designate command line: decode accumulator bits 2:0 into the
+                // CM-RAM line mask that selects the DATA RAM bank.
+                self.ram_bank = decode_cm_ram_lines(self.alu.accumulator());
             }
 
             Invalid { opcode } => {
@@ -530,7 +573,8 @@ impl I4040 {
         if test_carry && self.alu.carry() {
             result = true;
         }
-        if test_pin && self.test_pin {
+        // The TEST condition is satisfied when the TEST pin is at 0.
+        if test_pin && !self.test_pin {
             result = true;
         }
 
@@ -680,7 +724,7 @@ impl crate::Chip for I4040 {
         self.intr = InterruptController::new();
         self.decoder = i4004::InstructionDecoder::new();
         self.halted = false;
-        self.ram_bank = 0;
+        self.ram_bank = CM_RAM0;
         self.rom_bank = 0;
         self.cycle = CycleState::new();
         self.instruction_byte = 0;
@@ -688,9 +732,9 @@ impl crate::Chip for I4040 {
         self.ram_address = 0;
         self.ram_chip = 0;
         self.test_pin = false;
-        self.io_data = 0;
         self.decoded_io_op = None;
         self.pc_modified = false;
+        self.fin_pair = None;
     }
 
     fn tick(&mut self, phase: BusCycle) {

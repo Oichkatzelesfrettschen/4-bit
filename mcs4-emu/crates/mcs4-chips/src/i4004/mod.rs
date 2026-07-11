@@ -24,6 +24,22 @@ use mcs4_core::SimulationFidelity;
 pub use registers::Registers;
 pub use timing_io::TimingIo;
 
+/// CM-RAM line mask selecting DATA RAM bank 0 (the RESET default).
+pub(crate) const CM_RAM0: u8 = 0b0001;
+
+/// Decode the DCL bank selection from accumulator bits 2:0 into a CM-RAM
+/// line mask: 000 asserts CM-RAM0; any other value shifts onto CM-RAM1..3
+/// (001 -> CM-RAM1, 010 -> CM-RAM2, 100 -> CM-RAM3, combinations assert
+/// multiple lines), addressing up to 8 DATA RAM banks.
+pub(crate) fn decode_cm_ram_lines(acc: u8) -> u8 {
+    let bank = acc & 0x07;
+    if bank == 0 {
+        CM_RAM0
+    } else {
+        bank << 1
+    }
+}
+
 /// Intel 4004 CPU
 pub struct I4004 {
     /// ALU (Arithmetic Logic Unit)
@@ -56,20 +72,20 @@ pub struct I4004 {
     /// Currently selected RAM chip
     ram_chip: u8,
 
-    /// Currently selected RAM bank (set by DCL)
+    /// CM-RAM line selection mask (set by DCL; reset selects CM-RAM0)
     ram_bank: u8,
 
     /// Test pin input (directly readable)
     test_pin: bool,
-
-    /// Pending memory read/write data
-    io_data: u8,
 
     /// Decoded high-level I/O operation for the current instruction (used for phase-accurate control lines).
     decoded_io_op: Option<IoOp>,
 
     /// True if an instruction explicitly updated PC (taken branches, jumps, calls, returns).
     pc_modified: bool,
+
+    /// Register pair awaiting the FIN indirect ROM fetch during the second machine cycle.
+    fin_pair: Option<u8>,
 }
 
 impl I4004 {
@@ -86,11 +102,11 @@ impl I4004 {
             operand: 0,
             ram_address: 0,
             ram_chip: 0,
-            ram_bank: 0,
+            ram_bank: CM_RAM0,
             test_pin: false,
-            io_data: 0,
             decoded_io_op: None,
             pc_modified: false,
+            fin_pair: None,
         }
     }
 
@@ -114,7 +130,9 @@ impl I4004 {
         self.ram_chip
     }
 
-    /// Get currently selected RAM bank (set by DCL)
+    /// Get the CM-RAM line selection mask (bit i = CM-RAMi asserted).
+    ///
+    /// DCL decodes accumulator bits 2:0 into this mask; RESET selects CM-RAM0.
     pub fn ram_bank(&self) -> u8 {
         self.ram_bank
     }
@@ -179,25 +197,40 @@ impl I4004 {
         self.cycle.advance();
     }
 
+    /// Address emitted during A1-A3.
+    ///
+    /// The FIN second cycle sends register pair 0 as the low 8 bits with the
+    /// page taken from the program counter. The PC has already advanced past
+    /// the FIN byte, so a FIN in the last location of a page fetches from the
+    /// next page, matching the documented boundary behavior.
+    fn fetch_address(&self) -> u16 {
+        let pc = self.registers.pc();
+        if self.fin_pair.is_some() && self.cycle.second_cycle {
+            (pc & 0xF00) | u16::from(self.registers.get_pair(0))
+        } else {
+            pc
+        }
+    }
+
     fn phase_a1(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         ctrl.clear_io_op();
         ctrl.deselect_ram(0);
         // Output address bits 0-3 and assert SYNC
-        let addr = self.registers.pc();
+        let addr = self.fetch_address();
         bus.write((addr & 0x0F) as u8);
         ctrl.assert_sync(0);
     }
 
     fn phase_a2(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         // Output address bits 4-7, deassert SYNC
-        let addr = self.registers.pc();
+        let addr = self.fetch_address();
         bus.write(((addr >> 4) & 0x0F) as u8);
         ctrl.deassert_sync(0);
     }
 
     fn phase_a3(&mut self, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         // Output address bits 8-11, select ROM bank
-        let addr = self.registers.pc();
+        let addr = self.fetch_address();
         bus.write(((addr >> 8) & 0x0F) as u8);
         ctrl.select_rom((addr >> 8) as u8 & 0x0F, 0);
     }
@@ -215,6 +248,19 @@ impl I4004 {
     }
 
     fn phase_x1(&mut self, _bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        // FIN second cycle: M1/M2 latched the byte at the indirect address;
+        // load it into the target register pair. The PC already points at the
+        // next instruction, so the cycle completes without decode or PC change.
+        if self.cycle.second_cycle {
+            if let Some(pair) = self.fin_pair.take() {
+                self.registers.set_pair(pair, self.instruction_byte);
+                self.decoder.instruction = None;
+                self.decoded_io_op = None;
+                ctrl.clear_io_op();
+                return;
+            }
+        }
+
         // Decode the instruction
         if self.cycle.second_cycle {
             // Second byte of two-byte instruction
@@ -329,6 +375,15 @@ impl I4004 {
             return;
         }
 
+        // FIN: schedule the indirect ROM fetch as a second machine cycle.
+        // Advancing the PC now gives the second cycle's A phases the page of
+        // the byte after the FIN (the documented page-boundary behavior).
+        if self.fin_pair.is_some() && !self.cycle.second_cycle {
+            self.cycle.set_two_cycle();
+            self.registers.increment_pc();
+            return;
+        }
+
         // Instruction complete: default is to advance PC by one byte unless the instruction
         // explicitly changed PC (taken branch/jump/call/return).
         if self.decoder.get_instruction().is_some() && !self.pc_modified {
@@ -365,12 +420,10 @@ impl I4004 {
                 self.ram_chip = (addr >> 4) & 0x0F;
             }
             Fin { pair } => {
-                // Fetch indirect: use pair 0 as address into ROM page 0
-                let addr = self.registers.get_pair(0);
-                // In real hardware, this fetches from ROM[addr]
-                // For now, store address for bus to handle
-                self.io_data = addr;
-                let _ = pair; // Will be loaded with fetched data
+                // Fetch indirect: arm the second machine cycle, which sends
+                // register pair 0 as the ROM address and loads the fetched
+                // byte into the target pair.
+                self.fin_pair = Some(pair);
             }
             Jin { pair } => {
                 let addr = self.registers.get_pair(pair);
@@ -486,8 +539,9 @@ impl I4004 {
             Daa => self.alu.daa(),
             Kbp => self.alu.kbp(),
             Dcl => {
-                // Designate command line: selects CM-RAM lines for subsequent RAM operations.
-                self.ram_bank = self.alu.accumulator() & 0x0F;
+                // Designate command line: decode accumulator bits 2:0 into the
+                // CM-RAM line mask that selects the DATA RAM bank.
+                self.ram_bank = decode_cm_ram_lines(self.alu.accumulator());
             }
 
             Invalid { opcode: _ } => {
@@ -511,7 +565,8 @@ impl I4004 {
         if test_carry && self.alu.carry() {
             result = true;
         }
-        if test_pin && self.test_pin {
+        // The TEST condition is satisfied when the TEST pin is at 0.
+        if test_pin && !self.test_pin {
             result = true;
         }
 
@@ -543,11 +598,11 @@ impl super::Chip for I4004 {
         self.operand = 0;
         self.ram_address = 0;
         self.ram_chip = 0;
-        self.ram_bank = 0;
+        self.ram_bank = CM_RAM0;
         self.test_pin = false;
-        self.io_data = 0;
         self.decoded_io_op = None;
         self.pc_modified = false;
+        self.fin_pair = None;
     }
 
     fn tick(&mut self, phase: BusCycle) {

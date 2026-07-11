@@ -352,9 +352,10 @@ mod tests {
     fn test_jcn_test_pin_not_taken_advances() {
         let mut sys = Mcs40System::new();
 
-        // JCN TEST -> 0x005 (two-byte instruction): 0x11 0x05
+        // JCN's TEST condition is satisfied when the pin is 0, so a high pin
+        // falls through. Two-byte instruction: 0x11 0x05.
         sys.load_rom(&[0x11, 0x05, 0x00, 0x00, 0x00, 0x00]);
-        sys.set_test_pin(false);
+        sys.set_test_pin(true);
 
         sys.run_cycles(1);
         assert_eq!(sys.pc(), 1);
@@ -367,9 +368,10 @@ mod tests {
     fn test_jcn_test_pin_taken_jumps() {
         let mut sys = Mcs40System::new();
 
-        // JCN TEST -> 0x005 (two-byte instruction): 0x11 0x05
+        // JCN's TEST condition is satisfied when the pin is 0, so a low pin
+        // takes the jump. Two-byte instruction: 0x11 0x05.
         sys.load_rom(&[0x11, 0x05, 0x00, 0x00, 0x00, 0x00]);
-        sys.set_test_pin(true);
+        sys.set_test_pin(false);
 
         sys.run_cycles(1);
         assert_eq!(sys.pc(), 1);
