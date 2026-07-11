@@ -70,10 +70,16 @@ This document summarizes the completion of Phase 0.5 (OCR and extraction improve
 
 **Implementation**:
 - Created `scripts/build_coordinate_transform_v0.py`: Homography computation framework
-- Generated placeholder transforms for all chips (identity matrices)
+- RANSAC homography from anchor-point correspondences with quality gates
+  (min 6 inliers, inlier ratio >= 0.5, RMSE <= 250 px)
 - Output directory: `docs/evidence/coordinate_transforms_v0/`
 
-**Status**: Placeholder implementation complete. TODO: Replace identity matrices with actual homography computation from anchor points.
+**Status**: Computation is real; every chip currently fails the quality
+gates on the available anchor correspondences (4001 collinear, 4002/4003
+below the gate, 4004 one inlier), so all four transforms record
+`matrix: null` with per-point residuals instead of a fabricated fit.
+Resolving the transforms requires more or better-spread anchor
+correspondences, not code.
 
 **Files Created**:
 - `scripts/build_coordinate_transform_v0.py`
