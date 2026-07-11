@@ -89,3 +89,22 @@ Current implementation (`scripts/build_netlist_v1_v0.py`):
 This is still *candidate* quality:
 - terminals are topology-derived from masks and may be wrong in edge cases,
 - device types (enhancement/depletion, pull-ups) are not fully classified yet.
+
+## Subcircuit `signals[]` (subcircuits_v0)
+
+Subcircuit JSONs (`docs/evidence/subcircuits_v0/<chip>/<chip>_<name>_subcircuit_v0.json`,
+emitted by `scripts/extract_subcircuit_v0.py`) carry a `signals` array in the
+same node-ID space as the parent `netlist_v1` (extraction never remaps node
+IDs). Each entry is the parent signal filtered to the subgraph:
+
+```json
+"signals": [
+  { "name": "VCC", "layout_node": 415, "evidence": { "anchor": true } }
+]
+```
+
+- `name`, `layout_node`: copied from the parent `netlist_v1` signal whose
+  `layout_node` falls inside the subgraph's node set.
+- `evidence.anchor`: copied through; rail and clock identification
+  (`mcs4-core` `power_rail_id::identify_power_rails`) only trusts anchored
+  entries, so solvers read VDD/VSS/clock from evidence instead of inferring.

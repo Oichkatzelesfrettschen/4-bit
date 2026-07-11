@@ -478,7 +478,24 @@ netlist_v0 regeneration that would reassign node IDs and must be
 coordinated with the Rust hardcoded rail IDs. D19.7 is closed as
 falsified; the recognition unblock moves entirely to D19.8.
 
-Remaining open phases: D19.2-D19.4.
+Remaining open phases: D19.3, D19.4.
+
+## Resolved: subcircuit JSONs carry evidence-backed signals (2026-07-11)
+
+Executes D19.2. scripts/extract_subcircuit_v0.py writes a signals array
+into every subcircuit payload: the parent netlist_v1 signals whose
+layout_node falls inside the subgraph, in the shared node-ID space
+(extraction never remaps IDs). docs/NETLIST_V1_SCHEMA.md documents the
+shape. The Rust side needed no code change: NetlistV1.signals
+deserializes with a default, and power_rail_id::identify_power_rails
+now resolves VDD/VSS/clock for subcircuit-derived graphs from anchored
+evidence instead of returning empty rails. Regeneration also surfaced
+that the committed subcircuits had gone stale against their inputs
+(the recorded netlist sha256 values predate the rail-anchor restore);
+all 45 files now record the current netlist hashes, and the stale
+nested subcircuits_v0/4004/4004/ duplicate directory is removed.
+1,123 workspace tests pass on the regenerated evidence, including the
+circuit_sim suite that consumes it.
 
 ## Resolved: status docs single-sourced; guide stubs declared; extraction doc mechanism-named (2026-07-11)
 

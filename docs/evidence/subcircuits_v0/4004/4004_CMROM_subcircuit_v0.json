@@ -3768,7 +3768,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4004_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "7c9acfa928013b9a38d4444c19a7c68d0ed49c36ee7703c13bc4f26a644e929e"
+      "netlist_v1": "407377a75a73a47bf5dda88917f7b38a80c7914c854424b6b8a24b7daa6a332b"
     }
   },
   "nodes": [
@@ -5173,5 +5173,49 @@
     "nodes": [
       716
     ]
-  }
+  },
+  "signals": [
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 415,
+      "name": "CLK1"
+    },
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 3431,
+      "name": "CMRAM0"
+    },
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 716,
+      "name": "CMROM"
+    },
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 3442,
+      "name": "D0_PAD"
+    },
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 415,
+      "name": "VCC"
+    },
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 3,
+      "name": "VSS"
+    }
+  ]
 }

@@ -37,7 +37,7 @@
   "inputs": {
     "netlist_v1": "docs/evidence/netlists_v1/4003_netlist_v1.json",
     "sha256": {
-      "netlist_v1": "8b4c3a49ec66b4174645cc1ec1834321e0030e9c0f2a446d6e542d71ec65f834"
+      "netlist_v1": "6d60922a52342158056188cbf97e5f3e2618a8d7a4fb3915c9031468555d3c30"
     }
   },
   "nodes": [
@@ -71,5 +71,21 @@
     "nodes": [
       279
     ]
-  }
+  },
+  "signals": [
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 239,
+      "name": "CLOCK"
+    },
+    {
+      "evidence": {
+        "anchor": true
+      },
+      "layout_node": 279,
+      "name": "EN"
+    }
+  ]
 }

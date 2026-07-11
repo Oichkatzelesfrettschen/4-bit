@@ -202,6 +202,28 @@ def main() -> int:
             "counts": {"nodes": int(len(sg.nodes)), "transistors": int(len(sg.transistors))},
             "nodes": [{"node": n} for n in sg.nodes],
             "devices": {"transistors": sg.transistors},
+            # Parent netlist_v1 signals whose layout_node falls inside this
+            # subgraph, carried through in the shared node-ID space so rail
+            # and clock identification reads from evidence instead of being
+            # inferred downstream.
+            "signals": [
+                {
+                    "name": s["name"],
+                    "layout_node": int(s["layout_node"]),
+                    "evidence": {"anchor": bool((s.get("evidence") or {}).get("anchor", False))},
+                }
+                for s in sorted(
+                    (
+                        s
+                        for s in (net.get("signals") or [])
+                        if isinstance(s, dict)
+                        and isinstance(s.get("name"), str)
+                        and isinstance(s.get("layout_node"), int)
+                        and int(s["layout_node"]) in set(sg.nodes)
+                    ),
+                    key=lambda s: (str(s["name"]), int(s["layout_node"])),
+                )
+            ],
         }
         out.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         manifest["outputs"].append({"name": name, "output": rel_or_abs(out), "counts": payload["counts"]})
