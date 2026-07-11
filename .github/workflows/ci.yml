@@ -49,8 +49,10 @@ jobs:
         run: cargo test --workspace --locked
 
       - name: Performance benchmarks (advisory)
-        # Advisory only until docs/evidence/benchmarks_baseline_v0.json is
-        # committed (tracked as debt task D18.1); failures never gate the job.
+        # Compares against the committed benchmarks_baseline_v0.json. The
+        # baseline records wall-clock milliseconds from a developer host, so
+        # cross-host deltas exceed the 20% regression threshold on noise
+        # alone; the step stays advisory and never gates the job.
         run: |
           python3 scripts/benchmark_emulator_v0.py \
             --output docs/evidence/benchmarks_ci.json \

@@ -1,0 +1,6 @@
+{
+  "cargo_bench_all": 14571.33173942566,
+  "test_fixtures_all": 413.6059284210205,
+  "nop_loop_1000": 0.0,
+  "add_loop_1000": 0.0
+}
