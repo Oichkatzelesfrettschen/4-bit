@@ -252,7 +252,7 @@ test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured
 
 - **Plan Document**: `docs/ROADMAP.md` (original comprehensive plan)
 - **Emulator Status**: `mcs4-emu/STATUS.md`
-- **Chip Extraction Status**: `docs/CHIP_EXTRACTION_STATUS.md`
+- **Chip Extraction Status**: `docs/CHIP_EXTRACTION.md`
 - **Primary Sources**: `docs/evidence/PRIMARY_SOURCE_PINOUTS.md`
 - **OCR Implementation**: `scripts/ocr_cache_v0.py`, `scripts/ocr_cached_backend_v0.py`
 - **Validation Scripts**: `scripts/check_ocr_versions.sh`, `scripts/validate_pin_connectivity_v0.py`

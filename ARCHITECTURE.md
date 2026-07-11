@@ -33,6 +33,10 @@ Level 1: Cycle-accurate (mcs4-chips, mcs4-system) [PRIMARY]
 
 ## System Architecture
 
+Per-chip implementation status lives in the single chip-status table
+set in `mcs4-emu/STATUS.md` (Chip Implementation Status); the diagrams
+below show bus topology only.
+
 ### MCS-4 Family (4004-based)
 ```
 +--------+     4-bit data bus      +--------+

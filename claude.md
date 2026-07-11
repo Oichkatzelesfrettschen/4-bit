@@ -21,6 +21,10 @@
 
 ## Status File Convention
 
+This root file (`claude.md`, lowercase) is repo-level agent guidance
+only; it is a different document from `mcs4-emu/CLAUDE.md`, which is
+the canonical status file named below.
+
 - `mcs4-emu/CLAUDE.md` = canonical status (phase %, test counts, priorities) -- single source of truth
 - `docs/ROADMAP.md` = forward plan (what to build next, dependency order)
 - `mcs4-emu/STATUS.md` = session log and chip status tables
