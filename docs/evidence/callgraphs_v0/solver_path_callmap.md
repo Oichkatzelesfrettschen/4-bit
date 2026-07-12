@@ -67,9 +67,12 @@ Downstream generation path (manual, feeds docs/evidence/verilog_v0):
 ```
 extract_gates_v0.py -> gates_v0/<chip>/ JSON
 -> gate_to_verilog_v0.py
-   main -> extract_nodes -> generate_verilog_module
-        -> generate_gate_instance, generate_primitive_library
-        -> generate_testbench   # emits stub; I/O extraction is the tracked gap
+   main -> load_gates -> parse_gates_netlist, validate_gate_shapes
+        -> extract_nodes, load_signal_ports
+        -> analyze_gate_export_contract -> analyze_output_cone
+        -> check_generated_exports -> render_exports
+        -> generate_verilog_module -> generate_gate_instance, generate_primitive_library
+        -> generate_testbench -> resolution oracle or explicit $fatal
 ```
 
 Per-function edge lists for the Python stages live beside this file

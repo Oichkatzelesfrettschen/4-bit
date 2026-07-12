@@ -30,7 +30,7 @@ Planned output directory:
     "layout_netlist_v0": "docs/evidence/netlists_v0/4004_netlist_v0.json",
     "schematic_wirenets_v0": "docs/evidence/schematic_wirenets_v0/4004_schematic_wirenets_v0.json",
     "schematic_net_names_v0": "docs/evidence/schematic_net_names_v0/4004_schematic_net_names_v0.json",
-    "anchors_v0": "docs/evidence/schematic_layout_anchors_v0.json"
+    "anchors_v0": "docs/evidence/schematic_layout_anchors_v1.json"
   },
   "signals": [
     {
@@ -57,6 +57,21 @@ Planned output directory:
 - `inputs.*`: paths to the exact artifacts used to build the file.
 - `signals[]`: at minimum, the anchor signals required for validation.
 
+## Generated manifest contract
+
+`docs/evidence/netlists_v1/manifest.json` records `schema_version: 1`, the
+generator path, generator parameters, and one entry per retained output. Each
+entry contains `chip`, `output`, and `sha256`. The builder verifies every
+previously declared output before it merges a new chip. It writes the changed
+netlist and manifest through the crash-recoverable transaction writer, so a
+failed run restores the prior artifact set instead of publishing a partial
+manifest.
+
+The `inputs.anchors_v0` and `inputs.sha256.anchors_v0` names remain legacy
+schema keys for compatibility. Their values identify the canonical v1 anchor
+file and its exact digest. The builder defaults to that v1 file, so default
+regeneration matches the committed anchor provenance.
+
 ## `signals[]` semantics
 
 Each entry describes a **named signal** that exists in schematic space (`signals.txt`) and is mapped to:
@@ -74,7 +89,7 @@ The mapping can be partial:
   - `D0_PAD..D3_PAD`
   - `CMROM`, `CMRAM0..CMRAM3`
 - Each anchor has:
-  - a referenced layout node in `schematic_layout_anchors_v0.json`,
+  - a referenced layout node in `schematic_layout_anchors_v1.json`,
   - a stable schematic component id,
   - and at least one deterministic evidence artifact (crop/overlay) that can be regenerated.
 

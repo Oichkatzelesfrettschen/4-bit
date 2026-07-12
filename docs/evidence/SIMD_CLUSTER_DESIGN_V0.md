@@ -406,7 +406,7 @@ fn bench_sequential_nop_loop(b: &mut Bencher) {
 
 - [Rust portable_simd documentation](https://doc.rust-lang.org/std/simd/)
 - [Intel 4004 datasheet](../docs/primary_sources/)
-- [Phase 4 plan](../ROADMAP.md#phase-4-clustering-and-performance)
+- [Phase 4 plan](../ROADMAP.md#phase-4---clustering-and-performance-100-complete---1313-tasks)
 
 ---
 

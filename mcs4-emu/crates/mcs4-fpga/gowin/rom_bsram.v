@@ -24,9 +24,23 @@ module rom_bsram #(
   reg [DATA_W-1:0] mem [0:DEPTH-1];
 
   // Initialize from hex file
+`ifdef MCS4_VERILATOR_RUNTIME
+  // The host simulator receives a temporary common-stimulus ROM through this plusarg.
+  // Synthesis and Icarus retain the reviewed INIT_FILE parameter boundary.
+  reg [8*1024-1:0] active_init_file;
+
+  initial begin
+    if ($value$plusargs("mcs4_rom_init=%s", active_init_file)) begin
+      $readmemh(active_init_file, mem);
+    end else begin
+      $readmemh(INIT_FILE, mem);
+    end
+  end
+`else
   initial begin
     $readmemh(INIT_FILE, mem);
   end
+`endif
 
   // Synchronous read (1-cycle latency)
   always @(posedge clk) begin

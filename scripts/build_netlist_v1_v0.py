@@ -6,6 +6,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from output_transaction import write_text_transaction
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -19,6 +21,10 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def sha256_text(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def load_json(path: Path) -> object:
@@ -43,14 +49,16 @@ def _bbox_area(bb: object) -> int:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Build netlist_v1 (anchors + schematic wiring + device candidates) (v0).")
+    p = argparse.ArgumentParser(
+        description="Build netlist_v1 (anchors + schematic wiring + device candidates) (v0)."
+    )
     p.add_argument("--chip", required=True, choices=["4001", "4002", "4003", "4004"])
     p.add_argument("--out-dir", type=Path, default=ROOT / "docs" / "evidence" / "netlists_v1")
     p.add_argument(
         "--anchors",
         type=Path,
         default=None,
-        help="Override anchors JSON path (defaults to docs/evidence/schematic_layout_anchors_v0.json).",
+        help="Override anchors JSON path (defaults to docs/evidence/schematic_layout_anchors_v1.json).",
     )
     p.add_argument(
         "--layout-netlist-v0",
@@ -76,19 +84,45 @@ def main() -> int:
     anchors_path = (
         (ROOT / args.anchors).resolve()
         if args.anchors is not None and not args.anchors.is_absolute()
-        else (args.anchors if args.anchors is not None else ROOT / "docs" / "evidence" / "schematic_layout_anchors_v0.json")
+        else (
+            args.anchors
+            if args.anchors is not None
+            else ROOT / "docs" / "evidence" / "schematic_layout_anchors_v1.json"
+        )
     )
     if anchors_path is None:
         raise AssertionError("anchors_path resolution produced None")
-    schem_names_path = ROOT / "docs" / "evidence" / "schematic_net_names_v0" / f"{chip.lower()}_schematic_net_names_v0.json"
-    schem_wirenets_path = (
-        ROOT / "docs" / "evidence" / "schematic_wirenets_v0" / chip / f"{chip.lower()}_schematic_wirenets_v0.json"
+    schem_names_path = (
+        ROOT
+        / "docs"
+        / "evidence"
+        / "schematic_net_names_v0"
+        / f"{chip.lower()}_schematic_net_names_v0.json"
     )
-    schem_conn_path = ROOT / "docs" / "evidence" / "schematic_connectivity_v0" / chip / f"{chip.lower()}_schematic_connectivity_v0.json"
+    schem_wirenets_path = (
+        ROOT
+        / "docs"
+        / "evidence"
+        / "schematic_wirenets_v0"
+        / chip
+        / f"{chip.lower()}_schematic_wirenets_v0.json"
+    )
+    schem_conn_path = (
+        ROOT
+        / "docs"
+        / "evidence"
+        / "schematic_connectivity_v0"
+        / chip
+        / f"{chip.lower()}_schematic_connectivity_v0.json"
+    )
     layout_path = (
         (ROOT / args.layout_netlist_v0).resolve()
         if args.layout_netlist_v0 is not None and not args.layout_netlist_v0.is_absolute()
-        else (args.layout_netlist_v0 if args.layout_netlist_v0 is not None else ROOT / "docs" / "evidence" / "netlists_v0" / f"{chip.lower()}_netlist_v0.json")
+        else (
+            args.layout_netlist_v0
+            if args.layout_netlist_v0 is not None
+            else ROOT / "docs" / "evidence" / "netlists_v0" / f"{chip.lower()}_netlist_v0.json"
+        )
     )
     if layout_path is None:
         raise AssertionError("layout_path resolution produced None")
@@ -152,7 +186,11 @@ def main() -> int:
         layout_node = row.get("layout_node")
         note = row.get("note")
         match_conf = 1.0 if layout_node is not None else 0.0
-        layout_node_uid = node_meta.get(int(layout_node), {}).get("node_uid") if isinstance(layout_node, int) else None
+        layout_node_uid = (
+            node_meta.get(int(layout_node), {}).get("node_uid")
+            if isinstance(layout_node, int)
+            else None
+        )
         out: dict[str, object] = {
             "name": name,
             "layout_node": layout_node,
@@ -187,7 +225,9 @@ def main() -> int:
         w = int(bb.get("w", 0) or 0) if isinstance(bb, dict) else 0
         h = int(bb.get("h", 0) or 0) if isinstance(bb, dict) else 0
         if area > max_area or w > max_dim or h > max_dim:
-            filtered.append({"kind": t.get("kind"), "bbox": bb, "reason": "bbox_too_large", "area": int(area)})
+            filtered.append(
+                {"kind": t.get("kind"), "bbox": bb, "reason": "bbox_too_large", "area": int(area)}
+            )
             continue
         tr = {
             "kind": t.get("kind"),
@@ -208,18 +248,31 @@ def main() -> int:
 
     payload = {
         "chip": chip,
-        "schema": {"version": 1, "description": "Netlist v1 (v0 build): anchors + schematic wiring + device candidates."},
+        "schema": {
+            "version": 1,
+            "description": "Netlist v1 (v0 build): anchors + schematic wiring + device candidates.",
+        },
         "inputs": {
             "anchors_v0": rel_or_abs(anchors_path),
             "schematic_net_names_v0": rel_or_abs(schem_names_path),
-            "schematic_wirenets_v0": rel_or_abs(schem_wirenets_path) if schem_wirenets_path.exists() else None,
-            "schematic_connectivity_v0": rel_or_abs(schem_conn_path) if schem_conn_path.exists() else None,
+            "schematic_wirenets_v0": rel_or_abs(schem_wirenets_path)
+            if schem_wirenets_path.exists()
+            else None,
+            "schematic_connectivity_v0": rel_or_abs(schem_conn_path)
+            if schem_conn_path.exists()
+            else None,
             "layout_netlist_v0": rel_or_abs(layout_path),
             "sha256": {
                 "anchors_v0": sha256(anchors_path),
-                "schematic_net_names_v0": sha256(schem_names_path) if schem_names_path.exists() else None,
-                "schematic_wirenets_v0": sha256(schem_wirenets_path) if schem_wirenets_path.exists() else None,
-                "schematic_connectivity_v0": sha256(schem_conn_path) if schem_conn_path.exists() else None,
+                "schematic_net_names_v0": sha256(schem_names_path)
+                if schem_names_path.exists()
+                else None,
+                "schematic_wirenets_v0": sha256(schem_wirenets_path)
+                if schem_wirenets_path.exists()
+                else None,
+                "schematic_connectivity_v0": sha256(schem_conn_path)
+                if schem_conn_path.exists()
+                else None,
                 "layout_netlist_v0": sha256(layout_path),
             },
         },
@@ -238,7 +291,7 @@ def main() -> int:
             "filtered_transistors": filtered,
         },
     }
-    out_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    out_text = json.dumps(payload, indent=2, sort_keys=True) + "\n"
 
     # Merge/update manifest instead of overwriting it with a single entry.
     manifest_path = out_dir / "manifest.json"
@@ -249,19 +302,44 @@ def main() -> int:
         except Exception:
             existing = None
 
-    outputs_by_chip: dict[str, str] = {}
+    outputs_by_chip: dict[str, dict[str, str]] = {}
     if isinstance(existing, dict):
         for entry in existing.get("outputs") or []:
-            if isinstance(entry, dict) and isinstance(entry.get("chip"), str) and isinstance(entry.get("output"), str):
-                outputs_by_chip[str(entry["chip"])] = str(entry["output"])
+            if (
+                isinstance(entry, dict)
+                and isinstance(entry.get("chip"), str)
+                and isinstance(entry.get("output"), str)
+            ):
+                output = str(entry["output"])
+                output_path = Path(output) if Path(output).is_absolute() else ROOT / output
+                if not output_path.is_file():
+                    raise SystemExit(f"manifest output is missing: {output_path}")
+                outputs_by_chip[str(entry["chip"])] = {
+                    "output": output,
+                    "sha256": sha256(output_path),
+                }
 
-    outputs_by_chip[str(chip)] = rel_or_abs(out_json)
+    outputs_by_chip[str(chip)] = {
+        "output": rel_or_abs(out_json),
+        "sha256": sha256_text(out_text),
+    }
     manifest = {
+        "schema_version": 1,
         "tool": "scripts/build_netlist_v1_v0.py",
         "params": payload["params"],
-        "outputs": [{"chip": c, "output": outputs_by_chip[c]} for c in sorted(outputs_by_chip.keys())],
+        "outputs": [
+            {"chip": output_chip, **outputs_by_chip[output_chip]}
+            for output_chip in sorted(outputs_by_chip.keys())
+        ],
     }
-    manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    manifest_text = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    write_text_transaction(
+        {
+            out_json: out_text,
+            manifest_path: manifest_text,
+        },
+        root=out_dir,
+    )
 
     print(json.dumps({"out_json": str(out_json)}, indent=2))
     return 0

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "name": "i4003-shift-gate",
+  "actions": [
+    {"op": "reset"},
+    {"op": "set_enable_n", "value": 0},
+    {"op": "set_data", "value": 1},
+    {"op": "pulse_cp"},
+    {"op": "set_data", "value": 0},
+    {"op": "pulse_cp"},
+    {"op": "set_enable_n", "value": 1},
+    {"op": "set_data", "value": 1},
+    {"op": "pulse_cp"},
+    {"op": "set_enable_n", "value": 0}
+  ],
+  "expect": {
+    "parallel_out": 5,
+    "serial_out": 0,
+    "system_cycles": 9,
+    "enable_n": 0,
+    "data_in": 1
+  }
+}

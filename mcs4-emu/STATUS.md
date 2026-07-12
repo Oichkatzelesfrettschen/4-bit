@@ -1,9 +1,13 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-07-09
+**Last Updated:** 2026-07-11
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
-## Phase Summary (95% overall)
+Current capability evidence, call-graph limits, and unresolved debt live in
+docs/repository-debt-callgraph-capture-roadmap.md. The phase table below is a
+historical planning summary, not a hardware-validation claim.
+
+## Historical Phase Summary (95% planning snapshot)
 
 | Phase | Description | Status | % |
 |-------|-------------|--------|---|
@@ -34,7 +38,7 @@ duplicate copy.
 | 4004 | 4-bit CPU | COMPLETE (46 instructions, full ALU) |
 | 4001 | 256x8 ROM + 4-bit I/O | COMPLETE (bus protocol, chip select) |
 | 4002 | 320-bit RAM + 4-bit output | COMPLETE (bus protocol, bank select) |
-| 4003 | 10-bit shift register | COMPLETE (shift, cascade, port-driven, enable, 16 tests) |
+| 4003 | 10-bit shift register | IMPLEMENTED: source-bound power-on-clear state, CP shift, active-low parallel gate, serial cascade; gate and physical equivalence remain open |
 
 ### MCS-40 Family (4040-based)
 
@@ -99,9 +103,9 @@ Gate-level Verilog populated from extracted netlists (7,525 lines total).
 
 - **Language:** Rust (8 crates in workspace)
 - **Accuracy:** Gate-level with transistor/nodal solvers, SPICE-class circuit simulation (473 tests in mcs4-core)
-- **SIMD:** 16-lane parallel 4004 execution with full ISA, differential fuzzing (nightly feature)
+- **SIMD:** 8-lane, feature-gated fetch and register-ADD kernel with deterministic scalar differential tests; it is not a full-ISA CPU implementation
 - **Process models:** Intel 10um pMOS: I/O drivers, power, ESD, ROM/SRAM cells
-- **FPGA:** 22 synthesizable behavioral Verilog modules, gate-level Verilog, iCE40+Spartan-7 constraints
+- **FPGA:** 22 behavioral Verilog modules, gate-level Verilog, iCE40+Spartan-7 constraints; generic 4003 power-on initialization requires target-specific synthesis verification
 - **Approach:** Cleanroom from primary Intel documentation
 - **Scope:** MCS-4 (4004) + MCS-40 (4040) chip families
 

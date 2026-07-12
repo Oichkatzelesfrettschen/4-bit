@@ -16,7 +16,7 @@
 
 use mcs4_bus::prelude::*;
 use mcs4_chips::{i4004::I4004, Chip};
-use mcs4_core::prelude::SignalLevel;
+use mcs4_core::{prelude::SignalLevel, timing::clock_spec};
 
 /// Minimal single-CPU harness: ROM fetch plus a peripheral-driven X3 read value.
 struct Cpu {
@@ -137,6 +137,37 @@ fn chip_reset_clears_execution_state() {
     assert_eq!(harness.cpu.accumulator(), 0);
     assert!(!harness.cpu.carry());
     assert!(!harness.cpu.test_pin());
+}
+
+#[test]
+fn timing_snapshot_tracks_cpu_owned_phase_progress() {
+    let mut harness = Cpu::new();
+    harness.tick_phase();
+    let first = harness.cpu.timing_snapshot();
+    assert_eq!(first.completed_phase, Some(BusCycle::A1));
+    assert_eq!(first.next_phase, BusCycle::A2);
+    assert_eq!(first.phase_start_ps, 0);
+    assert_eq!(first.elapsed_ps, clock_spec::TCY_TYP);
+    assert_eq!(first.machine_cycles, 0);
+    assert_eq!(first.instruction_count, 0);
+    assert_eq!(first.violation, None);
+
+    harness.tick_phase();
+    let second = harness.cpu.timing_snapshot();
+    assert_eq!(second.completed_phase, Some(BusCycle::A2));
+    assert_eq!(second.phase_start_ps, clock_spec::TCY_TYP);
+    assert_eq!(second.elapsed_ps, 2 * clock_spec::TCY_TYP);
+}
+
+#[test]
+fn chip_reset_resets_timing_observation_without_discarding_profile() {
+    let mut harness = Cpu::new();
+    harness.tick_phase();
+    let profile = harness.cpu.timing.profile().clone();
+    harness.cpu.reset();
+    assert_eq!(harness.cpu.timing.profile(), &profile);
+    assert_eq!(harness.cpu.timing_snapshot().completed_phase, None);
+    assert_eq!(harness.cpu.timing_snapshot().elapsed_ps, 0);
 }
 
 // ---------------------------------------------------------------------------

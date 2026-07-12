@@ -5,6 +5,7 @@
 #![allow(missing_docs)]
 
 pub mod panels;
+pub mod session;
 pub mod signal_trace;
 
 pub mod app;

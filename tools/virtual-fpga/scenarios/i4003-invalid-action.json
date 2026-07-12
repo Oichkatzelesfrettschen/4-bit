@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "actions": [
+    {"op": "drive_undocumented_pin"}
+  ]
+}

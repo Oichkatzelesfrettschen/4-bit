@@ -2,6 +2,10 @@
 // Chip: 4004
 // Tool: gate_to_verilog_v0.py
 // Ports derived from netlist_v1 signal anchors (layout_node)
+// Export contract: incomplete; output CLK1 reaches n415 with 128 drivers.
+// This artifact does not establish chip-level functional equivalence.
+
+`timescale 1ns/1ps
 
 module i4004_gates (
     input wire VDD,

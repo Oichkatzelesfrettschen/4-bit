@@ -6,4 +6,4 @@
 
 pub mod verilog;
 
-pub use verilog::VerilogExporter;
+pub use verilog::{supported_targets, ChipTarget, ExportError, ExportFlavor, ExportRequest, VerilogExporter};

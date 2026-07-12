@@ -1,6 +1,6 @@
 metadata:
   version: "1.2"
-  last_updated: "2026-07-09T00:00:00Z"
+  last_updated: "2026-07-11T00:00:00Z"
 
 docs:
   - file: README.md
@@ -51,6 +51,20 @@ docs:
     role: roadmap
   - file: docs/DEBT_ROADMAP.md
     role: debt-roadmap
+  - file: docs/DEVELOPER_BUNDLE.md
+    role: developer-bundle
+  - file: docs/BUILD_ENVIRONMENT.md
+    role: build-environment
+  - file: docs/SECURITY.md
+    role: security
+  - file: docs/CAPABILITY_MATRIX.md
+    role: capability-matrix
+  - file: docs/TIMING_PROVENANCE.md
+    role: provenance
+  - file: docs/meta/capabilities.json
+    role: metadata
+  - file: docs/repository-debt-callgraph-capture-roadmap.md
+    role: audit-roadmap
   - file: docs/TODO.md
     role: tracking
   - file: docs/INDEX.md
@@ -94,6 +108,14 @@ docs:
   - file: docs/emulators/README.md
     role: reference
   - file: docs/evidence/README.md
+    role: evidence
+  - file: docs/evidence/callgraph-runtime-capture.md
+    role: evidence
+  - file: docs/evidence/gate-hdl-export-contract.md
+    role: evidence
+  - file: docs/evidence/fpga-board-clock-and-conformance-blockers.md
+    role: evidence
+  - file: docs/evidence/timing_parameters.json
     role: evidence
   - file: docs/evidence/DIAGRAM_EXTRACTION.md
     role: evidence

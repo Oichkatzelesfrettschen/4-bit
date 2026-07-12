@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "source": {
+    "document": "docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf",
+    "ocr": "docs/evidence/ocr/mcs40_users_manual.txt",
+    "scope": "The corpus covers CP edge behavior, E output masking, serial independence, and power-on clear only. It does not define Q0 through Q9 stage order for gate-level equivalence."
+  },
+  "scenarios": [
+    {
+      "name": "power_on_clear",
+      "source_locator": "docs/evidence/ocr/mcs40_users_manual.txt:8974-8977",
+      "operations": [
+        {"op": "set_enable_n", "value": false}
+      ],
+      "expect": {"parallel_out": 0, "serial_out": false}
+    },
+    {
+      "name": "cp_rising_edge_samples_data",
+      "source_locator": "docs/evidence/ocr/mcs40_users_manual.txt:8855-8859",
+      "operations": [
+        {"op": "set_enable_n", "value": false},
+        {"op": "set_data", "value": true},
+        {"op": "pulse_cp"},
+        {"op": "set_data", "value": false},
+        {"op": "pulse_cp"}
+      ],
+      "expect": {"parallel_out": 2, "serial_out": false}
+    },
+    {
+      "name": "e_high_masks_parallel_but_keeps_serial_live",
+      "source_locator": "docs/evidence/ocr/mcs40_users_manual.txt:8888-8899",
+      "operations": [
+        {"op": "set_enable_n", "value": true},
+        {"op": "set_data", "value": true},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"},
+        {"op": "pulse_cp"}
+      ],
+      "expect": {"parallel_out": 0, "serial_out": true}
+    },
+    {
+      "name": "e_low_reveals_shifted_state",
+      "source_locator": "docs/evidence/ocr/mcs40_users_manual.txt:8888-8899",
+      "operations": [
+        {"op": "set_enable_n", "value": true},
+        {"op": "set_data", "value": true},
+        {"op": "pulse_cp"},
+        {"op": "set_data", "value": false},
+        {"op": "pulse_cp"},
+        {"op": "set_enable_n", "value": false}
+      ],
+      "expect": {"parallel_out": 2, "serial_out": false}
+    }
+  ]
+}

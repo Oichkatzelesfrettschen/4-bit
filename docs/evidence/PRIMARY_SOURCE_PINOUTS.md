@@ -64,6 +64,35 @@ Notes:
 
 - The repo’s schematic-side naming uses `CLOCK`/`DATA`/`EN`/`OUT` for the serial interface, and uses `Q0..Q9` for the 10 parallel outputs (see `docs/emulators/i4003-signals.txt`). These correspond to the primary-source `O0..O9` pins.
 
+### External behavioral contract
+
+- The retained MCS-40 Users Manual OCR at
+  docs/evidence/ocr/mcs40_users_manual.txt lines 8855-8859 states that a CP
+  transition from 0 to 1 shifts data in.
+- Lines 8888-8899 and 8963-8972 state that E low exposes valid parallel
+  output data, E high drives the parallel outputs to VSS, and serial output
+  remains unaffected so devices can cascade.
+- Lines 8974-8977 state that power-on clear clears the shift register before
+  the first CP signal. They do not establish a power-on level for the
+  externally driven E input.
+- Lines 10423-10434 specify a 200 to 1250 ns CP-to-serial-output delay for
+  the stated load condition.
+
+The behavioral Rust and generated behavioral Verilog models enforce this
+external contract. The standalone Rust constructor holds E low only so its
+parallel outputs remain observable until a caller drives the pin. That
+convenience default is not a primary-source claim about package power-up.
+The generic behavioral Verilog module represents power-on clear with an
+initialized shift register. The FPGA-safe module clears the same state through
+its host reset. Target synthesis must verify that either mechanism maps to the
+deployed hardware reset or initialization behavior.
+The behavioral models do not schedule the retained CP-to-serial-output delay;
+that timing remains a fidelity and hardware-validation boundary.
+
+The retained text does not establish a complete per-stage Q0 through Q9
+state-order vector relative to serial output. It therefore does not establish
+equivalence with the partial extracted 4003 gate artifact.
+
 ## 4004 (CPU)
 
 - **Source**: `docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf`

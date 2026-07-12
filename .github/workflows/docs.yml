@@ -24,6 +24,8 @@ jobs:
         run: scripts/doc_sync.sh
       - name: Markdown Validate
         run: scripts/md_validate.sh
+      - name: Check local Markdown links
+        run: scripts/link_check.sh
       - name: OCR smoke
         run: python3 scripts/ocr_regression_smoke.py
 
@@ -56,7 +58,7 @@ jobs:
         run: echo "SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)" >> "$GITHUB_ENV"
 
       - name: Build rustdoc
-        run: cargo doc --workspace --no-deps --all-features
+        run: cargo doc --workspace --no-deps --all-features --locked
         env:
           RUSTDOCFLAGS: "-D warnings"
 
@@ -74,8 +76,19 @@ jobs:
 
       - name: Install mdBook
         run: |
-          curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.44/mdbook-v0.4.44-x86_64-unknown-linux-gnu.tar.gz \
-            | tar -xz -C /usr/local/bin
+          set -euo pipefail
+          mdbook_version=0.4.44
+          mdbook_sha256=326973fddabd7ff501f140ab529f3ede5f3f83f1a66ecc7e20adfec78eb6fc2a
+          archive="$RUNNER_TEMP/mdbook-${mdbook_version}-x86_64-unknown-linux-gnu.tar.gz"
+          install_dir="$RUNNER_TEMP/mdbook-${mdbook_version}"
+          mkdir -p "$install_dir"
+          curl --fail --location --retry 3 --silent --show-error \
+            --output "$archive" \
+            "https://github.com/rust-lang/mdBook/releases/download/v${mdbook_version}/mdbook-v${mdbook_version}-x86_64-unknown-linux-gnu.tar.gz"
+          printf '%s  %s\n' "$mdbook_sha256" "$archive" | sha256sum --check --status
+          tar -xzf "$archive" --no-same-owner -C "$install_dir"
+          install -m 0755 "$install_dir/mdbook" "$RUNNER_TEMP/mdbook"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
 
       - name: Set SOURCE_DATE_EPOCH
         # Pin the build timestamp to the commit time so the mdbook output is
@@ -93,9 +106,9 @@ jobs:
           retention-days: 7
 
   deploy-docs:
-    needs: [rustdoc, mdbook]
+    needs: [validate, rustdoc, mdbook]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch'
     permissions:
       pages: write
       id-token: write

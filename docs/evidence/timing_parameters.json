@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "parameters": [
+    {
+      "id": "4004-clock-period",
+      "quantity": "4004 clock period",
+      "unit": "ps",
+      "bounds": {
+        "minimum": 1350000,
+        "maximum": 2000000
+      },
+      "selected_value": 1350000,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/4004-datasheet.txt",
+        "line_start": 752,
+        "line_end": 752,
+        "required_tokens": ["Clock Period", "1.35", "2.0"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-core/src/timing.rs",
+          "symbol": "TCY_TYP"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4004/timing_io.rs",
+          "symbol": "phase_period_ps"
+        }
+      ],
+      "limitation": "The selected value defines deterministic logical timing and does not calibrate a physical part.",
+      "falsifier": "A source correction or a calibrated trace that conflicts with the bound invalidates this parameter record."
+    },
+    {
+      "id": "4004-clock-rise-time",
+      "quantity": "4004 clock rise time",
+      "unit": "ps",
+      "bounds": {
+        "minimum": 50000,
+        "maximum": 50000
+      },
+      "selected_value": 50000,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/4004-datasheet.txt",
+        "line_start": 753,
+        "line_end": 753,
+        "required_tokens": ["Clock Rise", "50", "ns"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-core/src/timing.rs",
+          "symbol": "T0R"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-bus/src/clock.rs",
+          "symbol": "rise_time"
+        }
+      ],
+      "limitation": "The source table records one retained value; the emulator does not model waveform slew at transistor level.",
+      "falsifier": "A corrected source locator or a source-qualified waveform measurement that differs from 50 ns invalidates this record."
+    },
+    {
+      "id": "4004-clock-fall-time",
+      "quantity": "4004 clock fall time",
+      "unit": "ps",
+      "bounds": {
+        "minimum": 50000,
+        "maximum": 50000
+      },
+      "selected_value": 50000,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/4004-datasheet.txt",
+        "line_start": 754,
+        "line_end": 754,
+        "required_tokens": ["Clock Fall", "50", "ns"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-core/src/timing.rs",
+          "symbol": "T0F"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-bus/src/clock.rs",
+          "symbol": "fall_time"
+        }
+      ],
+      "limitation": "The source table records one retained value; the emulator does not model waveform slew at transistor level.",
+      "falsifier": "A corrected source locator or a source-qualified waveform measurement that differs from 50 ns invalidates this record."
+    },
+    {
+      "id": "4004-clock-pulse-width",
+      "quantity": "4004 clock pulse width",
+      "unit": "ps",
+      "bounds": {
+        "minimum": 380000,
+        "maximum": 480000
+      },
+      "selected_value": 380000,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/4004-datasheet.txt",
+        "line_start": 755,
+        "line_end": 755,
+        "required_tokens": ["Clock Width", "380", "480", "ns"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-core/src/timing.rs",
+          "symbol": "T0PW_MIN"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4004/timing_io.rs",
+          "symbol": "phi1_width_ps"
+        }
+      ],
+      "limitation": "TimingIo uses the lower bound to create a deterministic logical waveform, not a measured per-chip pulse width.",
+      "falsifier": "A source correction or a pulse model outside the documented interval invalidates this record."
+    },
+    {
+      "id": "4004-phi1-to-phi2-delay",
+      "quantity": "4004 PHI1-to-PHI2 clock delay",
+      "unit": "ps",
+      "bounds": {
+        "minimum": 400000,
+        "maximum": 550000
+      },
+      "selected_value": 400000,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/4004-datasheet.txt",
+        "line_start": 756,
+        "line_end": 756,
+        "required_tokens": ["Clock Delay", "400", "550", "ns"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-core/src/timing.rs",
+          "symbol": "T0D1_MIN"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4004/timing_io.rs",
+          "symbol": "phi1_to_phi2_gap_ps"
+        }
+      ],
+      "limitation": "The logical model preserves the lower bound and does not model board-specific clock skew.",
+      "falsifier": "A source correction or a qualified measurement outside the documented interval invalidates this record."
+    },
+    {
+      "id": "4004-phi2-to-phi1-delay",
+      "quantity": "4004 PHI2-to-PHI1 clock delay",
+      "unit": "ps",
+      "bounds": {
+        "minimum": 150000,
+        "maximum": 970000
+      },
+      "selected_value": 190000,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/4004-datasheet.txt",
+        "line_start": 757,
+        "line_end": 757,
+        "required_tokens": ["Clock Delay", "150", "ns"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-core/src/timing.rs",
+          "symbol": "T0D2_MIN"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4004/timing_io.rs",
+          "symbol": "phi2_to_phi1_gap_ps"
+        }
+      ],
+      "limitation": "The source gives a 150 ns lower bound but no maximum. The ledger maximum is the residual permitted by the selected period and lower waveform bounds, not a datasheet upper bound.",
+      "falsifier": "A source-qualified upper bound or a waveform model that contradicts the residual construction requires a new record."
+    },
+    {
+      "id": "mcs4-basic-instruction-clock-count",
+      "quantity": "MCS-4 basic instruction clock periods",
+      "unit": "clock-periods",
+      "bounds": {
+        "minimum": 8,
+        "maximum": 16
+      },
+      "selected_value": 8,
+      "status": "primary-ocr",
+      "source": {
+        "kind": "primary-ocr",
+        "path": "docs/evidence/ocr/mcs4_data_sheet_nov71.txt",
+        "line_start": 381,
+        "line_end": 386,
+        "required_tokens": ["Basic instruction execution", "8", "16", "clock"]
+      },
+      "use_sites": [
+        {
+          "path": "mcs4-emu/crates/mcs4-bus/src/cycle.rs",
+          "symbol": "BusCycle"
+        },
+        {
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4004/timing_io.rs",
+          "symbol": "checked_mul(8)"
+        }
+      ],
+      "limitation": "The record bounds basic instruction execution. It does not assign a fixed elapsed time to every opcode or peripheral operation.",
+      "falsifier": "A decoded instruction trace that requires a clock count outside the stated source interval invalidates this record."
+    }
+  ]
+}

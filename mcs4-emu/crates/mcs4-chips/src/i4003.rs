@@ -1,15 +1,16 @@
 //! Intel 4003 10-bit Shift Register
 //!
 //! The 4003 is a 10-bit serial-in, parallel-out shift register used for
-//! I/O expansion in MCS-4 and MCS-40 systems. It is clocked by the
-//! 4002 RAM output port: one port bit provides the clock, another the
-//! serial data input. Multiple 4003s can be cascaded by connecting
+//! I/O expansion in MCS-4 and MCS-40 systems. CP shifts the register on a
+//! rising edge. The physical E input is active low: E low exposes the
+//! parallel outputs and E high drives those outputs to VSS. E does not gate
+//! CP shifting or serial output. Multiple 4003s can be cascaded by connecting
 //! serial_out of one chip to set_data_in of the next.
 //!
 //! Typical connection via 4002 output port:
 //! - Port bit 0 -> 4003 serial data in
 //! - Port bit 1 -> 4003 clock
-//! - (bits 2-3 for additional 4003 enables or directly to I/O)
+//! - (a separate port bit drives each active-low 4003 E input when needed)
 //!
 //! The WMP instruction writes the accumulator to the 4002 output port,
 //! which in turn drives the 4003.
@@ -29,8 +30,8 @@ pub struct I4003 {
     /// Clock pin state (prev)
     last_clock: bool,
 
-    /// Enable pin (directly from 4002 output port or active-tied high)
-    enabled: bool,
+    /// Physical E input level. E low exposes the parallel output pins.
+    enable_pin: bool,
 
     /// Simulation fidelity level
     pub(crate) fidelity: SimulationFidelity,
@@ -48,7 +49,9 @@ impl I4003 {
             data: 0,
             serial_in: false,
             last_clock: false,
-            enabled: true, // default enabled for standalone use
+            // Standalone construction holds E low so existing convenience users
+            // can observe the parallel outputs until they model a physical E pin.
+            enable_pin: false,
             fidelity: SimulationFidelity::Behavioral,
         }
     }
@@ -66,19 +69,40 @@ impl I4003 {
         self.serial_in = state;
     }
 
-    /// Set enable pin
-    pub fn set_enable(&mut self, state: bool) {
-        self.enabled = state;
+    /// Drive the physical active-low E input.
+    ///
+    /// A low level exposes the parallel output pins. A high level drives the
+    /// parallel output pins to VSS without stopping CP shifting or serial output.
+    pub fn set_enable_pin(&mut self, level: bool) {
+        self.enable_pin = level;
     }
 
-    /// Current enable state
+    /// Return the physical active-low E input level.
+    pub fn enable_pin(&self) -> bool {
+        self.enable_pin
+    }
+
+    /// Report whether the physical E input exposes the parallel output pins.
+    pub fn parallel_outputs_enabled(&self) -> bool {
+        !self.enable_pin
+    }
+
+    /// Set parallel-output visibility with the historical API semantics.
+    ///
+    /// true exposes the parallel outputs. false drives them to VSS.
+    /// Use set_enable_pin when modeling the physical active-low E input.
+    pub fn set_enable(&mut self, enabled: bool) {
+        self.set_enable_pin(!enabled);
+    }
+
+    /// Report whether the parallel output pins are exposed.
     pub fn is_enabled(&self) -> bool {
-        self.enabled
+        self.parallel_outputs_enabled()
     }
 
-    /// Pulse the clock line. Only shifts on rising edge when enabled.
+    /// Drive CP. The register shifts on every rising edge.
     pub fn set_clock(&mut self, state: bool) {
-        if self.enabled && !self.last_clock && state {
+        if !self.last_clock && state {
             // Rising edge: shift in
             self.data = ((self.data << 1) | (self.serial_in as u16)) & 0x3FF;
         }
@@ -87,9 +111,10 @@ impl I4003 {
 
     /// Drive from a 4002 output port nibble.
     ///
-    /// Convention: bit 0 = serial data, bit 1 = clock.
-    /// This mirrors the standard MCS-4 wiring where the CPU writes
-    /// to the RAM output port via WMP, and the port drives the 4003.
+    /// Convention: bit 0 = serial data, bit 1 = CP.
+    ///
+    /// This helper does not drive E. Use set_enable_pin to model that
+    /// separately wired active-low input.
     pub fn drive_from_port(&mut self, port_nibble: u8) {
         self.set_data_in(port_nibble & 0x01 != 0);
         self.set_clock(port_nibble & 0x02 != 0);
@@ -97,13 +122,17 @@ impl I4003 {
 
     /// Get current parallel output
     pub fn parallel_out(&self) -> u16 {
-        self.data
+        if self.parallel_outputs_enabled() {
+            self.data
+        } else {
+            0
+        }
     }
 
     /// Get individual output bit (0-9)
     pub fn output_bit(&self, bit: u8) -> bool {
         if bit < 10 {
-            (self.data >> bit) & 1 != 0
+            (self.parallel_out() >> bit) & 1 != 0
         } else {
             false
         }
@@ -122,7 +151,7 @@ impl super::Chip for I4003 {
     fn reset(&mut self) {
         self.data = 0;
         self.last_clock = false;
-        self.enabled = true;
+        // E is an external input and retains its driven level.
     }
     fn tick(&mut self, _phase: BusCycle) {
         // Behavioral model: clock is driven by I/O instructions (WMP/WRR)
@@ -474,20 +503,40 @@ mod tests {
     // --- B.1.3: Enable pin tests ---
 
     #[test]
-    fn disabled_ignores_clock() {
+    fn enable_high_masks_parallel_outputs_without_stopping_shift() {
         let mut sr = I4003::new();
+        sr.set_enable_pin(true);
+        assert!(sr.enable_pin());
+        assert!(!sr.parallel_outputs_enabled());
+
+        for _ in 0..10 {
+            sr.shift_in(true);
+        }
+
+        // E high masks only the parallel output pins.
+        assert_eq!(sr.parallel_out(), 0);
+        assert!(!sr.output_bit(9));
+        assert!(sr.serial_out());
+
+        sr.set_enable_pin(false);
+        assert!(!sr.enable_pin());
+        assert!(sr.parallel_outputs_enabled());
+        assert_eq!(sr.parallel_out(), 0x3FF);
+        assert!(sr.output_bit(9));
+        assert!(sr.serial_out());
+    }
+
+    #[test]
+    fn compatibility_enable_wrapper_controls_parallel_output_visibility() {
+        let mut sr = I4003::new();
+        sr.shift_in(true);
+
         sr.set_enable(false);
-
-        sr.shift_in(true);
-        sr.shift_in(true);
-        sr.shift_in(true);
-
-        // Nothing should have shifted
+        assert!(!sr.is_enabled());
         assert_eq!(sr.parallel_out(), 0);
 
-        // Re-enable and shift
         sr.set_enable(true);
-        sr.shift_in(true);
+        assert!(sr.is_enabled());
         assert_eq!(sr.parallel_out(), 1);
     }
 

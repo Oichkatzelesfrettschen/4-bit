@@ -48,6 +48,10 @@ IO_LOC "btn_s2" 21;
 IO_PORT "btn_s2" IO_TYPE=LVCMOS33 PULL_MODE=UP;
 
 // ============================================================
-// NOTE: No external clock pin needed.
-// The design uses the Gowin OSCH internal oscillator primitive.
+// Clock boundary
 // ============================================================
+// mcs4_top requires a sys_clk_in board route. This constraint file does not
+// assign that input because the KIWI board clock source, pin, voltage bank,
+// and measured frequency remain unverified. Synthesis is useful for resource
+// inspection; programming is blocked by the Makefile until a reviewed record
+// names sys_clk_in and the corresponding constraint is added here.

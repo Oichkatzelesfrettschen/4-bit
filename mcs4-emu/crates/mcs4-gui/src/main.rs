@@ -51,6 +51,10 @@ struct Args {
     /// Fail the fixture run if any I/O control op appears in the wrong bus phase.
     #[arg(long, default_value_t = false)]
     strict_io_phases: bool,
+
+    /// Read shared trace-frame JSONL into the GUI waveform and provenance panels.
+    #[arg(long)]
+    trace_frames: Option<PathBuf>,
 }
 
 fn fixtures_dir() -> PathBuf {
@@ -88,12 +92,12 @@ fn main() -> eframe::Result<()> {
 
     let args = Args::parse();
     match args.mode {
-        Mode::Gui => run_gui(),
+        Mode::Gui => run_gui(args.trace_frames),
         Mode::Fixture => run_fixture(args),
     }
 }
 
-fn run_gui() -> eframe::Result<()> {
+fn run_gui(trace_frames: Option<PathBuf>) -> eframe::Result<()> {
     use eframe::egui;
 
     let options = eframe::NativeOptions {
@@ -103,7 +107,11 @@ fn run_gui() -> eframe::Result<()> {
         ..Default::default()
     };
 
-    eframe::run_native("mcs4-emu", options, Box::new(|cc| Ok(Box::new(Mcs4App::new(cc)))))
+    eframe::run_native(
+        "mcs4-emu",
+        options,
+        Box::new(move |cc| Ok(Box::new(Mcs4App::new_with_trace_frames(cc, trace_frames.as_deref())))),
+    )
 }
 
 fn run_fixture(args: Args) -> eframe::Result<()> {

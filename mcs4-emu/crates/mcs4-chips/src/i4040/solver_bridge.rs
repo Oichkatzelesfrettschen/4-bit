@@ -1,7 +1,13 @@
-//! Solver bridge for the Intel 4040 CPU.
+//! Solver bridge contract for the Intel 4040 CPU.
+//!
+//! No extracted Intel 4040 transistor netlist exists in this repository.
+//! The bridge therefore exposes no physical 4040 pin map or physical 4040
+//! subcircuit. It exposes one explicitly labeled 4004 reference graph so
+//! callers can exercise the solver interface without mistaking the graph for
+//! 4040 silicon evidence.
 
 use mcs4_core::{
-    bridge::{ChipSolverBridge, PinDirection, PinMapping},
+    bridge::{ChipSolverBridge, PinMapping},
     circuit::graph::CircuitGraph,
     fidelity::SimulationFidelity,
 };
@@ -19,101 +25,78 @@ impl ChipSolverBridge for I4040 {
     }
 
     fn subcircuit_names(&self) -> Vec<&str> {
-        vec!["clock_buffer"]
+        vec!["reference_4004_clock_buffer"]
     }
 
     fn subcircuit(&self, name: &str) -> Option<CircuitGraph> {
         match name {
-            // For now, share the 4004's reference subcircuits
-            "clock_buffer" => Some(I4004::build_clock_buffer()),
+            // This graph is a solver reference only. It is not an extracted
+            // Intel 4040 subcircuit.
+            "reference_4004_clock_buffer" => Some(I4004::build_clock_buffer()),
             _ => None,
         }
     }
 
     fn pin_map(&self) -> Vec<PinMapping> {
-        // 4040 pin mapping (extends 4004)
-        vec![
-            PinMapping {
-                name: "CLK1".to_string(),
-                node_id: 415,
-                direction: PinDirection::Input,
-            },
-            PinMapping {
-                name: "CLK2".to_string(),
-                node_id: 1230,
-                direction: PinDirection::Input,
-            },
-            PinMapping {
-                name: "SYNC".to_string(),
-                node_id: 1261,
-                direction: PinDirection::Output,
-            },
-            PinMapping {
-                name: "RESET".to_string(),
-                node_id: 1232,
-                direction: PinDirection::Input,
-            },
-            PinMapping {
-                name: "TEST".to_string(),
-                node_id: 1267,
-                direction: PinDirection::Input,
-            },
-            PinMapping {
-                name: "CMROM".to_string(),
-                node_id: 716,
-                direction: PinDirection::Output,
-            },
-            PinMapping {
-                name: "D0".to_string(),
-                node_id: 3442,
-                direction: PinDirection::Bidirectional,
-            },
-            PinMapping {
-                name: "D1".to_string(),
-                node_id: 598,
-                direction: PinDirection::Bidirectional,
-            },
-            PinMapping {
-                name: "D2".to_string(),
-                node_id: 3426,
-                direction: PinDirection::Bidirectional,
-            },
-            PinMapping {
-                name: "D3".to_string(),
-                node_id: 2815,
-                direction: PinDirection::Bidirectional,
-            },
-            PinMapping {
-                name: "CMRAM0".to_string(),
-                node_id: 3431,
-                direction: PinDirection::Output,
-            },
-            PinMapping {
-                name: "CMRAM1".to_string(),
-                node_id: 3428,
-                direction: PinDirection::Output,
-            },
-            PinMapping {
-                name: "CMRAM2".to_string(),
-                node_id: 2997,
-                direction: PinDirection::Output,
-            },
-            PinMapping {
-                name: "CMRAM3".to_string(),
-                node_id: 405,
-                direction: PinDirection::Output,
-            },
-            // 4040 extensions (node IDs estimated for now)
-            PinMapping {
-                name: "INT".to_string(),
-                node_id: 9999,
-                direction: PinDirection::Input,
-            },
-            PinMapping {
-                name: "STOP".to_string(),
-                node_id: 9998,
-                direction: PinDirection::Input,
-            },
-        ]
+        // No extracted 4040 netlist establishes physical pin-to-node IDs.
+        Vec::new()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use mcs4_core::{
+        bridge::ChipSolverBridge,
+        process::ProcessParams,
+        solver::{DcSolver, SolverConfig},
+        SimulationFidelity,
+    };
+
+    use super::*;
+
+    #[test]
+    fn bridge_exposes_only_labeled_reference_subcircuit() {
+        let cpu = I4040::new();
+        assert_eq!(cpu.subcircuit_names(), vec!["reference_4004_clock_buffer"]);
+        assert!(cpu.subcircuit("clock_buffer").is_none());
+        assert!(cpu.subcircuit("unknown").is_none());
+    }
+
+    #[test]
+    fn reference_graph_has_expected_solver_structure() {
+        let cpu = I4040::new();
+        let graph = cpu
+            .subcircuit("reference_4004_clock_buffer")
+            .expect("labeled reference graph");
+
+        assert_eq!(graph.nodes.len(), 6);
+        assert_eq!(graph.transistor_count(), 6);
+        assert!(graph.vdd_idx.is_some());
+        assert!(graph.vss_idx.is_some());
+    }
+
+    #[test]
+    fn reference_graph_converges_without_claiming_i4040_silicon() {
+        let cpu = I4040::new();
+        let mut graph = cpu
+            .subcircuit("reference_4004_clock_buffer")
+            .expect("labeled reference graph");
+        let solver = DcSolver::new(SolverConfig::small_circuit(), ProcessParams::default());
+        let result = solver.solve(&mut graph);
+
+        assert!(result.converged, "reference graph must converge");
+    }
+
+    #[test]
+    fn physical_pin_map_stays_empty_without_i4040_netlist_evidence() {
+        let cpu = I4040::new();
+        assert!(cpu.pin_map().is_empty());
+    }
+
+    #[test]
+    fn fidelity_transitions_remain_available() {
+        let mut cpu = I4040::new();
+        cpu.set_fidelity(SimulationFidelity::NodalLevel);
+        assert_eq!(cpu.fidelity(), SimulationFidelity::NodalLevel);
     }
 }

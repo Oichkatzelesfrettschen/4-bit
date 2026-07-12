@@ -1,64 +1,105 @@
+//! Bounded shared trace storage for versioned cross-fidelity frames.
+
 use std::collections::VecDeque;
 
-use mcs4_bus::prelude::*;
+use mcs4_system::{TraceFrame, TraceFrameError};
 
-/// Maximum number of samples to keep
-const MAX_SAMPLES: usize = 100_000;
+/// Maximum number of frames retained by the interactive UI.
+pub const MAX_FRAMES: usize = 100_000;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct Sample {
-    pub tick: u64,
-    pub phi1: bool,
-    pub phi2: bool,
-    pub sync: bool,
-    pub data: u8,   // 4-bit data bus
-    pub cm_rom: u8, // 4-bit ROM select
-    pub cm_ram: u8, // 4-bit RAM select
-    pub phase: BusCycle,
+/// Stable identity of a retained frame.
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+pub struct FrameId {
+    /// Run identity. A reset creates a new run.
+    pub run_id: u64,
+    /// Phase-unique sequence within the run.
+    pub sequence: u64,
 }
 
+impl From<&TraceFrame> for FrameId {
+    fn from(frame: &TraceFrame) -> Self {
+        Self {
+            run_id: frame.run_id,
+            sequence: frame.sequence,
+        }
+    }
+}
+
+/// Retained window and explicit loss accounting for a bounded trace.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct TraceRetention {
+    /// First retained frame, if the trace holds data.
+    pub first: Option<FrameId>,
+    /// Last retained frame, if the trace holds data.
+    pub last: Option<FrameId>,
+    /// Number of frames evicted because the UI retention bound is full.
+    pub dropped_frame_count: u64,
+}
+
+/// Frame store consumed by waveform, provenance, and replay panels.
 pub struct SignalTrace {
-    samples: VecDeque<Sample>,
+    frames: VecDeque<TraceFrame>,
+    dropped_frame_count: u64,
 }
 
 impl SignalTrace {
+    /// Create an empty bounded trace store.
     pub fn new() -> Self {
         Self {
-            samples: VecDeque::with_capacity(MAX_SAMPLES),
+            frames: VecDeque::with_capacity(MAX_FRAMES),
+            dropped_frame_count: 0,
         }
     }
 
-    pub fn push(&mut self, tick: u64, bus: &DataBus, ctrl: &ControlSignals, phase: BusCycle, clock: &TwoPhaseClock) {
-        if self.samples.len() >= MAX_SAMPLES {
-            self.samples.pop_front();
+    /// Validate and retain one canonical frame.
+    pub fn push_frame(&mut self, frame: TraceFrame) -> Result<(), TraceFrameError> {
+        frame.validate()?;
+        if self.frames.len() >= MAX_FRAMES {
+            let _ = self.frames.pop_front();
+            self.dropped_frame_count += 1;
         }
-
-        self.samples.push_back(Sample {
-            tick,
-            phi1: clock.phi1_high(),
-            phi2: clock.phi2_high(),
-            sync: ctrl.sync.current == mcs4_core::signal::SignalLevel::High,
-            data: bus.read(),
-            cm_rom: ctrl.cm_rom(),
-            cm_ram: ctrl.cm_ram(),
-            phase,
-        });
+        self.frames.push_back(frame);
+        Ok(())
     }
 
-    pub fn iter(&self) -> std::collections::vec_deque::Iter<'_, Sample> {
-        self.samples.iter()
+    /// Iterate retained frames in insertion order.
+    pub fn iter(&self) -> std::collections::vec_deque::Iter<'_, TraceFrame> {
+        self.frames.iter()
     }
 
+    /// Return one retained frame by stable identity.
+    pub fn frame(&self, id: FrameId) -> Option<&TraceFrame> {
+        self.frames.iter().find(|frame| FrameId::from(*frame) == id)
+    }
+
+    /// Return one retained frame by its current display offset.
+    pub fn frame_at(&self, offset: usize) -> Option<&TraceFrame> {
+        self.frames.get(offset)
+    }
+
+    /// Return the current retention window and any evicted-frame count.
+    pub fn retention(&self) -> TraceRetention {
+        TraceRetention {
+            first: self.frames.front().map(FrameId::from),
+            last: self.frames.back().map(FrameId::from),
+            dropped_frame_count: self.dropped_frame_count,
+        }
+    }
+
+    /// Return the number of retained frames.
     pub fn len(&self) -> usize {
-        self.samples.len()
+        self.frames.len()
     }
 
+    /// Return whether no frame is retained.
     pub fn is_empty(&self) -> bool {
-        self.samples.is_empty()
+        self.frames.is_empty()
     }
 
+    /// Clear retained UI history and its loss accounting.
     pub fn clear(&mut self) {
-        self.samples.clear();
+        self.frames.clear();
+        self.dropped_frame_count = 0;
     }
 }
 
@@ -70,7 +111,17 @@ impl Default for SignalTrace {
 
 #[cfg(test)]
 mod tests {
+    use mcs4_system::{Mcs4System, ReplaySession};
+
     use super::*;
+
+    fn frame(sequence: u64) -> TraceFrame {
+        let mut session = ReplaySession::<Mcs4System>::new();
+        for _ in 0..sequence {
+            let _ = session.step_phase().expect("step phase");
+        }
+        session.last_frame().expect("frame").clone()
+    }
 
     #[test]
     fn new_trace_is_empty() {
@@ -80,116 +131,44 @@ mod tests {
     }
 
     #[test]
-    fn push_increments_len() {
+    fn frame_identity_selects_the_phase_unique_record() {
         let mut trace = SignalTrace::new();
-        let bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-        trace.push(0, &bus, &ctrl, BusCycle::A1, &clock);
-        assert_eq!(trace.len(), 1);
-        assert!(!trace.is_empty());
+        let first = frame(1);
+        let second = frame(2);
+        let first_id = FrameId::from(&first);
+        trace.push_frame(first).expect("first frame");
+        trace.push_frame(second).expect("second frame");
+
+        let retained = trace.frame(first_id).expect("first retained frame");
+        assert_eq!(retained.sequence, 1);
+        assert_eq!(retained.provenance.model_id, "mcs4-behavioral");
     }
 
     #[test]
-    fn clear_empties_trace() {
+    fn clear_resets_visible_retention_accounting() {
         let mut trace = SignalTrace::new();
-        let bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-        for i in 0..10 {
-            trace.push(i, &bus, &ctrl, BusCycle::A1, &clock);
-        }
-        assert_eq!(trace.len(), 10);
+        trace.push_frame(frame(1)).expect("frame");
+        assert!(trace.retention().first.is_some());
         trace.clear();
-        assert!(trace.is_empty());
+        assert_eq!(
+            trace.retention(),
+            TraceRetention {
+                first: None,
+                last: None,
+                dropped_frame_count: 0,
+            }
+        );
     }
 
     #[test]
-    fn iter_yields_pushed_samples() {
+    fn frames_retain_their_declared_target_identity() {
         let mut trace = SignalTrace::new();
-        let bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-        for i in 0..5u64 {
-            trace.push(i, &bus, &ctrl, BusCycle::A1, &clock);
-        }
-        let ticks: Vec<u64> = trace.iter().map(|s| s.tick).collect();
-        assert_eq!(ticks, vec![0, 1, 2, 3, 4]);
-    }
-
-    #[test]
-    fn default_is_new() {
-        let trace = SignalTrace::default();
-        assert!(trace.is_empty());
-    }
-
-    #[test]
-    fn push_records_phase() {
-        let mut trace = SignalTrace::new();
-        let bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-
-        let phases = [
-            BusCycle::A1,
-            BusCycle::A2,
-            BusCycle::A3,
-            BusCycle::M1,
-            BusCycle::M2,
-            BusCycle::X1,
-            BusCycle::X2,
-            BusCycle::X3,
-        ];
-        for (i, &phase) in phases.iter().enumerate() {
-            trace.push(i as u64, &bus, &ctrl, phase, &clock);
-        }
-
-        let recorded: Vec<BusCycle> = trace.iter().map(|s| s.phase).collect();
-        assert_eq!(recorded, phases.to_vec());
-    }
-
-    #[test]
-    fn push_records_bus_data() {
-        let mut trace = SignalTrace::new();
-        let mut bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-
-        bus.write(0xA);
-        trace.push(0, &bus, &ctrl, BusCycle::M1, &clock);
-
-        let sample = trace.iter().next().expect("trace should have one sample");
-        assert_eq!(sample.data, 0xA);
-    }
-
-    #[test]
-    fn overflow_evicts_oldest() {
-        let mut trace = SignalTrace::new();
-        let bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-
-        // Push MAX_SAMPLES + 10 to trigger eviction
-        for i in 0..(MAX_SAMPLES + 10) as u64 {
-            trace.push(i, &bus, &ctrl, BusCycle::A1, &clock);
-        }
-
-        assert_eq!(trace.len(), MAX_SAMPLES);
-        // Oldest tick should be 10 (first 10 were evicted)
-        let first = trace.iter().next().expect("trace should not be empty after overflow");
-        assert_eq!(first.tick, 10);
-    }
-
-    #[test]
-    fn iter_count_matches_len() {
-        let mut trace = SignalTrace::new();
-        let bus = DataBus::new();
-        let ctrl = ControlSignals::mcs4();
-        let clock = TwoPhaseClock::default_config();
-
-        for i in 0..50u64 {
-            trace.push(i, &bus, &ctrl, BusCycle::A1, &clock);
-        }
-        assert_eq!(trace.iter().count(), trace.len());
+        let sample = frame(1);
+        trace.push_frame(sample).expect("frame");
+        let retained = trace.frame_at(0).expect("retained frame");
+        assert_eq!(
+            retained.phase.as_ref().expect("phase").architecture,
+            mcs4_system::SystemArchitecture::Mcs4
+        );
     }
 }

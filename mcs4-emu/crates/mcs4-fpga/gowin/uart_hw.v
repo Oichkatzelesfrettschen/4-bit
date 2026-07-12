@@ -7,6 +7,7 @@
 //      CLOCKS_PER_BIT = sys_clk_freq / baud_rate.
 //      At 27 MHz / 115200 = 234. At 27 MHz / 9600 = 2812.
 
+/* verilator lint_off DECLFILENAME */
 module uart_tx #(
   parameter CLOCKS_PER_BIT = 234  // 27 MHz / 115200
 )(
@@ -18,7 +19,8 @@ module uart_tx #(
   output wire       tx_out      // serial output (active high, idle high)
 );
 
-  localparam CNT_W = $clog2(CLOCKS_PER_BIT);
+  localparam CNT_W = (CLOCKS_PER_BIT <= 1) ? 1 : $clog2(CLOCKS_PER_BIT);
+  localparam [CNT_W-1:0] CLOCKS_PER_BIT_LAST = CNT_W'(CLOCKS_PER_BIT - 1);
 
   // States
   localparam S_IDLE  = 2'd0;
@@ -54,7 +56,7 @@ module uart_tx #(
 
         S_START: begin
           tx_r <= 1'b0; // start bit
-          if (bit_timer == CLOCKS_PER_BIT - 1) begin
+          if (bit_timer == CLOCKS_PER_BIT_LAST) begin
             bit_timer <= {CNT_W{1'b0}};
             bit_idx <= 3'd0;
             state <= S_DATA;
@@ -65,7 +67,7 @@ module uart_tx #(
 
         S_DATA: begin
           tx_r <= shift_reg[0]; // LSB first
-          if (bit_timer == CLOCKS_PER_BIT - 1) begin
+          if (bit_timer == CLOCKS_PER_BIT_LAST) begin
             bit_timer <= {CNT_W{1'b0}};
             shift_reg <= {1'b0, shift_reg[7:1]};
             if (bit_idx == 3'd7) begin
@@ -80,7 +82,7 @@ module uart_tx #(
 
         S_STOP: begin
           tx_r <= 1'b1; // stop bit
-          if (bit_timer == CLOCKS_PER_BIT - 1) begin
+          if (bit_timer == CLOCKS_PER_BIT_LAST) begin
             state <= S_IDLE;
             bit_timer <= {CNT_W{1'b0}};
           end else begin
@@ -92,6 +94,7 @@ module uart_tx #(
   end
 
 endmodule
+/* verilator lint_on DECLFILENAME */
 
 
 module uart_rx #(
@@ -104,8 +107,10 @@ module uart_rx #(
   output reg        rx_valid     // pulses high for 1 clk when byte received
 );
 
-  localparam CNT_W = $clog2(CLOCKS_PER_BIT);
+  localparam CNT_W = (CLOCKS_PER_BIT <= 1) ? 1 : $clog2(CLOCKS_PER_BIT);
   localparam HALF_BIT = CLOCKS_PER_BIT / 2;
+  localparam [CNT_W-1:0] CLOCKS_PER_BIT_LAST = CNT_W'(CLOCKS_PER_BIT - 1);
+  localparam [CNT_W-1:0] HALF_BIT_LAST = CNT_W'(HALF_BIT - 1);
 
   // States
   localparam S_IDLE  = 2'd0;
@@ -146,7 +151,7 @@ module uart_rx #(
 
         S_START: begin
           // Wait half a bit period to sample at center of start bit
-          if (bit_timer == HALF_BIT - 1) begin
+          if (bit_timer == HALF_BIT_LAST) begin
             if (!rx_s) begin // still low: valid start bit
               bit_timer <= {CNT_W{1'b0}};
               bit_idx <= 3'd0;
@@ -160,7 +165,7 @@ module uart_rx #(
         end
 
         S_DATA: begin
-          if (bit_timer == CLOCKS_PER_BIT - 1) begin
+          if (bit_timer == CLOCKS_PER_BIT_LAST) begin
             bit_timer <= {CNT_W{1'b0}};
             shift_reg <= {rx_s, shift_reg[7:1]}; // LSB first
             if (bit_idx == 3'd7) begin
@@ -174,7 +179,7 @@ module uart_rx #(
         end
 
         S_STOP: begin
-          if (bit_timer == CLOCKS_PER_BIT - 1) begin
+          if (bit_timer == CLOCKS_PER_BIT_LAST) begin
             if (rx_s) begin // valid stop bit
               rx_data <= shift_reg;
               rx_valid <= 1'b1;

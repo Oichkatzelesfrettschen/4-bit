@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "target": "mcs4-system-verilator",
+  "actions": [
+    {"op": "reset"},
+    {"op": "run_sys_cycles", "value": 10000000}
+  ]
+}

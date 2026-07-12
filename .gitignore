@@ -15,6 +15,7 @@ Thumbs.db
 *.dll
 *.db
 target/
+/build/
 coverage/
 *.profraw
 *.profdata

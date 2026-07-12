@@ -2,6 +2,10 @@
 // Chip: 4002
 // Tool: gate_to_verilog_v0.py
 // Ports derived from netlist_v1 signal anchors (layout_node)
+// Export contract: incomplete; no exported output port derives from signal anchors.
+// This artifact does not establish chip-level functional equivalence.
+
+`timescale 1ns/1ps
 
 module i4002_gates (
     input wire VDD,

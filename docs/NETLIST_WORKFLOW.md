@@ -53,11 +53,20 @@ Schematic connectivity tracing (v0)
 
 Netlist v1 (draft bridge)
 - `scripts/build_netlist_v1_v0.py` emits a minimal “bridge” netlist combining:
-  - layout nodes from `schematic_layout_anchors_v0.json`
+  - layout nodes from the canonical `schematic_layout_anchors_v1.json`
   - schematic component ids from `schematic_wirenets_v0`
   - schematic connectivity traces from `schematic_connectivity_v0` (anchors only)
   - and device candidates from `netlist_v0`
 - Output: `docs/evidence/netlists_v1/` (plus `manifest.json`)
+
+Generated evidence publication is transactional. `extract_netlist_v0.py` and
+`build_netlist_v1_v0.py` stage every output and its manifest through
+`scripts/output_transaction.py`. The journal records immutable backups before
+any public path changes. A normal write failure restores the previous artifact
+set. A later invocation detects an interruption journal and restores the
+previous committed set before it generates new evidence. Journal removal is the
+commit point. `emit_netlist_v1_draft.py` uses the same atomic writer for its
+single output.
 
 Device graph (v0)
 - `scripts/extract_device_graph_v0.py` normalizes `netlist_v0` device candidates into a stable graph artifact:
@@ -81,7 +90,7 @@ Layout pad anchoring helpers (v0)
   - Ranked “pad-like” periphery nodes: `docs/evidence/layout_pad_candidates_v0/` (plus overlays + crops).
   - Detected pad label boxes + geometry-based node suggestions: `docs/evidence/layout_pad_labels_v0/`.
 - Current limitation: OCR of pad-box glyphs is unreliable; the workflow is to use the rendered crops to read labels and then
-  update `docs/evidence/schematic_layout_anchors_v0.json` (or successors).
+  update `docs/evidence/schematic_layout_anchors_v1.json`.
 
 Anchors v1 (4001–4004)
 - `docs/evidence/schematic_layout_anchors_v1.json` stores per-signal layout anchors (seed + remapped incident nodes).

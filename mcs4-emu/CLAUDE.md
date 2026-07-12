@@ -1,11 +1,16 @@
-# MCS-4/MCS-40 Emulator - Project Status (2026-07-09)
+# MCS-4/MCS-40 Emulator - Project Status (2026-07-11)
 
 ## PROJECT OVERVIEW
-Intel 4-bit CPU emulator with transistor-level extraction. Full cycle-accurate simulation of 4004/4040 chipsets.
+Intel 4-bit CPU emulator with transistor-level extraction tooling. Behavioral,
+phase-oriented, solver, and HDL surfaces have separate validation boundaries;
+the current evidence contract lives in docs/repository-debt-callgraph-capture-roadmap.md.
 
-## PHASE STATUS
+The percentage table below remains a historical planning snapshot. It does not
+establish a current hardware, gate-extraction, synthesis, or board capability.
 
-Summary: 95% overall completion
+## HISTORICAL PHASE STATUS
+
+Historical planning summary: 95% overall completion
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
 - Phase 2: 100% (4040 CPU complete, all tests passing)
@@ -66,7 +71,7 @@ section is authoritative for current totals.)
   - Signal trace buffer (event capture, 18 tests)
   - MCS-40 system integration (memory map, bus protocol)
 - Pending:
-  - ~~4003 Shift register cascade/bus tests~~ DONE (16 tests: cascade, port, enable, edge, system integration)
+  - ~~4003 Shift register cascade/bus tests~~ DONE (source-bound CP, active-low E, serial cascade, port, and system coverage)
   - ~~4201/4289/4308 bus protocol~~ DONE (13 tests each + proptest + 9 integration)
   - ~~Register panel~~ DONE (CpuSnapshot, change highlighting, 4004/4040 mode, 8 tests)
   - ~~Memory panel~~ DONE (ROM/RAM hex dump, change highlighting, region selector, 6 tests)
@@ -88,13 +93,11 @@ section is authoritative for current totals.)
     - Edge case validation for both solvers
     - Circuit topologies: inverter chains, parallel gates, networks
     - Convergence verification for diverse configurations
-  - Phase 4D-F: SIMD cluster (full 4004 ISA, 87 tests)
-    - 16-lane parallel CPU execution (Struct-of-Arrays architecture)
-    - Full 46-instruction 4004 ISA: all single-byte + two-byte opcodes
-    - Two-phase fetch for 2-byte instructions (JUN/JMS/JCN/ISZ/FIM)
-    - Per-lane carry, stack, PC, register state
-    - Differential fuzzing: scalar reference executor with proptest
-    - Performance benchmarking with throughput and memory metrics
+  - Phase 4D-F: Historical planning record superseded by the current SIMD
+    boundary below. The current code supports an 8-lane fetch, register ADD,
+    and 12-bit program-counter subset with deterministic scalar differential
+    tests. It is not a full 4004 ISA implementation and has no benchmark
+    contract.
   - Phase 4G: Solver-to-chip bridge
     - SimulationFidelity enum (Behavioral/PhaseAccurate/SwitchLevel/NodalLevel/TCADLevel)
     - ChipSolverBridge trait connecting behavioral models to circuit solvers
@@ -117,13 +120,14 @@ section is authoritative for current totals.)
     - Monitor ROM (command dispatch, examine/deposit/go/halt, 11 tests)
     - PROM programmer (blank check, program, verify, 4702 interface, 9 tests)
     - System integration (CPU coordination, panel/monitor/peripherals, 13 tests)
-  - Verilog chip modules (mcs4-fpga, 43 tests):
-    - 22 synthesizable behavioral Verilog modules for complete MCS-4/MCS-40 family:
+  - Verilog chip modules (mcs4-fpga, 50 tests):
+    - 22 behavioral Verilog modules for complete MCS-4/MCS-40 family:
       MCS-4 core: 4004, 4001, 4002, 4003
       MCS-4 support: 4008, 4009, 3216, 3226, 3205, 3404, 2101
       MCS-40 core: 4040, 4101, 4201, 4289, 4308
       MCS-40 clocks: 4207, 4209, 4211
       MCS-40 peripherals: 4265, 4316, 4702
+    - Generic 4003 power-on initialization requires target-specific synthesis verification.
     - Gate-level Verilog populated from extracted netlists (7,525 lines total)
     - FPGA constraint files: iCE40 (.pcf) and Spartan-7 (.xdc)
     - Synthesis Makefile (Yosys/nextpnr for iCE40, Vivado for Spartan-7)
@@ -177,17 +181,16 @@ Critical path (in order):
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
 
-## TEST COUNTS (updated 2026-07-09 after debt-roadmap phases D11-D17)
+## TEST COUNTS (updated 2026-07-12 after common-stimulus integration)
 
-1,124 tests passing, 0 failures:
-(1 mcs4-fpga long-running regen test is `#[ignore]` and excluded from the count.)
+1,159 tests passing, 0 failures:
 - mcs4-bus: 17
 - mcs4-bus bus_cycle: 10 (8-phase machine-cycle walk, SYNC/CM timing vs cycle_timing constants,
     mask-driven CM-RAM lines, multi-master handoff, contention/float, two-phase non-overlap)
-- mcs4-chips: 251 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
+- mcs4-chips: 261 (4004/4040 CPU, disassembler + cache, all support/peripheral chips, solver bridge,
     3205/3404/2101 new chips)
 - mcs4-chips circuit_sim: 4 (full-chip 4003 DC+transient, 4004 DC, behavioral-vs-circuit cross-validation)
-- mcs4-chips i4004_cpu: 37 (4004 top-level: 8-phase walk, ALU ops, control flow, SRC/RAM I/O,
+- mcs4-chips i4004_cpu: 39 (4004 top-level: 8-phase walk, ALU ops, control flow, SRC/RAM I/O,
     FIN indirect fetch + page boundary, DCL CM-RAM decode, JCN TEST polarity)
 - mcs4-chips fuzz_test: 1
 - mcs4-chips instruction_census: 2 (4004=46 and 4040=60 instruction-set size claims)
@@ -201,20 +204,24 @@ Critical path (in order):
     agreement, transient time monotonicity, transient rail invariant)
 - mcs4-core timing_claims: 2 (10.8 us instruction cycle, datasheet clock-period bounds)
 - mcs4-core solver_datasheet_timing: 1 (transient inverter delay vs t0D1/t0D2 clock windows)
-- mcs4-fpga: 43 (Verilog export + 22 chip module generation for full MCS-4/MCS-40 family, FIN/DCL/JIN CPU-generator semantics; 1 ignored regen)
-- mcs4-gui: 78 (signal trace, disasm, registers, memory, stack, breakpoints, controls, waveform, die viewer)
-- mcs4-gui waveform_logic: 8 (shared SignalTrace producer/consumer model: cross-handle visibility,
-    threaded producer ordering, scroll/zoom window slicing, poisoned-lock contract)
+- mcs4-fpga: 53 (typed behavioral and FPGA-safe export, 22 chip module generation, exporter CLI,
+    behavioral i4003 Icarus vectors, system-HDL export, and FIN/DCL/JIN CPU-generator semantics)
+- mcs4-gui: 68 (worker-owned replay session, signal trace, disasm, registers, memory, stack,
+    breakpoints, controls, waveform, provenance, die viewer, and imported-frame validation)
+- mcs4-gui waveform_logic: 5 (frame identity, retained-window arithmetic, and reset discontinuity)
 - mcs4-intellec: 44 (front panel, monitor, PROM programmer, system integration)
 - mcs4-intellec full_system_integration: 6 (end-to-end Intellec-4 + peripherals + MCS-40)
 - mcs4-periph: 30 (7-segment display, matrix keyboard, UART)
 - mcs4-periph peripheral_roundtrip: 10 (UART capture-then-replay roundtrips incl. 2-stop-bit framing,
     keyboard matrix scan + debounce events, 7-seg shift-chain multi-digit and BCD decode)
-- mcs4-system: 50 (MCS-4/MCS-40 system wiring, cluster, SIMD ISA, differential fuzzing; +5
-    parse_hex_bytes_bounded tests)
+- mcs4-system: 60 (MCS-4/MCS-40 system wiring, phase traces, bounded fixture parsing, replay, common-stimulus validation, trace-frame validation, and cluster support)
+- mcs4-system cross_fidelity_trace_fixture: 5 (i4003 schema rejection boundary and full-system mapped-signal comparison surface)
 - mcs4-system mcs40_4308_integration: 9 (4040+4308 ROM bus protocol end-to-end)
+- mcs4-system fixture_runner_cli: 5 (success, missing, malformed, oversized, and host-guarded unreadable fixture boundaries)
+- mcs4-system phase_trace_cli: 4 (frame JSONL provenance and replay-checkpoint command boundaries, no-replace publication, and concurrent publication)
+- mcs4-system phase_trace_fixtures: 2 (deterministic MCS-4 and MCS-40 trace fixtures)
 
 ---
-Last Updated: 2026-04-30 (D4.1: 6 proptest_solvers for mcs4-core solver invariants; D4.2: cargo-fuzz
+Historical note (2026-04-30): D4.1 added 6 proptest_solvers for mcs4-core solver invariants; D4.2 added a cargo-fuzz
 harness with 3 targets netlist_v1_parser/disasm_4004/rom_hex_loader + CI job; D10.3.3:
 parse_hex_bytes_bounded with 5 tests; total 1042 -> 1053)

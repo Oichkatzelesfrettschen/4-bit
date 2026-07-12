@@ -22,6 +22,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
     "module_name",
     [
         "extract_gates_v0",
+        "extract_python_callgraph",
         "gate_to_verilog_v0",
         "build_coordinate_transform_v0",
         "extract_via_connectivity_v0",

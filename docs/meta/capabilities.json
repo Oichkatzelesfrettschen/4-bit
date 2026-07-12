@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "capabilities": [
+    {
+      "id": "i4003-behavioral-boundary",
+      "state": "tested",
+      "owner": "emulator-maintainers",
+      "scope": "Rust and behavioral HDL represent power-on clear, CP shifting, active-low E parallel masking, and serial output independence.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4003.rs"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-fpga/tests/i4003_behavioral_hdl.rs",
+          "command": "cargo test --locked -p mcs4-fpga"
+        },
+        {
+          "kind": "corpus",
+          "path": "docs/evidence/i4003_behavior_vectors.json"
+        }
+      ],
+      "limitations": [
+        "The vectors do not establish physical gate-stage order or silicon timing.",
+        "The generic behavioral initializer requires target-specific synthesis evidence."
+      ],
+      "next_gate": "Compare a source-located stage-order corpus against an extracted gate representation."
+    },
+    {
+      "id": "typed-hdl-export",
+      "state": "tested",
+      "owner": "emulator-maintainers",
+      "scope": "The FPGA crate exports typed behavioral and FPGA-safe module requests with provenance manifests.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-fpga/src/verilog.rs"
+        },
+        {
+          "kind": "test",
+          "path": "scripts/verify_hdl_exports.py",
+          "command": "python3 scripts/verify_hdl_exports.py"
+        }
+      ],
+      "limitations": [
+        "A parser, linter, or simulator result does not establish target synthesis or hardware behavior.",
+        "Partial modules retain explicit module-scoped lint exceptions."
+      ],
+      "next_gate": "Synthesize a complete target-specific module and retain the report."
+    },
+    {
+      "id": "mcs4-fpga-system-hdl",
+      "state": "tested",
+      "owner": "emulator-maintainers",
+      "scope": "The shared host HDL system composes generated 4004, 4001, and 4002 modules with deterministic two-phase timing, monitor ROM, RAM, and the UART bridge.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-fpga/gowin/mcs4_system_core.v"
+        },
+        {
+          "kind": "test",
+          "path": "scripts/verify_hdl_exports.py",
+          "command": "python3 scripts/verify_hdl_exports.py"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-fpga/gowin/tb_mcs4_system.v",
+          "command": "make -C mcs4-emu/crates/mcs4-fpga gowin_sim"
+        }
+      ],
+      "limitations": [
+        "The host system instantiates one 4001 and one 4002 model and does not establish a complete multi-chip board memory map.",
+        "The UART bridge uses an explicit monitor convention and host simulation; it does not establish target synthesis, timing closure, or board behavior."
+      ],
+      "next_gate": "Synthesize the constrained mcs4_top source after the sys_clk_in board route is evidenced."
+    },
+    {
+      "id": "mcs4-phase-timing-traces",
+      "state": "tested",
+      "owner": "emulator-maintainers",
+      "scope": "MCS-4 and MCS-40 systems emit deterministic eight-phase traces and CPU-owned TimingIo snapshots.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4004/timing_io.rs"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-system/tests/phase_trace_fixtures.rs",
+          "command": "cargo test --locked -p mcs4-system --test phase_trace_fixtures"
+        }
+      ],
+      "limitations": [
+        "Timing windows model logical phase durations and do not model analog propagation.",
+        "System instruction accounting remains CPU-owned for multi-cycle instructions."
+      ],
+      "next_gate": "Attach source-located timing parameters and a calibrated transient comparison."
+    },
+    {
+      "id": "cross-fidelity-trace-replay",
+      "state": "tested",
+      "owner": "emulator-maintainers",
+      "scope": "Versioned TraceFrame records carry behavioral provenance, stimulus hash, run and sequence identity, JSONL capture, transcript-backed behavioral replay checkpoints, and read-only GUI inspection of validated shared frames.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-system/src/replay.rs"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-system/tests/phase_trace_cli.rs",
+          "command": "cargo test --locked -p mcs4-system --test phase_trace_cli"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-system/tests/cross_fidelity_trace_fixture.rs",
+          "command": "cargo test --locked -p mcs4-system --test cross_fidelity_trace_fixture"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-gui/src/app.rs",
+          "command": "cargo test --locked -p mcs4-gui"
+        }
+      ],
+      "limitations": [
+        "Replay reconstructs behavioral state from an explicit transcript and does not snapshot analog solver state or FPGA hardware state.",
+        "The i4003 Verilator adapter has no mapped whole-system signal contract, so comparison intentionally rejects it despite the shared JSON schema.",
+        "The full-system Verilator monitor scenario uses a scenario-byte stimulus hash and does not yet replay a behavioral ROM fixture with identical input events."
+      ],
+      "next_gate": "Run one shared ROM and input transcript through behavioral and full-system Verilator adapters, then retain the comparison result."
+    },
+    {
+      "id": "timing-parameter-provenance",
+      "state": "tested",
+      "owner": "evidence-maintainers",
+      "scope": "The active MCS-4 logical timing constants record source locators, bounds, use sites, limitations, and falsifiers.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "docs/evidence/ocr/4004-datasheet.txt"
+        },
+        {
+          "kind": "manifest",
+          "path": "docs/evidence/timing_parameters.json",
+          "command": "python3 scripts/verify_timing_parameters.py"
+        }
+      ],
+      "limitations": [
+        "The logical timing model does not establish transistor propagation or board-level skew.",
+        "The selected typical period is a deterministic simulation choice within the retained source interval."
+      ],
+      "next_gate": "Compare a calibrated transient or attended waveform against a retained source-qualified timing condition."
+    },
+    {
+      "id": "i4040-solver-bridge-reference",
+      "state": "tested",
+      "owner": "evidence-maintainers",
+      "scope": "The 4040 solver bridge exposes a clearly named 4004 reference clock-buffer graph and no unsupported 4040 node mapping.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4040/solver_bridge.rs"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-chips/src/i4040/solver_bridge.rs",
+          "command": "cargo test --locked -p mcs4-chips i4040::solver_bridge"
+        }
+      ],
+      "limitations": [
+        "No extracted 4040 transistor netlist exists in this repository.",
+        "The reference graph does not establish 4040 physical pin or transistor evidence."
+      ],
+      "next_gate": "Ingest a provenance-backed 4040 netlist before adding physical node mappings."
+    },
+    {
+      "id": "simd-add-subset",
+      "state": "tested",
+      "owner": "emulator-maintainers",
+      "scope": "The feature-gated SIMD helper executes lane-parallel fetch, register ADD, and 12-bit program-counter advance.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "mcs4-emu/crates/mcs4-chips/src/simd.rs"
+        },
+        {
+          "kind": "test",
+          "path": "mcs4-emu/crates/mcs4-chips/src/simd.rs",
+          "command": "cargo test --locked -p mcs4-chips --features simd"
+        }
+      ],
+      "limitations": [
+        "The helper is not a full I4004 instruction-set implementation.",
+        "The differential oracle covers only the documented subset."
+      ],
+      "next_gate": "Add a measured workload contract before making performance claims."
+    },
+    {
+      "id": "netlist-v1-publication",
+      "state": "reproduced",
+      "owner": "evidence-maintainers",
+      "scope": "The canonical v1 netlist generator uses remapped anchors v1, output hashes, and crash-recoverable publication.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "scripts/output_transaction.py"
+        },
+        {
+          "kind": "test",
+          "path": "scripts/tests/test_extractor_units.py",
+          "command": "python3 -m pytest scripts/tests/test_extractor_units.py"
+        },
+        {
+          "kind": "manifest",
+          "path": "docs/evidence/netlists_v1/manifest.json"
+        }
+      ],
+      "limitations": [
+        "The v1 netlists remain partial extraction artifacts.",
+        "Transaction recovery protects artifact publication but does not infer missing physical connectivity."
+      ],
+      "next_gate": "Verify all generated evidence manifests through a repository-wide provenance gate."
+    },
+    {
+      "id": "i4003-virtual-fpga-board",
+      "state": "reproduced",
+      "owner": "emulator-maintainers",
+      "scope": "The optional Qt6 host drives a Verilator model of generated i4003_fpga HDL and validates headless scenarios with VCD, JSON summary, and shared-schema JSONL trace-frame output.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "tools/virtual-fpga/main.cpp"
+        },
+        {
+          "kind": "test",
+          "path": "tools/virtual-fpga/scenarios/i4003-shift-gate.json",
+          "command": "just virtual-fpga-release-check"
+        }
+      ],
+      "limitations": [
+        "The board is a host simulation, not FPGA synthesis or physical hardware validation.",
+        "CP is sampled through the FPGA-safe sys_clk wrapper rather than an asynchronous silicon clock path.",
+        "The i4003-only adapter has no shared whole-system stimulus or signal map and cannot prove behavioral-to-FPGA equivalence."
+      ],
+      "next_gate": "Retain a target synthesis report and attended board probe with the same scenario."
+    },
+    {
+      "id": "mcs4-system-verilator-adapter",
+      "state": "reproduced",
+      "owner": "emulator-maintainers",
+      "scope": "A headless Verilator adapter executes mcs4_system_sim_top with generated 4004, 4001, and 4002 HDL, records VCD and mapped shared-schema frames, checks monitor WMP, bus, and phase invariants, and consumes the common 256-byte ROM/reset/TEST/phase stimulus.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "tools/virtual-fpga/system_main.cpp"
+        },
+        {
+          "kind": "test",
+          "path": "tools/virtual-fpga/scenarios/mcs4-system-monitor.json",
+          "command": "just virtual-fpga-release-check"
+        },
+        {
+          "kind": "test",
+          "path": "tools/virtual-fpga/scenarios/mcs4-common-nop.json",
+          "command": "just virtual-fpga-release-check"
+        },
+        {
+          "kind": "runtime",
+          "path": "mcs4-emu/crates/mcs4-system/fixtures/traces/mcs4-system-verilator-frame-v1.jsonl"
+        }
+      ],
+      "limitations": [
+        "The monitor scenario is a host Verilator run with a staged ROM file, not target synthesis or board evidence.",
+        "The common stimulus proves exact input identity and records mapped-signal matches and mismatches; it does not prove phase alignment, behavioral equality, transistor-level equivalence, or board behavior."
+      ],
+      "next_gate": "Reconcile the recorded phase, bus, and ROM/RAM-control mismatches against a reviewed phase-boundary mapping before evaluating frame equality."
+    },
+    {
+      "id": "developer-proof-bundle",
+      "state": "implemented",
+      "owner": "evidence-maintainers",
+      "scope": "A clean-tree builder assembles source, generated i4003 FPGA HDL, scenario evidence, checksums, and validation logs into a non-release developer bundle.",
+      "evidence": [
+        {
+          "kind": "source",
+          "path": "scripts/build_developer_bundle.py"
+        },
+        {
+          "kind": "test",
+          "path": "scripts/tests/test_developer_bundle.py",
+          "command": "python3 -m pytest scripts/tests/test_developer_bundle.py"
+        }
+      ],
+      "limitations": [
+        "The builder deliberately refuses this dirty working tree, so no current bundle is claimed as reproduced evidence.",
+        "The bundle excludes a release package, target bitstream, install operation, rollback operation, and hardware claim."
+      ],
+      "next_gate": "Run the builder from a clean committed revision and verify the retained manifest and checksums."
+    },
+    {
+      "id": "physical-fpga-board-conformance",
+      "state": "blocked",
+      "owner": "hardware-maintainers",
+      "scope": "No reviewed sys_clk_in route, target-specific timing report, programmed-board capture, or rollback probe establishes physical FPGA conformance.",
+      "evidence": [
+        {
+          "kind": "design",
+          "path": "docs/evidence/fpga-board-clock-and-conformance-blockers.md"
+        }
+      ],
+      "limitations": [
+        "The repository retains host HDL and partial constraints but no assigned sys_clk_in board route or attended board capture.",
+        "Physical transistor-netlist extraction remains incomplete for 4001, 4002, and 4003."
+      ],
+      "blocker": "The clock-route, target-synthesis, attended-board, and physical-netlist acceptance records are incomplete.",
+      "next_gate": "Build a target-specific bitstream and run an attended waveform-backed board probe."
+    }
+  ]
+}

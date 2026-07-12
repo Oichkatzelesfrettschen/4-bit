@@ -6,6 +6,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from output_transaction import write_text_transaction
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -26,15 +28,30 @@ def load_json(path: Path) -> object:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Emit a minimal netlist_v1 draft by combining anchors + schematic connectivity (v0).")
+    p = argparse.ArgumentParser(
+        description="Emit a minimal netlist_v1 draft by combining anchors + schematic connectivity (v0)."
+    )
     p.add_argument("--chip", required=True, choices=["4001", "4002", "4003", "4004"])
     p.add_argument("--out-dir", type=Path, default=ROOT / "docs" / "evidence" / "netlists_v1")
     args = p.parse_args()
 
     chip = str(args.chip)
-    anchors_path = ROOT / "docs" / "evidence" / "schematic_layout_anchors_v0.json"
-    schem_names_path = ROOT / "docs" / "evidence" / "schematic_net_names_v0" / f"{chip.lower()}_schematic_net_names_v0.json"
-    schem_conn_path = ROOT / "docs" / "evidence" / "schematic_connectivity_v0" / chip / f"{chip.lower()}_schematic_connectivity_v0.json"
+    anchors_path = ROOT / "docs" / "evidence" / "schematic_layout_anchors_v1.json"
+    schem_names_path = (
+        ROOT
+        / "docs"
+        / "evidence"
+        / "schematic_net_names_v0"
+        / f"{chip.lower()}_schematic_net_names_v0.json"
+    )
+    schem_conn_path = (
+        ROOT
+        / "docs"
+        / "evidence"
+        / "schematic_connectivity_v0"
+        / chip
+        / f"{chip.lower()}_schematic_connectivity_v0.json"
+    )
     layout_path = ROOT / "docs" / "evidence" / "netlists_v0" / f"{chip.lower()}_netlist_v0.json"
 
     anchors = load_json(anchors_path)
@@ -64,7 +81,10 @@ def main() -> int:
         out: dict[str, object] = {
             "name": name,
             "layout_node": layout_node,
-            "match": {"kind": "manual_anchor_v0", "confidence": 1.0 if layout_node is not None else 0.0},
+            "match": {
+                "kind": "manual_anchor_v0",
+                "confidence": 1.0 if layout_node is not None else 0.0,
+            },
             "evidence": {"note": note, "anchor": True},
         }
         if name in conn_by_name:
@@ -82,16 +102,25 @@ def main() -> int:
     out_json = out_dir / f"{chip.lower()}_netlist_v1.json"
     payload = {
         "chip": chip,
-        "schema": {"version": 1, "description": "Draft schematic↔layout bridge (anchors + schematic connectivity traces)."},
+        "schema": {
+            "version": 1,
+            "description": "Draft schematic↔layout bridge (anchors + schematic connectivity traces).",
+        },
         "inputs": {
             "anchors_v0": rel_or_abs(anchors_path),
             "schematic_net_names_v0": rel_or_abs(schem_names_path),
-            "schematic_connectivity_v0": rel_or_abs(schem_conn_path) if schem_conn_path.exists() else None,
+            "schematic_connectivity_v0": rel_or_abs(schem_conn_path)
+            if schem_conn_path.exists()
+            else None,
             "layout_netlist_v0": rel_or_abs(layout_path),
             "sha256": {
                 "anchors_v0": sha256(anchors_path),
-                "schematic_net_names_v0": sha256(schem_names_path) if schem_names_path.exists() else None,
-                "schematic_connectivity_v0": sha256(schem_conn_path) if schem_conn_path.exists() else None,
+                "schematic_net_names_v0": sha256(schem_names_path)
+                if schem_names_path.exists()
+                else None,
+                "schematic_connectivity_v0": sha256(schem_conn_path)
+                if schem_conn_path.exists()
+                else None,
                 "layout_netlist_v0": sha256(layout_path),
             },
         },
@@ -99,7 +128,10 @@ def main() -> int:
         "signals": signals,
         "devices": {"transistors": [], "loads": []},
     }
-    out_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    write_text_transaction(
+        {out_json: json.dumps(payload, indent=2, sort_keys=True) + "\n"},
+        root=out_dir,
+    )
     print(json.dumps({"out_json": str(out_json)}, indent=2))
     return 0
 

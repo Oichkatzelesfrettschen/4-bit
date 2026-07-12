@@ -18,6 +18,12 @@ Guiding rules:
   - Coordinate label OCR verification for `signals.txt` (`docs/evidence/ocr_signal_labels/`).
   - Transistor *candidate* extraction via poly∩diffusion intersections (`docs/evidence/transistors/`), cross-checked against
     analyzer-reported 4004 transistor counts (Δ currently -3).
+- The behavioral GUI has a single simulation owner and consumes immutable
+  versioned `TraceFrame` records. JSONL captures include stimulus hashes and
+  transcript-backed behavioral replay checkpoints.
+- The shared host HDL system composes generated 4004, 4001, and 4002 modules
+  under deterministic Icarus simulation and clean Verilator lint. It uses an
+  explicit input clock rather than an invented board oscillator.
 
 ### Not implemented yet (key blockers)
 - No full analyzer-grade netlist extraction + reconciliation:
@@ -29,8 +35,14 @@ Guiding rules:
   - `netlist_v0` includes per-node bboxes/areas and pad-like node ranking (`docs/evidence/layout_pad_candidates_v0/`).
   - Geometry-based node suggestions for pad label boxes exist under `docs/evidence/layout_pad_labels_v0/`.
 - Transistor/switch-level solvers exist in `mcs4-core/src/transistor_solver.rs` and `mcs4-core/src/nodal_solver.rs` (473 tests in mcs4-core); solver-to-chip bridge connects behavioral models to circuit simulation via `ChipSolverBridge` trait.
+- No coordinate-bearing full transistor netlists exist for 4001, 4002, or
+  4003. Existing extraction artifacts remain insufficient for device-state
+  overlays or a transistor-level equivalence claim.
+- No reviewed Gowin `sys_clk_in` board route, target timing report, or attended
+  board probe exists. The programming targets reject missing clock evidence and
+  constraints. See `docs/evidence/fpga-board-clock-and-conformance-blockers.md`.
 - 4040 CPU is COMPLETE (60 instructions, 43 tests); all MCS-40 support chips COMPLETE (4201/4289/4308 + 10 additional chips).
-- SIMD cluster COMPLETE: 16-lane parallel 4004 execution with full 46-instruction ISA, differential fuzzing, and benchmarking (45 tests in mcs4-system).
+- The active SIMD surface is `mcs4-chips/src/simd.rs`: an 8-lane, feature-gated fetch and register-ADD kernel. It passes deterministic scalar differential tests for that subset. The retired full-ISA `mcs4-system` cluster does not describe a current capability.
 
 ## What Must Be Obtained (Primary Sources / Artifacts)
 
@@ -102,6 +114,11 @@ The project makes progress fastest when evidence becomes searchable + diffable. 
    - **2026-01-14**: CI schematic pipeline passes all checks (anchor audit, pad consistency, incidence, uniqueness).
 
 ### Phase 4 - Clustering and Performance (100% Complete - 13/13 tasks)
+Historical correction: this snapshot refers to the retired
+`mcs4-system/src/simd_cluster.rs` experiment. It does not describe the active
+SIMD capability. The active `mcs4-chips` SIMD kernel implements only the
+documented fetch and register-ADD subset.
+
 Status: COMPLETE (2026-02-25)
 Key Milestones:
    - **2026-01-29**: Hierarchical clustering system complete - 3-level hierarchy (individual subcircuits, electrical connectivity clusters, functional blocks).
@@ -174,6 +191,10 @@ Deferred Work:
 - ROM loading, stepping, breakpoints, and trace export.
 
 ## Phase 4 - Performance and clustering (100% COMPLETE)
+Historical correction: the completed full-ISA SIMD claims below describe the
+retired `mcs4-system/src/simd_cluster.rs` experiment. They do not establish a
+current full-ISA SIMD implementation.
+
 COMPLETED (2026-01-29 through 2026-02-25):
 - [DONE] Hierarchical clustering strategy (electrical + functional grouping).
 - [DONE] Cluster extraction for all 4 chips with 3-level hierarchy.

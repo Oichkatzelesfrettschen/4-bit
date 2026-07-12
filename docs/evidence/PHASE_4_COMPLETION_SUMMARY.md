@@ -315,7 +315,7 @@ Phase 4 focused on hierarchical clustering of subcircuits and establishing perfo
 
 ## References
 
-- [Phase 4 Plan](../ROADMAP.md#phase-4-clustering-and-performance)
+- [Phase 4 Plan](../ROADMAP.md#phase-4---clustering-and-performance-100-complete---1313-tasks)
 - [Clustering Strategy](CLUSTERING_STRATEGY_V0.md)
 - [SIMD Cluster Design](SIMD_CLUSTER_DESIGN_V0.md)
 - [Previous Phases](FINAL_EXECUTION_SUMMARY.md)

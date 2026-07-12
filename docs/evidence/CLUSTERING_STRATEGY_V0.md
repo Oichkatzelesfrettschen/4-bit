@@ -315,7 +315,7 @@ Allow per-chip JSON config:
 
 ## References
 
-- [Phase 4 Plan](../ROADMAP.md#phase-4-clustering-and-performance)
+- [Phase 4 Plan](../ROADMAP.md#phase-4---clustering-and-performance-100-complete---1313-tasks)
 - [Subcircuit Extraction](subcircuits_v0/README.md)
 - [Netlist Format v1](netlists_v1/README.md)
 

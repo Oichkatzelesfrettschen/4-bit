@@ -10,6 +10,10 @@ ocr_signal_labels (name normalization + match scoring + bbox geometry).
 
 from __future__ import annotations
 
+import hashlib
+import json
+import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -18,6 +22,8 @@ import build_netlist_v1_v0
 import extract_gates_v1
 import extract_netlist_v0
 import ocr_signal_labels
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 # ---------------------------------------------------------------------------
 # extract_netlist_v0: connected components + via/contact union-find stitching
@@ -122,6 +128,35 @@ def test_nested_get_and_bbox_area_helpers() -> None:
     assert build_netlist_v1_v0._bbox_area({"w": 4, "h": 5}) == 20
     assert build_netlist_v1_v0._bbox_area({"w": -3, "h": 5}) == 0
     assert build_netlist_v1_v0._bbox_area(None) == 0
+
+
+def test_default_v1_builder_reproduces_committed_netlists(tmp_path: Path) -> None:
+    """The default anchor source reproduces every retained v1 netlist byte-for-byte."""
+    for chip in ("4001", "4002", "4003", "4004"):
+        result = subprocess.run(  # noqa: S603 - invokes the repository-local generator
+            [
+                sys.executable,
+                str(REPO_ROOT / "scripts" / "build_netlist_v1_v0.py"),
+                "--chip",
+                chip,
+                "--out-dir",
+                str(tmp_path),
+            ],
+            check=False,
+            capture_output=True,
+            cwd=REPO_ROOT,
+            text=True,
+        )
+        assert result.returncode == 0, result.stderr
+
+        generated = tmp_path / f"{chip.lower()}_netlist_v1.json"
+        retained = REPO_ROOT / "docs" / "evidence" / "netlists_v1" / generated.name
+        assert generated.read_bytes() == retained.read_bytes()
+
+    manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
+    for output in manifest["outputs"]:
+        output_path = Path(output["output"])
+        assert output["sha256"] == hashlib.sha256(output_path.read_bytes()).hexdigest()
 
 
 # ---------------------------------------------------------------------------
