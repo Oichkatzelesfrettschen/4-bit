@@ -26,7 +26,10 @@ fn main() {
     }
 
     let mut sys = Mcs4System::minimal();
-    sys.load_rom_hex_file(&fixture).expect("load fixture");
+    if let Err(error) = sys.load_rom_hex_file(&fixture) {
+        eprintln!("failed to load fixture {}: {error}", fixture.display());
+        std::process::exit(1);
+    }
     sys.run_cycles(cycles);
 
     println!("fixture={}", fixture.display());

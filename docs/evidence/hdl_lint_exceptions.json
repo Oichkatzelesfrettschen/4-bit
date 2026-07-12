@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "tool": "Verilator",
+  "tool_contract": "Verilator 5.050 warning codes",
+  "exceptions": [
+    {
+      "flavor": "behavioral",
+      "module": "i4004",
+      "warning_codes": ["MULTIDRIVEN", "UNDRIVEN", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted CPU surface remains an interface-level phase model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4001",
+      "warning_codes": ["MULTIDRIVEN", "UNDRIVEN", "UNUSEDPARAM", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted ROM surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4002",
+      "warning_codes": ["UNDRIVEN", "UNUSEDPARAM", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted RAM surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4003",
+      "warning_codes": ["PROCASSINIT"],
+      "evidence_state": "behavioral-vector-validated",
+      "tracking": "B01",
+      "reason": "The behavioral 4003 represents documented power-on clear with a declaration initializer because its historical interface has no reset pin."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4008",
+      "warning_codes": ["MULTIDRIVEN"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted latch surface uses separate phase blocks and remains excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4009",
+      "warning_codes": ["MULTIDRIVEN", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted I/O expander surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i3216",
+      "warning_codes": ["UNOPTFLAT"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted buffer model retains a zero-delay feedback abstraction and is excluded from synthesis promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i3226",
+      "warning_codes": ["UNOPTFLAT"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted buffer model retains a zero-delay feedback abstraction and is excluded from synthesis promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i2101",
+      "warning_codes": ["LATCH"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The asynchronous SRAM write abstraction is retained for interface review and is excluded from synthesis promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4040",
+      "warning_codes": ["MULTIDRIVEN", "UNDRIVEN", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted 4040 CPU surface remains an interface-level phase model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4101",
+      "warning_codes": ["UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted SRAM surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4289",
+      "warning_codes": ["MULTIDRIVEN", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted memory interface surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4308",
+      "warning_codes": ["MULTIDRIVEN", "UNDRIVEN", "UNUSEDPARAM", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted ROM surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "behavioral",
+      "module": "i4702",
+      "warning_codes": ["MULTIDRIVEN", "UNDRIVEN", "UNUSEDPARAM", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B08",
+      "reason": "The emitted EPROM surface remains an interface-level model and is excluded from behavioral equivalence promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i4101_fpga",
+      "warning_codes": ["UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe SRAM surface requires target-specific memory binding before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i4040_fpga",
+      "warning_codes": ["UNUSEDSIGNAL", "WIDTHEXPAND"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe 4040 surface requires register-bank index closure before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i4308_fpga",
+      "warning_codes": ["UNUSEDPARAM", "UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe ROM surface requires target-specific memory binding before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i4702_fpga",
+      "warning_codes": ["UNUSEDPARAM"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe EPROM surface requires target-specific memory binding before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i4316_fpga",
+      "warning_codes": ["UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe display surface requires board-level display wiring before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i2102_fpga",
+      "warning_codes": ["UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe SRAM surface requires target-specific memory binding before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i1302_fpga",
+      "warning_codes": ["UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe ROM surface requires target-specific memory binding before synthesis promotion."
+    },
+    {
+      "flavor": "fpga",
+      "module": "i2316_fpga",
+      "warning_codes": ["UNUSEDSIGNAL"],
+      "evidence_state": "partial",
+      "tracking": "B09",
+      "reason": "The FPGA-safe ROM surface requires target-specific memory binding before synthesis promotion."
+    }
+  ]
+}

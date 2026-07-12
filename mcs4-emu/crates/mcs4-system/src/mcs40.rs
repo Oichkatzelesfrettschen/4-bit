@@ -7,7 +7,10 @@ use mcs4_bus::prelude::*;
 use mcs4_chips::{i4001::I4001, i4002::I4002, i4040::I4040, i4201::I4201, i4289::I4289, Chip};
 use mcs4_core::{process::ProcessParams, FidelityManager};
 
-use crate::fixture::load_hex_bytes;
+use crate::{
+    fixture::load_hex_bytes_bounded,
+    trace::{PhaseTrace, SystemArchitecture},
+};
 
 /// Complete MCS-40 system
 pub struct Mcs40System {
@@ -65,6 +68,11 @@ impl Mcs40System {
 
     /// Step one bus phase
     pub fn step(&mut self) {
+        let _ = self.step_traced();
+    }
+
+    /// Step one bus phase and return deterministic post-phase state.
+    pub fn step_traced(&mut self) -> PhaseTrace {
         let phase = self.cycle.phase;
 
         // 4201 generates clock (simulated here by BusCycle from CycleState)
@@ -182,6 +190,32 @@ impl Mcs40System {
         if self.cycle.phase == BusCycle::A1 {
             self.total_cycles += 1;
         }
+
+        debug_assert_eq!(self.cycle.phase, self.cpu.cycle_state().phase);
+        debug_assert_eq!(self.cycle.cycle_count, self.cpu.cycle_state().cycle_count);
+        debug_assert_eq!(self.total_cycles, self.cpu.cycle_state().cycle_count);
+
+        tracing::trace!(
+            ?phase,
+            cycle = self.total_cycles,
+            pc = self.cpu.pc(),
+            bus = ?self.bus.read(),
+            io_op = ?self.control.io_op,
+            "MCS-40 bus phase completed"
+        );
+
+        PhaseTrace::new(
+            SystemArchitecture::Mcs40,
+            phase,
+            self.cycle.phase,
+            self.total_cycles,
+            self.cpu.cycle_state().instruction_count,
+            self.cpu.pc(),
+            self.cpu.accumulator(),
+            self.cpu.carry(),
+            &self.bus,
+            &self.control,
+        )
     }
 
     /// Run for N machine cycles (8 bus phases per cycle)
@@ -209,7 +243,7 @@ impl Mcs40System {
 
     /// Load a ROM fixture from a whitespace-separated hex text file.
     pub fn load_rom_hex_file(&mut self, path: impl AsRef<std::path::Path>) -> Result<(), crate::FixtureError> {
-        let bytes = load_hex_bytes(path)?;
+        let bytes = load_hex_bytes_bounded(path, self.rom.len() * 256)?;
         self.load_rom(&bytes);
         Ok(())
     }
@@ -217,6 +251,13 @@ impl Mcs40System {
     /// Set the CPU test pin.
     pub fn set_test_pin(&mut self, state: bool) {
         self.cpu.set_test_pin(state);
+    }
+
+    /// Drive one 4001 ROM input port for a replayable external input event.
+    pub fn write_rom_port_input(&mut self, chip_id: u8, value: u8) {
+        if let Some(rom) = self.rom.iter_mut().find(|rom| rom.chip_id == (chip_id & 0x0F)) {
+            rom.set_io_input(value & 0x0F);
+        }
     }
 
     pub fn pc(&self) -> u16 {
@@ -437,13 +478,19 @@ mod tests {
 
             // Detailed output around SRC/WRM/RDM cycles (phases 18-62)
             if (18..=62).contains(&phase_num) {
-                eprintln!("Phase {:2}: {:?} PC=0x{:03X} ACC=0x{:02X} RAM[0][1]=0x{:02X} | io_op={:?} RAM sel={} reg={} char={} src_sel={}",
-                          phase_num, phase, pc, acc, ram_0_1,
-                          sys.control.io_op,
-                          sys.ram[0].is_selected(),
-                          sys.ram[0].selected_register(),
-                          sys.ram[0].selected_char(),
-                          sys.ram[0].src_selected());
+                eprintln!(
+                    "Phase {:2}: {:?} PC=0x{:03X} ACC=0x{:02X} RAM[0][1]=0x{:02X} | io_op={:?} RAM sel={} reg={} char={} src_sel={}",
+                    phase_num,
+                    phase,
+                    pc,
+                    acc,
+                    ram_0_1,
+                    sys.control.io_op,
+                    sys.ram[0].is_selected(),
+                    sys.ram[0].selected_register(),
+                    sys.ram[0].selected_char(),
+                    sys.ram[0].src_selected()
+                );
             }
 
             sys.step();

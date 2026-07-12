@@ -1,43 +1,149 @@
 # call graph: scripts/gate_to_verilog_v0.py
-# functions defined: 7
-# internal edges: 7, external calls: 31
+# method: Python AST direct-call extraction
+# functions defined: 26
+# internal edges: 29
+# external call sites: 112
+# boundary: imports, dynamic dispatch, reflection, decorators, and higher-order calls remain external.
 ## internal edges
 <module> -> main
+analyze_gate_export_contract -> analyze_output_cone
+analyze_gate_export_contract -> validate_gate_shapes
+analyze_output_cone -> analyze_output_cone.trace_node
+analyze_output_cone.trace_node -> analyze_output_cone.trace_node
+check_generated_exports -> render_exports
+contract_failure_summary -> format_nodes
+generate_incomplete_testbench -> contract_failure_summary
+generate_incomplete_testbench -> verilog_string
+generate_testbench -> generate_incomplete_testbench
+generate_verilog_module -> contract_failure_summary
 generate_verilog_module -> generate_gate_instance
 generate_verilog_module -> generate_primitive_library
+generate_verilog_module -> validate_gate_shapes
+load_gates -> parse_gates_netlist
+load_gates -> validate_gate_shapes
+main -> analyze_gate_export_contract
+main -> atomic_write_text
+main -> check_generated_exports
 main -> extract_nodes
-main -> generate_testbench
-main -> generate_verilog_module
-main -> parse_gates_netlist
+main -> load_gates
+main -> load_signal_ports
+main -> print_contract
+main -> render_exports
+main -> write_contract_report
+print_contract -> format_nodes
+render_exports -> generate_testbench
+render_exports -> generate_verilog_module
+write_contract_report -> atomic_write_text
 ## external calls (dedup by caller,name)
-<module> -> [ext] Path
-<module> -> [ext] resolve
-extract_nodes -> [ext] get
-extract_nodes -> [ext] set
-extract_nodes -> [ext] update
-generate_gate_instance -> [ext] append
-generate_gate_instance -> [ext] chr
-generate_gate_instance -> [ext] enumerate
-generate_gate_instance -> [ext] get
-generate_gate_instance -> [ext] join
-generate_gate_instance -> [ext] len
-generate_gate_instance -> [ext] ord
-generate_testbench -> [ext] join
-generate_verilog_module -> [ext] append
-generate_verilog_module -> [ext] enumerate
-generate_verilog_module -> [ext] extend
-generate_verilog_module -> [ext] join
-generate_verilog_module -> [ext] sorted
-main -> [ext] ArgumentParser
-main -> [ext] Gate
-main -> [ext] add_argument
-main -> [ext] enumerate
-main -> [ext] exists
-main -> [ext] get
-main -> [ext] len
-main -> [ext] mkdir
-main -> [ext] parse_args
-main -> [ext] print
-main -> [ext] write_text
-parse_gates_netlist -> [ext] loads
-parse_gates_netlist -> [ext] read_text
+<module> -> [external] .resolve
+<module> -> [external] Path
+<module> -> [external] SystemExit
+GateExportContract.is_delivery_ready -> [external] all
+GateExportContract.is_delivery_ready -> [external] bool
+GateExportContract.to_dict -> [external] .to_dict
+GateExportContract.to_dict -> [external] list
+OutputConeStatus.to_dict -> [external] len
+OutputConeStatus.to_dict -> [external] list
+analyze_gate_export_contract -> [external] .append
+analyze_gate_export_contract -> [external] .items
+analyze_gate_export_contract -> [external] GateExportContract
+analyze_gate_export_contract -> [external] defaultdict
+analyze_gate_export_contract -> [external] isinstance
+analyze_gate_export_contract -> [external] len
+analyze_gate_export_contract -> [external] list
+analyze_gate_export_contract -> [external] sorted
+analyze_gate_export_contract -> [external] tuple
+analyze_output_cone -> [external] .items
+analyze_output_cone -> [external] OutputConeStatus
+analyze_output_cone -> [external] set
+analyze_output_cone -> [external] sorted
+analyze_output_cone -> [external] tuple
+analyze_output_cone.trace_node -> [external] .add
+analyze_output_cone.trace_node -> [external] .get
+analyze_output_cone.trace_node -> [external] len
+atomic_write_text -> [external] .fdopen
+atomic_write_text -> [external] .mkdir
+atomic_write_text -> [external] .mkstemp
+atomic_write_text -> [external] .replace
+atomic_write_text -> [external] .unlink
+atomic_write_text -> [external] .write
+atomic_write_text -> [external] Path
+check_generated_exports -> [external] .append
+check_generated_exports -> [external] .is_file
+check_generated_exports -> [external] .read_text
+check_generated_exports -> [external] tuple
+extract_nodes -> [external] .get
+extract_nodes -> [external] .update
+extract_nodes -> [external] set
+format_nodes -> [external] .join
+generate_gate_instance -> [external] .append
+generate_gate_instance -> [external] .join
+generate_gate_instance -> [external] ValueError
+generate_gate_instance -> [external] chr
+generate_gate_instance -> [external] enumerate
+generate_gate_instance -> [external] len
+generate_gate_instance -> [external] ord
+generate_incomplete_testbench -> [external] .join
+generate_testbench -> [external] .append
+generate_testbench -> [external] .extend
+generate_testbench -> [external] .join
+generate_testbench -> [external] GateContractError
+generate_testbench -> [external] enumerate
+generate_testbench -> [external] len
+generate_verilog_module -> [external] .append
+generate_verilog_module -> [external] .extend
+generate_verilog_module -> [external] .join
+generate_verilog_module -> [external] .partition
+generate_verilog_module -> [external] .pop
+generate_verilog_module -> [external] GateContractError
+generate_verilog_module -> [external] enumerate
+generate_verilog_module -> [external] len
+generate_verilog_module -> [external] sorted
+load_gates -> [external] .append
+load_gates -> [external] .get
+load_gates -> [external] .is_file
+load_gates -> [external] Gate
+load_gates -> [external] GateContractError
+load_gates -> [external] enumerate
+load_gates -> [external] isinstance
+load_signal_ports -> [external] .append
+load_signal_ports -> [external] .endswith
+load_signal_ports -> [external] .exists
+load_signal_ports -> [external] .get
+load_signal_ports -> [external] .items
+load_signal_ports -> [external] .loads
+load_signal_ports -> [external] .read_text
+load_signal_ports -> [external] .setdefault
+load_signal_ports -> [external] .sort
+load_signal_ports -> [external] .upper
+load_signal_ports -> [external] SignalPort
+load_signal_ports -> [external] len
+load_signal_ports -> [external] print
+load_signal_ports -> [external] sorted
+load_signal_ports -> [external] tuple
+main -> [external] .ArgumentParser
+main -> [external] .add_argument
+main -> [external] .append
+main -> [external] .error
+main -> [external] .is_file
+main -> [external] .parse_args
+main -> [external] .relative_to
+main -> [external] all
+main -> [external] len
+main -> [external] print
+main -> [external] str
+main -> [external] sum
+parse_gates_netlist -> [external] .loads
+parse_gates_netlist -> [external] .read_text
+print_contract -> [external] len
+print_contract -> [external] print
+render_exports -> [external] .append
+validate_gate_shapes -> [external] .append
+validate_gate_shapes -> [external] all
+validate_gate_shapes -> [external] isinstance
+validate_gate_shapes -> [external] len
+validate_gate_shapes -> [external] sorted
+validate_gate_shapes -> [external] tuple
+verilog_string -> [external] .replace
+write_contract_report -> [external] .dumps
+write_contract_report -> [external] .to_dict

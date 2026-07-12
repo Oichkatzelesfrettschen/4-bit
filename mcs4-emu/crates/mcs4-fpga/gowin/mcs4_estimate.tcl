@@ -1,8 +1,9 @@
 # Resource estimation: synthesize against GW1N-9C (proxy for GW1N-2)
 # GW1N-9C is supported by Education edition; GW1N-2 needs commercial license
-# Uses mcs4_proxy.v wrapper with USE_EXT_CLK=1 (no OSCH on GW1N-9C)
+# Uses the external-clock mcs4_proxy wrapper.
 set_device GW1N-LV9LQ144C6/I5
 add_file gowin/mcs4_proxy.v
+add_file gowin/mcs4_system_core.v
 add_file gowin/clock_gen.v
 add_file gowin/uart_hw.v
 add_file gowin/uart_bridge.v

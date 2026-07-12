@@ -69,6 +69,58 @@ below show bus topology only.
     +-- Interrupt/halt signals
 ```
 
+## Trace, replay, and GUI ownership
+
+`mcs4-system` defines a versioned `TraceFrame` contract. A frame records a
+post-phase observation, run and sequence identity, input-event identity,
+provenance, and canonical signals. Behavioral captures carry a SHA-256 of the
+complete ordered external-input transcript, including ROM load, reset, program
+counter, TEST, and ROM-port inputs. The provenance also names the transcript
+representation. A `ReplaySession` records every input and phase command, then
+reconstructs a fresh behavioral system from a checkpoint transcript. It does
+not claim an analog-state snapshot.
+
+The GUI has one mutation owner: its simulation worker owns the
+`ReplaySession`. UI panels consume immutable frames through a channel. A GUI
+startup trace import streams and validates JSONL frames within byte, line, and
+frame bounds, then atomically swaps the imported trace and disables live Run
+and Step commands until Reset returns control to the behavioral worker. The
+waveform excludes its label column from data hit testing and retains frame IDs,
+reset boundaries, and eviction counts rather than pretending that dropped
+history is continuous. The provenance panel displays backend,
+fidelity, evidence status, model identity, and stimulus identity. The die
+panel renders no transistor overlay until a coordinate-bearing physical netlist
+supplies evidence-backed device state.
+
+Cross-backend comparison requires equal declared stimulus representation and
+digest plus at least one mapped signal path. The i4003 Verilator adapter satisfies the JSON schema
+but has neither a whole-system stimulus nor shared signal mapping, so
+comparison correctly rejects it. The full-system Verilator adapter emits mapped
+MCS-4 paths and a scenario-document hash, which supports diagnostic
+comparison-surface tests. A behavioral replay transcript and a scenario JSON
+are deliberately distinct representations even when a hash is forced equal.
+It has not yet replayed the same behavioral ROM and input transcript,
+so it does not support a behavioral-to-FPGA equivalence claim.
+
+## FPGA system boundary
+
+`mcs4_system_core.v` is the one shared MCS-4 HDL datapath. It composes generated
+4004, 4001, and 4002 models, monitor ROM, RAM, UART bridge, and debug signals.
+`mcs4_system_sim_top.v` gives Icarus and Verilator a deterministic external
+clock. `mcs4_top.v` is the board wrapper and requires `sys_clk_in`; it does not
+invent an oscillator.
+
+Host lint and simulation validate the shared HDL contract. They do not prove
+target synthesis, timing closure, a board clock route, or a physical probe.
+The `mcs4-virtual-system` Verilator adapter executes this wrapper with staged
+monitor ROM input and emits mapped frame records, VCD, and bounded monitor
+invariants. The host enforces scenario-byte, action, cumulative-cycle, VCD,
+trace-frame, and trace-byte limits and latches bus contention. It supports
+comparison-surface diagnosis but does not yet replay a
+behavioral ROM transcript with identical input events.
+`docs/evidence/fpga-board-clock-and-conformance-blockers.md` defines the
+required evidence before programming hardware or promoting a board claim.
+
 ## Rust Workspace Structure
 
 ```
@@ -142,7 +194,7 @@ mcs4-emu/crates/
       control.rs                  # ControlSignals: SYNC, CM-ROM, CM-RAM, IoOp
       clock.rs                    # TwoPhaseClock (phi1/phi2, non-overlapping)
 
-  mcs4-chips/                     # Chip implementations (251 tests)
+  mcs4-chips/                     # Chip implementations (252 tests)
     src/
       lib.rs                      # Module registry, Chip trait
       disasm.rs                   # Disassembler + DisasmCache (O(1) window)
@@ -318,13 +370,13 @@ X3: Execute read phase            -> RDM/RDR: peripherals drive, CPU latches
 - **Error path tests**: Graceful behavior for missing nodes, empty circuits
 - **Integration tests**: End-to-end bus protocol (CPU fetching from ROM via tick_bus)
 - **Solver tests**: Convergence, accuracy, cross-validation between solver levels
-- **1,124 tests total, 0 failures** (updated 2026-07-11 after the solver-vs-datasheet timing test; operational metric, see `mcs4-emu/STATUS.md`)
+- **1,128 tests total, 0 failures** (updated 2026-07-11 after 4003 active-low E contract tests; operational metric, see `mcs4-emu/STATUS.md`)
 
 ## Build Commands
 
 ```sh
 cargo check --workspace         # Type check
-cargo test --workspace          # Run all tests
+cargo test --workspace --locked # Run all tests
 cargo clippy --all-targets -- -D warnings   # Lint (warnings = errors)
 cargo fmt --all --check         # Format check
 ```

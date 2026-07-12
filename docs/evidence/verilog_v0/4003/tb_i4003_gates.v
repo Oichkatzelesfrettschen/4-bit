@@ -1,6 +1,7 @@
 // Testbench (auto-generated)
 // Module: i4003_gates
-// Two-phase non-overlapping clock, reset pulse, walking data pattern
+// Exhaustive binary input vectors with an X/Z resolution oracle.
+// This testbench does not establish chip-level functional equivalence.
 
 `timescale 1ns/1ps
 
@@ -11,6 +12,17 @@ module tb_i4003_gates;
     reg Q6;
     wire Q4;
 
+    task require_known;
+        input value;
+        input [8*64-1:0] signal_name;
+        begin
+            if ((value !== 1'b0) && (value !== 1'b1)) begin
+                $display("FAIL: unresolved output %0s=%b", signal_name, value);
+                $fatal(1);
+            end
+        end
+    endtask
+
     i4003_gates dut (
         .VDD(VDD),
         .VSS(VSS),
@@ -20,32 +32,21 @@ module tb_i4003_gates;
         .Q4(Q4)
     );
 
-    // Two-phase non-overlapping clock, 1350 ns period:
-    // phi1 high 0-540, dead 540-675, phi2 high 675-1215, dead 1215-1350.
-    integer cycle;
+    integer vector;
     initial begin
-        VDD = 1;
-        VSS = 0;
-        Q2 = 0;
-        Q5 = 1;
-        Q6 = 0;
-
-        for (cycle = 0; cycle < 32; cycle = cycle + 1) begin
-            #540;
-            #135;
-            #540;
-            #135;
-            // Walk the data inputs so every one toggles
-            Q2 = (cycle >> 0) & 1;
-            Q5 = (cycle >> 1) & 1;
-            Q6 = (cycle >> 2) & 1;
+        VDD = 1'b1;
+        VSS = 1'b0;
+        for (vector = 0; vector < 8; vector = vector + 1) begin
+            Q2 = (vector >> 0) & 1'b1;
+            Q5 = (vector >> 1) & 1'b1;
+            Q6 = (vector >> 2) & 1'b1;
+            #1;
+            require_known(Q4, "Q4");
         end
-
-        $display("i4003_gates final: Q4=%b", Q4);
+        $display("PASS: i4003_gates resolves all 8 input vectors");
         $finish;
     end
 
-    // Waveform dump
     initial begin
         $dumpfile("tb_i4003_gates.vcd");
         $dumpvars(0, tb_i4003_gates);

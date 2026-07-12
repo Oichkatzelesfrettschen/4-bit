@@ -57,8 +57,8 @@ elif [[ "$claude_date" != "$status_date" ]]; then
     errors+=("status-date mismatch: CLAUDE.md=$claude_date STATUS.md=$status_date")
 fi
 
-claude_pct="$(sed -nE 's/^Summary: ([0-9]+)% overall completion$/\1/p' "$CLAUDE" | head -n1)"
-status_pct="$(sed -nE 's/^## Phase Summary \(([0-9]+)% overall\)$/\1/p' "$STATUS" | head -n1)"
+claude_pct="$(sed -nE 's/^(Summary|Historical planning summary): ([0-9]+)% overall completion$/\2/p' "$CLAUDE" | head -n1)"
+status_pct="$(sed -nE 's/^## (Phase Summary|Historical Phase Summary) \(([0-9]+)%( overall| planning snapshot)\)$/\2/p' "$STATUS" | head -n1)"
 
 if [[ -z "$claude_pct" || -z "$status_pct" ]]; then
     errors+=("phase-summary parse failed in CLAUDE.md or STATUS.md")

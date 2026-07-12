@@ -60,7 +60,11 @@ pub trait ChipSolverBridge {
     /// power rails, and initial voltages ready for solver consumption.
     fn subcircuit(&self, name: &str) -> Option<CircuitGraph>;
 
-    /// Return the physical pin mapping for the full chip.
+    /// Return evidence-backed physical pin mappings for the full chip.
+    ///
+    /// Implementations return an empty vector until an extracted netlist
+    /// establishes the mapping. They do not publish inferred node IDs as
+    /// physical evidence.
     fn pin_map(&self) -> Vec<PinMapping>;
 }
 

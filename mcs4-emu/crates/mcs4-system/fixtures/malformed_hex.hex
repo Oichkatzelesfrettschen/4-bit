@@ -1,0 +1,2 @@
+# Deliberately malformed fixture. GG is not a hexadecimal byte.
+D5 GG

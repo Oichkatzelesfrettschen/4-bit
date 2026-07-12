@@ -5,7 +5,7 @@
 > 3-level stack), 4040 (60 instructions, interrupts, 7-level stack), all
 > support chips (4001/4002/4003/4008/4009/3216/3226/3205/3404/2101/4101/
 > 4201/4207/4209/4211/4265/4289/4308/4316/4702), the disassembler, and the
-> SIMD cluster decode helpers. 251 unit + 4 circuit-sim + 1 fuzz + 11 proptest
+> SIMD cluster decode helpers. 252 unit + 4 circuit-sim + 1 fuzz + 11 proptest
 > tests.
 
 ## Build

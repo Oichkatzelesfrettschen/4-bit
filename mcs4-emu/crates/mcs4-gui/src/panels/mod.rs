@@ -3,6 +3,7 @@ pub mod controls;
 pub mod die_viewer;
 pub mod disasm;
 pub mod memory;
+pub mod provenance;
 pub mod registers;
 pub mod stack;
 pub mod waveform;

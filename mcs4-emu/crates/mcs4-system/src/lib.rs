@@ -9,6 +9,9 @@ pub mod cluster;
 pub mod fixture;
 pub mod mcs4;
 pub mod mcs40;
+pub mod replay;
+pub mod stimulus;
+pub mod trace;
 
 // A 16-lane portable_simd cluster rewrite once lived at
 // `src/simd_cluster.rs`; it rotted to 147 build errors without ever being
@@ -22,6 +25,19 @@ pub use mcs4::Mcs4System;
 pub use mcs40::Mcs40System;
 use mcs4_chips::{i4001::I4001, i4002::I4002};
 use mcs4_core::FidelityManager;
+pub use replay::{
+    ReplayCheckpoint, ReplayCommand, ReplayError, ReplayInput, ReplayLog, ReplaySession, ReplayTargetKind,
+    TraceReplayTarget, REPLAY_SCHEMA_VERSION,
+};
+pub use stimulus::{
+    CommonStimulus, CommonStimulusAction, COMMON_STIMULUS_MAX_ACTIONS, COMMON_STIMULUS_MAX_PHASES,
+    COMMON_STIMULUS_ROM_BYTES, COMMON_STIMULUS_SCHEMA_VERSION, COMMON_STIMULUS_TARGET,
+};
+pub use trace::{
+    compare_trace_frames, frames_are_comparable, PhaseTrace, SystemArchitecture, TraceBackend, TraceComparison,
+    TraceComparisonError, TraceEvidenceStatus, TraceFidelity, TraceFrame, TraceFrameError, TraceLogic, TracePhase,
+    TraceProvenance, TraceSignal, TraceStimulusKind, TraceValue, TRACE_FRAME_SCHEMA_VERSION,
+};
 
 /// Memory-map a ROM file as read-only bytes.
 ///

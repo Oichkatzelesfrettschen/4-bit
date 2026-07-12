@@ -8,3 +8,12 @@ license.workspace = true
 
 [lints]
 workspace = true
+
+[dependencies]
+serde_json.workspace = true
+sha2.workspace = true
+
+[dev-dependencies]
+mcs4-chips = { path = "../mcs4-chips" }
+serde.workspace = true
+tempfile.workspace = true

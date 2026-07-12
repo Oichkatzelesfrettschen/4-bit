@@ -2,6 +2,10 @@
 // Chip: 4001
 // Tool: gate_to_verilog_v0.py
 // Ports derived from netlist_v1 signal anchors (layout_node)
+// Export contract: incomplete; output CL reaches undriven nodes n1236.
+// This artifact does not establish chip-level functional equivalence.
+
+`timescale 1ns/1ps
 
 module i4001_gates (
     input wire VDD,

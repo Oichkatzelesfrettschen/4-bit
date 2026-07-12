@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "architecture": "mcs4",
+  "program_fixture": "src_wrm_rdm.hex",
+  "warmup_phases": 32,
+  "samples": [
+    {"completed_phase":"A1","next_phase":"A2","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":4,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A2","next_phase":"A3","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A3","next_phase":"M1","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"M1","next_phase":"M2","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"M2","next_phase":"X1","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":14,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X1","next_phase":"X2","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":14,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X2","next_phase":"X3","machine_cycles":4,"instruction_count":3,"pc":4,"accumulator":10,"bus_value":10,"selected_ram":1,"io_op":"ram_main_write"},
+    {"completed_phase":"X3","next_phase":"A1","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":10,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A1","next_phase":"A2","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":5,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A2","next_phase":"A3","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A3","next_phase":"M1","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"M1","next_phase":"M2","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"M2","next_phase":"X1","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":13,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X1","next_phase":"X2","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":10,"bus_value":13,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X2","next_phase":"X3","machine_cycles":5,"instruction_count":4,"pc":5,"accumulator":0,"bus_value":13,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X3","next_phase":"A1","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":13,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A1","next_phase":"A2","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":6,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A2","next_phase":"A3","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"A3","next_phase":"M1","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":0,"selected_ram":null,"io_op":null},
+    {"completed_phase":"M1","next_phase":"M2","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":9,"selected_ram":null,"io_op":null},
+    {"completed_phase":"M2","next_phase":"X1","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":14,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X1","next_phase":"X2","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":14,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X2","next_phase":"X3","machine_cycles":6,"instruction_count":5,"pc":6,"accumulator":0,"bus_value":14,"selected_ram":null,"io_op":null},
+    {"completed_phase":"X3","next_phase":"A1","machine_cycles":7,"instruction_count":6,"pc":7,"accumulator":10,"bus_value":10,"selected_ram":1,"io_op":"ram_main_read"}
+  ]
+}

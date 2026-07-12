@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "target": "mcs4-system-verilator",
+  "actions": [
+    {"op": "reset"},
+    {"op": "set_test_in", "value": 0},
+    {"op": "set_uart_rx", "value": 1},
+    {"op": "run_sys_cycles", "value": 5000}
+  ],
+  "expect": {
+    "min_wmp_strobes": 2,
+    "require_nonoverlap_phi": true,
+    "require_nonidle_bus": true,
+    "require_no_bus_contention": true
+  }
+}

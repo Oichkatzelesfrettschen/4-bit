@@ -10,6 +10,12 @@ this file. New phases carry mechanism-first names; the D-codes are
 secondary metadata continuing the established numbering from D11 to avoid
 collision with prior phases.
 
+The live 2026-07-11 call-graph capture, instrumented execution contract, and
+cross-surface debt program live in
+docs/repository-debt-callgraph-capture-roadmap.md. This ledger preserves its
+historical audit observations; it does not replace the current evidence
+contract or current test total.
+
 ## Audit provenance (2026-07-09)
 
 Five bounded sweeps (Rust code, tests, build environment + Python,
@@ -464,10 +470,12 @@ gates_v1 before == after (no netlist change): 4001 rails=[2570,5657]
 resolved=False INV=0; 4002 rails=[926,3251] resolved=True INV=0; 4003
 rails=[152,359] resolved=False INV=0; 4004 rails=[3,415] resolved=True
 INV=1. Rust hardcoded rail IDs are untouched (no netlist_v1 delta).
-Reproducibility: netlist_v1 rebuilds byte-identically only with
---anchors docs/evidence/schematic_layout_anchors_v1.json (the committed
-provenance file); the build script default (anchors_v0) does not
-reproduce the committed files.
+Resolved reproducibility defect 2026-07-11: netlist_v1 rebuilds
+byte-identically with the canonical
+`docs/evidence/schematic_layout_anchors_v1.json` file. The builder now uses
+that file by default, preserves the legacy `anchors_v0` schema key only for
+compatibility, records output hashes in its manifest, and publishes the
+netlist plus manifest through a crash-recoverable transaction.
 
 True blocker: the metal<->diffusion contact layer for 4001/4002/4003 is
 missing primary evidence, which is exactly the D19.8 symptom
@@ -650,6 +658,39 @@ Executes D14.7 and D14.9.
   primitive. All four verilog_v0 files regenerate with exactly the
   11-line tgate primitive module removed, byte-identical otherwise.
 
+## Resolved: gate HDL delivery contract rejects incomplete exports (2026-07-11)
+
+The old D14.3 historical note says that every generated bench drives a
+two-phase clock and reset. The retained module interfaces do not support that
+claim: 4001 exposes only D0 and IO0 as inputs, 4002 exposes only CM, 4003
+exposes Q2/Q5/Q6, and 4004 exposes no input anchor. The former benches only
+printed final values, so X-valued outputs still returned success.
+
+`gate_to_verilog_v0.py` now validates supported gate shape and traces every
+exported output cone to declared inputs. It writes an explicit failing bench
+for an incomplete graph, rejects missing gate input without a placeholder
+module, publishes generated files atomically, and exposes
+`--check-export-contract --check-generated` for delivery gates. The focused
+Python suite tests closed, undriven, multiply-driven, malformed,
+missing-input, missing-anchor, generated-artifact drift, and Icarus
+simulation cases.
+
+Current retained evidence classifies as follows:
+
+- 4001 fails because CL, CM, D2, and D3 reach undriven n1236, n1228, or n39.
+- 4002 fails because no signal anchor supplies an output port.
+- 4003 passes structural resolution for Q4 through declared Q2 and Q6 inputs;
+  its generated bench checks all eight binary input vectors for X and Z.
+- 4004 fails because CLK1, CMRAM0, and D0_PAD have 128, 21, and 21 extracted
+  drivers respectively.
+
+The FPGA Makefile runs this contract before gate-mode simulation, iCE40
+synthesis, or Spartan-7 synthesis. The gate export therefore cannot produce a
+passing simulation or delivery artifact for the incomplete 4001, 4002, or
+4004 evidence. The contract proves structural determinism only; independent
+behavior vectors, synthesis, timing, pin, and board evidence remain open.
+See `docs/evidence/gate-hdl-export-contract.md`.
+
 ## Resolved: 4004/4040 FIN, DCL, and JCN TEST semantics match the MCS-4 manuals (2026-07-10)
 
 Executes D13.10-D13.13 against primary sources: the MCS-4 Assembly
@@ -764,3 +805,32 @@ poly, or diffusion layers. D19.8 is closed as falsified. 4004 remains
 the only core chip whose rails reach transistor channels
 (VCC=415 metal_area 232361 inc 57, VSS=3 metal_area 411436 inc 50,
 INV=1), because it is the only core chip with a contacts mask.
+
+## Resolved: fixture-runner malformed input and offline local links (2026-07-11)
+
+The command boundary now includes a retained malformed fixture and a black-box
+test. The fixture runner exits 1, reports the failing line and token, writes no
+machine-state output, and does not panic. The canonical total is 1,159 passing
+tests with no ignored Rust test.
+
+The existing local-link verifier now runs through `just link-check`, `just
+verify`, and the Docs CI validation job. Its isolated tests cover valid
+relative and anchor links, missing Markdown and YAML targets, and external
+links without network access.
+
+## Resolved: 4003 active-low E behavior (2026-07-11)
+
+The MCS-40 Users Manual states that CP rising edges shift the 4003, E low
+exposes parallel data, E high drives only parallel outputs to VSS, and serial
+output remains independent of E. The manual also states that power-on clear
+clears the shift register before the first CP signal. The Rust I4003 model and
+the two behavioral Verilog emitters now enforce that contract. The generic
+behavioral module represents power-on clear with a zero initializer, while
+the FPGA-safe module uses its host reset. The compatibility Rust method keeps
+its historical output-visibility semantics while the explicit physical-pin API
+names the active-low E level. Target synthesis must verify the selected
+initialization or reset mapping.
+
+The partial i4003_gates artifact remains a structural Q4 cone only. This
+resolution does not claim a complete stage-order vector, RTL-to-gate
+equivalence, electrical timing equivalence, synthesis, or board validation.

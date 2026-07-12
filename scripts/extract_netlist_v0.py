@@ -12,6 +12,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
+from output_transaction import write_text_transaction
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -89,6 +91,7 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
 
 def rel_or_abs(path: Path) -> str:
     return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
@@ -184,7 +187,12 @@ def main() -> int:
     p = argparse.ArgumentParser(
         description="Extract a deterministic, partial multi-layer connectivity netlist from i400x layer bitmaps (v0)."
     )
-    p.add_argument("--chip", action="append", choices=sorted(specs().keys()), help="Chip to extract (repeatable)")
+    p.add_argument(
+        "--chip",
+        action="append",
+        choices=sorted(specs().keys()),
+        help="Chip to extract (repeatable)",
+    )
     p.add_argument("--all", action="store_true", help="Extract for all supported chips")
     p.add_argument("--out-dir", type=Path, default=ROOT / "docs" / "evidence" / "netlists_v0")
     p.add_argument("--threshold", type=int, default=128, help="Threshold for layer masks")
@@ -194,7 +202,12 @@ def main() -> int:
         default="auto",
         help="Mask polarity: 'dark' means features are dark pixels (< threshold), 'light' means features are light pixels (> threshold).",
     )
-    p.add_argument("--dilate", type=int, default=0, help="Dilation iterations for via/contact masks before stitching")
+    p.add_argument(
+        "--dilate",
+        type=int,
+        default=0,
+        help="Dilation iterations for via/contact masks before stitching",
+    )
     p.add_argument(
         "--close",
         type=int,
@@ -207,8 +220,18 @@ def main() -> int:
         default=True,
         help="Split diffusion by removing poly overlap (default true; disable to keep diffusion continuous under poly).",
     )
-    p.add_argument("--pad", type=int, default=3, help="Padding (px) around transistor candidate bboxes when sampling terminals")
-    p.add_argument("--stitch-max-labels", type=int, default=4, help="Max distinct labels per layer to stitch per via/contact blob")
+    p.add_argument(
+        "--pad",
+        type=int,
+        default=3,
+        help="Padding (px) around transistor candidate bboxes when sampling terminals",
+    )
+    p.add_argument(
+        "--stitch-max-labels",
+        type=int,
+        default=4,
+        help="Max distinct labels per layer to stitch per via/contact blob",
+    )
     p.add_argument(
         "--stitch-policy",
         choices=["strict", "relaxed"],
@@ -244,6 +267,7 @@ def main() -> int:
         },
         "outputs": [],
     }
+    documents: dict[Path, str] = {}
 
     for chip in sorted(selected):
         spec = specs()[chip]
@@ -253,7 +277,9 @@ def main() -> int:
         poly = load_mask(spec.poly_bmp, threshold=args.threshold, polarity=args.polarity)
         diffusion = load_mask(spec.diffusion_bmp, threshold=args.threshold, polarity=args.polarity)
         contacts = (
-            load_mask(spec.contacts_bmp, threshold=args.threshold, polarity=args.polarity) if spec.contacts_bmp else None
+            load_mask(spec.contacts_bmp, threshold=args.threshold, polarity=args.polarity)
+            if spec.contacts_bmp
+            else None
         )
 
         close_iters = int(args.close)
@@ -348,7 +374,9 @@ def main() -> int:
             if int(args.dilate) > 0:
                 c_u8 = cv2.dilate(c_u8, k, iterations=int(args.dilate))
             c_mask = c_u8 > 0
-            contacts_cc_input = c_mask & metal & diffusion_split if stitch_policy == "strict" else c_mask
+            contacts_cc_input = (
+                c_mask & metal & diffusion_split if stitch_policy == "strict" else c_mask
+            )
             c_n, c_lab, c_stats, _c_cent = connected_components(contacts_cc_input)
             for c_id in range(1, int(c_n)):
                 x, y, w, h, _area = (int(v) for v in c_stats[c_id].tolist())
@@ -560,17 +588,32 @@ def main() -> int:
                 "gate_degree": int(node_gate_degree[i]),
                 "terminal_degree": int(node_terminal_degree[i]),
                 "metal_bbox": (
-                    {"x0": int(node_metal_bbox[i][0]), "y0": int(node_metal_bbox[i][1]), "x1": int(node_metal_bbox[i][2]), "y1": int(node_metal_bbox[i][3])}
+                    {
+                        "x0": int(node_metal_bbox[i][0]),
+                        "y0": int(node_metal_bbox[i][1]),
+                        "x1": int(node_metal_bbox[i][2]),
+                        "y1": int(node_metal_bbox[i][3]),
+                    }
                     if node_metal_bbox[i] is not None
                     else None
                 ),
                 "poly_bbox": (
-                    {"x0": int(node_poly_bbox[i][0]), "y0": int(node_poly_bbox[i][1]), "x1": int(node_poly_bbox[i][2]), "y1": int(node_poly_bbox[i][3])}
+                    {
+                        "x0": int(node_poly_bbox[i][0]),
+                        "y0": int(node_poly_bbox[i][1]),
+                        "x1": int(node_poly_bbox[i][2]),
+                        "y1": int(node_poly_bbox[i][3]),
+                    }
                     if node_poly_bbox[i] is not None
                     else None
                 ),
                 "diffusion_bbox": (
-                    {"x0": int(node_diff_bbox[i][0]), "y0": int(node_diff_bbox[i][1]), "x1": int(node_diff_bbox[i][2]), "y1": int(node_diff_bbox[i][3])}
+                    {
+                        "x0": int(node_diff_bbox[i][0]),
+                        "y0": int(node_diff_bbox[i][1]),
+                        "x1": int(node_diff_bbox[i][2]),
+                        "y1": int(node_diff_bbox[i][3]),
+                    }
                     if node_diff_bbox[i] is not None
                     else None
                 ),
@@ -588,7 +631,9 @@ def main() -> int:
                 "vias_bmp": str(spec.vias_bmp.relative_to(ROOT)),
                 "poly_bmp": str(spec.poly_bmp.relative_to(ROOT)),
                 "diffusion_bmp": str(spec.diffusion_bmp.relative_to(ROOT)),
-                "contacts_bmp": str(spec.contacts_bmp.relative_to(ROOT)) if spec.contacts_bmp else None,
+                "contacts_bmp": str(spec.contacts_bmp.relative_to(ROOT))
+                if spec.contacts_bmp
+                else None,
                 "schematic_bmp": str(spec.schematic_bmp.relative_to(ROOT)),
                 "signals_txt": str(spec.signals_txt.relative_to(ROOT)),
                 "transistors_json": str(spec.transistors_json.relative_to(ROOT)),
@@ -610,7 +655,10 @@ def main() -> int:
                 "components": {"metal": m_count, "poly": p_count, "diffusion": d_count},
                 "nodes": int(len(roots)),
                 "stitches": {"vias": stitch_vias, "contacts": stitch_contacts},
-                "stitches_ambiguous": {"vias": vias_cc_ambiguous, "contacts": contacts_cc_ambiguous},
+                "stitches_ambiguous": {
+                    "vias": vias_cc_ambiguous,
+                    "contacts": contacts_cc_ambiguous,
+                },
                 "transistors_kept": int(len(transistors)),
                 "transistors_ambiguous": int(ambiguous),
                 "signals_points": int(len(signal_ref_points)),
@@ -619,10 +667,11 @@ def main() -> int:
             "signals": {"space": "schematic", "schematic_reference_points": signal_ref_points},
             "devices": {"transistors": transistors},
         }
-        out_json.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        documents[out_json] = json.dumps(payload, indent=2, sort_keys=True) + "\n"
         manifest["outputs"].append({"chip": chip, "output": rel_or_abs(out_json)})
 
-    (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    documents[out_dir / "manifest.json"] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    write_text_transaction(documents, root=out_dir)
     return 0
 
 

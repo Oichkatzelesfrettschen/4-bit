@@ -22,7 +22,7 @@ pub use instruction_decode::{Instruction, InstructionDecoder};
 use mcs4_bus::prelude::*;
 use mcs4_core::SimulationFidelity;
 pub use registers::Registers;
-pub use timing_io::TimingIo;
+pub use timing_io::{LogicalWindows, TimingIo, TimingProfile, TimingSnapshot, TimingViolation, TimingWindow};
 
 /// CM-RAM line mask selecting DATA RAM bank 0 (the RESET default).
 pub(crate) const CM_RAM0: u8 = 0b0001;
@@ -181,9 +181,20 @@ impl I4004 {
         self.alu.carry()
     }
 
+    /// Return the CPU-owned cycle state used by timing observations.
+    pub fn cycle_state(&self) -> &CycleState {
+        &self.cycle
+    }
+
+    /// Return the latest phase-window timing observation.
+    pub fn timing_snapshot(&self) -> &TimingSnapshot {
+        self.timing.snapshot()
+    }
+
     /// Process one bus phase
     pub fn tick(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &mut ControlSignals) {
         tracing::trace!(?phase, pc=%self.registers.pc(), "CPU Tick");
+        let cycle_before = self.cycle.clone();
         match phase {
             BusCycle::A1 => self.phase_a1(bus, ctrl),
             BusCycle::A2 => self.phase_a2(bus, ctrl),
@@ -195,6 +206,7 @@ impl I4004 {
             BusCycle::X3 => self.phase_x3(bus, ctrl),
         }
         self.cycle.advance();
+        self.timing.record_completed_phase(phase, &cycle_before, &self.cycle);
     }
 
     /// Address emitted during A1-A3.
@@ -594,6 +606,7 @@ impl super::Chip for I4004 {
         self.registers = Registers::new();
         self.decoder = InstructionDecoder::new();
         self.cycle = CycleState::new();
+        self.timing.reset();
         self.instruction_byte = 0;
         self.operand = 0;
         self.ram_address = 0;
@@ -607,7 +620,8 @@ impl super::Chip for I4004 {
 
     fn tick(&mut self, phase: BusCycle) {
         // Simplified tick without bus/control access
+        let cycle_before = self.cycle.clone();
         self.cycle.advance();
-        let _ = phase;
+        self.timing.record_completed_phase(phase, &cycle_before, &self.cycle);
     }
 }

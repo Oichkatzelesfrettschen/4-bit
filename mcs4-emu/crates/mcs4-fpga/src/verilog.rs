@@ -1,6 +1,291 @@
 //! Verilog Export
 
-use std::io::{self, Write};
+use std::{
+    fmt,
+    io::{self, Write},
+    str::FromStr,
+};
+
+/// Output representation selected for a generated chip module.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ExportFlavor {
+    /// Original behavioral interface, including tri-state ports where modeled.
+    Behavioral,
+    /// FPGA-safe interface with split buses and synthesis-oriented wrappers.
+    Fpga,
+}
+
+impl ExportFlavor {
+    /// Return the stable command-line spelling for this flavor.
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Behavioral => "behavioral",
+            Self::Fpga => "fpga",
+        }
+    }
+}
+
+impl fmt::Display for ExportFlavor {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str(self.as_str())
+    }
+}
+
+/// Error returned when parsing an export flavor.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ParseExportFlavorError {
+    value: String,
+}
+
+impl fmt::Display for ParseExportFlavorError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            formatter,
+            "unsupported export flavor {:?}; expected behavioral or fpga",
+            self.value
+        )
+    }
+}
+
+impl std::error::Error for ParseExportFlavorError {}
+
+impl FromStr for ExportFlavor {
+    type Err = ParseExportFlavorError;
+
+    fn from_str(value: &str) -> Result<Self, Self::Err> {
+        match value {
+            "behavioral" => Ok(Self::Behavioral),
+            "fpga" => Ok(Self::Fpga),
+            _ => Err(ParseExportFlavorError {
+                value: value.to_owned(),
+            }),
+        }
+    }
+}
+
+/// A named chip module that the exporter can select without stringly typed lookup.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ChipTarget {
+    I1302,
+    I2101,
+    I2102,
+    I2316,
+    I3205,
+    I3216,
+    I3226,
+    I3404,
+    I4001,
+    I4002,
+    I4003,
+    I4004,
+    I4008,
+    I4009,
+    I4040,
+    I4101,
+    I4201,
+    I4207,
+    I4209,
+    I4211,
+    I4265,
+    I4269,
+    I4289,
+    I4308,
+    I4316,
+    I4702,
+}
+
+impl ChipTarget {
+    /// Return the stable command-line spelling for this target.
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::I1302 => "i1302",
+            Self::I2101 => "i2101",
+            Self::I2102 => "i2102",
+            Self::I2316 => "i2316",
+            Self::I3205 => "i3205",
+            Self::I3216 => "i3216",
+            Self::I3226 => "i3226",
+            Self::I3404 => "i3404",
+            Self::I4001 => "i4001",
+            Self::I4002 => "i4002",
+            Self::I4003 => "i4003",
+            Self::I4004 => "i4004",
+            Self::I4008 => "i4008",
+            Self::I4009 => "i4009",
+            Self::I4040 => "i4040",
+            Self::I4101 => "i4101",
+            Self::I4201 => "i4201",
+            Self::I4207 => "i4207",
+            Self::I4209 => "i4209",
+            Self::I4211 => "i4211",
+            Self::I4265 => "i4265",
+            Self::I4269 => "i4269",
+            Self::I4289 => "i4289",
+            Self::I4308 => "i4308",
+            Self::I4316 => "i4316",
+            Self::I4702 => "i4702",
+        }
+    }
+}
+
+const BEHAVIORAL_TARGETS: &[ChipTarget] = &[
+    ChipTarget::I4004,
+    ChipTarget::I4001,
+    ChipTarget::I4002,
+    ChipTarget::I4003,
+    ChipTarget::I4008,
+    ChipTarget::I4009,
+    ChipTarget::I3216,
+    ChipTarget::I3226,
+    ChipTarget::I3205,
+    ChipTarget::I3404,
+    ChipTarget::I2101,
+    ChipTarget::I4040,
+    ChipTarget::I4101,
+    ChipTarget::I4201,
+    ChipTarget::I4289,
+    ChipTarget::I4308,
+    ChipTarget::I4207,
+    ChipTarget::I4209,
+    ChipTarget::I4211,
+    ChipTarget::I4265,
+    ChipTarget::I4316,
+    ChipTarget::I4702,
+];
+
+const FPGA_TARGETS: &[ChipTarget] = &[
+    ChipTarget::I4004,
+    ChipTarget::I4001,
+    ChipTarget::I4002,
+    ChipTarget::I4003,
+    ChipTarget::I3205,
+    ChipTarget::I4101,
+    ChipTarget::I4040,
+    ChipTarget::I4308,
+    ChipTarget::I4265,
+    ChipTarget::I4702,
+    ChipTarget::I4316,
+    ChipTarget::I4269,
+    ChipTarget::I2102,
+    ChipTarget::I1302,
+    ChipTarget::I2316,
+];
+
+/// Return every chip that supports the requested export flavor.
+pub const fn supported_targets(flavor: ExportFlavor) -> &'static [ChipTarget] {
+    match flavor {
+        ExportFlavor::Behavioral => BEHAVIORAL_TARGETS,
+        ExportFlavor::Fpga => FPGA_TARGETS,
+    }
+}
+
+impl fmt::Display for ChipTarget {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str(self.as_str())
+    }
+}
+
+/// Error returned when parsing a chip target.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ParseChipTargetError {
+    value: String,
+}
+
+impl fmt::Display for ParseChipTargetError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(formatter, "unsupported chip target {:?}", self.value)
+    }
+}
+
+impl std::error::Error for ParseChipTargetError {}
+
+impl FromStr for ChipTarget {
+    type Err = ParseChipTargetError;
+
+    fn from_str(value: &str) -> Result<Self, Self::Err> {
+        let numeric = value.strip_prefix('i').unwrap_or(value);
+        match numeric {
+            "1302" => Ok(Self::I1302),
+            "2101" => Ok(Self::I2101),
+            "2102" => Ok(Self::I2102),
+            "2316" => Ok(Self::I2316),
+            "3205" => Ok(Self::I3205),
+            "3216" => Ok(Self::I3216),
+            "3226" => Ok(Self::I3226),
+            "3404" => Ok(Self::I3404),
+            "4001" => Ok(Self::I4001),
+            "4002" => Ok(Self::I4002),
+            "4003" => Ok(Self::I4003),
+            "4004" => Ok(Self::I4004),
+            "4008" => Ok(Self::I4008),
+            "4009" => Ok(Self::I4009),
+            "4040" => Ok(Self::I4040),
+            "4101" => Ok(Self::I4101),
+            "4201" => Ok(Self::I4201),
+            "4207" => Ok(Self::I4207),
+            "4209" => Ok(Self::I4209),
+            "4211" => Ok(Self::I4211),
+            "4265" => Ok(Self::I4265),
+            "4269" => Ok(Self::I4269),
+            "4289" => Ok(Self::I4289),
+            "4308" => Ok(Self::I4308),
+            "4316" => Ok(Self::I4316),
+            "4702" => Ok(Self::I4702),
+            _ => Err(ParseChipTargetError {
+                value: value.to_owned(),
+            }),
+        }
+    }
+}
+
+/// Complete typed request for one rendered Verilog module.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ExportRequest {
+    pub chip: ChipTarget,
+    pub flavor: ExportFlavor,
+}
+
+impl ExportRequest {
+    /// Construct a typed chip export request.
+    pub const fn new(chip: ChipTarget, flavor: ExportFlavor) -> Self {
+        Self { chip, flavor }
+    }
+}
+
+/// Errors returned by typed Verilog export.
+#[derive(Debug)]
+pub enum ExportError {
+    /// The named chip does not expose the requested representation.
+    UnsupportedFlavor { chip: ChipTarget, flavor: ExportFlavor },
+    /// Rendering failed while writing the selected module.
+    Io(io::Error),
+}
+
+impl fmt::Display for ExportError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::UnsupportedFlavor { chip, flavor } => {
+                write!(formatter, "chip {chip} does not support the {flavor} export flavor")
+            }
+            Self::Io(error) => write!(formatter, "Verilog export I/O failure: {error}"),
+        }
+    }
+}
+
+impl std::error::Error for ExportError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Self::UnsupportedFlavor { .. } => None,
+            Self::Io(error) => Some(error),
+        }
+    }
+}
+
+impl From<io::Error> for ExportError {
+    fn from(value: io::Error) -> Self {
+        Self::Io(value)
+    }
+}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PortDir {
@@ -174,6 +459,7 @@ pub fn chip_i4001() -> Module {
     m.body.push("reg [7:0] rom [0:255];".into());
     m.body.push("reg [7:0] addr_latch;".into());
     m.body.push("reg [3:0] io_latch;".into());
+    m.body.push("reg [7:0] instruction;".into());
     m.body.push("reg selected;".into());
     m.body.push("reg [3:0] data_out;".into());
     m.body.push("reg data_drive;".into());
@@ -189,6 +475,7 @@ pub fn chip_i4001() -> Module {
     m.body.push("    selected <= 1'b0;".into());
     m.body.push("    data_drive <= 1'b0;".into());
     m.body.push("    io_latch <= 4'd0;".into());
+    m.body.push("    instruction <= 8'd0;".into());
     m.body.push("  end else begin".into());
     m.body
         .push("    phase <= (phase == 3'd7) ? 3'd0 : phase + 3'd1;".into());
@@ -207,12 +494,20 @@ pub fn chip_i4001() -> Module {
         .push("    3'd3: if (selected) begin // M1: output low nibble".into());
     m.body
         .push("      data_out <= rom[addr_latch][3:0]; data_drive <= 1'b1;".into());
+    m.body.push("      instruction[3:0] <= rom[addr_latch][3:0];".into());
     m.body.push("    end".into());
     m.body
         .push("    3'd4: if (selected) begin // M2: output high nibble".into());
     m.body
         .push("      data_out <= rom[addr_latch][7:4]; data_drive <= 1'b1;".into());
+    m.body.push("      instruction[7:4] <= rom[addr_latch][7:4];".into());
     m.body.push("    end".into());
+    m.body
+        .push("    3'd6: if (selected && instruction == 8'hE2) begin io_latch <= data; end // WRR".into());
+    m.body.push(
+        "    3'd7: if (selected && instruction == 8'hEA) begin data_out <= io_in; data_drive <= 1'b1; end // RDR"
+            .into(),
+    );
     m.body.push("    default: data_drive <= 1'b0;".into());
     m.body.push("  endcase".into());
     m.body.push("end".into());
@@ -248,23 +543,27 @@ pub fn chip_i4002() -> Module {
     m
 }
 
-/// Generate a synthesizable Verilog module for the Intel 4003 shift register.
+/// Generate a behavioral Verilog module for the Intel 4003 shift register.
+///
+/// The declaration initializer represents the device power-on clear state.
+/// Target-specific synthesis must provide an equivalent reset or initialization
+/// guarantee before this module drives hardware.
 pub fn chip_i4003() -> Module {
     let mut m = Module::new("i4003");
     m.ports.push(Port::input("clk_in"));
     m.ports.push(Port::input("data_in"));
-    m.ports.push(Port::input("enable"));
+    m.ports.push(Port::input("enable_n"));
     m.ports.push(Port::output("parallel_out").width(10));
     m.ports.push(Port::output("serial_out"));
 
-    m.body.push("reg [9:0] shift_reg;".into());
+    m.body.push("reg [9:0] shift_reg = 10'd0;".into());
     m.body.push(String::new());
-    m.body.push("assign parallel_out = shift_reg;".into());
+    m.body
+        .push("assign parallel_out = enable_n ? 10'd0 : shift_reg;".into());
     m.body.push("assign serial_out = shift_reg[9];".into());
     m.body.push(String::new());
     m.body.push("always @(posedge clk_in) begin".into());
-    m.body.push("  if (enable)".into());
-    m.body.push("    shift_reg <= {shift_reg[8:0], data_in};".into());
+    m.body.push("  shift_reg <= {shift_reg[8:0], data_in};".into());
     m.body.push("end".into());
 
     m
@@ -920,7 +1219,7 @@ pub fn chip_i4040() -> Module {
     m.ports.push(Port::output("cm_rom"));
     m.ports.push(Port::output("cm_ram").width(4));
     m.ports.push(Port::input("test"));
-    m.ports.push(Port::input("int")); // interrupt input
+    m.ports.push(Port::input("interrupt_in")); // interrupt input
     m.ports.push(Port::output("stp")); // stop acknowledge
 
     m.body.push("reg [11:0] pc;".into());
@@ -1011,10 +1310,20 @@ pub fn chip_i4004_fpga() -> Module {
     m.ports.push(Port::output("sync"));
     m.ports.push(Port::output("cm_rom"));
     m.ports.push(Port::output("cm_ram"));
+    m.ports.push(Port::output("ram_bank_select").width(4));
+    m.ports.push(Port::output("src_active"));
+    m.ports.push(Port::output("ram_io_active"));
+    m.ports.push(Port::output("ram_io_opcode").width(4));
     m.ports.push(Port::input("test"));
     // Direct WMP strobe for UART bridge (avoids cross-module timing issues)
     m.ports.push(Port::output("wmp_strobe"));
     m.ports.push(Port::output("wmp_data").width(4));
+    // Read-only system observation surface for host-side FPGA adapters.
+    m.ports.push(Port::output("debug_pc").width(12));
+    m.ports.push(Port::output("debug_accumulator").width(4));
+    m.ports.push(Port::output("debug_carry"));
+    m.ports.push(Port::output("debug_phase").width(3));
+    m.ports.push(Port::output("debug_src_drive"));
 
     // === Internal state ===
     m.body.push("reg [11:0] pc;".into());
@@ -1029,6 +1338,8 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("reg [2:0] phase;".into());
     m.body
         .push("reg need_operand; // 1 = 2-byte instruction, need second fetch".into());
+    m.body.push("reg ldm_pending;".into());
+    m.body.push("reg [3:0] ldm_data;".into());
     m.body
         .push("reg [7:0] src_addr; // SRC address register (set by SRC instruction)".into());
     m.body
@@ -1085,11 +1396,21 @@ pub fn chip_i4004_fpga() -> Module {
         .push("wire is_ram_io = (instruction[7:4] == 4'hE) && !fin_active; // E0-EF are RAM/IO ops".into());
     m.body
         .push("assign cm_ram = (phase == 3'd6 || phase == 3'd7) && is_ram_io;".into());
+    m.body.push("assign ram_bank_select = ram_bank;".into());
+    m.body
+        .push("assign src_active = (phase == 3'd6 || phase == 3'd7) && src_drive;".into());
+    m.body.push("assign ram_io_active = is_ram_io;".into());
+    m.body.push("assign ram_io_opcode = instruction[3:0];".into());
     // WMP strobe: registered pulse, fires when io_drive transitions from 0 to 1
     m.body.push("reg wmp_strobe_r;".into());
     m.body.push("reg [3:0] wmp_data_r;".into());
     m.body.push("assign wmp_strobe = wmp_strobe_r;".into());
     m.body.push("assign wmp_data = wmp_data_r;".into());
+    m.body.push("assign debug_pc = pc;".into());
+    m.body.push("assign debug_accumulator = acc;".into());
+    m.body.push("assign debug_carry = carry;".into());
+    m.body.push("assign debug_phase = phase;".into());
+    m.body.push("assign debug_src_drive = src_drive;".into());
     m.body.push(String::new());
 
     // === JCN condition evaluator ===
@@ -1111,7 +1432,10 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("    phi1_d <= 1'b0; phi2_d <= 1'b0;".into());
     m.body.push("    instruction <= 8'd0; operand <= 8'd0;".into());
     m.body.push("    need_operand <= 1'b0;".into());
-    m.body.push("    src_addr <= 8'd0; ram_bank <= 4'd0;".into());
+    m.body.push("    ldm_pending <= 1'b0; ldm_data <= 4'd0;".into());
+    // CM-RAM0 is the architectural reset designation.  A zero line mask
+    // disables bank 0 and prevents SRC/RDM from reaching the sole RAM wrapper.
+    m.body.push("    src_addr <= 8'd0; ram_bank <= 4'b0001;".into());
     m.body.push("    fin_active <= 1'b0; fin_pair <= 3'd0;".into());
     m.body
         .push("    io_data <= 4'd0; io_drive <= 1'b0; src_drive <= 1'b0; pc_written <= 1'b0;".into());
@@ -1139,8 +1463,8 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("        3'd3: instruction[3:0] <= data_in; // M1".into());
     m.body.push("        3'd4: instruction[7:4] <= data_in; // M2".into());
 
-    // X1 (phase 5): decode + execute single-byte ops + set up 2-byte flags
-    m.body.push("        3'd5: begin // X1: decode and execute".into());
+    // X1 (phase 5): decode and prepare bus operations for X2.
+    m.body.push("        3'd5: begin // X1: decode and prepare".into());
     m.body
         .push("          io_drive <= 1'b0; src_drive <= 1'b0; pc_written <= 1'b0; wmp_strobe_r <= 1'b0;".into());
     // FIN indirect fetch cycle: M1/M2 latched the byte at the pair-0 address;
@@ -1241,7 +1565,7 @@ pub fn chip_i4004_fpga() -> Module {
         "              8'b1000_????: {carry, acc} <= acc + regs[instruction[3:0]] + {4'd0, carry}; // ADD".into(),
     );
     m.body.push(
-        "              8'b1001_????: {carry, acc} <= acc + ~regs[instruction[3:0]] + {4'd0, ~carry}; // SUB".into(),
+        "              8'b1001_????: {carry, acc} <= {1'b0, acc} + {1'b0, ~regs[instruction[3:0]]} + {4'd0, ~carry}; // SUB".into(),
     );
     m.body
         .push("              8'b1010_????: acc <= regs[instruction[3:0]]; // LD".into());
@@ -1260,9 +1584,9 @@ pub fn chip_i4004_fpga() -> Module {
         .push("                acc <= instruction[3:0]; pc_written <= 1'b1;".into());
     m.body.push("              end".into());
 
-    // LDM
+    // LDM commits in X2, after X1 completes its decode work.
     m.body
-        .push("              8'b1101_????: acc <= instruction[3:0]; // LDM".into());
+        .push("              8'b1101_????: begin ldm_pending <= 1'b1; ldm_data <= instruction[3:0]; end // LDM".into());
 
     // RAM/IO write operations (E0-E7): set io_drive to put acc on bus
     m.body
@@ -1326,6 +1650,12 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("          end".into());
     m.body.push("        end".into());
 
+    // X2 (phase 6): commit deferred non-bus accumulator updates.
+    m.body.push("        3'd6: begin".into());
+    m.body
+        .push("          if (ldm_pending) begin acc <= ldm_data; ldm_pending <= 1'b0; end".into());
+    m.body.push("        end".into());
+
     // X3 (phase 7): RAM/IO read completion + PC advance
     m.body
         .push("        3'd7: begin // X3: read completion + advance PC".into());
@@ -1334,8 +1664,9 @@ pub fn chip_i4004_fpga() -> Module {
     m.body.push("          fin_active <= 1'b0;".into());
     // RAM/IO read: latch bus data into accumulator
     m.body.push("          if (!fin_active) casez (instruction)".into());
-    m.body
-        .push("            8'b1110_1000: {carry, acc} <= acc + ~data_in + {4'd0, ~carry}; // SBM".into());
+    m.body.push(
+        "            8'b1110_1000: {carry, acc} <= {1'b0, acc} + {1'b0, ~data_in} + {4'd0, ~carry}; // SBM".into(),
+    );
     m.body.push("            8'b1110_1001: acc <= data_in; // RDM".into());
     m.body.push("            8'b1110_1010: acc <= data_in; // RDR".into());
     m.body
@@ -1370,17 +1701,17 @@ pub fn chip_i4001_fpga() -> Module {
     m.ports.push(Port::output("data_out").width(4));
     m.ports.push(Port::output("data_oe"));
     m.ports.push(Port::input("cm_rom"));
-    m.ports.push(Port::input("sync"));
     m.ports.push(Port::output("rom_addr").width(8));
     m.ports.push(Port::input("rom_data").width(8));
     m.ports.push(Port::output("io_out").width(4));
     m.ports.push(Port::input("io_in").width(4));
     m.ports.push(Port::output("io_wr"));
+    m.ports.push(Port::output("io_rd"));
+    m.ports.push(Port::output("chip_selected"));
 
-    m.body.push("parameter CHIP_ID = 4'd0;".into());
-    m.body.push(String::new());
     m.body.push("reg [7:0] addr_latch;".into());
     m.body.push("reg [3:0] io_latch;".into());
+    m.body.push("reg [7:0] instruction;".into());
     m.body.push("reg selected;".into());
     m.body.push("reg [2:0] phase;".into());
     m.body.push("reg io_wr_r;".into());
@@ -1394,19 +1725,27 @@ pub fn chip_i4001_fpga() -> Module {
         .push("assign data_out = (phase == 3'd3 && selected) ? rom_data[3:0] :".into());
     m.body
         .push("                  (phase == 3'd4 && selected) ? rom_data[7:4] :".into());
+    m.body
+        .push("                  (phase == 3'd7 && selected && instruction == 8'hEA) ? io_in :".into());
     m.body.push("                  4'd0;".into());
     m.body
-        .push("assign data_oe = (phase == 3'd3 || phase == 3'd4) && selected;".into());
+        .push("assign data_oe = ((phase == 3'd3 || phase == 3'd4) ||".into());
+    m.body
+        .push("                  (phase == 3'd7 && instruction == 8'hEA)) && selected;".into());
     m.body.push("assign rom_addr = addr_latch;".into());
     m.body.push("assign io_out = io_latch;".into());
     m.body.push("assign io_wr = io_wr_r;".into());
+    m.body
+        .push("assign io_rd = phase == 3'd7 && selected && instruction == 8'hEA;".into());
+    m.body.push("assign chip_selected = selected;".into());
     m.body.push(String::new());
 
     // Single clock domain
     m.body.push("always @(posedge sys_clk) begin".into());
     m.body.push("  if (rst) begin".into());
     m.body.push("    phase <= 3'd0; selected <= 1'b0;".into());
-    m.body.push("    io_latch <= 4'd0; io_wr_r <= 1'b0;".into());
+    m.body
+        .push("    io_latch <= 4'd0; instruction <= 8'd0; io_wr_r <= 1'b0;".into());
     m.body.push("    phi1_d <= 1'b0; phi2_d <= 1'b0;".into());
     m.body.push("    addr_latch <= 8'd0;".into());
     m.body.push("  end else begin".into());
@@ -1419,9 +1758,14 @@ pub fn chip_i4001_fpga() -> Module {
     m.body.push("      case (phase)".into());
     m.body.push("        3'd0: addr_latch[3:0] <= data_in;".into());
     m.body.push("        3'd1: addr_latch[7:4] <= data_in;".into());
-    m.body.push("        3'd2: selected <= 1'b1;".into());
+    m.body.push("        3'd2: selected <= cm_rom;".into());
     m.body
-        .push("        3'd7: if (selected) begin io_latch <= data_in; io_wr_r <= 1'b1; end".into());
+        .push("        3'd3: if (selected) instruction[3:0] <= rom_data[3:0];".into());
+    m.body
+        .push("        3'd4: if (selected) instruction[7:4] <= rom_data[7:4];".into());
+    m.body.push(
+        "        3'd6: if (selected && instruction == 8'hE2) begin io_latch <= data_in; io_wr_r <= 1'b1; end".into(),
+    );
     m.body.push("        default: ;".into());
     m.body.push("      endcase".into());
     m.body.push("    end".into());
@@ -1446,11 +1790,16 @@ pub fn chip_i4002_fpga() -> Module {
     m.ports.push(Port::output("data_out").width(4));
     m.ports.push(Port::output("data_oe"));
     m.ports.push(Port::input("cm_ram"));
+    m.ports.push(Port::input("ram_bank_select").width(4));
+    m.ports.push(Port::input("src_active"));
+    m.ports.push(Port::input("ram_io_active"));
+    m.ports.push(Port::input("ram_io_opcode").width(4));
     m.ports.push(Port::output("ram_addr").width(8));
     m.ports.push(Port::input("ram_rdata").width(4));
     m.ports.push(Port::output("ram_wdata").width(4));
     m.ports.push(Port::output("ram_we"));
     m.ports.push(Port::output("port_out").width(4));
+    m.ports.push(Port::output("chip_selected"));
 
     m.body.push("parameter CHIP_ID = 2'd0;".into());
     m.body.push("parameter BANK_ID = 2'd0;".into());
@@ -1465,14 +1814,7 @@ pub fn chip_i4002_fpga() -> Module {
     m.body.push("wire phi1_rise = phi1 && !phi1_d;".into());
     m.body.push("wire phi2_rise = phi2 && !phi2_d;".into());
     m.body.push("reg do_write; // write RAM this cycle".into());
-    m.body.push("reg do_read; // drive RAM data onto bus".into());
     m.body.push("reg [3:0] wdata; // data to write to RAM".into());
-    m.body
-        .push("reg [3:0] rdata_buf; // buffered read data for bus output".into());
-    m.body
-        .push("reg [1:0] status_idx; // which status reg for WR0-3/RD0-3".into());
-    m.body
-        .push("reg status_read; // drive status onto bus instead of RAM".into());
     m.body.push(String::new());
 
     // RAM address from SRC latch
@@ -1480,12 +1822,23 @@ pub fn chip_i4002_fpga() -> Module {
     m.body.push("assign ram_wdata = wdata;".into());
     m.body.push("assign ram_we = do_write;".into());
     m.body.push("assign port_out = output_port;".into());
+    m.body.push("assign chip_selected = selected;".into());
     m.body.push(String::new());
 
-    // Combinational read output during X3 (phase 7) when selected
+    // Combinational read output during X3. The CPU exposes the decoded RAM
+    // operation, so this RAM does not mistake source-address traffic for I/O.
+    m.body.push("wire bank_selected = ram_bank_select[BANK_ID];".into());
+    m.body.push("wire ram_selected = selected && bank_selected;".into());
     m.body
-        .push("assign data_out = status_read ? status[status_idx] : ram_rdata;".into());
-    m.body.push("assign data_oe = do_read && selected;".into());
+        .push("wire main_read = ram_io_active && cm_ram && phase == 3'd7 &&".into());
+    m.body
+        .push("                 (ram_io_opcode == 4'h8 || ram_io_opcode == 4'h9 || ram_io_opcode == 4'hB);".into());
+    m.body
+        .push("wire status_read = ram_io_active && cm_ram && phase == 3'd7 && ram_io_opcode[3:2] == 2'b11;".into());
+    m.body
+        .push("assign data_out = status_read ? status[ram_io_opcode[1:0]] : ram_rdata;".into());
+    m.body
+        .push("assign data_oe = ram_selected && (main_read || status_read);".into());
     m.body.push(String::new());
 
     // Single clock domain
@@ -1495,9 +1848,8 @@ pub fn chip_i4002_fpga() -> Module {
     m.body.push("    output_port <= 4'd0;".into());
     m.body.push("    phi1_d <= 1'b0; phi2_d <= 1'b0;".into());
     m.body.push("    src_latch <= 8'd0;".into());
-    m.body.push("    do_write <= 1'b0; do_read <= 1'b0;".into());
-    m.body.push("    wdata <= 4'd0; status_idx <= 2'd0;".into());
-    m.body.push("    status_read <= 1'b0;".into());
+    m.body.push("    do_write <= 1'b0;".into());
+    m.body.push("    wdata <= 4'd0;".into());
     m.body.push("    status[0] <= 4'd0; status[1] <= 4'd0;".into());
     m.body.push("    status[2] <= 4'd0; status[3] <= 4'd0;".into());
     m.body.push("  end else begin".into());
@@ -1506,26 +1858,30 @@ pub fn chip_i4002_fpga() -> Module {
     m.body
         .push("      phase <= (phase == 3'd7) ? 3'd0 : phase + 3'd1;".into());
     m.body.push("    if (phi2_rise) begin".into());
-    m.body.push("      do_write <= 1'b0; do_read <= 1'b0;".into());
-    m.body.push("      status_read <= 1'b0;".into());
+    m.body.push("      do_write <= 1'b0;".into());
     m.body.push("      case (phase)".into());
+    // SRC selects one chip and register in X2, then latches its character in X3.
+    m.body.push("        3'd6: begin".into());
+    m.body.push("          if (src_active && bank_selected) begin".into());
+    m.body.push("            src_latch[3:0] <= data_in;".into());
+    m.body.push("            selected <= (data_in[1:0] == CHIP_ID);".into());
     m.body
-        .push("        3'd2: selected <= cm_ram; // A3: chip select".into());
-    // X2 (phase 6): SRC address latch (low nibble from bus)
+        .push("          end else if (ram_io_active && cm_ram && ram_selected) begin".into());
+    m.body.push("            case (ram_io_opcode)".into());
     m.body
-        .push("        3'd6: if (selected) src_latch[3:0] <= data_in;".into());
-    // X3 (phase 7): SRC high nibble + RAM/IO command execution
-    m.body.push("        3'd7: if (selected) begin".into());
-    m.body.push("          src_latch[7:4] <= data_in;".into());
-    // WRM (E0): write acc to RAM
-    m.body.push("          if (cm_ram) begin".into());
-    m.body
-        .push("            // CPU drives io_data on bus during X2/X3 for write ops".into());
-    m.body
-        .push("            // For WRM: data_in has the acc value (CPU drives it)".into());
-    m.body.push("            wdata <= data_in;".into());
-    m.body.push("            do_write <= 1'b1;".into());
+        .push("              4'h0: begin wdata <= data_in; do_write <= 1'b1; end // WRM".into());
+    m.body.push("              4'h1: output_port <= data_in; // WMP".into());
+    m.body.push("              4'h4: status[0] <= data_in; // WR0".into());
+    m.body.push("              4'h5: status[1] <= data_in; // WR1".into());
+    m.body.push("              4'h6: status[2] <= data_in; // WR2".into());
+    m.body.push("              4'h7: status[3] <= data_in; // WR3".into());
+    m.body.push("              default: ;".into());
+    m.body.push("            endcase".into());
     m.body.push("          end".into());
+    m.body.push("        end".into());
+    m.body
+        .push("        3'd7: if (src_active && bank_selected && selected) begin".into());
+    m.body.push("          src_latch[7:4] <= data_in;".into());
     m.body.push("        end".into());
     m.body.push("        default: ;".into());
     m.body.push("      endcase".into());
@@ -1537,13 +1893,15 @@ pub fn chip_i4002_fpga() -> Module {
 }
 
 /// FPGA-safe i4003: 10-bit shift register. Single clock domain.
+///
+/// The host reset represents the device power-on clear state.
 pub fn chip_i4003_fpga() -> Module {
     let mut m = Module::new("i4003_fpga");
     m.ports.push(Port::input("sys_clk"));
     m.ports.push(Port::input("rst"));
     m.ports.push(Port::input("clk_in")); // shift clock (directly from CPU or bus)
     m.ports.push(Port::input("data_in")); // serial input
-    m.ports.push(Port::input("enable"));
+    m.ports.push(Port::input("enable_n")); // active-low parallel output gate
     m.ports.push(Port::output("parallel_out").width(10));
     m.ports.push(Port::output("serial_out"));
 
@@ -1551,7 +1909,8 @@ pub fn chip_i4003_fpga() -> Module {
     m.body.push("reg clk_in_d;".into());
     m.body.push("wire clk_in_rise = clk_in && !clk_in_d;".into());
     m.body.push(String::new());
-    m.body.push("assign parallel_out = shift_reg;".into());
+    m.body
+        .push("assign parallel_out = enable_n ? 10'd0 : shift_reg;".into());
     m.body.push("assign serial_out = shift_reg[9];".into());
     m.body.push(String::new());
 
@@ -1560,7 +1919,7 @@ pub fn chip_i4003_fpga() -> Module {
     m.body.push("    shift_reg <= 10'd0; clk_in_d <= 1'b0;".into());
     m.body.push("  end else begin".into());
     m.body.push("    clk_in_d <= clk_in;".into());
-    m.body.push("    if (clk_in_rise && enable)".into());
+    m.body.push("    if (clk_in_rise)".into());
     m.body.push("      shift_reg <= {shift_reg[8:0], data_in};".into());
     m.body.push("  end".into());
     m.body.push("end".into());
@@ -1589,7 +1948,7 @@ pub fn chip_i4040_fpga() -> Module {
     m.ports.push(Port::output("cm_rom"));
     m.ports.push(Port::output("cm_ram"));
     m.ports.push(Port::input("test"));
-    m.ports.push(Port::input("int")); // interrupt input
+    m.ports.push(Port::input("interrupt_in")); // interrupt input
     m.ports.push(Port::output("stp")); // stop/halt acknowledge
     m.ports.push(Port::output("wmp_strobe"));
     m.ports.push(Port::output("wmp_data").width(4));
@@ -1676,9 +2035,10 @@ pub fn chip_i4040_fpga() -> Module {
     m.body.push(String::new());
 
     // Interrupt edge detection
-    m.body.push("reg int_d;".into());
-    m.body.push("wire int_rise = int && !int_d;".into());
-    m.body.push("reg int_pending;".into());
+    m.body.push("reg interrupt_d;".into());
+    m.body
+        .push("wire interrupt_rise = interrupt_in && !interrupt_d;".into());
+    m.body.push("reg interrupt_pending;".into());
     m.body.push(String::new());
 
     m.body.push("integer ri;".into());
@@ -1696,7 +2056,8 @@ pub fn chip_i4040_fpga() -> Module {
     m.body
         .push("    int_enabled <= 1'b0; reg_bank <= 2'd0; halted <= 1'b0;".into());
     m.body.push("    wmp_strobe_r <= 1'b0; wmp_data_r <= 4'd0;".into());
-    m.body.push("    int_d <= 1'b0; int_pending <= 1'b0;".into());
+    m.body
+        .push("    interrupt_d <= 1'b0; interrupt_pending <= 1'b0;".into());
     m.body
         .push("    for (ri = 0; ri < 24; ri = ri + 1) regs[ri] <= 4'd0;".into());
     m.body
@@ -1704,9 +2065,9 @@ pub fn chip_i4040_fpga() -> Module {
     m.body.push("  end else begin".into());
     m.body.push("    phi1_d <= phi1; phi2_d <= phi2;".into());
     m.body.push("    wmp_strobe_r <= 1'b0;".into());
-    m.body.push("    int_d <= int;".into());
+    m.body.push("    interrupt_d <= interrupt_in;".into());
     m.body
-        .push("    if (int_rise && int_enabled) int_pending <= 1'b1;".into());
+        .push("    if (interrupt_rise && int_enabled) interrupt_pending <= 1'b1;".into());
     m.body.push(String::new());
 
     m.body.push("    if (phi1_rise && !halted)".into());
@@ -1732,9 +2093,9 @@ pub fn chip_i4040_fpga() -> Module {
     m.body.push("            pc_written <= 1'b1;".into());
     // Handle interrupt: at start of X1, if pending, push PC and jump to 0x003
     m.body
-        .push("          end else if (int_pending && !need_operand) begin".into());
+        .push("          end else if (interrupt_pending && !need_operand) begin".into());
     m.body
-        .push("            int_pending <= 1'b0; int_enabled <= 1'b0;".into());
+        .push("            interrupt_pending <= 1'b0; int_enabled <= 1'b0;".into());
     m.body
         .push("            stack[sp] <= pc; sp <= (sp == 3'd6) ? 3'd0 : sp + 3'd1;".into());
     m.body.push("            pc <= 12'h003; pc_written <= 1'b1;".into());
@@ -2471,18 +2832,48 @@ pub fn fpga_chip_modules() -> Vec<Module> {
     ]
 }
 
-/// Verilog exporter for gate-level designs
-pub struct VerilogExporter {
-    module_name: String,
-}
+/// Verilog exporter for typed behavioral and FPGA-safe module requests.
+#[derive(Clone, Debug, Default)]
+pub struct VerilogExporter;
 
 impl VerilogExporter {
-    pub fn new(module_name: impl Into<String>) -> Self {
-        Self {
-            module_name: module_name.into(),
-        }
+    /// Construct a legacy stateless renderer.
+    ///
+    /// Use [`Default::default`] for typed export. The module-name parameter
+    /// no longer selects a placeholder module and remains only for source
+    /// compatibility with callers that render explicit [`Module`] values.
+    #[deprecated(note = "use VerilogExporter with ExportRequest")]
+    pub fn new(_legacy_module_name: impl Into<String>) -> Self {
+        Self
     }
 
+    /// Resolve a typed request to the complete module implementation.
+    pub fn module_for(&self, request: ExportRequest) -> Result<Module, ExportError> {
+        let expected_name = match request.flavor {
+            ExportFlavor::Behavioral => request.chip.as_str().to_owned(),
+            ExportFlavor::Fpga => format!("{}_fpga", request.chip.as_str()),
+        };
+        let modules = match request.flavor {
+            ExportFlavor::Behavioral => all_chip_modules(),
+            ExportFlavor::Fpga => fpga_chip_modules(),
+        };
+        modules
+            .into_iter()
+            .find(|module| module.name == expected_name)
+            .ok_or(ExportError::UnsupportedFlavor {
+                chip: request.chip,
+                flavor: request.flavor,
+            })
+    }
+
+    /// Render one typed request to a writer.
+    pub fn export_request<W: Write>(&self, request: ExportRequest, writer: &mut W) -> Result<(), ExportError> {
+        let module = self.module_for(request)?;
+        self.export_module(&module, writer)?;
+        Ok(())
+    }
+
+    /// Render a fully constructed module to a writer.
     pub fn export_module<W: Write>(&self, module: &Module, writer: &mut W) -> io::Result<()> {
         writeln!(writer, "// Auto-generated Verilog for MCS-4")?;
         writeln!(writer, "module {} (", module.name)?;
@@ -2506,17 +2897,6 @@ impl VerilogExporter {
         writeln!(writer, "endmodule")?;
         Ok(())
     }
-
-    /// Export a placeholder module that matches the current CLI/API expectations.
-    pub fn export<W: Write>(&self, writer: &mut W) -> io::Result<()> {
-        let mut module = Module::new(self.module_name.clone());
-        module.ports.push(Port::input("clk"));
-        module.ports.push(Port::input("rst"));
-        module
-            .body
-            .push("// Netlist emission hooks live in Module.body for now.".to_string());
-        self.export_module(&module, writer)
-    }
 }
 
 #[cfg(test)]
@@ -2525,18 +2905,72 @@ mod tests {
     use super::*;
 
     #[test]
-    fn renders_minimal_module() {
-        let exporter = VerilogExporter::new("mcs4_top");
+    fn exports_typed_behavioral_module() {
+        let exporter = VerilogExporter;
         let mut out = Vec::new();
-        assert!(exporter.export(&mut out).is_ok());
+        exporter
+            .export_request(
+                ExportRequest::new(ChipTarget::I4003, ExportFlavor::Behavioral),
+                &mut out,
+            )
+            .expect("typed export succeeds");
         let s = match String::from_utf8(out) {
             Ok(s) => s,
             Err(e) => panic!("invalid utf8 verilog output: {e}"),
         };
-        assert!(s.contains("module mcs4_top"));
-        assert!(s.contains("input wire clk;"));
-        assert!(s.contains("input wire rst;"));
+        assert!(s.contains("module i4003"));
+        assert!(s.contains("input wire clk_in;"));
+        assert!(s.contains("input wire enable_n;"));
         assert!(s.contains("endmodule"));
+    }
+
+    #[test]
+    fn rejects_chip_flavor_pair_without_a_complete_module() {
+        let exporter = VerilogExporter;
+        let error = exporter
+            .module_for(ExportRequest::new(ChipTarget::I1302, ExportFlavor::Behavioral))
+            .expect_err("i1302 has only an FPGA-safe module");
+        assert!(matches!(
+            error,
+            ExportError::UnsupportedFlavor {
+                chip: ChipTarget::I1302,
+                flavor: ExportFlavor::Behavioral,
+            }
+        ));
+    }
+
+    #[test]
+    fn resolves_typed_fpga_module_name() {
+        let exporter = VerilogExporter;
+        let module = exporter
+            .module_for(ExportRequest::new(ChipTarget::I4003, ExportFlavor::Fpga))
+            .expect("i4003 has an FPGA-safe module");
+        assert_eq!(module.name, "i4003_fpga");
+    }
+
+    #[test]
+    fn parses_cli_chip_spelling_with_or_without_i_prefix() {
+        assert_eq!("4003".parse::<ChipTarget>(), Ok(ChipTarget::I4003));
+        assert_eq!("i4003".parse::<ChipTarget>(), Ok(ChipTarget::I4003));
+    }
+
+    #[test]
+    fn typed_target_lists_match_module_factories() {
+        let exporter = VerilogExporter;
+        for flavor in [ExportFlavor::Behavioral, ExportFlavor::Fpga] {
+            for chip in supported_targets(flavor) {
+                let module = exporter
+                    .module_for(ExportRequest::new(*chip, flavor))
+                    .expect("declared target resolves");
+                let expected_name = match flavor {
+                    ExportFlavor::Behavioral => chip.as_str().to_owned(),
+                    ExportFlavor::Fpga => format!("{}_fpga", chip.as_str()),
+                };
+                assert_eq!(module.name, expected_name);
+            }
+        }
+        assert_eq!(supported_targets(ExportFlavor::Behavioral).len(), 22);
+        assert_eq!(supported_targets(ExportFlavor::Fpga).len(), 15);
     }
 
     #[test]
@@ -2574,7 +3008,7 @@ mod tests {
         module.ports.push(Port::output("b").width(4));
         module.body.push("assign b = {4{a}};".to_string());
 
-        let exporter = VerilogExporter::new("ignored");
+        let exporter = VerilogExporter;
         let mut out = Vec::new();
         exporter.export_module(&module, &mut out).unwrap();
         let s = String::from_utf8(out).unwrap();
@@ -2590,7 +3024,7 @@ mod tests {
         module.ports.push(Port::input("a"));
         module.ports.push(Port::output("b"));
 
-        let exporter = VerilogExporter::new("x");
+        let exporter = VerilogExporter;
         let mut out = Vec::new();
         exporter.export_module(&module, &mut out).unwrap();
         let s = String::from_utf8(out).unwrap();
@@ -2603,7 +3037,7 @@ mod tests {
     // --- Chip module generation tests ---
 
     fn render_module(module: &Module) -> String {
-        let exporter = VerilogExporter::new("unused");
+        let exporter = VerilogExporter;
         let mut out = Vec::new();
         exporter.export_module(module, &mut out).unwrap();
         String::from_utf8(out).unwrap()
@@ -2662,11 +3096,15 @@ mod tests {
         let m = chip_i4003();
         let v = render_module(&m);
         assert!(v.contains("module i4003"));
+        assert!(v.contains("input wire enable_n"));
+        assert!(v.contains("reg [9:0] shift_reg = 10'd0;"));
         assert!(v.contains("shift_reg"));
         assert!(v.contains("serial_out"));
         assert!(v.contains("parallel_out"));
-        // Check the shift logic
-        assert!(v.contains("{shift_reg[8:0], data_in}"));
+        assert!(v.contains("assign parallel_out = enable_n ? 10'd0 : shift_reg;"));
+        assert!(v.contains("assign serial_out = shift_reg[9];"));
+        assert!(v.contains("always @(posedge clk_in) begin\n    shift_reg <= {shift_reg[8:0], data_in};"));
+        assert!(!v.contains("if (enable_n)"));
     }
 
     #[test]
@@ -2819,25 +3257,6 @@ mod tests {
         }
     }
 
-    // --- Verilog file generation (run with --ignored) ---
-
-    #[test]
-    #[ignore = "codegen helper writing build/*.v; run explicitly with --ignored"]
-    fn generate_fpga_verilog() {
-        use std::{fs, path::Path};
-
-        let build_dir = Path::new("build");
-        fs::create_dir_all(build_dir).unwrap();
-
-        let exporter = VerilogExporter::new("unused");
-        for module in fpga_chip_modules() {
-            let path = build_dir.join(format!("{}.v", module.name));
-            let mut f = fs::File::create(&path).unwrap();
-            exporter.export_module(&module, &mut f).unwrap();
-            eprintln!("Generated: {}", path.display());
-        }
-    }
-
     // --- FPGA-safe split-bus variant tests ---
 
     #[test]
@@ -2850,6 +3269,15 @@ mod tests {
         assert!(port_names.contains(&"data_in"), "missing data_in");
         assert!(port_names.contains(&"data_out"), "missing data_out");
         assert!(port_names.contains(&"data_oe"), "missing data_oe");
+        assert!(port_names.contains(&"ram_bank_select"));
+        assert!(port_names.contains(&"src_active"));
+        assert!(port_names.contains(&"ram_io_active"));
+        assert!(port_names.contains(&"ram_io_opcode"));
+        assert!(port_names.contains(&"debug_pc"));
+        assert!(port_names.contains(&"debug_accumulator"));
+        assert!(port_names.contains(&"debug_carry"));
+        assert!(port_names.contains(&"debug_phase"));
+        assert!(port_names.contains(&"debug_src_drive"));
 
         // Must NOT have inout data
         assert!(!port_names.contains(&"data"), "FPGA variant must not have inout data");
@@ -2875,6 +3303,9 @@ mod tests {
         assert!(!v.contains("inout"), "FPGA variant must not have inout");
         assert!(v.contains("assign data_oe"));
         assert!(v.contains("assign data_out"));
+        assert!(v.contains("assign ram_bank_select"));
+        assert!(v.contains("assign debug_pc"));
+        assert!(v.contains("assign debug_phase"));
         assert!(v.contains("endmodule"));
     }
 
@@ -2937,6 +3368,7 @@ mod tests {
         assert!(port_names.contains(&"data_in"));
         assert!(port_names.contains(&"data_out"));
         assert!(port_names.contains(&"data_oe"));
+        assert!(port_names.contains(&"chip_selected"));
         assert!(!port_names.contains(&"data"));
 
         // BSRAM interface
@@ -2947,12 +3379,19 @@ mod tests {
         assert!(port_names.contains(&"io_out"));
         assert!(port_names.contains(&"io_in"));
         assert!(port_names.contains(&"io_wr"));
+        assert!(port_names.contains(&"io_rd"));
+        assert!(!port_names.contains(&"sync"));
 
         let v = render_module(&m);
         assert!(
             !v.contains("reg [7:0] rom"),
             "FPGA variant should not have internal ROM array"
         );
+        assert!(v.contains("selected <= cm_rom"));
+        assert!(v.contains("instruction == 8'hE2"));
+        assert!(v.contains("instruction == 8'hEA"));
+        assert!(v.contains("assign io_rd"));
+        assert!(!v.contains("selected <= 1'b1"));
     }
 
     #[test]
@@ -2965,7 +3404,12 @@ mod tests {
         assert!(port_names.contains(&"data_in"));
         assert!(port_names.contains(&"data_out"));
         assert!(port_names.contains(&"data_oe"));
+        assert!(port_names.contains(&"chip_selected"));
         assert!(!port_names.contains(&"data"));
+        assert!(port_names.contains(&"ram_bank_select"));
+        assert!(port_names.contains(&"src_active"));
+        assert!(port_names.contains(&"ram_io_active"));
+        assert!(port_names.contains(&"ram_io_opcode"));
 
         // External RAM port
         assert!(port_names.contains(&"ram_addr"), "missing ram_addr");
@@ -2995,10 +3439,16 @@ mod tests {
         let m = chip_i4003_fpga();
         assert_eq!(m.name, "i4003_fpga");
         let v = render_module(&m);
+        assert!(v.contains("input wire enable_n"));
         assert!(v.contains("shift_reg"));
         assert!(v.contains("serial_out"));
         assert!(v.contains("parallel_out"));
         assert!(v.contains("sys_clk"));
+        assert!(v.contains("assign parallel_out = enable_n ? 10'd0 : shift_reg;"));
+        assert!(v.contains("assign serial_out = shift_reg[9];"));
+        assert!(v.contains("shift_reg <= 10'd0; clk_in_d <= 1'b0;"));
+        assert!(v.contains("if (clk_in_rise)"));
+        assert!(!v.contains("clk_in_rise && enable_n"));
     }
 
     #[test]

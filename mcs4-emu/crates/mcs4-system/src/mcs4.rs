@@ -8,7 +8,10 @@ use mcs4_bus::prelude::*;
 use mcs4_chips::{i4001::I4001, i4002::I4002, i4003::I4003, i4004::I4004};
 use mcs4_core::{process::ProcessParams, FidelityManager};
 
-use crate::fixture::load_hex_bytes;
+use crate::{
+    fixture::load_hex_bytes_bounded,
+    trace::{PhaseTrace, SystemArchitecture},
+};
 
 #[derive(Clone, Debug)]
 struct AttachedShiftReg {
@@ -130,8 +133,9 @@ impl Mcs4System {
 
     /// Attach a 4003 shift register to a specific RAM output port (bank + chip).
     ///
-    /// Best-effort wiring model: whenever `WMP` updates the selected RAM output port, we shift in
-    /// the output port bit0 into the 4003.
+    /// Best-effort wiring model: whenever WMP updates the selected RAM output port, this helper
+    /// shifts output-port bit 0 into the 4003. It leaves physical E low so callers can observe
+    /// parallel outputs, and it does not model the separate CP and E port wires.
     pub fn attach_i4003(&mut self, bank: u8, chip: u8) {
         self.shift_regs.push(AttachedShiftReg {
             bank: bank & 0x03,
@@ -164,7 +168,7 @@ impl Mcs4System {
 
     /// Load a ROM fixture from a whitespace-separated hex text file.
     pub fn load_rom_hex_file(&mut self, path: impl AsRef<std::path::Path>) -> Result<(), crate::FixtureError> {
-        let bytes = load_hex_bytes(path)?;
+        let bytes = load_hex_bytes_bounded(path, self.rom.len() * 256)?;
         self.load_rom(&bytes);
         Ok(())
     }
@@ -188,6 +192,11 @@ impl Mcs4System {
     /// - M1-M2: ROM outputs instruction data, CPU reads
     /// - X1-X3: CPU/RAM exchange data for I/O operations
     pub fn step(&mut self) {
+        let _ = self.step_traced();
+    }
+
+    /// Step one bus phase and return deterministic post-phase state.
+    pub fn step_traced(&mut self) -> PhaseTrace {
         let phase = self.cycle.phase;
 
         match phase {
@@ -327,6 +336,32 @@ impl Mcs4System {
         if self.cycle.phase == BusCycle::A1 {
             self.total_cycles += 1;
         }
+
+        debug_assert_eq!(self.cycle.phase, self.cpu.cycle_state().phase);
+        debug_assert_eq!(self.cycle.cycle_count, self.cpu.cycle_state().cycle_count);
+        debug_assert_eq!(self.total_cycles, self.cpu.cycle_state().cycle_count);
+
+        tracing::trace!(
+            ?phase,
+            cycle = self.total_cycles,
+            pc = self.cpu.pc(),
+            bus = ?self.bus.read(),
+            io_op = ?self.control.io_op,
+            "MCS-4 bus phase completed"
+        );
+
+        PhaseTrace::new(
+            SystemArchitecture::Mcs4,
+            phase,
+            self.cycle.phase,
+            self.total_cycles,
+            self.cpu.cycle_state().instruction_count,
+            self.cpu.pc(),
+            self.cpu.accumulator(),
+            self.cpu.carry(),
+            &self.bus,
+            &self.control,
+        )
     }
 
     /// Run for N machine cycles
@@ -376,7 +411,9 @@ impl Mcs4System {
         self.cpu = I4004::new();
         self.bus = DataBus::new();
         self.control = ControlSignals::mcs4();
+        self.clock = TwoPhaseClock::default_config();
         self.cycle = CycleState::new();
+        self.total_cycles = 0;
         // Note: ROM contents preserved, RAM and registers cleared
         for ram in &mut self.ram {
             *ram = I4002::new(ram.chip_id, ram.bank_id);

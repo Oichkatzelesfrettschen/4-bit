@@ -1,0 +1,46 @@
+schema_version = 1
+policy_owner = "repository maintainers"
+
+[[exception]]
+id = "RUSTSEC-2024-0436"
+package = "paste"
+category = "unmaintained"
+expires = "2026-10-01"
+scope = "Transitive macro dependency in the Rust workspace."
+risk = "The crate is unmaintained but the audit records no patched replacement version."
+mitigation = "Review replacement with pastey or remove the macro dependency during the next GUI dependency refresh."
+review = "Remove this exception when the dependency graph no longer contains paste."
+dependency_paths = ["cargo audit -> paste 1.0.15"]
+
+[[exception]]
+id = "RUSTSEC-2026-0192"
+package = "ttf-parser"
+category = "unmaintained"
+expires = "2026-10-01"
+scope = "Transitive font parser used by the egui and eframe GUI stack."
+risk = "The crate is unmaintained and does not publish a compatible patched successor."
+mitigation = "Upgrade the GUI stack when it adopts a maintained font parser or replace the GUI dependency stack."
+review = "Remove this exception when the dependency graph no longer contains ttf-parser."
+dependency_paths = ["mcs4-gui -> eframe -> egui -> epaint -> ab_glyph -> owned_ttf_parser -> ttf-parser"]
+
+[[exception]]
+id = "RUSTSEC-2026-0194"
+package = "quick-xml"
+category = "vulnerabilities"
+expires = "2026-10-01"
+scope = "Transitive XML parser in the winit Wayland scanner and accessibility D-Bus stack."
+risk = "quick-xml 0.38.4 has quadratic duplicate-attribute handling before 0.41.0."
+mitigation = "The emulator does not accept application XML input. Upgrade the eframe, winit, and accessibility dependency graph when it permits quick-xml 0.41.0 or later."
+review = "Remove this exception only after cargo audit reports no RUSTSEC-2026-0194 instance."
+dependency_paths = ["mcs4-gui -> eframe -> winit -> wayland-scanner -> quick-xml", "mcs4-gui -> eframe -> accesskit -> zbus_xml -> quick-xml"]
+
+[[exception]]
+id = "RUSTSEC-2026-0195"
+package = "quick-xml"
+category = "vulnerabilities"
+expires = "2026-10-01"
+scope = "Transitive XML parser in the winit Wayland scanner and accessibility D-Bus stack."
+risk = "quick-xml 0.38.4 permits unbounded namespace-declaration allocation before 0.41.0."
+mitigation = "The emulator does not accept application XML input. Upgrade the eframe, winit, and accessibility dependency graph when it permits quick-xml 0.41.0 or later."
+review = "Remove this exception only after cargo audit reports no RUSTSEC-2026-0195 instance."
+dependency_paths = ["mcs4-gui -> eframe -> winit -> wayland-scanner -> quick-xml", "mcs4-gui -> eframe -> accesskit -> zbus_xml -> quick-xml"]
