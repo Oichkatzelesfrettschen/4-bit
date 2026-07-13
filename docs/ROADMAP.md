@@ -41,7 +41,10 @@ Guiding rules:
 - No reviewed Gowin `sys_clk_in` board route, target timing report, or attended
   board probe exists. The programming targets reject missing clock evidence and
   constraints. See `docs/evidence/fpga-board-clock-and-conformance-blockers.md`.
-- 4040 CPU is COMPLETE (60 instructions, 43 tests); all MCS-40 support chips COMPLETE (4201/4289/4308 + 10 additional chips).
+- The 4040 path is partially validated at the behavioral instruction level.
+  The default MCS-40 assembly still uses MCS-4 memory devices and does not
+  provide a source-backed MOD 40 board topology. See
+  `docs/INTELLEC_ARCHITECTURE.md`.
 - The active SIMD surface is `mcs4-chips/src/simd.rs`: an 8-lane, feature-gated fetch and register-ADD kernel. It passes deterministic scalar differential tests for that subset. The retired full-ISA `mcs4-system` cluster does not describe a current capability.
 
 ## What Must Be Obtained (Primary Sources / Artifacts)
@@ -175,7 +178,11 @@ Deferred Work:
 - **P0 (Done):** 4004, 4001, 4002, 4003
 - **P1 (Done):** 4040, 4101, 4201, 4289, 4308 (bus protocol + proptest)
 - **P2 (Done):** 4008, 4009, 3216, 3226, 4207, 4209, 4211, 4265, 4316, 4702
-- **P3+ (Deferred):** 4002-1/2, 4269, 2102, 1302, TTL glue
+- **P3+ (Deferred):** 4002-1/2, 4269, 1302, TTL glue
+
+`2102` now has an unknown-preserving behavioral model and the non-executable
+imm6-28 card retains all 32 physical devices. The board-level timing, address,
+selection, and write nets remain source-gated.
 
 ## Phase 2 - Support chips and system integration
 - Implement bus-accurate 4003, 4101, 4201, 4289, 4308 protocols.

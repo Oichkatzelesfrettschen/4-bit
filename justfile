@@ -34,7 +34,20 @@ python-test:
 # Lint repository automation and evidence-pipeline scripts
 scripts-lint:
     ruff check --no-cache scripts/
-    shellcheck -S warning scripts/*.sh
+    shellcheck -S error scripts/*.sh
+
+# Remove Rust, CMake, and FPGA build products. Source and evidence ledgers remain.
+clean:
+    cargo clean
+    rm -rf build
+    make -C mcs4-emu/crates/mcs4-fpga clean
+
+# Remove regeneratable local caches without deleting retained source documents.
+clean-caches:
+    rm -rf .pytest_cache .ruff_cache .mypy_cache .hypothesis
+    rm -rf scripts/__pycache__ scripts/tests/__pycache__
+    rm -rf docs/evidence/ocr/mod40_98013_*
+    rm -rf docs/evidence/ocr_signal_labels/*/crops
 
 # Verify tracked local Markdown links without network access.
 link-check:
@@ -62,7 +75,7 @@ capability-validate:
 
 # Require a current, registered, and unexpired RustSec advisory exception set.
 security-validate:
-    cargo deny check advisories --config deny.toml
+    cargo deny --config deny.toml check advisories
     python3 scripts/verify_advisory_exceptions.py
 
 # Run full verification: Rust, Python, scripts, gate HDL, and docs.

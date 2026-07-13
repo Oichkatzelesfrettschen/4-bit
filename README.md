@@ -100,10 +100,13 @@ The `i400x_analyzer_20210324.zip` in `docs/emulators/` contains:
 - [Bitsavers Intel Archive](http://www.bitsavers.org/components/intel/) - Comprehensive PDF collection
 - [ChipDB Datasheets](https://datasheets.chipdb.org/Intel/) - Clean datasheet scans
 
-### Additional Manuals (Not Downloaded)
-- Intel Intellec 4 MOD 40 Reference Schematics - [Internet Archive](https://archive.org/details/bitsavers_intelMCS40ReferenceSchematics_81608214)
-- Intel Intellec 4 and Micro Computer Modules Jan74 - [Internet Archive](https://archive.org/details/bitsavers_intelMCS4IroComputerModulesJan74_4532529)
-- Pro-Log Microprocessor User's Guide (Sep 1975) - Covers 4004/4040/8008/8080
+### Intellec and Terminal Sources
+- [Intel Intellec 4 and Micro Computer Modules (Jan 1974)](docs/MCS-4/dev_systems/Intel_Intellec_4_and_Micro_Computer_Modules_Jan74.pdf) is tracked.
+- [Intel Intellec 4/MOD 40 Reference Schematics](docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf) is tracked.
+- The local-only 1974 MOD 40 reference manual and ASR-33 manuals are listed
+  with URLs and SHA-256 values in `docs/evidence/intellec_sources.yaml`.
+- `scripts/fetch_intellec_sources.sh` downloads only local-only sources and
+  verifies the source-ledger digest before retaining them.
 
 ### Technical References
 - [intel4004.com - Original Schematics](http://www.intel4004.com/4004_original_schematics.htm)

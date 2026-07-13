@@ -12,7 +12,7 @@ from collections.abc import Iterable
 from pathlib import Path, PurePosixPath
 
 SCHEMA_VERSION = 1
-CAPTURE_PROFILE_VERSION = 1
+CAPTURE_PROFILE_VERSION = 2
 MANIFEST_NAME = "capture_manifest.json"
 REQUIRED_FILES = {
     "environment.txt",
@@ -39,6 +39,7 @@ REQUIRED_STATUS_PATHS = frozenset(
         "cflow/phase-trace.status",
         "cflow/trace-replay.status",
         "cflow/common-stimulus.status",
+        "cflow/intellec-machine.status",
         "cflow/virtual-fpga-system.status",
         "cflow/gate-export-python.status",
         "cflow/netlist-publish-python.status",
@@ -63,9 +64,12 @@ REQUIRED_STATUS_PATHS = frozenset(
         "mir/core-library-extract.status",
         "mir/fpga-library.status",
         "mir/fpga-library-extract.status",
+        "mir/intellec-library.status",
+        "mir/intellec-library-extract.status",
         "mir/i4003-behavior-calls.status",
         "mir/i4003-export-calls.status",
         "mir/trace-replay-calls.status",
+        "mir/intellec-machine-calls.status",
         "modules/cargo-modules-version.status",
         "python/gate_to_verilog_v0-callgraph.status",
         "python/build_netlist_v1_v0-callgraph.status",
@@ -88,6 +92,8 @@ REQUIRED_STATUS_PATHS = frozenset(
         "runtime/i4003-fpga-export-test.status",
         "runtime/trace-replay-cli-test.status",
         "runtime/trace-frame-comparison-test.status",
+        "runtime/intellec-source-gate-test.status",
+        "runtime/intellec-replay-test.status",
         "runtime/virtual-fpga-system.status",
         "runtime/virtual-fpga-common-stimulus.status",
         "runtime/mcs4-fixture.callgrind.status",

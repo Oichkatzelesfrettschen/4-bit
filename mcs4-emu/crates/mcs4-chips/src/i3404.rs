@@ -1,24 +1,32 @@
-//! Intel 3404 6-Bit D-Type Latch + Dual NAND Buffer
+//! Intel 3404 high-speed six-bit latch.
 //!
-//! The 3404 contains a 6-bit D-type latch with a common clock input and
-//! two independent 2-input NAND gates. Used as a TTL support chip in
-//! MCS-4/MCS-40 system designs for address latching and control decoding.
+//! Intel's 1975 data catalog describes the 3404 as six inverting storage
+//! latches. Active-low write enable W1 controls D1 through D4; active-low W2
+//! controls D5 and D6. An enabled group is transparent and inverts its data
+//! inputs. A rising write-enable edge retains the inverted values. The device
+//! has no reset pin, so power-on latch contents remain unknown.
 
 use mcs4_bus::BusCycle;
 
-/// Intel 3404: 6-bit D latch + dual NAND buffer
+/// One observable 3404 inverted-output state.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum I3404Output {
+    /// The stored latch state is not established after construction or power cycle.
+    Unknown,
+    /// The active-low output is asserted.
+    Low,
+    /// The active-low output is deasserted.
+    High,
+}
+
+/// Intel 3404 source-bound six-bit latch.
 #[derive(Clone, Debug)]
 pub struct I3404 {
-    /// 6-bit D latch data (latched on clock rising edge)
-    latch: u8,
-    /// 6-bit D input
-    d_input: u8,
-    /// Clock state (previous)
-    last_clock: bool,
-    /// NAND gate A inputs
-    nand_a: (bool, bool),
-    /// NAND gate B inputs
-    nand_b: (bool, bool),
+    data_inputs: u8,
+    latched_outputs: u8,
+    known_latched_outputs: u8,
+    write_enable_1_n: bool,
+    write_enable_2_n: bool,
 }
 
 impl Default for I3404 {
@@ -28,52 +36,97 @@ impl Default for I3404 {
 }
 
 impl I3404 {
-    pub fn new() -> Self {
+    const GROUP_1_MASK: u8 = 0x0f;
+    const GROUP_2_MASK: u8 = 0x30;
+    const ALL_BITS_MASK: u8 = Self::GROUP_1_MASK | Self::GROUP_2_MASK;
+
+    /// Construct a powered device with unknown stored outputs and both latch groups closed.
+    pub const fn new() -> Self {
         Self {
-            latch: 0,
-            d_input: 0,
-            last_clock: false,
-            nand_a: (false, false),
-            nand_b: (false, false),
+            data_inputs: 0,
+            latched_outputs: 0,
+            known_latched_outputs: 0,
+            write_enable_1_n: true,
+            write_enable_2_n: true,
         }
     }
 
-    /// Set the 6-bit D input (only lower 6 bits used)
-    pub fn set_d_input(&mut self, data: u8) {
-        self.d_input = data & 0x3F;
+    /// Present all six data inputs D1 through D6. Bits above bit five are ignored.
+    pub fn set_data_inputs(&mut self, inputs: u8) {
+        self.data_inputs = inputs & Self::ALL_BITS_MASK;
     }
 
-    /// Pulse the clock line. Latch captures D input on rising edge.
-    pub fn set_clock(&mut self, state: bool) {
-        if !self.last_clock && state {
-            self.latch = self.d_input;
+    /// Set the active-low W1 input that controls D1 through D4.
+    pub fn set_write_enable_1_n(&mut self, state: bool) {
+        self.capture_on_write_disable(self.write_enable_1_n, state, Self::GROUP_1_MASK);
+        self.write_enable_1_n = state;
+    }
+
+    /// Set the active-low W2 input that controls D5 and D6.
+    pub fn set_write_enable_2_n(&mut self, state: bool) {
+        self.capture_on_write_disable(self.write_enable_2_n, state, Self::GROUP_2_MASK);
+        self.write_enable_2_n = state;
+    }
+
+    /// Return one active-low output, indexed from zero for O1 through O6.
+    pub fn output(&self, bit: u8) -> I3404Output {
+        assert!(bit < 6, "3404 output bit must be below six");
+        let mask = 1u8 << bit;
+        let group_is_transparent = if bit < 4 {
+            !self.write_enable_1_n
+        } else {
+            !self.write_enable_2_n
+        };
+        if group_is_transparent {
+            return Self::output_from_bit((!self.data_inputs & mask) != 0);
         }
-        self.last_clock = state;
+        if self.known_latched_outputs & mask == 0 {
+            return I3404Output::Unknown;
+        }
+        Self::output_from_bit(self.latched_outputs & mask != 0)
     }
 
-    /// Get the latched 6-bit Q output
-    pub fn q_output(&self) -> u8 {
-        self.latch
+    /// Return all six active-low outputs as a bit vector and knownness mask.
+    ///
+    /// Unknown output bits are zero in `value` and clear in `known_mask`.
+    pub fn outputs(&self) -> (u8, u8) {
+        let mut value = 0u8;
+        let mut known_mask = 0u8;
+        for bit in 0..6 {
+            match self.output(bit) {
+                I3404Output::Unknown => {}
+                I3404Output::Low => known_mask |= 1 << bit,
+                I3404Output::High => {
+                    value |= 1 << bit;
+                    known_mask |= 1 << bit;
+                }
+            }
+        }
+        (value, known_mask)
     }
 
-    /// Set NAND gate A inputs
-    pub fn set_nand_a(&mut self, in1: bool, in2: bool) {
-        self.nand_a = (in1, in2);
+    /// Invalidate all stored values after an explicit device power cycle.
+    pub fn power_cycle(&mut self) {
+        self.data_inputs = 0;
+        self.latched_outputs = 0;
+        self.known_latched_outputs = 0;
+        self.write_enable_1_n = true;
+        self.write_enable_2_n = true;
     }
 
-    /// Set NAND gate B inputs
-    pub fn set_nand_b(&mut self, in1: bool, in2: bool) {
-        self.nand_b = (in1, in2);
+    fn capture_on_write_disable(&mut self, previous_state: bool, new_state: bool, mask: u8) {
+        if !previous_state && new_state {
+            self.latched_outputs = (self.latched_outputs & !mask) | (!self.data_inputs & mask);
+            self.known_latched_outputs |= mask;
+        }
     }
 
-    /// Get NAND gate A output
-    pub fn nand_a_output(&self) -> bool {
-        !(self.nand_a.0 && self.nand_a.1)
-    }
-
-    /// Get NAND gate B output
-    pub fn nand_b_output(&self) -> bool {
-        !(self.nand_b.0 && self.nand_b.1)
+    const fn output_from_bit(high: bool) -> I3404Output {
+        if high {
+            I3404Output::High
+        } else {
+            I3404Output::Low
+        }
     }
 }
 
@@ -83,84 +136,90 @@ impl super::Chip for I3404 {
     }
 
     fn reset(&mut self) {
-        self.latch = 0;
-        self.d_input = 0;
-        self.last_clock = false;
-        self.nand_a = (false, false);
-        self.nand_b = (false, false);
+        // The 3404 has no reset input. Reset does not alter retained latches.
     }
 
     fn tick(&mut self, _phase: BusCycle) {
-        // Clock is driven externally
+        // Write-enable inputs drive transparent and hold behavior externally.
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::{I3404Output, I3404};
+    use crate::Chip;
 
     #[test]
-    fn latch_captures_on_rising_edge() {
-        let mut ic = I3404::new();
-        ic.set_d_input(0x2A);
-        ic.set_clock(false);
-        assert_eq!(ic.q_output(), 0);
-
-        ic.set_clock(true); // rising edge
-        assert_eq!(ic.q_output(), 0x2A);
+    fn constructed_latches_are_unknown_while_write_is_disabled() {
+        let latch = I3404::new();
+        assert_eq!(latch.outputs(), (0, 0));
+        assert_eq!(latch.output(0), I3404Output::Unknown);
+        assert_eq!(latch.output(5), I3404Output::Unknown);
     }
 
     #[test]
-    fn latch_holds_after_d_changes() {
-        let mut ic = I3404::new();
-        ic.set_d_input(0x15);
-        ic.set_clock(true);
-        assert_eq!(ic.q_output(), 0x15);
+    fn first_group_is_transparent_and_inverting_while_w1_is_low() {
+        let mut latch = I3404::new();
+        latch.set_data_inputs(0b00_1010);
+        latch.set_write_enable_1_n(false);
 
-        // Change D with clock still high -- no re-latch
-        ic.set_d_input(0x3F);
-        ic.set_clock(true); // no rising edge
-        assert_eq!(ic.q_output(), 0x15);
+        assert_eq!(latch.outputs(), (0b00_0101, 0b00_1111));
+
+        latch.set_data_inputs(0b00_0011);
+        assert_eq!(latch.outputs(), (0b00_1100, 0b00_1111));
     }
 
     #[test]
-    fn latch_masks_to_6_bits() {
-        let mut ic = I3404::new();
-        ic.set_d_input(0xFF);
-        ic.set_clock(true);
-        assert_eq!(ic.q_output(), 0x3F);
+    fn rising_w1_latches_the_inverted_first_group_value() {
+        let mut latch = I3404::new();
+        latch.set_data_inputs(0b00_1010);
+        latch.set_write_enable_1_n(false);
+        latch.set_write_enable_1_n(true);
+        latch.set_data_inputs(0b00_0011);
+
+        assert_eq!(latch.outputs(), (0b00_0101, 0b00_1111));
     }
 
     #[test]
-    fn nand_gate_a_truth_table() {
-        let mut ic = I3404::new();
-        ic.set_nand_a(false, false);
-        assert!(ic.nand_a_output());
+    fn second_group_is_independent_and_inverting_while_w2_is_low() {
+        let mut latch = I3404::new();
+        latch.set_data_inputs(0b11_0000);
+        latch.set_write_enable_2_n(false);
 
-        ic.set_nand_a(true, false);
-        assert!(ic.nand_a_output());
+        assert_eq!(latch.outputs(), (0, 0b11_0000));
+        assert_eq!(latch.output(0), I3404Output::Unknown);
 
-        ic.set_nand_a(false, true);
-        assert!(ic.nand_a_output());
-
-        ic.set_nand_a(true, true);
-        assert!(!ic.nand_a_output());
+        latch.set_data_inputs(0b01_0000);
+        assert_eq!(latch.outputs(), (0b10_0000, 0b11_0000));
     }
 
     #[test]
-    fn nand_gate_b_truth_table() {
-        let mut ic = I3404::new();
-        ic.set_nand_b(true, true);
-        assert!(!ic.nand_b_output());
+    fn reset_preserves_the_documented_latch_state() {
+        let mut latch = I3404::new();
+        latch.set_data_inputs(0b00_0001);
+        latch.set_write_enable_1_n(false);
+        latch.set_write_enable_1_n(true);
+        latch.reset();
 
-        ic.set_nand_b(false, true);
-        assert!(ic.nand_b_output());
+        assert_eq!(latch.outputs(), (0b00_1110, 0b00_1111));
+    }
+
+    #[test]
+    fn power_cycle_invalidates_all_latched_outputs() {
+        let mut latch = I3404::new();
+        latch.set_data_inputs(0b11_1111);
+        latch.set_write_enable_1_n(false);
+        latch.set_write_enable_2_n(false);
+        latch.set_write_enable_1_n(true);
+        latch.set_write_enable_2_n(true);
+        latch.power_cycle();
+
+        assert_eq!(latch.outputs(), (0, 0));
     }
 
     #[test]
     fn chip_trait_name() {
-        use crate::Chip;
-        let ic = I3404::new();
-        assert_eq!(ic.name(), "3404");
+        let latch = I3404::new();
+        assert_eq!(latch.name(), "3404");
     }
 }

@@ -1,0 +1,252 @@
+version: "1.0"
+description: >-
+  Source ledger for the Intel Intellec 4 and Intellec 4/MOD 40 machine
+  profiles. Local-only scans remain outside version control until their
+  redistribution terms are established.
+checksum_algorithm: SHA-256
+source_sets:
+  intellec:
+    downloader: wget
+    user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0
+sources:
+  - id: intellec4-microcomputer-modules-jan74
+    title: Intel Intellec 4 and Micro Computer Modules
+    revision: January 1974
+    local_path: docs/MCS-4/dev_systems/Intel_Intellec_4_and_Micro_Computer_Modules_Jan74.pdf
+    url: https://www.bitsavers.org/components/intel/MCS4/Intel_Intellec_4_and_Micro_Computer_Modules_Jan74.pdf
+    status: tracked-existing
+    supports:
+      - original-4004-card-inventory
+      - original-4004-console-inventory
+      - original-4004-monitor-media-topology
+
+  - id: mcs40-users-manual-nov74
+    title: Intel MCS-40 Users Manual
+    revision: November 1974
+    local_path: docs/MCS-40/MCS-40_Users_Manual_Nov74.pdf
+    url: https://www.bitsavers.org/components/intel/MCS40/MCS-40_Users_Manual_Nov74.pdf
+    status: tracked-existing
+    supports:
+      - mcs40-cpu-timing
+      - teletype-three-wire-interface
+      - mod40-system-topology
+
+  - id: mcs40-advance-specifications-sep74
+    title: Intel MCS-40 Microcomputer Set Advance Specifications
+    revision: September 1974
+    local_path: docs/MCS-40/MCS-40_Advance_Specifications_Sep74.pdf
+    url: https://www.bitsavers.org/components/intel/MCS40/MCS_40_Microcomputer_Set_Advance_Specifications_Sep74.pdf
+    sha256: b23f4957c7c93e8fb3589f482e5e2552d5db6d7db5afdce794fb72b4c8d1a580
+    bytes: 2710967
+    status: tracked-existing
+    supports:
+      - generic-mcs40-4201-clock-topology
+      - generic-mcs40-4289-standard-memory-topology
+      - generic-mcs40-4308-rom-topology
+
+  - id: intel-1975-data-catalog
+    title: Intel Data Catalog
+    revision: 1975
+    local_path: docs/MCS-40/1975_Intel_Data_Catalog.pdf
+    url: https://www.bitsavers.org/components/intel/_dataBooks/1975_Intel_Data_Catalog.pdf
+    sha256: 0b19a02ec3db50b965cec8770e954899d8e4a5c232e6b7d5b68b87f1a1ea6c70
+    bytes: 6655159
+    status: tracked-existing
+    supports:
+      - intel-2102-device-contract
+      - intel-3205-decoder-contract
+      - intel-3404-latch-contract
+
+  - id: intellec4-mod40-reference-schematics
+    title: Intel Intellec 4 MOD 40 Reference Schematic Drawings
+    revision: 1974
+    local_path: docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf
+    url: https://mark-ogden.uk/files/intel/publications/98-013A%20Intellec%204%20MOD%2040%20Reference%20Schematic%20Drawings-1974.pdf
+    status: tracked-existing
+    supports:
+      - mod40-console-nets
+      - mod40-backplane-nets
+      - mod40-terminal-adapter-nets
+
+  - id: intellec4-mod40-reference-manual-98-095a
+    title: Intel Intellec 4 MOD 40 Microcomputer Development System Reference Manual
+    revision: November 1974
+    local_path: docs/evidence/local_sources/intellec/98-095A_Intellec_4_MOD_40_Reference_Manual_Nov74.pdf
+    url: https://mark-ogden.uk/files/intel/publications/98-095A%20Intellec%204,Mod%2040%20Microcomputer%20Developement%20System%20Reference%20Manual-Nov74.pdf
+    sha256: 5b613ce889fbf53d2c46434e2e1eae053745b3acb33146a244211d93b7ac4acc
+    bytes: 7858957
+    retention: local-only
+    status: verified-local
+    supports:
+      - mod40-console-operation
+      - mod40-monitor-terminal-operation
+      - mod40-card-configuration
+      - mod40-terminal-port-endpoints
+      - mod40-standard-module-topology
+
+  - id: mon4-v21-listing-rehost
+    title: MON 4 Version 2.1 Listing
+    revision: Version 2.1
+    local_path: docs/evidence/local_sources/intellec/MON4_V2.1_Listing.pdf
+    url: https://www.retrotechnology.com/restore/mon4_2dot1.pdf
+    sha256: 618867d150e60cf82ce54bf0f5ae810ae65cd4e5701a12af3698ca8c962fec45
+    bytes: 1484581
+    retention: local-only
+    status: verified-secondary-candidate
+    supports:
+      - mod40-monitor-listing-candidate
+    limitations:
+      - Rehosted scan requires byte-level reconciliation against independent PROM reads.
+      - The listing does not establish a canonical four-ROM image by itself.
+
+  - id: mod40-cpu-board-photo-kyle
+    title: Intellec 4 MOD 40 Central Processor Module Photograph
+    revision: August 2013 photograph
+    local_path: docs/evidence/local_sources/intellec/MOD40_Central_Processor_Module_Kyle.jpg
+    url: https://www.retrotechnology.com/restore/intel440_kylecpu.jpg
+    sha256: eff5eef8fd74ef80b22e1132a7098a6a70a6a3b657b21133c6901e34502f244f
+    bytes: 253014
+    retention: local-only
+    status: verified-secondary-visual-reference
+    supports:
+      - mod40-monitor-prom-labels
+      - mod40-central-processor-module-layout
+    limitations:
+      - Photograph supports visual identity only and does not prove electrical connectivity.
+
+  - id: teletype-model33-technical-manual-310b
+    title: Teletypewriter Sets Technical Manual, Bulletin 310B Volume 1
+    revision: September 1974
+    local_path: docs/evidence/local_sources/intellec/310B_Model_33_Teletypewriter_Sets_Technical_Manual_Sep74.pdf
+    url: https://bitsavers.org/communications/teletype/33/310B_Vol_1_33_Teletypewriter_Sets_Technical_Manual_Sep74.pdf
+    sha256: 2e2d7b48fdc99882b20e4d1e40f68f1c58f9ceb2162110973016bb793179e554
+    bytes: 30729703
+    retention: local-only
+    status: verified-local
+    supports:
+      - asr33-keyboard
+      - asr33-printer
+      - asr33-reader
+      - asr33-punch
+
+  - id: teletype-model33-schematic-jun75
+    title: Teletype Model 33 Schematic
+    revision: June 1975
+    local_path: docs/evidence/local_sources/intellec/Model_33_Schematic_Jun75.pdf
+    url: https://bitsavers.org/communications/teletype/33/Model_33_Schematic_Jun75.pdf
+    sha256: 5514272ce628287efd3580caf63cacea41c350f622d79d7e9edac8e79aded730
+    bytes: 5720393
+    retention: local-only
+    status: verified-local
+    supports:
+      - asr33-current-loop-boundary
+      - asr33-terminal-side-controls
+
+  - id: intel-4004-4040-simulator-98-205a
+    title: Intel 4004 and 4040 Simulator
+    revision: October 1975
+    local_path: docs/evidence/local_sources/intellec/98-205A_4004_4040_Simulator_Oct75.pdf
+    url: https://mark-ogden.uk/files/intel/publications/98-205A%204004,4040%20Simulator-Oct75.pdf
+    sha256: ead3797b785a7ddabeea973082b0f0068f765e992d1ca62a75779fbbcd29210d
+    bytes: 1757746
+    retention: local-only
+    status: verified-local
+    supports:
+      - behavioral-cross-check-only
+
+  - id: intel-1973-memory-design-handbook
+    title: Intel Memory Design Handbook
+    revision: August 1973
+    local_path: docs/evidence/local_sources/intellec/supplied_20260713/1973_MemoryDesignHandbook_Aug73.pdf
+    url: https://www.bitsavers.org/components/intel/_dataBooks/1973_MemoryDesignHandbook_Aug73.pdf
+    sha256: 5772ac0da0aa4e684cfb487a8feb99c7c737d94e312ee63e09af050bf5fd51b1
+    bytes: 15406031
+    retention: local-only
+    status: verified-local
+    supports:
+      - intel-2102-device-contract
+
+  - id: intel-1976-data-catalog
+    title: Intel Data Catalog
+    revision: 1976
+    local_path: docs/evidence/local_sources/intellec/supplied_20260713/1976_Intel_Data_Catalog.pdf
+    url: https://www.bitsavers.org/components/intel/_dataBooks/1976_Intel_Data_Catalog.pdf
+    sha256: 0a69c209cf47db1202958a2dfee559e61cc5b6e87d78af031e7bbc3f1316d4e9
+    bytes: 46775480
+    retention: local-only
+    status: verified-local
+    supports:
+      - intel-4207-4209-4211-identity
+      - intel-4316a-identity
+      - intellec4-mod40-option-inventory
+
+  - id: intellec4-mod40-schematics-archive-djvu-text
+    title: Internet Archive OCR derivative for Intel Intellec 4 MOD 40 Reference Schematics
+    revision: archival derivative
+    local_path: docs/evidence/local_sources/intellec/supplied_20260713/Intel_Intellec_4_MOD_40_Reference_Schematics_djvu.txt
+    url: https://archive.org/download/bitsavers_intelMCS40ReferenceSchematics_81608214/Intel_Intellec_4_MOD_40_Reference_Schematics_djvu.txt
+    sha256: 4930157d83e959429939362f3723b9e1953a98bd95d7bda6c49d2d443e75212f
+    bytes: 45055
+    retention: local-only
+    status: verified-secondary-ocr-derivative
+    supports:
+      - schematic-title-search-assist
+    limitations:
+      - This derivative assists source navigation only; visual primary scan review controls net claims.
+
+  - id: mame-intellec4-current-source
+    title: MAME Intellec 4 driver source
+    revision: current branch snapshot acquired 2026-07-13
+    local_path: docs/evidence/local_sources/intellec/supplied_20260713/mame_intellec4.cpp
+    url: https://raw.githubusercontent.com/mamedev/mame/master/src/mame/intel/intellec4.cpp
+    sha256: fdf498d054d505b9d36cc7a1191159b439dc7c2b9bae0c0c695f54d98b47d165
+    bytes: 47928
+    retention: local-only
+    status: verified-secondary-implementation-reference
+    supports:
+      - mon4-public-candidate-hashes
+    limitations:
+      - ROM declarations do not establish physical-read provenance or independent dump lineage.
+
+  - id: retrotechnology-mon4-read-reconstruction
+    title: Intellec 4/MOD 40 MON4 ROM reconstruction and read correspondence
+    revision: webpage acquired 2026-07-13
+    local_path: docs/evidence/local_sources/intellec/retrotechnology_mon4_20260713/
+    url: https://www.retrotechnology.com/restore/intel440_roms.html
+    sha256: 53cc80b532132b323ef598accb7cb5d920e067052ed7c503116bbf48882abebf
+    retention: local-only
+    status: secondary-documented-read-artifacts
+    supports:
+      - mon4-kyle-2013-read-provenance
+      - mon4-herb-2013-read-provenance
+      - mon4-sid-2022-2023-read-provenance
+      - mon4-secondary-complement-candidate
+    limitations:
+      - The source does not publish two repeatable direct raw reads for every device.
+      - Its socket mapping and electrical complement explanation require primary schematic confirmation.
+
+  - id: intellec4-operator-manual
+    title: Intel Intellec 4 Operator Manual
+    status: unresolved
+    blocks:
+      - original-4004-monitor-command-grammar
+      - original-4004-console-wiring
+
+  - id: intellec4-monitor-prom-set
+    title: Revision-identified Intellec 4 monitor PROM set
+    status: unresolved
+    blocks:
+      - original-4004-monitor-boot
+      - original-4004-paper-tape-command-validation
+
+  - id: intellec4-mod40-monitor-prom-set
+    title: Revision-identified Intellec 4 MOD 40 monitor PROM set
+    status: unresolved
+    independently_documented_physical_read_efforts: at-least-three-secondary-documented
+    public_search_result: no two-repeatable-machine-readable-raw-acquisitions-per-device-located
+    recovery_protocol: docs/evidence/INTELLEC_MOD40_MON4_RECOVERY_PROTOCOL.md
+    read_matrix: docs/evidence/INTELLEC_MOD40_MON4_READ_MATRIX.md
+    blocks:
+      - mod40-monitor-boot
+      - mod40-monitor-command-validation
+      - mod40-source-identified-rom-digest

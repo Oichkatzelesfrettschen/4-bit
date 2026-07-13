@@ -25,6 +25,8 @@ module mcs4_system_core #(
   output wire       debug_cm_ram,
   output wire       debug_rom_selected,
   output wire       debug_ram_selected,
+  output wire [3:0] debug_ram_selected_id,
+  output wire       debug_ram_device_selected,
   output wire [11:0] debug_cpu_pc,
   output wire [3:0] debug_cpu_accumulator,
   output wire       debug_cpu_carry,
@@ -103,6 +105,16 @@ module mcs4_system_core #(
   reg  [3:0] bus_observation_data;
   reg        phi2_d;
   wire       phi2_rise = phi2 && !phi2_d;
+
+  function [3:0] selected_ram_bank_code;
+    input [3:0] bank_mask;
+    begin
+      // The behavioral control trace stores the active CM-RAM line mask.
+      // Preserve that stable selection code; a future multi-card wrapper
+      // adds a distinct physical card identifier.
+      selected_ram_bank_code = bank_mask;
+    end
+  endfunction
 
   assign cpu_test_in = test_in || uart_rx_ready;
 
@@ -236,7 +248,11 @@ module mcs4_system_core #(
   assign debug_cm_rom = cpu_cm_rom;
   assign debug_cm_ram = debug_cm_ram_completed;
   assign debug_rom_selected = rom_chip_selected;
-  assign debug_ram_selected = ram_chip_selected;
+  // This is the selected CM-RAM bank for the completed transfer. It is
+  // separate from the single generic RAM device's physical selection state.
+  assign debug_ram_selected = debug_cm_ram_completed;
+  assign debug_ram_selected_id = selected_ram_bank_code(cpu_ram_bank_select);
+  assign debug_ram_device_selected = ram_chip_selected;
   assign debug_cpu_pc = cpu_debug_pc;
   assign debug_cpu_accumulator = cpu_debug_accumulator;
   assign debug_cpu_carry = cpu_debug_carry;

@@ -1,4 +1,4 @@
-# MCS-4/MCS-40 Emulator - Project Status (2026-07-11)
+# MCS-4/MCS-40 Emulator - Project Status (2026-07-12)
 
 ## PROJECT OVERVIEW
 Intel 4-bit CPU emulator with transistor-level extraction tooling. Behavioral,
@@ -13,7 +13,7 @@ establish a current hardware, gate-extraction, synthesis, or board capability.
 Historical planning summary: 95% overall completion
 - Phase 0.5: 90% (OCR pipeline, coordinate transforms pending)
 - Phase 1: 100% (4004 CPU complete)
-- Phase 2: 100% (4040 CPU complete, all tests passing)
+- Phase 2: behavioral instruction path only; board, clock, memory, and physical evidence remain incomplete
 - Phase 3: 100% (all support chips + all GUI panels + waveform viewer complete)
 - Phase 4: 100% (solvers, SIMD full ISA, differential fuzzing, solver bridge, process models)
 - Phase 5: 85% (peripherals, Intellec-4, Verilog 22 chip modules, FPGA constraints/Makefile; hardware validation deferred)
@@ -40,15 +40,15 @@ Historical planning summary: 95% overall completion
 - Unit tests: 115+ passing
 - 4040 foundation: CPU structure, register banks, stack (7-level)
 
-### Phase 2: COMPLETE (100%)
-- 4040 CPU: Full 60-instruction execution (46 4004 + 14 4040 new)
-- Phase methods: A1-A3, M1-M2, X1-X3 (all 8 phases implemented)
-- Interrupt controller: Fully implemented with vector support
-- RAM operations: SRC/WRM/RDM/RDR fully functional
-- Tests: 43 passing (all critical tests passing)
-  - RAM data persistence: WORKING
-  - Interrupt vector logic: WORKING (INT → 0x003)
-  - RAM status read/write: WORKING
+### Phase 2: PARTIAL BEHAVIORAL PATH
+- 4040 decoder exposes 60 opcodes and the phase model exercises selected
+  instruction sequences.
+- The current MCS-40 assembly still fetches through 4001 ROM and accesses 4002
+  RAM. It does not assemble the source-backed imm4-43, imm4-72, and imm6-28
+  MOD 40 card topology.
+- The 4201 model does not drive the default CPU phase progression.
+- HLT release timing, complete interrupt context, standard-memory wiring, and
+  physical 4040 evidence remain open. See `docs/INTELLEC_ARCHITECTURE.md`.
 
 ### Phase 3: COMPLETE (100%)
 (Per-chip test counts below are as-of phase completion; the TEST COUNTS
@@ -69,7 +69,7 @@ section is authoritative for current totals.)
   - 4702 EPROM (256x8, programming mode, UV erase, 8 tests)
   - Disassembler core (symbol tables, 8 tests) + DisasmCache (O(1) windowed lookup, 8 tests)
   - Signal trace buffer (event capture, 18 tests)
-  - MCS-40 system integration (memory map, bus protocol)
+  - MCS-40 behavioral compatibility assembly (not a source-backed board)
 - Pending:
   - ~~4003 Shift register cascade/bus tests~~ DONE (source-bound CP, active-low E, serial cascade, port, and system coverage)
   - ~~4201/4289/4308 bus protocol~~ DONE (13 tests each + proptest + 9 integration)
@@ -137,17 +137,32 @@ section is authoritative for current totals.)
 
 ## CURRENT IMPLEMENTATION
 
-### 4040 CPU (i4040/mod.rs)
+### 4040 CPU behavioral path (i4040/mod.rs)
 - Struct fields: ALU, registers, decoder, interrupt controller, halted state
 - Execution state: cycle, instruction_byte, operand, RAM tracking
 - Phase methods: A1/A2/A3 (address), M1/M2 (fetch), X1 (decode), X2/X3 (execute)
-- Instruction execution: 46 4004 + 14 4040 = 60 total
-- Test results: JUN/JMS working, SRC/WRM timing issues
+- Instruction decode: 46 4004 + 14 4040 = 60 total
+- Test evidence covers selected phase paths. It does not establish a complete
+  MOD 40 memory topology, physical pin map, or transistor-level behavior.
 
 ### 4004 Compatibility
 - Full 4004 ISA implemented in execute_4004()
 - Register file compatible (24 registers for 4040, 16 for 4004)
 - Stack compatible (7-level for 4040, 3-level for 4004)
+
+### Intellec and MOD 40 evidence boundary
+- `mcs4-intellec` provides source profiles, panel and terminal wire events,
+  deterministic replay, GUI observability, and monitor-ROM digest checks.
+- Original Intellec and MOD 40 profiles reject phase advancement until their
+  ledger supplies the required manual, connector map, terminal port map, and
+  monitor ROM image.
+- `IntellecSystem` remains a compatibility fixture. Its generated monitor and
+  direct host memory helpers do not prove historical board behavior.
+- `Mcs40System` remains a behavioral compatibility assembly. It does not yet
+  wire the source-backed imm4-43 clock and monitor path, imm4-72 control path,
+  or imm6-28 2102 program-RAM topology.
+- `docs/INTELLEC_ARCHITECTURE.md` names the acceptance criteria for the
+  dedicated board and FPGA wrapper.
 
 ## BUILD COMMANDS
 

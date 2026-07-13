@@ -1,21 +1,47 @@
 //! Intellec-4 Development System Emulation
 //!
-//! The Intellec-4 was Intel's official development system for the MCS-4
-//! chip family. It provided a front panel with toggle switches and LEDs
-//! for entering programs, single-stepping, and examining memory.
+//! The Intellec 4 family is Intel's MCS development-system line. This crate
+//! exposes two distinct surfaces:
 //!
-//! This crate emulates the Intellec-4 hardware:
-//! - [`front_panel`]: Address/data switches, run/stop/step controls, LED indicators
-//! - [`monitor`]: Monitor ROM state machine (examine, deposit, go, halt)
-//! - [`prom_programmer`]: 4702 EPROM programming interface
-//! - [`system`]: Complete system integration wiring all subsystems together
+//! - [`machine`], [`console`], [`profile`], and [`replay`] form the
+//!   source-gated implementation. Historical execution rejects incomplete
+//!   firmware, console-net, or terminal-port evidence.
+//! - [`front_panel`], [`monitor`], and [`system`] preserve a legacy host-side
+//!   fixture for compatibility tests. They do not establish historical board
+//!   behavior and never provide evidence for a source-gated profile.
 
+pub mod console;
 pub mod front_panel;
+pub mod imm6_28;
+pub mod machine;
+pub mod mod40;
 pub mod monitor;
+pub mod monitor_rom;
+pub mod profile;
 pub mod prom_programmer;
+pub mod replay;
 pub mod system;
 
+pub use console::{
+    ConsoleMemoryAccess, IntellecPanel, PanelControl, PanelDrive, PanelInput, PanelLamps, PanelSnapshot,
+    ProgramMemoryMode, ResetScope,
+};
 pub use front_panel::{FrontPanel, PanelLeds, PanelMode};
+pub use imm6_28::{Imm628, Imm628ChipLocation, Imm628Output, Imm628Read};
+pub use machine::{IntellecBusMachine, IntellecEvent, IntellecFrame, IntellecMachine, IntellecMachineError};
+pub use mod40::{
+    Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40SourceGate, Mod40TerminalEndpoint, ProgramStoreId,
+};
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
+pub use monitor_rom::{MonitorRom, MonitorRomError};
+pub use profile::{
+    CardKind, CardPlacement, CardSlot, IntellecModel, IntellecProfile, ProfileEvidenceError, RamPortEndpoint,
+    SourceReference, TerminalWiring,
+};
 pub use prom_programmer::{ProgResult, PromProgrammer};
+pub use replay::{
+    IntellecReplayCheckpoint, IntellecReplayCommand, IntellecReplayError, IntellecReplayLog, IntellecReplaySession,
+    IntellecReplayTarget, INTELLEC_REPLAY_SCHEMA_VERSION,
+};
+/// Legacy host-side fixture. Use [`IntellecMachine`] for source-gated work.
 pub use system::IntellecSystem;

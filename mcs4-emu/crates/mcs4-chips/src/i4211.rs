@@ -1,6 +1,10 @@
-//! Intel 4211 RC Oscillator + Two-Phase Clock Generator
+//! Legacy clock compatibility facsimile named I4211.
 //!
-//! The 4211 is a self-contained clock generator that uses an external RC
+//! Intel catalogs identify the 4211 as general-purpose I/O, not a clock
+//! generator. This retained module preserves a preexisting repository API and
+//! is quarantined from source-bound historical profiles.
+//!
+//! This facsimile is a self-contained clock generator that uses an external RC
 //! network to set the oscillation frequency and internally generates
 //! two-phase non-overlapping clocks (PHI1, PHI2). It combines the functions
 //! of both the 4207 and 4209 into a single chip.
@@ -10,7 +14,7 @@
 use mcs4_bus::BusCycle;
 use mcs4_core::Time;
 
-/// Intel 4211: RC Oscillator + Two-Phase Clock Generator
+/// Legacy repository clock facsimile named I4211.
 #[derive(Clone, Debug)]
 pub struct I4211 {
     /// Oscillator frequency determined by external RC (Hz)

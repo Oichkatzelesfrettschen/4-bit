@@ -71,7 +71,7 @@ def test_compare_maps_legacy_fpga_phase_to_previous_behavioral_phase() -> None:
     assert report["within_mismatch_budget"] is True
 
 
-def test_compare_normalizes_control_selection_availability() -> None:
+def test_compare_preserves_control_selection_observables() -> None:
     unavailable = {"kind": "unavailable", "reason": "selection is inactive"}
     selected_bank_zero = {"kind": "bits", "width": 4, "value": 0}
     logic_zero = {"kind": "logic", "value": "zero"}
@@ -96,9 +96,12 @@ def test_compare_normalizes_control_selection_availability() -> None:
         ],
     )
 
-    assert report["mismatching_observations"] == 0
-    assert report["matching_by_path"]["mcs4.control.rom"] == 1
-    assert report["matching_by_path"]["mcs4.control.ram"] == 1
+    assert report["mismatching_observations"] == 2
+    assert report["mismatching_by_path"] == {
+        "mcs4.control.ram": 1,
+        "mcs4.control.rom": 1,
+    }
+    assert report["exact_equivalence"] is False
     assert report["behavioral_active_by_path"] == {"mcs4.control.rom": 1}
     assert report["fpga_active_by_path"] == {"mcs4.control.rom": 1}
 

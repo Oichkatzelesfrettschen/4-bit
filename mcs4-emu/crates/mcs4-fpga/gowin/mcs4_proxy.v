@@ -28,6 +28,8 @@ module mcs4_proxy #(
   wire unused_debug_cm_ram;
   wire unused_debug_rom_selected;
   wire unused_debug_ram_selected;
+  wire [3:0] unused_debug_ram_selected_id;
+  wire unused_debug_ram_device_selected;
   wire [11:0] unused_debug_cpu_pc;
   wire [3:0] unused_debug_cpu_accumulator;
   wire unused_debug_cpu_carry;
@@ -72,6 +74,8 @@ module mcs4_proxy #(
     .debug_cm_ram(unused_debug_cm_ram),
     .debug_rom_selected(unused_debug_rom_selected),
     .debug_ram_selected(unused_debug_ram_selected),
+    .debug_ram_selected_id(unused_debug_ram_selected_id),
+    .debug_ram_device_selected(unused_debug_ram_device_selected),
     .debug_cpu_pc(unused_debug_cpu_pc),
     .debug_cpu_accumulator(unused_debug_cpu_accumulator),
     .debug_cpu_carry(unused_debug_cpu_carry),

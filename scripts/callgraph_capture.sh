@@ -162,6 +162,14 @@ printf '%s\n' \
     'mcs4-emu/crates/mcs4-system/src/trace.rs' \
     > "$OUTPUT_DIR/static/common-stimulus.files"
 printf '%s\n' \
+    'mcs4-emu/crates/mcs4-intellec/src/console.rs' \
+    'mcs4-emu/crates/mcs4-intellec/src/machine.rs' \
+    'mcs4-emu/crates/mcs4-intellec/src/monitor_rom.rs' \
+    'mcs4-emu/crates/mcs4-intellec/src/profile.rs' \
+    'mcs4-emu/crates/mcs4-intellec/src/replay.rs' \
+    'mcs4-emu/crates/mcs4-periph/src/teletype.rs' \
+    > "$OUTPUT_DIR/static/intellec-machine.files"
+printf '%s\n' \
     'tools/virtual-fpga/system_main.cpp' \
     > "$OUTPUT_DIR/static/virtual-fpga-system.files"
 printf '%s\n' 'scripts/gate_to_verilog_v0.py' \
@@ -209,6 +217,13 @@ run_cflow common-stimulus main "$OUTPUT_DIR/static/common-stimulus.files"
     printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
 } > "$OUTPUT_DIR/cflow/common-stimulus.status.tmp"
 mv "$OUTPUT_DIR/cflow/common-stimulus.status.tmp" "$OUTPUT_DIR/cflow/common-stimulus.status"
+run_cflow intellec-machine step_phase "$OUTPUT_DIR/static/intellec-machine.files"
+{
+    cat "$OUTPUT_DIR/cflow/intellec-machine.status"
+    printf '%s\n' 'semantic=0'
+    printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
+} > "$OUTPUT_DIR/cflow/intellec-machine.status.tmp"
+mv "$OUTPUT_DIR/cflow/intellec-machine.status.tmp" "$OUTPUT_DIR/cflow/intellec-machine.status"
 run_cflow virtual-fpga-system main "$OUTPUT_DIR/static/virtual-fpga-system.files"
 {
     cat "$OUTPUT_DIR/cflow/virtual-fpga-system.status"
@@ -280,7 +295,10 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rus
             set_enable_pin parallel_outputs_enabled parallel_out serial_out \
             chip_i4003 chip_i4003_fpga apply_input step_phase checkpoint \
             restore_from_checkpoint step_phase_inner from_behavioral_phase validate \
-            compare_trace_frames CommonStimulus runPhases; do
+            compare_trace_frames CommonStimulus runPhases IntellecMachine \
+            IntellecReplaySession install_monitor_rom apply_event \
+            validate_terminal_endpoints apply_terminal_input advance_terminal \
+            read_intellec_ram_port; do
             printf '%s\n' "== definitions: $symbol =="
             cscope -d -f "$OUTPUT_DIR/cscope/rust.out" -L -0 "$symbol" || true
             printf '%s\n' "== lexical callees: $symbol =="
@@ -444,6 +462,7 @@ run_mir_library system-library mcs4-system
 run_mir_library chips-library mcs4-chips
 run_mir_library core-library mcs4-core
 run_mir_library fpga-library mcs4-fpga
+run_mir_library intellec-library mcs4-intellec
 
 if grep -Fqx 'exit=0' "$OUTPUT_DIR/mir/chips-library.status"; then
     {
@@ -481,6 +500,17 @@ else
     printf 'exit=1\n' > "$OUTPUT_DIR/mir/trace-replay-calls.status"
 fi
 
+if grep -Fqx 'exit=0' "$OUTPUT_DIR/mir/intellec-library.status"; then
+    {
+        sed -n '1p' "$OUTPUT_DIR/mir/intellec-library-calls.tsv"
+        awk 'NR > 1 && /IntellecMachine|IntellecReplaySession|IntellecPanel|Teletype33|MonitorRom|step_phase|apply_event|install_monitor_rom/ { print }' \
+            "$OUTPUT_DIR/mir/intellec-library-calls.tsv"
+    } > "$OUTPUT_DIR/mir/intellec-machine-calls.tsv"
+    printf 'exit=0\n' > "$OUTPUT_DIR/mir/intellec-machine-calls.status"
+else
+    printf 'exit=1\n' > "$OUTPUT_DIR/mir/intellec-machine-calls.status"
+fi
+
 if CARGO_TARGET_DIR="$CARGO_CAPTURE_TARGET_DIR" CARGO_TERM_COLOR=never \
     cargo build --locked -p mcs4-gui \
     > "$OUTPUT_DIR/runtime/build.stdout" \
@@ -492,6 +522,10 @@ if CARGO_TARGET_DIR="$CARGO_CAPTURE_TARGET_DIR" CARGO_TERM_COLOR=never \
     2>> "$OUTPUT_DIR/runtime/build.stderr" \
     && CARGO_TARGET_DIR="$CARGO_CAPTURE_TARGET_DIR" CARGO_TERM_COLOR=never \
     cargo build --locked -p mcs4-fpga --bin mcs4-fpga-export \
+    >> "$OUTPUT_DIR/runtime/build.stdout" \
+    2>> "$OUTPUT_DIR/runtime/build.stderr" \
+    && CARGO_TARGET_DIR="$CARGO_CAPTURE_TARGET_DIR" CARGO_TERM_COLOR=never \
+    cargo build --locked -p mcs4-intellec \
     >> "$OUTPUT_DIR/runtime/build.stdout" \
     2>> "$OUTPUT_DIR/runtime/build.stderr"; then
     printf 'exit=0\n' > "$OUTPUT_DIR/runtime/build.status"
@@ -588,6 +622,10 @@ run_strace trace-replay-cli-test cargo test --locked -p mcs4-system \
     --test phase_trace_cli frame_jsonl_capture_has_provenance_and_a_restorable_checkpoint -- --nocapture
 run_strace trace-frame-comparison-test cargo test --locked -p mcs4-system \
     --test cross_fidelity_trace_fixture -- --nocapture
+run_strace intellec-source-gate-test cargo test --locked -p mcs4-intellec \
+    replay::tests::historical_profile_rejects_phase_advance_without_evidence -- --nocapture
+run_strace intellec-replay-test cargo test --locked -p mcs4-intellec \
+    replay::tests::checkpoint_replays_explicit_panel_and_terminal_events -- --nocapture
 run_strace_in_dir virtual-fpga-system "$VIRTUAL_FPGA_BUILD_DIRECTORY" \
     "$VIRTUAL_SYSTEM_BINARY" --headless --scenario "$VIRTUAL_SYSTEM_SCENARIO" \
     --vcd "$OUTPUT_DIR/runtime/mcs4-system-monitor.vcd" \

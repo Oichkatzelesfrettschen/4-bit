@@ -906,6 +906,10 @@ pub fn chip_i4308() -> Module {
 }
 
 /// Generate a synthesizable Verilog module for the Intel 4207 crystal clock.
+/// Generate the legacy clock compatibility facsimile named i4207.
+///
+/// Intel identifies 4207 as general-purpose I/O. Source-bound profiles do not
+/// select this module as an Intel 4207 implementation.
 pub fn chip_i4207() -> Module {
     let mut m = Module::new("i4207");
     m.ports.push(Port::input("xtal_in"));
@@ -920,6 +924,10 @@ pub fn chip_i4207() -> Module {
 }
 
 /// Generate a synthesizable Verilog module for the Intel 4209 phase converter.
+/// Generate the legacy clock compatibility facsimile named i4209.
+///
+/// Intel identifies 4209 as general-purpose I/O. Source-bound profiles do not
+/// select this module as an Intel 4209 implementation.
 pub fn chip_i4209() -> Module {
     let mut m = Module::new("i4209");
     m.ports.push(Port::input("clk_in"));
@@ -959,6 +967,10 @@ pub fn chip_i4209() -> Module {
 }
 
 /// Generate a synthesizable Verilog module for the Intel 4211 RC clock generator.
+/// Generate the legacy clock compatibility facsimile named i4211.
+///
+/// Intel identifies 4211 as general-purpose I/O. Source-bound profiles do not
+/// select this module as an Intel 4211 implementation.
 pub fn chip_i4211() -> Module {
     let mut m = Module::new("i4211");
     m.ports.push(Port::input("rc_osc")); // RC oscillator input
@@ -1158,28 +1170,26 @@ pub fn chip_i3205() -> Module {
     m
 }
 
-/// Generate a synthesizable Verilog module for the Intel 3404 latch + NAND.
+/// Generate a synthesizable Verilog module for the Intel 3404 six-bit latch.
 pub fn chip_i3404() -> Module {
     let mut m = Module::new("i3404");
-    m.ports.push(Port::input("clk"));
     m.ports.push(Port::input("d").width(6));
-    m.ports.push(Port::output("q").width(6));
-    m.ports.push(Port::input("nand_a1"));
-    m.ports.push(Port::input("nand_a2"));
-    m.ports.push(Port::output("nand_a_out"));
-    m.ports.push(Port::input("nand_b1"));
-    m.ports.push(Port::input("nand_b2"));
-    m.ports.push(Port::output("nand_b_out"));
+    m.ports.push(Port::input("w1_n"));
+    m.ports.push(Port::input("w2_n"));
+    m.ports.push(Port::output("o_n").width(6));
 
-    m.body.push("reg [5:0] latch;".into());
+    m.body.push("reg [5:0] latched_o_n;".into());
     m.body.push(String::new());
-    m.body.push("assign q = latch;".into());
-    m.body.push("assign nand_a_out = ~(nand_a1 & nand_a2);".into());
-    m.body.push("assign nand_b_out = ~(nand_b1 & nand_b2);".into());
+    m.body
+        .push("assign o_n[3:0] = !w1_n ? ~d[3:0] : latched_o_n[3:0];".into());
+    m.body
+        .push("assign o_n[5:4] = !w2_n ? ~d[5:4] : latched_o_n[5:4];".into());
     m.body.push(String::new());
 
-    m.body.push("always @(posedge clk)".into());
-    m.body.push("  latch <= d;".into());
+    m.body.push("always @(posedge w1_n)".into());
+    m.body.push("  latched_o_n[3:0] <= ~d[3:0];".into());
+    m.body.push("always @(posedge w2_n)".into());
+    m.body.push("  latched_o_n[5:4] <= ~d[5:4];".into());
 
     m
 }
@@ -2480,7 +2490,10 @@ pub fn chip_i3205_fpga() -> Module {
     m
 }
 
-/// FPGA-safe i4316: display driver repurposed as virtual 7-segment display.
+/// Legacy i4316 FPGA facsimile, repurposed as a virtual 7-segment display.
+///
+/// Intel identifies 4316A as a 2048 by 8 ROM. Source-bound profiles do not
+/// select this module as an Intel 4316A implementation.
 ///
 /// Original: drives multiplexed LCD segments with AC backplane.
 /// FPGA version: 16-digit segment buffer readable over UART for virtual display.
@@ -3224,13 +3237,15 @@ mod tests {
     }
 
     #[test]
-    fn i3404_latch_nand() {
+    fn i3404_active_low_latch() {
         let m = chip_i3404();
         let v = render_module(&m);
         assert!(v.contains("module i3404"));
-        assert!(v.contains("[5:0] latch"), "6-bit latch");
-        assert!(v.contains("nand_a_out"));
-        assert!(v.contains("nand_b_out"));
+        assert!(v.contains("[5:0] latched_o_n"), "6-bit latch");
+        assert!(v.contains("posedge w1_n"));
+        assert!(v.contains("posedge w2_n"));
+        assert!(v.contains("!w1_n ? ~d[3:0]"));
+        assert!(v.contains("!w2_n ? ~d[5:4]"));
     }
 
     #[test]

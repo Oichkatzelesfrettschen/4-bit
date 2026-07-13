@@ -24,7 +24,7 @@ fn test_system() -> IntellecSystem<Mcs40System> {
 
 /// Test 1: After creation the system is stopped, monitor is active, display shows zeros.
 #[test]
-fn test_intellec_boot_to_monitor() {
+fn test_legacy_fixture_boots_to_generated_monitor() {
     let sys = test_system();
 
     // Panel must start in Stop mode.

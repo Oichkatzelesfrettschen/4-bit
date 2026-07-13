@@ -18,6 +18,7 @@ mcs4-core = { path = "../mcs4-core" }
 mcs4-bus = { path = "../mcs4-bus" }
 mcs4-chips = { path = "../mcs4-chips" }
 mcs4-system = { path = "../mcs4-system" }
+mcs4-intellec = { path = "../mcs4-intellec" }
 egui.workspace = true
 eframe.workspace = true
 tracing.workspace = true

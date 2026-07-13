@@ -157,7 +157,7 @@ public:
         {QStringLiteral("cpu_phase"),
          static_cast<int>(model_->debug_cpu_phase)},
         {QStringLiteral("cm_rom"), model_->debug_cm_rom != 0},
-        {QStringLiteral("cm_ram"), model_->debug_cm_ram != 0},
+        {QStringLiteral("cm_ram_completed"), model_->debug_cm_ram != 0},
         {QStringLiteral("rom_selected"), model_->debug_rom_selected != 0},
         {QStringLiteral("ram_selected"), model_->debug_ram_selected != 0},
         {QStringLiteral("uart_tx"), model_->uart_tx != 0},
@@ -209,16 +209,26 @@ public:
                         model_->debug_cpu_accumulator),
              logicSignal(QStringLiteral("mcs4.cpu.carry"),
                          model_->debug_cpu_carry != 0),
-             logicSignal(QStringLiteral("mcs4.control.rom"),
-                         model_->debug_rom_selected != 0),
-             logicSignal(QStringLiteral("mcs4.control.ram"),
-                         model_->debug_cm_ram != 0),
+             selectedCardSignal(QStringLiteral("mcs4.control.rom"),
+                                model_->debug_rom_selected != 0,
+                                0,
+                                QStringLiteral("ROM selection is inactive")),
+             selectedCardSignal(QStringLiteral("mcs4.control.ram"),
+                                model_->debug_ram_selected != 0,
+                                model_->debug_ram_selected_id,
+                                QStringLiteral("RAM selection is inactive")),
              logicSignal(QStringLiteral("mcs4.fpga.bus_driven"),
                          model_->debug_bus_driven != 0),
              logicSignal(QStringLiteral("mcs4.fpga.rom_selected"),
                          model_->debug_rom_selected != 0),
              logicSignal(QStringLiteral("mcs4.fpga.ram_selected"),
                          model_->debug_ram_selected != 0),
+             logicSignal(QStringLiteral("mcs4.fpga.ram_device_selected"),
+                         model_->debug_ram_device_selected != 0),
+             logicSignal(QStringLiteral("mcs4.fpga.cm_rom"),
+                         model_->debug_cm_rom != 0),
+             logicSignal(QStringLiteral("mcs4.fpga.cm_ram_completed"),
+                         model_->debug_cm_ram != 0),
              logicSignal(QStringLiteral("mcs4.fpga.phi1"),
                          model_->debug_phi1 != 0),
              logicSignal(QStringLiteral("mcs4.fpga.phi2"),
@@ -263,6 +273,21 @@ private:
          }},
         {QStringLiteral("source"), QStringLiteral("mcs4_system_sim_top")},
     };
+  }
+
+  static QJsonObject selectedCardSignal(const QString &path, bool selected,
+                                        std::uint8_t selected_id,
+                                        const QString &inactive_reason) {
+    if (!selected) {
+      return QJsonObject{
+          {QStringLiteral("path"), path},
+          {QStringLiteral("value"),
+           QJsonObject{{QStringLiteral("kind"), QStringLiteral("unavailable")},
+                       {QStringLiteral("reason"), inactive_reason}}},
+          {QStringLiteral("source"), QStringLiteral("mcs4_system_sim_top")},
+      };
+    }
+    return bitsSignal(path, 4, selected_id);
   }
 
   [[nodiscard]] int busProducerCount() const {

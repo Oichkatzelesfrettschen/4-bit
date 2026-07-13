@@ -89,6 +89,8 @@ docs:
     role: reference
   - file: docs/MCS40_SYSTEM_INTEGRATION.md
     role: reference
+  - file: docs/INTELLEC_ARCHITECTURE.md
+    role: architecture
   - file: docs/ACCURACY_PROGRAM.md
     role: reference
   - file: docs/CLAIMS_TO_TESTS.md
@@ -108,6 +110,20 @@ docs:
   - file: docs/emulators/README.md
     role: reference
   - file: docs/evidence/README.md
+    role: evidence
+  - file: docs/evidence/intellec_sources.yaml
+    role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_PRIMARY_EVIDENCE.md
+    role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_SCHEMATIC_INDEX.md
+    role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_MON4_RECOVERY_PROTOCOL.md
+    role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_MON4_READ_MATRIX.md
+    role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_OCR_STATUS.md
+    role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md
     role: evidence
   - file: docs/evidence/callgraph-runtime-capture.md
     role: evidence

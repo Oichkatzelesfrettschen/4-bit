@@ -19,13 +19,14 @@
 //! - [`i4040`] - Enhanced 4-bit CPU with interrupts
 //! - [`i4101`] - 256x4 static RAM
 //! - [`i4201`] - Clock generator
-//! - [`i4207`] - Single-phase crystal clock generator
-//! - [`i4209`] - Single-to-two-phase clock converter
-//! - [`i4211`] - RC oscillator + two-phase clock generator
+//! - [`i4207`] - Legacy clock compatibility facsimile; not Intel 4207 I/O
+//! - [`i4209`] - Legacy clock compatibility facsimile; not Intel 4209 I/O
+//! - [`i4211`] - Legacy clock compatibility facsimile; not Intel 4211 I/O
 //! - [`i4265`] - Programmable general purpose I/O (4x4 bits)
 //! - [`i4289`] - Standard memory interface
 //! - [`i4308`] - 1Kx8 ROM
-//! - [`i4316`] - LCD segment driver
+//! - [`i4316`] - Legacy LCD compatibility facsimile; not Intel 4316A ROM
+//! - [`i1702`] - 256x8 UV-erasable PROM
 //! - [`i4702`] - 256x8 UV-erasable PROM
 
 pub mod i4001;
@@ -43,7 +44,9 @@ pub mod i4008;
 pub mod i4009;
 
 // External memory chips
+pub mod i1702;
 pub mod i2101;
+pub mod i2102;
 
 // MCS-40 specific chips
 pub mod i4101;

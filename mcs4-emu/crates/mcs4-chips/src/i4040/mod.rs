@@ -24,9 +24,10 @@ use crate::{
     i4004::{decode_cm_ram_lines, CM_RAM0},
 };
 
-/// Intel 4040 CPU (stub implementation)
+/// Intel 4040 behavioral CPU.
 ///
-/// Full implementation deferred - this provides type compatibility
+/// The CPU executes phase-resolved instruction behavior. Physical pin-map and
+/// transistor-netlist fidelity remain separately evidence-gated.
 pub struct I4040 {
     /// ALU (from 4004 base)
     pub alu: i4004::Alu,
@@ -112,6 +113,15 @@ impl I4040 {
     }
 
     pub fn tick(&mut self, phase: BusCycle, bus: &mut DataBus, ctrl: &mut ControlSignals) {
+        if self.halted {
+            if phase == BusCycle::A1 {
+                self.service_interrupt_if_pending(ctrl);
+            }
+            if self.halted {
+                self.cycle.advance();
+                return;
+            }
+        }
         match phase {
             BusCycle::A1 => self.phase_a1(bus, ctrl),
             BusCycle::A2 => self.phase_a2(bus, ctrl),
@@ -201,7 +211,16 @@ impl I4040 {
         ctrl.clear_io_op();
         ctrl.deselect_ram(0);
 
-        // Sample INT pin and check for interrupt service
+        self.service_interrupt_if_pending(ctrl);
+
+        // Output address bits 0-3 and assert SYNC
+        let addr = self.fetch_address();
+        bus.write((addr & 0x0F) as u8);
+        ctrl.assert_sync(0);
+    }
+
+    fn service_interrupt_if_pending(&mut self, ctrl: &ControlSignals) {
+        // Sample INT pin and check for interrupt service.
         if let Some(int_signal) = &ctrl.int {
             // Get the latest signal value from history
             let int_state = int_signal
@@ -215,19 +234,16 @@ impl I4040 {
             if self.intr.should_service() {
                 // Save current PC to stack and jump to interrupt handler
                 let current_pc = self.registers.pc();
+                self.registers.save_src((self.ram_chip << 4) | self.ram_address);
                 self.registers.push_return(current_pc);
                 // Acknowledge interrupt (auto-disables)
                 self.intr.acknowledge();
                 // Vector to interrupt handler at 0x003
                 self.registers.set_pc(0x003);
                 self.pc_modified = true;
+                self.halted = false;
             }
         }
-
-        // Output address bits 0-3 and assert SYNC
-        let addr = self.fetch_address();
-        bus.write((addr & 0x0F) as u8);
-        ctrl.assert_sync(0);
     }
 
     /// Address emitted during A1-A3.
@@ -614,10 +630,14 @@ impl I4040 {
 
     /// BBS (0x02) - Branch Back from interrupt
     fn execute_bbs(&mut self) {
-        // Restore PC from stack (ret_from_interrupt pops SP and sets PC directly)
-        let _ = self.registers.ret_from_interrupt(); // Restores PC, returns saved SRC (unused)
-                                                     // Note: Interrupts remain disabled (disabled by acknowledge() on INT entry)
-                                                     // The ISR must call EIN explicitly to re-enable interrupts
+        // Restore PC and the saved SRC address. The X2/X3 phases then expose
+        // the recovered address through the existing SRC bus path.
+        let saved_src = self.registers.ret_from_interrupt();
+        self.ram_chip = (saved_src >> 4) & 0x0f;
+        self.ram_address = saved_src & 0x0f;
+        self.decoded_io_op = Some(IoOp::Src);
+        // Interrupts remain disabled after acknowledge. The ISR executes EIN
+        // when it intentionally permits the next interrupt.
         self.pc_modified = true;
     }
 
@@ -801,6 +821,26 @@ mod tests {
 
         cpu.execute_hlt();
         assert!(cpu.halted());
+
+        cpu.registers.set_pc(0x123);
+        let mut bus = DataBus::new();
+        let mut control = ControlSignals::mcs40();
+        cpu.tick(BusCycle::A1, &mut bus, &mut control);
+        assert_eq!(cpu.pc(), 0x123);
+    }
+
+    #[test]
+    fn bbs_restores_saved_src_address() {
+        let mut cpu = I4040::new();
+        cpu.registers.save_src(0xab);
+        cpu.registers.push_return(0x456);
+
+        cpu.execute_bbs();
+
+        assert_eq!(cpu.pc(), 0x456);
+        assert_eq!(cpu.ram_chip(), 0x0a);
+        assert_eq!(cpu.ram_address(), 0x0b);
+        assert_eq!(cpu.decoded_io_op(), Some(IoOp::Src));
     }
 
     #[test]

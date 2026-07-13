@@ -9,8 +9,10 @@
 
 pub mod keyboard;
 pub mod seven_seg;
+pub mod teletype;
 pub mod uart;
 
 pub use keyboard::{KeyEvent, KeyState, MatrixKeyboard};
 pub use seven_seg::SevenSegDisplay;
+pub use teletype::{Teletype33, TeletypeSignals, TeletypeTiming};
 pub use uart::{SerialConfig, Uart};

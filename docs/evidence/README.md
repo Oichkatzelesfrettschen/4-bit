@@ -12,6 +12,14 @@ Layout
 - `docs/evidence/audit_claims_backlog.md` -- derived/pending claims from `docs/AUDIT.md`
 - `docs/evidence/PRIMARY_SOURCES_BACKLOG.md` -- missing primary-source materials to prioritize
 - `docs/evidence/url_reachability_audit.md` -- periodic URL reachability test results
+- `docs/evidence/intellec_sources.yaml` -- Intellec and ASR-33 source ledger,
+  local-only download provenance, hashes, and unresolved source gates
+- `docs/evidence/INTELLEC_MOD40_PRIMARY_EVIDENCE.md` -- MOD 40 module,
+  terminal, monitor, and source-gate facts extracted from retained manuals
+- `docs/evidence/INTELLEC_MOD40_OCR_STATUS.md` -- 98-013A OCR engine choices,
+  capture limits, and the visual-verification boundary
+- `docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md` -- source-backed and open
+  board-route records
 
 Reproduction workflow
 1. Download all primary source PDFs:
@@ -29,14 +37,31 @@ Reproduction workflow
 4. Full URL reachability audit (all project URLs, not just PDFs):
    `./scripts/fetch_sources_test.sh`
 
-5. Generate OCR sidecars from downloaded PDFs:
+5. Fetch the local-only Intellec and terminal sources when their redistribution
+   terms require a local cache:
+   `./scripts/fetch_intellec_sources.sh`
+   The script uses HTTPS, a fixed Mozilla user agent, a temporary download,
+   and the hash recorded in `intellec_sources.yaml`.
+
+6. Generate OCR sidecars from downloaded PDFs:
    `ocrmypdf --skip-text --output-type pdf --sidecar <txt> <pdf> /tmp/<out>.pdf`
 
-6. Extract evidence lines:
+7. Extract evidence lines:
    Use `rg` and `sed -n` against the OCR sidecar text.
 
-7. Update checksums:
+8. Update checksums:
    `sha256sum <file>` and update ocr_manifest.yaml / source_manifest.json.
+
+9. Render and OCR all retained Intellec 4 MOD 40 98-013A sheets:
+   `./scripts/extract_mod40_schematic_ocr.sh --surya-python <python> --surya-pages 3,5,7,10,13,15,29`
+   The command emits a reproducible local cache under
+   `docs/evidence/ocr/mod40_98013_*/full-sheet*/`. It records engine versions,
+   source and artifact digests, and timeout status. The cache is not tracked.
+
+10. Build the page-scoped OCR candidate index:
+    `./scripts/index_mod40_ocr_candidates.py --input <ocr-cache> --output <candidate-json>`
+    The JSON is a review queue only. Confirm both endpoints and each polarity
+    stage on the primary sheet before changing the board net ledger.
 
 Audit claim backlog
 - Generate a tracking view of “derived/pending” claims called out in `docs/AUDIT.md`:

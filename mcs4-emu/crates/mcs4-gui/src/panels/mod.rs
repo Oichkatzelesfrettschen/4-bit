@@ -2,6 +2,7 @@ pub mod breakpoints;
 pub mod controls;
 pub mod die_viewer;
 pub mod disasm;
+pub mod intellec;
 pub mod memory;
 pub mod provenance;
 pub mod registers;

@@ -1,0 +1,109 @@
+# Intellec 4 MOD 40 Board Net Ledger
+
+## Scope and evidence rule
+
+This ledger records electrical claims from the retained 98-013A reference
+schematic scan. It distinguishes a visible labeled endpoint from a complete
+board connection. A row does not establish a runnable board cycle unless every
+required endpoint, polarity, and timing condition is extracted and reconciled.
+
+Status values:
+
+- `direct`: the named signal and both local endpoints are visible on one sheet.
+- `partial`: the named signal is visible, but its remote endpoint or complete
+  path requires another reviewed sheet.
+- `inventory`: a board layout establishes a fitted component, not a net.
+- `open`: the sheet has not yet yielded the required endpoint record.
+
+Source: `intellec4-mod40-reference-schematics`, SHA-256
+`34f82ae6228f6ee0832c9696b4a0e922f8ea4bfccf92131476d013108b703bdb`.
+
+## Motherboard and memory-control boundary
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| partial | PDF 5, drawing 2000077 | Motherboard exposes the `MAD0` through `MAD11` group toward the RAM module. | The group labels occur at the motherboard RAM boundary. The complete connector-pin map and remote IN-28 pin mapping remain open. |
+| partial | PDF 5, drawing 2000077 | Motherboard carries `CM-ROM`, `CM-RAM0` through `CM-RAM3`, and `CPU RESET`. | The labels establish the card-boundary signal set. They do not establish the active polarity or every physical route. |
+| partial | PDF 5, drawing 2000077 | Motherboard exports TTY printer, keyboard, and reader-control labeled connections. | Terminal-side wiring requires reconciliation with PDF 29 and the rear connector board. |
+| inventory | PDF 6, memory controller assembly | The controller board contains 3205, 3235, 3404, 8233, 8266, 9602, 74161, TTL, and discrete support population. | The layout supports a multi-device translation and arbitration model. It does not define the functional wiring alone. |
+| direct | PDF 7, drawing 2000319 | Controller input labels include `WRITE`, `PM`, `MOD SEL 12` through `MOD SEL 15`, `MOD ENABLE`, `CMA EX`, `S/S PB`, `CMA WRITE`, `STOP ACK`, and `USER RESET`. | The labels enter the controller drawing at named connector contacts. Their panel and motherboard counterparts require cross-sheet resolution. |
+| direct | PDF 7, drawing 2000319 | Controller exposes `CM-ROM`, `CM-RAM0` through `CM-RAM3`, `4002 RESET ENABLE`, `4002 RESET`, `ENABLE MON PROM`, `PROM SELECT`, and `CPU RESET`. | The source establishes controller-local logic around these signals. It does not yet establish a cycle-accurate Boolean/timing model. |
+| partial | PDF 7, drawing 2000319 | Controller P1 contacts 11 through 20 carry `MAD0` through `MAD9`; contacts 90 and 92 carry `BYTE2` and `BYTE1`; contact 95 carries `WRITE`. | The controller-side contact assignment is visible. The remaining control-card Boolean equations and byte-cycle timing remain open. |
+
+## Remaining sheet extraction records
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| inventory | PDF 2, drawing 1000276-02 | CPU-board layout identifies sockets A1 through A4, A11 through A32, P1, P4, and the card edge. | The layout supports physical placement only. PDF 3 remains the electrical source for the central processor. |
+| inventory | PDF 4, motherboard layout | Motherboard layout identifies J1 through J18 plus J22, J42, P37, P38, and P39. | The layout proves connector presence. PDF 5 and other endpoint sheets remain required for nets. |
+| inventory | PDF 6, memory-controller layout | Controller layout identifies the A1 through A31 population, including TTL, Intel interface, and discrete devices. | The layout does not establish any controller signal polarity or timing. |
+| inventory | PDF 12, drawing 1000143 | Front-panel logic layout identifies J1, J2, J3, P39, 8244/9348, 8233, 8266, 3205, 3404, and TTL placement. | The drawing does not connect a panel action to a CPU cycle. PDF 13 remains the electrical source. |
+| direct | PDF 13, drawing 2000329 | Front-panel STOP pushbutton `S26` enters the panel logic through A36 conditioning gates as `STOP PB`. | The switch and local conditioning stages are visible. The resulting controller/CPU state transition and asserted polarity remain open. |
+| direct | PDF 13, drawing 2000329 | The panel drawing exposes named `STOP ACK`, `CPU RESET`, `4002 RESET ENABLE`, `EOC SYNC`, and mode-selection inputs at its connector boundary. | The source establishes the panel-control signal set. It does not yet establish every cross-sheet endpoint, Boolean equation, or timing relation. |
+| inventory | PDF 14, drawing 1000034-01 | Display layout identifies P40 and LED1 through LED46 as General Electric SSL-22 devices. | The board has a 46-LED physical population. Display segment polarity and panel logic mapping remain open. |
+| partial | PDF 25, drawing 2000121 | Optional data-storage/OEM module contains sixteen 4002 devices, selection logic, `CM-RAM0` through `CM-RAM3`, `CPU RESET`, and `4002 RESET`. | This establishes an optional expansion topology, not the standard MOD 40 population or a complete board route. |
+| direct | PDF 28, Power One CP110 and D5-12 S113 | The power drawings label +80 V, +12 V, -10 V, -12 V, +5 V, COM, and sense-output rails. | These are supply-level facts. Electrical startup sequencing and load behavior remain outside the digital execution model. |
+
+## IN-28 program-RAM boundary
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| direct | PDF 10, drawing 01-0176-001 | IN-28 contains thirty-two 2102 devices in four rows: `1K` through `1C`, `2K` through `2C`, `3K` through `3C`, and `4K` through `4C`. | The physical population is visible on the schematic. |
+| direct | PDF 10, drawing 01-0176-001 | Each row orders locations `K, J, H, G, F, E, D, C`. | The source supports the model's bit-lane location naming. Byte-bit polarity and any inversion remain open until the data path is traced. |
+| partial | PDF 10, drawing 01-0176-001 | IN-28 P1 contacts 11 through 20 receive `MAD0` through `MAD9`; contacts 94 and 96 receive `MAD11` and `MAD10`; contacts 90, 92, 93, and 95 carry `BYTE2`, `BYTE1`, `MODULE SELECT`, and `WRITE`. | The card-edge assignments are visible. The exact byte-cycle sequencing and complete control equation remain open. |
+| partial | PDF 10, drawing 01-0176-001; Intel 1975 Data Catalog, printed pages 5-3 through 5-6 | The board uses 3404 active-low-write inverting latches, 7404 inversion stages, and TTL selection logic around the memory array. | The 3404 write-enable phases and their complete relationship to the external `WRITE` net remain unextracted. The source does not authorize a static-buffer substitution. |
+| partial | Intel 1975 Data Catalog, printed pages 2-33 through 2-35 | Each 2102 is a 1024 by 1 static RAM with chip enable, a tri-state data output, and an active-low `R/W` write pulse that retains input data as the pulse ends. | The data sheet defines device behavior only. PDF 10 must still trace each board-level select, address, data, and write-pulse route. |
+
+## Central-processor monitor boundary
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| direct | PDF 3, drawing 2000318 | The central processor contains I4289 A5 and four Intel 1702A devices A1 through A4. A5 address outputs A0 through A7 fan out to the matching address inputs on all four monitor devices. | The shared eight-bit monitor-address wiring is visible. The fetched-byte path and timing still require a complete 4289 and memory-bus trace. |
+| direct | PDF 3, drawing 2000318 | The board net `ENABLE MON PROM` enters 74155 A8 at active-low enable 2G. A8 also receives `C0`, `C1`, `OUT`, `C2`, and `C3` inputs. | The input labels and A8 pins are visible. The active state, output-to-PROM-select mapping, and every intervening gate remain unextracted. |
+| partial | PDF 3, drawing 2000318 | A8 decoder outputs leave the monitor-select region toward the A1 through A4 PROM area. | The visible route establishes a monitor-selection network rather than a direct unqualified PROM enable. It does not yet establish socket order, selected-ROM polarity, or ROM-byte inversion. |
+
+## Terminal connector routes
+
+The following routes are direct, connector-to-connector observations from
+PDF 29. They establish the cable harness boundary. They do not yet establish
+the serial symbol polarity at the 4040-visible ports or a complete ASR-33
+electrical model.
+
+| Status | Source location | Route | Evidence and limit |
+| --- | --- | --- | --- |
+| direct | PDF 29, drawing 2000325 | CPU P4/J4 contact 26, `TTY OUT`, to J42/P42 contact 1, J43/P43 contact 1, and ASR-33 printer terminal 7. | The printer forward current-loop conductor is visible end to end. |
+| direct | PDF 29, drawing 2000325 | ASR-33 printer terminal 6 to J43/P43 contact 2 and J42/P42 contact 2, then through 270 ohm to -10 V. | The return-side supply condition is visible. The CPU driver transistor behavior remains a separate CPU-board extraction. |
+| direct | PDF 29, drawing 2000325 | CPU P4/J4 contact 1, `TTY IN`, to J42/P42 contact 4, J43/P43 contact 4, and ASR-33 keyboard terminal 4. | The keyboard forward conductor is visible end to end. |
+| direct | PDF 29, drawing 2000325 | CPU P4/J4 contact 89, `RDR CONT`, to J42/P42 contact 5 and J43/P43 contact 5. | The named reader-control conductor crosses the motherboard and rear connector. The terminal-strip relay contacts and CPU-port assertion polarity remain open. |
+| direct | PDF 29, drawing 2000325 | J42/P42 contact 3 supplies +5 V through 220 ohm; J42/P42 contact 6 supplies -10 V through 68 ohm. | The external current-loop bias rails are explicit. The remaining component and terminal contacts need a full current-loop extraction. |
+| direct | PDFs 3 and 29, drawings 2000318 and 2000325 | The `TTY IN` conductor enters CPU P4/J4 contact 1, passes through the Q5 receiver circuit and its TTL buffer, and reaches the `ROM 0 BIT 0` input path at A25. | The external conductor and internal receiver path are source-visible end to end. The asserted-current to logical-bit polarity remains unrecorded. |
+| direct | PDFs 3 and 29, drawings 2000318 and 2000325 | The RAM 0 output-bit-0 transmitter path reaches Q4, then CPU P4/J4 contact 26, `TTY PRINTER`, and the external printer current loop. | The path and Q4 output-driver stage are visible end to end. The command-bit asserted polarity and serial framing remain open. |
+| direct | PDFs 3 and 29, drawings 2000318 and 2000325 | The RAM 1 output-bit-0 reader-control path reaches Q3, then CPU P4/J4 contact 89 and the reader-control relay current loop. | The path and Q3 relay-driver stage are visible end to end. The asserted-bit relay state and reader mechanical timing remain open. |
+
+## Newly traced program-RAM boundary facts
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| direct | PDFs 5, 7, and 10 | The controller P1 `MAD0` through `MAD9` contacts 11 through 20 cross the motherboard memory-controller to IN-28 boundary and enter IN-28 P1 contacts 11 through 20. | Each low address conductor reaches an IN-28 3404 data-latch input. The latch enable phase and the stored address value require cycle extraction. |
+| direct | PDFs 5 and 10 | The motherboard maps controller-side C3 at contact 94 to IN-28 `MAD11` at contact 94, and controller-side C2 at contact 96 to IN-28 `MAD10` at contact 96. | Each high address conductor then crosses a 7404 inversion stage before bank-selection logic. The source-visible connector route is complete; the Boolean bank-select equation remains open. |
+| direct | PDFs 5, 7, and 10 | `BYTE2`, `BYTE1`, `MODULE SELECT`, and `WRITE` use the IN-28 contacts 90, 92, 93, and 95; the controller sheet identifies `BYTE2`, `BYTE1`, and `WRITE` at the matching program-memory boundary. | The named card-edge control paths are source-backed. The signals still require a complete local TTL and 2102 control-pin trace before the model drives a source-faithful cycle. |
+| partial | 98-095A, printed page 24; PDFs 5, 7, and 10 | The imm6-28 uses normal program-fetch address phases A1 through A3 and returns the requested byte during M1 and M2. Special instructions use execution phases for program-RAM reads and writes. `PM`, `F/L`, memory address, and memory-data-in form the stated external interface. | The manual establishes phase roles, not individual card-edge polarity or setup/hold timing. The schematic trace remains controlling evidence for the implementation. |
+
+## Consequences for implementation
+
+The `Imm6_28` model preserves the thirty-two physical SRAM locations and
+unknown power-on state. It does not claim that the present behavioral board has
+the documented controller timing. `Imm472` remains a source gate until this
+ledger contains a complete, polarity-checked map for every program-memory
+cycle path.
+
+The following execution conditions remain open:
+
+1. Reconcile each PDF 5 card-edge contact with PDF 7 and PDF 10 endpoints.
+2. Extract the address, data, byte, type, write, and module-select polarities.
+3. Extract the front-panel arbitration paths from PDFs 11 through 15.
+4. Extract the CPU-card 4289 and monitor selection paths from PDF 3.
+5. Derive and independently check the Boolean polarity of every control path,
+   including the 3404 and 7404 stages, before connecting modeled devices.
+6. Capture cycle timing before enabling a MOD 40 FPGA wrapper or an equivalence
+   trace.

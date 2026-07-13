@@ -1,6 +1,6 @@
 # MCS-4 Emulator Project Status
 
-**Last Updated:** 2026-07-11
+**Last Updated:** 2026-07-12
 **Repository:** https://github.com/Oichkatzelesfrettschen/4-bit
 
 Current capability evidence, call-graph limits, and unresolved debt live in
@@ -14,7 +14,7 @@ historical planning summary, not a hardware-validation claim.
 | 0 | Repo hygiene and reproducibility | COMPLETE | 100% |
 | 0.5 | OCR pipeline and evidence extraction | COMPLETE | 90% |
 | 1 | CPU correctness (4004) | COMPLETE | 100% |
-| 2 | 4040 CPU complete | COMPLETE | 100% |
+| 2 | 4040 behavioral CPU path | PARTIAL | source-gated board work remains |
 | 3 | Support chips + GUI | COMPLETE | 100% |
 | 4 | Performance and clustering | COMPLETE | 100% |
 | 5 | FPGA and advanced features | IMPLEMENTED | 85% |
@@ -44,11 +44,11 @@ duplicate copy.
 
 | Chip | Description | Status |
 |------|-------------|--------|
-| 4040 | Enhanced 4-bit CPU | COMPLETE (60 instructions, interrupts, 43 tests) |
-| 4101 | 256x4 static RAM | COMPLETE (read/write, 17 tests) |
-| 4201 | Clock generator | COMPLETE (crystal config, non-overlap, reset, STP, 13 tests + proptest) |
-| 4289 | Standard memory interface | COMPLETE (address latch, nibble assembly, OE/WE, 13 tests + proptest) |
-| 4308 | 1Kx8 ROM | COMPLETE (1Kx8 storage, I/O ports, bus protocol, 13 tests + proptest + 9 integration) |
+| 4040 | Enhanced 4-bit CPU | PARTIAL behavioral path (60-opcode decode; halt, interrupt context, and board integration remain source-gated) |
+| 4101 | 256x4 static RAM | BEHAVIORAL component (read/write tests; not attached to the default MCS-40 assembly) |
+| 4201 | Clock generator | BEHAVIORAL component (non-overlap, reset, and STP tests; not the default CPU phase source) |
+| 4289 | Standard memory interface | BEHAVIORAL component (address and OE/WE tests; no attached standard-memory card) |
+| 4308 | 1Kx8 ROM | BEHAVIORAL component (bus and I/O tests; not the default MCS-40 fetch path) |
 
 ### MCS-4 Support Chips
 
@@ -59,23 +59,29 @@ duplicate copy.
 | 3216 | 4-bit bus driver (non-inverting) | COMPLETE (8 tests) |
 | 3226 | 4-bit bus driver (inverting) | COMPLETE (8 tests) |
 | 3205 | 1-of-8 binary decoder | COMPLETE (8 tests) |
-| 3404 | 6-bit D-type latch + dual NAND buffer | COMPLETE (8 tests) |
+| 3404 | 6-bit active-low-write inverting latch | COMPLETE (7 tests) |
 | 2101 | 256x4 SRAM | COMPLETE (8 tests) |
+| 2102 | 1024x1 static RAM | SOURCE-BOUND behavioral storage (unknown power-on, tri-state, reset retention, and power-cycle tests; used only by non-executable imm6-28) |
 
-### MCS-40 Clock Generators
+### Legacy misidentified MCS-40 compatibility models
+
+These public modules retain their historical repository API but do not carry
+the Intel part identities in their filenames. Source-bound machine profiles do
+not import them.
 
 | Chip | Description | Status |
 |------|-------------|--------|
-| 4207 | Single-phase crystal clock | COMPLETE (6 tests) |
-| 4209 | Single-to-two-phase converter | COMPLETE (5 tests) |
-| 4211 | RC oscillator + two-phase clock | COMPLETE (6 tests) |
+| 4207 | Repository clock facsimile; Intel 4207 is general-purpose I/O | QUARANTINED (6 compatibility tests) |
+| 4209 | Repository clock facsimile; Intel 4209 is general-purpose I/O | QUARANTINED (5 compatibility tests) |
+| 4211 | Repository clock facsimile; Intel 4211 is general-purpose I/O | QUARANTINED (6 compatibility tests) |
 
 ### MCS-40 Peripheral Chips
 
 | Chip | Description | Status |
 |------|-------------|--------|
 | 4265 | Programmable I/O (4x4 bits) | COMPLETE (9 tests) |
-| 4316 | LCD segment driver | COMPLETE (7 tests) |
+| 4316 | Repository LCD facsimile; Intel 4316A is a 2048x8 ROM | QUARANTINED (7 compatibility tests) |
+| 1702A | 256x8 UV-erasable PROM | SOURCE-BOUND unread-media model (4 tests; standard MOD 40 monitor socket population) |
 | 4702 | 256x8 UV-erasable PROM | COMPLETE (8 tests) |
 
 ### Verilog
@@ -97,7 +103,7 @@ Gate-level Verilog populated from extracted netlists (7,525 lines total).
 
 ### Not Started (deferred)
 
-4002-1/4002-2, 4269, 4238, 4243, 2102, 1302, 2316, second-sources, TTL glue.
+4002-1/4002-2, 4269, 4238, 4243, 1302, 2316, second-sources, TTL glue.
 
 ## Architecture
 

@@ -16,6 +16,11 @@ Thumbs.db
 *.db
 target/
 /build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Testing/
 coverage/
 *.profraw
 *.profdata
@@ -39,5 +44,29 @@ rustc-ice-*
 perf.data*
 flamegraph.svg
 
+# Python tool caches and bytecode
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+.coverage
+
+# HDL simulation waveforms and compiled simulators
+*.vcd
+*.fst
+*.lxt
+*.vvp
+*.gtkw
+
 # Generated OCR evidence artifacts (regeneratable)
 docs/evidence/ocr_signal_labels/*/crops/
+# Full-sheet MOD 40 renders and multi-engine OCR outputs are local,
+# reproducible evidence caches.  The extraction script records source digest,
+# engine versions, parameters, and artifact digests.
+docs/evidence/ocr/mod40_98013_*/
+
+# Source scans with unresolved redistribution terms stay in the local evidence
+# cache. The tracked manifest records their origin and verified digest.
+docs/evidence/local_sources/

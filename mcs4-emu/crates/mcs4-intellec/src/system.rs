@@ -1,17 +1,8 @@
-//! Intellec-4 Development System Integration
+//! Legacy host-side Intellec fixture integration.
 //!
-//! WHY: The Intellec-4 was a complete development system that combined
-//! the MCS-4 CPU with a front panel, monitor ROM, keyboard, display,
-//! serial port, and PROM programmer. This module wires them together.
-//!
-//! WHAT: An `IntellecSystem` that coordinates all subsystems: the
-//! MCS-4 system (CPU + ROM + RAM), front panel controls, monitor
-//! state machine, peripheral devices, and PROM programmer.
-//!
-//! HOW: The system's `step()` method advances one machine cycle,
-//! coordinating the front panel mode (Run/Stop/Step) with CPU
-//! execution and peripheral updates. Higher-level methods provide
-//! examine, deposit, and program load operations.
+//! This compatibility fixture combines a host panel, a generated monitor,
+//! and direct memory helpers. It supports existing tests but does not model a
+//! source-gated historical board. New code uses `IntellecMachine`.
 
 use mcs4_chips::i4702::I4702;
 use mcs4_periph::{MatrixKeyboard, SerialConfig, SevenSegDisplay, Uart};
@@ -23,7 +14,7 @@ use crate::{
     prom_programmer::{ProgResult, PromProgrammer},
 };
 
-/// Complete Intellec-4 development system.
+/// Legacy host-side fixture that does not represent a historical board.
 pub struct IntellecSystem<S: System = Mcs40System> {
     /// MCS-4 base system (CPU + ROM + RAM).
     pub system: S,

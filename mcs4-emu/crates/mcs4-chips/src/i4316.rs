@@ -1,6 +1,10 @@
-//! Intel 4316 LCD Driver
+//! Legacy LCD compatibility facsimile named I4316.
 //!
-//! The 4316 drives LCD segments via a multiplexed backplane scheme.
+//! Intel catalogs identify the 4316A as a 2048 by 8 MOS ROM, not an LCD
+//! driver. This retained module preserves a preexisting repository API and is
+//! quarantined from source-bound historical profiles.
+//!
+//! This facsimile drives LCD segments via a multiplexed backplane scheme.
 //! It latches segment data from the MCS-40 bus and generates the
 //! alternating backplane waveform needed for LCD operation.
 //!
@@ -8,7 +12,7 @@
 
 use mcs4_bus::BusCycle;
 
-/// Intel 4316: LCD Segment Driver
+/// Legacy repository LCD facsimile named I4316.
 ///
 /// Drives LCD segments with multiplexed backplane waveform generation.
 #[derive(Clone, Debug)]

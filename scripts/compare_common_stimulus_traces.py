@@ -12,7 +12,6 @@ from pathlib import Path
 from typing import Any
 
 MAX_MISMATCH_RECORDS = 32
-CONTROL_SIGNAL_PATHS = frozenset({"mcs4.control.rom", "mcs4.control.ram"})
 
 
 def parse_int(value: str) -> int:
@@ -95,19 +94,6 @@ def signals(frame: dict[str, Any], label: str) -> dict[str, Any]:
     return result
 
 
-def normalize_control_signal(path: str, value: Any) -> Any:
-    if path not in CONTROL_SIGNAL_PATHS:
-        return value
-    if not isinstance(value, dict):
-        return value
-    kind = value.get("kind")
-    if kind == "unavailable":
-        return {"kind": "logic", "value": "zero"}
-    if kind == "bits":
-        return {"kind": "logic", "value": "one"}
-    return value
-
-
 def control_signal_is_active(value: Any) -> bool:
     if not isinstance(value, dict):
         return False
@@ -142,7 +128,7 @@ def normalize_phase_signal(path: str, value: Any, phase_map: str, trace_role: st
 def normalize_signal(path: str, value: Any, phase_map: str, trace_role: str) -> Any:
     return normalize_phase_signal(
         path,
-        normalize_control_signal(path, value),
+        value,
         phase_map,
         trace_role,
     )
@@ -188,7 +174,7 @@ def compare(
         frame_has_mismatch = False
         for path in sorted(behavioral_signals.keys() & fpga_signals.keys()):
             shared_paths.add(path)
-            if path in CONTROL_SIGNAL_PATHS:
+            if path in {"mcs4.control.rom", "mcs4.control.ram"}:
                 if control_signal_is_active(behavioral_signals[path]):
                     behavioral_active_by_path[path] += 1
                 if control_signal_is_active(fpga_signals[path]):

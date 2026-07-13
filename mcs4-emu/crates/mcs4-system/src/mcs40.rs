@@ -1,7 +1,13 @@
 //! MCS-40 System (4040-based)
 //!
-//! Complete system integration for Intel MCS-40 architecture.
-//! Wires together 4040 CPU, 4201 Clock, and optional MCS-40 support chips.
+//! Behavioral MCS-40 compatibility assembly.
+//!
+//! This system exercises the 4040 phase path with a 4201 and 4289 object, but
+//! its default memory devices remain 4001 ROM and 4002 RAM. It is not an
+//! Intellec 4/MOD 40 board model. The standard MOD 40 reference manual instead
+//! describes an imm4-43 CPU module, imm4-72 control module, and imm6-28
+//! program-RAM module. Source-gated MOD 40 profiles remain blocked until that
+//! card topology replaces this compatibility assembly.
 
 use mcs4_bus::prelude::*;
 use mcs4_chips::{i4001::I4001, i4002::I4002, i4040::I4040, i4201::I4201, i4289::I4289, Chip};
@@ -12,7 +18,7 @@ use crate::{
     trace::{PhaseTrace, SystemArchitecture},
 };
 
-/// Complete MCS-40 system
+/// Behavioral compatibility system for the MCS-40 CPU path.
 pub struct Mcs40System {
     /// 4040 CPU
     pub cpu: I4040,
@@ -23,10 +29,12 @@ pub struct Mcs40System {
     /// 4289 Standard Memory Interface
     pub smi: I4289,
 
-    /// ROM chips
+    /// Compatibility ROM chips. A source-faithful MOD 40 assembly uses the
+    /// source-backed imm4-43 monitor and program-memory topology instead.
     pub rom: Vec<I4001>,
 
-    /// RAM chips
+    /// Compatibility RAM chips. A source-faithful MOD 40 assembly uses the
+    /// source-backed imm4-43 and imm6-28 memory topology instead.
     pub ram: Vec<I4002>,
 
     /// Fidelity manager
@@ -61,7 +69,7 @@ impl Mcs40System {
         }
     }
 
-    /// Create a minimal MCS-40 system (same as new() for now)
+    /// Create the minimal behavioral compatibility system.
     pub fn minimal() -> Self {
         Self::new()
     }
@@ -258,6 +266,22 @@ impl Mcs40System {
         if let Some(rom) = self.rom.iter_mut().find(|rom| rom.chip_id == (chip_id & 0x0F)) {
             rom.set_io_input(value & 0x0F);
         }
+    }
+
+    /// Read the 4-bit ROM I/O output latch for one chip.
+    pub fn read_rom_port(&self, chip_id: u8) -> Option<u8> {
+        self.rom
+            .iter()
+            .find(|rom| rom.chip_id == (chip_id & 0x0F))
+            .map(|rom| rom.io_output())
+    }
+
+    /// Read the 4-bit RAM output port latch for one bank/chip pair.
+    pub fn read_ram_port(&self, bank_id: u8, chip_id: u8) -> Option<u8> {
+        self.ram
+            .iter()
+            .find(|ram| ram.bank_id == (bank_id & 0x03) && ram.chip_id == (chip_id & 0x03))
+            .map(|ram| ram.output())
     }
 
     pub fn pc(&self) -> u16 {

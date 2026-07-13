@@ -1,6 +1,10 @@
-//! Intel 4207 Single-Phase Clock Generator
+//! Legacy clock compatibility facsimile named I4207.
 //!
-//! The 4207 generates a single-phase clock output from a crystal oscillator.
+//! Intel catalogs identify the 4207 as general-purpose I/O, not a clock
+//! generator. This retained module preserves a preexisting repository API and
+//! is quarantined from source-bound historical profiles.
+//!
+//! This facsimile generates a single-phase clock output from a crystal oscillator.
 //! It is designed to drive the 4209 single-to-two-phase converter, which
 //! produces the two-phase non-overlapping clocks needed by the 4040.
 //!
@@ -9,7 +13,7 @@
 use mcs4_bus::BusCycle;
 use mcs4_core::Time;
 
-/// Intel 4207: Single-Phase Crystal Clock Generator
+/// Legacy repository clock facsimile named I4207.
 #[derive(Clone, Debug)]
 pub struct I4207 {
     /// Crystal oscillator frequency (Hz)

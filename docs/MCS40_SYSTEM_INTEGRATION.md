@@ -1,9 +1,40 @@
-# Intel MCS-40 System Integration - Complete Architecture
+# Legacy Generic MCS-40 System Design Sketch
 
-**Date**: 2026-01-29  
-**Status**: System Architecture Complete  
-**Component**: MCS-40 Microcomputer System  
-**Priority**: Phase 3 Capstone  
+**Status**: Non-authoritative generic design sketch. It does not establish a
+physical machine, a source-backed memory map, or a standard Intellec 4/MOD 40
+topology.
+
+## Implementation boundary
+
+This document preserves an early generic MCS-40 design exploration. It does not
+describe the current `Mcs40System` implementation as a complete board. The
+current system uses a behavioral 4040 with 4201 and 4289 objects but still
+fetches through 4001 ROM and uses 4002 RAM. The 4201 does not advance the CPU
+phase machine and the 4289 has no attached standard-memory card.
+
+The 4101, 4102, 4201, and 4702A placements below remain generic family-model
+choices. They do not describe the standard Intellec 4/MOD 40. Primary Intel
+sources instead identify its imm4-43 CPU module, imm4-72 control module,
+imm6-28/IN-28 program-RAM module built from thirty-two Intel 2102 SRAMs,
+imm6-76 PROM programmer, and four Intel 1702A monitor EPROMs at CPU-board
+locations A1-A4. Do not use this document as evidence that an Intellec 4/MOD
+40 profile boots or that its board wiring is source-faithful.
+`docs/INTELLEC_ARCHITECTURE.md` records the source gate and historical board
+acceptance criteria.
+
+The current source-bound board does not import the legacy `I4207`, `I4209`,
+`I4211`, or `I4316` implementations. Primary Intel catalog evidence identifies
+the first three as general-purpose I/O devices and the 4316A as a 2048 by 8
+ROM. Their existing repository models use incompatible clock and LCD roles.
+They remain quarantined compatibility facsimiles until a separately reviewed
+rename or replacement preserves API compatibility without implying Intel part
+identity.
+
+The component descriptions, address map, timing table, and block diagram below
+are retained as generic design hypotheses. They require a source-tagged net
+list and executable device composition before they may become an implementation
+contract. `docs/evidence/INTELLEC_MOD40_PRIMARY_EVIDENCE.md` records the
+separate standard MOD 40 evidence boundary.
 
 ## 1. SYSTEM OVERVIEW
 
@@ -353,13 +384,13 @@ Total: 86 unit tests
 - Simpler addressing
 - More memory required per device
 
-**Option B**: Banked 1K RAM (4 × 4101 chips)
-- Matches historical 4289 design
+**Option B**: Banked 1K RAM (4 x 4101 chips)
+- Matches this generic 4289 model
 - Efficient use of available devices
 - Requires bank selection logic
 
 **Chosen**: Option B (Banked)
-**Rationale**: Matches historical system, efficient device utilization
+**Rationale**: Matches the generic model and preserves efficient device use
 
 ### Decision 2: Address Space
 

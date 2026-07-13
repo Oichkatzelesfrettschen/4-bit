@@ -1,6 +1,10 @@
-//! Intel 4209 Single-to-Two-Phase Clock Converter
+//! Legacy clock compatibility facsimile named I4209.
 //!
-//! The 4209 takes a single-phase clock input (e.g. from the 4207) and
+//! Intel catalogs identify the 4209 as general-purpose I/O, not a clock
+//! converter. This retained module preserves a preexisting repository API and
+//! is quarantined from source-bound historical profiles.
+//!
+//! This facsimile takes a single-phase clock input (e.g. from the 4207) and
 //! produces two-phase non-overlapping clocks (PHI1, PHI2) needed by the
 //! 4040 CPU. It enforces a dead-time gap between phases to prevent
 //! shoot-through in the dynamic logic.
@@ -8,7 +12,7 @@
 use mcs4_bus::BusCycle;
 use mcs4_core::Time;
 
-/// Intel 4209: Single-to-Two-Phase Clock Converter
+/// Legacy repository clock facsimile named I4209.
 #[derive(Clone, Debug)]
 pub struct I4209 {
     /// Input clock state (from 4207 or external source)
