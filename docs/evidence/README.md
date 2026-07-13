@@ -63,6 +63,12 @@ Reproduction workflow
     The JSON is a review queue only. Confirm both endpoints and each polarity
     stage on the primary sheet before changing the board net ledger.
 
+11. Compare declared four-device MON4 artifact sets without inferring a
+    physical read, socket order, or polarity transform:
+    `python3 scripts/compare_intellec_mod40_proms.py --set first=a,b,c,d --set second=e,f,g,h --format first=intel-hex --format second=hex-listing`
+    The command requires a declared format for every set and rejects padding,
+    truncation, sparse Intel HEX records, and address discontinuities.
+
 Audit claim backlog
 - Generate a tracking view of “derived/pending” claims called out in `docs/AUDIT.md`:
   - `python3 scripts/audit_claims_backlog.py`
