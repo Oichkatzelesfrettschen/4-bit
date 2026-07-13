@@ -97,6 +97,12 @@ the documented controller timing. `Imm472` remains a source gate until this
 ledger contains a complete, polarity-checked map for every program-memory
 cycle path.
 
+`mcs4-intellec/src/mod40_routes.rs` mirrors the reviewed card-edge and terminal
+records as typed route data. Its direct entries preserve only complete visible
+endpoint pairs. Its partial entries intentionally keep the program-RAM
+execution gate open until the local decode, inversion, and timing stages are
+traced.
+
 The following execution conditions remain open:
 
 1. Reconcile each PDF 5 card-edge contact with PDF 7 and PDF 10 endpoints.

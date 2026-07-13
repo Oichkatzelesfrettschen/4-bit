@@ -10,6 +10,9 @@ use mcs4_chips::{i1702::I1702A, i4002::I4002, i4040::I4040, i4289::I4289};
 use crate::{
     console::ProgramMemoryMode,
     imm6_28::Imm628,
+    mod40_routes::{
+        monitor_address_fanout_is_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
+    },
     profile::{SourceReference, MOD40_HISTORICAL_EXECUTION_GATES, MOD40_SOURCES},
 };
 
@@ -59,6 +62,12 @@ pub struct Mod40SourceGate {
     pub monitor_slots_present: [bool; 4],
     /// The imm6-28 retains all 32 documented 2102 devices.
     pub program_ram_chip_count: usize,
+    /// Every source-visible program-RAM card-edge route is complete.
+    pub program_ram_card_edges_traced: bool,
+    /// All four monitor sockets share the documented eight address outputs.
+    pub monitor_address_fanout_traced: bool,
+    /// The three external TTY cable conductors have source-recorded endpoints.
+    pub terminal_cable_routes_traced: bool,
     /// CPU-cycle electrical wiring is implemented from a reconciled net ledger.
     pub board_cycle_wiring_implemented: bool,
     /// Four monitor images have verified physical-read lineage and transforms.
@@ -192,6 +201,9 @@ impl Mod40Board {
             primary_board_population_bound: true,
             monitor_slots_present: [true; 4],
             program_ram_chip_count: self.imm628.device_count(),
+            program_ram_card_edges_traced: program_ram_card_edge_is_complete(),
+            monitor_address_fanout_traced: monitor_address_fanout_is_traced(),
+            terminal_cable_routes_traced: terminal_cable_routes_are_traced(),
             board_cycle_wiring_implemented: false,
             // Independent, position-specific read sets and transforms remain
             // absent. Known byte values alone do not prove that evidence.
@@ -235,6 +247,9 @@ mod tests {
         assert_eq!(board.imm443().data_ram_socket_count(), 4);
         assert_eq!(board.imm628().device_count(), 32);
         assert_eq!(board.source_gate().monitor_slots_present, [true; 4]);
+        assert!(!board.source_gate().program_ram_card_edges_traced);
+        assert!(board.source_gate().monitor_address_fanout_traced);
+        assert!(board.source_gate().terminal_cable_routes_traced);
         assert!(!board.source_gate().monitor_media_verified);
         assert!(!board.source_gate().board_cycle_wiring_implemented);
         assert!(board

@@ -15,6 +15,7 @@ pub mod front_panel;
 pub mod imm6_28;
 pub mod machine;
 pub mod mod40;
+pub mod mod40_routes;
 pub mod monitor;
 pub mod monitor_rom;
 pub mod profile;
@@ -31,6 +32,11 @@ pub use imm6_28::{Imm628, Imm628ChipLocation, Imm628Output, Imm628Read};
 pub use machine::{IntellecBusMachine, IntellecEvent, IntellecFrame, IntellecMachine, IntellecMachineError};
 pub use mod40::{
     Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40SourceGate, Mod40TerminalEndpoint, ProgramStoreId,
+};
+pub use mod40_routes::{
+    monitor_address_fanout_is_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
+    Mod40RouteEvidence, MonitorAddressFanout, ProgramRamCardEdgeRoute, TerminalCableRoute, MONITOR_ADDRESS_FANOUT,
+    PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
 };
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
 pub use monitor_rom::{MonitorRom, MonitorRomError};

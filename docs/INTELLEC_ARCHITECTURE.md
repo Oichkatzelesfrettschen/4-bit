@@ -161,3 +161,10 @@ instances at the source-visible `1K` through `4C` locations. The model exposes
 logical storage tests but does not attach those devices to a historical CPU
 cycle. The source gate rejects that attachment until the control, clock, panel,
 terminal, monitor-image, and electrical net records close.
+
+`mod40_routes.rs` carries only the directly reviewed topology into typed code:
+the ten low IN-28 address contacts, the C2/C3 high-address boundary, the three
+TTY cable conductors, and the shared eight-line monitor-address fanout. The
+remaining byte, module-select, write, decoder, polarity, and timing records
+remain partial. `Mod40SourceGate` exposes that distinction and continues to
+reject board-cycle execution.
