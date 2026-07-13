@@ -47,6 +47,21 @@ silently. An independently documented physical read requires a device photo,
 custodian, date, reader and adapter, raw output, two consistent reads, and
 recorded CRC32, SHA-1, and SHA-256 digests.
 
+## Artifact comparison
+
+`scripts/compare_intellec_mod40_proms.py` compares two or more caller-supplied
+four-device artifact sets. Every set declares `raw-binary`, `intel-hex`, or
+`hex-listing`; the tool does not infer a representation from an extension or
+byte pattern. It preserves the supplied device order, records source and
+normalized SHA-256 values separately, and reports per-position differences.
+It rejects sparse, padded, truncated, and discontinuous inputs. It does not
+apply the reported complement relation or designate an execution image.
+
+The report establishes only reproducible byte-artifact comparison. The
+primary-backed socket order, polarity transform, independent provenance, and
+repeat-read requirements above remain mandatory before monitor media can enter
+the historical profile.
+
 ## Transform gate
 
 Raw data remains authoritative. A normalized image may exist only after a
