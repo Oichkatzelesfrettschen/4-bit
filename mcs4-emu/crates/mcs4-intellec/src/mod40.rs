@@ -11,7 +11,9 @@ use crate::{
     console::ProgramMemoryMode,
     imm6_28::Imm628,
     mod40_routes::{
-        monitor_address_fanout_is_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
+        cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
+        monitor_select_decode_inputs_are_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
+        terminal_current_loop_polarity_is_traced,
     },
     profile::{SourceReference, MOD40_HISTORICAL_EXECUTION_GATES, MOD40_SOURCES},
 };
@@ -68,6 +70,14 @@ pub struct Mod40SourceGate {
     pub monitor_address_fanout_traced: bool,
     /// The three external TTY cable conductors have source-recorded endpoints.
     pub terminal_cable_routes_traced: bool,
+    /// The TTY and reader current-loop logical polarities are source-traced.
+    pub terminal_current_loop_polarity_traced: bool,
+    /// The CPU-card oscillator source reaches the documented divider input.
+    pub cpu_clock_source_traced: bool,
+    /// Named monitor-select inputs reach the documented A8 decoder region.
+    pub monitor_select_decode_inputs_traced: bool,
+    /// The complete C1702A output-data polarity is source-traced.
+    pub monitor_data_polarity_traced: bool,
     /// CPU-cycle electrical wiring is implemented from a reconciled net ledger.
     pub board_cycle_wiring_implemented: bool,
     /// Four monitor images have verified physical-read lineage and transforms.
@@ -204,6 +214,10 @@ impl Mod40Board {
             program_ram_card_edges_traced: program_ram_card_edge_is_complete(),
             monitor_address_fanout_traced: monitor_address_fanout_is_traced(),
             terminal_cable_routes_traced: terminal_cable_routes_are_traced(),
+            terminal_current_loop_polarity_traced: terminal_current_loop_polarity_is_traced(),
+            cpu_clock_source_traced: cpu_clock_source_is_traced(),
+            monitor_select_decode_inputs_traced: monitor_select_decode_inputs_are_traced(),
+            monitor_data_polarity_traced: monitor_data_polarity_is_traced(),
             board_cycle_wiring_implemented: false,
             // Independent, position-specific read sets and transforms remain
             // absent. Known byte values alone do not prove that evidence.
@@ -250,6 +264,10 @@ mod tests {
         assert!(!board.source_gate().program_ram_card_edges_traced);
         assert!(board.source_gate().monitor_address_fanout_traced);
         assert!(board.source_gate().terminal_cable_routes_traced);
+        assert!(!board.source_gate().terminal_current_loop_polarity_traced);
+        assert!(board.source_gate().cpu_clock_source_traced);
+        assert!(board.source_gate().monitor_select_decode_inputs_traced);
+        assert!(!board.source_gate().monitor_data_polarity_traced);
         assert!(!board.source_gate().monitor_media_verified);
         assert!(!board.source_gate().board_cycle_wiring_implemented);
         assert!(board

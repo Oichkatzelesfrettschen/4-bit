@@ -26,7 +26,13 @@ from pathlib import Path
 DEVICE_BYTES = 256
 DEVICES_PER_SET = 4
 ASSEMBLED_BYTES = DEVICE_BYTES * DEVICES_PER_SET
-INPUT_FORMATS = ("raw-binary", "intel-hex", "hex-listing")
+INPUT_FORMATS = (
+    "raw-binary",
+    "intel-hex",
+    "intel-hex-preamble",
+    "hex-listing",
+    "hex-listing-preamble",
+)
 HEX_BYTE = re.compile(r"[0-9A-Fa-f]{2}")
 HEX_ADDRESS = re.compile(r"(?:0x)?[0-9A-Fa-f]+")
 
@@ -68,19 +74,23 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def parse_intel_hex(text: str, source: Path) -> bytes:
-    """Parse one complete, contiguous 0x00 through 0xff Intel HEX image."""
+def parse_intel_hex(text: str, source: Path, *, allow_preamble: bool = False) -> bytes:
+    """Parse one declared complete, contiguous 0x00 through 0xff Intel HEX image."""
 
     image: dict[int, int] = {}
     upper_address = 0
     eof_seen = False
+    record_seen = False
 
     for line_number, raw_line in enumerate(text.splitlines(), 1):
         line = raw_line.strip()
         if not line:
             continue
         if not line.startswith(":"):
+            if allow_preamble and not record_seen:
+                continue
             raise PromFormatError(f"{source}:{line_number}: expected Intel HEX record")
+        record_seen = True
         try:
             record = bytes.fromhex(line[1:])
         except ValueError as exc:
@@ -130,8 +140,8 @@ def parse_intel_hex(text: str, source: Path) -> bytes:
     return bytes(image[address] for address in range(DEVICE_BYTES))
 
 
-def parse_hex_listing(text: str, source: Path) -> bytes:
-    """Parse a sequential 256-byte hexadecimal listing without address guesses."""
+def parse_hex_listing(text: str, source: Path, *, allow_preamble: bool = False) -> bytes:
+    """Parse a declared sequential hexadecimal listing without address guesses."""
 
     output = bytearray()
     for line_number, raw_line in enumerate(text.splitlines(), 1):
@@ -152,6 +162,8 @@ def parse_hex_listing(text: str, source: Path) -> bytes:
         if not tokens:
             continue
         if any(not HEX_BYTE.fullmatch(token) for token in tokens):
+            if allow_preamble and not output:
+                continue
             raise PromFormatError(f"{source}:{line_number}: expected two-digit hexadecimal bytes")
         output.extend(int(token, 16) for token in tokens)
 
@@ -178,8 +190,12 @@ def normalize_file(path: Path, input_format: str) -> tuple[bytes, bytes]:
         raise PromFormatError(f"{path}: {input_format} input is not ASCII") from exc
     if input_format == "intel-hex":
         return parse_intel_hex(text, path), source_bytes
+    if input_format == "intel-hex-preamble":
+        return parse_intel_hex(text, path, allow_preamble=True), source_bytes
     if input_format == "hex-listing":
         return parse_hex_listing(text, path), source_bytes
+    if input_format == "hex-listing-preamble":
+        return parse_hex_listing(text, path, allow_preamble=True), source_bytes
     raise PromFormatError(f"{path}: unsupported input format {input_format!r}")
 
 
@@ -248,7 +264,7 @@ def build_parser() -> argparse.ArgumentParser:
         dest="formats",
         action="append",
         required=True,
-        metavar="NAME=raw-binary|intel-hex|hex-listing",
+        metavar="NAME=raw-binary|intel-hex|intel-hex-preamble|hex-listing|hex-listing-preamble",
         help="declared input representation for one named set",
     )
     parser.add_argument("--json-out", type=Path, help="write the complete comparison report")

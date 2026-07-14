@@ -34,9 +34,11 @@ pub use mod40::{
     Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40SourceGate, Mod40TerminalEndpoint, ProgramStoreId,
 };
 pub use mod40_routes::{
-    monitor_address_fanout_is_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
-    Mod40RouteEvidence, MonitorAddressFanout, ProgramRamCardEdgeRoute, TerminalCableRoute, MONITOR_ADDRESS_FANOUT,
-    PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+    cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
+    monitor_select_decode_inputs_are_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
+    terminal_current_loop_polarity_is_traced, CpuClockResetRoute, Mod40RouteEvidence, MonitorAddressFanout,
+    MonitorSelectDecodeInput, ProgramRamCardEdgeRoute, TerminalCableRoute, CPU_CLOCK_RESET_ROUTES,
+    MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
 };
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
 pub use monitor_rom::{MonitorRom, MonitorRomError};

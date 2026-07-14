@@ -61,6 +61,10 @@ Source: `intellec4-mod40-reference-schematics`, SHA-256
 | direct | PDF 3, drawing 2000318 | The central processor contains I4289 A5 and four Intel 1702A devices A1 through A4. A5 address outputs A0 through A7 fan out to the matching address inputs on all four monitor devices. | The shared eight-bit monitor-address wiring is visible. The fetched-byte path and timing still require a complete 4289 and memory-bus trace. |
 | direct | PDF 3, drawing 2000318 | The board net `ENABLE MON PROM` enters 74155 A8 at active-low enable 2G. A8 also receives `C0`, `C1`, `OUT`, `C2`, and `C3` inputs. | The input labels and A8 pins are visible. The active state, output-to-PROM-select mapping, and every intervening gate remain unextracted. |
 | partial | PDF 3, drawing 2000318 | A8 decoder outputs leave the monitor-select region toward the A1 through A4 PROM area. | The visible route establishes a monitor-selection network rather than a direct unqualified PROM enable. It does not yet establish socket order, selected-ROM polarity, or ROM-byte inversion. |
+| direct | PDF 3, drawing 2000318 | Y1 is labeled 5.185 MHz and reaches the A16 74161/9316 divider clock input through 7404 stages. | This establishes the oscillator source and first documented divider input. The derived phase waveform, divider state, and 4040 clock-pin route remain open. |
+| partial | PDF 3, drawing 2000318 | `CPU RESET` enters the imm4-43 reset-conditioning region from the card edge. | The sheet does not yet establish the asserted level, pulse width, complete logic equation, or 4040 reset timing. |
+| direct | PDF 3, drawing 2000318 | A8 receives `C0` at A pin 13, `C1` at B pin 3, and `ENABLE MON PROM` at active-low 2G pin 14. `OUT`, `C2`, and `C3` also enter the A8 monitor-select region. | This establishes the decoder inputs without deriving an output-to-socket equation. |
+| partial | PDF 3, drawing 2000318 | Each C1702A data-output group enters intervening 74158 and 8095/TTL stages before the CPU-side memory-data path. | The complete data-bit polarity, selected-device timing, and socket-order transform remain open. |
 
 ## Terminal connector routes
 
@@ -80,6 +84,16 @@ electrical model.
 | direct | PDFs 3 and 29, drawings 2000318 and 2000325 | The RAM 0 output-bit-0 transmitter path reaches Q4, then CPU P4/J4 contact 26, `TTY PRINTER`, and the external printer current loop. | The path and Q4 output-driver stage are visible end to end. The command-bit asserted polarity and serial framing remain open. |
 | direct | PDFs 3 and 29, drawings 2000318 and 2000325 | The RAM 1 output-bit-0 reader-control path reaches Q3, then CPU P4/J4 contact 89 and the reader-control relay current loop. | The path and Q3 relay-driver stage are visible end to end. The asserted-bit relay state and reader mechanical timing remain open. |
 
+## Terminal current-loop and panel-arbitration extraction
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| direct | PDF 29, drawing 2000325 | The printer loop has a source-side +5 V transistor driver through 180 ohm to CPU P4/J4 contact 26, terminal contact 7, printer terminal 6, J43/P43 contact 2, J42/P42 contact 2, and a 270 ohm return to -10 V. | The physical loop direction is source-visible. The RAM output bit that enables loop current remains partial until the CPU-card transistor logic is polarity-traced. |
+| direct | PDF 29, drawing 2000325 | The keyboard loop supplies +5 V through 220 ohm at J42/P42 contact 3, crosses terminal contact 3 and the keyboard mechanism, then returns from terminal contact 4 through J43/P43 and J42/P42 contact 4 to the CPU `TTY IN` receiver. | The external loop endpoints are direct. The receiver's current-present to `ROM 0 BIT 0` logical polarity remains partial. |
+| partial | PDF 29, drawing 2000325 | `RDR CONT` crosses CPU P4/J4 contact 89, J42/P42 contact 5, and J43/P43 contact 5. The nearby contact-6 path has a 68 ohm return to -10 V. | The forward conductor and return bias are source-visible. The terminal-strip relay contact path, asserted coil state, and reader mechanical pulse width remain untraced. |
+| direct | PDFs 7 and 13, drawings 2000319 and 2000329 | The controller exposes `S/S PB`, `STOP ACK`, `USER RESET`, `CPU RESET`, `MOD SEL 12` through `MOD SEL 15`, and `MOD ENABLE`; the panel contains STOP, RESET, MON, RAM, and PROM control circuitry for that signal family. | The two sheets establish the arbitration interface. They do not yet establish each control equation, interlock priority, or transition edge. |
+| partial | PDF 13, drawing 2000329 | The STOP pushbutton S26 passes through A36 conditioning before leaving the local STOP PB region. | The local conditioned path is visible. The resulting controller state transition, active polarity, and timing are unextracted. |
+
 ## Newly traced program-RAM boundary facts
 
 | Status | Source location | Record | Evidence and limit |
@@ -88,6 +102,16 @@ electrical model.
 | direct | PDFs 5 and 10 | The motherboard maps controller-side C3 at contact 94 to IN-28 `MAD11` at contact 94, and controller-side C2 at contact 96 to IN-28 `MAD10` at contact 96. | Each high address conductor then crosses a 7404 inversion stage before bank-selection logic. The source-visible connector route is complete; the Boolean bank-select equation remains open. |
 | direct | PDFs 5, 7, and 10 | `BYTE2`, `BYTE1`, `MODULE SELECT`, and `WRITE` use the IN-28 contacts 90, 92, 93, and 95; the controller sheet identifies `BYTE2`, `BYTE1`, and `WRITE` at the matching program-memory boundary. | The named card-edge control paths are source-backed. The signals still require a complete local TTL and 2102 control-pin trace before the model drives a source-faithful cycle. |
 | partial | 98-095A, printed page 24; PDFs 5, 7, and 10 | The imm6-28 uses normal program-fetch address phases A1 through A3 and returns the requested byte during M1 and M2. Special instructions use execution phases for program-RAM reads and writes. `PM`, `F/L`, memory address, and memory-data-in form the stated external interface. | The manual establishes phase roles, not individual card-edge polarity or setup/hold timing. The schematic trace remains controlling evidence for the implementation. |
+
+## Reconciled controller-to-IN-28 route matrix
+
+| Route class | PDF 7 controller boundary | PDF 5 motherboard identity | PDF 10 IN-28 endpoint | Result |
+| --- | --- | --- | --- | --- |
+| Low address | P1 contacts 11 through 20 carry `MAD0` through `MAD9`. | The same labeled conductors cross the memory-controller and RAM-module boundary. | P1 contacts 11 through 20 enter the 3404 address-latch bank. | Physical endpoint continuity is direct. The latch-enable phase remains open. |
+| High address | C3 is at P1 contact 94 and C2 is at P1 contact 96. | The conductors retain contacts 94 and 96. | Contact 94 is `MAD11`; contact 96 is `MAD10`. Each enters a visible 7404 stage before bank-selection logic. | Physical continuity and one visible inverter stage per high bit are direct. The bank-select Boolean equation remains open. |
+| Byte controls | P1 contact 90 is `BYTE2`; contact 92 is `BYTE1`. | The contacts cross to the RAM-module boundary. | P1 contacts 90 and 92 enter 7404 and 7400-class local logic. | The route is direct. Assertion level and byte-cycle edge are partial. |
+| Module selection | The controller boundary supplies the program-memory selection family. | The motherboard exposes the program-RAM module-select conductor at contact 93. | P1 contact 93 is `MODULE SELECT` and enters local TTL. | The endpoint is direct. The source equation and asserted polarity are partial. |
+| Write | P1 contact 95 is `WRITE`. | The conductor crosses unchanged to the RAM-module boundary. | P1 contact 95 enters 7404, 3404, and 7400-class local control logic. | The endpoint is direct. The complete active-low 2102 R/W pulse and its setup/hold timing are partial. |
 
 ## Consequences for implementation
 
@@ -98,10 +122,11 @@ ledger contains a complete, polarity-checked map for every program-memory
 cycle path.
 
 `mcs4-intellec/src/mod40_routes.rs` mirrors the reviewed card-edge and terminal
-records as typed route data. Its direct entries preserve only complete visible
-endpoint pairs. Its partial entries intentionally keep the program-RAM
-execution gate open until the local decode, inversion, and timing stages are
-traced.
+records as typed route data. It also records the direct oscillator-to-divider
+route and A8 decode inputs. Its direct entries preserve only complete visible
+endpoint pairs. Its partial entries intentionally keep the CPU, monitor, and
+program-RAM execution gates open until the local decode, inversion, polarity,
+and timing stages are traced.
 
 The following execution conditions remain open:
 

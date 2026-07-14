@@ -60,6 +60,80 @@ pub struct MonitorAddressFanout {
     pub source_locator: &'static str,
 }
 
+/// One reviewed CPU-card clock or reset route.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct CpuClockResetRoute {
+    /// Physical source or named card-edge net.
+    pub source: &'static str,
+    /// Receiver or intervening functional stage established by the sheet.
+    pub target: &'static str,
+    /// Reviewed evidence status for the complete electrical path.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for this record.
+    pub source_locator: &'static str,
+}
+
+/// One decoder input that participates in resident monitor selection.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct MonitorSelectDecodeInput {
+    /// Named net entering the A8 decoder region.
+    pub signal: &'static str,
+    /// A8 pin name when the reviewed sheet labels the connection.
+    pub decoder_pin: Option<&'static str>,
+    /// Primary-source locator for this record.
+    pub source_locator: &'static str,
+}
+
+/// Reviewed clock and reset facts from the imm4-43 schematic.
+pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
+    CpuClockResetRoute {
+        source: "Y1 5.185 MHz crystal oscillator",
+        target: "A16 74161/9316 clock-divider CP input through 7404 stages",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    CpuClockResetRoute {
+        source: "CPU RESET card-edge net",
+        target: "imm4-43 reset-conditioning network",
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318; reset assertion and 4040 timing remain open",
+    },
+];
+
+/// Reviewed A8 inputs for monitor-select decode from the imm4-43 schematic.
+pub const MONITOR_SELECT_DECODE_INPUTS: [MonitorSelectDecodeInput; 6] = [
+    MonitorSelectDecodeInput {
+        signal: "C0",
+        decoder_pin: Some("A8 A pin 13"),
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeInput {
+        signal: "C1",
+        decoder_pin: Some("A8 B pin 3"),
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeInput {
+        signal: "ENABLE MON PROM",
+        decoder_pin: Some("A8 2G pin 14, active low"),
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeInput {
+        signal: "OUT",
+        decoder_pin: None,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeInput {
+        signal: "C2",
+        decoder_pin: None,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeInput {
+        signal: "C3",
+        decoder_pin: None,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+];
+
 /// Reviewed card-edge facts for the imm4-72, motherboard, and imm6-28 path.
 pub const PROGRAM_RAM_CARD_EDGE_ROUTES: [ProgramRamCardEdgeRoute; 16] = [
     ProgramRamCardEdgeRoute {
@@ -264,6 +338,24 @@ pub const MONITOR_ADDRESS_FANOUT: [MonitorAddressFanout; 8] = [
     },
 ];
 
+/// Return whether the oscillator source reaches the first divider clock input.
+pub const fn cpu_clock_source_is_traced() -> bool {
+    matches!(CPU_CLOCK_RESET_ROUTES[0].evidence, Mod40RouteEvidence::Direct)
+}
+
+/// Return whether every named monitor-select decode input is source-recorded.
+pub const fn monitor_select_decode_inputs_are_traced() -> bool {
+    MONITOR_SELECT_DECODE_INPUTS.len() == 6
+}
+
+/// Return whether the sheet establishes the complete monitor data polarity.
+///
+/// The reviewed trace ends at the 1702A data outputs and intervening 74158 and
+/// 8095 stages. It does not authorize a byte transform or socket order.
+pub const fn monitor_data_polarity_is_traced() -> bool {
+    false
+}
+
 /// Return whether every reviewed IN-28 card-edge route is complete.
 pub fn program_ram_card_edge_is_complete() -> bool {
     PROGRAM_RAM_CARD_EDGE_ROUTES
@@ -276,6 +368,14 @@ pub const fn terminal_cable_routes_are_traced() -> bool {
     TERMINAL_CABLE_ROUTES.len() == 3
 }
 
+/// Return whether the terminal current-loop assertion polarity is source-traced.
+///
+/// The cable conductors and supply returns are documented, but the CPU driver,
+/// receiver, and reader-relay logical assertion polarities remain incomplete.
+pub const fn terminal_current_loop_polarity_is_traced() -> bool {
+    false
+}
+
 /// Return whether all eight shared monitor address outputs are source-recorded.
 pub const fn monitor_address_fanout_is_traced() -> bool {
     MONITOR_ADDRESS_FANOUT.len() == 8
@@ -284,8 +384,10 @@ pub const fn monitor_address_fanout_is_traced() -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        monitor_address_fanout_is_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
-        Mod40RouteEvidence, MONITOR_ADDRESS_FANOUT, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+        cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
+        monitor_select_decode_inputs_are_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
+        terminal_current_loop_polarity_is_traced, Mod40RouteEvidence, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT,
+        MONITOR_SELECT_DECODE_INPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -312,6 +414,7 @@ mod tests {
     #[test]
     fn terminal_routes_keep_the_three_logical_endpoints_distinct() {
         assert!(terminal_cable_routes_are_traced());
+        assert!(!terminal_current_loop_polarity_is_traced());
         assert_eq!(TERMINAL_CABLE_ROUTES[0].cpu_contact, 26);
         assert_eq!(TERMINAL_CABLE_ROUTES[1].cpu_contact, 1);
         assert_eq!(TERMINAL_CABLE_ROUTES[2].cpu_contact, 89);
@@ -328,5 +431,18 @@ mod tests {
             assert_eq!(route.address_bit, bit as u8);
             assert_eq!(route.monitor_sockets, [1, 2, 3, 4]);
         }
+    }
+
+    #[test]
+    fn cpu_clock_source_and_monitor_decode_inputs_remain_evidence_records() {
+        assert!(cpu_clock_source_is_traced());
+        assert_eq!(CPU_CLOCK_RESET_ROUTES[0].source, "Y1 5.185 MHz crystal oscillator");
+        assert!(monitor_select_decode_inputs_are_traced());
+        assert_eq!(MONITOR_SELECT_DECODE_INPUTS[2].signal, "ENABLE MON PROM");
+        assert_eq!(
+            MONITOR_SELECT_DECODE_INPUTS[2].decoder_pin,
+            Some("A8 2G pin 14, active low")
+        );
+        assert!(!monitor_data_polarity_is_traced());
     }
 }

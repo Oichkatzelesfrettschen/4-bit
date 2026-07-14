@@ -65,7 +65,7 @@ Reproduction workflow
 
 11. Compare declared four-device MON4 artifact sets without inferring a
     physical read, socket order, or polarity transform:
-    `python3 scripts/compare_intellec_mod40_proms.py --set first=a,b,c,d --set second=e,f,g,h --format first=intel-hex --format second=hex-listing`
+    `python3 scripts/compare_intellec_mod40_proms.py --set first=a,b,c,d --set second=e,f,g,h --format first=intel-hex-preamble --format second=hex-listing-preamble`
     The command requires a declared format for every set and rejects padding,
     truncation, sparse Intel HEX records, and address discontinuities.
 

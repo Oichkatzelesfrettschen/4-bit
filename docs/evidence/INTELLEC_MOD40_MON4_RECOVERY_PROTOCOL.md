@@ -50,12 +50,15 @@ recorded CRC32, SHA-1, and SHA-256 digests.
 ## Artifact comparison
 
 `scripts/compare_intellec_mod40_proms.py` compares two or more caller-supplied
-four-device artifact sets. Every set declares `raw-binary`, `intel-hex`, or
-`hex-listing`; the tool does not infer a representation from an extension or
-byte pattern. It preserves the supplied device order, records source and
-normalized SHA-256 values separately, and reports per-position differences.
-It rejects sparse, padded, truncated, and discontinuous inputs. It does not
-apply the reported complement relation or designate an execution image.
+four-device artifact sets. Every set declares `raw-binary`, `intel-hex`,
+`intel-hex-preamble`, `hex-listing`, or `hex-listing-preamble`; the tool does
+not infer a representation from an extension or byte pattern. The two preamble
+formats accept human-readable lines only before their first data record. They
+do not accept inline editorial corrections after byte data begins. It preserves
+the supplied device order, records source and normalized SHA-256 values
+separately, and reports per-position differences. It rejects sparse, padded,
+truncated, discontinuous, and editorially ambiguous inputs. It does not apply
+the reported complement relation or designate an execution image.
 
 The report establishes only reproducible byte-artifact comparison. The
 primary-backed socket order, polarity transform, independent provenance, and

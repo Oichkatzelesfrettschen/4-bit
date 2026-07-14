@@ -22,8 +22,8 @@ are established.
 
 | Acquisition | Device evidence | Reader and handling | Published byte artifact | Limitation |
 | --- | --- | --- | --- | --- |
-| Kyle Owen, August 2013 | Photograph and labels `MON 4 V2.1 000`, `100`, `200`, `300` | Prolog 980, serial adapter, Intel HEX output | `krom0.hex` through `krom3.hex` | One published read per label. `000` decodes to 256 `FF` bytes. No repeated raw acquisition is published. |
-| Herb Johnson, 2013 | Removed cards and labels reported as ROM 0 through ROM 3 | Prolog Series 90; values manually entered into a Windows 95 laptop | `hrom0.txt` through `hrom3.txt` | Manual transcription is not a preserved reader output. ROM 1 through ROM 3 labels differ from Kyle's V2.1 labels and may contain patches. |
+| Kyle Owen, August 2013 | Photograph and labels `MON 4 V2.1 000`, `100`, `200`, `300` | Prolog 980, serial adapter, Intel HEX output | `krom0.hex` through `krom3.hex` | Each retained file has a human-readable preamble followed by Intel HEX. One published read exists per label. `000` decodes to 256 `FF` bytes. No repeated raw acquisition is published. |
+| Herb Johnson, 2013 | Removed cards and labels reported as ROM 0 through ROM 3 | Prolog Series 90; values manually entered into a Windows 95 laptop | `hrom0.txt` through `hrom3.txt` | The listings have prose headings. `hrom0.txt` also has two inline editorial correction fragments, so its 256-byte sequence is ambiguous and the verifier rejects it. Manual transcription is not a preserved reader output. ROM 1 through ROM 3 labels differ from Kyle's V2.1 labels and may contain patches. |
 | Sid Jones, 2022-2023 | Four monitor devices reported as `000`, `100`, `200`, `300` | Homemade Mk I and Mk II 1702A readers | None located | The reported reads have no published raw bytes, digest, device photograph, or repeat-read log. |
 
 The source reports that all three efforts observe inverted stored bytes. That
@@ -42,7 +42,7 @@ the decoded published file bytes. `Complemented` means each raw byte XOR
 | 100 | Kyle | `95680736` | `a245916e8f0a38b7f1b4460886a738ef388405a1` | `7b8a4793e8294afeb9e5275742d220b4be896b474a0289c620fa4d2d484fdc86` | `66562a4f` | `040749c45e95dfc39b3397d0c31c8b4c11f0a5fc` |
 | 200 | Kyle | `0d3db111` | `1270ce2c29070e3ee9a7cc229f8f1ce16c797e15` | `5a1f3e556772f12b365e8d1041df2abf2a5ad45ab18eafaf6a82efac92ccd467` | `fe039c68` | `1801cfcc7514412865c0fdc7d1800fcf583a2d2a` |
 | 300 | Kyle | `c41af8d6` | `0a6f272bf6e948c4117a7fffaf56a3117d3816c8` | `4dab5b59d54acaabd8243b558cbd8f7bc0641159919581b2612450adb193aba4` | `3724d5af` | `b764b3bb3541fbda875f7a7655f46aa54b332631` |
-| 000 | Herb | `f936f544` | `7f005b9933cd0ce4c9e8580e124a46e6164d45e6` | `7fee9358b3f81a384c143cb19b678ccf69fef192ce6472a03627d0c70c1fe860` | `0a08d83d` | `e7044f3b54a16d925aaffc85b0c6001f740ea4c5` |
+| 000 | Herb | not reproducibly normalized | not reproducibly normalized | not reproducibly normalized | not generated | not generated |
 | 100 | Herb | `3ea1c1af` | `0b48cbd235ca85cd06f924b8c4e28f8525df69b5` | `9368cf48595ea1ceaa558d149f5e6a73e6b886e58507f5a93c8180c4d8415664` | `cd9fecd6` | `9c4fb85118c881687fd4b324e5089df05d1e63d1` |
 | 200 | Herb | `f043cc51` | `55e62c72ca6abcd34690f846d73f13db534b84da` | `2eab6a0904dd0b418a481afcd7211c740ee9c28a7f854ae53734227b3049e420` | `037de128` | `3694636e1f4e23688b36ea9ee755a0c5888f4328` |
 | 300 | Herb | `0027a000` | `8070da1e44c57a8f60c7785bbf0625731d133ff3` | `a37011fce787bb68564500288bcefc94e836993721291cf793f5cf225ce72e39` | `f3198d79` | `b7903073b69f487b6f78842c08694f12225d85f0` |
@@ -56,7 +56,7 @@ socket identity, or a canonical revision.
 
 | Logical label | Kyle versus Herb raw differences | Interpretation |
 | --- | ---: | --- |
-| 000 | 252 | Kyle is all `FF`; Herb is not. The artifacts cannot both be accepted as the same valid physical content. |
+| 000 | not comparable | `hrom0.txt` contains two editorial correction fragments. No tool selects, removes, or relocates those values without an explicit source manifest. |
 | 100 | 36 | The labels and revisions differ. The source reports possible modifications, patches, and manual transcription. |
 | 200 | 4 | A close but non-identical result. The mismatch remains unresolved without repeated raw reads. |
 | 300 | 2 | A close but non-identical result. The mismatch remains unresolved without repeated raw reads. |

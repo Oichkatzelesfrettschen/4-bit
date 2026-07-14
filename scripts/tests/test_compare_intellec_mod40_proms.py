@@ -38,6 +38,20 @@ def test_parse_intel_hex_requires_one_complete_device() -> None:
     assert parse_intel_hex(text, Path("device.hex")) == image
 
 
+def test_declared_intel_hex_preamble_preserves_source_metadata_without_relaxing_records() -> None:
+    image = bytes(range(DEVICE_BYTES))
+    records = [intel_hex_record(offset, 0, image[offset : offset + 16]) for offset in range(0, 256, 16)]
+    text = "reader note\noperator note\n" + "\n".join([*records, intel_hex_record(0, 1, b"")]) + "\n"
+
+    with pytest.raises(PromFormatError, match="expected Intel HEX record"):
+        parse_intel_hex(text, Path("device.hex"))
+    assert parse_intel_hex(text, Path("device.hex"), allow_preamble=True) == image
+
+    malformed = text + "trailing note\n"
+    with pytest.raises(PromFormatError, match="expected Intel HEX record"):
+        parse_intel_hex(malformed, Path("device.hex"), allow_preamble=True)
+
+
 def test_hex_listing_preserves_explicit_addresses() -> None:
     image = bytes(range(DEVICE_BYTES))
     text = "\n".join(
@@ -50,6 +64,29 @@ def test_hex_listing_preserves_explicit_addresses() -> None:
         parse_hex_listing("0010: 00\n", Path("sparse.txt"))
 
 
+def test_declared_listing_preamble_accepts_only_prose_before_listing_data() -> None:
+    image = bytes(range(DEVICE_BYTES))
+    lines = ["operator transcription"]
+    for offset in range(0, 256, 16):
+        line = " ".join(f"{value:02x}" for value in image[offset : offset + 16])
+        lines.append(line)
+    text = "\n".join(lines)
+
+    with pytest.raises(PromFormatError, match="expected two-digit"):
+        parse_hex_listing(text, Path("listing.txt"))
+    assert (
+        parse_hex_listing(text, Path("listing.txt"), allow_preamble=True) == image
+    )
+
+    malformed = text + "\ntrailing note\n"
+    with pytest.raises(PromFormatError, match="expected two-digit"):
+        parse_hex_listing(malformed, Path("listing.txt"), allow_preamble=True)
+
+    ambiguous = text + "\n05 <-- editorial correction\n"
+    with pytest.raises(PromFormatError, match="expected two-digit"):
+        parse_hex_listing(ambiguous, Path("listing.txt"), allow_preamble=True)
+
+
 def test_raw_binary_accepts_ascii_shaped_bytes_only_when_declared(tmp_path: Path) -> None:
     raw_path = tmp_path / "raw.bin"
     raw_path.write_bytes(b"A" * DEVICE_BYTES)
@@ -60,6 +97,18 @@ def test_raw_binary_accepts_ascii_shaped_bytes_only_when_declared(tmp_path: Path
     assert source == normalized
     with pytest.raises(PromFormatError, match="expected two-digit"):
         normalize_file(raw_path, "hex-listing")
+
+
+def test_declared_intel_hex_preamble_normalizes_only_a_declared_preamble(tmp_path: Path) -> None:
+    image = bytes(range(DEVICE_BYTES))
+    records = [intel_hex_record(offset, 0, image[offset : offset + 16]) for offset in range(0, 256, 16)]
+    path = tmp_path / "reader-output.hex"
+    path.write_text("reader output\n" + "\n".join([*records, intel_hex_record(0, 1, b"")]) + "\n", encoding="ascii")
+
+    normalized, _ = normalize_file(path, "intel-hex-preamble")
+    assert normalized == image
+    with pytest.raises(PromFormatError, match="expected Intel HEX record"):
+        normalize_file(path, "intel-hex")
 
 
 def test_compare_sets_preserves_caller_order_and_does_not_transform(tmp_path: Path) -> None:
