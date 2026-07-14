@@ -121,6 +121,8 @@ docs:
     role: evidence
   - file: docs/evidence/INTELLEC_MOD40_MON4_READ_MATRIX.md
     role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_MON4_PUBLIC_ARTIFACT_AUDIT.md
+    role: evidence
   - file: docs/evidence/INTELLEC_MOD40_OCR_STATUS.md
     role: evidence
   - file: docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md

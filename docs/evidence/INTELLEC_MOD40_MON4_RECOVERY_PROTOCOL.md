@@ -65,6 +65,13 @@ primary-backed socket order, polarity transform, independent provenance, and
 repeat-read requirements above remain mandatory before monitor media can enter
 the historical profile.
 
+Web preservation is not an acquisition class. The direct Retrotechnology
+wrappers, their Internet Archive replays, and MAME-set mirrors may establish
+that a public bytestring persisted over time. They do not provide a second
+reader, a second physical device, or a repeated read. The public artifact audit
+records the exact distinction in
+`INTELLEC_MOD40_MON4_PUBLIC_ARTIFACT_AUDIT.md`.
+
 ## Transform gate
 
 Raw data remains authoritative. A normalized image may exist only after a

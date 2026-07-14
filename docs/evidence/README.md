@@ -16,6 +16,9 @@ Layout
   local-only download provenance, hashes, and unresolved source gates
 - `docs/evidence/INTELLEC_MOD40_PRIMARY_EVIDENCE.md` -- MOD 40 module,
   terminal, monitor, and source-gate facts extracted from retained manuals
+- `docs/evidence/INTELLEC_MOD40_MON4_PUBLIC_ARTIFACT_AUDIT.md` -- public
+  MON4 wrapper, archive, and derivative-distribution audit with explicit
+  physical-read provenance limits
 - `docs/evidence/INTELLEC_MOD40_OCR_STATUS.md` -- 98-013A OCR engine choices,
   capture limits, and the visual-verification boundary
 - `docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md` -- source-backed and open
@@ -70,7 +73,7 @@ Reproduction workflow
     truncation, sparse Intel HEX records, and address discontinuities.
 
 Audit claim backlog
-- Generate a tracking view of “derived/pending” claims called out in `docs/AUDIT.md`:
+- Generate a tracking view of "derived/pending" claims called out in `docs/AUDIT.md`:
   - `python3 scripts/audit_claims_backlog.py`
 
 Schematic OCR (circuit-level labels)
@@ -98,7 +101,7 @@ Coordinate-based label OCR verification (signals.txt)
 Transistor candidate extraction (poly/diffusion intersections)
 - Inputs: `docs/emulators/i400{1,2,3,4}-{poly,diffusion}.bmp` (source; `*.png` previews exist)
 - Command: `./scripts/extract_transistors.py --all`
-- Output (best-effort “transistor candidates”, not a complete netlist):
+- Output (best-effort "transistor candidates", not a complete netlist):
   - `docs/evidence/transistors/*_poly_diffusion_transistors.json` (components w/ bbox + centroid)
   - `docs/evidence/transistors/manifest.json`
   - `docs/evidence/transistors/metrics.json` + `docs/evidence/transistors/metrics.md` (regression summary)

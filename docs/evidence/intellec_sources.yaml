@@ -213,8 +213,7 @@ sources:
     revision: webpage acquired 2026-07-13
     local_path: docs/evidence/local_sources/intellec/retrotechnology_mon4_20260713/
     url: https://www.retrotechnology.com/restore/intel440_roms.html
-    sha256: 53cc80b532132b323ef598accb7cb5d920e067052ed7c503116bbf48882abebf
-    retention: local-only
+    retention: metadata-only
     status: secondary-documented-read-artifacts
     supports:
       - mon4-kyle-2013-read-provenance
@@ -224,6 +223,136 @@ sources:
     limitations:
       - The source does not publish two repeatable direct raw reads for every device.
       - Its socket mapping and electrical complement explanation require primary schematic confirmation.
+
+  - id: retrotechnology-kyle-mon4-correspondence
+    title: Kyle Owen Intellec 4/MOD 40 MON4 correspondence
+    revision: August 2013 webpage acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/kyle_aug2013.html
+    url: https://www.retrotechnology.com/restore/kyle_aug2013.html
+    sha256: 7cd267e4f3bee88de48e1294be3d4fd742a995673ccc1a926e24a3203c61b241
+    bytes: 10974
+    retention: local-only
+    status: verified-secondary-provenance-record
+    supports:
+      - mon4-kyle-2013-read-provenance
+      - mon4-kyle-prolog-980-transfer-claim
+    limitations:
+      - The correspondence documents one reported four-device transfer, not repeated reads.
+      - The two email attachments mentioned in the correspondence have no published object URL.
+
+  - id: retrotechnology-kyle-mon4-000
+    title: Kyle Owen MON 4 000 V2.1 Intel HEX wrapper
+    revision: August 2013 wrapper acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/krom0.hex
+    url: https://www.retrotechnology.com/restore/krom0.hex
+    sha256: fb582d424a8b7da89e7aa1c9bfdfe5a5d2e0b92dd7c6abb8cbe47264bb941da1
+    bytes: 813
+    retention: local-only
+    status: verified-secondary-read-artifact
+    supports:
+      - mon4-kyle-000-raw-wrapper
+    limitations:
+      - The decoded 256-byte payload is all FF and does not constitute accepted monitor media.
+      - The wrapper records one public acquisition only.
+
+  - id: retrotechnology-kyle-mon4-100
+    title: Kyle Owen MON 4 100 V2.1 Intel HEX wrapper
+    revision: August 2013 wrapper acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/krom1.hex
+    url: https://www.retrotechnology.com/restore/krom1.hex
+    sha256: 75111c1273ddac7196bf32eb1c0f774d2e6e658bcf3993992a2da7edb351e65b
+    bytes: 792
+    retention: local-only
+    status: verified-secondary-read-artifact
+    supports:
+      - mon4-kyle-100-raw-wrapper
+    limitations:
+      - The wrapper records one public acquisition only.
+
+  - id: retrotechnology-kyle-mon4-200
+    title: Kyle Owen MON 4 200 V2.1 Intel HEX wrapper
+    revision: August 2013 wrapper acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/krom2.hex
+    url: https://www.retrotechnology.com/restore/krom2.hex
+    sha256: f44535e41685264c45acd60996015096e180ef1d9604af7c7355992228ed761e
+    bytes: 791
+    retention: local-only
+    status: verified-secondary-read-artifact
+    supports:
+      - mon4-kyle-200-raw-wrapper
+    limitations:
+      - The wrapper records one public acquisition only.
+
+  - id: retrotechnology-kyle-mon4-300
+    title: Kyle Owen MON 4 300 V2.1 Intel HEX wrapper
+    revision: August 2013 wrapper acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/krom3.hex
+    url: https://www.retrotechnology.com/restore/krom3.hex
+    sha256: 405792e956d8ddbf3715fa467c768f0af30d12792b44ebe68ad9cc94dc75d74f
+    bytes: 791
+    retention: local-only
+    status: verified-secondary-read-artifact
+    supports:
+      - mon4-kyle-300-raw-wrapper
+    limitations:
+      - The wrapper records one public acquisition only.
+
+  - id: internet-archive-kyle-mon4-wrappers-20150716
+    title: Internet Archive preservation of Kyle Owen MON4 wrappers
+    revision: 2015-07-16 replay acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/wayback_20150716/krom0.hex
+    url: https://web.archive.org/web/20150716020313id_/http://www.retrotechnology.com/restore/krom0.hex
+    sha256: fb582d424a8b7da89e7aa1c9bfdfe5a5d2e0b92dd7c6abb8cbe47264bb941da1
+    bytes: 813
+    retention: local-only
+    status: verified-archival-web-preservation
+    supports:
+      - mon4-kyle-000-public-preservation
+    limitations:
+      - Archive replay preserves a web object and does not establish an additional physical reading.
+      - The per-artifact replay timestamps and digests are recorded in INTELLEC_MOD40_MON4_PUBLIC_ARTIFACT_AUDIT.md.
+
+  - id: internet-archive-kyle-mon4-100-20150716
+    title: Internet Archive preservation of Kyle Owen MON 4 100 wrapper
+    revision: 2015-07-16 replay acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/wayback_20150716/krom1.hex
+    url: https://web.archive.org/web/20150716020354id_/http://www.retrotechnology.com/restore/krom1.hex
+    sha256: 75111c1273ddac7196bf32eb1c0f774d2e6e658bcf3993992a2da7edb351e65b
+    bytes: 792
+    retention: local-only
+    status: verified-archival-web-preservation
+    supports:
+      - mon4-kyle-100-public-preservation
+    limitations:
+      - Archive replay preserves a web object and does not establish an additional physical reading.
+
+  - id: internet-archive-kyle-mon4-200-20150716
+    title: Internet Archive preservation of Kyle Owen MON 4 200 wrapper
+    revision: 2015-07-16 replay acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/wayback_20150716/krom2.hex
+    url: https://web.archive.org/web/20150716020323id_/http://www.retrotechnology.com/restore/krom2.hex
+    sha256: f44535e41685264c45acd60996015096e180ef1d9604af7c7355992228ed761e
+    bytes: 791
+    retention: local-only
+    status: verified-archival-web-preservation
+    supports:
+      - mon4-kyle-200-public-preservation
+    limitations:
+      - Archive replay preserves a web object and does not establish an additional physical reading.
+
+  - id: internet-archive-kyle-mon4-300-20150716
+    title: Internet Archive preservation of Kyle Owen MON 4 300 wrapper
+    revision: 2015-07-16 replay acquired 2026-07-14
+    local_path: docs/evidence/local_sources/intellec/kyle_owen_20260714/wayback_20150716/krom3.hex
+    url: https://web.archive.org/web/20150716020340id_/http://www.retrotechnology.com/restore/krom3.hex
+    sha256: 405792e956d8ddbf3715fa467c768f0af30d12792b44ebe68ad9cc94dc75d74f
+    bytes: 791
+    retention: local-only
+    status: verified-archival-web-preservation
+    supports:
+      - mon4-kyle-300-public-preservation
+    limitations:
+      - Archive replay preserves a web object and does not establish an additional physical reading.
 
   - id: intellec4-operator-manual
     title: Intel Intellec 4 Operator Manual

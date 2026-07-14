@@ -18,6 +18,13 @@ The evidence source is a secondary reconstruction page, retained locally at
 The retained page and artifacts remain local-only until redistribution terms
 are established.
 
+`INTELLEC_MOD40_MON4_PUBLIC_ARTIFACT_AUDIT.md` records a renewed direct-site,
+Internet Archive, source-hosting, and public MAME-index search. It falsifies
+the broad claim that MON4 byte data is absent from the public network. It does
+not add a physical acquisition: the archived Kyle files are exact copies of
+the original public wrappers and MAME-derived distributions provide no
+physical-read provenance.
+
 ## Acquisition evidence
 
 | Acquisition | Device evidence | Reader and handling | Published byte artifact | Limitation |
