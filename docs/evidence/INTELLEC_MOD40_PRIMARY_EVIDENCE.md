@@ -60,7 +60,7 @@ and identifies the ten pages that remain unreadable at the review resolution.
 
 The PDF 3 monitor region provides a direct intermediate boundary: I4289 A5
 fans A0 through A7 to the four 1702A address buses, while `ENABLE MON PROM`
-enters active-low enable 2G of 74155 A8. A8 also receives the labeled `C0`,
+enters active-low enable 2G of 74155 A18. A18 also receives the labeled `C0`,
 `C1`, `OUT`, `C2`, and `C3` signals. The source establishes the selected
 monitor path as decoded logic, not a direct ROM attachment. It does not yet
 prove the socket select order, selected-ROM polarity, or ROM byte inversion.
@@ -115,6 +115,13 @@ match independent PROM reads, their inversion convention is recorded, and each
 device digest is verified.
 `docs/evidence/INTELLEC_MOD40_MON4_RECOVERY_PROTOCOL.md` records the required
 raw-read provenance and the unresolved physical-read lineage.
+
+`docs/evidence/INTELLEC_MOD40_EXECUTION_GATE_STATUS.md` separates the five
+independent closure conditions: physical media, monitor electrical mapping,
+program-RAM transactions, panel and terminal control, and a source-tagged
+historical trace. A candidate byte artifact never closes an electrical gate,
+and a complete schematic trace never substitutes for two independent raw
+physical acquisitions.
 
 ## Next evidence actions
 

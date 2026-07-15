@@ -39,6 +39,15 @@ adapter. It identifies `MON 4 000 V2.1` as all-zero operational data and all
 repeat-read procedure. The source does not publish the two test programs that
 the correspondence says were attached to the original email.
 
+The correspondence contains the exact request, "Please find attached two
+handy test programs (both with a starting address of 000) and my four HEX
+dumps." The rendered page contains no attachment links or attachment names.
+A 2026-07-14 Internet Archive CDX query for
+`www.retrotechnology.com/restore/kyle*` returns only the correspondence page,
+not an attachment object. This narrows the recovery path to an original mailbox
+export or a separately documented archive. It does not prove that no copy
+exists outside that URL pattern or archive index.
+
 | Artifact | Local-only path | SHA-256 | Meaning |
 | --- | --- | --- | --- |
 | Correspondence | `kyle_owen_20260714/kyle_aug2013.html` | `7cd267e4f3bee88de48e1294be3d4fd742a995673ccc1a926e24a3203c61b241` | Edited 2013 correspondence describing the Prolog 980 acquisition and damaged `000` device. |

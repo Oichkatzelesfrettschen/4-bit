@@ -74,10 +74,22 @@ pub struct Mod40SourceGate {
     pub terminal_current_loop_polarity_traced: bool,
     /// The CPU-card oscillator source reaches the documented divider input.
     pub cpu_clock_source_traced: bool,
-    /// Named monitor-select inputs reach the documented A8 decoder region.
+    /// Named monitor-select inputs reach the documented A18 decoder region.
     pub monitor_select_decode_inputs_traced: bool,
     /// The complete C1702A output-data polarity is source-traced.
     pub monitor_data_polarity_traced: bool,
+    /// Every C1702A socket has a primary-backed select and address-block map.
+    pub monitor_socket_map_traced: bool,
+    /// The raw-reader to executed-byte transform is primary-backed.
+    pub monitor_data_transform_primary_backed: bool,
+    /// Number of accepted independent, position-specific C1702A read sets.
+    pub accepted_monitor_read_set_count: u8,
+    /// The CPU reset assertion, divider outputs, and 4040 phase timing are traced.
+    pub cpu_reset_and_phase_timing_traced: bool,
+    /// The imm4-72 to imm6-28 write pulse, latch phase, and timing are traced.
+    pub program_ram_write_timing_traced: bool,
+    /// Panel STOP, reset, step, and program-store arbitration are traced.
+    pub panel_arbitration_traced: bool,
     /// CPU-cycle electrical wiring is implemented from a reconciled net ledger.
     pub board_cycle_wiring_implemented: bool,
     /// Four monitor images have verified physical-read lineage and transforms.
@@ -218,6 +230,15 @@ impl Mod40Board {
             cpu_clock_source_traced: cpu_clock_source_is_traced(),
             monitor_select_decode_inputs_traced: monitor_select_decode_inputs_are_traced(),
             monitor_data_polarity_traced: monitor_data_polarity_is_traced(),
+            // The retained primary sheet reaches the decoder and mux boundary,
+            // but does not yet prove per-socket selection, data transform, or
+            // reset/phase timing.
+            monitor_socket_map_traced: false,
+            monitor_data_transform_primary_backed: false,
+            accepted_monitor_read_set_count: 0,
+            cpu_reset_and_phase_timing_traced: false,
+            program_ram_write_timing_traced: false,
+            panel_arbitration_traced: false,
             board_cycle_wiring_implemented: false,
             // Independent, position-specific read sets and transforms remain
             // absent. Known byte values alone do not prove that evidence.
@@ -268,6 +289,12 @@ mod tests {
         assert!(board.source_gate().cpu_clock_source_traced);
         assert!(board.source_gate().monitor_select_decode_inputs_traced);
         assert!(!board.source_gate().monitor_data_polarity_traced);
+        assert!(!board.source_gate().monitor_socket_map_traced);
+        assert!(!board.source_gate().monitor_data_transform_primary_backed);
+        assert_eq!(board.source_gate().accepted_monitor_read_set_count, 0);
+        assert!(!board.source_gate().cpu_reset_and_phase_timing_traced);
+        assert!(!board.source_gate().program_ram_write_timing_traced);
+        assert!(!board.source_gate().panel_arbitration_traced);
         assert!(!board.source_gate().monitor_media_verified);
         assert!(!board.source_gate().board_cycle_wiring_implemented);
         assert!(board

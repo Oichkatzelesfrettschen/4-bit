@@ -19,6 +19,8 @@ Layout
 - `docs/evidence/INTELLEC_MOD40_MON4_PUBLIC_ARTIFACT_AUDIT.md` -- public
   MON4 wrapper, archive, and derivative-distribution audit with explicit
   physical-read provenance limits
+- `docs/evidence/INTELLEC_MOD40_EXECUTION_GATE_STATUS.md` -- MOD 40
+  evidence-gate status, verified boundaries, and external acquisition needs
 - `docs/evidence/INTELLEC_MOD40_OCR_STATUS.md` -- 98-013A OCR engine choices,
   capture limits, and the visual-verification boundary
 - `docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md` -- source-backed and open

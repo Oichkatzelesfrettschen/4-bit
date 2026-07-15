@@ -76,9 +76,9 @@ pub struct CpuClockResetRoute {
 /// One decoder input that participates in resident monitor selection.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct MonitorSelectDecodeInput {
-    /// Named net entering the A8 decoder region.
+    /// Named net entering the A18 decoder region.
     pub signal: &'static str,
-    /// A8 pin name when the reviewed sheet labels the connection.
+    /// A18 pin name when the reviewed sheet labels the connection.
     pub decoder_pin: Option<&'static str>,
     /// Primary-source locator for this record.
     pub source_locator: &'static str,
@@ -100,21 +100,21 @@ pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
     },
 ];
 
-/// Reviewed A8 inputs for monitor-select decode from the imm4-43 schematic.
+/// Reviewed A18 inputs for monitor-select decode from the imm4-43 schematic.
 pub const MONITOR_SELECT_DECODE_INPUTS: [MonitorSelectDecodeInput; 6] = [
     MonitorSelectDecodeInput {
         signal: "C0",
-        decoder_pin: Some("A8 A pin 13"),
+        decoder_pin: Some("A18 A pin 13"),
         source_locator: "98-013A PDF 3, drawing 2000318",
     },
     MonitorSelectDecodeInput {
         signal: "C1",
-        decoder_pin: Some("A8 B pin 3"),
+        decoder_pin: Some("A18 B pin 3"),
         source_locator: "98-013A PDF 3, drawing 2000318",
     },
     MonitorSelectDecodeInput {
         signal: "ENABLE MON PROM",
-        decoder_pin: Some("A8 2G pin 14, active low"),
+        decoder_pin: Some("A18 2G pin 14, active low"),
         source_locator: "98-013A PDF 3, drawing 2000318",
     },
     MonitorSelectDecodeInput {
@@ -441,7 +441,7 @@ mod tests {
         assert_eq!(MONITOR_SELECT_DECODE_INPUTS[2].signal, "ENABLE MON PROM");
         assert_eq!(
             MONITOR_SELECT_DECODE_INPUTS[2].decoder_pin,
-            Some("A8 2G pin 14, active low")
+            Some("A18 2G pin 14, active low")
         );
         assert!(!monitor_data_polarity_is_traced());
     }

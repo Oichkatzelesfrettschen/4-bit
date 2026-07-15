@@ -65,6 +65,8 @@ module and terminal claims that the implementation consumes.
 `docs/evidence/INTELLEC_MOD40_MON4_READ_MATRIX.md` records public read
 provenance, raw-artifact digests, disagreement counts, and the remaining
 physical-read acceptance work.
+`docs/evidence/INTELLEC_MOD40_EXECUTION_GATE_STATUS.md` separates the media,
+electrical, cycle, panel/terminal, and trace closure conditions.
 
 ## MOD 40 boundary
 

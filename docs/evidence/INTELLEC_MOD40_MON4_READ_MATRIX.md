@@ -37,6 +37,13 @@ The source reports that all three efforts observe inverted stored bytes. That
 is a strong cross-check for a bitwise complement candidate, not primary proof
 of the full electrical data path or socket order.
 
+Kyle's August 2013 correspondence says that the original email attached two
+test programs and four HEX dumps. The retained rendered page exposes the four
+HEX wrappers but no attachment object or filename for either test program. The
+Internet Archive CDX index for the `restore/kyle*` URL pattern contains only
+the correspondence page. The two programs therefore remain missing artifacts;
+an original mailbox export or separately documented archive is required.
+
 ## Artifact digests
 
 The following values identify exactly the retained public files. `Raw` means

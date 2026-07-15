@@ -52,6 +52,7 @@ Source: `intellec4-mod40-reference-schematics`, SHA-256
 | direct | PDF 10, drawing 01-0176-001 | Each row orders locations `K, J, H, G, F, E, D, C`. | The source supports the model's bit-lane location naming. Byte-bit polarity and any inversion remain open until the data path is traced. |
 | partial | PDF 10, drawing 01-0176-001 | IN-28 P1 contacts 11 through 20 receive `MAD0` through `MAD9`; contacts 94 and 96 receive `MAD11` and `MAD10`; contacts 90, 92, 93, and 95 carry `BYTE2`, `BYTE1`, `MODULE SELECT`, and `WRITE`. | The card-edge assignments are visible. The exact byte-cycle sequencing and complete control equation remain open. |
 | partial | PDF 10, drawing 01-0176-001; Intel 1975 Data Catalog, printed pages 5-3 through 5-6 | The board uses 3404 active-low-write inverting latches, 7404 inversion stages, and TTL selection logic around the memory array. | The 3404 write-enable phases and their complete relationship to the external `WRITE` net remain unextracted. The source does not authorize a static-buffer substitution. |
+| direct | PDF 10, drawing 01-0176-001 | `BYTE2` at contact 90 and `BYTE1` at contact 92 visibly enter 7404 stages before joining local 7400-class logic. `MODULE SELECT` at contact 93 and `WRITE` at contact 95 visibly enter separate 3404 channels before later local logic. | This establishes one local inversion-bearing stage for each named control input. It does not establish the final 2102 chip-enable or R/W state. |
 | partial | Intel 1975 Data Catalog, printed pages 2-33 through 2-35 | Each 2102 is a 1024 by 1 static RAM with chip enable, a tri-state data output, and an active-low `R/W` write pulse that retains input data as the pulse ends. | The data sheet defines device behavior only. PDF 10 must still trace each board-level select, address, data, and write-pulse route. |
 
 ## Central-processor monitor boundary
@@ -59,12 +60,14 @@ Source: `intellec4-mod40-reference-schematics`, SHA-256
 | Status | Source location | Record | Evidence and limit |
 | --- | --- | --- | --- |
 | direct | PDF 3, drawing 2000318 | The central processor contains I4289 A5 and four Intel 1702A devices A1 through A4. A5 address outputs A0 through A7 fan out to the matching address inputs on all four monitor devices. | The shared eight-bit monitor-address wiring is visible. The fetched-byte path and timing still require a complete 4289 and memory-bus trace. |
-| direct | PDF 3, drawing 2000318 | The board net `ENABLE MON PROM` enters 74155 A8 at active-low enable 2G. A8 also receives `C0`, `C1`, `OUT`, `C2`, and `C3` inputs. | The input labels and A8 pins are visible. The active state, output-to-PROM-select mapping, and every intervening gate remain unextracted. |
-| partial | PDF 3, drawing 2000318 | A8 decoder outputs leave the monitor-select region toward the A1 through A4 PROM area. | The visible route establishes a monitor-selection network rather than a direct unqualified PROM enable. It does not yet establish socket order, selected-ROM polarity, or ROM-byte inversion. |
+| direct | PDF 3, drawing 2000318 | The board net `ENABLE MON PROM` enters 74155 A18 at active-low enable 2G. A18 also receives `C0`, `C1`, `OUT`, `C2`, and `C3` inputs. | The input labels and A18 pins are visible. The active state, output-to-PROM-select mapping, and every intervening gate remain unextracted. |
+| partial | PDF 3, drawing 2000318 | A18 decoder outputs leave the monitor-select region toward the A1 through A4 PROM area. | The visible route establishes a monitor-selection network rather than a direct unqualified PROM enable. It does not yet establish socket order, selected-ROM polarity, or ROM-byte inversion. |
 | direct | PDF 3, drawing 2000318 | Y1 is labeled 5.185 MHz and reaches the A16 74161/9316 divider clock input through 7404 stages. | This establishes the oscillator source and first documented divider input. The derived phase waveform, divider state, and 4040 clock-pin route remain open. |
 | partial | PDF 3, drawing 2000318 | `CPU RESET` enters the imm4-43 reset-conditioning region from the card edge. | The sheet does not yet establish the asserted level, pulse width, complete logic equation, or 4040 reset timing. |
-| direct | PDF 3, drawing 2000318 | A8 receives `C0` at A pin 13, `C1` at B pin 3, and `ENABLE MON PROM` at active-low 2G pin 14. `OUT`, `C2`, and `C3` also enter the A8 monitor-select region. | This establishes the decoder inputs without deriving an output-to-socket equation. |
+| direct | PDF 3, drawing 2000318 | A18 receives `C0` at A pin 13, `C1` at B pin 3, and `ENABLE MON PROM` at active-low 2G pin 14. `OUT`, `C2`, and `C3` also enter the A18 monitor-select region. | This establishes the decoder inputs without deriving an output-to-socket equation. |
 | partial | PDF 3, drawing 2000318 | Each C1702A data-output group enters intervening 74158 and 8095/TTL stages before the CPU-side memory-data path. | The complete data-bit polarity, selected-device timing, and socket-order transform remain open. |
+| direct | PDF 3, drawing 2000318 | The monitor region has two visible 74158 packages, A15 and A8, with output inversion bubbles and resistor-pullup networks; the four PROM data groups feed this mux and buffer fabric. | This records visible local polarity-bearing stages. The scan does not yet establish a complete per-bit route through every downstream 8095/TTL stage to the 4289/4040 path. |
+| partial | PDF 3, drawing 2000318 | The 5.185 MHz oscillator drives the A16 74161/9316 counter through an A16 gate; counter outputs feed later 7404/7400-class clock logic. | The source establishes a divider network, not the complete phi1/phi2 waveform, reset release edge, or 4040 clock-pin timing. |
 
 ## Terminal connector routes
 
@@ -93,6 +96,7 @@ electrical model.
 | partial | PDF 29, drawing 2000325 | `RDR CONT` crosses CPU P4/J4 contact 89, J42/P42 contact 5, and J43/P43 contact 5. The nearby contact-6 path has a 68 ohm return to -10 V. | The forward conductor and return bias are source-visible. The terminal-strip relay contact path, asserted coil state, and reader mechanical pulse width remain untraced. |
 | direct | PDFs 7 and 13, drawings 2000319 and 2000329 | The controller exposes `S/S PB`, `STOP ACK`, `USER RESET`, `CPU RESET`, `MOD SEL 12` through `MOD SEL 15`, and `MOD ENABLE`; the panel contains STOP, RESET, MON, RAM, and PROM control circuitry for that signal family. | The two sheets establish the arbitration interface. They do not yet establish each control equation, interlock priority, or transition edge. |
 | partial | PDF 13, drawing 2000329 | The STOP pushbutton S26 passes through A36 conditioning before leaving the local STOP PB region. | The local conditioned path is visible. The resulting controller state transition, active polarity, and timing are unextracted. |
+| direct | PDF 13, drawing 2000329 | The `4002 RESET ENABLE` connector net enters panel switch S31, which visibly selects the `SYSTEM` and `CPU` mode paths. | The switch and mode boundary are visible. Reset priority, electrical assertion level, and controller consequences remain unextracted. |
 
 ## Newly traced program-RAM boundary facts
 
@@ -110,8 +114,8 @@ electrical model.
 | Low address | P1 contacts 11 through 20 carry `MAD0` through `MAD9`. | The same labeled conductors cross the memory-controller and RAM-module boundary. | P1 contacts 11 through 20 enter the 3404 address-latch bank. | Physical endpoint continuity is direct. The latch-enable phase remains open. |
 | High address | C3 is at P1 contact 94 and C2 is at P1 contact 96. | The conductors retain contacts 94 and 96. | Contact 94 is `MAD11`; contact 96 is `MAD10`. Each enters a visible 7404 stage before bank-selection logic. | Physical continuity and one visible inverter stage per high bit are direct. The bank-select Boolean equation remains open. |
 | Byte controls | P1 contact 90 is `BYTE2`; contact 92 is `BYTE1`. | The contacts cross to the RAM-module boundary. | P1 contacts 90 and 92 enter 7404 and 7400-class local logic. | The route is direct. Assertion level and byte-cycle edge are partial. |
-| Module selection | The controller boundary supplies the program-memory selection family. | The motherboard exposes the program-RAM module-select conductor at contact 93. | P1 contact 93 is `MODULE SELECT` and enters local TTL. | The endpoint is direct. The source equation and asserted polarity are partial. |
-| Write | P1 contact 95 is `WRITE`. | The conductor crosses unchanged to the RAM-module boundary. | P1 contact 95 enters 7404, 3404, and 7400-class local control logic. | The endpoint is direct. The complete active-low 2102 R/W pulse and its setup/hold timing are partial. |
+| Module selection | The controller boundary supplies the program-memory selection family. | The motherboard exposes the program-RAM module-select conductor at contact 93. | P1 contact 93 is `MODULE SELECT` and visibly enters a 3404 channel before later local logic. | The endpoint and first local stage are direct. The source equation and asserted polarity are partial. |
+| Write | P1 contact 95 is `WRITE`. | The conductor crosses unchanged to the RAM-module boundary. | P1 contact 95 visibly enters a separate 3404 channel before later local logic. | The endpoint and first local stage are direct. The complete active-low 2102 R/W pulse and its setup/hold timing are partial. |
 
 ## Consequences for implementation
 
@@ -130,11 +134,18 @@ and timing stages are traced.
 
 The following execution conditions remain open:
 
-1. Reconcile each PDF 5 card-edge contact with PDF 7 and PDF 10 endpoints.
-2. Extract the address, data, byte, type, write, and module-select polarities.
-3. Extract the front-panel arbitration paths from PDFs 11 through 15.
-4. Extract the CPU-card 4289 and monitor selection paths from PDF 3.
-5. Derive and independently check the Boolean polarity of every control path,
-   including the 3404 and 7404 stages, before connecting modeled devices.
-6. Capture cycle timing before enabling a MOD 40 FPGA wrapper or an equivalence
+1. Bind two independent raw C1702A read sets to A1 through A4 with complete
+   reader, custody, photo, voltage, log, and digest records.
+2. Extract the A18 output-to-CSO map, C1702A data paths, 74158/8095/TTL
+   polarity, divider output, 4040 phase, and reset-release timing from PDF 3.
+3. Reconcile each PDF 5 card-edge contact with PDF 7 and PDF 10 endpoints,
+   then derive the 3404 latch, 7404, bank-select, and active-low 2102 write
+   equations with setup and hold timing.
+4. Extract panel STOP, reset, step, MON/RAM/PROM, and interlock transition
+   logic from PDF 13, and derive Q3/Q4/Q5 current-loop logical polarity,
+   reader relay state, framing, and timing from PDFs 3 and 29.
+5. Compare the accepted raw read sets before applying only the resulting
+   primary-backed transform, then capture a source-tagged reset-to-prompt
    trace.
+6. Enable a MOD 40 FPGA wrapper or equivalence trace only after all five
+   preceding conditions close.
