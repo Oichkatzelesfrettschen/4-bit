@@ -104,6 +104,18 @@ output-bit-0 path through Q3 to the reader-control relay. An electrical
 simulation remains blocked on complete polarity, terminal-side, and
 component-value extraction.
 
+## Adjacent public cross-check material
+
+The retained Intel Insite 4004/4040 library index identifies an Intellec 4/40
+Silent 700 terminal interface and an Intellec 4 plus ASR-33 PROM dump utility.
+The same public sweep retains secondary CPU, control-card, and program-RAM
+connector transcriptions plus an external current-loop interface drawing.
+These artifacts can expose OCR conflicts and software expectations, but the
+98-013A visual drawing and the retained Intel manuals control every board-net,
+polarity, timing, and monitor-media assertion. The Insite reference numbers
+are not PDF page numbers; extraction waits for actual-page identification.
+`INTELLEC_MOD40_PUBLIC_DISCOVERY_LOG.md` records the source boundaries.
+
 ## Monitor recovery boundary
 
 The standard monitor occupies four 256-byte 1702A PROMs. The local-only

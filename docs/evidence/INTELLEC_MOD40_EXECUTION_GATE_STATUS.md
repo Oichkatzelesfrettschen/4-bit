@@ -42,6 +42,21 @@ procedure. Sid Jones is documented as using Mk I and Mk II 1702A readers, but
 the searched public record supplies no raw output, digest, device photo, or
 repeat log. These are recovery leads, not gate-closing evidence.
 
+The 2026-07-16 public sweep adds the Intel Insite 4004/4040 program-library
+scan, a 600 ppi 98-013A image derivative, connector transcriptions, and public
+discussion records. It falsifies the narrow claim that no more relevant public
+material is available. It does not change a gate state: no acquired source
+contains a second raw repeat, socket-identified device evidence, a complete
+monitor transform, or a primary-derived board timing equation. The bounded
+search method, source digests, and protocol limits are recorded in
+`INTELLEC_MOD40_PUBLIC_DISCOVERY_LOG.md`.
+
+The recovered Silent 700 interface note prescribes terminal-specific J43 and
+motherboard modifications. It establishes that a working terminal conversion
+can alter the baseline machine, so terminal demonstrations remain invalid as
+baseline polarity evidence unless their adapter and modification state are
+identified.
+
 ## Implementation rule
 
 `Mod40Board::source_gate()` mirrors these individual boundaries. It exposes

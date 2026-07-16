@@ -25,6 +25,8 @@ Layout
   capture limits, and the visual-verification boundary
 - `docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md` -- source-backed and open
   board-route records
+- `docs/evidence/INTELLEC_MOD40_PUBLIC_DISCOVERY_LOG.md` -- bounded public
+  archive sweep, retained discovery artifacts, protocol limits, and gate impact
 
 Reproduction workflow
 1. Download all primary source PDFs:

@@ -106,6 +106,11 @@ that introduce and update the driver do not identify the physical chip, reader,
 operator, date, raw output, or repeat procedure. A public MAME-set index
 repeats the current hashes. These sources show distribution lineage only.
 
+The 2017-06-27 MAME correction patch describes the A1 update as a
+"transcription error" fix. That wording strengthens the conclusion that the
+patch is not evidence of a new physical read. Its retained digest and URL are
+recorded under `mame-mon4-a1-correction-patch` in `intellec_sources.yaml`.
+
 ## Falsification result and remaining boundary
 
 The broad conjecture is falsified: public byte artifacts exist through the

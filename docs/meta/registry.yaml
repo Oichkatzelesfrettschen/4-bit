@@ -129,6 +129,8 @@ docs:
     role: evidence
   - file: docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md
     role: evidence
+  - file: docs/evidence/INTELLEC_MOD40_PUBLIC_DISCOVERY_LOG.md
+    role: evidence
   - file: docs/evidence/callgraph-runtime-capture.md
     role: evidence
   - file: docs/evidence/gate-hdl-export-contract.md

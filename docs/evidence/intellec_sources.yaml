@@ -354,6 +354,151 @@ sources:
     limitations:
       - Archive replay preserves a web object and does not establish an additional physical reading.
 
+  - id: internet-archive-mod40-schematic-jp2-600ppi
+    title: Internet Archive 600 ppi page-image derivative for Intel Intellec 4 MOD 40 Reference Schematics
+    revision: archival derivative acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/Intel_Intellec_4_MOD_40_Reference_Schematics_jp2.zip
+    url: https://archive.org/download/bitsavers_intelMCS40ReferenceSchematics_81608214/Intel_Intellec_4_MOD_40_Reference_Schematics_jp2.zip
+    sha256: 4273d7ed29a9935eb605f744b74b17e6a729eea371038e99237a09cfcb511c9a
+    bytes: 73676821
+    retention: local-only
+    status: verified-secondary-image-derivative
+    supports:
+      - mod40-primary-schematic-image-review
+    limitations:
+      - This archival image derivative improves legibility only and is not an independent board observation.
+      - Visual review of the Intel drawing remains controlling for every route and polarity claim.
+
+  - id: intel-insite-4004-4040-library-hale
+    title: Intel Insite 4004 and 4040 program-library scan from the Lawrence Hale collection
+    revision: undated archival scan acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/intel_insite_40XX.zip
+    url: https://www.retrotechnology.com/restore/intel_insite_40XX.zip
+    sha256: 9f4a4f0873f7b2b7d9f1638be6373065f838160a5138e0be750d4ffd286f23a7
+    bytes: 23999605
+    retention: local-only
+    status: verified-secondary-archival-scan
+    supports:
+      - mod40-terminal-interface-adjacent
+      - mod40-prom-dump-utility-adjacent
+      - mod40-paper-tape-software-adjacent
+    limitations:
+      - The library index identifies items 40-5 and 40-6, but their printed-reference numbers are not PDF page numbers.
+      - The scan cannot establish C1702A read provenance, board wiring, or a monitor transform.
+
+  - id: intel-insite-4004-4040-library-index
+    title: Intel Insite 4004 and 4040 program-library index
+    revision: webpage acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/intel_insite_library.txt
+    url: https://www.retrotechnology.com/restore/intel_insite_library.txt
+    sha256: 22dd796145f11de95d20dddb7788a4f71fb5a847a49457c427ab3dfa35840907
+    bytes: 1989
+    retention: local-only
+    status: verified-secondary-index
+    supports:
+      - mod40-terminal-interface-adjacent
+      - mod40-prom-dump-utility-adjacent
+    limitations:
+      - The index navigates an archival scan and does not replace visual review of the cited program pages.
+
+  - id: retrotechnology-intellec4-cpu-pinout-transcription
+    title: Intellec 4 MOD 40 central processor connector transcription
+    revision: webpage acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/intellec4_cpu.txt
+    url: https://www.retrotechnology.com/restore/intellec4_cpu.txt
+    sha256: b658987cd454fe27421b0ca1d9a5e41f2a8eaa4c564690ba08730e8ad74ecb3f
+    bytes: 4470
+    retention: local-only
+    status: verified-secondary-transcription
+    supports:
+      - mod40-secondary-connector-cross-check
+    limitations:
+      - The transcription is an OCR and route-review aid; 98-013A visual sheets control connector, polarity, and route claims.
+
+  - id: retrotechnology-intellec4-control-pinout-transcription
+    title: Intellec 4 MOD 40 memory-control connector transcription
+    revision: webpage acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/intellec4_control.txt
+    url: https://www.retrotechnology.com/restore/intellec4_control.txt
+    sha256: e8fdaee5ee1d836079ae5d7e65a553ea30582f1d6ab838b084f776396dcbd116
+    bytes: 2912
+    retention: local-only
+    status: verified-secondary-transcription
+    supports:
+      - mod40-secondary-connector-cross-check
+    limitations:
+      - The transcription is an OCR and route-review aid; 98-013A visual sheets control connector, polarity, and route claims.
+
+  - id: retrotechnology-intellec4-ram-pinout-transcription
+    title: Intellec 4 MOD 40 program-RAM connector transcription
+    revision: webpage acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/intellec4_ram.txt
+    url: https://www.retrotechnology.com/restore/intellec4_ram.txt
+    sha256: 94449ae4bcdd7e2cc891473f73c7f18934de3abc97c2dff111b4a0cb8cd6f609
+    bytes: 2117
+    retention: local-only
+    status: verified-secondary-transcription
+    supports:
+      - mod40-secondary-connector-cross-check
+    limitations:
+      - The transcription is an OCR and route-review aid; 98-013A visual sheets control connector, polarity, and route claims.
+
+  - id: retrotechnology-dwight-mod40-note
+    title: Dwight Elvey Intellec 4 MOD 40 timing recollection
+    revision: August 2013 webpage acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/dwight_4mod40.txt
+    url: https://www.retrotechnology.com/restore/dwight_4mod40.txt
+    sha256: 5578dc8118519a9757ceeee4d1270b81f809114660b118a0db8d6ec2ce8cbcc0
+    bytes: 3600
+    retention: local-only
+    status: verified-secondary-recollection
+    supports:
+      - mod40-dynamic-timing-research-lead
+    limitations:
+      - The recollection identifies a dynamic-timing risk but provides no executable timing equation or board-net proof.
+
+  - id: retrotechnology-440-serial-circuit
+    title: Intellec 4 MOD 40 external serial current-loop interface drawing
+    revision: webpage image acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/440_serial_circuit4.jpg
+    url: https://www.retrotechnology.com/restore/440_serial_circuit4.jpg
+    sha256: aacc174066136f6d8933d15815c5e56521121a4c4eb29b06b658c0da829d8a8f
+    bytes: 75524
+    retention: local-only
+    status: verified-secondary-interface-drawing
+    supports:
+      - mod40-secondary-current-loop-interface
+    limitations:
+      - This external interface drawing does not establish Q3, Q4, or Q5 logical polarity on the central processor board.
+
+  - id: mame-mon4-a1-correction-patch
+    title: MAME MON4 A1 transcription-correction patch
+    revision: 2017-06-27 patch acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/mame_a1_correction.patch
+    url: https://github.com/mamedev/mame/commit/e01d352593fea1407f61898836bf47e1a8aa3765.patch
+    sha256: c0620aa3db0ac9fda9ebf1db2d5184633635fac829a58d1536f6a3902b6f42d2
+    bytes: 2318
+    retention: local-only
+    status: verified-secondary-source-history
+    supports:
+      - mon4-public-candidate-hash-history
+    limitations:
+      - The patch describes a transcription correction and supplies no physical device, reader, operator, raw acquisition, or repeat-read provenance.
+
+  - id: intel-devsys-mon4-provenance-discussion
+    title: Intel-devsys discussion of Intellec 4 MOD 40 ROM archive provenance
+    revision: public discussion acquired 2026-07-16
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/intel_devsys_mon4_provenance.html
+    url: https://groups.google.com/g/intel-devsys/c/BhE4On1pJJA
+    sha256: 1916cc4d82d1316a57afc2e303f9b6e3ed547afc43005a1e58573f5a4eefed54
+    bytes: 889305
+    retention: local-only
+    status: verified-secondary-discussion
+    supports:
+      - mon4-public-provenance-context
+    limitations:
+      - The discussion confirms fragmented archival context and circulating binaries, not independently repeatable raw C1702A reads.
+
   - id: intellec4-operator-manual
     title: Intel Intellec 4 Operator Manual
     status: unresolved
