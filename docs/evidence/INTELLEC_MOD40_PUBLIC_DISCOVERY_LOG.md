@@ -31,6 +31,8 @@ URLs, sizes, and SHA-256 digests are in `intellec_sources.yaml`.
 The Insite index reference numbers are not physical PDF page numbers. The
 ignored full-library OCR locator pass identifies the actual scan pages before
 any circuit or program claim enters a tracked evidence record.
+`INTELLEC_INSITE_4004_4040_LIBRARY_INDEX.md` records complete 369-page capture
+accounting, page locators, source tiers, and non-inference boundaries.
 
 ## Insite extraction: items 40-5 and 40-6
 

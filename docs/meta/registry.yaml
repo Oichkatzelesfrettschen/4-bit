@@ -131,6 +131,8 @@ docs:
     role: evidence
   - file: docs/evidence/INTELLEC_MOD40_PUBLIC_DISCOVERY_LOG.md
     role: evidence
+  - file: docs/evidence/INTELLEC_INSITE_4004_4040_LIBRARY_INDEX.md
+    role: evidence
   - file: docs/evidence/callgraph-runtime-capture.md
     role: evidence
   - file: docs/evidence/gate-hdl-export-contract.md

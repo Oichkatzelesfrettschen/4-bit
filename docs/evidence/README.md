@@ -27,6 +27,8 @@ Layout
   board-route records
 - `docs/evidence/INTELLEC_MOD40_PUBLIC_DISCOVERY_LOG.md` -- bounded public
   archive sweep, retained discovery artifacts, protocol limits, and gate impact
+- `docs/evidence/INTELLEC_INSITE_4004_4040_LIBRARY_INDEX.md` -- complete
+  369-page Insite library OCR accounting, page-level targets, and source bounds
 
 Reproduction workflow
 1. Download all primary source PDFs:
