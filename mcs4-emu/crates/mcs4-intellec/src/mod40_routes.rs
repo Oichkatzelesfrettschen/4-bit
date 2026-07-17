@@ -263,9 +263,9 @@ pub const STOP_ACKNOWLEDGE_OBSERVATIONS: [StopAcknowledgeObservation; 3] = [
     },
     StopAcknowledgeObservation {
         source: "front-panel J2 STOP ACK contact 9",
-        target: "A29 7417 display-driver path",
+        target: "A29 7417 output to RUN indicator",
         evidence: Mod40RouteEvidence::Direct,
-        source_locator: "98-013A PDF 13, drawing 2000329",
+        source_locator: "98-013A PDF 13, drawing 2000329; 98-095A printed page 63",
     },
 ];
 
@@ -699,7 +699,10 @@ mod tests {
             STOP_ACKNOWLEDGE_OBSERVATIONS[1].source,
             "imm4-72 P1 STOP ACK contact 73"
         );
-        assert_eq!(STOP_ACKNOWLEDGE_OBSERVATIONS[2].target, "A29 7417 display-driver path");
+        assert_eq!(
+            STOP_ACKNOWLEDGE_OBSERVATIONS[2].target,
+            "A29 7417 output to RUN indicator"
+        );
     }
 
     #[test]

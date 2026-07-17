@@ -161,11 +161,14 @@ remain open and continue to block a historical electrical simulation.
 The reviewed sheets expose three local STOP ACK segments: imm4-43 P1 contact
 30 enters an 8095 and R14 network at the A11 boundary; imm4-72 P1 contact 73
 passes through A15 7404 to J2 contact 9; and front-panel J2 contact 9 enters
-an A29 7417 display-driver path. These observations establish local components
-and one control-card inversion. They do not establish the connector and cable
-mapping between the three segments, CPU-pin direction, display-state equation,
-or a shared asserted level. The existing STOP ACK polarity conflict therefore
-remains open and blocks panel-arbitration execution.
+an A29 7417 buffer. The 98-095A manual, printed page 63, identifies the panel
+signal as arriving from the memory-control module and states that the buffer
+output lights RUN when the system runs. These observations establish local
+components, one control-card inversion, and the RUN-indicator function. They
+do not establish the connector and cable mapping between the three segments,
+CPU-pin direction, electrical asserted level, or a shared net. The existing
+STOP ACK polarity conflict therefore remains open and blocks panel-arbitration
+execution.
 
 ## Adjacent public cross-check material
 
