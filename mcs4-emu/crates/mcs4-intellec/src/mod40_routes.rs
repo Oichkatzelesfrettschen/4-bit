@@ -168,6 +168,22 @@ pub struct StopAcknowledgeObservation {
     pub source_locator: &'static str,
 }
 
+/// Source-defined STOP and STOP ACK behavior at the 4040 package pins.
+///
+/// This describes the CPU endpoint only. It does not assign a level to an
+/// identically named card-edge, panel, or rear-connector signal.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct CpuStopAcknowledgeEndpoint {
+    /// The 4040 STP input requests STOP mode when high.
+    pub stop_input_active_high: bool,
+    /// The 4040 STPA output uses an open-drain driver.
+    pub acknowledge_open_drain: bool,
+    /// A released STPA output is high while the CPU remains stopped.
+    pub acknowledge_high_when_stopped: bool,
+    /// Primary-source locator for this endpoint behavior.
+    pub source_locator: &'static str,
+}
+
 /// One decoder input that participates in resident monitor selection.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct MonitorSelectDecodeInput {
@@ -268,6 +284,19 @@ pub const STOP_ACKNOWLEDGE_OBSERVATIONS: [StopAcknowledgeObservation; 3] = [
         source_locator: "98-013A PDF 13, drawing 2000329; 98-095A printed page 63",
     },
 ];
+
+/// Source-defined 4040 STOP and STOP ACK behavior at the package boundary.
+///
+/// The MCS-40 advance specification's single-step sequence says STPA returns
+/// low when execution leaves STOP mode. Its turn-off edge is therefore the
+/// released-high stopped state. The local CPU-card and external-interface
+/// routes remain separate evidence boundaries.
+pub const CPU_STOP_ACKNOWLEDGE_ENDPOINT: CpuStopAcknowledgeEndpoint = CpuStopAcknowledgeEndpoint {
+    stop_input_active_high: true,
+    acknowledge_open_drain: true,
+    acknowledge_high_when_stopped: true,
+    source_locator: "MCS-40 Advance Specifications printed page 37; 4040 datasheet pin description",
+};
 
 /// Reviewed A18 inputs for monitor-select decode from the imm4-43 schematic.
 pub const MONITOR_SELECT_DECODE_INPUTS: [MonitorSelectDecodeInput; 6] = [
@@ -665,9 +694,9 @@ mod tests {
         monitor_select_decode_outputs_are_recorded, program_ram_card_edge_is_complete,
         ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader,
         terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced, Mod40RouteEvidence,
-        CPU_CLOCK_RESET_ROUTES, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
-        MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES,
-        STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
+        CPU_CLOCK_RESET_ROUTES, CPU_STOP_ACKNOWLEDGE_ENDPOINT, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT,
+        MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS,
+        PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -703,6 +732,16 @@ mod tests {
             STOP_ACKNOWLEDGE_OBSERVATIONS[2].target,
             "A29 7417 output to RUN indicator"
         );
+    }
+
+    #[test]
+    fn cpu_stop_acknowledge_endpoint_is_distinct_from_untraced_board_nets() {
+        let endpoint = std::hint::black_box(CPU_STOP_ACKNOWLEDGE_ENDPOINT);
+        assert!(endpoint.stop_input_active_high);
+        assert!(endpoint.acknowledge_open_drain);
+        assert!(endpoint.acknowledge_high_when_stopped);
+        assert!(endpoint.source_locator.contains("printed page 37"));
+        assert_eq!(STOP_ACKNOWLEDGE_OBSERVATIONS[0].evidence, Mod40RouteEvidence::Partial);
     }
 
     #[test]

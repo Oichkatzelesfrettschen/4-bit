@@ -34,6 +34,25 @@ any circuit or program claim enters a tracked evidence record.
 `INTELLEC_INSITE_4004_4040_LIBRARY_INDEX.md` records complete 369-page capture
 accounting, page locators, source tiers, and non-inference boundaries.
 
+## MON4 public provenance classification
+
+The 2013 Kyle correspondence and the 2022 Intel-devsys post are retained as
+separate evidence objects. The Kyle page records one Prolog 980 transfer and
+describes four attached HEX wrappers. The later post reports that one
+Kyle-derived binary version was archived and that Kyle's board confirmed a
+working set. Neither object publishes a raw 256-byte device read, device
+photograph, reader voltage setting, repeated read, or independent custody
+chain. They preserve public-byte availability only.
+
+| Public object | URL | Classification | Gate effect |
+| --- | --- | --- | --- |
+| Kyle Owen ROM recovery correspondence | `https://www.retrotechnology.com/restore/kyle_aug2013.html` | One described Prolog 980 acquisition with public HEX wrappers; no repeat or raw-read provenance. | Does not close G1 or G2. |
+| Intel-devsys archive discussion | `https://groups.google.com/g/intel-devsys/c/BhE4On1pJJA` | Public statement that one Kyle-derived binary version was archived; no acquisition record. | Does not close G1 or G5. |
+
+The repository does not solicit artifacts from the named authors or any other
+custodian. A future public release is evaluated under the recovery protocol
+before it influences a source gate.
+
 ## Insite extraction: items 40-5 and 40-6
 
 The OCR locator pass identifies item 40-5 at scan pages 67 through 81 and item

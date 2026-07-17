@@ -84,20 +84,22 @@ it does not establish the fitted monitor population for the retained CPU-card
 schematic. A physical-board photograph with readable part markings and a
 revision-linked bill of materials are required to close this source conflict.
 
-## STOP acknowledge endpoint-polarity conflict
+## STOP acknowledge endpoint boundary
 
-The manual contains a separate polarity conflict that blocks panel behavior.
-Its CPU description on printed page 15 states that the 4040 clamps the CPU
-`STOP ACKNOWLEDGE` status line low while halted. Its external-interface
-description on printed page 129 states that the `STOP ACKNOWLEDGE` status line
-is high while the processor is halted, while also describing remote `STOP` as
-a temporary clamp low.
+The MCS-40 advance specification, printed page 37, establishes the 4040
+package convention. `STP` is high while the CPU is stopped. The single-step
+sequence says that `STPA` returns to logic zero when the CPU leaves STOP mode,
+so the open-drain `STPA` output is released high while the CPU is stopped. The
+4040 data sheet independently identifies STP as an active-high input and STPA
+as an open-drain acknowledge output.
 
-These statements can describe different endpoints separated by board logic,
-or they can reflect a revision or documentation inconsistency. The available
-sources do not yet trace the CPU output through the control card, panel, and
-rear connector. The model records the physical S26 conditioning boundary only;
-it does not assign STOP or STOP ACK polarity, restart behavior, or priority.
+The 98-095A manual still describes the CPU `STOP ACKNOWLEDGE` line as low while
+halted on printed page 15 and an external-interface status line as high while
+halted on printed page 129. The chip-level convention is now source-bound, but
+the named board endpoints can still be separated by the untraced 8095, 7404,
+and harness network. The model records the CPU endpoint without assigning the
+same level to a card edge, panel signal, or rear connector. Panel priority,
+restart behavior, and transition timing remain open.
 
 ## Reviewed program-RAM cycle boundary
 
@@ -169,6 +171,11 @@ do not establish the connector and cable mapping between the three segments,
 CPU-pin direction, electrical asserted level, or a shared net. The existing
 STOP ACK polarity conflict therefore remains open and blocks panel-arbitration
 execution.
+
+PDF 32, drawing 4000168, identifies only harness conductor counts, connector
+families, pin-one orientation, and cable lengths. PDF 34, drawing 4000242,
+shows physical cable placement. Neither sheet maps a conductor to a connector
+contact, so neither resolves the missing `STOP ACK` continuation.
 
 ## Adjacent public cross-check material
 

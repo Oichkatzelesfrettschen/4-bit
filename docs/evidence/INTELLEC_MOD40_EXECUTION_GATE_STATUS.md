@@ -29,7 +29,7 @@ programs and four HEX dumps. The retained page exposes the four HEX wrappers,
 but no attachment links or attachment filenames. A 2026-07-14 Internet Archive
 CDX query for `www.retrotechnology.com/restore/kyle*` returns only the
 correspondence page. The programs remain an original-mailbox or separately
-archived-evidence request.
+archived-evidence gap.
 
 Kyle's page reports a Prolog 980 transfer over an RS-232 adapter. It reports
 that `MON 4 000 V2.1` produced all-zero operational data and all `FF` reader
@@ -41,6 +41,12 @@ not name a device, reader, operator, date, raw acquisition, or repeat
 procedure. Sid Jones is documented as using Mk I and Mk II 1702A readers, but
 the searched public record supplies no raw output, digest, device photo, or
 repeat log. These are recovery leads, not gate-closing evidence.
+
+A 2022 public Intel-devsys post says that one Kyle-derived binary version was
+archived and that Kyle's board confirmed a working set. The post supplies no
+raw 256-byte attachment, device identity, reader setting, repeated read, or
+independent custody record. It establishes public binary persistence, not
+physical-read lineage.
 
 The 2026-07-16 public sweep adds the Intel Insite 4004/4040 program-library
 scan, a 600 ppi 98-013A image derivative, connector transcriptions, and public
@@ -77,10 +83,10 @@ requires preserving it before normalization:
    reader logs and photos recorded before any complement operation.
 3. A second identified board or another independently documented custody chain
    that supports replication.
-4. Request Sid Jones raw Mk I and Mk II outputs with reader settings and
-   device photographs.
-5. Request the provenance record for MAME's corrected A1 image from its
-   contributor or source archive.
+4. A publicly released Sid Jones raw Mk I and Mk II set with reader settings
+   and device photographs.
+5. A publicly released provenance record for MAME's corrected A1 image, or an
+   archival source that documents its acquisition.
 
 The repository accepts no reconstructed, manually repaired, mirror-derived,
 or MAME-derived image as a substitute for those artifacts.
