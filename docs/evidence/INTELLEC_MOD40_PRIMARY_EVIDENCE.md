@@ -156,6 +156,17 @@ This reconciles the Q5, Q4, and Q3 logical senses at the CPU-port boundary.
 Transistor switching thresholds, reader-relay mechanics, and panel arbitration
 remain open and continue to block a historical electrical simulation.
 
+## STOP ACK route boundary
+
+The reviewed sheets expose three local STOP ACK segments: imm4-43 P1 contact
+30 enters an 8095 and R14 network at the A11 boundary; imm4-72 P1 contact 73
+passes through A15 7404 to J2 contact 9; and front-panel J2 contact 9 enters
+an A29 7417 display-driver path. These observations establish local components
+and one control-card inversion. They do not establish the connector and cable
+mapping between the three segments, CPU-pin direction, display-state equation,
+or a shared asserted level. The existing STOP ACK polarity conflict therefore
+remains open and blocks panel-arbitration execution.
+
 ## Adjacent public cross-check material
 
 The retained Intel Insite 4004/4040 library index identifies an Intellec 4/40

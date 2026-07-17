@@ -151,6 +151,23 @@ pub struct PanelControlObservation {
     pub source_locator: &'static str,
 }
 
+/// One local STOP ACK path observed on a MOD 40 board drawing.
+///
+/// These paths stop at board and cable boundaries. They do not establish that
+/// identically named contacts form one end-to-end net or resolve its asserted
+/// polarity.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct StopAcknowledgeObservation {
+    /// Printed local source net or connector contact.
+    pub source: &'static str,
+    /// Directly visible local receiver or conditioning path.
+    pub target: &'static str,
+    /// Reviewed evidence status for the observation.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for this record.
+    pub source_locator: &'static str,
+}
+
 /// One decoder input that participates in resident monitor selection.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct MonitorSelectDecodeInput {
@@ -221,6 +238,32 @@ pub const PANEL_CONTROL_OBSERVATIONS: [PanelControlObservation; 2] = [
     PanelControlObservation {
         source: "J2 4002 RESET ENABLE",
         target: "S31 SYSTEM/CPU mode-switch boundary",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 13, drawing 2000329",
+    },
+];
+
+/// Directly reviewed STOP ACK boundaries on the CPU, control, and panel cards.
+///
+/// The drawings expose these local path segments but do not yet establish the
+/// motherboard or cable mapping that joins the segments. The source gate
+/// therefore continues to leave panel arbitration incomplete.
+pub const STOP_ACKNOWLEDGE_OBSERVATIONS: [StopAcknowledgeObservation; 3] = [
+    StopAcknowledgeObservation {
+        source: "imm4-43 P1 STOP ACK contact 30",
+        target: "8095 buffer and R14 A11 4040 boundary",
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    StopAcknowledgeObservation {
+        source: "imm4-72 P1 STOP ACK contact 73",
+        target: "A15 7404 to J2 STOP ACK contact 9",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 7, drawing 2000319",
+    },
+    StopAcknowledgeObservation {
+        source: "front-panel J2 STOP ACK contact 9",
+        target: "A29 7417 display-driver path",
         evidence: Mod40RouteEvidence::Direct,
         source_locator: "98-013A PDF 13, drawing 2000329",
     },
@@ -623,8 +666,8 @@ mod tests {
         ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader,
         terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced, Mod40RouteEvidence,
         CPU_CLOCK_RESET_ROUTES, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
-        MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
-        TERMINAL_PORT_POLARITIES,
+        MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES,
+        STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -646,6 +689,17 @@ mod tests {
         assert!(PROGRAM_RAM_CARD_EDGE_ROUTES
             .iter()
             .any(|route| route.evidence == Mod40RouteEvidence::Partial));
+    }
+
+    #[test]
+    fn stop_acknowledge_paths_remain_local_until_connector_mapping_is_traced() {
+        assert_eq!(STOP_ACKNOWLEDGE_OBSERVATIONS.len(), 3);
+        assert_eq!(STOP_ACKNOWLEDGE_OBSERVATIONS[0].evidence, Mod40RouteEvidence::Partial);
+        assert_eq!(
+            STOP_ACKNOWLEDGE_OBSERVATIONS[1].source,
+            "imm4-72 P1 STOP ACK contact 73"
+        );
+        assert_eq!(STOP_ACKNOWLEDGE_OBSERVATIONS[2].target, "A29 7417 display-driver path");
     }
 
     #[test]

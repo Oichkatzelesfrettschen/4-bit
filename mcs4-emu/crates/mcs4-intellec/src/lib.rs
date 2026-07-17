@@ -40,9 +40,10 @@ pub use mod40_routes::{
     ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader, terminal_cable_routes_are_traced,
     terminal_current_loop_polarity_is_traced, CpuClockResetRoute, Imm628WriteReadInput, Mod40RouteEvidence,
     Mod40TerminalPolarity, MonitorAddressFanout, MonitorSelectDecodeInput, MonitorSelectDecodeOutput,
-    PanelControlObservation, ProgramRamCardEdgeRoute, TerminalCableRoute, TerminalPortPolarity, CPU_CLOCK_RESET_ROUTES,
-    IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS,
-    PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
+    PanelControlObservation, ProgramRamCardEdgeRoute, StopAcknowledgeObservation, TerminalCableRoute,
+    TerminalPortPolarity, CPU_CLOCK_RESET_ROUTES, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT,
+    MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS,
+    PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
 };
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
 pub use monitor_rom::{MonitorRom, MonitorRomError};
