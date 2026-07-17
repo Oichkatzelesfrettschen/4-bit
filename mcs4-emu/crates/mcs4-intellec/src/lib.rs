@@ -34,12 +34,15 @@ pub use mod40::{
     Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40SourceGate, Mod40TerminalEndpoint, ProgramStoreId,
 };
 pub use mod40_routes::{
-    cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
-    monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
-    program_ram_card_edge_is_complete, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
-    CpuClockResetRoute, Mod40RouteEvidence, MonitorAddressFanout, MonitorSelectDecodeInput, MonitorSelectDecodeOutput,
-    ProgramRamCardEdgeRoute, TerminalCableRoute, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT,
-    MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+    cpu_clock_source_is_traced, keyboard_loop_current_to_rom0_input_bit0, monitor_address_fanout_is_traced,
+    monitor_data_polarity_is_traced, monitor_select_decode_inputs_are_traced,
+    monitor_select_decode_outputs_are_recorded, program_ram_card_edge_is_complete,
+    ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader, terminal_cable_routes_are_traced,
+    terminal_current_loop_polarity_is_traced, CpuClockResetRoute, Mod40RouteEvidence, Mod40TerminalPolarity,
+    MonitorAddressFanout, MonitorSelectDecodeInput, MonitorSelectDecodeOutput, PanelControlObservation,
+    ProgramRamCardEdgeRoute, TerminalCableRoute, TerminalPortPolarity, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT,
+    MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS,
+    PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
 };
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
 pub use monitor_rom::{MonitorRom, MonitorRomError};

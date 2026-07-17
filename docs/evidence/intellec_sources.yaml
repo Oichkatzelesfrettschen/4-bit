@@ -62,6 +62,8 @@ sources:
     revision: 1974
     local_path: docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf
     url: https://mark-ogden.uk/files/intel/publications/98-013A%20Intellec%204%20MOD%2040%20Reference%20Schematic%20Drawings-1974.pdf
+    sha256: 34f82ae6228f6ee0832c9696b4a0e922f8ea4bfccf92131476d013108b703bdb
+    bytes: 81608214
     status: tracked-existing
     supports:
       - mod40-console-nets
@@ -83,6 +85,23 @@ sources:
       - mod40-card-configuration
       - mod40-terminal-port-endpoints
       - mod40-standard-module-topology
+
+  - id: intellec4-mod40-reference-manual-98-095a-chipdb
+    title: Intel Intellec 4 MOD 40 Microcomputer Development System Reference Manual
+    revision: November 1974
+    local_path: docs/evidence/local_sources/intellec/public_discovery_20260716/chipdb/Intel_Intellec_4_MOD_40_Reference_Manual.pdf
+    url: https://datasheets.chipdb.org/upload/wepwawet/INTELLEC%204.pdf
+    sha256: 320e839a13a4c2b944403a1305a894a1cc39e56a3b8f01da2fdfa98b9ab96b81
+    bytes: 7872997
+    retention: local-only
+    status: verified-alternate-scan
+    supports:
+      - mod40-terminal-port-logical-polarity
+      - mod40-terminal-framing
+    limitations:
+      - This is an alternate scan of the same Intel manual, not independent board evidence.
+      - Page-image OCR improves legibility but does not establish C1702A read provenance.
+      - The manual names 4702A monitor PROMs while the board-local 98-013A CPU schematic labels A1-A4 as 1702A; the revision or configuration relationship remains unresolved.
 
   - id: mon4-v21-listing-rehost
     title: MON 4 Version 2.1 Listing

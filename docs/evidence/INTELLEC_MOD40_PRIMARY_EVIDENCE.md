@@ -12,8 +12,9 @@ They guide recovery work but do not authorize historical execution.
 | Source ID | Locator | Supported fact |
 | --- | --- | --- |
 | `intellec4-mod40-reference-manual-98-095a` | Printed pages 7-9 and Figure 1-1 | The standard machine contains an imm4-43 central processor module, imm4-72 control module, imm6-28 program-RAM module, imm6-76 PROM programmer, and control/display panel. |
-| `intellec4-mod40-reference-manual-98-095a` | Printed pages 17-18 and Figure 2-11 | The imm4-43 uses a 4289 to simulate 4001-style program memory with four 1702A monitor PROMs. |
+| `intellec4-mod40-reference-manual-98-095a` | Printed pages 17-18 and Figure 2-11 | The functional description uses a 4289 to simulate 4001-style program memory and explicitly names four 4702A PROMs. This conflicts with the board-local 98-013A CPU schematic, which labels A1-A4 as 1702A. |
 | `intellec4-mod40-reference-manual-98-095a` | Printed pages 20-23 and Figures 2-13 through 2-25 | The central processor module contains TTY receiver, transmitter, and reader-control circuits. |
+| `intellec4-mod40-reference-manual-98-095a-chipdb` | PDF pages 144, 150, and 152, printed pages 128, 134, and 136 | The terminal uses 11 symbols per character at 9.09 ms per symbol. ROM 0 bit 0 reads a start bit as one, RAM 0 bit 0 drives marking current when high, and RAM 1 bit 0 enables the reader when high. |
 | `mcs40-users-manual-nov74` | Printed pages 5-1 through 5-2 and Figure 5-1 | The MOD 40 control module selects monitor, RAM, or PROM program storage. |
 | `mcs40-advance-specifications-sep74` | PDF page 1 and device sections | I4201, I4289, and I4308 are generic MCS-40 components with separate clock, standard-memory-interface, and mask-ROM roles. |
 | `intel-1975-data-catalog` | Printed pages 2-33 through 2-35 | I2102 is a 1024 by 1 static RAM with chip enable, active-low write pulse, tri-state output, and a write waveform that retains data as `R/W` rises. |
@@ -65,6 +66,39 @@ enters active-low enable 2G of 74155 A18. A18 also receives the labeled `C0`,
 monitor path as decoded logic, not a direct ROM attachment. It does not yet
 prove the socket select order, selected-ROM polarity, or ROM byte inversion.
 
+## Monitor device population conflict
+
+The two retained Intel primary sources disagree about the monitor-device type.
+The board-local 98-013A PDF 3 schematic labels the four fitted locations A1,
+A2, A3, and A4 as `1702A`; the high-resolution sheet also shows their shared
+A0 through A7 address wiring and individual `CSO` pins. The 98-095A functional
+manual instead explicitly calls its four simulated program-memory devices
+`4702A` on printed pages 17 and 18.
+
+The repository models the physical-board profile from the board-local
+schematic and therefore uses four 1702A slots. The available sources do not
+identify whether the manual describes another board revision, configuration,
+or documentation error. The manual remains valid evidence for the behavioral
+4289, clock, and terminal descriptions that do not depend on device identity;
+it does not establish the fitted monitor population for the retained CPU-card
+schematic. A physical-board photograph with readable part markings and a
+revision-linked bill of materials are required to close this source conflict.
+
+## STOP acknowledge endpoint-polarity conflict
+
+The manual contains a separate polarity conflict that blocks panel behavior.
+Its CPU description on printed page 15 states that the 4040 clamps the CPU
+`STOP ACKNOWLEDGE` status line low while halted. Its external-interface
+description on printed page 129 states that the `STOP ACKNOWLEDGE` status line
+is high while the processor is halted, while also describing remote `STOP` as
+a temporary clamp low.
+
+These statements can describe different endpoints separated by board logic,
+or they can reflect a revision or documentation inconsistency. The available
+sources do not yet trace the CPU output through the control card, panel, and
+rear connector. The model records the physical S26 conditioning boundary only;
+it does not assign STOP or STOP ACK polarity, restart behavior, or priority.
+
 ## Reviewed program-RAM cycle boundary
 
 The 98-095A manual, printed page 24, identifies the imm6-28 as four 1K by 8
@@ -100,9 +134,16 @@ a 20 mA terminal conversion, and external current-limit components. Drawing
 nets at the external connector boundary. Drawing 2000318 traces `TTY IN`
 through Q5 and its TTL buffer to the ROM 0 bit 0 input path at A25. It also
 traces the RAM 0 output-bit-0 path through Q4 to `TTY PRINTER` and the RAM 1
-output-bit-0 path through Q3 to the reader-control relay. An electrical
-simulation remains blocked on complete polarity, terminal-side, and
-component-value extraction.
+output-bit-0 path through Q3 to the reader-control relay.
+
+The alternate 98-095A scan resolves the CPU-port convention without replacing
+the board drawings. It defines a marking teleprinter line as current present
+and a spacing line as current absent. Its input procedure reads ROM 0 bit 0 as
+one during the current-absent start bit. It defines any odd RAM 0 value as a
+mark and any even value as a space, and any odd RAM 1 value as reader enable.
+This reconciles the Q5, Q4, and Q3 logical senses at the CPU-port boundary.
+Transistor switching thresholds, reader-relay mechanics, and panel arbitration
+remain open and continue to block a historical electrical simulation.
 
 ## Adjacent public cross-check material
 
@@ -118,7 +159,7 @@ are not PDF page numbers; extraction waits for actual-page identification.
 
 ## Monitor recovery boundary
 
-The standard monitor occupies four 256-byte 1702A PROMs. The local-only
+The board-local CPU schematic shows four 256-byte 1702A PROM slots. The local-only
 `mon4-v21-listing-rehost` scan and `mod40-cpu-board-photo-kyle` photograph
 provide a candidate V2.1 listing and visible MON 4 labels. Their provenance is
 secondary and the recovery page records inversion, transcription, patch, and

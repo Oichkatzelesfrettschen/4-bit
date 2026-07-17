@@ -285,7 +285,7 @@ mod tests {
         assert!(!board.source_gate().program_ram_card_edges_traced);
         assert!(board.source_gate().monitor_address_fanout_traced);
         assert!(board.source_gate().terminal_cable_routes_traced);
-        assert!(!board.source_gate().terminal_current_loop_polarity_traced);
+        assert!(board.source_gate().terminal_current_loop_polarity_traced);
         assert!(board.source_gate().cpu_clock_source_traced);
         assert!(board.source_gate().monitor_select_decode_inputs_traced);
         assert!(!board.source_gate().monitor_data_polarity_traced);

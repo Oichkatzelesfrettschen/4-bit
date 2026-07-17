@@ -49,6 +49,33 @@ pub struct TerminalCableRoute {
     pub source_locator: &'static str,
 }
 
+/// Source-reconciled logical sense for one CPU port at the ASR-33 boundary.
+///
+/// The 98-013A sheets establish the physical conductor and CPU-side circuit.
+/// The 98-095A terminal procedure establishes the port-bit meaning. Together
+/// they establish the port boundary without claiming transistor switching
+/// thresholds or reader-relay mechanical timing.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct TerminalPortPolarity {
+    /// Typed CPU-card endpoint covered by this logical convention.
+    pub endpoint: Mod40TerminalEndpoint,
+    /// Source-reconciled assertion convention at the port boundary.
+    pub polarity: Mod40TerminalPolarity,
+    /// Primary-source locators required for this reconciliation.
+    pub source_locator: &'static str,
+}
+
+/// One source-reconciled logical convention at the terminal port boundary.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum Mod40TerminalPolarity {
+    /// Keyboard loop current absent appears high at ROM 0 input bit 0.
+    Rom0InputHighWhenKeyboardLoopCurrentAbsent,
+    /// A high RAM 0 bit 0 drives marking current in the printer loop.
+    Ram0Bit0HighDrivesPrinterMarkingCurrent,
+    /// A high RAM 1 bit 0 enables the paper-reader drive.
+    Ram1Bit0HighEnablesReader,
+}
+
 /// One shared monitor-address output from the 4289 to all four resident PROMs.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct MonitorAddressFanout {
@@ -68,6 +95,23 @@ pub struct CpuClockResetRoute {
     /// Receiver or intervening functional stage established by the sheet.
     pub target: &'static str,
     /// Reviewed evidence status for the complete electrical path.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for this record.
+    pub source_locator: &'static str,
+}
+
+/// One direct but non-executable front-panel control observation.
+///
+/// A panel observation records a physically visible input-conditioning or
+/// mode-switch boundary. It does not imply a control-card priority equation,
+/// asserted logical level, or cycle transition.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct PanelControlObservation {
+    /// Printed panel-side source or control.
+    pub source: &'static str,
+    /// Directly visible conditioned target or switch boundary.
+    pub target: &'static str,
+    /// Reviewed evidence status for the observation.
     pub evidence: Mod40RouteEvidence,
     /// Primary-source locator for this record.
     pub source_locator: &'static str,
@@ -104,7 +148,7 @@ pub struct MonitorSelectDecodeOutput {
 pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
     CpuClockResetRoute {
         source: "Y1 5.185 MHz crystal oscillator",
-        target: "A16 74161/9316 clock-divider CP input through 7404 stages",
+        target: "A16 gate to A7 74161/9316 counter CP input",
         evidence: Mod40RouteEvidence::Direct,
         source_locator: "98-013A PDF 3, drawing 2000318",
     },
@@ -113,6 +157,26 @@ pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
         target: "imm4-43 reset-conditioning network",
         evidence: Mod40RouteEvidence::Partial,
         source_locator: "98-013A PDF 3, drawing 2000318; reset assertion and 4040 timing remain open",
+    },
+];
+
+/// Directly reviewed front-panel control boundaries from drawing 2000329.
+///
+/// These records intentionally stop before the untraced controller equation.
+/// `Mod40Board::source_gate()` therefore continues to report panel arbitration
+/// as incomplete.
+pub const PANEL_CONTROL_OBSERVATIONS: [PanelControlObservation; 2] = [
+    PanelControlObservation {
+        source: "S26 STOP pushbutton",
+        target: "parallel A36 7404 input-conditioning pair with switch contacts to ground",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 13, drawing 2000329",
+    },
+    PanelControlObservation {
+        source: "J2 4002 RESET ENABLE",
+        target: "S31 SYSTEM/CPU mode-switch boundary",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 13, drawing 2000329",
     },
 ];
 
@@ -366,6 +430,50 @@ pub const TERMINAL_CABLE_ROUTES: [TerminalCableRoute; 3] = [
     },
 ];
 
+/// Primary-reconciled terminal conventions for the three CPU-card endpoints.
+pub const TERMINAL_PORT_POLARITIES: [TerminalPortPolarity; 3] = [
+    TerminalPortPolarity {
+        endpoint: Mod40TerminalEndpoint::KeyboardReceiveRom0Bit0,
+        polarity: Mod40TerminalPolarity::Rom0InputHighWhenKeyboardLoopCurrentAbsent,
+        source_locator: "98-013A PDFs 3 and 29, drawings 2000318 and 2000325; 98-095A PDF 152, printed page 136",
+    },
+    TerminalPortPolarity {
+        endpoint: Mod40TerminalEndpoint::PrinterTransmitRam0Bit0,
+        polarity: Mod40TerminalPolarity::Ram0Bit0HighDrivesPrinterMarkingCurrent,
+        source_locator: "98-013A PDFs 3 and 29, drawings 2000318 and 2000325; 98-095A PDF 152, printed page 136",
+    },
+    TerminalPortPolarity {
+        endpoint: Mod40TerminalEndpoint::ReaderRunRam1Bit0,
+        polarity: Mod40TerminalPolarity::Ram1Bit0HighEnablesReader,
+        source_locator: "98-013A PDFs 3 and 29, drawings 2000318 and 2000325; 98-095A PDF 152, printed page 136",
+    },
+];
+
+/// Convert the keyboard loop current state into ROM 0 input bit 0.
+///
+/// The terminal start bit spaces the loop by removing current. The documented
+/// monitor input procedure observes that state as a high ROM 0 input bit.
+pub const fn keyboard_loop_current_to_rom0_input_bit0(loop_current_present: bool) -> bool {
+    !loop_current_present
+}
+
+/// Return whether a RAM 0 port value drives marking current to the printer.
+///
+/// The primary terminal procedure defines every odd RAM 0 value as a mark and
+/// every even value as a space. Bit 0 therefore controls loop current.
+pub const fn ram0_port_value_drives_printer_marking_current(port_value: u8) -> bool {
+    port_value & 1 != 0
+}
+
+/// Return whether a RAM 1 port value enables the ASR-33 paper reader.
+///
+/// The primary terminal procedure defines every odd RAM 1 value as reader
+/// enable and every even value as reader disable. Bit 0 controls the relay
+/// command but does not model its mechanical response time.
+pub const fn ram1_port_value_enables_reader(port_value: u8) -> bool {
+    port_value & 1 != 0
+}
+
 /// Shared 4289 monitor-address lines from drawing 2000318.
 pub const MONITOR_ADDRESS_FANOUT: [MonitorAddressFanout; 8] = [
     MonitorAddressFanout {
@@ -447,10 +555,11 @@ pub const fn terminal_cable_routes_are_traced() -> bool {
 
 /// Return whether the terminal current-loop assertion polarity is source-traced.
 ///
-/// The cable conductors and supply returns are documented, but the CPU driver,
-/// receiver, and reader-relay logical assertion polarities remain incomplete.
+/// The physical conductors come from 98-013A. The 98-095A terminal procedure
+/// defines the ROM 0, RAM 0, and RAM 1 logical conventions. Relay mechanics
+/// and transistor switching waveforms remain separate open evidence.
 pub const fn terminal_current_loop_polarity_is_traced() -> bool {
-    false
+    TERMINAL_PORT_POLARITIES.len() == 3
 }
 
 /// Return whether all eight shared monitor address outputs are source-recorded.
@@ -461,11 +570,13 @@ pub const fn monitor_address_fanout_is_traced() -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
-        monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
-        program_ram_card_edge_is_complete, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
-        Mod40RouteEvidence, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
-        MONITOR_SELECT_DECODE_OUTPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+        cpu_clock_source_is_traced, keyboard_loop_current_to_rom0_input_bit0, monitor_address_fanout_is_traced,
+        monitor_data_polarity_is_traced, monitor_select_decode_inputs_are_traced,
+        monitor_select_decode_outputs_are_recorded, program_ram_card_edge_is_complete,
+        ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader,
+        terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced, Mod40RouteEvidence,
+        CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS,
+        PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -492,7 +603,7 @@ mod tests {
     #[test]
     fn terminal_routes_keep_the_three_logical_endpoints_distinct() {
         assert!(terminal_cable_routes_are_traced());
-        assert!(!terminal_current_loop_polarity_is_traced());
+        assert!(terminal_current_loop_polarity_is_traced());
         assert_eq!(TERMINAL_CABLE_ROUTES[0].cpu_contact, 26);
         assert_eq!(TERMINAL_CABLE_ROUTES[1].cpu_contact, 1);
         assert_eq!(TERMINAL_CABLE_ROUTES[2].cpu_contact, 89);
@@ -500,6 +611,17 @@ mod tests {
             TERMINAL_CABLE_ROUTES[1].endpoint,
             Mod40TerminalEndpoint::KeyboardReceiveRom0Bit0
         );
+        assert_eq!(TERMINAL_PORT_POLARITIES.len(), 3);
+        assert!(keyboard_loop_current_to_rom0_input_bit0(false));
+        assert!(!keyboard_loop_current_to_rom0_input_bit0(true));
+        assert!(!ram0_port_value_drives_printer_marking_current(0));
+        assert!(ram0_port_value_drives_printer_marking_current(1));
+        assert!(!ram0_port_value_drives_printer_marking_current(2));
+        assert!(ram0_port_value_drives_printer_marking_current(15));
+        assert!(!ram1_port_value_enables_reader(0));
+        assert!(ram1_port_value_enables_reader(1));
+        assert!(!ram1_port_value_enables_reader(2));
+        assert!(ram1_port_value_enables_reader(15));
     }
 
     #[test]
@@ -522,6 +644,19 @@ mod tests {
             Some("A18 2G pin 14, active low")
         );
         assert!(!monitor_data_polarity_is_traced());
+    }
+
+    #[test]
+    fn panel_observations_preserve_direct_boundaries_without_authorizing_arbitration() {
+        assert_eq!(PANEL_CONTROL_OBSERVATIONS.len(), 2);
+        assert_eq!(PANEL_CONTROL_OBSERVATIONS[0].source, "S26 STOP pushbutton");
+        assert_eq!(
+            PANEL_CONTROL_OBSERVATIONS[1].target,
+            "S31 SYSTEM/CPU mode-switch boundary"
+        );
+        assert!(PANEL_CONTROL_OBSERVATIONS
+            .iter()
+            .all(|observation| observation.evidence == Mod40RouteEvidence::Direct));
     }
 
     #[test]
