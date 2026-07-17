@@ -48,6 +48,28 @@ pub struct Imm628WriteReadInput {
     pub source_locator: &'static str,
 }
 
+/// Controller conditions that produce a write command before A29 inversion.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ControlWriteCommandCause {
+    /// Console memory access enable is sufficient.
+    CmaEnable,
+    /// Program-memory write requires PM, OUT, and write-enable together.
+    ProgramMemoryOutAndWriteEnable,
+}
+
+/// A14-to-A29 command polarity at the program-memory boundary.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ControlWriteCommandRoute {
+    /// A14 output is high when either listed cause applies.
+    pub controller_command_high: bool,
+    /// A29 inversion presents an active-low module input.
+    pub module_input_active_low: bool,
+    /// Local buffer and 2102 timing remain untraced.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator.
+    pub source_locator: &'static str,
+}
+
 /// Source-reviewed imm6-28 write/read card-input polarity.
 ///
 /// The 98-095A functional manual defines the card input as TTL low for data
@@ -59,6 +81,20 @@ pub const IMM628_WRITE_READ_INPUT: Imm628WriteReadInput = Imm628WriteReadInput {
     read_level_high: true,
     evidence: Mod40RouteEvidence::Direct,
     source_locator: "98-095A printed page 40; 98-013A PDFs 7 and 10 identify the card-edge route",
+};
+
+/// Source-bound controller write-command logic and module-input polarity.
+pub const CONTROL_WRITE_COMMAND_CAUSES: [ControlWriteCommandCause; 2] = [
+    ControlWriteCommandCause::CmaEnable,
+    ControlWriteCommandCause::ProgramMemoryOutAndWriteEnable,
+];
+
+/// A14 high is inverted by A29 before the active-low module input.
+pub const CONTROL_WRITE_COMMAND_ROUTE: ControlWriteCommandRoute = ControlWriteCommandRoute {
+    controller_command_high: true,
+    module_input_active_low: true,
+    evidence: Mod40RouteEvidence::Partial,
+    source_locator: "98-095A printed page 52; 98-013A PDF 7 and PDF 10",
 };
 
 /// Return whether an imm6-28 card-input logic level requests a write.
@@ -735,8 +771,9 @@ mod tests {
         monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
         program_ram_card_edge_is_complete, ram0_port_value_drives_printer_marking_current,
         ram1_port_value_enables_reader, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
-        Mod40RouteEvidence, CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_STOP_ACKNOWLEDGE_ENDPOINT,
-        IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS,
+        ControlWriteCommandCause, Mod40RouteEvidence, CONTROL_WRITE_COMMAND_CAUSES, CONTROL_WRITE_COMMAND_ROUTE,
+        CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_STOP_ACKNOWLEDGE_ENDPOINT, IMM628_WRITE_READ_INPUT,
+        MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS,
         PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES,
         TERMINAL_PORT_POLARITIES,
     };
@@ -808,6 +845,16 @@ mod tests {
         assert_eq!(write_route.target_signal, "WRITE/READ");
         assert_eq!(write_route.target_contact, 95);
         assert_eq!(write_route.evidence, Mod40RouteEvidence::Partial);
+    }
+
+    #[test]
+    fn controller_write_command_inverts_before_the_module_input() {
+        let route = std::hint::black_box(CONTROL_WRITE_COMMAND_ROUTE);
+        assert_eq!(CONTROL_WRITE_COMMAND_CAUSES.len(), 2);
+        assert_eq!(CONTROL_WRITE_COMMAND_CAUSES[0], ControlWriteCommandCause::CmaEnable);
+        assert!(route.controller_command_high);
+        assert!(route.module_input_active_low);
+        assert_eq!(route.evidence, Mod40RouteEvidence::Partial);
     }
 
     #[test]
