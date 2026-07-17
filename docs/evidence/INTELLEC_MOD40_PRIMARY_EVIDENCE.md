@@ -101,6 +101,20 @@ and harness network. The model records the CPU endpoint without assigning the
 same level to a card edge, panel signal, or rear connector. Panel priority,
 restart behavior, and transition timing remain open.
 
+## Clock-divider timing target
+
+The central-processor sheet places the same component topology as 98-095A
+Figure 3-14: a 5.185 MHz crystal oscillator, a 74161/9316 counter with its
+parallel data inputs tied low, 74H00 and 7404 gates, and an MH0026 phase
+driver. The functional manual specifies a divide-by-seven network that creates
+non-overlapping negative phase pulses of nominal 386 ns at approximately
+740.7 kHz.
+
+This source-bound target records a functional frequency and phase convention.
+It does not establish the complete A7 feedback equation, propagation delay,
+reset-release edge, or phi1/phi2 pulse at an A11 4040 pin. The historical
+phase gate remains closed.
+
 ## Reviewed program-RAM cycle boundary
 
 The 98-095A manual, printed page 24, identifies the imm6-28 as four 1K by 8

@@ -134,6 +134,27 @@ pub struct CpuClockResetRoute {
     pub source_locator: &'static str,
 }
 
+/// Functional timing target for the imm4-43 clock-generator topology.
+///
+/// This target combines the 98-095A functional description with the matching
+/// 98-013A oscillator, counter, gate, and MH0026 population. It is not a
+/// measured phi1 or phi2 waveform at a 4040 package pin.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct CpuClockTimingTarget {
+    /// Nominal crystal frequency before the counter division.
+    pub crystal_frequency_hz: u32,
+    /// Documented division factor of the counter network.
+    pub divider: u8,
+    /// Nominal low-going phase-pulse width from the functional description.
+    pub phase_pulse_width_ns: u16,
+    /// The generated phases do not overlap at the functional timing boundary.
+    pub phases_non_overlapping: bool,
+    /// Reviewed evidence status for this functional timing target.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for this target.
+    pub source_locator: &'static str,
+}
+
 /// One direct but non-executable front-panel control observation.
 ///
 /// A panel observation records a physically visible input-conditioning or
@@ -238,6 +259,26 @@ pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 4] = [
         source_locator: "98-013A PDF 3, drawing 2000318",
     },
 ];
+
+/// Functional timing target for the board-matching clock-generator topology.
+///
+/// Figure 3-14 of the MCS-40 manual shows the same oscillator, 9316-class
+/// counter, 74H00/7404, and MH0026 topology that drawing 2000318 places at
+/// Y1, A7, A16, and A32. The complete board Boolean equation and delay budget
+/// remain open, so this record does not close the historical phase gate.
+pub const CPU_CLOCK_TIMING_TARGET: CpuClockTimingTarget = CpuClockTimingTarget {
+    crystal_frequency_hz: 5_185_000,
+    divider: 7,
+    phase_pulse_width_ns: 386,
+    phases_non_overlapping: true,
+    evidence: Mod40RouteEvidence::Partial,
+    source_locator: "98-095A printed pages 15-16 and Figure 3-14 on printed page 3-7; 98-013A PDF 3, drawing 2000318",
+};
+
+/// Return the integer nominal clock frequency after the documented division.
+pub const fn cpu_nominal_machine_clock_hz() -> u32 {
+    CPU_CLOCK_TIMING_TARGET.crystal_frequency_hz / CPU_CLOCK_TIMING_TARGET.divider as u32
+}
 
 /// Directly reviewed front-panel control boundaries from drawing 2000329.
 ///
@@ -689,14 +730,15 @@ pub const fn monitor_address_fanout_is_traced() -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        cpu_clock_source_is_traced, imm628_write_read_level_requests_write, keyboard_loop_current_to_rom0_input_bit0,
-        monitor_address_fanout_is_traced, monitor_data_polarity_is_traced, monitor_select_decode_inputs_are_traced,
-        monitor_select_decode_outputs_are_recorded, program_ram_card_edge_is_complete,
-        ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader,
-        terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced, Mod40RouteEvidence,
-        CPU_CLOCK_RESET_ROUTES, CPU_STOP_ACKNOWLEDGE_ENDPOINT, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT,
-        MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS,
-        PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
+        cpu_clock_source_is_traced, cpu_nominal_machine_clock_hz, imm628_write_read_level_requests_write,
+        keyboard_loop_current_to_rom0_input_bit0, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
+        monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
+        program_ram_card_edge_is_complete, ram0_port_value_drives_printer_marking_current,
+        ram1_port_value_enables_reader, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
+        Mod40RouteEvidence, CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_STOP_ACKNOWLEDGE_ENDPOINT,
+        IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS,
+        PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES,
+        TERMINAL_PORT_POLARITIES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -742,6 +784,17 @@ mod tests {
         assert!(endpoint.acknowledge_high_when_stopped);
         assert!(endpoint.source_locator.contains("printed page 37"));
         assert_eq!(STOP_ACKNOWLEDGE_OBSERVATIONS[0].evidence, Mod40RouteEvidence::Partial);
+    }
+
+    #[test]
+    fn clock_target_records_the_divide_by_seven_boundary_without_closing_the_phase_gate() {
+        let target = std::hint::black_box(CPU_CLOCK_TIMING_TARGET);
+        assert_eq!(target.crystal_frequency_hz, 5_185_000);
+        assert_eq!(target.divider, 7);
+        assert_eq!(cpu_nominal_machine_clock_hz(), 740_714);
+        assert_eq!(target.phase_pulse_width_ns, 386);
+        assert!(target.phases_non_overlapping);
+        assert_eq!(target.evidence, Mod40RouteEvidence::Partial);
     }
 
     #[test]
