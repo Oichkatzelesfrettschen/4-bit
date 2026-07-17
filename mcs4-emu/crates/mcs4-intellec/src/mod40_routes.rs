@@ -32,6 +32,40 @@ pub struct ProgramRamCardEdgeRoute {
     pub source_locator: &'static str,
 }
 
+/// Electrical meaning of the imm6-28 write/read card input.
+///
+/// This describes the card-edge command level only. It does not describe the
+/// later 3404, TTL, or 2102 control-pin waveform.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct Imm628WriteReadInput {
+    /// Logic level at the card input that requests a write cycle.
+    pub write_level_high: bool,
+    /// Logic level at the card input that requests a read cycle.
+    pub read_level_high: bool,
+    /// Reviewed evidence status for the card-input convention.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for this convention.
+    pub source_locator: &'static str,
+}
+
+/// Source-reviewed imm6-28 write/read card-input polarity.
+///
+/// The 98-095A functional manual defines the card input as TTL low for data
+/// write-in and high for readout. The record intentionally stops at the card
+/// input; it does not claim the pulse width, latch enable, or final 2102 R/W
+/// waveform.
+pub const IMM628_WRITE_READ_INPUT: Imm628WriteReadInput = Imm628WriteReadInput {
+    write_level_high: false,
+    read_level_high: true,
+    evidence: Mod40RouteEvidence::Direct,
+    source_locator: "98-095A printed page 40; 98-013A PDFs 7 and 10 identify the card-edge route",
+};
+
+/// Return whether an imm6-28 card-input logic level requests a write.
+pub const fn imm628_write_read_level_requests_write(level_high: bool) -> bool {
+    !level_high
+}
+
 /// One CPU-card to terminal-cable conductor.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct TerminalCableRoute {
@@ -407,10 +441,10 @@ pub const PROGRAM_RAM_CARD_EDGE_ROUTES: [ProgramRamCardEdgeRoute; 16] = [
     ProgramRamCardEdgeRoute {
         source_signal: "WRITE",
         source_contact: Some(95),
-        target_signal: "WRITE",
+        target_signal: "WRITE/READ",
         target_contact: 95,
         evidence: Mod40RouteEvidence::Partial,
-        source_locator: "98-013A PDFs 5, 7, and 10; 3404 and 2102 write timing remains open",
+        source_locator: "98-013A PDFs 5, 7, and 10; 98-095A printed page 40 defines low=write and high=read; 3404 and 2102 timing remains open",
     },
 ];
 
@@ -583,13 +617,14 @@ pub const fn monitor_address_fanout_is_traced() -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        cpu_clock_source_is_traced, keyboard_loop_current_to_rom0_input_bit0, monitor_address_fanout_is_traced,
-        monitor_data_polarity_is_traced, monitor_select_decode_inputs_are_traced,
+        cpu_clock_source_is_traced, imm628_write_read_level_requests_write, keyboard_loop_current_to_rom0_input_bit0,
+        monitor_address_fanout_is_traced, monitor_data_polarity_is_traced, monitor_select_decode_inputs_are_traced,
         monitor_select_decode_outputs_are_recorded, program_ram_card_edge_is_complete,
         ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader,
         terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced, Mod40RouteEvidence,
-        CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS,
-        PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
+        CPU_CLOCK_RESET_ROUTES, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
+        MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+        TERMINAL_PORT_POLARITIES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -611,6 +646,19 @@ mod tests {
         assert!(PROGRAM_RAM_CARD_EDGE_ROUTES
             .iter()
             .any(|route| route.evidence == Mod40RouteEvidence::Partial));
+    }
+
+    #[test]
+    fn imm628_write_read_card_input_uses_low_for_write_and_high_for_read() {
+        assert_eq!(IMM628_WRITE_READ_INPUT.evidence, Mod40RouteEvidence::Direct);
+        assert!(imm628_write_read_level_requests_write(false));
+        assert!(!imm628_write_read_level_requests_write(true));
+
+        let write_route = &PROGRAM_RAM_CARD_EDGE_ROUTES[15];
+        assert_eq!(write_route.source_signal, "WRITE");
+        assert_eq!(write_route.target_signal, "WRITE/READ");
+        assert_eq!(write_route.target_contact, 95);
+        assert_eq!(write_route.evidence, Mod40RouteEvidence::Partial);
     }
 
     #[test]

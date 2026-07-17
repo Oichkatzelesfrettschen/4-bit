@@ -110,6 +110,17 @@ the interface with the imm4-72. This establishes the external cycle roles; it
 does not replace the required schematic trace for every card-edge conductor,
 polarity conversion, latch phase, or 2102 select/write input.
 
+Printed pages 40, 47, and 52 add a bounded electrical and transaction result.
+The imm6-28 `WRITE/READ` input writes on TTL low and reads on TTL high. During
+WPM, `PM` coincides with X2; the 4289 F/L state selects `BYTE2` or `BYTE1`; and
+the control module presents address, write data, byte selection, momentary
+`MOD ENABLE`, and the write command together. The controller description also
+states that its write-command generator inverts its internal high result before
+routing the command to the RAM module. This proves card-input polarity and the
+semantic transaction coincidence. It does not prove the exact connector-level
+waveform after the PDF 5 and PDF 10 route stages, the 3404 latch enables, or
+the final 2102 R/W pulse width and setup/hold intervals.
+
 ## Generic MCS-40 component boundary
 
 I4201, I4289, I4308, and I4101 belong to the generic MCS-40 component set.
