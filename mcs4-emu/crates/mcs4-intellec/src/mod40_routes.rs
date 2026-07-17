@@ -145,7 +145,7 @@ pub struct MonitorSelectDecodeOutput {
 }
 
 /// Reviewed clock and reset facts from the imm4-43 schematic.
-pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
+pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 4] = [
     CpuClockResetRoute {
         source: "Y1 5.185 MHz crystal oscillator",
         target: "A16 gate to A7 74161/9316 counter CP input",
@@ -154,9 +154,21 @@ pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
     },
     CpuClockResetRoute {
         source: "CPU RESET card-edge net",
-        target: "imm4-43 reset-conditioning network",
+        target: "A11 4040 RESET pin 12",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    CpuClockResetRoute {
+        source: "A7 74161/9316 divider outputs",
+        target: "74H00 and 7404 phase-conditioning network feeding A32 MH0026 inputs",
         evidence: Mod40RouteEvidence::Partial,
-        source_locator: "98-013A PDF 3, drawing 2000318; reset assertion and 4040 timing remain open",
+        source_locator: "98-013A PDF 3, drawing 2000318; counter-state equation remains open",
+    },
+    CpuClockResetRoute {
+        source: "A32 MH0026 outputs through R33 and R32",
+        target: "A11 4040 phi1 and phi2 input paths",
+        evidence: Mod40RouteEvidence::Direct,
+        source_locator: "98-013A PDF 3, drawing 2000318",
     },
 ];
 
@@ -535,8 +547,9 @@ pub const fn monitor_select_decode_outputs_are_recorded() -> bool {
 
 /// Return whether the sheet establishes the complete monitor data polarity.
 ///
-/// The reviewed trace ends at the 1702A data outputs and intervening 74158 and
-/// 8095 stages. It does not authorize a byte transform or socket order.
+/// The reviewed trace reaches the 1702A data region containing 74158 and 8095
+/// stages. It does not establish a serial per-bit path, byte transform, or
+/// socket order.
 pub const fn monitor_data_polarity_is_traced() -> bool {
     false
 }
@@ -637,6 +650,8 @@ mod tests {
     fn cpu_clock_source_and_monitor_decode_inputs_remain_evidence_records() {
         assert!(cpu_clock_source_is_traced());
         assert_eq!(CPU_CLOCK_RESET_ROUTES[0].source, "Y1 5.185 MHz crystal oscillator");
+        assert_eq!(CPU_CLOCK_RESET_ROUTES[1].target, "A11 4040 RESET pin 12");
+        assert_eq!(CPU_CLOCK_RESET_ROUTES[3].target, "A11 4040 phi1 and phi2 input paths");
         assert!(monitor_select_decode_inputs_are_traced());
         assert_eq!(MONITOR_SELECT_DECODE_INPUTS[2].signal, "ENABLE MON PROM");
         assert_eq!(
