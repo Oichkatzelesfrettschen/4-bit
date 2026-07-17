@@ -84,6 +84,22 @@ pub struct MonitorSelectDecodeInput {
     pub source_locator: &'static str,
 }
 
+/// One A18 monitor-select decoder output visible on the CPU schematic.
+///
+/// A decoder-pin record does not establish the destination, selected-ROM
+/// polarity, or socket order. Those facts remain separate source gates.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct MonitorSelectDecodeOutput {
+    /// 74155 output label printed at A18.
+    pub output: &'static str,
+    /// A18 physical pin carrying this output.
+    pub decoder_pin: u8,
+    /// Reviewed evidence status for the complete output route.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for this record.
+    pub source_locator: &'static str,
+}
+
 /// Reviewed clock and reset facts from the imm4-43 schematic.
 pub const CPU_CLOCK_RESET_ROUTES: [CpuClockResetRoute; 2] = [
     CpuClockResetRoute {
@@ -130,6 +146,62 @@ pub const MONITOR_SELECT_DECODE_INPUTS: [MonitorSelectDecodeInput; 6] = [
     MonitorSelectDecodeInput {
         signal: "C3",
         decoder_pin: None,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+];
+
+/// A18 output pins visible in the monitor-select region of the imm4-43 sheet.
+///
+/// The primary sheet exposes these eight decoder output pins, then continues
+/// through an untraced selection network toward A1 through A4. Every record is
+/// deliberately partial until that output-to-chip-select path is complete.
+pub const MONITOR_SELECT_DECODE_OUTPUTS: [MonitorSelectDecodeOutput; 8] = [
+    MonitorSelectDecodeOutput {
+        output: "1Y0",
+        decoder_pin: 7,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "1Y1",
+        decoder_pin: 6,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "1Y2",
+        decoder_pin: 5,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "1Y3",
+        decoder_pin: 4,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "2Y0",
+        decoder_pin: 9,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "2Y1",
+        decoder_pin: 10,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "2Y2",
+        decoder_pin: 11,
+        evidence: Mod40RouteEvidence::Partial,
+        source_locator: "98-013A PDF 3, drawing 2000318",
+    },
+    MonitorSelectDecodeOutput {
+        output: "2Y3",
+        decoder_pin: 12,
+        evidence: Mod40RouteEvidence::Partial,
         source_locator: "98-013A PDF 3, drawing 2000318",
     },
 ];
@@ -348,6 +420,11 @@ pub const fn monitor_select_decode_inputs_are_traced() -> bool {
     MONITOR_SELECT_DECODE_INPUTS.len() == 6
 }
 
+/// Return whether every A18 output pin is recorded without claiming its target.
+pub const fn monitor_select_decode_outputs_are_recorded() -> bool {
+    MONITOR_SELECT_DECODE_OUTPUTS.len() == 8
+}
+
 /// Return whether the sheet establishes the complete monitor data polarity.
 ///
 /// The reviewed trace ends at the 1702A data outputs and intervening 74158 and
@@ -385,9 +462,10 @@ pub const fn monitor_address_fanout_is_traced() -> bool {
 mod tests {
     use super::{
         cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
-        monitor_select_decode_inputs_are_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
-        terminal_current_loop_polarity_is_traced, Mod40RouteEvidence, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT,
-        MONITOR_SELECT_DECODE_INPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+        monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
+        program_ram_card_edge_is_complete, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
+        Mod40RouteEvidence, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
+        MONITOR_SELECT_DECODE_OUTPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
 
@@ -444,5 +522,17 @@ mod tests {
             Some("A18 2G pin 14, active low")
         );
         assert!(!monitor_data_polarity_is_traced());
+    }
+
+    #[test]
+    fn monitor_decoder_outputs_record_a18_pins_without_closing_the_socket_map() {
+        assert!(monitor_select_decode_outputs_are_recorded());
+        assert_eq!(MONITOR_SELECT_DECODE_OUTPUTS[0].output, "1Y0");
+        assert_eq!(MONITOR_SELECT_DECODE_OUTPUTS[0].decoder_pin, 7);
+        assert_eq!(MONITOR_SELECT_DECODE_OUTPUTS[4].output, "2Y0");
+        assert_eq!(MONITOR_SELECT_DECODE_OUTPUTS[7].decoder_pin, 12);
+        assert!(MONITOR_SELECT_DECODE_OUTPUTS
+            .iter()
+            .all(|output| output.evidence == Mod40RouteEvidence::Partial));
     }
 }

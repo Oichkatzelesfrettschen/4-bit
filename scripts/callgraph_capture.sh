@@ -164,6 +164,8 @@ printf '%s\n' \
 printf '%s\n' \
     'mcs4-emu/crates/mcs4-intellec/src/console.rs' \
     'mcs4-emu/crates/mcs4-intellec/src/machine.rs' \
+    'mcs4-emu/crates/mcs4-intellec/src/mod40.rs' \
+    'mcs4-emu/crates/mcs4-intellec/src/mod40_routes.rs' \
     'mcs4-emu/crates/mcs4-intellec/src/monitor_rom.rs' \
     'mcs4-emu/crates/mcs4-intellec/src/profile.rs' \
     'mcs4-emu/crates/mcs4-intellec/src/replay.rs' \
@@ -224,6 +226,15 @@ run_cflow intellec-machine step_phase "$OUTPUT_DIR/static/intellec-machine.files
     printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
 } > "$OUTPUT_DIR/cflow/intellec-machine.status.tmp"
 mv "$OUTPUT_DIR/cflow/intellec-machine.status.tmp" "$OUTPUT_DIR/cflow/intellec-machine.status"
+run_cflow intellec-mod40-source-gate monitor_select_decode_outputs_are_recorded \
+    "$OUTPUT_DIR/static/intellec-machine.files"
+{
+    cat "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status"
+    printf '%s\n' 'semantic=0'
+    printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
+} > "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status.tmp"
+mv "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status.tmp" \
+    "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status"
 run_cflow virtual-fpga-system main "$OUTPUT_DIR/static/virtual-fpga-system.files"
 {
     cat "$OUTPUT_DIR/cflow/virtual-fpga-system.status"
@@ -298,7 +309,8 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rus
             compare_trace_frames CommonStimulus runPhases IntellecMachine \
             IntellecReplaySession install_monitor_rom apply_event \
             validate_terminal_endpoints apply_terminal_input advance_terminal \
-            read_intellec_ram_port; do
+            read_intellec_ram_port Mod40Board Mod40SourceGate \
+            monitor_select_decode_outputs_are_recorded; do
             printf '%s\n' "== definitions: $symbol =="
             cscope -d -f "$OUTPUT_DIR/cscope/rust.out" -L -0 "$symbol" || true
             printf '%s\n' "== lexical callees: $symbol =="
@@ -503,7 +515,7 @@ fi
 if grep -Fqx 'exit=0' "$OUTPUT_DIR/mir/intellec-library.status"; then
     {
         sed -n '1p' "$OUTPUT_DIR/mir/intellec-library-calls.tsv"
-        awk 'NR > 1 && /IntellecMachine|IntellecReplaySession|IntellecPanel|Teletype33|MonitorRom|step_phase|apply_event|install_monitor_rom/ { print }' \
+        awk 'NR > 1 && /IntellecMachine|IntellecReplaySession|IntellecPanel|Teletype33|MonitorRom|Mod40Board|Mod40SourceGate|monitor_select_decode_outputs_are_recorded|step_phase|apply_event|install_monitor_rom/ { print }' \
             "$OUTPUT_DIR/mir/intellec-library-calls.tsv"
     } > "$OUTPUT_DIR/mir/intellec-machine-calls.tsv"
     printf 'exit=0\n' > "$OUTPUT_DIR/mir/intellec-machine-calls.status"

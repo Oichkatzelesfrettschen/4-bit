@@ -39,7 +39,7 @@ recognition failures.
 | --- | --- | --- | --- | --- |
 | 67-81 | 40-5, `Intellec 4/MOD 40-Silent 700 Interface` | The note describes a current-loop to RS-232C adapter, a Silent 700 Model 733ASR conversion, and terminal-specific Intellec modifications. | P2 | G4 comparison only. It does not describe the baseline MOD 40 terminal path. |
 | 71 | 40-5 hardware modification | The conversion grounds J43 pin 8, reverses J43 pins 3 and 4, and bypasses a 220-ohm motherboard resistor. | P2 | This proves a conversion can alter host wiring. It prohibits treating a converted terminal demonstration as baseline-polarity proof. |
-| 72-81 | 40-5 software conversion | The note directs loading a modified monitor into program RAM and programming four replacement monitor EPROMs. The scan reads `4702A`. | P2 | G1/G2 conflict record only. Standard MOD 40 population remains four 1702A devices under 98-013A and 98-095A. The scan cannot establish the replacement part, socket order, or byte transform. |
+| 72-81 | 40-5 software conversion | The note directs loading a modified monitor into program RAM and programming four replacement monitor EPROMs. The scan reads `4702A`. | P2 | This describes a modified 4702A-compatible development profile. Standard MOD 40 population remains four 1702A devices under 98-013A and 98-095A. The scan cannot establish the replacement part in a baseline machine, socket order, or byte transform. |
 | 83-87 | 40-6, `PDUP: PROM Dump Utility Program` | A 77-hex-word utility prints front-panel PROM address-content changes. The listing says it was assembled and tested on an Intellec 4 MOD 40. | P2 | G1 tool-behavior lead only. Change-only printout is not a 256-byte raw read, socket record, reader log, or accepted monitor set. |
 | 110-111 | 40-8, MCS-4 or 4/40 disassembler | The library contains a disassembler intended for code in ROM, PROM, RAM, or paper-tape input. | P3 | G5 software-analysis lead only. It does not authenticate monitor bytes. |
 | 207 | 40-11, `HEXBCD` | The form marks 4040 and names an Intellec 4/40 V3.0 assembler environment; the routine itself is hardware-neutral. | P3 | No route or media-gate effect. |
@@ -58,11 +58,13 @@ software bit. These facts are compatible with several electrical arrangements.
 They do not form a valid end-to-end polarity equation because the program,
 adapter, terminal, and baseline board configurations are not proven identical.
 
-The `4702A` string in item 40-5 conflicts with the primary standard-machine
-record of four 1702A monitor EPROMs. The repository preserves this as a
-source-specific discrepancy. It must be resolved by visual review of the
-submission, its date and intended modified configuration, and primary device
-documentation before it affects any component model.
+Item 40-5 specifies its own modified monitor conversion and names `4702A`.
+The Intel MCS-40 Users Manual identifies 4702A as a 4289-compatible,
+electrically reprogrammable 256 by 8 PROM for development use. The standard
+MOD 40 record remains four 1702A monitor PROMs under 98-013A and 98-095A.
+These sources describe different configurations, not a reason to replace the
+standard board population. The conversion note still cannot establish a
+baseline socket order, data transform, or monitor byte set.
 
 The `40-14` library identifier appears alongside a form marked for 4004, while
 other 40-prefixed forms explicitly mark 4040. Therefore a library reference

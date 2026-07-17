@@ -166,7 +166,9 @@ terminal, monitor-image, and electrical net records close.
 
 `mod40_routes.rs` carries only the directly reviewed topology into typed code:
 the ten low IN-28 address contacts, the C2/C3 high-address boundary, the three
-TTY cable conductors, and the shared eight-line monitor-address fanout. The
-remaining byte, module-select, write, decoder, polarity, and timing records
-remain partial. `Mod40SourceGate` exposes that distinction and continues to
-reject board-cycle execution.
+TTY cable conductors, the shared eight-line monitor-address fanout, and the
+eight visible A18 decoder output pins. The output records remain partial because
+the source has not yet traced them through downstream gates to C1702A select
+pins. The remaining byte, module-select, write, decoder, polarity, and timing
+records remain partial. `Mod40SourceGate` exposes that distinction and continues
+to reject board-cycle execution.

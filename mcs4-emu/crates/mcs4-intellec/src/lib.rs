@@ -35,10 +35,11 @@ pub use mod40::{
 };
 pub use mod40_routes::{
     cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
-    monitor_select_decode_inputs_are_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
-    terminal_current_loop_polarity_is_traced, CpuClockResetRoute, Mod40RouteEvidence, MonitorAddressFanout,
-    MonitorSelectDecodeInput, ProgramRamCardEdgeRoute, TerminalCableRoute, CPU_CLOCK_RESET_ROUTES,
-    MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
+    monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
+    program_ram_card_edge_is_complete, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
+    CpuClockResetRoute, Mod40RouteEvidence, MonitorAddressFanout, MonitorSelectDecodeInput, MonitorSelectDecodeOutput,
+    ProgramRamCardEdgeRoute, TerminalCableRoute, CPU_CLOCK_RESET_ROUTES, MONITOR_ADDRESS_FANOUT,
+    MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PROGRAM_RAM_CARD_EDGE_ROUTES, TERMINAL_CABLE_ROUTES,
 };
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
 pub use monitor_rom::{MonitorRom, MonitorRomError};
