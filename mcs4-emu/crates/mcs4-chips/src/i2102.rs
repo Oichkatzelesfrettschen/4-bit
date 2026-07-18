@@ -21,6 +21,77 @@ pub enum I2102Output {
     One,
 }
 
+/// Minimum timing requirements for an Intel 2102 write cycle.
+///
+/// These values describe the ungraded 2102 data-sheet limits. They constrain
+/// a board-level pulse generator but do not claim that a particular board
+/// satisfies them until that generator is traced or measured.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct I2102WriteTimingRequirements {
+    /// Minimum interval from one write-cycle start to the next.
+    pub cycle_min_ns: u16,
+    /// Minimum interval from stable address to write-pulse start.
+    pub address_setup_min_ns: u16,
+    /// Minimum active-low write-pulse duration.
+    pub write_pulse_min_ns: u16,
+    /// Minimum interval from stable input data to write-pulse end.
+    pub data_setup_min_ns: u16,
+    /// Minimum interval input data remains stable after write-pulse end.
+    pub data_hold_min_ns: u16,
+    /// Minimum interval from chip-enable assertion to write-pulse start.
+    pub chip_enable_setup_min_ns: u16,
+    /// Minimum interval after write-pulse end before the next write cycle.
+    pub write_recovery_min_ns: u16,
+}
+
+/// One observed or generated 2102 write-cycle timing record.
+///
+/// A caller constructs this from a traced waveform or a measured simulation.
+/// It never substitutes device requirements for missing board timing.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct I2102WriteTiming {
+    /// Observed interval from one write-cycle start to the next.
+    pub cycle_ns: u16,
+    /// Observed interval from stable address to write-pulse start.
+    pub address_setup_ns: u16,
+    /// Observed active-low write-pulse duration.
+    pub write_pulse_ns: u16,
+    /// Observed interval from stable input data to write-pulse end.
+    pub data_setup_ns: u16,
+    /// Observed interval input data remains stable after write-pulse end.
+    pub data_hold_ns: u16,
+    /// Observed interval from chip-enable assertion to write-pulse start.
+    pub chip_enable_setup_ns: u16,
+    /// Observed interval after write-pulse end before the next write cycle.
+    pub write_recovery_ns: u16,
+}
+
+impl I2102WriteTiming {
+    /// Return whether every observed interval meets the 2102 requirements.
+    pub const fn meets(&self, requirements: I2102WriteTimingRequirements) -> bool {
+        self.cycle_ns >= requirements.cycle_min_ns
+            && self.address_setup_ns >= requirements.address_setup_min_ns
+            && self.write_pulse_ns >= requirements.write_pulse_min_ns
+            && self.data_setup_ns >= requirements.data_setup_min_ns
+            && self.data_hold_ns >= requirements.data_hold_min_ns
+            && self.chip_enable_setup_ns >= requirements.chip_enable_setup_min_ns
+            && self.write_recovery_ns >= requirements.write_recovery_min_ns
+    }
+}
+
+/// Intel 2102 write-cycle requirements from the 1975 Intel Data Catalog.
+///
+/// Source: printed page 2-35, ungraded 2102 AC characteristics.
+pub const I2102_WRITE_TIMING_REQUIREMENTS: I2102WriteTimingRequirements = I2102WriteTimingRequirements {
+    cycle_min_ns: 1_000,
+    address_setup_min_ns: 200,
+    write_pulse_min_ns: 750,
+    data_setup_min_ns: 800,
+    data_hold_min_ns: 100,
+    chip_enable_setup_min_ns: 900,
+    write_recovery_min_ns: 50,
+};
+
 /// Intel 2102: 1024 words by one bit static RAM.
 #[derive(Clone, Debug)]
 pub struct I2102 {
@@ -202,7 +273,7 @@ impl super::Chip for I2102 {
 
 #[cfg(test)]
 mod tests {
-    use super::{I2102Output, I2102};
+    use super::{I2102Output, I2102WriteTiming, I2102, I2102_WRITE_TIMING_REQUIREMENTS};
     use crate::Chip;
 
     #[test]
@@ -274,5 +345,56 @@ mod tests {
         ram.write_direct(0x000, true);
 
         assert_eq!(ram.read_direct(0x400), I2102Output::One);
+    }
+
+    #[test]
+    fn published_write_timing_requires_each_waveform_interval() {
+        let timing = I2102WriteTiming {
+            cycle_ns: 1_000,
+            address_setup_ns: 200,
+            write_pulse_ns: 750,
+            data_setup_ns: 800,
+            data_hold_ns: 100,
+            chip_enable_setup_ns: 900,
+            write_recovery_ns: 50,
+        };
+
+        assert!(timing.meets(I2102_WRITE_TIMING_REQUIREMENTS));
+
+        assert!(!(I2102WriteTiming {
+            cycle_ns: 999,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
+        assert!(!(I2102WriteTiming {
+            address_setup_ns: 199,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
+        assert!(!(I2102WriteTiming {
+            write_pulse_ns: 749,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
+        assert!(!(I2102WriteTiming {
+            data_setup_ns: 799,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
+        assert!(!(I2102WriteTiming {
+            data_hold_ns: 99,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
+        assert!(!(I2102WriteTiming {
+            chip_enable_setup_ns: 899,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
+        assert!(!(I2102WriteTiming {
+            write_recovery_ns: 49,
+            ..timing
+        })
+        .meets(I2102_WRITE_TIMING_REQUIREMENTS));
     }
 }

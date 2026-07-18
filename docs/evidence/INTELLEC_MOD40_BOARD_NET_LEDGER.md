@@ -137,6 +137,15 @@ electrical model.
 | Module selection | The controller boundary supplies the program-memory selection family. | The motherboard exposes the program-RAM module-select conductor at contact 93. | P1 contact 93 is `MODULE SELECT` and visibly enters a 3404 channel before later local logic. | The endpoint and first local stage are direct. The source equation and asserted polarity are partial. |
 | Write/read | P1 contact 95 carries the controller `WRITE` command. | The conductor crosses unchanged to the RAM-module boundary. | P1 contact 95 is the imm6-28 `WRITE/READ` input and visibly enters a separate 3404 channel before later local logic. | The card input is low for write and high for read. The complete active-low 2102 R/W pulse and its setup/hold timing remain partial. |
 
+## Functional timing and panel-control contracts
+
+| Status | Source location | Record | Evidence and limit |
+| --- | --- | --- | --- |
+| direct | 98-095A printed page 37; PDF 10, drawing 01-0176-001 | IN-28 holds `ADR STB` low in the standard MOD 40 wiring, leaving all address latches transparent. A low `WRITE/READ` command starts a delay one-shot, then a write one-shot after input-latch setup; selected active-low `BYTE1` or `BYTE2` gating drives the selected 2102 set. | The functional ordering is explicit. The manual does not give the one-shot component value, output pulse width, or per-device propagation delay. |
+| direct | Intel 1975 Data Catalog, printed page 2-35 | An ungraded Intel 2102 requires write cycle >= 1000 ns, address setup >= 200 ns, active-low write pulse >= 750 ns, data setup >= 800 ns, data hold >= 100 ns, chip-enable setup >= 900 ns, and write recovery >= 50 ns. | These are device acceptance limits. They do not prove that the MOD 40 generator meets them. |
+| direct | 98-095A printed pages 52-53; PDF 7, drawing 2000319 | The control-card reset one-shot accepts console RESET, USER RESET at P1-46, and program-store mode changes. Its A24 pin-9 TTL output is negative-going for at least 500 us. | This closes the functional imm4-72 reset-pulse contract. It does not resolve CPU reset assertion polarity, reset release relative to the A7 divider, or the 4040 package waveform. |
+| direct | 98-095A printed page 53; PDF 7, drawing 2000319 | SINGLE STEP creates a momentary high at A24-4, interrupts the A21-10 enable, lifts the STOP clamp, and restores it after STOP ACK. The CPU completes one instruction before re-entering stop. | This closes the control-card functional sequence. Cable and card-edge continuity, STOP/ACK electrical polarity, and all panel interlocks remain separate open routes. |
+
 ## Consequences for implementation
 
 The `Imm6_28` model preserves the thirty-two physical SRAM locations and
@@ -160,9 +169,9 @@ The following execution conditions remain open:
    polarity, divider output, 4040 phase, and reset-release timing from PDF 3.
 3. Reconcile each PDF 5 card-edge contact with PDF 7 and PDF 10 endpoints,
    then derive the 3404 latch, 7404, bank-select, and active-low 2102 write
-   equations with setup and hold timing.
-4. Extract panel STOP, reset, step, MON/RAM/PROM, and interlock transition
-   logic from PDF 13, and derive Q3/Q4/Q5 current-loop logical polarity,
+   pulse width and propagation timing against the recorded device limits.
+4. Complete the panel STOP, reset, step, MON/RAM/PROM, and interlock connector
+   equations from PDF 13, and derive Q3/Q4/Q5 current-loop logical polarity,
    reader relay state, framing, and timing from PDFs 3 and 29.
 5. Compare the accepted raw read sets before applying only the resulting
    primary-backed transform, then capture a source-tagged reset-to-prompt
