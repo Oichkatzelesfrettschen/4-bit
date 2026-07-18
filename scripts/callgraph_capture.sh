@@ -16,6 +16,13 @@ case "$CARGO_CAPTURE_TARGET_DIR" in
     *) CARGO_CAPTURE_TARGET_DIR="$REPO_ROOT/$CARGO_CAPTURE_TARGET_DIR" ;;
 esac
 
+CAPTURE_TMPDIR=${CALLGRAPH_CAPTURE_TMPDIR:-"$OUTPUT_DIR/tmp"}
+
+case "$CAPTURE_TMPDIR" in
+    /*) ;;
+    *) CAPTURE_TMPDIR="$REPO_ROOT/$CAPTURE_TMPDIR" ;;
+esac
+
 if [ -d "$OUTPUT_DIR" ] && [ -n "$(find "$OUTPUT_DIR" -mindepth 1 -maxdepth 1 -print -quit)" ]; then
     printf '%s\n' "capture directory is not empty: $OUTPUT_DIR" >&2
     printf '%s\n' "choose a new directory so prior evidence remains intact" >&2
@@ -31,6 +38,12 @@ mkdir -p "$OUTPUT_DIR/python"
 mkdir -p "$OUTPUT_DIR/runtime"
 mkdir -p "$OUTPUT_DIR/static"
 mkdir -p "$OUTPUT_DIR/source"
+mkdir -p "$CAPTURE_TMPDIR"
+
+# Keep compiler and profiler temporaries inside the retained capture root.
+# Some hosts mount /tmp with a smaller quota than the repository filesystem.
+TMPDIR="$CAPTURE_TMPDIR"
+export TMPDIR
 
 cd "$REPO_ROOT"
 
@@ -53,6 +66,7 @@ done
     printf 'branch=%s\n' "$(git branch --show-current)"
     printf 'source_date_epoch=%s\n' "$(git log -1 --format=%ct)"
     printf 'cargo_target_dir=%s\n' "$CARGO_CAPTURE_TARGET_DIR"
+    printf 'temporary_directory=%s\n' "$TMPDIR"
     for command_name in cflow cscope cargo cmake ninja rustc python3 strace \
         valgrind verilator callgrind_annotate gprof2dot dot; do
         printf 'tool_%s_path=%s\n' "$command_name" "$(command -v "$command_name")"
@@ -226,7 +240,7 @@ run_cflow intellec-machine step_phase "$OUTPUT_DIR/static/intellec-machine.files
     printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
 } > "$OUTPUT_DIR/cflow/intellec-machine.status.tmp"
 mv "$OUTPUT_DIR/cflow/intellec-machine.status.tmp" "$OUTPUT_DIR/cflow/intellec-machine.status"
-run_cflow intellec-mod40-source-gate monitor_select_decode_outputs_are_recorded \
+run_cflow intellec-mod40-source-gate validate_historical_execution \
     "$OUTPUT_DIR/static/intellec-machine.files"
 {
     cat "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status"
@@ -235,6 +249,24 @@ run_cflow intellec-mod40-source-gate monitor_select_decode_outputs_are_recorded 
 } > "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status.tmp"
 mv "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status.tmp" \
     "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status"
+for gate_name in \
+    cpu_reset_and_phase_timing_is_traced \
+    program_ram_write_timing_is_traced \
+    panel_arbitration_is_traced \
+    terminal_electrical_timing_is_traced \
+    monitor_socket_map_is_traced \
+    monitor_data_transform_is_primary_backed \
+    accepted_monitor_read_set_count; do
+    run_cflow "intellec-mod40-$gate_name" "$gate_name" \
+        "$OUTPUT_DIR/static/intellec-machine.files"
+    {
+        cat "$OUTPUT_DIR/cflow/intellec-mod40-$gate_name.status"
+        printf '%s\n' 'semantic=0'
+        printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
+    } > "$OUTPUT_DIR/cflow/intellec-mod40-$gate_name.status.tmp"
+    mv "$OUTPUT_DIR/cflow/intellec-mod40-$gate_name.status.tmp" \
+        "$OUTPUT_DIR/cflow/intellec-mod40-$gate_name.status"
+done
 run_cflow virtual-fpga-system main "$OUTPUT_DIR/static/virtual-fpga-system.files"
 {
     cat "$OUTPUT_DIR/cflow/virtual-fpga-system.status"
@@ -310,7 +342,11 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rus
             IntellecReplaySession install_monitor_rom apply_event \
             validate_terminal_endpoints apply_terminal_input advance_terminal \
             read_intellec_ram_port Mod40Board Mod40SourceGate \
-            monitor_select_decode_outputs_are_recorded; do
+            validate_historical_execution historical_execution_is_authorized \
+            cpu_reset_and_phase_timing_is_traced program_ram_write_timing_is_traced \
+            panel_arbitration_is_traced terminal_electrical_timing_is_traced \
+            monitor_socket_map_is_traced monitor_data_transform_is_primary_backed \
+            accepted_monitor_read_set_count; do
             printf '%s\n' "== definitions: $symbol =="
             cscope -d -f "$OUTPUT_DIR/cscope/rust.out" -L -0 "$symbol" || true
             printf '%s\n' "== lexical callees: $symbol =="
@@ -649,7 +685,7 @@ run_strace_in_dir virtual-fpga-common-stimulus "$VIRTUAL_FPGA_BUILD_DIRECTORY" \
     --summary "$OUTPUT_DIR/runtime/mcs4-common.summary.json" \
     --trace-frames "$OUTPUT_DIR/runtime/mcs4-common-fpga.trace.jsonl"
 
-if valgrind --tool=callgrind \
+if valgrind --vgdb=no --tool=callgrind \
     --callgrind-out-file="$OUTPUT_DIR/runtime/mcs4-fixture.callgrind" \
     "$GUI_BINARY" --mode fixture --system mcs4 --fixture src_wrm_rdm --cycles 64 \
     --strict-io-phases \
@@ -680,6 +716,8 @@ if valgrind --tool=callgrind \
 else
     exit_code=$?
     printf 'exit=%s\n' "$exit_code" > "$OUTPUT_DIR/runtime/mcs4-fixture.callgrind.status"
+    printf 'exit=%s\n' "$exit_code" > "$OUTPUT_DIR/runtime/mcs4-fixture.callgrind-annotate.status"
+    printf 'exit=%s\n' "$exit_code" > "$OUTPUT_DIR/runtime/mcs4-fixture.gprof2dot.status"
 fi
 
 python3 scripts/verify_capture_bundle.py --capture-dir "$OUTPUT_DIR" --write

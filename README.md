@@ -105,8 +105,11 @@ The `i400x_analyzer_20210324.zip` in `docs/emulators/` contains:
 - [Intel Intellec 4/MOD 40 Reference Schematics](docs/MCS-40/Intel_Intellec_4_MOD_40_Reference_Schematics.pdf) is tracked.
 - The local-only 1974 MOD 40 reference manual and ASR-33 manuals are listed
   with URLs and SHA-256 values in `docs/evidence/intellec_sources.yaml`.
-- `scripts/fetch_intellec_sources.sh` downloads only local-only sources and
-  verifies the source-ledger digest before retaining them.
+- `scripts/fetch_intellec_sources.sh --list` lists source-ledger entries.
+  `--source-id <id> --verify` verifies one retained file and
+  `--source-id <id> --fetch` retrieves only that registered HTTPS source with
+  the fixed Mozilla user agent before verifying its ledger digest. The script
+  rejects arbitrary URLs and keeps unresolved-rights scans local-only.
 
 ### Technical References
 - [intel4004.com - Original Schematics](http://www.intel4004.com/4004_original_schematics.htm)

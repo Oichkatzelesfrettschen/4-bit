@@ -199,6 +199,26 @@ pub struct CpuClockTimingTarget {
     pub source_locator: &'static str,
 }
 
+/// Functional reset duration required by the 4040 CPU description.
+///
+/// This requirement constrains any future board-cycle implementation. It does
+/// not establish the MOD 40 reset release edge relative to either clock phase.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct CpuResetTimingRequirement {
+    /// The functional board description names CPU RESET as active low.
+    pub board_reset_active_low: bool,
+    /// The 4040 component catalog defines its package RESET input as active high.
+    pub package_reset_active_high: bool,
+    /// Minimum number of complete instructions held in reset.
+    pub minimum_full_instruction_cycles: u8,
+    /// Equivalent minimum number of external clock periods.
+    pub minimum_external_clock_periods: u8,
+    /// Reviewed evidence status for the functional requirement.
+    pub evidence: Mod40RouteEvidence,
+    /// Primary-source locator for the requirement.
+    pub source_locator: &'static str,
+}
+
 /// One direct but non-executable front-panel control observation.
 ///
 /// A panel observation records a physically visible input-conditioning or
@@ -390,6 +410,21 @@ pub const CPU_CLOCK_TIMING_TARGET: CpuClockTimingTarget = CpuClockTimingTarget {
     phases_non_overlapping: true,
     evidence: Mod40RouteEvidence::Partial,
     source_locator: "98-095A printed pages 15-16 and Figure 3-14 on printed page 3-7; 98-013A PDF 3, drawing 2000318",
+};
+
+/// Functional CPU reset duration before instruction execution resumes.
+///
+/// The functional board manual and the 4040 component catalog disagree at
+/// different named boundaries. The board-level inversion and release phase
+/// remain incomplete in the route ledger, so this record preserves both facts
+/// without treating either as the complete board waveform.
+pub const CPU_RESET_TIMING_REQUIREMENT: CpuResetTimingRequirement = CpuResetTimingRequirement {
+    board_reset_active_low: true,
+    package_reset_active_high: true,
+    minimum_full_instruction_cycles: 8,
+    minimum_external_clock_periods: 64,
+    evidence: Mod40RouteEvidence::Partial,
+    source_locator: "98-095A printed page 15; Intel 1975 Data Catalog, 4040 printed page 6-10",
 };
 
 /// Return the integer nominal clock frequency after the documented division.
@@ -853,6 +888,62 @@ pub const fn monitor_data_polarity_is_traced() -> bool {
     false
 }
 
+/// Return whether every C1702A select path reaches one named physical socket.
+///
+/// The reviewed decoder records stop at the A18 output pins. No primary route
+/// yet identifies a selected C1702A socket, so this remains false.
+pub const fn monitor_socket_map_is_traced() -> bool {
+    false
+}
+
+/// Return whether the reader-byte to executed-byte transform is primary-backed.
+///
+/// Public candidate bytes support a reproducible complement experiment, but no
+/// primary per-bit route establishes that transform for the board.
+pub const fn monitor_data_transform_is_primary_backed() -> bool {
+    false
+}
+
+/// Return the number of accepted independent C1702A read sets.
+///
+/// The public corpus contains no accepted raw set because it lacks the
+/// position-specific repeat, custody, reader, voltage, and photo records.
+pub const fn accepted_monitor_read_set_count() -> u8 {
+    0
+}
+
+/// Return whether the clock divider, reset release, and CPU phase timing close.
+///
+/// A functional divider target exists, but its Boolean equation and package
+/// timing remain partial, so a historical CPU phase remains unauthorized.
+pub const fn cpu_reset_and_phase_timing_is_traced() -> bool {
+    false
+}
+
+/// Return whether the IN-28 write one-shot and 2102 timing close.
+///
+/// The card-edge polarity and write ordering are direct. The component values,
+/// pulse width, propagation budget, and device timing remain incomplete.
+pub const fn program_ram_write_timing_is_traced() -> bool {
+    false
+}
+
+/// Return whether front-panel controls form a complete arbitration equation.
+///
+/// Local reset and single-step contracts exist, but STOP ACK continuity and
+/// panel priority remain untraced across the board boundaries.
+pub const fn panel_arbitration_is_traced() -> bool {
+    false
+}
+
+/// Return whether current-loop transistor thresholds and relay timing close.
+///
+/// The source establishes the three terminal conductors and port-bit senses.
+/// It does not establish the entire Q3, Q4, and Q5 electrical timing path.
+pub const fn terminal_electrical_timing_is_traced() -> bool {
+    false
+}
+
 /// Return whether every reviewed IN-28 card-edge route is complete.
 pub fn program_ram_card_edge_is_complete() -> bool {
     PROGRAM_RAM_CARD_EDGE_ROUTES
@@ -882,14 +973,17 @@ pub const fn monitor_address_fanout_is_traced() -> bool {
 #[cfg(test)]
 mod tests {
     use super::{
-        cpu_clock_source_is_traced, cpu_nominal_machine_clock_hz, imm628_has_exactly_one_selected_byte,
+        accepted_monitor_read_set_count, cpu_clock_source_is_traced, cpu_nominal_machine_clock_hz,
+        cpu_reset_and_phase_timing_is_traced, imm628_has_exactly_one_selected_byte,
         imm628_write_read_level_requests_write, keyboard_loop_current_to_rom0_input_bit0,
-        monitor_address_fanout_is_traced, monitor_data_polarity_is_traced, monitor_select_decode_inputs_are_traced,
-        monitor_select_decode_outputs_are_recorded, program_ram_card_edge_is_complete,
-        ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader,
-        terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced, ControlResetInitiator,
-        ControlWriteCommandCause, Mod40RouteEvidence, CONTROL_RESET_PULSE_CONTRACT, CONTROL_WRITE_COMMAND_CAUSES,
-        CONTROL_WRITE_COMMAND_ROUTE, CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_STOP_ACKNOWLEDGE_ENDPOINT,
+        monitor_address_fanout_is_traced, monitor_data_polarity_is_traced, monitor_data_transform_is_primary_backed,
+        monitor_select_decode_inputs_are_traced, monitor_select_decode_outputs_are_recorded,
+        monitor_socket_map_is_traced, panel_arbitration_is_traced, program_ram_card_edge_is_complete,
+        program_ram_write_timing_is_traced, ram0_port_value_drives_printer_marking_current,
+        ram1_port_value_enables_reader, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
+        terminal_electrical_timing_is_traced, ControlResetInitiator, ControlWriteCommandCause, Mod40RouteEvidence,
+        CONTROL_RESET_PULSE_CONTRACT, CONTROL_WRITE_COMMAND_CAUSES, CONTROL_WRITE_COMMAND_ROUTE,
+        CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_RESET_TIMING_REQUIREMENT, CPU_STOP_ACKNOWLEDGE_ENDPOINT,
         IMM628_LOCAL_WRITE_PATH, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
         MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PANEL_SINGLE_STEP_CONTRACT,
         PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
@@ -949,6 +1043,17 @@ mod tests {
         assert_eq!(target.phase_pulse_width_ns, 386);
         assert!(target.phases_non_overlapping);
         assert_eq!(target.evidence, Mod40RouteEvidence::Partial);
+    }
+
+    #[test]
+    fn cpu_reset_requirement_preserves_the_documented_duration_without_closing_the_phase_gate() {
+        let requirement = std::hint::black_box(CPU_RESET_TIMING_REQUIREMENT);
+        assert!(requirement.board_reset_active_low);
+        assert!(requirement.package_reset_active_high);
+        assert_eq!(requirement.minimum_full_instruction_cycles, 8);
+        assert_eq!(requirement.minimum_external_clock_periods, 64);
+        assert_eq!(requirement.evidence, Mod40RouteEvidence::Partial);
+        assert!(!cpu_reset_and_phase_timing_is_traced());
     }
 
     #[test]
@@ -1079,5 +1184,16 @@ mod tests {
         assert!(MONITOR_SELECT_DECODE_OUTPUTS
             .iter()
             .all(|output| output.evidence == Mod40RouteEvidence::Partial));
+    }
+
+    #[test]
+    fn unresolved_evidence_gates_stay_derived_from_route_records() {
+        assert!(!cpu_reset_and_phase_timing_is_traced());
+        assert!(!program_ram_write_timing_is_traced());
+        assert!(!panel_arbitration_is_traced());
+        assert!(!terminal_electrical_timing_is_traced());
+        assert!(!monitor_socket_map_is_traced());
+        assert!(!monitor_data_transform_is_primary_backed());
+        assert_eq!(accepted_monitor_read_set_count(), 0);
     }
 }

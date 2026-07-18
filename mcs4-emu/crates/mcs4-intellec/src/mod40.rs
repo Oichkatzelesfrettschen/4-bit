@@ -11,11 +11,13 @@ use crate::{
     console::ProgramMemoryMode,
     imm6_28::Imm628,
     mod40_routes::{
-        cpu_clock_source_is_traced, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
-        monitor_select_decode_inputs_are_traced, program_ram_card_edge_is_complete, terminal_cable_routes_are_traced,
-        terminal_current_loop_polarity_is_traced,
+        accepted_monitor_read_set_count, cpu_clock_source_is_traced, cpu_reset_and_phase_timing_is_traced,
+        monitor_address_fanout_is_traced, monitor_data_polarity_is_traced, monitor_data_transform_is_primary_backed,
+        monitor_select_decode_inputs_are_traced, monitor_socket_map_is_traced, panel_arbitration_is_traced,
+        program_ram_card_edge_is_complete, program_ram_write_timing_is_traced, terminal_cable_routes_are_traced,
+        terminal_current_loop_polarity_is_traced, terminal_electrical_timing_is_traced,
     },
-    profile::{SourceReference, MOD40_HISTORICAL_EXECUTION_GATES, MOD40_SOURCES},
+    profile::{SourceReference, MOD40_SOURCES},
 };
 
 /// One program-store selection owned by the imm4-72 control card.
@@ -72,6 +74,8 @@ pub struct Mod40SourceGate {
     pub terminal_cable_routes_traced: bool,
     /// The TTY and reader current-loop logical polarities are source-traced.
     pub terminal_current_loop_polarity_traced: bool,
+    /// The terminal transistor thresholds and reader-relay timing are traced.
+    pub terminal_electrical_timing_traced: bool,
     /// The CPU-card oscillator source reaches the documented divider input.
     pub cpu_clock_source_traced: bool,
     /// Named monitor-select inputs reach the documented A18 decoder region.
@@ -219,6 +223,9 @@ impl Mod40Board {
 
     /// Return the source-gate state without silently enabling a board phase.
     pub fn source_gate(&self) -> Mod40SourceGate {
+        let accepted_monitor_read_set_count = accepted_monitor_read_set_count();
+        let monitor_socket_map_traced = monitor_socket_map_is_traced();
+        let monitor_data_transform_primary_backed = monitor_data_transform_is_primary_backed();
         Mod40SourceGate {
             primary_board_population_bound: true,
             monitor_slots_present: [true; 4],
@@ -227,36 +234,58 @@ impl Mod40Board {
             monitor_address_fanout_traced: monitor_address_fanout_is_traced(),
             terminal_cable_routes_traced: terminal_cable_routes_are_traced(),
             terminal_current_loop_polarity_traced: terminal_current_loop_polarity_is_traced(),
+            terminal_electrical_timing_traced: terminal_electrical_timing_is_traced(),
             cpu_clock_source_traced: cpu_clock_source_is_traced(),
             monitor_select_decode_inputs_traced: monitor_select_decode_inputs_are_traced(),
             monitor_data_polarity_traced: monitor_data_polarity_is_traced(),
-            // The retained primary sheet reaches the decoder and mux boundary,
-            // but does not yet prove per-socket selection, data transform, or
-            // reset/phase timing.
-            monitor_socket_map_traced: false,
-            monitor_data_transform_primary_backed: false,
-            accepted_monitor_read_set_count: 0,
-            cpu_reset_and_phase_timing_traced: false,
-            program_ram_write_timing_traced: false,
-            panel_arbitration_traced: false,
+            monitor_socket_map_traced,
+            monitor_data_transform_primary_backed,
+            accepted_monitor_read_set_count,
+            cpu_reset_and_phase_timing_traced: cpu_reset_and_phase_timing_is_traced(),
+            program_ram_write_timing_traced: program_ram_write_timing_is_traced(),
+            panel_arbitration_traced: panel_arbitration_is_traced(),
             board_cycle_wiring_implemented: false,
-            // Independent, position-specific read sets and transforms remain
-            // absent. Known byte values alone do not prove that evidence.
-            monitor_media_verified: false,
+            monitor_media_verified: accepted_monitor_read_set_count >= 2
+                && monitor_socket_map_traced
+                && monitor_data_transform_primary_backed,
         }
+    }
+
+    /// Return whether every source condition and board-cycle implementation exists.
+    pub fn historical_execution_is_authorized(&self) -> bool {
+        let gate = self.source_gate();
+        gate.cpu_reset_and_phase_timing_traced
+            && gate.program_ram_write_timing_traced
+            && gate.panel_arbitration_traced
+            && gate.terminal_electrical_timing_traced
+            && gate.monitor_media_verified
+            && gate.board_cycle_wiring_implemented
     }
 
     /// Reject a historical phase until every required board evidence gate closes.
     pub fn validate_historical_execution(&self) -> Result<(), Mod40AssemblyError> {
-        let gate = MOD40_HISTORICAL_EXECUTION_GATES[0];
-        let error = match gate {
-            "intellec4-mod40-clock-net-map" => Mod40AssemblyError::ClockNetMapIncomplete,
-            "intellec4-mod40-control-program-ram-net-map" => Mod40AssemblyError::ProgramRamNetMapIncomplete,
-            "intellec4-mod40-panel-net-map" => Mod40AssemblyError::PanelNetMapIncomplete,
-            "intellec4-mod40-terminal-electrical-net-map" => Mod40AssemblyError::TerminalElectricalMapIncomplete,
-            _ => Mod40AssemblyError::MissingEvidence(gate),
-        };
-        Err(error)
+        let source_gate = self.source_gate();
+        if !source_gate.cpu_reset_and_phase_timing_traced {
+            return Err(Mod40AssemblyError::ClockNetMapIncomplete);
+        }
+        if !source_gate.program_ram_write_timing_traced {
+            return Err(Mod40AssemblyError::ProgramRamNetMapIncomplete);
+        }
+        if !source_gate.panel_arbitration_traced {
+            return Err(Mod40AssemblyError::PanelNetMapIncomplete);
+        }
+        if !source_gate.terminal_electrical_timing_traced {
+            return Err(Mod40AssemblyError::TerminalElectricalMapIncomplete);
+        }
+        if !source_gate.monitor_media_verified {
+            return Err(Mod40AssemblyError::MissingEvidence("intellec4-mod40-monitor-prom-set"));
+        }
+        if !source_gate.board_cycle_wiring_implemented {
+            return Err(Mod40AssemblyError::MissingEvidence(
+                "intellec4-mod40-board-cycle-wiring",
+            ));
+        }
+        Ok(())
     }
 }
 
@@ -286,6 +315,7 @@ mod tests {
         assert!(board.source_gate().monitor_address_fanout_traced);
         assert!(board.source_gate().terminal_cable_routes_traced);
         assert!(board.source_gate().terminal_current_loop_polarity_traced);
+        assert!(!board.source_gate().terminal_electrical_timing_traced);
         assert!(board.source_gate().cpu_clock_source_traced);
         assert!(board.source_gate().monitor_select_decode_inputs_traced);
         assert!(!board.source_gate().monitor_data_polarity_traced);
@@ -297,6 +327,7 @@ mod tests {
         assert!(!board.source_gate().panel_arbitration_traced);
         assert!(!board.source_gate().monitor_media_verified);
         assert!(!board.source_gate().board_cycle_wiring_implemented);
+        assert!(!board.historical_execution_is_authorized());
         assert!(board
             .sources()
             .iter()

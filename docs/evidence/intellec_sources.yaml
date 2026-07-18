@@ -1,13 +1,21 @@
-version: "1.0"
+version: "1.1"
 description: >-
   Source ledger for the Intel Intellec 4 and Intellec 4/MOD 40 machine
   profiles. Local-only scans remain outside version control until their
   redistribution terms are established.
 checksum_algorithm: SHA-256
+rights_policy:
+  access_state: A public retrieval URL does not grant redistribution rights.
+  redistribution_state: Sources without source-specific permission remain local-only.
+  retention_rule: The repository retains source identifiers, locators, digests, and derived evidence records; it does not retain unlicensed source scans.
+  cache_rule: Download receipts and OCR products remain ignored local artifacts unless a source-specific retention decision permits tracking.
 source_sets:
   intellec:
     downloader: wget
     user_agent: Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0
+    retrieval_entrypoint: scripts/fetch_intellec_sources.sh
+    automated_transport: https
+    selection_rule: A retrieval command names a registered source ID or the all-eligible set; arbitrary URLs are rejected.
 sources:
   - id: intellec4-microcomputer-modules-jan74
     title: Intel Intellec 4 and Micro Computer Modules

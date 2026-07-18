@@ -1,0 +1,230 @@
+{
+  "schema": "mcs4.mod40.route-ledger.v1",
+  "source_registry": "docs/evidence/intellec_sources.yaml",
+  "source_gates": {
+    "cpu-phase-reset": {
+      "status": "blocked",
+      "blocking_routes": ["cpu-divider-phase-network", "cpu-reset-release-phase"]
+    },
+    "in28-write-timing": {
+      "status": "blocked",
+      "blocking_routes": ["in28-write-one-shot"]
+    },
+    "panel-arbitration": {
+      "status": "blocked",
+      "blocking_routes": ["panel-stop-ack-continuity"]
+    },
+    "terminal-electrical": {
+      "status": "blocked",
+      "blocking_routes": ["terminal-current-loop-electrical-timing"]
+    },
+    "monitor-socket-transform": {
+      "status": "blocked",
+      "blocking_routes": ["monitor-a18-chip-select", "monitor-data-transform"]
+    },
+    "monitor-raw-provenance": {
+      "status": "blocked",
+      "blocking_routes": ["monitor-independent-raw-read-sets"]
+    }
+  },
+  "routes": [
+    {
+      "id": "cpu-clock-source",
+      "gate": "cpu-phase-reset",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "from": "Y1 5.185 MHz crystal oscillator",
+      "to": "A16 gate and A7 74161/9316 counter CP input",
+      "assertions": ["The oscillator source reaches the divider input."],
+      "unresolved": []
+    },
+    {
+      "id": "cpu-divider-phase-network",
+      "gate": "cpu-phase-reset",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-schematics", "intellec4-mod40-reference-manual-98-095a"],
+      "locator": "98-013A PDF 3, drawing 2000318; 98-095A Figure 3-14",
+      "from": "A7 74161/9316 divider outputs",
+      "to": "74H00, 7404, and A32 MH0026 phase network",
+      "assertions": ["The documented functional topology divides the 5.185 MHz source by seven.", "The functional phase width is 386 ns and the phases do not overlap."],
+      "unresolved": ["The counter-state equation, propagation budget, and 4040 package edge timing remain untraced."]
+    },
+    {
+      "id": "cpu-reset-local-route",
+      "gate": "cpu-phase-reset",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "from": "CPU RESET card-edge net",
+      "to": "A11 4040 RESET pin 12",
+      "assertions": ["The CPU-card reset net reaches the 4040 reset pin."],
+      "unresolved": []
+    },
+    {
+      "id": "cpu-reset-release-phase",
+      "gate": "cpu-phase-reset",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-schematics", "intellec4-mod40-reference-manual-98-095a", "intel-1975-data-catalog"],
+      "locator": "98-013A PDFs 3 and 7; 98-095A printed pages 15 and 52-53; Intel 1975 Data Catalog 4040 printed page 6-10",
+      "from": "imm4-72 reset one-shot output",
+      "to": "imm4-43 CPU RESET and 4040 phase sequence",
+      "assertions": ["The control-card TTL reset pulse is negative-going for at least 500 us.", "The functional board description names CPU RESET active low while the 4040 catalog names the package RESET input active high."],
+      "unresolved": ["The intervening board inversion, CPU reset assertion level, and reset-release edge relative to the divider and 4040 phases remain untraced."]
+    },
+    {
+      "id": "in28-card-edge-addresses",
+      "gate": "in28-write-timing",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDFs 5, 7, and 10",
+      "from": "imm4-72 P1 MAD0 through MAD9 contacts 11 through 20",
+      "to": "imm6-28 P1 contacts 11 through 20 and 3404 address latch inputs",
+      "assertions": ["Each low address conductor retains its connector contact across the motherboard."],
+      "unresolved": []
+    },
+    {
+      "id": "in28-bank-address-inverters",
+      "gate": "in28-write-timing",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDFs 5 and 10",
+      "from": "controller C3 at contact 94 and C2 at contact 96",
+      "to": "imm6-28 MAD11 and MAD10 through visible 7404 stages",
+      "assertions": ["Both high address conductors cross the motherboard and a visible inverter stage."],
+      "unresolved": []
+    },
+    {
+      "id": "in28-write-read-card-input",
+      "gate": "in28-write-timing",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-manual-98-095a", "intellec4-mod40-reference-schematics"],
+      "locator": "98-095A printed page 40; 98-013A PDFs 7 and 10",
+      "from": "imm4-72 WRITE at P1 contact 95",
+      "to": "imm6-28 WRITE/READ card input",
+      "assertions": ["A low card input requests write and a high card input requests read."],
+      "unresolved": []
+    },
+    {
+      "id": "in28-write-one-shot",
+      "gate": "in28-write-timing",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-manual-98-095a", "intellec4-mod40-reference-schematics", "intel-1975-data-catalog"],
+      "locator": "98-095A printed pages 37-40; 98-013A PDF 10; Intel 2102 timing table",
+      "from": "WRITE/READ low transition and local delay one-shot",
+      "to": "selected active-low 2102 write control",
+      "assertions": ["ADR STB remains low in the standard wiring.", "The input latch setup precedes the write one-shot.", "BYTE1 and BYTE2 selection is active low."],
+      "unresolved": ["The one-shot components, pulse width, per-device propagation delay, and complete setup and hold interval remain untraced."]
+    },
+    {
+      "id": "panel-stop-input-conditioning",
+      "gate": "panel-arbitration",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 13, drawing 2000329",
+      "from": "S26 STOP pushbutton",
+      "to": "A36 7404 input-conditioning pair",
+      "assertions": ["The panel switch contacts ground through the visible input-conditioning stage."],
+      "unresolved": []
+    },
+    {
+      "id": "panel-reset-and-single-step-control",
+      "gate": "panel-arbitration",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-manual-98-095a", "intellec4-mod40-reference-schematics"],
+      "locator": "98-095A printed pages 52-53; 98-013A PDF 7",
+      "from": "console RESET, USER RESET, program-store mode changes, and SINGLE STEP",
+      "to": "imm4-72 A24 reset and single-step one-shot path",
+      "assertions": ["The reset output is negative-going for at least 500 us.", "Single step releases the stop clamp for one completed instruction."],
+      "unresolved": []
+    },
+    {
+      "id": "panel-stop-ack-continuity",
+      "gate": "panel-arbitration",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-schematics", "mcs40-advance-specifications-sep74"],
+      "locator": "98-013A PDFs 3, 7, and 13; MCS-40 Advance Specifications printed page 37",
+      "from": "4040 STPA and CPU/control/panel STOP ACK boundaries",
+      "to": "control-card stop clamp and front-panel RUN indication",
+      "assertions": ["The 4040 STP input is active high and STPA is open drain."],
+      "unresolved": ["The end-to-end connector continuity, asserted board polarity, and panel transition edges remain untraced."]
+    },
+    {
+      "id": "terminal-cable-conductors",
+      "gate": "terminal-electrical",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 29, drawing 2000325",
+      "from": "imm4-43 CPU card",
+      "to": "TTY OUT, TTY IN, and RDR CONT terminal contacts",
+      "assertions": ["The three named CPU, rear-connector, and terminal contact paths are recorded."],
+      "unresolved": []
+    },
+    {
+      "id": "terminal-port-logical-sense",
+      "gate": "terminal-electrical",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics", "intellec4-mod40-reference-manual-98-095a"],
+      "locator": "98-013A PDFs 3 and 29; 98-095A PDF 152, printed page 136",
+      "from": "ROM 0 input bit 0, RAM 0 output bit 0, and RAM 1 output bit 0",
+      "to": "keyboard receive, printer transmit, and reader relay logical endpoints",
+      "assertions": ["Keyboard loop-current absence maps to a high ROM 0 input bit.", "RAM 0 bit 0 high drives printer marking current.", "RAM 1 bit 0 high enables the reader."],
+      "unresolved": []
+    },
+    {
+      "id": "terminal-current-loop-electrical-timing",
+      "gate": "terminal-electrical",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-schematics", "teletype-model33-technical-manual-310b", "teletype-model33-schematic-jun75"],
+      "locator": "98-013A PDFs 3 and 29; Model 33 terminal manual and schematic",
+      "from": "Q3, Q4, and Q5 transistor paths",
+      "to": "current-loop thresholds, reader relay state, and mechanical timing",
+      "assertions": ["The logical port conventions do not define transistor switching thresholds or relay timing."],
+      "unresolved": ["The complete transistor path, reader relay state, and terminal mechanical timing remain untraced."]
+    },
+    {
+      "id": "monitor-address-fanout",
+      "gate": "monitor-socket-transform",
+      "evidence": "direct",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "from": "4289 A0 through A7",
+      "to": "four resident C1702A address inputs",
+      "assertions": ["All four resident monitor sockets share eight address outputs."],
+      "unresolved": []
+    },
+    {
+      "id": "monitor-a18-chip-select",
+      "gate": "monitor-socket-transform",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "from": "A18 74155 monitor-select outputs",
+      "to": "C1702A chip-select outputs",
+      "assertions": ["The A18 decoder inputs and eight output pins are visible."],
+      "unresolved": ["The output-to-socket continuation, selected level, and socket order remain untraced."]
+    },
+    {
+      "id": "monitor-data-transform",
+      "gate": "monitor-socket-transform",
+      "evidence": "partial",
+      "source_ids": ["intellec4-mod40-reference-schematics"],
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "from": "C1702A data outputs through 74158, 8095, and TTL fabric",
+      "to": "4289 and CPU program-data path",
+      "assertions": ["The data region contains the required buffer and multiplexer population."],
+      "unresolved": ["No primary per-bit data route, inversion vector, byte transform, or socket order is complete."]
+    },
+    {
+      "id": "monitor-independent-raw-read-sets",
+      "gate": "monitor-raw-provenance",
+      "evidence": "partial",
+      "source_ids": ["retrotechnology-kyle-mon4-correspondence", "retrotechnology-mon4-read-reconstruction", "mame-mon4-a1-correction-patch"],
+      "locator": "Kyle 2013 correspondence, Retrotechnology MON4 artifact record, and MAME correction history",
+      "from": "public byte wrappers and manual transcriptions",
+      "to": "accepted position-specific C1702A raw-read evidence",
+      "assertions": ["Public artifacts establish candidate bytes and a reproducible candidate complement for three Kyle images."],
+      "unresolved": ["Two independent custody chains with repeatable raw 256-byte reads, reader logs, device photographs, socket identifiers, and per-device digests are absent."]
+    }
+  ]
+}

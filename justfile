@@ -9,7 +9,8 @@ check:
 
 # Run all tests
 test:
-    cargo test --workspace --locked
+    mkdir -p target/tmp
+    TMPDIR="$PWD/target/tmp" cargo test --workspace --locked
 
 # Run clippy with warnings as errors (same surface as the CI clippy-all alias)
 lint:
@@ -29,7 +30,8 @@ doc:
 
 # Run Python evidence-pipeline tests
 python-test:
-    python3 -m pytest scripts/tests
+    mkdir -p target/tmp
+    TMPDIR="$PWD/target/tmp" python3 -m pytest scripts/tests
 
 # Lint repository automation and evidence-pipeline scripts
 scripts-lint:
@@ -55,19 +57,26 @@ link-check:
 
 # Validate every typed behavioral and FPGA HDL export with the pinned local tools.
 hdl-validate:
-    python3 scripts/verify_hdl_exports.py
+    mkdir -p target/tmp
+    TMPDIR="$PWD/target/tmp" python3 scripts/verify_hdl_exports.py
 
 # Require a structurally resolved gate-level HDL export before it is delivered.
 gate-contract:
-    python3 scripts/gate_to_verilog_v0.py --chips 4003 --check-export-contract --check-generated
+    mkdir -p target/tmp
+    TMPDIR="$PWD/target/tmp" python3 scripts/gate_to_verilog_v0.py --chips 4003 --check-export-contract --check-generated
 
 # Verify generated netlist hashes and every source-input hash in the canonical v1 manifest.
 netlist-validate:
-    python3 scripts/verify_netlist_manifest.py
+    mkdir -p target/tmp
+    TMPDIR="$PWD/target/tmp" python3 scripts/verify_netlist_manifest.py
 
 # Verify timing bounds, source locators, and code use sites.
 timing-validate:
     python3 scripts/verify_timing_parameters.py
+
+# Validate that every MOD 40 source gate names a source-backed route or explicit gap.
+mod40-evidence-validate:
+    python3 scripts/verify_mod40_evidence.py
 
 # Verify the capability and ownership matrix against retained evidence paths.
 capability-validate:
@@ -79,7 +88,7 @@ security-validate:
     python3 scripts/verify_advisory_exceptions.py
 
 # Run full verification: Rust, Python, scripts, gate HDL, and docs.
-verify: fmt lint test python-test scripts-lint link-check hdl-validate gate-contract netlist-validate timing-validate capability-validate security-validate doc
+verify: fmt lint test python-test scripts-lint link-check hdl-validate gate-contract netlist-validate timing-validate mod40-evidence-validate capability-validate security-validate doc
     @echo "Repository verification passed."
 
 # Capture cflow, cscope, compiler MIR, syscall, and callgrind evidence.

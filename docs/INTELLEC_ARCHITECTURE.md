@@ -51,9 +51,12 @@ host memory helpers. They do not supply historical-fidelity evidence.
 ## Evidence ledger
 
 `docs/evidence/intellec_sources.yaml` is the source of truth for retained and
-local-only manuals. `scripts/fetch_intellec_sources.sh` uses a fixed Mozilla
-user agent, HTTPS-only downloads, temporary files, and SHA-256 verification.
-It does not commit scans with unresolved redistribution terms. The ledger
+local-only manuals. `scripts/fetch_intellec_sources.sh --list` exposes only
+registered source IDs. Its `--source-id <id> --verify` and
+`--source-id <id> --fetch` operations use a fixed Mozilla user agent,
+HTTPS-only downloads, temporary files, and SHA-256 verification. It rejects
+arbitrary URLs and does not commit scans with unresolved redistribution terms.
+The ledger
 currently leaves the original Intellec 4 operator manual, console schematics,
 and monitor PROM set unresolved. It retains the MOD 40 reference manual, the
 primary schematic set, a candidate MON4 V2.1 listing, a visual CPU-board
@@ -67,6 +70,10 @@ provenance, raw-artifact digests, disagreement counts, and the remaining
 physical-read acceptance work.
 `docs/evidence/INTELLEC_MOD40_EXECUTION_GATE_STATUS.md` separates the media,
 electrical, cycle, panel/terminal, and trace closure conditions.
+`docs/evidence/intellec/mod40_route_ledger_v1.json` records each consumed
+route with source identifiers, locators, explicit unresolved clauses, and the
+blocked source gates. `scripts/verify_mod40_evidence.py` validates that ledger
+against the source registry.
 
 ## MOD 40 boundary
 
