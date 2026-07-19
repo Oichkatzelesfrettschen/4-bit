@@ -15,7 +15,7 @@ VALID_EVIDENCE = frozenset({"direct", "partial"})
 VALID_GATE_STATUS = frozenset({"blocked", "closed"})
 VALID_CLOSURE_STATE = frozenset({"missing", "partial", "verified"})
 REQUIRED_ROUTE_KEYS = frozenset({"id", "gate", "evidence", "source_ids", "locator", "from", "to", "assertions", "unresolved"})
-REQUIRED_CLOSURE_KEYS = frozenset({"id", "gate", "state", "source_ids", "closure_artifact", "acceptance"})
+REQUIRED_CLOSURE_KEYS = frozenset({"id", "gate", "state", "depends_on", "source_ids", "closure_artifact", "acceptance"})
 
 
 class EvidenceValidationError(ValueError):
@@ -48,6 +48,32 @@ def require_string(record: dict[str, object], key: str, context: str) -> str:
     return value
 
 
+def topological_requirement_ids(closure_by_id: dict[str, dict[str, object]]) -> list[str]:
+    """Return a deterministic prerequisite-first closure-requirement order."""
+
+    unresolved_dependencies = {
+        closure_id: set(cast(list[str], closure["depends_on"]))
+        for closure_id, closure in closure_by_id.items()
+    }
+    ready_ids = sorted(closure_id for closure_id, dependencies in unresolved_dependencies.items() if not dependencies)
+    ordered_ids: list[str] = []
+    while ready_ids:
+        closure_id = ready_ids.pop(0)
+        ordered_ids.append(closure_id)
+        for dependent_id in sorted(unresolved_dependencies):
+            dependencies = unresolved_dependencies[dependent_id]
+            if closure_id not in dependencies:
+                continue
+            dependencies.remove(closure_id)
+            if not dependencies and dependent_id not in ordered_ids and dependent_id not in ready_ids:
+                ready_ids.append(dependent_id)
+        ready_ids.sort()
+    if len(ordered_ids) != len(closure_by_id):
+        cyclic_ids = sorted(set(closure_by_id).difference(ordered_ids))
+        raise EvidenceValidationError(f"closure requirement dependencies contain a cycle: {cyclic_ids}")
+    return ordered_ids
+
+
 def validate_ledger(ledger: object, source_ids: set[str]) -> None:
     """Require every gate and route to retain source-bound incompleteness."""
 
@@ -77,6 +103,13 @@ def validate_ledger(ledger: object, source_ids: set[str]) -> None:
             raise EvidenceValidationError(f"closure requirement {closure_id} references unknown gate {gate}")
         if closure.get("state") not in VALID_CLOSURE_STATE:
             raise EvidenceValidationError(f"closure requirement {closure_id} has invalid state")
+        dependency_ids = closure.get("depends_on")
+        if not isinstance(dependency_ids, list) or not all(isinstance(value, str) and value for value in dependency_ids):
+            raise EvidenceValidationError(f"closure requirement {closure_id} has invalid depends_on")
+        if len(set(dependency_ids)) != len(dependency_ids):
+            raise EvidenceValidationError(f"closure requirement {closure_id} has duplicate dependencies")
+        if closure_id in dependency_ids:
+            raise EvidenceValidationError(f"closure requirement {closure_id} depends on itself")
         source_id_list = closure.get("source_ids")
         if not isinstance(source_id_list, list) or not source_id_list or not all(isinstance(value, str) for value in source_id_list):
             raise EvidenceValidationError(f"closure requirement {closure_id} has invalid source_ids")
@@ -89,6 +122,22 @@ def validate_ledger(ledger: object, source_ids: set[str]) -> None:
         require_string(closure, "acceptance", closure_id)
         closure_by_id[closure_id] = closure
         closure_ids_by_gate.setdefault(gate, set()).add(closure_id)
+
+    for closure_id, closure in closure_by_id.items():
+        dependency_ids = cast(list[str], closure["depends_on"])
+        unknown_dependency_ids = set(dependency_ids).difference(closure_by_id)
+        if unknown_dependency_ids:
+            raise EvidenceValidationError(
+                f"closure requirement {closure_id} references unknown dependencies: {sorted(unknown_dependency_ids)}"
+            )
+        closure_state = cast(str, closure["state"])
+        for dependency_id in dependency_ids:
+            dependency_state = cast(str, closure_by_id[dependency_id]["state"])
+            if closure_state == "verified" and dependency_state != "verified":
+                raise EvidenceValidationError(
+                    f"verified closure requirement {closure_id} depends on incomplete requirement {dependency_id}"
+                )
+    topological_requirement_ids(closure_by_id)
 
     route_ids: set[str] = set()
     routes_by_id: dict[str, dict[str, object]] = {}
@@ -181,6 +230,13 @@ def build_status_report(ledger: dict[str, object]) -> dict[str, object]:
     gates = cast(dict[str, object], gates_value)
     routes = cast(list[object], routes_value)
     closure_requirements = cast(list[object], closure_requirements_value)
+    closure_by_id = {
+        closure_id: closure
+        for closure in closure_requirements
+        if isinstance(closure, dict)
+        if isinstance((closure_id := closure.get("id")), str)
+    }
+    topological_ids = topological_requirement_ids(closure_by_id)
 
     closure_routes: dict[str, list[str]] = {}
     for route in routes:
@@ -196,6 +252,9 @@ def build_status_report(ledger: dict[str, object]) -> dict[str, object]:
 
     report_gates: list[dict[str, object]] = []
     total_states = {state: 0 for state in sorted(VALID_CLOSURE_STATE)}
+    ready_requirement_ids: list[str] = []
+    blocked_requirement_ids: list[str] = []
+    verified_requirement_ids: list[str] = []
     for gate_id in gates:
         if not isinstance(gate_id, str):
             raise EvidenceValidationError("validated ledger has a non-string gate ID")
@@ -210,15 +269,34 @@ def build_status_report(ledger: dict[str, object]) -> dict[str, object]:
         ):
             closure_id = closure.get("id")
             state = closure.get("state")
+            dependency_ids = closure.get("depends_on")
             source_id_list = closure.get("source_ids")
-            if not isinstance(closure_id, str) or not isinstance(state, str) or not isinstance(source_id_list, list):
+            if (
+                not isinstance(closure_id, str)
+                or not isinstance(state, str)
+                or not isinstance(dependency_ids, list)
+                or not isinstance(source_id_list, list)
+            ):
                 raise EvidenceValidationError("validated ledger has a malformed closure requirement")
+            blocked_by_requirement_ids = sorted(
+                dependency_id
+                for dependency_id in dependency_ids
+                if closure_by_id[dependency_id]["state"] != "verified"
+            )
+            if state == "verified":
+                verified_requirement_ids.append(closure_id)
+            elif blocked_by_requirement_ids:
+                blocked_requirement_ids.append(closure_id)
+            else:
+                ready_requirement_ids.append(closure_id)
             gate_states[state] += 1
             total_states[state] += 1
             requirements.append(
                 {
                     "id": closure_id,
                     "state": state,
+                    "dependency_ids": sorted(dependency_ids),
+                    "blocked_by_requirement_ids": blocked_by_requirement_ids,
                     "source_ids": sorted(source_id_list),
                     "closure_artifact": closure["closure_artifact"],
                     "acceptance": closure["acceptance"],
@@ -240,6 +318,12 @@ def build_status_report(ledger: dict[str, object]) -> dict[str, object]:
         "source_registry": ledger["source_registry"],
         "gates": report_gates,
         "requirement_counts": {**total_states, "total": sum(total_states.values())},
+        "work_queue": {
+            "topological_requirement_ids": topological_ids,
+            "ready_requirement_ids": sorted(ready_requirement_ids),
+            "blocked_requirement_ids": sorted(blocked_requirement_ids),
+            "verified_requirement_ids": sorted(verified_requirement_ids),
+        },
     }
 
 

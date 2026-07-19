@@ -465,7 +465,7 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/mod40-evidence-python.files" \
         printf '%s\n' 'reason=cscope reports lexical tokens only for Python source'
     } > "$OUTPUT_DIR/cscope/mod40-evidence-python.status"
     {
-        for symbol in main validate_ledger build_status_report write_status_report; do
+        for symbol in main validate_ledger topological_requirement_ids build_status_report write_status_report; do
             printf '%s\n' "== definitions: $symbol =="
             cscope -d -f "$OUTPUT_DIR/cscope/mod40-evidence-python.out" -L -0 "$symbol" || true
             printf '%s\n' "== lexical callees: $symbol =="

@@ -77,7 +77,9 @@ against the source registry.
 `docs/evidence/INTELLEC_MOD40_CLOSURE_CONTRACT.md` decomposes every blocked
 gate into atomic evidence artifacts and acceptance conditions.
 `just mod40-evidence-report` derives an ignored JSON status surface for tools
-and the GUI without changing source-gate state.
+and the GUI without changing source-gate state. The same report exposes the
+validated prerequisite-first evidence queue, so implementation cannot outrun
+the traced board facts it depends on.
 
 ## MOD 40 boundary
 

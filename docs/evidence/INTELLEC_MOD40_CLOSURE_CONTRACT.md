@@ -21,7 +21,10 @@ implemented cycle participant after the documentary gates close.
 `just mod40-evidence-report` writes the ignored deterministic status surface
 to `target/mod40-evidence-status.json`. The report preserves canonical gate
 order, links every requirement to its blocking route, and reports missing,
-partial, and verified requirement counts for tooling and the future GUI.
+partial, and verified requirement counts for tooling and the future GUI. It
+also records a prerequisite-first order plus ready, blocked, and verified work
+queues. A requirement is ready only when it is incomplete and every listed
+evidence prerequisite is verified.
 
 ## Evidence state
 
@@ -33,4 +36,5 @@ partial, and verified requirement counts for tooling and the future GUI.
 
 The validator rejects an unreferenced requirement, a partial route without
 atomic requirements, a requirement assigned to another gate, or a closed gate
-with any incomplete requirement.
+with any incomplete requirement. It also rejects unknown, duplicate, cyclic,
+or prematurely verified closure dependencies.
