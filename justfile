@@ -78,6 +78,11 @@ timing-validate:
 mod40-evidence-validate:
     python3 scripts/verify_mod40_evidence.py
 
+# Write the ignored, deterministic MOD 40 evidence status surface for tooling and GUIs.
+mod40-evidence-report:
+    mkdir -p target
+    python3 scripts/verify_mod40_evidence.py --report target/mod40-evidence-status.json
+
 # Verify the capability and ownership matrix against retained evidence paths.
 capability-validate:
     python3 scripts/verify_capability_registry.py

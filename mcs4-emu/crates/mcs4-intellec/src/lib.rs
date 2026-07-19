@@ -31,8 +31,8 @@ pub use front_panel::{FrontPanel, PanelLeds, PanelMode};
 pub use imm6_28::{Imm628, Imm628ChipLocation, Imm628Output, Imm628Read};
 pub use machine::{IntellecBusMachine, IntellecEvent, IntellecFrame, IntellecMachine, IntellecMachineError};
 pub use mod40::{
-    Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40SourceGate, Mod40TerminalEndpoint, ProgramStoreId,
-    MOD40_EVIDENCE_GATE_IDS,
+    Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40EvidenceGateStatus, Mod40SourceGate, Mod40TerminalEndpoint,
+    ProgramStoreId, MOD40_EVIDENCE_GATE_IDS,
 };
 pub use mod40_routes::{
     accepted_monitor_read_set_count, cpu_clock_source_is_traced, cpu_nominal_machine_clock_hz,

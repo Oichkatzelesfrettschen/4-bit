@@ -76,6 +76,8 @@ blocked source gates. `scripts/verify_mod40_evidence.py` validates that ledger
 against the source registry.
 `docs/evidence/INTELLEC_MOD40_CLOSURE_CONTRACT.md` decomposes every blocked
 gate into atomic evidence artifacts and acceptance conditions.
+`just mod40-evidence-report` derives an ignored JSON status surface for tools
+and the GUI without changing source-gate state.
 
 ## MOD 40 boundary
 

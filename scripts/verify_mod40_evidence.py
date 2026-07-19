@@ -5,7 +5,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import tempfile
 from pathlib import Path
+from typing import cast
 
 import yaml
 
@@ -168,17 +170,113 @@ def validate_ledger(ledger: object, source_ids: set[str]) -> None:
             raise EvidenceValidationError(f"closed gate {gate_id} retains incomplete closure requirements")
 
 
+def build_status_report(ledger: dict[str, object]) -> dict[str, object]:
+    """Build one deterministic consumer report from a validated route ledger."""
+
+    gates_value = ledger["source_gates"]
+    routes_value = ledger["routes"]
+    closure_requirements_value = ledger["closure_requirements"]
+    if not isinstance(gates_value, dict) or not isinstance(routes_value, list) or not isinstance(closure_requirements_value, list):
+        raise EvidenceValidationError("validated ledger has malformed status-report inputs")
+    gates = cast(dict[str, object], gates_value)
+    routes = cast(list[object], routes_value)
+    closure_requirements = cast(list[object], closure_requirements_value)
+
+    closure_routes: dict[str, list[str]] = {}
+    for route in routes:
+        if not isinstance(route, dict):
+            raise EvidenceValidationError("validated ledger has a non-mapping route")
+        route_id = route.get("id")
+        if not isinstance(route_id, str):
+            raise EvidenceValidationError("validated ledger route has no string ID")
+        for closure_id in route.get("closure_requirement_ids", []):
+            if not isinstance(closure_id, str):
+                raise EvidenceValidationError("validated ledger route has a non-string closure ID")
+            closure_routes.setdefault(closure_id, []).append(route_id)
+
+    report_gates: list[dict[str, object]] = []
+    total_states = {state: 0 for state in sorted(VALID_CLOSURE_STATE)}
+    for gate_id in gates:
+        if not isinstance(gate_id, str):
+            raise EvidenceValidationError("validated ledger has a non-string gate ID")
+        gate = gates[gate_id]
+        if not isinstance(gate, dict):
+            raise EvidenceValidationError(f"validated ledger gate {gate_id} is not a mapping")
+        requirements: list[dict[str, object]] = []
+        gate_states = {state: 0 for state in sorted(VALID_CLOSURE_STATE)}
+        for closure in sorted(
+            (item for item in closure_requirements if isinstance(item, dict) and item.get("gate") == gate_id),
+            key=lambda item: str(item["id"]),
+        ):
+            closure_id = closure.get("id")
+            state = closure.get("state")
+            source_id_list = closure.get("source_ids")
+            if not isinstance(closure_id, str) or not isinstance(state, str) or not isinstance(source_id_list, list):
+                raise EvidenceValidationError("validated ledger has a malformed closure requirement")
+            gate_states[state] += 1
+            total_states[state] += 1
+            requirements.append(
+                {
+                    "id": closure_id,
+                    "state": state,
+                    "source_ids": sorted(source_id_list),
+                    "closure_artifact": closure["closure_artifact"],
+                    "acceptance": closure["acceptance"],
+                    "route_ids": sorted(closure_routes[closure_id]),
+                }
+            )
+        report_gates.append(
+            {
+                "id": gate_id,
+                "status": gate["status"],
+                "blocking_route_ids": sorted(gate["blocking_routes"]),
+                "requirements": requirements,
+                "requirement_counts": {**gate_states, "total": len(requirements)},
+            }
+        )
+
+    return {
+        "schema": "mcs4.mod40.evidence-status.v1",
+        "source_registry": ledger["source_registry"],
+        "gates": report_gates,
+        "requirement_counts": {**total_states, "total": sum(total_states.values())},
+    }
+
+
+def write_status_report(path: Path, report: dict[str, object]) -> None:
+    """Write a report atomically without modifying the source ledger."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="ascii",
+        dir=path.parent,
+        prefix=f".{path.name}.",
+        suffix=".tmp",
+        delete=False,
+    ) as handle:
+        temporary_path = Path(handle.name)
+        json.dump(report, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+    temporary_path.replace(path)
+
+
 def main(arguments: list[str] | None = None) -> int:
     """Validate the canonical tracked ledger and report one deterministic result."""
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", type=Path, default=Path("docs/evidence/intellec/mod40_route_ledger_v1.json"))
     parser.add_argument("--sources", type=Path, default=Path("docs/evidence/intellec_sources.yaml"))
+    parser.add_argument("--report", type=Path, help="Write a deterministic gate-status report after validation.")
     parsed = parser.parse_args(arguments)
     try:
         with parsed.ledger.open(encoding="ascii") as handle:
             ledger = json.load(handle)
         validate_ledger(ledger, load_source_ids(parsed.sources))
+        if parsed.report is not None:
+            if not isinstance(ledger, dict):
+                raise EvidenceValidationError("route ledger root is not a mapping")
+            write_status_report(parsed.report, build_status_report(ledger))
     except (EvidenceValidationError, OSError, json.JSONDecodeError, yaml.YAMLError) as error:
         print(f"MOD 40 evidence validation failed: {error}")
         return 1

@@ -34,6 +34,15 @@ pub const MOD40_EVIDENCE_GATE_IDS: [&str; 6] = [
     "monitor-raw-provenance",
 ];
 
+/// Typed status for one documentary gate in the MOD 40 route ledger.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct Mod40EvidenceGateStatus {
+    /// Canonical route-ledger identifier.
+    pub id: &'static str,
+    /// True when the board still lacks the evidence required by this gate.
+    pub blocked: bool,
+}
+
 /// One program-store selection owned by the imm4-72 control card.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ProgramStoreId {
@@ -281,27 +290,41 @@ impl Mod40Board {
     /// Board-cycle wiring is an implementation condition, not an evidence-ledger
     /// gate, so it does not appear in this list.
     pub fn blocked_evidence_gate_ids(&self) -> Vec<&'static str> {
+        self.evidence_gate_statuses()
+            .into_iter()
+            .filter_map(|status| status.blocked.then_some(status.id))
+            .collect()
+    }
+
+    /// Return all typed documentary gate states in canonical ledger order.
+    pub fn evidence_gate_statuses(&self) -> [Mod40EvidenceGateStatus; 6] {
         let gate = self.source_gate();
-        let mut blocked = Vec::with_capacity(MOD40_EVIDENCE_GATE_IDS.len());
-        if !gate.cpu_reset_and_phase_timing_traced {
-            blocked.push(MOD40_EVIDENCE_GATE_IDS[0]);
-        }
-        if !gate.program_ram_write_timing_traced {
-            blocked.push(MOD40_EVIDENCE_GATE_IDS[1]);
-        }
-        if !gate.panel_arbitration_traced {
-            blocked.push(MOD40_EVIDENCE_GATE_IDS[2]);
-        }
-        if !gate.terminal_electrical_timing_traced {
-            blocked.push(MOD40_EVIDENCE_GATE_IDS[3]);
-        }
-        if !gate.monitor_socket_map_traced || !gate.monitor_data_transform_primary_backed {
-            blocked.push(MOD40_EVIDENCE_GATE_IDS[4]);
-        }
-        if gate.accepted_monitor_read_set_count < 2 {
-            blocked.push(MOD40_EVIDENCE_GATE_IDS[5]);
-        }
-        blocked
+        [
+            Mod40EvidenceGateStatus {
+                id: MOD40_EVIDENCE_GATE_IDS[0],
+                blocked: !gate.cpu_reset_and_phase_timing_traced,
+            },
+            Mod40EvidenceGateStatus {
+                id: MOD40_EVIDENCE_GATE_IDS[1],
+                blocked: !gate.program_ram_write_timing_traced,
+            },
+            Mod40EvidenceGateStatus {
+                id: MOD40_EVIDENCE_GATE_IDS[2],
+                blocked: !gate.panel_arbitration_traced,
+            },
+            Mod40EvidenceGateStatus {
+                id: MOD40_EVIDENCE_GATE_IDS[3],
+                blocked: !gate.terminal_electrical_timing_traced,
+            },
+            Mod40EvidenceGateStatus {
+                id: MOD40_EVIDENCE_GATE_IDS[4],
+                blocked: !gate.monitor_socket_map_traced || !gate.monitor_data_transform_primary_backed,
+            },
+            Mod40EvidenceGateStatus {
+                id: MOD40_EVIDENCE_GATE_IDS[5],
+                blocked: gate.accepted_monitor_read_set_count < 2,
+            },
+        ]
     }
 
     /// Reject a historical phase until every required board evidence gate closes.
@@ -371,6 +394,7 @@ mod tests {
         assert!(!board.source_gate().board_cycle_wiring_implemented);
         assert!(!board.historical_execution_is_authorized());
         assert_eq!(board.blocked_evidence_gate_ids(), MOD40_EVIDENCE_GATE_IDS);
+        assert!(board.evidence_gate_statuses().iter().all(|status| status.blocked));
         assert!(board
             .sources()
             .iter()

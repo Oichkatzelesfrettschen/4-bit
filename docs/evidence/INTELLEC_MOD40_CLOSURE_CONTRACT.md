@@ -18,6 +18,11 @@ The board exposes these IDs through `Mod40Board::blocked_evidence_gate_ids()`.
 The board-cycle wiring condition remains separate because it requires an
 implemented cycle participant after the documentary gates close.
 
+`just mod40-evidence-report` writes the ignored deterministic status surface
+to `target/mod40-evidence-status.json`. The report preserves canonical gate
+order, links every requirement to its blocking route, and reports missing,
+partial, and verified requirement counts for tooling and the future GUI.
+
 ## Evidence state
 
 - `missing` means no artifact satisfies the stated acceptance condition.

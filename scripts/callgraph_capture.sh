@@ -194,6 +194,8 @@ printf '%s\n' 'scripts/build_netlist_v1_v0.py' \
     > "$OUTPUT_DIR/static/netlist-publish-python.files"
 printf '%s\n' 'scripts/compare_common_stimulus_traces.py' \
     > "$OUTPUT_DIR/static/common-stimulus-comparison-python.files"
+printf '%s\n' 'scripts/verify_mod40_evidence.py' \
+    > "$OUTPUT_DIR/static/mod40-evidence-python.files"
 
 run_cflow() {
     label=$1
@@ -258,6 +260,15 @@ run_cflow intellec-mod40-blocked-evidence-gates blocked_evidence_gate_ids \
 } > "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status.tmp"
 mv "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status.tmp" \
     "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status"
+run_cflow intellec-mod40-evidence-gate-statuses evidence_gate_statuses \
+    "$OUTPUT_DIR/static/intellec-machine.files"
+{
+    cat "$OUTPUT_DIR/cflow/intellec-mod40-evidence-gate-statuses.status"
+    printf '%s\n' 'semantic=0'
+    printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
+} > "$OUTPUT_DIR/cflow/intellec-mod40-evidence-gate-statuses.status.tmp"
+mv "$OUTPUT_DIR/cflow/intellec-mod40-evidence-gate-statuses.status.tmp" \
+    "$OUTPUT_DIR/cflow/intellec-mod40-evidence-gate-statuses.status"
 for gate_name in \
     cpu_reset_and_phase_timing_is_traced \
     program_ram_write_timing_is_traced \
@@ -301,6 +312,15 @@ if [ ! -s "$OUTPUT_DIR/cflow/netlist-publish-python.txt" ] \
         printf '%s\n' 'reason=cflow parses C syntax and cannot map Python semantics'
     } > "$OUTPUT_DIR/cflow/netlist-publish-python.status"
 fi
+run_cflow mod40-evidence-python main "$OUTPUT_DIR/static/mod40-evidence-python.files"
+if [ ! -s "$OUTPUT_DIR/cflow/mod40-evidence-python.txt" ] \
+    && [ -s "$OUTPUT_DIR/cflow/mod40-evidence-python.stderr" ]; then
+    {
+        printf 'exit=0\n'
+        printf 'usable=0\n'
+        printf '%s\n' 'reason=cflow parses C syntax and cannot map Python semantics'
+    } > "$OUTPUT_DIR/cflow/mod40-evidence-python.status"
+fi
 
 if python3 scripts/extract_python_callgraph.py \
     scripts/gate_to_verilog_v0.py \
@@ -338,6 +358,18 @@ else
         > "$OUTPUT_DIR/python/build_netlist_v1_v0-callgraph.status"
 fi
 
+if python3 scripts/extract_python_callgraph.py \
+    scripts/verify_mod40_evidence.py \
+    "$OUTPUT_DIR/python/mod40-evidence-callgraph.txt" \
+    > "$OUTPUT_DIR/python/mod40-evidence-callgraph.stdout" \
+    2> "$OUTPUT_DIR/python/mod40-evidence-callgraph.stderr"; then
+    printf 'exit=0\n' > "$OUTPUT_DIR/python/mod40-evidence-callgraph.status"
+else
+    exit_code=$?
+    printf 'exit=%s\n' "$exit_code" \
+        > "$OUTPUT_DIR/python/mod40-evidence-callgraph.status"
+fi
+
 if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rust.out" \
     > "$OUTPUT_DIR/cscope/build.stdout" \
     2> "$OUTPUT_DIR/cscope/build.stderr"; then
@@ -352,7 +384,7 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rus
             validate_terminal_endpoints apply_terminal_input advance_terminal \
             read_intellec_ram_port Mod40Board Mod40SourceGate \
             validate_historical_execution historical_execution_is_authorized \
-            blocked_evidence_gate_ids MOD40_EVIDENCE_GATE_IDS \
+            blocked_evidence_gate_ids evidence_gate_statuses MOD40_EVIDENCE_GATE_IDS \
             cpu_reset_and_phase_timing_is_traced program_ram_write_timing_is_traced \
             panel_arbitration_is_traced terminal_electrical_timing_is_traced \
             monitor_socket_map_is_traced monitor_data_transform_is_primary_backed \
@@ -421,6 +453,30 @@ else
         > "$OUTPUT_DIR/cscope/gate-export-python.status"
     printf '%s\n' 'cscope Python lexical index build failed; see gate-export-python-build.stderr.' \
         > "$OUTPUT_DIR/cscope/gate-export-python-selected-paths.txt"
+fi
+
+if cscope -b -q -k -i "$OUTPUT_DIR/static/mod40-evidence-python.files" \
+    -f "$OUTPUT_DIR/cscope/mod40-evidence-python.out" \
+    > "$OUTPUT_DIR/cscope/mod40-evidence-python-build.stdout" \
+    2> "$OUTPUT_DIR/cscope/mod40-evidence-python-build.stderr"; then
+    {
+        printf 'exit=0\n'
+        printf 'semantic=0\n'
+        printf '%s\n' 'reason=cscope reports lexical tokens only for Python source'
+    } > "$OUTPUT_DIR/cscope/mod40-evidence-python.status"
+    {
+        for symbol in main validate_ledger build_status_report write_status_report; do
+            printf '%s\n' "== definitions: $symbol =="
+            cscope -d -f "$OUTPUT_DIR/cscope/mod40-evidence-python.out" -L -0 "$symbol" || true
+            printf '%s\n' "== lexical callees: $symbol =="
+            cscope -d -f "$OUTPUT_DIR/cscope/mod40-evidence-python.out" -L -2 "$symbol" || true
+        done
+    } > "$OUTPUT_DIR/cscope/mod40-evidence-python-selected-paths.txt" 2>&1
+else
+    exit_code=$?
+    printf 'exit=%s\n' "$exit_code" > "$OUTPUT_DIR/cscope/mod40-evidence-python.status"
+    printf '%s\n' 'cscope Python lexical index build failed; see mod40-evidence-python-build.stderr.' \
+        > "$OUTPUT_DIR/cscope/mod40-evidence-python-selected-paths.txt"
 fi
 
 run_cargo_modules() {
