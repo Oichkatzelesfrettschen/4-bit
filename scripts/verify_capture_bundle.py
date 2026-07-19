@@ -41,6 +41,7 @@ REQUIRED_STATUS_PATHS = frozenset(
         "cflow/common-stimulus.status",
         "cflow/intellec-machine.status",
         "cflow/intellec-mod40-source-gate.status",
+        "cflow/intellec-mod40-blocked-evidence-gates.status",
         "cflow/intellec-mod40-cpu_reset_and_phase_timing_is_traced.status",
         "cflow/intellec-mod40-program_ram_write_timing_is_traced.status",
         "cflow/intellec-mod40-panel_arbitration_is_traced.status",

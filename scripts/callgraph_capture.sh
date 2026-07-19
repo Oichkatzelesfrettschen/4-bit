@@ -249,6 +249,15 @@ run_cflow intellec-mod40-source-gate validate_historical_execution \
 } > "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status.tmp"
 mv "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status.tmp" \
     "$OUTPUT_DIR/cflow/intellec-mod40-source-gate.status"
+run_cflow intellec-mod40-blocked-evidence-gates blocked_evidence_gate_ids \
+    "$OUTPUT_DIR/static/intellec-machine.files"
+{
+    cat "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status"
+    printf '%s\n' 'semantic=0'
+    printf '%s\n' 'reason=cflow is lexical-only for Rust source and does not resolve traits, macros, or monomorphization'
+} > "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status.tmp"
+mv "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status.tmp" \
+    "$OUTPUT_DIR/cflow/intellec-mod40-blocked-evidence-gates.status"
 for gate_name in \
     cpu_reset_and_phase_timing_is_traced \
     program_ram_write_timing_is_traced \
@@ -343,6 +352,7 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rus
             validate_terminal_endpoints apply_terminal_input advance_terminal \
             read_intellec_ram_port Mod40Board Mod40SourceGate \
             validate_historical_execution historical_execution_is_authorized \
+            blocked_evidence_gate_ids MOD40_EVIDENCE_GATE_IDS \
             cpu_reset_and_phase_timing_is_traced program_ram_write_timing_is_traced \
             panel_arbitration_is_traced terminal_electrical_timing_is_traced \
             monitor_socket_map_is_traced monitor_data_transform_is_primary_backed \

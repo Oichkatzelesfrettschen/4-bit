@@ -20,6 +20,20 @@ use crate::{
     profile::{SourceReference, MOD40_SOURCES},
 };
 
+/// Canonical MOD 40 evidence-gate identifiers from the route ledger.
+///
+/// The identifiers allow a caller to join the typed board state with
+/// `docs/evidence/intellec/mod40_route_ledger_v1.json` without treating an
+/// incomplete route as executable hardware.
+pub const MOD40_EVIDENCE_GATE_IDS: [&str; 6] = [
+    "cpu-phase-reset",
+    "in28-write-timing",
+    "panel-arbitration",
+    "terminal-electrical",
+    "monitor-socket-transform",
+    "monitor-raw-provenance",
+];
+
 /// One program-store selection owned by the imm4-72 control card.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ProgramStoreId {
@@ -262,6 +276,34 @@ impl Mod40Board {
             && gate.board_cycle_wiring_implemented
     }
 
+    /// Return canonical evidence-gate IDs that still block source-faithful execution.
+    ///
+    /// Board-cycle wiring is an implementation condition, not an evidence-ledger
+    /// gate, so it does not appear in this list.
+    pub fn blocked_evidence_gate_ids(&self) -> Vec<&'static str> {
+        let gate = self.source_gate();
+        let mut blocked = Vec::with_capacity(MOD40_EVIDENCE_GATE_IDS.len());
+        if !gate.cpu_reset_and_phase_timing_traced {
+            blocked.push(MOD40_EVIDENCE_GATE_IDS[0]);
+        }
+        if !gate.program_ram_write_timing_traced {
+            blocked.push(MOD40_EVIDENCE_GATE_IDS[1]);
+        }
+        if !gate.panel_arbitration_traced {
+            blocked.push(MOD40_EVIDENCE_GATE_IDS[2]);
+        }
+        if !gate.terminal_electrical_timing_traced {
+            blocked.push(MOD40_EVIDENCE_GATE_IDS[3]);
+        }
+        if !gate.monitor_socket_map_traced || !gate.monitor_data_transform_primary_backed {
+            blocked.push(MOD40_EVIDENCE_GATE_IDS[4]);
+        }
+        if gate.accepted_monitor_read_set_count < 2 {
+            blocked.push(MOD40_EVIDENCE_GATE_IDS[5]);
+        }
+        blocked
+    }
+
     /// Reject a historical phase until every required board evidence gate closes.
     pub fn validate_historical_execution(&self) -> Result<(), Mod40AssemblyError> {
         let source_gate = self.source_gate();
@@ -297,7 +339,7 @@ impl Default for Mod40Board {
 
 #[cfg(test)]
 mod tests {
-    use super::{Mod40AssemblyError, Mod40Board, Mod40TerminalEndpoint, ProgramStoreId};
+    use super::{Mod40AssemblyError, Mod40Board, Mod40TerminalEndpoint, ProgramStoreId, MOD40_EVIDENCE_GATE_IDS};
     use crate::{
         console::ProgramMemoryMode,
         imm6_28::{Imm628Output, Imm628Read},
@@ -328,6 +370,7 @@ mod tests {
         assert!(!board.source_gate().monitor_media_verified);
         assert!(!board.source_gate().board_cycle_wiring_implemented);
         assert!(!board.historical_execution_is_authorized());
+        assert_eq!(board.blocked_evidence_gate_ids(), MOD40_EVIDENCE_GATE_IDS);
         assert!(board
             .sources()
             .iter()
