@@ -83,6 +83,10 @@ mod40-evidence-report:
     mkdir -p target
     python3 scripts/verify_mod40_evidence.py --report target/mod40-evidence-status.json
 
+# Run the optional local CUDA MinerU capture; outputs remain ignored.
+mod40-mineru-ocr:
+    scripts/extract_mod40_mineru_ocr.sh
+
 # Verify the capability and ownership matrix against retained evidence paths.
 capability-validate:
     python3 scripts/verify_capability_registry.py

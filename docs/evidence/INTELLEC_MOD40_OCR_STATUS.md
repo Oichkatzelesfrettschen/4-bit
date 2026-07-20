@@ -39,6 +39,69 @@ combination. The capture uses an isolated `uv` environment with Transformers
 system CUDA PyTorch runtime. The repository script accepts the isolated Python
 path as an explicit argument and does not mutate global Python dependencies.
 
+## MinerU CUDA route
+
+The high-detail structured OCR route uses MinerU 3.4.4 in the local isolated
+environment `$HOME/.local/share/4-bit/mineru-3.4.4/venv`. The environment uses
+Python 3.12, PyTorch 2.11.0 with CUDA 13.0, and the NVIDIA GeForce RTX 4070 Ti
+at compute capability 8.9. Its model corpus resides outside the repository at
+`$HOME/.local/share/4-bit/mineru-3.4.4/models`; the ignored output cache
+records the executable, model source, CUDA device, capability, free VRAM, and
+every output digest.
+
+`scripts/extract_mod40_mineru_ocr.sh` selects one PDF sheet per MinerU request,
+forces OCR mode, uses the local `hybrid-engine` backend with high effort, and
+serializes API work. It bounds rendering to four threads and processing to an
+eight-page window. One-sheet requests make an output, a log, and a failure
+state attributable to one exact source page rather than to a 35-page batch.
+
+MinerU 3.4.4 rejects `auto` when it is inherited as the model-download source.
+The local model download therefore uses the explicit Hugging Face source, and
+the runtime records `MINERU_MODEL_SOURCE=huggingface`. This is a local tool
+configuration boundary, not a claim about any schematic content.
+
+Run the highest-priority route sheets with:
+
+```sh
+scripts/extract_mod40_mineru_ocr.sh --pages 3,5,7,10,13,29
+```
+
+Run all sheets only after a reviewed priority capture succeeds:
+
+```sh
+scripts/extract_mod40_mineru_ocr.sh --all-pages
+```
+
+MinerU Markdown, layout JSON, and recognized labels remain candidate material.
+They can identify a crop or an endpoint name, but they never establish a wire,
+an inversion, a Boolean function, or a pulse width without visual tracing on
+the original sheet.
+
+The first CPU-card comparison establishes a narrower tool result. MinerU's
+`hybrid-engine` classifies the full PDF 3 schematic as one flowchart image and
+recovers only its title block. Its `pipeline` backend classifies both the full
+sheet and a direct 1200 DPI clock/reset PNG crop as one image. MinerU therefore
+remains a page-layout, title-block, and artifact-normalization tool for this
+source family; it does not provide the circuit-label decomposition path.
+
+`scripts/extract_mod40_png_regions.py` supplies that path. It registers each
+existing high-value JPEG review crop against the 600 DPI source render, reruns
+the identical rectangle directly from the retained PDF as a lossless 1200 DPI
+PNG, and records the registration score and source/output digests. Tesseract
+PSM 11 and RapidOCR then emit independent label candidates with coordinates.
+The PNG and candidates remain ignored, regeneratable review material. The
+renderer requires a registration score of at least 0.90. It records a weaker
+legacy-crop match as rejected and does not render a source PNG from it; a
+manual source-coordinate recovery remains required.
+
+The direct-PNG review queue covers the CPU card, motherboard/control boundary,
+IN-28, panel logic, and TTY reference sheets. `page-05-controller-p1.jpg`
+registers at 0.501327 and remains rejected. The remaining selected review
+regions register at or above 0.977137. RapidOCR recovers useful labels such as
+`CPU RESET`, `5.185MHz`, `A32`, `74158`, `4289`, `BYTE1`, `BYTE2`, `WRITE`,
+`STOP ACK`, `TTY IN`, P4/J4 contacts, and the ASR-33 terminal-strip labels.
+These labels agree with existing review targets but do not close a route gate.
+
 GOCR 0.52 remains useful for small diagnostic crops but does not complete one
 600 DPI dense sheet in an acceptable interval. It is excluded from the full
 corpus pass. OCRmyPDF, ScanTailor Advanced, OpenCV CUDA, and unpaper remain

@@ -72,7 +72,24 @@ Reproduction workflow
     The JSON is a review queue only. Confirm both endpoints and each polarity
     stage on the primary sheet before changing the board net ledger.
 
-11. Compare declared four-device MON4 artifact sets without inferring a
+11. Run page-isolated high-detail MinerU OCR from the pinned local CUDA
+    environment:
+    `./scripts/extract_mod40_mineru_ocr.sh --pages 3,5,7,10,13,29`
+    The ignored cache retains structured output, command logs, source and
+    artifact checksums, and GPU configuration. It remains candidate material;
+    visually trace every endpoint and inversion on the source sheet before
+    entering a board-route fact.
+
+12. Render each registered high-value JPEG review crop again from the primary
+    PDF as a 1200 DPI PNG, register its source coordinate, and collect
+    Tesseract plus RapidOCR candidates:
+    `python3 scripts/extract_mod40_png_regions.py --pages 3,5,7,10,13,29`
+    The output records registration confidence, every input and output digest,
+    and OCR bounding boxes. It requires a registration score of at least 0.90
+    before it renders a source PNG and records lower-score legacy crops as
+    rejected. It never upgrades OCR to an electrical claim.
+
+13. Compare declared four-device MON4 artifact sets without inferring a
     physical read, socket order, or polarity transform:
     `python3 scripts/compare_intellec_mod40_proms.py --set first=a,b,c,d --set second=e,f,g,h --format first=intel-hex-preamble --format second=hex-listing-preamble`
     The command requires a declared format for every set and rejects padding,
