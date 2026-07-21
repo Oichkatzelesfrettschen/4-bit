@@ -5,6 +5,12 @@ contract. A gate closes only when every listed closure requirement is
 `verified`, each blocking route is direct, and the validator accepts the
 ledger. A direct local segment does not close a board path by itself.
 
+`intellec/mod40_component_pin_net_v1.json` is the source-located electrical
+decomposition below that contract. Each record separates direct physical
+connectivity from behavior completeness and links back to a route ID. Review
+rectangles retain the 600 dpi source coordinates and registration score used
+to inspect the original schematic. OCR output never satisfies a net by itself.
+
 | Gate | Atomic closure requirements | Required closure artifact |
 | --- | --- | --- |
 | `cpu-phase-reset` | Divider state equation; phase polarity; 4040 edge timing; reset inversion; reset release phase | Pin-level clock and reset timing budget |
@@ -38,3 +44,9 @@ The validator rejects an unreferenced requirement, a partial route without
 atomic requirements, a requirement assigned to another gate, or a closed gate
 with any incomplete requirement. It also rejects unknown, duplicate, cyclic,
 or prematurely verified closure dependencies.
+
+The validator also rejects component-pin records with invented endpoints,
+unknown sources, OCR-only evidence, invalid source rectangles, dangling
+segments, asserted polarity without a source-backed level, or numeric timing
+without units, scope, and source locator. The generated Rust contract must
+match the validated route ledger after deterministic generation.

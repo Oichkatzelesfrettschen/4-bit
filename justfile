@@ -77,6 +77,11 @@ timing-validate:
 # Validate that every MOD 40 source gate names a source-backed route or explicit gap.
 mod40-evidence-validate:
     python3 scripts/verify_mod40_evidence.py
+    python3 scripts/generate_mod40_evidence_contract.py --check
+
+# Regenerate the Rust projection of the canonical MOD 40 evidence ledger.
+mod40-evidence-generate:
+    python3 scripts/generate_mod40_evidence_contract.py
 
 # Write the ignored, deterministic MOD 40 evidence status surface for tooling and GUIs.
 mod40-evidence-report:

@@ -4,7 +4,13 @@
 //! sheets. They are not a controller Boolean model. A `Partial` route exposes
 //! a useful boundary without authorizing a polarity, timing, or cycle claim.
 
-use crate::mod40::Mod40TerminalEndpoint;
+use crate::{
+    mod40::Mod40TerminalEndpoint,
+    mod40_evidence_generated::{
+        ACCEPTED_MONITOR_READ_SET_COUNT, MOD40_EVIDENCE_GATE_CLOSED, MONITOR_DATA_TRANSFORM_PRIMARY_BACKED,
+        MONITOR_SOCKET_MAP_TRACED,
+    },
+};
 
 /// Completeness of one route record against its controlling primary sheet.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -46,6 +52,37 @@ pub struct Imm628WriteReadInput {
     pub evidence: Mod40RouteEvidence,
     /// Primary-source locator for this convention.
     pub source_locator: &'static str,
+}
+
+/// Source-defined operation at the imm6-28 card input boundary.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum Imm628CardOperation {
+    /// The card input remains in continuous read mode.
+    Read,
+    /// The card input requests the local delayed write sequence.
+    Write,
+}
+
+/// Active-low byte-selection state at the imm6-28 card input boundary.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum Imm628ByteSelection {
+    /// Neither byte-select input is asserted.
+    None,
+    /// BYTE1 alone is asserted low.
+    Byte1,
+    /// BYTE2 alone is asserted low.
+    Byte2,
+    /// Both active-low byte-select inputs are asserted simultaneously.
+    Conflict,
+}
+
+/// Decoded source-backed card input without an inferred 2102 waveform.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct Imm628CardInputState {
+    /// Read or write meaning of the WRITE/READ card input.
+    pub operation: Imm628CardOperation,
+    /// Decoded active-low BYTE1 and BYTE2 inputs.
+    pub byte_selection: Imm628ByteSelection,
 }
 
 /// Controller conditions that produce a write command before A29 inversion.
@@ -108,6 +145,29 @@ pub const fn imm628_write_read_level_requests_write(level_high: bool) -> bool {
 /// function does not assign either byte signal to a processor nibble.
 pub const fn imm628_has_exactly_one_selected_byte(byte1_high: bool, byte2_high: bool) -> bool {
     byte1_high != byte2_high
+}
+
+/// Decode the verified imm6-28 card-edge levels without driving SRAM devices.
+pub const fn decode_imm628_card_inputs(
+    write_read_high: bool,
+    byte1_high: bool,
+    byte2_high: bool,
+) -> Imm628CardInputState {
+    let operation = if imm628_write_read_level_requests_write(write_read_high) {
+        Imm628CardOperation::Write
+    } else {
+        Imm628CardOperation::Read
+    };
+    let byte_selection = match (byte1_high, byte2_high) {
+        (true, true) => Imm628ByteSelection::None,
+        (false, true) => Imm628ByteSelection::Byte1,
+        (true, false) => Imm628ByteSelection::Byte2,
+        (false, false) => Imm628ByteSelection::Conflict,
+    };
+    Imm628CardInputState {
+        operation,
+        byte_selection,
+    }
 }
 
 /// One CPU-card to terminal-cable conductor.
@@ -885,7 +945,7 @@ pub const fn monitor_select_decode_outputs_are_recorded() -> bool {
 /// stages. It does not establish a serial per-bit path, byte transform, or
 /// socket order.
 pub const fn monitor_data_polarity_is_traced() -> bool {
-    false
+    MONITOR_DATA_TRANSFORM_PRIMARY_BACKED
 }
 
 /// Return whether every C1702A select path reaches one named physical socket.
@@ -893,7 +953,7 @@ pub const fn monitor_data_polarity_is_traced() -> bool {
 /// The reviewed decoder records stop at the A18 output pins. No primary route
 /// yet identifies a selected C1702A socket, so this remains false.
 pub const fn monitor_socket_map_is_traced() -> bool {
-    false
+    MONITOR_SOCKET_MAP_TRACED
 }
 
 /// Return whether the reader-byte to executed-byte transform is primary-backed.
@@ -901,7 +961,7 @@ pub const fn monitor_socket_map_is_traced() -> bool {
 /// Public candidate bytes support a reproducible complement experiment, but no
 /// primary per-bit route establishes that transform for the board.
 pub const fn monitor_data_transform_is_primary_backed() -> bool {
-    false
+    MONITOR_DATA_TRANSFORM_PRIMARY_BACKED
 }
 
 /// Return the number of accepted independent C1702A read sets.
@@ -909,7 +969,7 @@ pub const fn monitor_data_transform_is_primary_backed() -> bool {
 /// The public corpus contains no accepted raw set because it lacks the
 /// position-specific repeat, custody, reader, voltage, and photo records.
 pub const fn accepted_monitor_read_set_count() -> u8 {
-    0
+    ACCEPTED_MONITOR_READ_SET_COUNT
 }
 
 /// Return whether the clock divider, reset release, and CPU phase timing close.
@@ -917,7 +977,7 @@ pub const fn accepted_monitor_read_set_count() -> u8 {
 /// A functional divider target exists, but its Boolean equation and package
 /// timing remain partial, so a historical CPU phase remains unauthorized.
 pub const fn cpu_reset_and_phase_timing_is_traced() -> bool {
-    false
+    MOD40_EVIDENCE_GATE_CLOSED[0]
 }
 
 /// Return whether the IN-28 write one-shot and 2102 timing close.
@@ -925,7 +985,7 @@ pub const fn cpu_reset_and_phase_timing_is_traced() -> bool {
 /// The card-edge polarity and write ordering are direct. The component values,
 /// pulse width, propagation budget, and device timing remain incomplete.
 pub const fn program_ram_write_timing_is_traced() -> bool {
-    false
+    MOD40_EVIDENCE_GATE_CLOSED[1]
 }
 
 /// Return whether front-panel controls form a complete arbitration equation.
@@ -933,7 +993,7 @@ pub const fn program_ram_write_timing_is_traced() -> bool {
 /// Local reset and single-step contracts exist, but STOP ACK continuity and
 /// panel priority remain untraced across the board boundaries.
 pub const fn panel_arbitration_is_traced() -> bool {
-    false
+    MOD40_EVIDENCE_GATE_CLOSED[2]
 }
 
 /// Return whether current-loop transistor thresholds and relay timing close.
@@ -941,7 +1001,7 @@ pub const fn panel_arbitration_is_traced() -> bool {
 /// The source establishes the three terminal conductors and port-bit senses.
 /// It does not establish the entire Q3, Q4, and Q5 electrical timing path.
 pub const fn terminal_electrical_timing_is_traced() -> bool {
-    false
+    MOD40_EVIDENCE_GATE_CLOSED[3]
 }
 
 /// Return whether every reviewed IN-28 card-edge route is complete.
@@ -981,14 +1041,35 @@ mod tests {
         monitor_socket_map_is_traced, panel_arbitration_is_traced, program_ram_card_edge_is_complete,
         program_ram_write_timing_is_traced, ram0_port_value_drives_printer_marking_current,
         ram1_port_value_enables_reader, terminal_cable_routes_are_traced, terminal_current_loop_polarity_is_traced,
-        terminal_electrical_timing_is_traced, ControlResetInitiator, ControlWriteCommandCause, Mod40RouteEvidence,
-        CONTROL_RESET_PULSE_CONTRACT, CONTROL_WRITE_COMMAND_CAUSES, CONTROL_WRITE_COMMAND_ROUTE,
-        CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_RESET_TIMING_REQUIREMENT, CPU_STOP_ACKNOWLEDGE_ENDPOINT,
-        IMM628_LOCAL_WRITE_PATH, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
-        MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PANEL_SINGLE_STEP_CONTRACT,
-        PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
+        terminal_electrical_timing_is_traced, ControlResetInitiator, ControlWriteCommandCause, Imm628ByteSelection,
+        Imm628CardOperation, Mod40RouteEvidence, CONTROL_RESET_PULSE_CONTRACT, CONTROL_WRITE_COMMAND_CAUSES,
+        CONTROL_WRITE_COMMAND_ROUTE, CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_RESET_TIMING_REQUIREMENT,
+        CPU_STOP_ACKNOWLEDGE_ENDPOINT, IMM628_LOCAL_WRITE_PATH, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT,
+        MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS,
+        PANEL_SINGLE_STEP_CONTRACT, PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES,
+        TERMINAL_PORT_POLARITIES,
     };
     use crate::mod40::Mod40TerminalEndpoint;
+
+    #[test]
+    fn card_input_decoder_preserves_verified_active_low_boundaries() {
+        let write_byte1 = super::decode_imm628_card_inputs(false, false, true);
+        assert_eq!(write_byte1.operation, Imm628CardOperation::Write);
+        assert_eq!(write_byte1.byte_selection, Imm628ByteSelection::Byte1);
+
+        let read_byte2 = super::decode_imm628_card_inputs(true, true, false);
+        assert_eq!(read_byte2.operation, Imm628CardOperation::Read);
+        assert_eq!(read_byte2.byte_selection, Imm628ByteSelection::Byte2);
+
+        assert_eq!(
+            super::decode_imm628_card_inputs(false, false, false).byte_selection,
+            Imm628ByteSelection::Conflict
+        );
+        assert_eq!(
+            super::decode_imm628_card_inputs(true, true, true).byte_selection,
+            Imm628ByteSelection::None
+        );
+    }
 
     #[test]
     fn low_program_ram_address_contacts_preserve_the_direct_one_to_one_route() {

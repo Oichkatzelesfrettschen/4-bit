@@ -2,8 +2,8 @@
 
 use eframe::egui;
 use mcs4_intellec::{
-    IntellecEvent, IntellecMachine, IntellecModel, IntellecProfile, PanelControl, PanelInput, ProgramMemoryMode,
-    ResetScope,
+    IntellecEvent, IntellecMachine, IntellecModel, IntellecProfile, Mod40Board, Mod40EvidenceSnapshot, PanelControl,
+    PanelInput, ProgramMemoryMode, ResetScope,
 };
 use mcs4_system::Mcs4System;
 
@@ -214,14 +214,104 @@ impl Default for IntellecWorkspace {
     }
 }
 
+/// Read-only MOD 40 inventory, fidelity, and documentary-gate workspace.
+pub struct Mod40EvidenceWorkspace {
+    board: Mod40Board,
+}
+
+impl Mod40EvidenceWorkspace {
+    /// Construct the documented card inventory without an execution surface.
+    pub fn new() -> Self {
+        Self {
+            board: Mod40Board::new(),
+        }
+    }
+
+    /// Return immutable state used by the dashboard and tests.
+    pub fn snapshot(&self) -> Mod40EvidenceSnapshot {
+        self.board.evidence_snapshot()
+    }
+
+    /// Render source-gate state without exposing run, step, or memory mutation.
+    pub fn show(&self, ui: &mut egui::Ui) {
+        let snapshot = self.snapshot();
+        ui.heading("Intellec 4/MOD 40 evidence");
+        ui.label("4040 profile; source-gated board composition remains non-executable.");
+        ui.monospace(format!(
+            "imm4-43 MON sockets {} | imm6-28 2102 devices {} | store {:?}",
+            snapshot.monitor_socket_count, snapshot.program_ram_chip_count, snapshot.selected_store
+        ));
+        ui.label(format!("Fidelity: {}", snapshot.fidelity_level.label()));
+        ui.label(format!(
+            "Accepted independent monitor read sets: {}",
+            snapshot.accepted_monitor_read_set_count
+        ));
+
+        ui.separator();
+        ui.label("Documentary gates");
+        for gate in snapshot.gates {
+            let state = if gate.blocked { "BLOCKED" } else { "CLOSED" };
+            let color = if gate.blocked {
+                egui::Color32::YELLOW
+            } else {
+                egui::Color32::GREEN
+            };
+            ui.colored_label(color, format!("{}: {state}", gate.id));
+        }
+
+        ui.separator();
+        ui.label(format!(
+            "Board-cycle wiring: {}",
+            if snapshot.board_cycle_wiring_implemented {
+                "implemented"
+            } else {
+                "blocked"
+            }
+        ));
+        ui.label(format!(
+            "FPGA wrapper: {}",
+            if snapshot.fpga_wrapper_implemented {
+                "implemented"
+            } else {
+                "blocked"
+            }
+        ));
+        ui.add_enabled(false, egui::Button::new("RUN MOD 40"))
+            .on_disabled_hover_text(snapshot.blocked_gate_ids.join(", "));
+    }
+}
+
+impl Default for Mod40EvidenceWorkspace {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use mcs4_intellec::IntellecModel;
+    use mcs4_intellec::{IntellecModel, Mod40FidelityLevel, MOD40_EVIDENCE_GATE_IDS};
 
-    use super::IntellecWorkspace;
+    use super::{IntellecWorkspace, Mod40EvidenceWorkspace};
 
     #[test]
     fn workspace_selects_the_original_profile() {
         assert_eq!(IntellecWorkspace::new().model(), IntellecModel::Intellec4);
+    }
+
+    #[test]
+    fn mod40_dashboard_owns_a_non_executable_board() {
+        let snapshot = Mod40EvidenceWorkspace::new().snapshot();
+
+        assert_eq!(snapshot.fidelity_level, Mod40FidelityLevel::DocumentedInventory);
+        assert!(!snapshot.execution_authorized);
+        assert_eq!(snapshot.blocked_gate_ids, MOD40_EVIDENCE_GATE_IDS);
+    }
+
+    #[test]
+    fn mod40_dashboard_exposes_all_canonical_gate_ids() {
+        let snapshot = Mod40EvidenceWorkspace::new().snapshot();
+        let gate_ids = snapshot.gates.map(|gate| gate.id);
+
+        assert_eq!(gate_ids, MOD40_EVIDENCE_GATE_IDS);
     }
 }

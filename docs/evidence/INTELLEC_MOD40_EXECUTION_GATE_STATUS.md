@@ -72,6 +72,13 @@ transform, clock/reset timing, program-RAM write timing, panel arbitration,
 board-cycle wiring, and monitor-media verification. No FPGA wrapper or
 equivalence trace may bypass these false conditions.
 
+The checked component-pin ledger preserves direct local connectivity and
+partial behavior as separate states. Generated Rust constants project the
+canonical gate and closure states into `Mod40Board`; runtime authorization no
+longer depends on separately maintained literal gate values. Monitor media
+verification requires the complete raw-provenance gate, including repeats and
+comparison, rather than only a count of custody sets.
+
 ## Required external evidence intake
 
 The repository does not contact custodians or solicit new media. If a future

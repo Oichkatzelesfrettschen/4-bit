@@ -22,6 +22,29 @@ SHA-256 manifest and the tracked working-tree binary diff. Every recorded
 status exits zero. The working tree is intentionally dirty, so v17 proves the
 captured source state and does not serve as a clean-revision release artifact.
 
+The MOD 40 evidence-contract capture executes on 2026-07-20 under
+`target/callgraph-capture-mod40-pin-net-20260720`. Its schema-1,
+capture-profile-2 manifest records 1,436 checksummed artifacts and 92 status
+records. Every status exits zero. The source archive contains 362 files,
+including the route ledger, component-pin ledger, verifier, Rust generator,
+generated Rust projection, MOD 40 model, GUI evidence workspace, and focused
+tests. The retained hashes are:
+
+~~~text
+capture_manifest.json  e3e448342edde5f678dcdacf43ea920c527adb6d7a39ff9d622c74cf6db52a3d
+source/inputs.sha256   52a664272a8141d9ff31ecaebb8d7a90ba69165401f621879e9e96584a4a6f52
+source/inputs.tar      cbce30fd9b19aac08f229a9bce30fa250068e07945aca1b6d030bc61111ded2c
+~~~
+
+The focused runtime envelope executes the evidence validator, generated-state
+staleness check, fidelity derivation test, IN-28 card-input decoder test, and
+GUI dashboard test. The Python AST maps cover both evidence scripts. The MIR
+and cargo-modules maps cover the Rust crates. cflow and cscope remain lexical
+surfaces for Rust and Python and carry explicit non-semantic metadata. This
+capture proves the implemented evidence-control paths execute. It does not
+close a historical gate, prove an untraced board route, authenticate monitor
+bytes, or authorize a MOD 40 FPGA wrapper.
+
 The preceding v5 attempt remains incomplete after its launch snapshot reports
 a shell parser error. v6 remains a complete prior bundle. v7 is intentionally
 incomplete because a formatter repair landed after its environment snapshot.

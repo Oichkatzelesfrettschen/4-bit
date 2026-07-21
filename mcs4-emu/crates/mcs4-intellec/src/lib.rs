@@ -15,6 +15,7 @@ pub mod front_panel;
 pub mod imm6_28;
 pub mod machine;
 pub mod mod40;
+mod mod40_evidence_generated;
 pub mod mod40_routes;
 pub mod monitor;
 pub mod monitor_rom;
@@ -31,27 +32,27 @@ pub use front_panel::{FrontPanel, PanelLeds, PanelMode};
 pub use imm6_28::{Imm628, Imm628ChipLocation, Imm628Output, Imm628Read};
 pub use machine::{IntellecBusMachine, IntellecEvent, IntellecFrame, IntellecMachine, IntellecMachineError};
 pub use mod40::{
-    Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40EvidenceGateStatus, Mod40SourceGate, Mod40TerminalEndpoint,
-    ProgramStoreId, MOD40_EVIDENCE_GATE_IDS,
+    Imm443, Imm472, Mod40AssemblyError, Mod40Board, Mod40EvidenceGateStatus, Mod40EvidenceSnapshot, Mod40FidelityLevel,
+    Mod40SourceGate, Mod40TerminalEndpoint, ProgramStoreId, MOD40_EVIDENCE_GATE_IDS,
 };
 pub use mod40_routes::{
     accepted_monitor_read_set_count, cpu_clock_source_is_traced, cpu_nominal_machine_clock_hz,
-    cpu_reset_and_phase_timing_is_traced, imm628_has_exactly_one_selected_byte, imm628_write_read_level_requests_write,
-    keyboard_loop_current_to_rom0_input_bit0, monitor_address_fanout_is_traced, monitor_data_polarity_is_traced,
-    monitor_data_transform_is_primary_backed, monitor_select_decode_inputs_are_traced,
+    cpu_reset_and_phase_timing_is_traced, decode_imm628_card_inputs, imm628_has_exactly_one_selected_byte,
+    imm628_write_read_level_requests_write, keyboard_loop_current_to_rom0_input_bit0, monitor_address_fanout_is_traced,
+    monitor_data_polarity_is_traced, monitor_data_transform_is_primary_backed, monitor_select_decode_inputs_are_traced,
     monitor_select_decode_outputs_are_recorded, monitor_socket_map_is_traced, panel_arbitration_is_traced,
     program_ram_card_edge_is_complete, program_ram_write_timing_is_traced,
     ram0_port_value_drives_printer_marking_current, ram1_port_value_enables_reader, terminal_cable_routes_are_traced,
     terminal_current_loop_polarity_is_traced, terminal_electrical_timing_is_traced, ControlResetInitiator,
     ControlResetPulseContract, CpuClockResetRoute, CpuClockTimingTarget, CpuResetTimingRequirement,
-    CpuStopAcknowledgeEndpoint, Imm628LocalWritePath, Imm628WriteReadInput, Mod40RouteEvidence, Mod40TerminalPolarity,
-    MonitorAddressFanout, MonitorSelectDecodeInput, MonitorSelectDecodeOutput, PanelControlObservation,
-    PanelSingleStepContract, ProgramRamCardEdgeRoute, StopAcknowledgeObservation, TerminalCableRoute,
-    TerminalPortPolarity, CONTROL_RESET_PULSE_CONTRACT, CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET,
-    CPU_RESET_TIMING_REQUIREMENT, CPU_STOP_ACKNOWLEDGE_ENDPOINT, IMM628_LOCAL_WRITE_PATH, IMM628_WRITE_READ_INPUT,
-    MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS, MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS,
-    PANEL_SINGLE_STEP_CONTRACT, PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES,
-    TERMINAL_PORT_POLARITIES,
+    CpuStopAcknowledgeEndpoint, Imm628ByteSelection, Imm628CardInputState, Imm628CardOperation, Imm628LocalWritePath,
+    Imm628WriteReadInput, Mod40RouteEvidence, Mod40TerminalPolarity, MonitorAddressFanout, MonitorSelectDecodeInput,
+    MonitorSelectDecodeOutput, PanelControlObservation, PanelSingleStepContract, ProgramRamCardEdgeRoute,
+    StopAcknowledgeObservation, TerminalCableRoute, TerminalPortPolarity, CONTROL_RESET_PULSE_CONTRACT,
+    CPU_CLOCK_RESET_ROUTES, CPU_CLOCK_TIMING_TARGET, CPU_RESET_TIMING_REQUIREMENT, CPU_STOP_ACKNOWLEDGE_ENDPOINT,
+    IMM628_LOCAL_WRITE_PATH, IMM628_WRITE_READ_INPUT, MONITOR_ADDRESS_FANOUT, MONITOR_SELECT_DECODE_INPUTS,
+    MONITOR_SELECT_DECODE_OUTPUTS, PANEL_CONTROL_OBSERVATIONS, PANEL_SINGLE_STEP_CONTRACT,
+    PROGRAM_RAM_CARD_EDGE_ROUTES, STOP_ACKNOWLEDGE_OBSERVATIONS, TERMINAL_CABLE_ROUTES, TERMINAL_PORT_POLARITIES,
 };
 pub use monitor::{Monitor, MonitorAction, MonitorCommand};
 pub use monitor_rom::{MonitorRom, MonitorRomError};

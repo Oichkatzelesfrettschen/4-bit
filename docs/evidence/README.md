@@ -95,6 +95,12 @@ Reproduction workflow
     The command requires a declared format for every set and rejects padding,
     truncation, sparse Intel HEX records, and address discontinuities.
 
+14. Validate the MOD 40 route, component-pin, and generated Rust contracts:
+    `just mod40-evidence-validate`. Regenerate the checked Rust projection only
+    after an accepted ledger change with `just mod40-evidence-generate`.
+    Connectivity records remain distinct from behavior completion, so a direct
+    wire never authorizes an unresolved polarity or timing path.
+
 Audit claim backlog
 - Generate a tracking view of "derived/pending" claims called out in `docs/AUDIT.md`:
   - `python3 scripts/audit_claims_backlog.py`

@@ -14,6 +14,12 @@ import yaml
 VALID_EVIDENCE = frozenset({"direct", "partial"})
 VALID_GATE_STATUS = frozenset({"blocked", "closed"})
 VALID_CLOSURE_STATE = frozenset({"missing", "partial", "verified"})
+VALID_PIN_CONNECTIVITY = frozenset({"direct", "partial"})
+VALID_PIN_BEHAVIOR = frozenset({"partial", "verified"})
+VALID_PIN_KINDS = frozenset({"connector_to_connector", "net_to_pin", "observation"})
+VALID_ENDPOINT_KINDS = frozenset(
+    {"component_pin", "component_signal", "connector_contact", "connector_range", "named_net", "terminal_contact"}
+)
 REQUIRED_ROUTE_KEYS = frozenset({"id", "gate", "evidence", "source_ids", "locator", "from", "to", "assertions", "unresolved"})
 REQUIRED_CLOSURE_KEYS = frozenset({"id", "gate", "state", "depends_on", "source_ids", "closure_artifact", "acceptance"})
 
@@ -219,6 +225,181 @@ def validate_ledger(ledger: object, source_ids: set[str]) -> None:
             raise EvidenceValidationError(f"closed gate {gate_id} retains incomplete closure requirements")
 
 
+def validate_pin_net_ledger(pin_ledger: object, route_ledger: dict[str, object], source_ids: set[str]) -> None:
+    """Validate source-located component, pin, connector, and net records."""
+
+    if not isinstance(pin_ledger, dict):
+        raise EvidenceValidationError("component-pin ledger root is not a mapping")
+    if pin_ledger.get("schema") != "mcs4.mod40.component-pin-net.v1":
+        raise EvidenceValidationError("component-pin ledger schema is unsupported")
+    if pin_ledger.get("source_registry") != route_ledger.get("source_registry"):
+        raise EvidenceValidationError("component-pin and route ledgers use different source registries")
+    source_pdf_sha256 = pin_ledger.get("source_pdf_sha256")
+    if not isinstance(source_pdf_sha256, str) or len(source_pdf_sha256) != 64:
+        raise EvidenceValidationError("component-pin ledger has no valid source PDF SHA-256")
+
+    route_values = route_ledger.get("routes")
+    if not isinstance(route_values, list):
+        raise EvidenceValidationError("route ledger has no routes for component-pin validation")
+    routes = {
+        route_id: route
+        for route in route_values
+        if isinstance(route, dict)
+        if isinstance((route_id := route.get("id")), str)
+    }
+
+    review_regions = pin_ledger.get("review_regions")
+    records = pin_ledger.get("records")
+    if not isinstance(review_regions, list) or not isinstance(records, list):
+        raise EvidenceValidationError("component-pin ledger regions or records are malformed")
+
+    region_ids: set[str] = set()
+    for region in review_regions:
+        if not isinstance(region, dict):
+            raise EvidenceValidationError("component-pin review region is not a mapping")
+        region_id = require_string(region, "id", "component-pin review region")
+        if region_id in region_ids:
+            raise EvidenceValidationError(f"duplicate component-pin review region ID: {region_id}")
+        region_ids.add(region_id)
+        source_id = require_string(region, "source_id", region_id)
+        if source_id not in source_ids:
+            raise EvidenceValidationError(f"review region {region_id} references unknown source {source_id}")
+        require_string(region, "locator", region_id)
+        if not isinstance(region.get("page"), int) or cast(int, region["page"]) < 1:
+            raise EvidenceValidationError(f"review region {region_id} has invalid page")
+        if not isinstance(region.get("dpi"), int) or cast(int, region["dpi"]) < 300:
+            raise EvidenceValidationError(f"review region {region_id} has insufficient DPI")
+        bbox = region.get("bbox")
+        if not isinstance(bbox, list) or len(bbox) != 4 or not all(isinstance(value, int) and value >= 0 for value in bbox):
+            raise EvidenceValidationError(f"review region {region_id} has invalid bbox")
+        if bbox[2] == 0 or bbox[3] == 0:
+            raise EvidenceValidationError(f"review region {region_id} has empty bbox")
+        score = region.get("registration_score")
+        if not isinstance(score, (int, float)) or not 0.9 <= score <= 1.0:
+            raise EvidenceValidationError(f"review region {region_id} has unacceptable registration score")
+
+    record_ids: set[str] = set()
+    for record in records:
+        if not isinstance(record, dict):
+            raise EvidenceValidationError("component-pin record is not a mapping")
+        record_id = require_string(record, "id", "component-pin record")
+        if record_id in record_ids:
+            raise EvidenceValidationError(f"duplicate component-pin record ID: {record_id}")
+        record_ids.add(record_id)
+        if record.get("kind") not in VALID_PIN_KINDS:
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid kind")
+        require_string(record, "scope", record_id)
+        if record.get("connectivity_status") not in VALID_PIN_CONNECTIVITY:
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid connectivity status")
+        behavior_status = record.get("behavior_status")
+        if behavior_status not in VALID_PIN_BEHAVIOR:
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid behavior status")
+
+        route_id = require_string(record, "derived_from_route_id", record_id)
+        route = routes.get(route_id)
+        if route is None:
+            raise EvidenceValidationError(f"component-pin record {record_id} references unknown route {route_id}")
+
+        net = record.get("net")
+        if not isinstance(net, dict):
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid net")
+        require_string(net, "canonical", f"{record_id} net")
+        aliases = net.get("aliases")
+        if not isinstance(aliases, list) or not all(isinstance(alias, str) and alias for alias in aliases):
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid aliases")
+
+        endpoints = record.get("endpoints")
+        if not isinstance(endpoints, list) or len(endpoints) < 2:
+            raise EvidenceValidationError(f"component-pin record {record_id} has fewer than two endpoints")
+        endpoints_by_id: dict[str, dict[str, object]] = {}
+        for endpoint in endpoints:
+            if not isinstance(endpoint, dict):
+                raise EvidenceValidationError(f"component-pin record {record_id} has a malformed endpoint")
+            endpoint_id = require_string(endpoint, "id", f"{record_id} endpoint")
+            if endpoint_id in endpoints_by_id:
+                raise EvidenceValidationError(f"component-pin record {record_id} has duplicate endpoint {endpoint_id}")
+            endpoint_kind = endpoint.get("kind")
+            if endpoint_kind not in VALID_ENDPOINT_KINDS:
+                raise EvidenceValidationError(f"component-pin record {record_id} endpoint {endpoint_id} has invalid kind")
+            require_string(endpoint, "board", f"{record_id} endpoint {endpoint_id}")
+            require_string(endpoint, "signal", f"{record_id} endpoint {endpoint_id}")
+            if endpoint_kind in {"component_pin", "connector_contact", "connector_range", "terminal_contact"}:
+                require_string(endpoint, "refdes", f"{record_id} endpoint {endpoint_id}")
+                require_string(endpoint, "pin", f"{record_id} endpoint {endpoint_id}")
+            endpoints_by_id[endpoint_id] = endpoint
+
+        segments = record.get("segments")
+        if not isinstance(segments, list) or not segments:
+            raise EvidenceValidationError(f"component-pin record {record_id} has no segments")
+        for segment in segments:
+            if not isinstance(segment, dict):
+                raise EvidenceValidationError(f"component-pin record {record_id} has a malformed segment")
+            source_endpoint = require_string(segment, "from", f"{record_id} segment")
+            target_endpoint = require_string(segment, "to", f"{record_id} segment")
+            if source_endpoint not in endpoints_by_id or target_endpoint not in endpoints_by_id:
+                raise EvidenceValidationError(f"component-pin record {record_id} segment references unknown endpoint")
+            require_string(segment, "polarity", f"{record_id} segment")
+
+        source_refs = record.get("source_refs")
+        if not isinstance(source_refs, list) or not source_refs:
+            raise EvidenceValidationError(f"component-pin record {record_id} has no source references")
+        record_source_ids: set[str] = set()
+        for source_ref in source_refs:
+            if not isinstance(source_ref, dict):
+                raise EvidenceValidationError(f"component-pin record {record_id} has malformed source reference")
+            source_id = require_string(source_ref, "source_id", f"{record_id} source reference")
+            if source_id not in source_ids:
+                raise EvidenceValidationError(f"component-pin record {record_id} references unknown source {source_id}")
+            record_source_ids.add(source_id)
+            require_string(source_ref, "locator", f"{record_id} source reference")
+            if source_ref.get("primary_sheet_reviewed") is not True or source_ref.get("ocr_only") is not False:
+                raise EvidenceValidationError(f"component-pin record {record_id} relies on unreviewed or OCR-only evidence")
+        if not record_source_ids.intersection(set(cast(list[str], route["source_ids"]))):
+            raise EvidenceValidationError(f"component-pin record {record_id} has no source shared with route {route_id}")
+
+        review_region_ids = record.get("review_region_ids")
+        if not isinstance(review_region_ids, list) or not all(isinstance(value, str) for value in review_region_ids):
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid review regions")
+        unknown_region_ids = set(review_region_ids).difference(region_ids)
+        if unknown_region_ids:
+            raise EvidenceValidationError(
+                f"component-pin record {record_id} references unknown review regions: {sorted(unknown_region_ids)}"
+            )
+
+        unresolved = record.get("unresolved")
+        if not isinstance(unresolved, list) or not all(isinstance(value, str) and value for value in unresolved):
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid unresolved entries")
+        if behavior_status == "partial" and not unresolved:
+            raise EvidenceValidationError(f"partial component-pin behavior {record_id} names no unresolved fact")
+        if behavior_status == "verified" and unresolved:
+            raise EvidenceValidationError(f"verified component-pin behavior {record_id} retains unresolved facts")
+
+        polarity = record.get("polarity")
+        if not isinstance(polarity, dict) or polarity.get("state") not in {"explicit", "unknown", "conflict"}:
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid polarity")
+        if polarity["state"] == "explicit" and not isinstance(polarity.get("asserted_level"), str):
+            raise EvidenceValidationError(f"component-pin record {record_id} has explicit polarity without asserted level")
+        if polarity["state"] != "explicit" and polarity.get("asserted_level") is not None:
+            raise EvidenceValidationError(f"component-pin record {record_id} asserts an unproved polarity")
+        inverting_stages = polarity.get("inverting_stages")
+        if not isinstance(inverting_stages, list):
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid inversion stages")
+
+        timing = record.get("timing")
+        if not isinstance(timing, dict) or timing.get("state") not in {"explicit", "partial", "unknown"}:
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid timing")
+        constraints = timing.get("constraints")
+        if not isinstance(constraints, list):
+            raise EvidenceValidationError(f"component-pin record {record_id} has invalid timing constraints")
+        for constraint in constraints:
+            if not isinstance(constraint, dict):
+                raise EvidenceValidationError(f"component-pin record {record_id} has malformed timing constraint")
+            for key in ("name", "unit", "scope", "source_id", "locator"):
+                require_string(constraint, key, f"{record_id} timing constraint")
+            if constraint["source_id"] not in source_ids or not isinstance(constraint.get("value"), (int, float)):
+                raise EvidenceValidationError(f"component-pin record {record_id} has unsupported timing evidence")
+
+
 def build_status_report(ledger: dict[str, object]) -> dict[str, object]:
     """Build one deterministic consumer report from a validated route ledger."""
 
@@ -351,20 +532,30 @@ def main(arguments: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--ledger", type=Path, default=Path("docs/evidence/intellec/mod40_route_ledger_v1.json"))
     parser.add_argument("--sources", type=Path, default=Path("docs/evidence/intellec_sources.yaml"))
+    parser.add_argument(
+        "--pin-nets",
+        type=Path,
+        default=Path("docs/evidence/intellec/mod40_component_pin_net_v1.json"),
+    )
     parser.add_argument("--report", type=Path, help="Write a deterministic gate-status report after validation.")
     parsed = parser.parse_args(arguments)
     try:
         with parsed.ledger.open(encoding="ascii") as handle:
             ledger = json.load(handle)
-        validate_ledger(ledger, load_source_ids(parsed.sources))
+        with parsed.pin_nets.open(encoding="ascii") as handle:
+            pin_ledger = json.load(handle)
+        source_ids = load_source_ids(parsed.sources)
+        validate_ledger(ledger, source_ids)
+        if not isinstance(ledger, dict):
+            raise EvidenceValidationError("route ledger root is not a mapping")
+        validate_pin_net_ledger(pin_ledger, ledger, source_ids)
         if parsed.report is not None:
-            if not isinstance(ledger, dict):
-                raise EvidenceValidationError("route ledger root is not a mapping")
             write_status_report(parsed.report, build_status_report(ledger))
     except (EvidenceValidationError, OSError, json.JSONDecodeError, yaml.YAMLError) as error:
         print(f"MOD 40 evidence validation failed: {error}")
         return 1
     print(f"PASS MOD 40 route ledger: {parsed.ledger}")
+    print(f"PASS MOD 40 component-pin ledger: {parsed.pin_nets}")
     return 0
 
 

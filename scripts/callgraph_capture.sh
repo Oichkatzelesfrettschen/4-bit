@@ -111,6 +111,11 @@ git ls-files --cached --others --exclude-standard -- '*.cpp' '*.cc' '*.cxx' '*.h
         'tools/virtual-fpga/verify_mcs4_system_invalid_scenario.cmake' \
         'tools/virtual-fpga/verify_mcs4_common_stimulus.cmake' \
         'scripts/compare_common_stimulus_traces.py' \
+        'scripts/generate_mod40_evidence_contract.py' \
+        'scripts/verify_mod40_evidence.py' \
+        'docs/evidence/intellec/mod40_component_pin_net_v1.json' \
+        'docs/evidence/intellec/mod40_route_ledger_v1.json' \
+        'docs/evidence/intellec_sources.yaml' \
         'mcs4-emu/crates/mcs4-fpga/gowin/monitor_rom.hex'
     find mcs4-emu/crates -mindepth 2 -maxdepth 2 -type f -name Cargo.toml | LC_ALL=C sort
 } | LC_ALL=C sort -u > "$OUTPUT_DIR/source/inputs.files"
@@ -194,7 +199,9 @@ printf '%s\n' 'scripts/build_netlist_v1_v0.py' \
     > "$OUTPUT_DIR/static/netlist-publish-python.files"
 printf '%s\n' 'scripts/compare_common_stimulus_traces.py' \
     > "$OUTPUT_DIR/static/common-stimulus-comparison-python.files"
-printf '%s\n' 'scripts/verify_mod40_evidence.py' \
+printf '%s\n' \
+    'scripts/generate_mod40_evidence_contract.py' \
+    'scripts/verify_mod40_evidence.py' \
     > "$OUTPUT_DIR/static/mod40-evidence-python.files"
 
 run_cflow() {
@@ -370,6 +377,18 @@ else
         > "$OUTPUT_DIR/python/mod40-evidence-callgraph.status"
 fi
 
+if python3 scripts/extract_python_callgraph.py \
+    scripts/generate_mod40_evidence_contract.py \
+    "$OUTPUT_DIR/python/mod40-evidence-generation-callgraph.txt" \
+    > "$OUTPUT_DIR/python/mod40-evidence-generation-callgraph.stdout" \
+    2> "$OUTPUT_DIR/python/mod40-evidence-generation-callgraph.stderr"; then
+    printf 'exit=0\n' > "$OUTPUT_DIR/python/mod40-evidence-generation-callgraph.status"
+else
+    exit_code=$?
+    printf 'exit=%s\n' "$exit_code" \
+        > "$OUTPUT_DIR/python/mod40-evidence-generation-callgraph.status"
+fi
+
 if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rust.out" \
     > "$OUTPUT_DIR/cscope/build.stdout" \
     2> "$OUTPUT_DIR/cscope/build.stderr"; then
@@ -385,6 +404,7 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/rust.files" -f "$OUTPUT_DIR/cscope/rus
             read_intellec_ram_port Mod40Board Mod40SourceGate \
             validate_historical_execution historical_execution_is_authorized \
             blocked_evidence_gate_ids evidence_gate_statuses MOD40_EVIDENCE_GATE_IDS \
+            fidelity_level evidence_snapshot decode_imm628_card_inputs \
             cpu_reset_and_phase_timing_is_traced program_ram_write_timing_is_traced \
             panel_arbitration_is_traced terminal_electrical_timing_is_traced \
             monitor_socket_map_is_traced monitor_data_transform_is_primary_backed \
@@ -465,7 +485,8 @@ if cscope -b -q -k -i "$OUTPUT_DIR/static/mod40-evidence-python.files" \
         printf '%s\n' 'reason=cscope reports lexical tokens only for Python source'
     } > "$OUTPUT_DIR/cscope/mod40-evidence-python.status"
     {
-        for symbol in main validate_ledger topological_requirement_ids build_status_report write_status_report; do
+        for symbol in main validate_ledger validate_pin_net_ledger topological_requirement_ids \
+            build_status_report write_status_report generate_contract; do
             printf '%s\n' "== definitions: $symbol =="
             cscope -d -f "$OUTPUT_DIR/cscope/mod40-evidence-python.out" -L -0 "$symbol" || true
             printf '%s\n' "== lexical callees: $symbol =="
@@ -740,6 +761,14 @@ run_strace intellec-source-gate-test cargo test --locked -p mcs4-intellec \
     replay::tests::historical_profile_rejects_phase_advance_without_evidence -- --nocapture
 run_strace intellec-replay-test cargo test --locked -p mcs4-intellec \
     replay::tests::checkpoint_replays_explicit_panel_and_terminal_events -- --nocapture
+run_strace mod40-fidelity-test cargo test --locked -p mcs4-intellec \
+    mod40::tests::new_board_reports_documented_inventory_fidelity -- --nocapture
+run_strace mod40-card-input-test cargo test --locked -p mcs4-intellec \
+    mod40_routes::tests::card_input_decoder_preserves_verified_active_low_boundaries -- --nocapture
+run_strace mod40-gui-dashboard-test cargo test --locked -p mcs4-gui \
+    panels::intellec::tests::mod40_dashboard_owns_a_non_executable_board -- --nocapture
+run_strace mod40-evidence-validator python3 scripts/verify_mod40_evidence.py
+run_strace mod40-evidence-generation-check python3 scripts/generate_mod40_evidence_contract.py --check
 run_strace_in_dir virtual-fpga-system "$VIRTUAL_FPGA_BUILD_DIRECTORY" \
     "$VIRTUAL_SYSTEM_BINARY" --headless --scenario "$VIRTUAL_SYSTEM_SCENARIO" \
     --vcd "$OUTPUT_DIR/runtime/mcs4-system-monitor.vcd" \

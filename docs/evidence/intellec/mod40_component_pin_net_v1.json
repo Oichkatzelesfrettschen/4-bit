@@ -1,0 +1,356 @@
+{
+  "schema": "mcs4.mod40.component-pin-net.v1",
+  "source_registry": "docs/evidence/intellec_sources.yaml",
+  "source_pdf_sha256": "34f82ae6228f6ee0832c9696b4a0e922f8ea4bfccf92131476d013108b703bdb",
+  "review_regions": [
+    {
+      "id": "cpu-clock-reset",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "page": 3,
+      "dpi": 600,
+      "bbox": [900, 250, 4200, 2100],
+      "registration_score": 0.9999014139175415
+    },
+    {
+      "id": "cpu-monitor-select",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "page": 3,
+      "dpi": 600,
+      "bbox": [2400, 3501, 2500, 1800],
+      "registration_score": 0.9924057126045227
+    },
+    {
+      "id": "cpu-terminal-card-edge",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 3, drawing 2000318",
+      "page": 3,
+      "dpi": 600,
+      "bbox": [0, 3501, 3000, 2500],
+      "registration_score": 0.9935922026634216
+    },
+    {
+      "id": "motherboard-ram-contacts",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 5, drawing 2000077",
+      "page": 5,
+      "dpi": 600,
+      "bbox": [2400, 4401, 2500, 2100],
+      "registration_score": 0.9864786267280579
+    },
+    {
+      "id": "control-card-program-ram",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 7, drawing 2000319",
+      "page": 7,
+      "dpi": 600,
+      "bbox": [0, 4251, 4000, 2250],
+      "registration_score": 0.9917716383934021
+    },
+    {
+      "id": "in28-card-edge-control",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 10, drawing 01-0176-001",
+      "page": 10,
+      "dpi": 600,
+      "bbox": [5750, 1601, 4250, 3750],
+      "registration_score": 0.9881972074508667
+    },
+    {
+      "id": "panel-controls",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 13, drawing 2000329",
+      "page": 13,
+      "dpi": 600,
+      "bbox": [0, 0, 4500, 4500],
+      "registration_score": 0.9824240207672119
+    },
+    {
+      "id": "terminal-current-loop",
+      "source_id": "intellec4-mod40-reference-schematics",
+      "locator": "98-013A PDF 29, drawing 2000325",
+      "page": 29,
+      "dpi": 600,
+      "bbox": [1700, 900, 8300, 4100],
+      "registration_score": 0.9993626475334167
+    }
+  ],
+  "records": [
+    {
+      "id": "cpu.reset-card-edge-to-a11",
+      "kind": "net_to_pin",
+      "scope": "imm4-43-local",
+      "net": {"canonical": "CPU RESET", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "cpu-reset-net", "kind": "named_net", "board": "imm4-43", "refdes": null, "pin": null, "signal": "CPU RESET"},
+        {"id": "a11-reset", "kind": "component_pin", "board": "imm4-43", "refdes": "A11", "pin": "12", "signal": "RESET"}
+      ],
+      "segments": [{"from": "cpu-reset-net", "to": "a11-reset", "polarity": "unknown"}],
+      "polarity": {"state": "conflict", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "partial", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 3, drawing 2000318", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["cpu-clock-reset"],
+      "unresolved": ["The control-card-to-package inversion and reset-release phase remain untraced."],
+      "derived_from_route_id": "cpu-reset-local-route"
+    },
+    {
+      "id": "cpu.clock-source-to-divider-boundary",
+      "kind": "observation",
+      "scope": "imm4-43-local",
+      "net": {"canonical": "5.185 MHZ", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "y1-output", "kind": "component_signal", "board": "imm4-43", "refdes": "Y1", "pin": null, "signal": "5.185 MHZ"},
+        {"id": "a7-clock-boundary", "kind": "component_signal", "board": "imm4-43", "refdes": "A7", "pin": null, "signal": "CP"}
+      ],
+      "segments": [{"from": "y1-output", "to": "a7-clock-boundary", "polarity": "unknown"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "explicit", "constraints": [{"name": "source-frequency", "value": 5185000, "unit": "Hz", "scope": "Y1 source", "source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 3, drawing 2000318"}]},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 3, drawing 2000318", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["cpu-clock-reset"],
+      "unresolved": ["Y1 and A16 pin numbers plus the divider feedback equation remain untranscribed."],
+      "derived_from_route_id": "cpu-clock-source"
+    },
+    {
+      "id": "monitor.a18-input-c0",
+      "kind": "net_to_pin",
+      "scope": "imm4-43-monitor-decode",
+      "net": {"canonical": "C0", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "c0-net", "kind": "named_net", "board": "imm4-43", "refdes": null, "pin": null, "signal": "C0"},
+        {"id": "a18-a", "kind": "component_pin", "board": "imm4-43", "refdes": "A18", "pin": "13", "signal": "A"}
+      ],
+      "segments": [{"from": "c0-net", "to": "a18-a", "polarity": "noninverting"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 3, drawing 2000318", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["cpu-monitor-select"],
+      "unresolved": ["The decoder output-to-socket route remains untraced."],
+      "derived_from_route_id": "monitor-a18-chip-select"
+    },
+    {
+      "id": "monitor.a18-input-c1",
+      "kind": "net_to_pin",
+      "scope": "imm4-43-monitor-decode",
+      "net": {"canonical": "C1", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "c1-net", "kind": "named_net", "board": "imm4-43", "refdes": null, "pin": null, "signal": "C1"},
+        {"id": "a18-b", "kind": "component_pin", "board": "imm4-43", "refdes": "A18", "pin": "3", "signal": "B"}
+      ],
+      "segments": [{"from": "c1-net", "to": "a18-b", "polarity": "noninverting"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 3, drawing 2000318", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["cpu-monitor-select"],
+      "unresolved": ["The decoder output-to-socket route remains untraced."],
+      "derived_from_route_id": "monitor-a18-chip-select"
+    },
+    {
+      "id": "monitor.a18-input-enable",
+      "kind": "net_to_pin",
+      "scope": "imm4-43-monitor-decode",
+      "net": {"canonical": "ENABLE MON PROM", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "enable-mon-prom-net", "kind": "named_net", "board": "imm4-43", "refdes": null, "pin": null, "signal": "ENABLE MON PROM"},
+        {"id": "a18-2g", "kind": "component_pin", "board": "imm4-43", "refdes": "A18", "pin": "14", "signal": "2G"}
+      ],
+      "segments": [{"from": "enable-mon-prom-net", "to": "a18-2g", "polarity": "active_low"}],
+      "polarity": {"state": "explicit", "asserted_level": "low", "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 3, drawing 2000318", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["cpu-monitor-select"],
+      "unresolved": ["The decoder output-to-socket route remains untraced."],
+      "derived_from_route_id": "monitor-a18-chip-select"
+    },
+    {
+      "id": "in28.mad0-mad9-card-edge",
+      "kind": "connector_to_connector",
+      "scope": "imm4-72-through-motherboard-to-imm6-28",
+      "net": {"canonical": "MAD0-MAD9", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "controller-p1-11-20", "kind": "connector_range", "board": "imm4-72", "refdes": "P1", "pin": "11-20", "signal": "MAD0-MAD9"},
+        {"id": "in28-p1-11-20", "kind": "connector_range", "board": "imm6-28", "refdes": "P1", "pin": "11-20", "signal": "MAD0-MAD9"}
+      ],
+      "segments": [{"from": "controller-p1-11-20", "to": "in28-p1-11-20", "polarity": "unchanged"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDFs 5, 7, and 10", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["motherboard-ram-contacts", "control-card-program-ram", "in28-card-edge-control"],
+      "unresolved": ["The IN-28 address-latch enable phase and individual 3404 pins remain untraced."],
+      "derived_from_route_id": "in28-card-edge-addresses"
+    },
+    {
+      "id": "in28.mad11-card-edge",
+      "kind": "connector_to_connector",
+      "scope": "imm4-72-through-motherboard-to-imm6-28",
+      "net": {"canonical": "MAD11", "aliases": ["C3"]},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "controller-p1-94", "kind": "connector_contact", "board": "imm4-72", "refdes": "P1", "pin": "94", "signal": "C3"},
+        {"id": "in28-p1-94", "kind": "connector_contact", "board": "imm6-28", "refdes": "P1", "pin": "94", "signal": "MAD11"}
+      ],
+      "segments": [{"from": "controller-p1-94", "to": "in28-p1-94", "polarity": "unchanged"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDFs 5 and 10", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["motherboard-ram-contacts", "in28-card-edge-control"],
+      "unresolved": ["The downstream 7404 and bank-select equation remain untraced."],
+      "derived_from_route_id": "in28-bank-address-inverters"
+    },
+    {
+      "id": "in28.mad10-card-edge",
+      "kind": "connector_to_connector",
+      "scope": "imm4-72-through-motherboard-to-imm6-28",
+      "net": {"canonical": "MAD10", "aliases": ["C2"]},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "controller-p1-96", "kind": "connector_contact", "board": "imm4-72", "refdes": "P1", "pin": "96", "signal": "C2"},
+        {"id": "in28-p1-96", "kind": "connector_contact", "board": "imm6-28", "refdes": "P1", "pin": "96", "signal": "MAD10"}
+      ],
+      "segments": [{"from": "controller-p1-96", "to": "in28-p1-96", "polarity": "unchanged"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDFs 5 and 10", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["motherboard-ram-contacts", "in28-card-edge-control"],
+      "unresolved": ["The downstream 7404 and bank-select equation remain untraced."],
+      "derived_from_route_id": "in28-bank-address-inverters"
+    },
+    {
+      "id": "in28.write-read-card-edge",
+      "kind": "connector_to_connector",
+      "scope": "imm4-72-through-motherboard-to-imm6-28",
+      "net": {"canonical": "WRITE/READ", "aliases": ["WRITE"]},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "controller-p1-95", "kind": "connector_contact", "board": "imm4-72", "refdes": "P1", "pin": "95", "signal": "WRITE"},
+        {"id": "in28-p1-95", "kind": "connector_contact", "board": "imm6-28", "refdes": "P1", "pin": "95", "signal": "WRITE/READ"}
+      ],
+      "segments": [{"from": "controller-p1-95", "to": "in28-p1-95", "polarity": "unchanged"}],
+      "polarity": {"state": "explicit", "asserted_level": "low", "inverting_stages": []},
+      "timing": {"state": "partial", "constraints": []},
+      "source_refs": [
+        {"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDFs 7 and 10", "primary_sheet_reviewed": true, "ocr_only": false},
+        {"source_id": "intellec4-mod40-reference-manual-98-095a", "locator": "98-095A printed page 40", "primary_sheet_reviewed": true, "ocr_only": false}
+      ],
+      "review_region_ids": ["control-card-program-ram", "in28-card-edge-control"],
+      "unresolved": ["The local 3404, one-shot, and final 2102 R/W waveform remain untraced."],
+      "derived_from_route_id": "in28-write-read-card-input"
+    },
+    {
+      "id": "panel.stop-conditioning",
+      "kind": "observation",
+      "scope": "front-panel-local",
+      "net": {"canonical": "STOP PB", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "panel-j1-10", "kind": "connector_contact", "board": "front-panel", "refdes": "J1", "pin": "10", "signal": "STOP PB"},
+        {"id": "panel-a36-boundary", "kind": "component_signal", "board": "front-panel", "refdes": "A36", "pin": null, "signal": "conditioned STOP PB"}
+      ],
+      "segments": [{"from": "panel-j1-10", "to": "panel-a36-boundary", "polarity": "unknown"}],
+      "polarity": {"state": "unknown", "asserted_level": null, "inverting_stages": []},
+      "timing": {"state": "unknown", "constraints": []},
+      "source_refs": [{"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 13, drawing 2000329", "primary_sheet_reviewed": true, "ocr_only": false}],
+      "review_region_ids": ["panel-controls"],
+      "unresolved": ["A36 pin numbers, downstream STOP continuity, and transition timing remain untraced."],
+      "derived_from_route_id": "panel-stop-input-conditioning"
+    },
+    {
+      "id": "terminal.tty-out",
+      "kind": "connector_to_connector",
+      "scope": "imm4-43-to-asr33",
+      "net": {"canonical": "TTY OUT", "aliases": ["TTY PRINTER"]},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "cpu-p4-26", "kind": "connector_contact", "board": "imm4-43", "refdes": "P4/J4", "pin": "26", "signal": "TTY OUT"},
+        {"id": "rear-j42-1", "kind": "connector_contact", "board": "motherboard", "refdes": "J42/P42", "pin": "1", "signal": "TTY OUT"},
+        {"id": "terminal-j43-1", "kind": "connector_contact", "board": "terminal-cable", "refdes": "J43/P43", "pin": "1", "signal": "TTY OUT"},
+        {"id": "asr33-printer-7", "kind": "terminal_contact", "board": "asr33", "refdes": "PRINTER", "pin": "7", "signal": "receive loop"}
+      ],
+      "segments": [
+        {"from": "cpu-p4-26", "to": "rear-j42-1", "polarity": "unchanged"},
+        {"from": "rear-j42-1", "to": "terminal-j43-1", "polarity": "unchanged"},
+        {"from": "terminal-j43-1", "to": "asr33-printer-7", "polarity": "unchanged"}
+      ],
+      "polarity": {"state": "explicit", "asserted_level": "mark-current-present", "inverting_stages": []},
+      "timing": {"state": "partial", "constraints": []},
+      "source_refs": [
+        {"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 29, drawing 2000325", "primary_sheet_reviewed": true, "ocr_only": false},
+        {"source_id": "intellec4-mod40-reference-manual-98-095a", "locator": "98-095A printed page 136", "primary_sheet_reviewed": true, "ocr_only": false}
+      ],
+      "review_region_ids": ["terminal-current-loop"],
+      "unresolved": ["Q4 transistor threshold and printer mechanical timing remain untraced."],
+      "derived_from_route_id": "terminal-cable-conductors"
+    },
+    {
+      "id": "terminal.tty-in",
+      "kind": "connector_to_connector",
+      "scope": "asr33-to-imm4-43",
+      "net": {"canonical": "TTY IN", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "cpu-p4-1", "kind": "connector_contact", "board": "imm4-43", "refdes": "P4/J4", "pin": "1", "signal": "TTY IN"},
+        {"id": "rear-j42-4", "kind": "connector_contact", "board": "motherboard", "refdes": "J42/P42", "pin": "4", "signal": "TTY IN"},
+        {"id": "terminal-j43-4", "kind": "connector_contact", "board": "terminal-cable", "refdes": "J43/P43", "pin": "4", "signal": "TTY IN"},
+        {"id": "asr33-keyboard-4", "kind": "terminal_contact", "board": "asr33", "refdes": "KEYBOARD", "pin": "4", "signal": "send loop"}
+      ],
+      "segments": [
+        {"from": "asr33-keyboard-4", "to": "terminal-j43-4", "polarity": "unchanged"},
+        {"from": "terminal-j43-4", "to": "rear-j42-4", "polarity": "unchanged"},
+        {"from": "rear-j42-4", "to": "cpu-p4-1", "polarity": "unchanged"}
+      ],
+      "polarity": {"state": "explicit", "asserted_level": "rom0-bit0-high-when-loop-current-absent", "inverting_stages": []},
+      "timing": {"state": "partial", "constraints": []},
+      "source_refs": [
+        {"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 29, drawing 2000325", "primary_sheet_reviewed": true, "ocr_only": false},
+        {"source_id": "intellec4-mod40-reference-manual-98-095a", "locator": "98-095A printed page 136", "primary_sheet_reviewed": true, "ocr_only": false}
+      ],
+      "review_region_ids": ["terminal-current-loop"],
+      "unresolved": ["Q5 transistor threshold remains untraced."],
+      "derived_from_route_id": "terminal-cable-conductors"
+    },
+    {
+      "id": "terminal.reader-control",
+      "kind": "connector_to_connector",
+      "scope": "imm4-43-to-asr33",
+      "net": {"canonical": "RDR CONT", "aliases": []},
+      "connectivity_status": "direct",
+      "behavior_status": "partial",
+      "endpoints": [
+        {"id": "cpu-p4-89", "kind": "connector_contact", "board": "imm4-43", "refdes": "P4/J4", "pin": "89", "signal": "RDR CONT"},
+        {"id": "rear-j42-5", "kind": "connector_contact", "board": "motherboard", "refdes": "J42/P42", "pin": "5", "signal": "RDR CONT"},
+        {"id": "terminal-j43-5", "kind": "connector_contact", "board": "terminal-cable", "refdes": "J43/P43", "pin": "5", "signal": "RDR CONT"}
+      ],
+      "segments": [
+        {"from": "cpu-p4-89", "to": "rear-j42-5", "polarity": "unchanged"},
+        {"from": "rear-j42-5", "to": "terminal-j43-5", "polarity": "unchanged"}
+      ],
+      "polarity": {"state": "explicit", "asserted_level": "ram1-bit0-high-enables-reader", "inverting_stages": []},
+      "timing": {"state": "partial", "constraints": []},
+      "source_refs": [
+        {"source_id": "intellec4-mod40-reference-schematics", "locator": "98-013A PDF 29, drawing 2000325", "primary_sheet_reviewed": true, "ocr_only": false},
+        {"source_id": "intellec4-mod40-reference-manual-98-095a", "locator": "98-095A printed page 136", "primary_sheet_reviewed": true, "ocr_only": false}
+      ],
+      "review_region_ids": ["terminal-current-loop"],
+      "unresolved": ["Q3 transistor threshold, reader relay contact, and mechanical timing remain untraced."],
+      "derived_from_route_id": "terminal-cable-conductors"
+    }
+  ]
+}

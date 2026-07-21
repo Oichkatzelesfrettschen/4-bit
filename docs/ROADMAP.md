@@ -184,6 +184,12 @@ Deferred Work:
 imm6-28 card retains all 32 physical devices. The board-level timing, address,
 selection, and write nets remain source-gated.
 
+The MOD 40 evidence path now includes a source-registered component-pin
+ledger, a generated Rust gate projection, a monotonic fidelity model, and a
+read-only GUI dashboard. The IN-28 card-input decoder executes only the
+verified WRITE/READ and active-low BYTE1/BYTE2 boundary. It does not drive SRAM
+until the local 3404, one-shot, 2102 polarity, and timing requirements close.
+
 ## Phase 2 - Support chips and system integration
 - Implement bus-accurate 4003, 4101, 4201, 4289, 4308 protocols.
 - Finish MCS-4/MCS-40 system integration in `mcs4-system`.

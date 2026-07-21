@@ -74,12 +74,21 @@ electrical, cycle, panel/terminal, and trace closure conditions.
 route with source identifiers, locators, explicit unresolved clauses, and the
 blocked source gates. `scripts/verify_mod40_evidence.py` validates that ledger
 against the source registry.
+`docs/evidence/intellec/mod40_component_pin_net_v1.json` records the reviewed
+component, connector, pin, net, source-image rectangle, polarity, and timing
+boundary for each accepted local segment. Connectivity and behavior have
+separate states: a direct connector segment remains behavior-partial while its
+inversion, timing, or remote endpoint is unresolved.
 `docs/evidence/INTELLEC_MOD40_CLOSURE_CONTRACT.md` decomposes every blocked
 gate into atomic evidence artifacts and acceptance conditions.
 `just mod40-evidence-report` derives an ignored JSON status surface for tools
 and the GUI without changing source-gate state. The same report exposes the
 validated prerequisite-first evidence queue, so implementation cannot outrun
 the traced board facts it depends on.
+`scripts/generate_mod40_evidence_contract.py` projects the canonical gate and
+closure states into checked Rust constants. `just mod40-evidence-validate`
+rejects a stale projection, which removes manually duplicated gate truth from
+the runtime board model.
 
 ## MOD 40 boundary
 
@@ -168,6 +177,14 @@ The current implementation delivers the source gate, event path, terminal
 timing model, replay boundary, GUI, and capture contract. It does not claim a
 complete original Intellec board, a complete MOD 40 topology, physical ASR-33
 electrical behavior, FPGA timing closure, or transistor-level equivalence.
+
+The GUI exposes a separate read-only MOD 40 evidence workspace. It owns a
+`Mod40Board`, displays the fitted imm4-43 and imm6-28 population, reports all
+six documentary gates, and disables execution. It never reuses the executable
+4004 `IntellecMachine<Mcs4System>` as a MOD 40 machine. The board reports a
+monotonic fidelity boundary from documented inventory through verified core
+routes, board-cycle wiring, monitor provenance, panel operation, terminal
+observation, and FPGA comparison. No later level bypasses an earlier level.
 
 `Mod40Board` now owns a non-executable imm4-43, imm4-72, and imm6-28 card
 inventory. Its CPU card has four unread `I1702A` monitor devices rather than

@@ -7,9 +7,12 @@
 
 use mcs4_chips::{i1702::I1702A, i4002::I4002, i4040::I4040, i4289::I4289};
 
+/// Canonical MOD 40 documentary gate identifiers generated from the ledger.
+pub const MOD40_EVIDENCE_GATE_IDS: [&str; 6] = crate::mod40_evidence_generated::MOD40_EVIDENCE_GATE_IDS;
 use crate::{
     console::ProgramMemoryMode,
     imm6_28::Imm628,
+    mod40_evidence_generated::MOD40_EVIDENCE_GATE_CLOSED,
     mod40_routes::{
         accepted_monitor_read_set_count, cpu_clock_source_is_traced, cpu_reset_and_phase_timing_is_traced,
         monitor_address_fanout_is_traced, monitor_data_polarity_is_traced, monitor_data_transform_is_primary_backed,
@@ -20,20 +23,6 @@ use crate::{
     profile::{SourceReference, MOD40_SOURCES},
 };
 
-/// Canonical MOD 40 evidence-gate identifiers from the route ledger.
-///
-/// The identifiers allow a caller to join the typed board state with
-/// `docs/evidence/intellec/mod40_route_ledger_v1.json` without treating an
-/// incomplete route as executable hardware.
-pub const MOD40_EVIDENCE_GATE_IDS: [&str; 6] = [
-    "cpu-phase-reset",
-    "in28-write-timing",
-    "panel-arbitration",
-    "terminal-electrical",
-    "monitor-socket-transform",
-    "monitor-raw-provenance",
-];
-
 /// Typed status for one documentary gate in the MOD 40 route ledger.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Mod40EvidenceGateStatus {
@@ -41,6 +30,68 @@ pub struct Mod40EvidenceGateStatus {
     pub id: &'static str,
     /// True when the board still lacks the evidence required by this gate.
     pub blocked: bool,
+}
+
+/// Monotonic source and implementation fidelity reached by a MOD 40 board.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub enum Mod40FidelityLevel {
+    /// Required physical inventory facts are not source-bound.
+    Unbound,
+    /// Primary sources establish the fitted cards and device population.
+    DocumentedInventory,
+    /// CPU, program-RAM, and monitor electrical routes are source-verified.
+    VerifiedCoreElectricalRoutes,
+    /// The verified electrical routes participate in one board-cycle model.
+    VerifiedBoardCycle,
+    /// Monitor bytes have position-specific, independently repeated provenance.
+    ProvenanceCompleteMonitor,
+    /// Panel arbitration drives the verified board-cycle model.
+    PanelOperatedSystem,
+    /// The source-bound terminal electrical path exposes observable operation.
+    TerminalObservableSystem,
+    /// A source-gated FPGA wrapper passes the common equivalence trace.
+    FpgaComparableSystem,
+}
+
+impl Mod40FidelityLevel {
+    /// Return the stable user-facing name for this fidelity boundary.
+    pub const fn label(self) -> &'static str {
+        match self {
+            Self::Unbound => "unbound",
+            Self::DocumentedInventory => "documented inventory",
+            Self::VerifiedCoreElectricalRoutes => "verified core electrical routes",
+            Self::VerifiedBoardCycle => "verified board cycle",
+            Self::ProvenanceCompleteMonitor => "provenance-complete monitor",
+            Self::PanelOperatedSystem => "panel-operated system",
+            Self::TerminalObservableSystem => "terminal-observable system",
+            Self::FpgaComparableSystem => "FPGA-comparable system",
+        }
+    }
+}
+
+/// Immutable MOD 40 evidence and implementation state for user interfaces.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct Mod40EvidenceSnapshot {
+    /// Highest monotonic fidelity level whose prerequisites are satisfied.
+    pub fidelity_level: Mod40FidelityLevel,
+    /// True only when the complete historical software model may execute.
+    pub execution_authorized: bool,
+    /// True when the reconciled electrical routes participate in CPU cycles.
+    pub board_cycle_wiring_implemented: bool,
+    /// True when a source-gated FPGA wrapper participates in equivalence.
+    pub fpga_wrapper_implemented: bool,
+    /// Logical program store selected by the imm4-72 control card.
+    pub selected_store: ProgramStoreId,
+    /// Number of fitted resident monitor sockets.
+    pub monitor_socket_count: usize,
+    /// Number of fitted 2102 devices on the imm6-28 card.
+    pub program_ram_chip_count: usize,
+    /// Number of accepted independently acquired monitor read sets.
+    pub accepted_monitor_read_set_count: u8,
+    /// Canonical documentary gate states in ledger order.
+    pub gates: [Mod40EvidenceGateStatus; 6],
+    /// Canonical identifiers for every blocked documentary gate.
+    pub blocked_gate_ids: Vec<&'static str>,
 }
 
 /// One program-store selection owned by the imm4-72 control card.
@@ -119,6 +170,8 @@ pub struct Mod40SourceGate {
     pub panel_arbitration_traced: bool,
     /// CPU-cycle electrical wiring is implemented from a reconciled net ledger.
     pub board_cycle_wiring_implemented: bool,
+    /// A dedicated MOD 40 FPGA wrapper participates in a source-gated trace.
+    pub fpga_wrapper_implemented: bool,
     /// Four monitor images have verified physical-read lineage and transforms.
     pub monitor_media_verified: bool,
 }
@@ -268,7 +321,9 @@ impl Mod40Board {
             program_ram_write_timing_traced: program_ram_write_timing_is_traced(),
             panel_arbitration_traced: panel_arbitration_is_traced(),
             board_cycle_wiring_implemented: false,
-            monitor_media_verified: accepted_monitor_read_set_count >= 2
+            fpga_wrapper_implemented: false,
+            monitor_media_verified: MOD40_EVIDENCE_GATE_CLOSED[5]
+                && accepted_monitor_read_set_count >= 2
                 && monitor_socket_map_traced
                 && monitor_data_transform_primary_backed,
         }
@@ -285,6 +340,36 @@ impl Mod40Board {
             && gate.board_cycle_wiring_implemented
     }
 
+    /// Return the highest monotonic fidelity level authorized by current facts.
+    pub fn fidelity_level(&self) -> Mod40FidelityLevel {
+        fidelity_level_from_gate(
+            self.source_gate(),
+            self.imm443.monitor_socket_count(),
+            self.imm628.device_count(),
+        )
+    }
+
+    /// Return immutable evidence state for a non-executable status surface.
+    pub fn evidence_snapshot(&self) -> Mod40EvidenceSnapshot {
+        let gate = self.source_gate();
+        Mod40EvidenceSnapshot {
+            fidelity_level: fidelity_level_from_gate(
+                gate,
+                self.imm443.monitor_socket_count(),
+                self.imm628.device_count(),
+            ),
+            execution_authorized: self.historical_execution_is_authorized(),
+            board_cycle_wiring_implemented: gate.board_cycle_wiring_implemented,
+            fpga_wrapper_implemented: gate.fpga_wrapper_implemented,
+            selected_store: self.imm472.selected_store(),
+            monitor_socket_count: self.imm443.monitor_socket_count(),
+            program_ram_chip_count: self.imm628.device_count(),
+            accepted_monitor_read_set_count: gate.accepted_monitor_read_set_count,
+            gates: self.evidence_gate_statuses(),
+            blocked_gate_ids: self.blocked_evidence_gate_ids(),
+        }
+    }
+
     /// Return canonical evidence-gate IDs that still block source-faithful execution.
     ///
     /// Board-cycle wiring is an implementation condition, not an evidence-ledger
@@ -298,33 +383,10 @@ impl Mod40Board {
 
     /// Return all typed documentary gate states in canonical ledger order.
     pub fn evidence_gate_statuses(&self) -> [Mod40EvidenceGateStatus; 6] {
-        let gate = self.source_gate();
-        [
-            Mod40EvidenceGateStatus {
-                id: MOD40_EVIDENCE_GATE_IDS[0],
-                blocked: !gate.cpu_reset_and_phase_timing_traced,
-            },
-            Mod40EvidenceGateStatus {
-                id: MOD40_EVIDENCE_GATE_IDS[1],
-                blocked: !gate.program_ram_write_timing_traced,
-            },
-            Mod40EvidenceGateStatus {
-                id: MOD40_EVIDENCE_GATE_IDS[2],
-                blocked: !gate.panel_arbitration_traced,
-            },
-            Mod40EvidenceGateStatus {
-                id: MOD40_EVIDENCE_GATE_IDS[3],
-                blocked: !gate.terminal_electrical_timing_traced,
-            },
-            Mod40EvidenceGateStatus {
-                id: MOD40_EVIDENCE_GATE_IDS[4],
-                blocked: !gate.monitor_socket_map_traced || !gate.monitor_data_transform_primary_backed,
-            },
-            Mod40EvidenceGateStatus {
-                id: MOD40_EVIDENCE_GATE_IDS[5],
-                blocked: gate.accepted_monitor_read_set_count < 2,
-            },
-        ]
+        std::array::from_fn(|index| Mod40EvidenceGateStatus {
+            id: MOD40_EVIDENCE_GATE_IDS[index],
+            blocked: !MOD40_EVIDENCE_GATE_CLOSED[index],
+        })
     }
 
     /// Reject a historical phase until every required board evidence gate closes.
@@ -354,6 +416,44 @@ impl Mod40Board {
     }
 }
 
+fn fidelity_level_from_gate(
+    gate: Mod40SourceGate,
+    monitor_socket_count: usize,
+    program_ram_chip_count: usize,
+) -> Mod40FidelityLevel {
+    let inventory_complete = gate.primary_board_population_bound
+        && gate.monitor_slots_present == [true; 4]
+        && monitor_socket_count == 4
+        && program_ram_chip_count == 32;
+    if !inventory_complete {
+        return Mod40FidelityLevel::Unbound;
+    }
+
+    let core_electrical_routes = gate.cpu_reset_and_phase_timing_traced
+        && gate.program_ram_write_timing_traced
+        && gate.monitor_socket_map_traced
+        && gate.monitor_data_transform_primary_backed;
+    if !core_electrical_routes {
+        return Mod40FidelityLevel::DocumentedInventory;
+    }
+    if !gate.board_cycle_wiring_implemented {
+        return Mod40FidelityLevel::VerifiedCoreElectricalRoutes;
+    }
+    if !gate.monitor_media_verified {
+        return Mod40FidelityLevel::VerifiedBoardCycle;
+    }
+    if !gate.panel_arbitration_traced {
+        return Mod40FidelityLevel::ProvenanceCompleteMonitor;
+    }
+    if !gate.terminal_electrical_timing_traced {
+        return Mod40FidelityLevel::PanelOperatedSystem;
+    }
+    if !gate.fpga_wrapper_implemented {
+        return Mod40FidelityLevel::TerminalObservableSystem;
+    }
+    Mod40FidelityLevel::FpgaComparableSystem
+}
+
 impl Default for Mod40Board {
     fn default() -> Self {
         Self::new()
@@ -362,7 +462,10 @@ impl Default for Mod40Board {
 
 #[cfg(test)]
 mod tests {
-    use super::{Mod40AssemblyError, Mod40Board, Mod40TerminalEndpoint, ProgramStoreId, MOD40_EVIDENCE_GATE_IDS};
+    use super::{
+        fidelity_level_from_gate, Mod40AssemblyError, Mod40Board, Mod40FidelityLevel, Mod40TerminalEndpoint,
+        ProgramStoreId, MOD40_EVIDENCE_GATE_IDS,
+    };
     use crate::{
         console::ProgramMemoryMode,
         imm6_28::{Imm628Output, Imm628Read},
@@ -392,6 +495,7 @@ mod tests {
         assert!(!board.source_gate().panel_arbitration_traced);
         assert!(!board.source_gate().monitor_media_verified);
         assert!(!board.source_gate().board_cycle_wiring_implemented);
+        assert!(!board.source_gate().fpga_wrapper_implemented);
         assert!(!board.historical_execution_is_authorized());
         assert_eq!(board.blocked_evidence_gate_ids(), MOD40_EVIDENCE_GATE_IDS);
         assert!(board.evidence_gate_statuses().iter().all(|status| status.blocked));
@@ -399,6 +503,51 @@ mod tests {
             .sources()
             .iter()
             .any(|source| source.id == "intellec4-mod40-reference-manual-98-095a"));
+    }
+
+    #[test]
+    fn new_board_reports_documented_inventory_fidelity() {
+        let board = Mod40Board::new();
+        let snapshot = board.evidence_snapshot();
+
+        assert_eq!(snapshot.fidelity_level, Mod40FidelityLevel::DocumentedInventory);
+        assert_eq!(snapshot.monitor_socket_count, 4);
+        assert_eq!(snapshot.program_ram_chip_count, 32);
+        assert_eq!(snapshot.accepted_monitor_read_set_count, 0);
+        assert_eq!(snapshot.blocked_gate_ids, MOD40_EVIDENCE_GATE_IDS);
+        assert!(!snapshot.execution_authorized);
+    }
+
+    #[test]
+    fn fidelity_requires_board_wiring_after_core_electrical_routes() {
+        let board = Mod40Board::new();
+        let mut gate = board.source_gate();
+        gate.cpu_reset_and_phase_timing_traced = true;
+        gate.program_ram_write_timing_traced = true;
+        gate.monitor_socket_map_traced = true;
+        gate.monitor_data_transform_primary_backed = true;
+
+        assert_eq!(
+            fidelity_level_from_gate(gate, 4, 32),
+            Mod40FidelityLevel::VerifiedCoreElectricalRoutes
+        );
+        gate.board_cycle_wiring_implemented = true;
+        assert_eq!(
+            fidelity_level_from_gate(gate, 4, 32),
+            Mod40FidelityLevel::VerifiedBoardCycle
+        );
+    }
+
+    #[test]
+    fn monitor_media_does_not_bypass_board_cycle_fidelity() {
+        let board = Mod40Board::new();
+        let mut gate = board.source_gate();
+        gate.monitor_media_verified = true;
+
+        assert_eq!(
+            fidelity_level_from_gate(gate, 4, 32),
+            Mod40FidelityLevel::DocumentedInventory
+        );
     }
 
     #[test]

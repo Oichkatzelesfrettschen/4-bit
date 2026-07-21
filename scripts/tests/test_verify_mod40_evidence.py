@@ -10,20 +10,53 @@ from scripts.verify_mod40_evidence import (
     build_status_report,
     load_source_ids,
     validate_ledger,
+    validate_pin_net_ledger,
     write_status_report,
 )
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 LEDGER_PATH = REPOSITORY_ROOT / "docs/evidence/intellec/mod40_route_ledger_v1.json"
 SOURCE_PATH = REPOSITORY_ROOT / "docs/evidence/intellec_sources.yaml"
+PIN_NET_PATH = REPOSITORY_ROOT / "docs/evidence/intellec/mod40_component_pin_net_v1.json"
 
 
 def canonical_ledger() -> dict[str, object]:
     return json.loads(LEDGER_PATH.read_text(encoding="ascii"))
 
 
+def canonical_pin_net_ledger() -> dict[str, object]:
+    return json.loads(PIN_NET_PATH.read_text(encoding="ascii"))
+
+
 def test_canonical_mod40_route_ledger_validates() -> None:
     validate_ledger(canonical_ledger(), load_source_ids(SOURCE_PATH))
+
+
+def test_canonical_mod40_component_pin_ledger_validates() -> None:
+    validate_pin_net_ledger(canonical_pin_net_ledger(), canonical_ledger(), load_source_ids(SOURCE_PATH))
+
+
+def test_component_pin_segment_rejects_unknown_endpoint() -> None:
+    pin_ledger = copy.deepcopy(canonical_pin_net_ledger())
+    pin_ledger["records"][0]["segments"][0]["to"] = "invented-pin"
+
+    with pytest.raises(EvidenceValidationError, match="segment references unknown endpoint"):
+        validate_pin_net_ledger(pin_ledger, canonical_ledger(), load_source_ids(SOURCE_PATH))
+
+
+def test_component_pin_record_rejects_ocr_only_evidence() -> None:
+    pin_ledger = copy.deepcopy(canonical_pin_net_ledger())
+    pin_ledger["records"][0]["source_refs"][0]["ocr_only"] = True
+
+    with pytest.raises(EvidenceValidationError, match="OCR-only evidence"):
+        validate_pin_net_ledger(pin_ledger, canonical_ledger(), load_source_ids(SOURCE_PATH))
+
+
+def test_component_pin_record_keeps_connectivity_and_behavior_separate() -> None:
+    pin_ledger = canonical_pin_net_ledger()
+
+    assert all(record["connectivity_status"] == "direct" for record in pin_ledger["records"])
+    assert all(record["behavior_status"] == "partial" for record in pin_ledger["records"])
 
 
 def test_status_report_preserves_every_gate_and_atomic_requirement(tmp_path: Path) -> None:

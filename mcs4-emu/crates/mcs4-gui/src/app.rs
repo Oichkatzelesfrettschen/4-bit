@@ -11,7 +11,10 @@ use mcs4_system::TraceFrame;
 
 use crate::{
     panels::{
-        die_viewer::DieViewerPanel, disasm::DisasmPanel, intellec::IntellecWorkspace, provenance::ProvenancePanel,
+        die_viewer::DieViewerPanel,
+        disasm::DisasmPanel,
+        intellec::{IntellecWorkspace, Mod40EvidenceWorkspace},
+        provenance::ProvenancePanel,
         waveform::WaveformPanel,
     },
     session::{SimulationCommand, SimulationEvent, SimulationSession},
@@ -38,6 +41,7 @@ pub struct Mcs4App {
     provenance_panel: ProvenancePanel,
     die_panel: DieViewerPanel,
     intellec_workspace: IntellecWorkspace,
+    mod40_evidence_workspace: Mod40EvidenceWorkspace,
     running: bool,
     run_request_pending: bool,
     latest_frame: Option<TraceFrame>,
@@ -64,6 +68,7 @@ impl Mcs4App {
             provenance_panel: ProvenancePanel,
             die_panel: DieViewerPanel::new(),
             intellec_workspace: IntellecWorkspace::new(),
+            mod40_evidence_workspace: Mod40EvidenceWorkspace::new(),
             running: false,
             run_request_pending: false,
             latest_frame: None,
@@ -302,7 +307,13 @@ impl eframe::App for Mcs4App {
 
         egui::SidePanel::left("intellec_panel")
             .min_width(340.0)
-            .show(context, |ui| self.intellec_workspace.show(ui));
+            .show(context, |ui| {
+                egui::ScrollArea::vertical().show(ui, |ui| {
+                    self.intellec_workspace.show(ui);
+                    ui.separator();
+                    self.mod40_evidence_workspace.show(ui);
+                });
+            });
 
         egui::CentralPanel::default().show(context, |ui| {
             egui::ScrollArea::vertical().show(ui, |ui| {
