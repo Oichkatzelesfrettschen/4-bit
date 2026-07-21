@@ -21,6 +21,9 @@ Layout
   physical-read provenance limits
 - `docs/evidence/INTELLEC_MOD40_EXECUTION_GATE_STATUS.md` -- MOD 40
   evidence-gate status, verified boundaries, and external acquisition needs
+- `docs/evidence/INTELLEC_MOD40_UNOBTAINED_EVIDENCE.md` -- bounded register of
+  absent public objects, external-custody needs, higher-authority sources, and
+  physical measurements with explicit falsification criteria
 - `docs/evidence/INTELLEC_MOD40_OCR_STATUS.md` -- 98-013A OCR engine choices,
   capture limits, and the visual-verification boundary
 - `docs/evidence/INTELLEC_MOD40_BOARD_NET_LEDGER.md` -- source-backed and open

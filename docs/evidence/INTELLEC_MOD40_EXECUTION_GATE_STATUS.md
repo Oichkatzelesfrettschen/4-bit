@@ -85,6 +85,11 @@ The repository does not contact custodians or solicit new media. If a future
 publicly released artifact supplies any of the following, the recovery protocol
 requires preserving it before normalization:
 
+`INTELLEC_MOD40_UNOBTAINED_EVIDENCE.md` is the canonical publication-facing
+register for these absent public, custody, higher-authority, and measurement
+objects. It states the bounded absence claim and the exact intake condition
+that falsifies each status.
+
 1. An original Kyle message with MIME attachments or a mailbox export.
 2. Two complete raw dumps of every C1702A from an identified board, with
    reader logs and photos recorded before any complement operation.
