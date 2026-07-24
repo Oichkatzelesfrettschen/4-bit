@@ -2524,7 +2524,7 @@ dependencies = [
  "mcs4-chips",
  "mcs4-core",
  "mcs4-intellec",
- "mcs4-periph",
+ "mcs4-runtime",
  "mcs4-system",
  "mimalloc",
  "serde_json",
@@ -2547,6 +2547,15 @@ dependencies = [
 [[package]]
 name = "mcs4-periph"
 version = "0.1.0"
+
+[[package]]
+name = "mcs4-runtime"
+version = "0.1.0"
+dependencies = [
+ "mcs4-intellec",
+ "mcs4-periph",
+ "mcs4-system",
+]
 
 [[package]]
 name = "mcs4-system"

@@ -1,6 +1,7 @@
 //! Register display panel for 4004/4040 CPUs
 
 use eframe::egui::{self, Color32};
+use mcs4_runtime::CpuSnapshot;
 
 /// CPU type for register panel layout
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -9,40 +10,6 @@ pub enum CpuMode {
     I4004,
     /// 4040: 24 registers (bank 0 + bank 1), 7-level stack
     I4040,
-}
-
-/// Snapshot of CPU state for display
-#[derive(Clone, Debug, Default)]
-pub struct CpuSnapshot {
-    pub registers: Vec<u8>,
-    pub accumulator: u8,
-    pub carry: bool,
-    pub pc: u16,
-    pub stack: Vec<u16>,
-    pub sp: u8,
-    pub halted: bool,
-    pub interrupt_enabled: bool,
-}
-
-impl CpuSnapshot {
-    /// Create a 4004-style snapshot
-    pub fn from_4004(regs: &[u8; 16], acc: u8, carry: bool, pc: u16) -> Self {
-        Self {
-            registers: regs.to_vec(),
-            accumulator: acc & 0x0F,
-            carry,
-            pc: pc & 0x0FFF,
-            stack: Vec::new(),
-            sp: 0,
-            halted: false,
-            interrupt_enabled: false,
-        }
-    }
-
-    /// Register count
-    pub fn register_count(&self) -> usize {
-        self.registers.len()
-    }
 }
 
 /// Register display panel
@@ -275,14 +242,6 @@ mod tests {
 
         panel.set_mode(CpuMode::I4040);
         assert_eq!(panel.mode(), CpuMode::I4040);
-    }
-
-    #[test]
-    fn from_4004_masks_values() {
-        let regs = [0xFFu8; 16];
-        let snap = CpuSnapshot::from_4004(&regs, 0xFF, true, 0xFFFF);
-        assert_eq!(snap.accumulator, 0x0F);
-        assert_eq!(snap.pc, 0x0FFF);
     }
 
     #[test]

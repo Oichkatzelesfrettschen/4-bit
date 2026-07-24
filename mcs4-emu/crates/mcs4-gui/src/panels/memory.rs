@@ -1,52 +1,7 @@
 //! Memory display panel for ROM and RAM viewing
 
 use eframe::egui::{self, Color32};
-
-/// Memory region type
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum MemoryRegion {
-    Rom,
-    Ram,
-}
-
-/// Snapshot of a memory region for display
-#[derive(Clone, Debug)]
-pub struct MemorySnapshot {
-    pub region: MemoryRegion,
-    pub base_addr: u16,
-    pub data: Vec<u8>,
-}
-
-impl MemorySnapshot {
-    pub fn from_rom(data: &[u8]) -> Self {
-        Self {
-            region: MemoryRegion::Rom,
-            base_addr: 0,
-            data: data.to_vec(),
-        }
-    }
-
-    pub fn from_ram(bank: u8, chip: u8, data: &[u8]) -> Self {
-        let base = ((bank as u16) << 8) | ((chip as u16) << 6);
-        Self {
-            region: MemoryRegion::Ram,
-            base_addr: base,
-            data: data.to_vec(),
-        }
-    }
-
-    pub fn len(&self) -> usize {
-        self.data.len()
-    }
-
-    pub fn is_empty(&self) -> bool {
-        self.data.is_empty()
-    }
-
-    pub fn byte_at(&self, offset: usize) -> Option<u8> {
-        self.data.get(offset).copied()
-    }
-}
+use mcs4_runtime::{MemoryRegion, MemorySnapshot};
 
 /// Hex dump width (bytes per row)
 const BYTES_PER_ROW: usize = 16;
@@ -199,14 +154,6 @@ mod tests {
         assert!(!panel.byte_changed(0));
         assert!(panel.byte_changed(1));
         assert!(!panel.byte_changed(2));
-    }
-
-    #[test]
-    fn from_ram_base_address() {
-        let snap = MemorySnapshot::from_ram(1, 2, &[0xAA; 4]);
-        assert_eq!(snap.region, MemoryRegion::Ram);
-        assert_eq!(snap.base_addr, (1 << 8) | (2 << 6));
-        assert_eq!(snap.len(), 4);
     }
 
     #[test]

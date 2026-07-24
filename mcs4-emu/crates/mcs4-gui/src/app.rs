@@ -7,21 +7,23 @@ use std::{
 };
 
 use eframe::egui;
-use mcs4_system::{parse_hex_bytes, TraceFrame};
+use mcs4_runtime::{
+    rom_image_from_hex, MachineSnapshot, MemoryRegion, SimulationCommand, SimulationEvent, SimulationSession, SCENARIOS,
+};
+use mcs4_system::TraceFrame;
 
 use crate::{
     panels::{
         die_viewer::DieViewerPanel,
         disasm::DisasmPanel,
         intellec::{IntellecWorkspace, Mod40EvidenceWorkspace},
-        memory::{MemoryPanel, MemoryRegion},
+        memory::MemoryPanel,
         provenance::ProvenancePanel,
         registers::{CpuMode, RegisterPanel},
         seven_seg::SevenSegPanel,
         stack::StackPanel,
         waveform::WaveformPanel,
     },
-    session::{MachineSnapshot, SimulationCommand, SimulationEvent, SimulationSession},
     signal_trace::{SignalTrace, MAX_FRAMES},
 };
 
@@ -29,39 +31,6 @@ use crate::{
 const RUN_BATCH_PHASES: usize = 256;
 const MAX_IMPORTED_TRACE_BYTES: usize = 64 * 1024 * 1024;
 const MAX_IMPORTED_TRACE_LINE_BYTES: usize = 64 * 1024;
-/// 4001 ROM chip span the disassembler and memory panel display.
-const ROM_IMAGE_BYTES: usize = 256;
-
-/// A selectable bundled program.
-struct Scenario {
-    /// Menu label.
-    name: &'static str,
-    /// Whitespace-separated hex bytes of the ROM program.
-    hex: &'static str,
-}
-
-/// Bundled MCS-4 programs the operator can load at runtime. Each is a validated
-/// fixture under `mcs4-system/fixtures`; the first boots by default so the
-/// register, RAM, and waveform panels show real activity on first launch instead
-/// of an inert zero-ROM machine.
-const SCENARIOS: &[Scenario] = &[
-    Scenario {
-        name: "RAM roundtrip (SRC/WRM/RDM)",
-        hex: include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex"),
-    },
-    Scenario {
-        name: "RAM status write/read",
-        hex: include_str!("../../mcs4-system/fixtures/ram_status_wr1_rd1.hex"),
-    },
-    Scenario {
-        name: "ROM port write/read",
-        hex: include_str!("../../mcs4-system/fixtures/rom_port_wrr_rdr.hex"),
-    },
-    Scenario {
-        name: "7-segment counter",
-        hex: include_str!("../../mcs4-system/fixtures/seven_seg_count.hex"),
-    },
-];
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 enum TraceMode {
@@ -303,16 +272,6 @@ impl Mcs4App {
     }
 }
 
-/// Build a 256-byte ROM image from a scenario's hex program at address zero,
-/// leaving the remaining bytes as NOP.
-fn rom_image_from_hex(hex: &str) -> Vec<u8> {
-    let program = parse_hex_bytes(hex).expect("embedded scenario fixture parses");
-    let mut image = vec![0u8; ROM_IMAGE_BYTES];
-    let length = program.len().min(image.len());
-    image[..length].copy_from_slice(&program[..length]);
-    image
-}
-
 fn load_trace_frames_jsonl(path: &Path) -> Result<(SignalTrace, TraceFrame), String> {
     let metadata = fs::metadata(path).map_err(|error| format!("stat trace frames {}: {error}", path.display()))?;
     if metadata.len() > MAX_IMPORTED_TRACE_BYTES as u64 {
@@ -474,22 +433,16 @@ mod tests {
     const SYSTEM_VERILATOR_FRAME: &str =
         include_str!("../../mcs4-system/fixtures/traces/mcs4-system-verilator-frame-v1.jsonl");
 
+    /// The GUI renders the runtime's bundled scenario list by index and keeps no
+    /// private copy, so the frontend and any other observe the same program under
+    /// the same stable id. The default boot (`SCENARIOS[0]`) is the runtime's
+    /// canonical `src_wrm_rdm` image the app loads in `new_with_trace_frames`.
     #[test]
-    fn bundled_scenarios_embed_runnable_programs() {
-        for scenario in super::SCENARIOS {
-            let image = super::rom_image_from_hex(scenario.hex);
-            assert_eq!(image.len(), super::ROM_IMAGE_BYTES);
-            assert!(
-                image.iter().any(|&byte| byte != 0),
-                "scenario '{}' embeds a non-empty program",
-                scenario.name
-            );
-        }
-        // The default scenario opens with LDM 0xA (0xDA) then FIM P0, 0x01 (0x20 0x01).
-        assert_eq!(
-            &super::rom_image_from_hex(super::SCENARIOS[0].hex)[..3],
-            &[0xDA, 0x20, 0x01]
-        );
+    fn default_boot_scenario_is_the_runtime_canonical_program() {
+        assert_eq!(mcs4_runtime::SCENARIOS[0].id, "src_wrm_rdm");
+        let boot = mcs4_runtime::rom_image_from_hex(mcs4_runtime::SCENARIOS[0].hex);
+        assert_eq!(boot.len(), mcs4_runtime::ROM_IMAGE_BYTES);
+        assert_eq!(&boot[..3], &[0xDA, 0x20, 0x01]);
     }
 
     #[test]

@@ -1,0 +1,15 @@
+[package]
+name = "mcs4-runtime"
+description = "Frontend-neutral MCS-4/MCS-40 simulation runtime: worker-owned machine, commands, events, and snapshots"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+mcs4-system = { path = "../mcs4-system" }
+mcs4-intellec = { path = "../mcs4-intellec" }
+mcs4-periph = { path = "../mcs4-periph" }
