@@ -31,10 +31,32 @@ const MAX_IMPORTED_TRACE_LINE_BYTES: usize = 64 * 1024;
 /// 4001 ROM chip span the disassembler and memory panel display.
 const ROM_IMAGE_BYTES: usize = 256;
 
-/// Default boot image: the validated `src_wrm_rdm` RAM roundtrip fixture. It
-/// drives SRC/WRM/RDM so the register, RAM, and waveform panels show real
-/// activity on first launch instead of an inert zero-ROM machine.
-const DEMO_BOOT_HEX: &str = include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex");
+/// A selectable bundled program.
+struct Scenario {
+    /// Menu label.
+    name: &'static str,
+    /// Whitespace-separated hex bytes of the ROM program.
+    hex: &'static str,
+}
+
+/// Bundled MCS-4 programs the operator can load at runtime. Each is a validated
+/// fixture under `mcs4-system/fixtures`; the first boots by default so the
+/// register, RAM, and waveform panels show real activity on first launch instead
+/// of an inert zero-ROM machine.
+const SCENARIOS: &[Scenario] = &[
+    Scenario {
+        name: "RAM roundtrip (SRC/WRM/RDM)",
+        hex: include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex"),
+    },
+    Scenario {
+        name: "RAM status write/read",
+        hex: include_str!("../../mcs4-system/fixtures/ram_status_wr1_rd1.hex"),
+    },
+    Scenario {
+        name: "ROM port write/read",
+        hex: include_str!("../../mcs4-system/fixtures/rom_port_wrr_rdr.hex"),
+    },
+];
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 enum TraceMode {
@@ -62,6 +84,7 @@ pub struct Mcs4App {
     shown_memory_region: Option<MemoryRegion>,
     last_fault: Option<String>,
     rom_data: Vec<u8>,
+    selected_scenario: usize,
     trace_mode: TraceMode,
 }
 
@@ -74,7 +97,7 @@ impl Mcs4App {
     /// Construct the UI and optionally load a read-only shared-trace JSONL file.
     pub fn new_with_trace_frames(_creation_context: &eframe::CreationContext<'_>, trace_frames: Option<&Path>) -> Self {
         let simulation = SimulationSession::spawn();
-        let rom_data = demo_boot_rom_image();
+        let rom_data = rom_image_from_hex(SCENARIOS[0].hex);
         let mut app = Self {
             simulation,
             trace: SignalTrace::new(),
@@ -94,6 +117,7 @@ impl Mcs4App {
             shown_memory_region: None,
             last_fault: None,
             rom_data,
+            selected_scenario: 0,
             trace_mode: TraceMode::Behavioral,
         };
         app.send_command(SimulationCommand::LoadRom {
@@ -175,6 +199,24 @@ impl Mcs4App {
         self.shown_memory_region = Some(region);
     }
 
+    /// Load a bundled scenario into the shared machine and restart it at address
+    /// zero, returning the live view to the behavioral worker.
+    fn load_scenario(&mut self, index: usize) {
+        let Some(scenario) = SCENARIOS.get(index) else {
+            return;
+        };
+        self.selected_scenario = index;
+        self.rom_data = rom_image_from_hex(scenario.hex);
+        self.running = false;
+        self.run_request_pending = false;
+        self.trace_mode = TraceMode::Behavioral;
+        self.send_command(SimulationCommand::LoadRom {
+            bytes: self.rom_data.clone(),
+        });
+        self.send_command(SimulationCommand::Reset);
+        self.disasm_panel.update(&self.rom_data, 0);
+    }
+
     fn queue_run_batch_if_needed(&mut self) {
         if self.trace_mode == TraceMode::Behavioral && self.running && !self.run_request_pending {
             self.run_request_pending = true;
@@ -186,6 +228,20 @@ impl Mcs4App {
 
     fn show_controls(&mut self, ui: &mut egui::Ui) {
         let imported = matches!(self.trace_mode, TraceMode::Imported { .. });
+        let mut chosen_scenario = self.selected_scenario;
+        ui.horizontal(|ui| {
+            ui.label("Scenario");
+            egui::ComboBox::from_id_salt("scenario_selector")
+                .selected_text(SCENARIOS[self.selected_scenario].name)
+                .show_ui(ui, |ui| {
+                    for (index, scenario) in SCENARIOS.iter().enumerate() {
+                        ui.selectable_value(&mut chosen_scenario, index, scenario.name);
+                    }
+                });
+        });
+        if chosen_scenario != self.selected_scenario {
+            self.load_scenario(chosen_scenario);
+        }
         ui.horizontal(|ui| {
             if ui
                 .add_enabled(!imported, egui::Button::new(if self.running { "Stop" } else { "Run" }))
@@ -240,10 +296,10 @@ impl Mcs4App {
     }
 }
 
-/// Build the 256-byte ROM image booted by default: the embedded demo fixture at
-/// address zero, the remaining bytes left as NOP.
-fn demo_boot_rom_image() -> Vec<u8> {
-    let program = parse_hex_bytes(DEMO_BOOT_HEX).expect("embedded demo boot fixture parses");
+/// Build a 256-byte ROM image from a scenario's hex program at address zero,
+/// leaving the remaining bytes as NOP.
+fn rom_image_from_hex(hex: &str) -> Vec<u8> {
+    let program = parse_hex_bytes(hex).expect("embedded scenario fixture parses");
     let mut image = vec![0u8; ROM_IMAGE_BYTES];
     let length = program.len().min(image.len());
     image[..length].copy_from_slice(&program[..length]);
@@ -408,11 +464,21 @@ mod tests {
         include_str!("../../mcs4-system/fixtures/traces/mcs4-system-verilator-frame-v1.jsonl");
 
     #[test]
-    fn demo_boot_rom_image_embeds_the_fixture_program() {
-        let image = super::demo_boot_rom_image();
-        assert_eq!(image.len(), super::ROM_IMAGE_BYTES);
-        // src_wrm_rdm opens with LDM 0xA (0xDA) then FIM P0, 0x01 (0x20 0x01).
-        assert_eq!(&image[..3], &[0xDA, 0x20, 0x01]);
+    fn bundled_scenarios_embed_runnable_programs() {
+        for scenario in super::SCENARIOS {
+            let image = super::rom_image_from_hex(scenario.hex);
+            assert_eq!(image.len(), super::ROM_IMAGE_BYTES);
+            assert!(
+                image.iter().any(|&byte| byte != 0),
+                "scenario '{}' embeds a non-empty program",
+                scenario.name
+            );
+        }
+        // The default scenario opens with LDM 0xA (0xDA) then FIM P0, 0x01 (0x20 0x01).
+        assert_eq!(
+            &super::rom_image_from_hex(super::SCENARIOS[0].hex)[..3],
+            &[0xDA, 0x20, 0x01]
+        );
     }
 
     #[test]
