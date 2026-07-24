@@ -2524,6 +2524,7 @@ dependencies = [
  "mcs4-chips",
  "mcs4-core",
  "mcs4-intellec",
+ "mcs4-periph",
  "mcs4-system",
  "mimalloc",
  "serde_json",

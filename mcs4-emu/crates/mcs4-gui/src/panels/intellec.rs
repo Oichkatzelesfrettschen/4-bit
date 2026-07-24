@@ -1,49 +1,68 @@
 //! Source-gated Intellec console and ASR-33 workspace.
+//!
+//! The console is a view over the one shared worker machine. It renders the
+//! console snapshot the worker publishes and sends panel commands back; it never
+//! owns a machine of its own. The debugger's Run/Step are authoritative for
+//! execution, so this surface observes the shared machine and its evidence gate
+//! governs only panel-originated stepping.
 
 use eframe::egui;
 use mcs4_intellec::{
-    IntellecEvent, IntellecMachine, IntellecModel, IntellecProfile, Mod40Board, Mod40EvidenceSnapshot, PanelControl,
-    PanelInput, ProgramMemoryMode, ResetScope,
+    IntellecModel, Mod40Board, Mod40EvidenceSnapshot, PanelControl, PanelInput, ProgramMemoryMode, ResetScope,
 };
-use mcs4_system::Mcs4System;
 
-/// Interactive source-gated Intellec 4 visual workspace.
+use crate::session::{IntellecConsoleSnapshot, SimulationCommand, SimulationSession};
+
+/// Interactive source-gated Intellec 4 view over the shared worker machine.
+#[derive(Default)]
 pub struct IntellecWorkspace {
-    machine: IntellecMachine<Mcs4System>,
+    console: Option<IntellecConsoleSnapshot>,
     terminal_entry: String,
-    paper: String,
-    punch: Vec<u8>,
-    fault: Option<String>,
 }
 
 impl IntellecWorkspace {
-    /// Construct the original 4004 profile and expose its evidence gate.
+    /// Construct an empty view; the worker supplies console state on first frame.
     pub fn new() -> Self {
-        Self {
-            machine: IntellecMachine::new(Mcs4System::standard(), IntellecProfile::intellec4()),
-            terminal_entry: String::new(),
-            paper: String::new(),
-            punch: Vec::new(),
-            fault: None,
-        }
+        Self::default()
     }
 
-    /// Render console controls, lamps, and the host visual ASR-33 terminal.
-    pub fn show(&mut self, ui: &mut egui::Ui) {
-        ui.heading("Intellec 4 console");
-        ui.label("4004 profile; terminal appears as an external paper teletype, not a CRT.");
+    /// Store the latest console snapshot published by the worker.
+    pub fn set_console(&mut self, snapshot: IntellecConsoleSnapshot) {
+        self.console = Some(snapshot);
+    }
 
-        match self.machine.profile().validate_boot_evidence() {
-            Ok(()) => ui.colored_label(egui::Color32::GREEN, "source gate permits monitor boot"),
-            Err(error) => ui.colored_label(
-                egui::Color32::YELLOW,
-                format!("historical monitor boot blocked: {}", error.missing.join(", ")),
-            ),
+    /// Return the observed model, or the original profile before the first snapshot.
+    pub fn model(&self) -> IntellecModel {
+        self.console
+            .as_ref()
+            .map_or(IntellecModel::Intellec4, |console| console.model)
+    }
+
+    /// Render console controls and lamps, sending panel commands to the worker.
+    pub fn show(&mut self, ui: &mut egui::Ui, simulation: &SimulationSession) {
+        ui.heading("Intellec 4 console");
+        ui.label("Observing the shared machine. The debugger drives execution; this gate governs panel steps.");
+
+        let Some(console) = self.console.clone() else {
+            ui.label("connecting to the shared machine...");
+            return;
         };
 
-        let snapshot = self.machine.panel_snapshot();
-        let mut address_data = snapshot.address_data_switches;
-        let mut write_data = snapshot.write_data_switches;
+        if console.boot_gate_ok {
+            ui.colored_label(egui::Color32::GREEN, "source gate permits monitor boot");
+        } else {
+            ui.colored_label(
+                egui::Color32::YELLOW,
+                format!(
+                    "historical monitor boot blocked: {}",
+                    console.boot_gate_missing.join(", ")
+                ),
+            );
+        }
+
+        let panel = console.panel;
+        let mut address_data = panel.address_data_switches;
+        let mut write_data = panel.write_data_switches;
         ui.horizontal(|ui| {
             ui.label("ADDRESS/DATA");
             if ui
@@ -54,8 +73,7 @@ impl IntellecWorkspace {
                 )
                 .changed()
             {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::SetAddressData(address_data)));
+                self.send(simulation, PanelInput::SetAddressData(address_data));
             }
             ui.label("WRITE");
             if ui
@@ -66,8 +84,7 @@ impl IntellecWorkspace {
                 )
                 .changed()
             {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::SetWriteData(write_data)));
+                self.send(simulation, PanelInput::SetWriteData(write_data));
             }
         });
 
@@ -77,140 +94,101 @@ impl IntellecWorkspace {
                 ("RAM", ProgramMemoryMode::Ram),
                 ("PROM", ProgramMemoryMode::Prom),
             ] {
-                if ui
-                    .selectable_label(snapshot.program_memory_mode == mode, label)
-                    .clicked()
-                {
-                    self.machine
-                        .apply_event(IntellecEvent::Panel(PanelInput::SetProgramMemoryMode(mode)));
+                if ui.selectable_label(panel.program_memory_mode == mode, label).clicked() {
+                    self.send(simulation, PanelInput::SetProgramMemoryMode(mode));
                 }
             }
             if ui.button("RUN").clicked() {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::Control(PanelControl::Run)));
+                self.send(simulation, PanelInput::Control(PanelControl::Run));
             }
             if ui.button("ONE CYCLE").clicked() {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::Control(PanelControl::SingleStep)));
+                let _ = simulation.send(SimulationCommand::IntellecStep { phases: 8 });
             }
             if ui.button("STOP").clicked() {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::Control(PanelControl::Stop)));
+                self.send(simulation, PanelInput::Control(PanelControl::Stop));
             }
         });
 
         ui.horizontal(|ui| {
             if ui.button("TEST PULSE").clicked() {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::Control(PanelControl::TestOneShot)));
+                self.send(simulation, PanelInput::Control(PanelControl::TestOneShot));
             }
             if ui.button("RESET CPU").clicked() {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::Control(PanelControl::Reset(
-                        ResetScope::Cpu,
-                    ))));
+                self.send(simulation, PanelInput::Control(PanelControl::Reset(ResetScope::Cpu)));
             }
             if ui.button("RESET SYSTEM").clicked() {
-                self.machine
-                    .apply_event(IntellecEvent::Panel(PanelInput::Control(PanelControl::Reset(
-                        ResetScope::System,
-                    ))));
+                self.send(simulation, PanelInput::Control(PanelControl::Reset(ResetScope::System)));
             }
             if ui
-                .selectable_label(snapshot.console_memory_access_enabled, "CMA ENABLE")
+                .selectable_label(panel.console_memory_access_enabled, "CMA ENABLE")
                 .clicked()
             {
-                self.machine.apply_event(IntellecEvent::Panel(PanelInput::Control(
-                    PanelControl::ConsoleMemoryAccess(!snapshot.console_memory_access_enabled),
-                )));
+                self.send(
+                    simulation,
+                    PanelInput::Control(PanelControl::ConsoleMemoryAccess(!panel.console_memory_access_enabled)),
+                );
             }
             if ui.button("CMA WRITE").clicked() {
-                self.machine.apply_event(IntellecEvent::Panel(PanelInput::Control(
-                    PanelControl::ConsoleMemoryWrite,
-                )));
+                self.send(simulation, PanelInput::Control(PanelControl::ConsoleMemoryWrite));
             }
         });
 
         ui.separator();
-        let snapshot = self.machine.panel_snapshot();
         ui.monospace(format!(
             "ADDR {:03X} EXEC {:X} INSTR {:02X} ROM {:?} RAM {:?} RUN {}",
-            snapshot.lamps.address,
-            snapshot.lamps.execution,
-            snapshot.lamps.instruction,
-            snapshot.lamps.active_rom_bank,
-            snapshot.lamps.active_ram_bank,
-            snapshot.lamps.cpu_running
+            panel.lamps.address,
+            panel.lamps.execution,
+            panel.lamps.instruction,
+            panel.lamps.active_rom_bank,
+            panel.lamps.active_ram_bank,
+            panel.lamps.cpu_running
         ));
+
+        if ui.button("STEP (gated)").clicked() {
+            let _ = simulation.send(SimulationCommand::IntellecStep { phases: 1 });
+        }
+        if let Some(fault) = console.panel_step_fault.as_deref() {
+            ui.colored_label(egui::Color32::RED, fault);
+        }
 
         ui.separator();
         ui.heading("ASR-33 terminal");
         ui.horizontal(|ui| {
             let response =
                 ui.add(egui::TextEdit::singleline(&mut self.terminal_entry).hint_text("ASCII keyboard input"));
-            if response.lost_focus() && ui.input(|input| input.key_pressed(egui::Key::Enter)) {
-                self.enqueue_terminal_text();
-            }
-            if ui.button("SEND").clicked() {
-                self.enqueue_terminal_text();
+            let submit = response.lost_focus() && ui.input(|input| input.key_pressed(egui::Key::Enter))
+                || ui.button("SEND").clicked();
+            if submit {
+                self.enqueue_terminal_text(simulation);
             }
             if ui.button("PUNCH ON").clicked() {
-                self.machine.apply_event(IntellecEvent::PunchEnabled(true));
+                let _ = simulation.send(SimulationCommand::IntellecPunch(true));
             }
             if ui.button("PUNCH OFF").clicked() {
-                self.machine.apply_event(IntellecEvent::PunchEnabled(false));
+                let _ = simulation.send(SimulationCommand::IntellecPunch(false));
             }
         });
         egui::ScrollArea::vertical().max_height(140.0).show(ui, |ui| {
-            ui.monospace(if self.paper.is_empty() {
+            ui.monospace(if console.paper.is_empty() {
                 "[printer idle]"
             } else {
-                &self.paper
+                console.paper.as_str()
             });
         });
-        ui.monospace(format!("punch bytes: {}", self.punch.len()));
-
-        if ui.button("STEP SOURCE-GATED MACHINE").clicked() {
-            if let Err(error) = self.machine.profile().validate_boot_evidence() {
-                self.fault = Some(format!(
-                    "cannot execute historical profile: {}",
-                    error.missing.join(", ")
-                ));
-            } else if let Err(error) = self.machine.step_phase() {
-                self.fault = Some(format!("machine step: {error:?}"));
-            } else {
-                self.collect_terminal_output();
-            }
-        }
-        if let Some(fault) = self.fault.as_deref() {
-            ui.colored_label(egui::Color32::RED, fault);
-        }
+        ui.monospace(format!("punch bytes: {}", console.punch_len));
     }
 
-    fn enqueue_terminal_text(&mut self) {
+    fn send(&self, simulation: &SimulationSession, input: PanelInput) {
+        let _ = simulation.send(SimulationCommand::IntellecPanelInput(input));
+    }
+
+    fn enqueue_terminal_text(&mut self, simulation: &SimulationSession) {
         let text = std::mem::take(&mut self.terminal_entry);
         for byte in text.bytes() {
             if byte.is_ascii() {
-                self.machine.apply_event(IntellecEvent::TerminalKey(byte));
+                let _ = simulation.send(SimulationCommand::IntellecTerminalKey(byte));
             }
         }
-    }
-
-    fn collect_terminal_output(&mut self) {
-        let printed = self.machine.drain_printed_terminal_bytes();
-        self.paper.push_str(&String::from_utf8_lossy(&printed));
-        self.punch.extend(self.machine.drain_punched_terminal_bytes());
-    }
-
-    /// Return the selected model identity for test and status panels.
-    pub const fn model(&self) -> IntellecModel {
-        self.machine.profile().model()
-    }
-}
-
-impl Default for IntellecWorkspace {
-    fn default() -> Self {
-        Self::new()
     }
 }
 
@@ -294,7 +272,7 @@ mod tests {
     use super::{IntellecWorkspace, Mod40EvidenceWorkspace};
 
     #[test]
-    fn workspace_selects_the_original_profile() {
+    fn workspace_defaults_to_the_original_profile() {
         assert_eq!(IntellecWorkspace::new().model(), IntellecModel::Intellec4);
     }
 

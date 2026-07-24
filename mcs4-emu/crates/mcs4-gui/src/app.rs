@@ -137,6 +137,9 @@ impl Mcs4App {
                     self.last_snapshot = Some(snapshot);
                     self.feed_memory_panel();
                 }
+                SimulationEvent::IntellecConsole(snapshot) => {
+                    self.intellec_workspace.set_console(snapshot);
+                }
                 SimulationEvent::RunBoundary { reason, .. } => {
                     self.trace.clear();
                     self.latest_frame = None;
@@ -368,7 +371,7 @@ impl eframe::App for Mcs4App {
             .min_width(340.0)
             .show(context, |ui| {
                 egui::ScrollArea::vertical().show(ui, |ui| {
-                    self.intellec_workspace.show(ui);
+                    self.intellec_workspace.show(ui, &self.simulation);
                     ui.separator();
                     self.mod40_evidence_workspace.show(ui);
                 });
