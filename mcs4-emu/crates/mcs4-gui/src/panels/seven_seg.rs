@@ -1,8 +1,7 @@
 //! 7-segment display panel driven by the shared machine's RAM output port.
 
 use eframe::egui::{self, Color32, Rect, Sense, Vec2};
-
-use crate::session::SevenSegView;
+use mcs4_runtime::SevenSegView;
 
 /// Segment bit positions, matching `mcs4_periph::seven_seg::segment`.
 const SEG_A: u8 = 0x01; // top

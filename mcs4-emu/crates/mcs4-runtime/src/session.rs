@@ -1,6 +1,6 @@
-//! Single-owner behavioral session worker for the interactive GUI.
+//! Single-owner behavioral session worker for interactive frontends.
 //!
-//! The worker owns the mutable emulator. The UI sends bounded commands and
+//! The worker owns the mutable emulator. A frontend sends bounded commands and
 //! receives immutable trace frames, so Run, Step, and Reset never race on a
 //! shared `Mcs4System` lock.
 //!
@@ -18,7 +18,7 @@ use mcs4_intellec::{IntellecModel, IntellecPanel, IntellecProfile, PanelInput, P
 use mcs4_periph::{SevenSegDisplay, Teletype33, TeletypeTiming};
 use mcs4_system::{Mcs4System, ReplayInput, ReplaySession, TraceFrame};
 
-use crate::panels::{memory::MemorySnapshot, registers::CpuSnapshot, stack::StackSnapshot};
+use crate::dto::{CpuSnapshot, MemorySnapshot, StackSnapshot};
 
 /// Maximum phases accepted by one UI run request.
 pub const MAX_RUN_PHASES: usize = 10_000;
@@ -29,7 +29,7 @@ const ROM_VIEW_BYTES: u16 = 256;
 const RAM_VIEW_REGISTERS: u8 = 4;
 const RAM_VIEW_CHARACTERS: u8 = 16;
 
-/// Request sent from the GUI thread to the sole behavioral-system owner.
+/// Request sent from a frontend thread to the sole behavioral-system owner.
 #[derive(Clone, Debug)]
 pub enum SimulationCommand {
     /// Reset with the native MCS-4 reset semantics.
@@ -120,7 +120,7 @@ pub struct IntellecConsoleSnapshot {
     pub panel_step_fault: Option<String>,
 }
 
-/// Immutable observation or fault delivered to the GUI thread.
+/// Immutable observation or fault delivered to a frontend thread.
 #[derive(Clone, Debug)]
 pub enum SimulationEvent {
     /// Canonical post-phase observation.
@@ -162,7 +162,7 @@ impl std::fmt::Display for SimulationSessionError {
 
 impl std::error::Error for SimulationSessionError {}
 
-/// GUI-facing endpoint for one owned behavioral session.
+/// Frontend-facing endpoint for one owned behavioral session.
 pub struct SimulationSession {
     commands: Sender<SimulationCommand>,
     events: Receiver<SimulationEvent>,
@@ -190,7 +190,7 @@ impl SimulationSession {
             .map_err(|_| SimulationSessionError::WorkerUnavailable)
     }
 
-    /// Drain every event already available without blocking the GUI frame.
+    /// Drain every event already available without blocking the frame.
     pub fn drain_events(&self) -> Vec<SimulationEvent> {
         let mut events = Vec::new();
         loop {

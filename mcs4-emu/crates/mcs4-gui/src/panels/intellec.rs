@@ -10,8 +10,7 @@ use eframe::egui;
 use mcs4_intellec::{
     IntellecModel, Mod40Board, Mod40EvidenceSnapshot, PanelControl, PanelInput, ProgramMemoryMode, ResetScope,
 };
-
-use crate::session::{IntellecConsoleSnapshot, SimulationCommand, SimulationSession};
+use mcs4_runtime::{IntellecConsoleSnapshot, SimulationCommand, SimulationSession};
 
 /// Interactive source-gated Intellec 4 view over the shared worker machine.
 #[derive(Default)]

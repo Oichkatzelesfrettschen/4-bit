@@ -1,46 +1,13 @@
 //! Stack display panel for 4004/4040 call stack
 
 use eframe::egui::{self, Color32};
+use mcs4_runtime::StackSnapshot;
 
 use super::registers::CpuMode;
 
 /// Maximum stack depth for each CPU mode
 const STACK_DEPTH_4004: usize = 3;
 const STACK_DEPTH_4040: usize = 7;
-
-/// Snapshot of the call stack for display
-#[derive(Clone, Debug, Default)]
-pub struct StackSnapshot {
-    /// Stack entries (address values)
-    pub entries: Vec<u16>,
-    /// Current stack pointer
-    pub sp: u8,
-}
-
-impl StackSnapshot {
-    /// Create a stack snapshot from raw stack array and pointer
-    pub fn new(entries: &[u16], sp: u8) -> Self {
-        Self {
-            entries: entries.to_vec(),
-            sp,
-        }
-    }
-
-    /// Number of stack slots
-    pub fn depth(&self) -> usize {
-        self.entries.len()
-    }
-
-    /// True if the stack has no entries
-    pub fn is_empty(&self) -> bool {
-        self.entries.is_empty()
-    }
-
-    /// Get the entry at a given level, if it exists
-    pub fn entry_at(&self, level: usize) -> Option<u16> {
-        self.entries.get(level).copied()
-    }
-}
 
 /// Stack display panel
 pub struct StackPanel {
@@ -255,13 +222,5 @@ mod tests {
         let panel = StackPanel::default();
         assert_eq!(panel.mode(), CpuMode::I4004);
         assert!(panel.snapshot().is_empty());
-    }
-
-    #[test]
-    fn entry_at_out_of_bounds() {
-        let snap = StackSnapshot::new(&[0x100], 1);
-        assert_eq!(snap.entry_at(0), Some(0x100));
-        assert_eq!(snap.entry_at(1), None);
-        assert_eq!(snap.entry_at(99), None);
     }
 }

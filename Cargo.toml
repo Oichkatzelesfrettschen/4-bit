@@ -5,6 +5,7 @@ members = [
   "mcs4-emu/crates/mcs4-bus",
   "mcs4-emu/crates/mcs4-chips",
   "mcs4-emu/crates/mcs4-system",
+  "mcs4-emu/crates/mcs4-runtime",
   "mcs4-emu/crates/mcs4-gui",
   "mcs4-emu/crates/mcs4-fpga",
   "mcs4-emu/crates/mcs4-intellec",

@@ -101,8 +101,12 @@ security-validate:
     cargo deny --config deny.toml check advisories
     python3 scripts/verify_advisory_exceptions.py
 
+# Assert mcs4-runtime stays frontend-neutral (no presentation-framework dep).
+layer-check:
+    scripts/runtime_frontend_neutral_check.sh
+
 # Run full verification: Rust, Python, scripts, gate HDL, and docs.
-verify: fmt lint test python-test scripts-lint link-check hdl-validate gate-contract netlist-validate timing-validate mod40-evidence-validate capability-validate security-validate doc
+verify: fmt lint test python-test scripts-lint link-check hdl-validate gate-contract netlist-validate timing-validate mod40-evidence-validate capability-validate security-validate layer-check doc
     @echo "Repository verification passed."
 
 # Capture cflow, cscope, compiler MIR, syscall, and callgrind evidence.

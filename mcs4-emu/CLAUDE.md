@@ -185,13 +185,14 @@ Critical path (in order):
 2. Phase 0.5: OCR regression benchmarks (deferred)
 3. Advanced: rkyv snapshots, time-travel debugging, hardware-in-loop testing
 
-## WORKSPACE CRATES (8)
+## WORKSPACE CRATES (9)
 
 - mcs4-bus: Bus protocol abstraction
 - mcs4-chips: All chip implementations (4004, 4040, 4001-4003, MCS-40 support/peripherals)
 - mcs4-core: Transistor/nodal solvers, process models, circuit graph, TCAD, fidelity/bridge
 - mcs4-fpga: Verilog export
-- mcs4-gui: egui panels (registers, memory, stack, breakpoints, controls, disasm, waveform)
+- mcs4-runtime: Frontend-neutral simulation runtime (worker-owned machine, commands, events, snapshots, bundled scenarios); no presentation dependency
+- mcs4-gui: egui frontend rendering runtime snapshots (registers, memory, stack, breakpoints, controls, disasm, waveform, 7-segment)
 - mcs4-system: System integration, SIMD cluster (feature-gated)
 - mcs4-intellec: Intellec-4 development system (front panel, monitor, PROM programmer)
 - mcs4-periph: Peripheral devices (7-segment display, matrix keyboard, UART)
