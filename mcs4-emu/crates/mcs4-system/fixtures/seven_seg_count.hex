@@ -1,0 +1,15 @@
+# 7-segment counter fixture (MCS-4)
+#
+# Writes an incrementing nibble to the 4002 RAM output port of chip 0 via WMP.
+# A 7-segment display attached to that port shows the accumulator cycling 0..F.
+#
+# FIM P0, 0x00 -> R0=0 so SRC selects RAM chip 0
+# SRC P0       -> latch RAM chip 0 (selection persists across the loop)
+# WMP          -> write ACC to the RAM output port of chip 0
+# IAC          -> ACC = ACC + 1 (wraps 0x0..0xF)
+# JUN 0x003    -> loop back to WMP
+20 00       # FIM P0, 0x00
+21          # SRC P0
+E1          # WMP
+F2          # IAC
+40 03       # JUN 0x003

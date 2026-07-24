@@ -6,5 +6,6 @@ pub mod intellec;
 pub mod memory;
 pub mod provenance;
 pub mod registers;
+pub mod seven_seg;
 pub mod stack;
 pub mod waveform;
