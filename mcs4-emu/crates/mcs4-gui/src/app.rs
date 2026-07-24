@@ -17,6 +17,7 @@ use crate::{
         memory::{MemoryPanel, MemoryRegion},
         provenance::ProvenancePanel,
         registers::{CpuMode, RegisterPanel},
+        seven_seg::SevenSegPanel,
         stack::StackPanel,
         waveform::WaveformPanel,
     },
@@ -56,6 +57,10 @@ const SCENARIOS: &[Scenario] = &[
         name: "ROM port write/read",
         hex: include_str!("../../mcs4-system/fixtures/rom_port_wrr_rdr.hex"),
     },
+    Scenario {
+        name: "7-segment counter",
+        hex: include_str!("../../mcs4-system/fixtures/seven_seg_count.hex"),
+    },
 ];
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -75,6 +80,7 @@ pub struct Mcs4App {
     register_panel: RegisterPanel,
     stack_panel: StackPanel,
     memory_panel: MemoryPanel,
+    seven_seg_panel: SevenSegPanel,
     intellec_workspace: IntellecWorkspace,
     mod40_evidence_workspace: Mod40EvidenceWorkspace,
     running: bool,
@@ -108,6 +114,7 @@ impl Mcs4App {
             register_panel: RegisterPanel::new(CpuMode::I4004),
             stack_panel: StackPanel::new(CpuMode::I4004),
             memory_panel: MemoryPanel::new(),
+            seven_seg_panel: SevenSegPanel,
             intellec_workspace: IntellecWorkspace::new(),
             mod40_evidence_workspace: Mod40EvidenceWorkspace::new(),
             running: false,
@@ -442,6 +449,10 @@ impl eframe::App for Mcs4App {
                 }
                 self.memory_panel.show(ui);
                 ui.add_space(16.0);
+                if let Some(snapshot) = self.last_snapshot.as_ref() {
+                    self.seven_seg_panel.show(ui, &snapshot.seven_seg);
+                    ui.add_space(16.0);
+                }
                 self.provenance_panel.show(ui, self.latest_frame.as_ref());
                 ui.add_space(16.0);
                 self.die_panel.ui(ui, self.latest_frame.as_ref());

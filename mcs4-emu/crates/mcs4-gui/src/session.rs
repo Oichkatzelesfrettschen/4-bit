@@ -15,7 +15,7 @@ use std::{
 };
 
 use mcs4_intellec::{IntellecModel, IntellecPanel, IntellecProfile, PanelInput, PanelSnapshot, ResetScope};
-use mcs4_periph::{Teletype33, TeletypeTiming};
+use mcs4_periph::{SevenSegDisplay, Teletype33, TeletypeTiming};
 use mcs4_system::{Mcs4System, ReplayInput, ReplaySession, TraceFrame};
 
 use crate::panels::{memory::MemorySnapshot, registers::CpuSnapshot, stack::StackSnapshot};
@@ -66,10 +66,22 @@ pub enum SimulationCommand {
     Shutdown,
 }
 
+/// A single 7-segment digit driven by the shared machine's RAM output port.
+#[derive(Clone, Debug, Default)]
+pub struct SevenSegView {
+    /// Raw nibble latched at the RAM output port (chip 0).
+    pub value: u8,
+    /// Lit-segment mask (bit 0 = a .. bit 6 = g, bit 7 = decimal point).
+    pub segments: u8,
+    /// Decoded character, or a blank/`?` placeholder.
+    pub ascii: String,
+}
+
 /// Complete debugger view of the single worker machine at one rest point.
 ///
 /// Every field reads the same owned `Mcs4System` the top controls drive, so the
-/// register, stack, and memory panels observe one machine rather than a copy.
+/// register, stack, memory, and peripheral panels observe one machine rather
+/// than a copy.
 #[derive(Clone, Debug)]
 pub struct MachineSnapshot {
     /// Register file, accumulator, carry, program counter, and stack.
@@ -80,6 +92,8 @@ pub struct MachineSnapshot {
     pub rom: MemorySnapshot,
     /// RAM bank 0 chip 0 main memory.
     pub ram: MemorySnapshot,
+    /// 7-segment display attached to the RAM output port of chip 0.
+    pub seven_seg: SevenSegView,
 }
 
 /// Intellec console view of the same worker machine.
@@ -200,12 +214,14 @@ impl Drop for SimulationSession {
     }
 }
 
-/// The sole owner of the machine and the Intellec console that observes it.
+/// The sole owner of the machine, the Intellec console, and the peripherals that
+/// observe it.
 struct Worker {
     session: ReplaySession<Mcs4System>,
     profile: IntellecProfile,
     panel: IntellecPanel,
     terminal: Teletype33,
+    display: SevenSegDisplay,
     paper: String,
     punch_len: usize,
     events: Sender<SimulationEvent>,
@@ -215,15 +231,24 @@ impl Worker {
     fn new(events: Sender<SimulationEvent>) -> Self {
         let profile = IntellecProfile::intellec4();
         let terminal = Teletype33::new(TeletypeTiming::asr33(profile.phase_ticks_per_second()));
+        let mut display = SevenSegDisplay::new(1);
+        display.set_bcd_mode(true);
         Self {
             session: ReplaySession::new(),
             profile,
             panel: IntellecPanel::new(),
             terminal,
+            display,
             paper: String::new(),
             punch_len: 0,
             events,
         }
+    }
+
+    /// Latch the RAM output port of chip 0 into the 7-segment display.
+    fn refresh_display(&mut self) {
+        let port = self.session.target().read_ram_port(0, 0).unwrap_or(0);
+        self.display.set_raw(0, port & 0x0F);
     }
 
     fn run(mut self, commands: Receiver<SimulationCommand>) {
@@ -243,6 +268,7 @@ impl Worker {
                         run_id: self.session.run_id(),
                         reason: "reset",
                     });
+                    self.refresh_display();
                     self.emit_machine_snapshot();
                     self.emit_console_snapshot(None);
                 }
@@ -268,6 +294,7 @@ impl Worker {
             }
             SimulationCommand::LoadRom { bytes } => match self.session.apply_input(ReplayInput::LoadRom { bytes }) {
                 Ok(_) => {
+                    self.refresh_display();
                     self.emit_machine_snapshot();
                     self.emit_console_snapshot(None);
                 }
@@ -308,6 +335,7 @@ impl Worker {
                 // advances its own timing and idles until a wired profile drives it.
                 let _ = self.terminal.advance_phase_ticks(1, true);
                 self.drain_terminal();
+                self.refresh_display();
                 self.events.send(SimulationEvent::Frame(frame)).is_ok()
             }
             Err(error) => self.fault(error.to_string()),
@@ -374,9 +402,13 @@ impl Worker {
     }
 
     fn emit_machine_snapshot(&self) {
-        let _ = self
-            .events
-            .send(SimulationEvent::Snapshot(snapshot_machine(self.session.target())));
+        let mut snapshot = snapshot_machine(self.session.target());
+        snapshot.seven_seg = SevenSegView {
+            value: self.display.raw(0) & 0x0F,
+            segments: self.display.segments(0),
+            ascii: self.display.render_ascii(),
+        };
+        let _ = self.events.send(SimulationEvent::Snapshot(snapshot));
     }
 
     fn emit_console_snapshot(&self, panel_step_fault: Option<String>) {
@@ -443,6 +475,7 @@ fn snapshot_machine(system: &Mcs4System) -> MachineSnapshot {
         stack: StackSnapshot::new(&stack, stack_pointer),
         rom: MemorySnapshot::from_rom(&rom_bytes),
         ram: MemorySnapshot::from_ram(0, 0, &ram_bytes),
+        seven_seg: SevenSegView::default(),
     }
 }
 
@@ -657,6 +690,31 @@ mod tests {
         session.send(SimulationCommand::RunPhases { phases: 200 }).expect("run");
         let snapshot = wait_for_batch_snapshot(&session);
         assert_eq!(snapshot.cpu.accumulator, 0xA, "debugger drove the shared machine");
+    }
+
+    /// A peripheral is driven by the shared machine: the 7-segment counter
+    /// fixture writes an incrementing nibble to the RAM output port via WMP, so
+    /// the display value the worker publishes advances as the machine runs.
+    #[test]
+    fn seven_segment_display_follows_the_machine_output_port() {
+        const FIXTURE: &str = include_str!("../../mcs4-system/fixtures/seven_seg_count.hex");
+        let bytes = mcs4_system::parse_hex_bytes(FIXTURE).expect("parse fixture");
+
+        let session = SimulationSession::spawn();
+        session.send(SimulationCommand::LoadRom { bytes }).expect("load rom");
+        session
+            .send(SimulationCommand::RunPhases { phases: 60 })
+            .expect("run 1");
+        let first = wait_for_batch_snapshot(&session).seven_seg.value;
+        session
+            .send(SimulationCommand::RunPhases { phases: 240 })
+            .expect("run 2");
+        let second = wait_for_batch_snapshot(&session).seven_seg.value;
+
+        assert_ne!(
+            first, second,
+            "display value advanced with the counter (0x{first:X} -> 0x{second:X})"
+        );
     }
 
     fn fixture_bytes() -> Vec<u8> {
