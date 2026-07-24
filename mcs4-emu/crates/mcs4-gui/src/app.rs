@@ -7,17 +7,20 @@ use std::{
 };
 
 use eframe::egui;
-use mcs4_system::TraceFrame;
+use mcs4_system::{parse_hex_bytes, TraceFrame};
 
 use crate::{
     panels::{
         die_viewer::DieViewerPanel,
         disasm::DisasmPanel,
         intellec::{IntellecWorkspace, Mod40EvidenceWorkspace},
+        memory::{MemoryPanel, MemoryRegion},
         provenance::ProvenancePanel,
+        registers::{CpuMode, RegisterPanel},
+        stack::StackPanel,
         waveform::WaveformPanel,
     },
-    session::{SimulationCommand, SimulationEvent, SimulationSession},
+    session::{MachineSnapshot, SimulationCommand, SimulationEvent, SimulationSession},
     signal_trace::{SignalTrace, MAX_FRAMES},
 };
 
@@ -25,6 +28,13 @@ use crate::{
 const RUN_BATCH_PHASES: usize = 256;
 const MAX_IMPORTED_TRACE_BYTES: usize = 64 * 1024 * 1024;
 const MAX_IMPORTED_TRACE_LINE_BYTES: usize = 64 * 1024;
+/// 4001 ROM chip span the disassembler and memory panel display.
+const ROM_IMAGE_BYTES: usize = 256;
+
+/// Default boot image: the validated `src_wrm_rdm` RAM roundtrip fixture. It
+/// drives SRC/WRM/RDM so the register, RAM, and waveform panels show real
+/// activity on first launch instead of an inert zero-ROM machine.
+const DEMO_BOOT_HEX: &str = include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex");
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 enum TraceMode {
@@ -40,11 +50,16 @@ pub struct Mcs4App {
     disasm_panel: DisasmPanel,
     provenance_panel: ProvenancePanel,
     die_panel: DieViewerPanel,
+    register_panel: RegisterPanel,
+    stack_panel: StackPanel,
+    memory_panel: MemoryPanel,
     intellec_workspace: IntellecWorkspace,
     mod40_evidence_workspace: Mod40EvidenceWorkspace,
     running: bool,
     run_request_pending: bool,
     latest_frame: Option<TraceFrame>,
+    last_snapshot: Option<MachineSnapshot>,
+    shown_memory_region: Option<MemoryRegion>,
     last_fault: Option<String>,
     rom_data: Vec<u8>,
     trace_mode: TraceMode,
@@ -59,7 +74,7 @@ impl Mcs4App {
     /// Construct the UI and optionally load a read-only shared-trace JSONL file.
     pub fn new_with_trace_frames(_creation_context: &eframe::CreationContext<'_>, trace_frames: Option<&Path>) -> Self {
         let simulation = SimulationSession::spawn();
-        let rom_data = vec![0; 256];
+        let rom_data = demo_boot_rom_image();
         let mut app = Self {
             simulation,
             trace: SignalTrace::new(),
@@ -67,11 +82,16 @@ impl Mcs4App {
             disasm_panel: DisasmPanel::new(),
             provenance_panel: ProvenancePanel,
             die_panel: DieViewerPanel::new(),
+            register_panel: RegisterPanel::new(CpuMode::I4004),
+            stack_panel: StackPanel::new(CpuMode::I4004),
+            memory_panel: MemoryPanel::new(),
             intellec_workspace: IntellecWorkspace::new(),
             mod40_evidence_workspace: Mod40EvidenceWorkspace::new(),
             running: false,
             run_request_pending: false,
             latest_frame: None,
+            last_snapshot: None,
+            shown_memory_region: None,
             last_fault: None,
             rom_data,
             trace_mode: TraceMode::Behavioral,
@@ -111,6 +131,12 @@ impl Mcs4App {
                     }
                 }
                 SimulationEvent::Frame(_) => {}
+                SimulationEvent::Snapshot(snapshot) => {
+                    self.register_panel.update(snapshot.cpu.clone());
+                    self.stack_panel.update(snapshot.stack.clone());
+                    self.last_snapshot = Some(snapshot);
+                    self.feed_memory_panel();
+                }
                 SimulationEvent::RunBoundary { reason, .. } => {
                     self.trace.clear();
                     self.latest_frame = None;
@@ -129,6 +155,21 @@ impl Mcs4App {
                 }
             }
         }
+    }
+
+    /// Feed the memory panel the region it currently shows from the latest
+    /// worker snapshot, so ROM/RAM toggling reads the one machine on demand.
+    fn feed_memory_panel(&mut self) {
+        let Some(snapshot) = self.last_snapshot.as_ref() else {
+            return;
+        };
+        let region = self.memory_panel.selected_region();
+        let view = match region {
+            MemoryRegion::Rom => snapshot.rom.clone(),
+            MemoryRegion::Ram => snapshot.ram.clone(),
+        };
+        self.memory_panel.update(view);
+        self.shown_memory_region = Some(region);
     }
 
     fn queue_run_batch_if_needed(&mut self) {
@@ -194,6 +235,16 @@ impl Mcs4App {
         };
         Ok(())
     }
+}
+
+/// Build the 256-byte ROM image booted by default: the embedded demo fixture at
+/// address zero, the remaining bytes left as NOP.
+fn demo_boot_rom_image() -> Vec<u8> {
+    let program = parse_hex_bytes(DEMO_BOOT_HEX).expect("embedded demo boot fixture parses");
+    let mut image = vec![0u8; ROM_IMAGE_BYTES];
+    let length = program.len().min(image.len());
+    image[..length].copy_from_slice(&program[..length]);
+    image
 }
 
 fn load_trace_frames_jsonl(path: &Path) -> Result<(SignalTrace, TraceFrame), String> {
@@ -301,9 +352,17 @@ impl eframe::App for Mcs4App {
 
         egui::TopBottomPanel::top("top_panel").show(context, |ui| self.show_controls(ui));
 
-        egui::SidePanel::right("disasm_panel")
-            .min_width(300.0)
-            .show(context, |ui| self.disasm_panel.show(ui));
+        egui::SidePanel::right("state_panel")
+            .min_width(320.0)
+            .show(context, |ui| {
+                egui::ScrollArea::vertical().show(ui, |ui| {
+                    self.register_panel.show(ui);
+                    ui.separator();
+                    self.stack_panel.show(ui);
+                    ui.separator();
+                    self.disasm_panel.show(ui);
+                });
+            });
 
         egui::SidePanel::left("intellec_panel")
             .min_width(340.0)
@@ -318,6 +377,11 @@ impl eframe::App for Mcs4App {
         egui::CentralPanel::default().show(context, |ui| {
             egui::ScrollArea::vertical().show(ui, |ui| {
                 self.waveform_panel.show(ui, &self.trace);
+                ui.add_space(16.0);
+                if Some(self.memory_panel.selected_region()) != self.shown_memory_region {
+                    self.feed_memory_panel();
+                }
+                self.memory_panel.show(ui);
                 ui.add_space(16.0);
                 self.provenance_panel.show(ui, self.latest_frame.as_ref());
                 ui.add_space(16.0);
@@ -339,6 +403,14 @@ mod tests {
 
     const SYSTEM_VERILATOR_FRAME: &str =
         include_str!("../../mcs4-system/fixtures/traces/mcs4-system-verilator-frame-v1.jsonl");
+
+    #[test]
+    fn demo_boot_rom_image_embeds_the_fixture_program() {
+        let image = super::demo_boot_rom_image();
+        assert_eq!(image.len(), super::ROM_IMAGE_BYTES);
+        // src_wrm_rdm opens with LDM 0xA (0xDA) then FIM P0, 0x01 (0x20 0x01).
+        assert_eq!(&image[..3], &[0xDA, 0x20, 0x01]);
+    }
 
     #[test]
     fn imported_system_adapter_frame_preserves_provenance() {

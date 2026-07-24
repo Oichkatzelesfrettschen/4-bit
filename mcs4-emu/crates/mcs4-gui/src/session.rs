@@ -11,8 +11,16 @@ use std::{
 
 use mcs4_system::{Mcs4System, ReplayInput, ReplaySession, TraceFrame};
 
+use crate::panels::{memory::MemorySnapshot, registers::CpuSnapshot, stack::StackSnapshot};
+
 /// Maximum phases accepted by one UI run request.
 pub const MAX_RUN_PHASES: usize = 10_000;
+
+/// ROM chip 0 span published to the memory panel.
+const ROM_VIEW_BYTES: u16 = 256;
+/// RAM main-memory characters published to the memory panel: 4 registers x 16 characters.
+const RAM_VIEW_REGISTERS: u8 = 4;
+const RAM_VIEW_CHARACTERS: u8 = 16;
 
 /// Request sent from the GUI thread to the sole behavioral-system owner.
 #[derive(Clone, Debug)]
@@ -40,11 +48,29 @@ pub enum SimulationCommand {
     Shutdown,
 }
 
+/// Complete debugger view of the single worker machine at one rest point.
+///
+/// Every field reads the same owned `Mcs4System` the top controls drive, so the
+/// register, stack, and memory panels observe one machine rather than a copy.
+#[derive(Clone, Debug)]
+pub struct MachineSnapshot {
+    /// Register file, accumulator, carry, program counter, and stack.
+    pub cpu: CpuSnapshot,
+    /// Call stack rendered in the stack-panel schema.
+    pub stack: StackSnapshot,
+    /// ROM chip 0 image.
+    pub rom: MemorySnapshot,
+    /// RAM bank 0 chip 0 main memory.
+    pub ram: MemorySnapshot,
+}
+
 /// Immutable observation or fault delivered to the GUI thread.
 #[derive(Clone, Debug)]
 pub enum SimulationEvent {
     /// Canonical post-phase observation.
     Frame(TraceFrame),
+    /// Register, stack, and memory state after a completed rest point.
+    Snapshot(MachineSnapshot),
     /// A reset creates a new frame-identity run.
     RunBoundary {
         /// New run identity.
@@ -153,12 +179,14 @@ fn handle_command(
                     run_id: session.run_id(),
                     reason: "reset",
                 });
+                emit_snapshot(session, events);
                 true
             }
             Err(error) => send_fault(events, error.to_string()),
         },
         SimulationCommand::StepPhase => {
             emit_phase(session, events);
+            emit_snapshot(session, events);
             true
         }
         SimulationCommand::RunPhases { phases } => {
@@ -173,11 +201,15 @@ fn handle_command(
                     return true;
                 }
             }
+            emit_snapshot(session, events);
             let _ = events.send(SimulationEvent::BatchComplete);
             true
         }
         SimulationCommand::LoadRom { bytes } => match session.apply_input(ReplayInput::LoadRom { bytes }) {
-            Ok(_) => true,
+            Ok(_) => {
+                emit_snapshot(session, events);
+                true
+            }
             Err(error) => send_fault(events, error.to_string()),
         },
         SimulationCommand::SetTestPin { high } => match session.apply_input(ReplayInput::SetTestPin { high }) {
@@ -191,6 +223,53 @@ fn emit_phase(session: &mut ReplaySession<Mcs4System>, events: &Sender<Simulatio
     match session.step_phase() {
         Ok(frame) => events.send(SimulationEvent::Frame(frame)).is_ok(),
         Err(error) => send_fault(events, error.to_string()),
+    }
+}
+
+fn emit_snapshot(session: &ReplaySession<Mcs4System>, events: &Sender<SimulationEvent>) {
+    let _ = events.send(SimulationEvent::Snapshot(snapshot_machine(session.target())));
+}
+
+/// Read the owned worker machine into the debugger-panel schema.
+///
+/// The register file, stack, ROM image, and RAM main memory all come from one
+/// `Mcs4System`, so a published snapshot describes the same machine the top
+/// Run/Step controls advance.
+fn snapshot_machine(system: &Mcs4System) -> MachineSnapshot {
+    let mut registers = [0u8; 16];
+    for (index, slot) in registers.iter_mut().enumerate() {
+        *slot = system.register(index as u8);
+    }
+    let stack = system.stack();
+    let stack_pointer = system.stack_pointer();
+
+    let cpu = CpuSnapshot {
+        registers: registers.to_vec(),
+        accumulator: system.accumulator() & 0x0F,
+        carry: system.carry(),
+        pc: system.pc() & 0x0FFF,
+        stack: stack.to_vec(),
+        sp: stack_pointer,
+        halted: false,
+        interrupt_enabled: false,
+    };
+
+    let rom_bytes: Vec<u8> = (0..ROM_VIEW_BYTES)
+        .map(|addr| system.read_rom(addr).unwrap_or(0))
+        .collect();
+
+    let mut ram_bytes = Vec::with_capacity(usize::from(RAM_VIEW_REGISTERS) * usize::from(RAM_VIEW_CHARACTERS));
+    for register in 0..RAM_VIEW_REGISTERS {
+        for character in 0..RAM_VIEW_CHARACTERS {
+            ram_bytes.push(system.read_ram(0, 0, register, character).unwrap_or(0));
+        }
+    }
+
+    MachineSnapshot {
+        cpu,
+        stack: StackSnapshot::new(&stack, stack_pointer),
+        rom: MemorySnapshot::from_rom(&rom_bytes),
+        ram: MemorySnapshot::from_ram(0, 0, &ram_bytes),
     }
 }
 
@@ -214,6 +293,46 @@ mod tests {
                 }
             }
             assert!(Instant::now() < deadline, "session worker did not emit a frame");
+            thread::yield_now();
+        }
+    }
+
+    fn wait_for_batch_snapshot(session: &SimulationSession) -> MachineSnapshot {
+        let deadline = Instant::now() + Duration::from_secs(2);
+        let mut latest = None;
+        loop {
+            for event in session.drain_events() {
+                match event {
+                    SimulationEvent::Snapshot(snapshot) => latest = Some(snapshot),
+                    SimulationEvent::BatchComplete => {
+                        if let Some(snapshot) = latest.take() {
+                            return snapshot;
+                        }
+                    }
+                    _ => {}
+                }
+            }
+            assert!(
+                Instant::now() < deadline,
+                "session worker did not complete the run batch"
+            );
+            thread::yield_now();
+        }
+    }
+
+    fn wait_for_snapshot(session: &SimulationSession) -> MachineSnapshot {
+        let deadline = Instant::now() + Duration::from_secs(2);
+        let mut latest = None;
+        loop {
+            for event in session.drain_events() {
+                if let SimulationEvent::Snapshot(snapshot) = event {
+                    latest = Some(snapshot);
+                }
+            }
+            if let Some(snapshot) = latest.take() {
+                return snapshot;
+            }
+            assert!(Instant::now() < deadline, "session worker did not emit a snapshot");
             thread::yield_now();
         }
     }
@@ -254,5 +373,41 @@ mod tests {
         assert_eq!(second.sequence, 1);
         assert_eq!(Some(second.run_id), reset_run);
         assert_ne!(first.run_id, second.run_id);
+    }
+
+    #[test]
+    fn step_publishes_a_snapshot_shaped_for_the_debugger_panels() {
+        let session = SimulationSession::spawn();
+        session.send(SimulationCommand::StepPhase).expect("send step");
+        let snapshot = wait_for_snapshot(&session);
+
+        assert_eq!(snapshot.cpu.registers.len(), 16);
+        assert_eq!(snapshot.cpu.stack.len(), 3);
+        assert_eq!(snapshot.rom.data.len(), usize::from(ROM_VIEW_BYTES));
+        assert_eq!(
+            snapshot.ram.data.len(),
+            usize::from(RAM_VIEW_REGISTERS) * usize::from(RAM_VIEW_CHARACTERS)
+        );
+    }
+
+    /// The published snapshot reads the same worker machine the controls drive:
+    /// running the validated `src_wrm_rdm` fixture leaves ACC=0xA, R1=0x1, and
+    /// RAM register 0 character 1 = 0xA, exactly the program's result.
+    #[test]
+    fn snapshot_follows_the_running_program_trajectory() {
+        const FIXTURE: &str = include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex");
+        let bytes = mcs4_system::parse_hex_bytes(FIXTURE).expect("parse fixture");
+
+        let session = SimulationSession::spawn();
+        session.send(SimulationCommand::LoadRom { bytes }).expect("load rom");
+        // Seven instructions at up to two machine cycles each; 200 phases clears them.
+        session.send(SimulationCommand::RunPhases { phases: 200 }).expect("run");
+
+        // LoadRom also publishes a (fresh) snapshot, so read the one that lands
+        // with the run batch, not the first snapshot to arrive.
+        let snapshot = wait_for_batch_snapshot(&session);
+        assert_eq!(snapshot.cpu.accumulator, 0xA, "RDM reads the written nibble back");
+        assert_eq!(snapshot.cpu.registers[1], 0x1, "FIM P0 0x01 loads R1");
+        assert_eq!(snapshot.ram.data[1], 0xA, "WRM stored ACC into RAM reg0 char1");
     }
 }
