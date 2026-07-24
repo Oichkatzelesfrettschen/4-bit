@@ -3,12 +3,19 @@
 //! The worker owns the mutable emulator. The UI sends bounded commands and
 //! receives immutable trace frames, so Run, Step, and Reset never race on a
 //! shared `Mcs4System` lock.
+//!
+//! One machine backs both surfaces. The debugger's Run/Step drive it freely and
+//! are authoritative for execution. The Intellec console observes that same
+//! machine -- its panel lamps track every phase the debugger produces -- and the
+//! source-evidence gate governs only panel-originated stepping.
 
 use std::{
     sync::mpsc::{self, Receiver, Sender, TryRecvError},
     thread,
 };
 
+use mcs4_intellec::{IntellecModel, IntellecPanel, IntellecProfile, PanelInput, PanelSnapshot, ResetScope};
+use mcs4_periph::{Teletype33, TeletypeTiming};
 use mcs4_system::{Mcs4System, ReplayInput, ReplaySession, TraceFrame};
 
 use crate::panels::{memory::MemorySnapshot, registers::CpuSnapshot, stack::StackSnapshot};
@@ -44,6 +51,17 @@ pub enum SimulationCommand {
         /// Logical level applied to TEST.
         high: bool,
     },
+    /// Apply one Intellec console panel input to the shared machine's console.
+    IntellecPanelInput(PanelInput),
+    /// Attempt a panel-originated step, honored only when the evidence gate passes.
+    IntellecStep {
+        /// Number of bus phases the panel requests.
+        phases: u8,
+    },
+    /// Enqueue one ASR-33 keyboard character.
+    IntellecTerminalKey(u8),
+    /// Enable or disable ASR-33 punch capture.
+    IntellecPunch(bool),
     /// End the worker thread.
     Shutdown,
 }
@@ -64,6 +82,30 @@ pub struct MachineSnapshot {
     pub ram: MemorySnapshot,
 }
 
+/// Intellec console view of the same worker machine.
+///
+/// The panel lamps come from the phases the shared machine produces, so the
+/// console observes exactly what the debugger drives. `boot_gate_missing` names
+/// the source evidence the profile still requires before panel-originated steps
+/// are honored.
+#[derive(Clone, Debug)]
+pub struct IntellecConsoleSnapshot {
+    /// Console switch and lamp state.
+    pub panel: PanelSnapshot,
+    /// Profile identity the console renders.
+    pub model: IntellecModel,
+    /// Whether the source-evidence gate permits panel-originated execution.
+    pub boot_gate_ok: bool,
+    /// Evidence identifiers the profile still requires.
+    pub boot_gate_missing: Vec<String>,
+    /// Accumulated ASR-33 printer paper.
+    pub paper: String,
+    /// Count of captured ASR-33 punch bytes.
+    pub punch_len: usize,
+    /// Result of the most recent panel-originated step attempt, when refused.
+    pub panel_step_fault: Option<String>,
+}
+
 /// Immutable observation or fault delivered to the GUI thread.
 #[derive(Clone, Debug)]
 pub enum SimulationEvent {
@@ -71,6 +113,8 @@ pub enum SimulationEvent {
     Frame(TraceFrame),
     /// Register, stack, and memory state after a completed rest point.
     Snapshot(MachineSnapshot),
+    /// Intellec console state after a completed rest point.
+    IntellecConsole(IntellecConsoleSnapshot),
     /// A reset creates a new frame-identity run.
     RunBoundary {
         /// New run identity.
@@ -117,7 +161,7 @@ impl SimulationSession {
         let (event_sender, event_receiver) = mpsc::channel();
         thread::Builder::new()
             .name("mcs4-behavioral-session".to_owned())
-            .spawn(move || run_worker(command_receiver, event_sender))
+            .spawn(move || Worker::new(event_sender).run(command_receiver))
             .expect("spawn MCS-4 behavioral session worker");
         Self {
             commands: command_sender,
@@ -156,78 +200,207 @@ impl Drop for SimulationSession {
     }
 }
 
-fn run_worker(commands: Receiver<SimulationCommand>, events: Sender<SimulationEvent>) {
-    let mut session = ReplaySession::<Mcs4System>::new();
-    while let Ok(command) = commands.recv() {
-        let should_continue = handle_command(&mut session, command, &events);
-        if !should_continue {
-            return;
-        }
-    }
+/// The sole owner of the machine and the Intellec console that observes it.
+struct Worker {
+    session: ReplaySession<Mcs4System>,
+    profile: IntellecProfile,
+    panel: IntellecPanel,
+    terminal: Teletype33,
+    paper: String,
+    punch_len: usize,
+    events: Sender<SimulationEvent>,
 }
 
-fn handle_command(
-    session: &mut ReplaySession<Mcs4System>,
-    command: SimulationCommand,
-    events: &Sender<SimulationEvent>,
-) -> bool {
-    match command {
-        SimulationCommand::Shutdown => false,
-        SimulationCommand::Reset => match session.apply_input(ReplayInput::Reset) {
-            Ok(_) => {
-                let _ = events.send(SimulationEvent::RunBoundary {
-                    run_id: session.run_id(),
-                    reason: "reset",
-                });
-                emit_snapshot(session, events);
-                true
-            }
-            Err(error) => send_fault(events, error.to_string()),
-        },
-        SimulationCommand::StepPhase => {
-            emit_phase(session, events);
-            emit_snapshot(session, events);
-            true
+impl Worker {
+    fn new(events: Sender<SimulationEvent>) -> Self {
+        let profile = IntellecProfile::intellec4();
+        let terminal = Teletype33::new(TeletypeTiming::asr33(profile.phase_ticks_per_second()));
+        Self {
+            session: ReplaySession::new(),
+            profile,
+            panel: IntellecPanel::new(),
+            terminal,
+            paper: String::new(),
+            punch_len: 0,
+            events,
         }
-        SimulationCommand::RunPhases { phases } => {
-            if phases == 0 || phases > MAX_RUN_PHASES {
-                return send_fault(
-                    events,
-                    format!("run request must contain 1 through {MAX_RUN_PHASES} phases"),
-                );
+    }
+
+    fn run(mut self, commands: Receiver<SimulationCommand>) {
+        while let Ok(command) = commands.recv() {
+            if !self.handle(command) {
+                return;
             }
-            for _ in 0..phases {
-                if !emit_phase(session, events) {
-                    return true;
+        }
+    }
+
+    fn handle(&mut self, command: SimulationCommand) -> bool {
+        match command {
+            SimulationCommand::Shutdown => return false,
+            SimulationCommand::Reset => match self.session.apply_input(ReplayInput::Reset) {
+                Ok(_) => {
+                    let _ = self.events.send(SimulationEvent::RunBoundary {
+                        run_id: self.session.run_id(),
+                        reason: "reset",
+                    });
+                    self.emit_machine_snapshot();
+                    self.emit_console_snapshot(None);
+                }
+                Err(error) => return self.fault(error.to_string()),
+            },
+            SimulationCommand::StepPhase => {
+                self.step_once();
+                self.emit_machine_snapshot();
+                self.emit_console_snapshot(None);
+            }
+            SimulationCommand::RunPhases { phases } => {
+                if phases == 0 || phases > MAX_RUN_PHASES {
+                    return self.fault(format!("run request must contain 1 through {MAX_RUN_PHASES} phases"));
+                }
+                for _ in 0..phases {
+                    if !self.step_once() {
+                        return true;
+                    }
+                }
+                self.emit_machine_snapshot();
+                self.emit_console_snapshot(None);
+                let _ = self.events.send(SimulationEvent::BatchComplete);
+            }
+            SimulationCommand::LoadRom { bytes } => match self.session.apply_input(ReplayInput::LoadRom { bytes }) {
+                Ok(_) => {
+                    self.emit_machine_snapshot();
+                    self.emit_console_snapshot(None);
+                }
+                Err(error) => return self.fault(error.to_string()),
+            },
+            SimulationCommand::SetTestPin { high } => {
+                if let Err(error) = self.session.apply_input(ReplayInput::SetTestPin { high }) {
+                    return self.fault(error.to_string());
                 }
             }
-            emit_snapshot(session, events);
-            let _ = events.send(SimulationEvent::BatchComplete);
-            true
-        }
-        SimulationCommand::LoadRom { bytes } => match session.apply_input(ReplayInput::LoadRom { bytes }) {
-            Ok(_) => {
-                emit_snapshot(session, events);
-                true
+            SimulationCommand::IntellecPanelInput(input) => {
+                self.panel.apply(input);
+                self.apply_panel_drive();
+                self.emit_console_snapshot(None);
             }
-            Err(error) => send_fault(events, error.to_string()),
-        },
-        SimulationCommand::SetTestPin { high } => match session.apply_input(ReplayInput::SetTestPin { high }) {
-            Ok(_) => true,
-            Err(error) => send_fault(events, error.to_string()),
-        },
+            SimulationCommand::IntellecStep { phases } => self.panel_step(phases),
+            SimulationCommand::IntellecTerminalKey(byte) => {
+                self.terminal.enqueue_keyboard(byte);
+                self.emit_console_snapshot(None);
+            }
+            SimulationCommand::IntellecPunch(enabled) => {
+                self.terminal.set_punch_enabled(enabled);
+                self.emit_console_snapshot(None);
+            }
+        }
+        true
     }
-}
 
-fn emit_phase(session: &mut ReplaySession<Mcs4System>, events: &Sender<SimulationEvent>) -> bool {
-    match session.step_phase() {
-        Ok(frame) => events.send(SimulationEvent::Frame(frame)).is_ok(),
-        Err(error) => send_fault(events, error.to_string()),
+    /// Advance one phase and let the console observe it. Debugger-authoritative:
+    /// this runs without consulting the evidence gate.
+    fn step_once(&mut self) -> bool {
+        match self.session.step_phase() {
+            Ok(frame) => {
+                if let Some(phase) = frame.phase.as_ref() {
+                    self.panel.observe_phase(phase);
+                }
+                // The Intellec 4 profile carries no terminal wiring, so the ASR-33
+                // advances its own timing and idles until a wired profile drives it.
+                let _ = self.terminal.advance_phase_ticks(1, true);
+                self.drain_terminal();
+                self.events.send(SimulationEvent::Frame(frame)).is_ok()
+            }
+            Err(error) => self.fault(error.to_string()),
+        }
     }
-}
 
-fn emit_snapshot(session: &ReplaySession<Mcs4System>, events: &Sender<SimulationEvent>) {
-    let _ = events.send(SimulationEvent::Snapshot(snapshot_machine(session.target())));
+    /// Honor a panel-originated step only when the source-evidence gate passes
+    /// and the console is running. Refusal reports through the console snapshot,
+    /// leaving the debugger's execution state untouched.
+    fn panel_step(&mut self, phases: u8) {
+        if let Err(error) = self.profile.validate_boot_evidence() {
+            let missing = error.missing.join(", ");
+            self.emit_console_snapshot(Some(format!("source gate blocks panel execution: {missing}")));
+            return;
+        }
+        if !self.panel.runs_machine() {
+            self.emit_console_snapshot(Some("panel is stopped".to_owned()));
+            return;
+        }
+        for _ in 0..phases {
+            if !self.step_once() {
+                return;
+            }
+            if !self.panel.runs_machine() {
+                break;
+            }
+        }
+        self.emit_machine_snapshot();
+        self.emit_console_snapshot(None);
+    }
+
+    /// Translate latched panel line drives into replay-logged machine inputs.
+    fn apply_panel_drive(&mut self) {
+        let drive = self.panel.take_drive();
+        if let Some(scope) = drive.reset {
+            let _ = self.session.apply_input(ReplayInput::Reset);
+            if scope == ResetScope::System {
+                self.terminal.reset();
+                self.paper.clear();
+                self.punch_len = 0;
+            }
+            let _ = self.events.send(SimulationEvent::RunBoundary {
+                run_id: self.session.run_id(),
+                reason: "reset",
+            });
+            self.emit_machine_snapshot();
+        }
+        if let Some(hold) = drive.test_hold {
+            let _ = self.session.apply_input(ReplayInput::SetTestPin { high: hold });
+        }
+        if drive.test_one_shot {
+            let _ = self.session.apply_input(ReplayInput::SetTestPin { high: true });
+        }
+        // Console-memory access needs a modeled memory-control card; the drive is
+        // latched but unmodeled, so no machine memory changes here.
+    }
+
+    fn drain_terminal(&mut self) {
+        let printed = self.terminal.drain_printed();
+        if !printed.is_empty() {
+            self.paper.push_str(&String::from_utf8_lossy(&printed));
+        }
+        self.punch_len += self.terminal.drain_punched().len();
+    }
+
+    fn emit_machine_snapshot(&self) {
+        let _ = self
+            .events
+            .send(SimulationEvent::Snapshot(snapshot_machine(self.session.target())));
+    }
+
+    fn emit_console_snapshot(&self, panel_step_fault: Option<String>) {
+        let (boot_gate_ok, boot_gate_missing) = match self.profile.validate_boot_evidence() {
+            Ok(()) => (true, Vec::new()),
+            Err(error) => (false, error.missing.iter().map(|entry| (*entry).to_owned()).collect()),
+        };
+        let _ = self
+            .events
+            .send(SimulationEvent::IntellecConsole(IntellecConsoleSnapshot {
+                panel: self.panel.snapshot(),
+                model: self.profile.model(),
+                boot_gate_ok,
+                boot_gate_missing,
+                paper: self.paper.clone(),
+                punch_len: self.punch_len,
+                panel_step_fault,
+            }));
+    }
+
+    fn fault(&self, message: String) -> bool {
+        let _ = self.events.send(SimulationEvent::Fault { message });
+        true
+    }
 }
 
 /// Read the owned worker machine into the debugger-panel schema.
@@ -273,14 +446,11 @@ fn snapshot_machine(system: &Mcs4System) -> MachineSnapshot {
     }
 }
 
-fn send_fault(events: &Sender<SimulationEvent>, message: String) -> bool {
-    let _ = events.send(SimulationEvent::Fault { message });
-    true
-}
-
 #[cfg(test)]
 mod tests {
     use std::time::{Duration, Instant};
+
+    use mcs4_intellec::{PanelControl, PanelInput};
 
     use super::*;
 
@@ -333,6 +503,45 @@ mod tests {
                 return snapshot;
             }
             assert!(Instant::now() < deadline, "session worker did not emit a snapshot");
+            thread::yield_now();
+        }
+    }
+
+    /// Collect the machine and console snapshots that a single command publishes.
+    fn wait_for_machine_and_console(session: &SimulationSession) -> (MachineSnapshot, IntellecConsoleSnapshot) {
+        let deadline = Instant::now() + Duration::from_secs(2);
+        let mut machine = None;
+        let mut console = None;
+        loop {
+            for event in session.drain_events() {
+                match event {
+                    SimulationEvent::Snapshot(snapshot) => machine = Some(snapshot),
+                    SimulationEvent::IntellecConsole(snapshot) => console = Some(snapshot),
+                    _ => {}
+                }
+            }
+            if let (Some(machine), Some(console)) = (machine.as_ref(), console.as_ref()) {
+                return (machine.clone(), console.clone());
+            }
+            assert!(Instant::now() < deadline, "session worker did not emit both snapshots");
+            thread::yield_now();
+        }
+    }
+
+    fn wait_for_console_fault(session: &SimulationSession) -> String {
+        let deadline = Instant::now() + Duration::from_secs(2);
+        loop {
+            for event in session.drain_events() {
+                if let SimulationEvent::IntellecConsole(snapshot) = event {
+                    if let Some(fault) = snapshot.panel_step_fault {
+                        return fault;
+                    }
+                }
+            }
+            assert!(
+                Instant::now() < deadline,
+                "session worker did not refuse the panel step"
+            );
             thread::yield_now();
         }
     }
@@ -395,8 +604,7 @@ mod tests {
     /// RAM register 0 character 1 = 0xA, exactly the program's result.
     #[test]
     fn snapshot_follows_the_running_program_trajectory() {
-        const FIXTURE: &str = include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex");
-        let bytes = mcs4_system::parse_hex_bytes(FIXTURE).expect("parse fixture");
+        let bytes = fixture_bytes();
 
         let session = SimulationSession::spawn();
         session.send(SimulationCommand::LoadRom { bytes }).expect("load rom");
@@ -409,5 +617,50 @@ mod tests {
         assert_eq!(snapshot.cpu.accumulator, 0xA, "RDM reads the written nibble back");
         assert_eq!(snapshot.cpu.registers[1], 0x1, "FIM P0 0x01 loads R1");
         assert_eq!(snapshot.ram.data[1], 0xA, "WRM stored ACC into RAM reg0 char1");
+    }
+
+    /// One machine backs both surfaces: after a debugger step the Intellec console
+    /// lamps show the same program counter; a panel-originated step is refused
+    /// under the Intellec 4 evidence gate while the debugger still drives the
+    /// shared machine to the program's result.
+    #[test]
+    fn one_machine_backs_debugger_and_intellec_console() {
+        let session = SimulationSession::spawn();
+        session
+            .send(SimulationCommand::LoadRom { bytes: fixture_bytes() })
+            .expect("load rom");
+        session.send(SimulationCommand::StepPhase).expect("debugger step");
+
+        let (machine, console) = wait_for_machine_and_console(&session);
+        assert_eq!(
+            console.panel.lamps.address, machine.cpu.pc,
+            "console lamps observe the machine the debugger stepped"
+        );
+        assert!(
+            !console.boot_gate_ok,
+            "Intellec 4 profile keeps its evidence gate closed"
+        );
+
+        // A panel-originated step is refused by the closed evidence gate.
+        session
+            .send(SimulationCommand::IntellecPanelInput(PanelInput::Control(
+                PanelControl::Run,
+            )))
+            .expect("panel run");
+        session
+            .send(SimulationCommand::IntellecStep { phases: 1 })
+            .expect("panel step");
+        let fault = wait_for_console_fault(&session);
+        assert!(fault.contains("source gate"), "panel step refused: {fault}");
+
+        // The debugger still drives the shared machine freely to completion.
+        session.send(SimulationCommand::RunPhases { phases: 200 }).expect("run");
+        let snapshot = wait_for_batch_snapshot(&session);
+        assert_eq!(snapshot.cpu.accumulator, 0xA, "debugger drove the shared machine");
+    }
+
+    fn fixture_bytes() -> Vec<u8> {
+        const FIXTURE: &str = include_str!("../../mcs4-system/fixtures/src_wrm_rdm.hex");
+        mcs4_system::parse_hex_bytes(FIXTURE).expect("parse fixture")
     }
 }
