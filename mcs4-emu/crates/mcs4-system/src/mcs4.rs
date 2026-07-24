@@ -488,6 +488,16 @@ impl Mcs4System {
         self.cpu.registers.get_r(r)
     }
 
+    /// Read the CPU three-level call stack (12-bit return addresses).
+    pub fn stack(&self) -> [u16; 3] {
+        self.cpu.stack()
+    }
+
+    /// Read the CPU stack pointer (0-2).
+    pub fn stack_pointer(&self) -> u8 {
+        self.cpu.stack_pointer()
+    }
+
     /// Read ROM at given address
     pub fn read_rom(&self, addr: u16) -> Option<u8> {
         let chip_id = ((addr >> 8) & 0x0F) as u8;

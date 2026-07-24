@@ -72,6 +72,17 @@ impl Registers {
         self.index[base + 1] = value & 0x0F;
     }
 
+    /// Read the three-level call stack. Slot `sp()` is the next push target;
+    /// the most recent return address lives at `(sp + 2) % 3`.
+    pub fn stack(&self) -> [u16; 3] {
+        self.stack
+    }
+
+    /// Read the stack pointer (0-2), the slot a JMS return address writes next.
+    pub fn sp(&self) -> u8 {
+        self.sp
+    }
+
     /// Push return address to stack and set new PC (for JMS)
     pub fn call(&mut self, return_addr: u16, target: u16) {
         self.stack[self.sp as usize] = return_addr & 0x0FFF;
@@ -161,5 +172,21 @@ mod tests {
 
         regs.ret();
         assert_eq!(regs.pc(), 0x101);
+    }
+
+    #[test]
+    fn test_stack_and_sp_accessors() {
+        let mut regs = Registers::new();
+        assert_eq!(regs.sp(), 0);
+        assert_eq!(regs.stack(), [0, 0, 0]);
+
+        regs.set_pc(0x100);
+        regs.call(0x101, 0x200);
+        assert_eq!(regs.sp(), 1);
+        assert_eq!(regs.stack()[0], 0x101);
+
+        regs.call(0x201, 0x300);
+        assert_eq!(regs.sp(), 2);
+        assert_eq!(regs.stack()[1], 0x201);
     }
 }

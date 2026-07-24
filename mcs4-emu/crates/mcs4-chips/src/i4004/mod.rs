@@ -181,6 +181,16 @@ impl I4004 {
         self.alu.carry()
     }
 
+    /// Read the three-level call stack (12-bit return addresses).
+    pub fn stack(&self) -> [u16; 3] {
+        self.registers.stack()
+    }
+
+    /// Read the stack pointer (0-2).
+    pub fn stack_pointer(&self) -> u8 {
+        self.registers.sp()
+    }
+
     /// Return the CPU-owned cycle state used by timing observations.
     pub fn cycle_state(&self) -> &CycleState {
         &self.cycle
